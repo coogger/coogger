@@ -1,0 +1,162 @@
+body{
+  position: fixed;
+  height: 40%;
+  width: 100%;
+  background: #f1f1f1;
+  margin: 0px;
+  display: block;
+  top: 30%;
+}
+.ft-cl{ /*kanal*/
+  font-family: 'Lobster Two', cursive;
+}
+.ft-sd{/*sound*/
+   font-family: 'Raleway', sans-serif;
+}
+.ft-ct{/*comment*/
+  font-family: 'Dosis', sans-serif;
+}
+.ft-dn{/*duration*/
+  font-family: 'Quicksand', sans-serif;
+}
+.ft-ns{/*notes*/
+  font-family: 'Roboto', sans-serif;
+}
+.ft-io{
+  font-family: 'Roboto', sans-serif;
+}
+.ft-it{/*input*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.ft-os{/*options*/
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.ft-ar{/*another*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.ft-pe{/*profile*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.siteWrapper{
+
+width: 333px;
+
+top: 20%;
+
+background: #fff;
+
+margin: auto;
+
+box-shadow: 0px 0px 0.2px 0px;
+
+text-align: center;
+
+display: block;
+
+border-radius: 6px;
+
+height: 255px;
+}
+.logo{
+
+position: relative;
+
+top: 4px;
+
+width: 200px;
+
+height: 26px;
+
+background: #000;
+
+margin: auto;
+
+border: 1px solid #f1f1f1;
+
+border-radius: 6px;
+}
+.logo-text{
+
+color: #fff;
+
+text-decoration: none;
+}
+.cx-li{
+  display: block;
+  padding-bottom: 6px;
+}
+.clearfix{
+
+background: #fafafa;
+
+margin: 10px 0px 10px 0px;
+
+position: relative;
+
+top: 4px;
+
+display: grid;
+}
+.cos-login-text{
+  font-size: 16px;
+  color: tomato;
+  font-weight: 600;
+}
+.cx-ul{
+
+position: relative;
+
+top: 4px;
+
+display: block;
+
+margin: auto;
+
+list-style-type: disc;
+
+-webkit-margin-before: 1em;
+
+-webkit-margin-after: 1em;
+
+-webkit-margin-start: 0px;
+
+-webkit-margin-end: 0px;
+
+-webkit-padding-start: 0px;
+}
+.cx-input{
+
+padding: 4px;
+
+border: 1px solid rgba(0, 0, 0, 0.16);
+
+color: tomato;
+
+border-radius: 4px;
+}
+.cx-submit-b{
+
+position: relative;
+
+top: 4px;
+
+padding: 6px 8px 6px 8px;
+
+border: 1px solid #fafafa;
+
+border-radius: 4px;
+
+background: rgba(128, 128, 128, 0.68);
+
+color: #fff;
+}
+.ft{
+
+font-size: 16px;
+
+color: rgba(255, 99, 71, 0.44);
+}
+.ft:hover{
+  color:tomato;
+}

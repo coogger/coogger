@@ -1,0 +1,42 @@
+<!--kayıt olma sayfası-->
+{% load static from staticfiles %} {% include 'home/head.html' %} {% include 'home/header.html' %}
+
+<body onload="loader()">
+    <div class="siteWrapper">
+        <div class="logo ft-cl">
+            <a class="logo-text" href="/">
+                <span style="color:#943322">h</span>akan<span style="color:#943322">clk</span>.com
+            </a>
+        </div>
+        <div class="clearfix">
+            <div class="cos-login-text ft-ar">Kayıt ol</div>
+            <ul class="cx-ul">
+                <form action="/signup" method="post">
+                    {% csrf_token %}
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="text" name="Username" value="" placeholder="kullanıcı adı">
+                        </div>
+                    </li>
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="password" name="Password" value="" placeholder="şifre">
+                        </div>
+                    </li>
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="password" name="Confirm" value="" placeholder="şifreyi tekrar girin">
+                        </div>
+                    </li>
+                    <input class="cx-submit-b" type="submit" value="Kayıt ol">
+                </form>
+            </ul>
+        </div>
+        <div class="ft ft-ar">
+            Kayıt Ol butonuna tıkladığında
+            <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş oluyorsun.
+        </div>
+    </div>
+</body>
+
+</html>

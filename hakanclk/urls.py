@@ -5,12 +5,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-]
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r"",include("blogapp.urls")),
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
-"""
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r"",include("cosapp.urls")),
-    url(r"^radio",include("radio.urls")),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
-"""

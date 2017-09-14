@@ -1,3 +1,2 @@
-py manage.py makemigrations cosapp
-py manage.py makemigrations radio
+py manage.py makemigrations blogapp
 py manage.py migrate

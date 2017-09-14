@@ -1,0 +1,36 @@
+<!--giriş yapma sayfası-->
+{% load static from staticfiles %} {% include 'home/head.html' %}{% include 'home/header.html' %}
+
+<body onload="loader()">
+    <div class="siteWrapper">
+        <div class="logo ft-cl">
+            <a class="logo-text" href="/">
+                <span style="color:#943322">H</span>akan<span style="color:#943322">Ç</span>ELİK
+            </a>
+        </div>
+        <div class="clearfix">
+            <div class="cos-login-text ft-ar">Giriş yap</div>
+            <ul class="cx-ul">
+                <form action="/login" method="post">
+                    {% csrf_token %}
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="text" name="Username" value="" placeholder="kullanıcı adı">
+                        </div>
+                    </li>
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="password" name="Password" value="" placeholder="şifre">
+                        </div>
+                    </li>
+                    <input class="cx-submit-b" type="submit" value="Giriş yap">
+                </form>
+            </ul>
+        </div>
+        <div class="ft ft-ar">
+            <a>Şifreni mi Unuttun?</a>
+        </div>
+    </div>
+</body>
+
+</html>
