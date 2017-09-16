@@ -71,6 +71,6 @@ MEDİA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
-        'height': 50,
+        'height': "100%",
     },
 }

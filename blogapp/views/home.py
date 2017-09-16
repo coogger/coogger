@@ -13,4 +13,4 @@ def home(request):
     output = dict(
         queryset = queryset,
     )
-    return render(request,"home/home.html",output)
+    return render(request,"home/content.html",output)

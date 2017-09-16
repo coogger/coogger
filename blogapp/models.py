@@ -1,20 +1,15 @@
 from django.db import models
 from django.utils import timezone
 from ckeditor.fields import RichTextField 
+from blogapp.content_topics import *
 
-class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
-    SOFTWARE = "SW"
-    ELECTRICITY_AND_ELECTRONICS = "EAE"
-    SELECT_İSSUE = (
-        (SOFTWARE, 'software'),
-        (ELECTRICITY_AND_ELECTRONICS, 'electriciy and electronics'),
-    )
-    username = models.ForeignKey("auth.User")
-    issue = models.CharField(choices = SELECT_İSSUE, default=SOFTWARE ,max_length=100) # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
-    title = models.CharField(max_length=100) # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
-    url = models.SlugField(unique = True ,max_length=100) # blogun url adresi 
-    tag = models.CharField(max_length=100) # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
-    content = RichTextField()  # yazılan yazılar burda 
+class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi    
+    fields = models.CharField(choices = Fields.fields ,max_length=5,verbose_name ="Bölüm seçin") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
+    branch = models.CharField(choices = Branches.branches ,max_length=5,verbose_name = "Dal seçin")
+    title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
+    url = models.SlugField(unique = True ,max_length=100,verbose_name = "Web adresi, başlık ile aynı olmasına özen gösterin ") # blogun url adresi 
+    content = RichTextField(verbose_name = "içeriğinizi oluşturun")  # yazılan yazılar burda 
+    tag = models.CharField(max_length=100,verbose_name = "İçeriğiniz ili ilgili anahtar kelimeleri virgul kullanarak yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default=timezone.now) # tarih bilgisi 
 
 
@@ -39,5 +34,4 @@ class Bookmark(models.Model): # beğendiği yazıları daha sonra okuması için
     url = models.SlugField(unique = True ,max_length=100)
     title =  models.CharField(max_length=50)# yazının başlık bilgisi
     time = models.DateTimeField(default=timezone.now) # tarih bilgisi 
-
 
