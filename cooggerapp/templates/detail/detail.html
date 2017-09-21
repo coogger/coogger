@@ -1,0 +1,23 @@
+<div class="blog-cards" style="width:60%;margin: auto;float: none;height:auto">
+    <div class="blog-user">
+        <div class="blog-user-profil">
+            <div class="blog-username"><a class="blog-username-a" href='/@{{ datail.username }}'>{{ datail.username }}</a></div>
+        </div>
+        <div class="blog-user-description"></div>
+    </div>
+    <div class="blog-category">
+        <a class="blog-category-a" href='/topic/{{ datail.category }}'>{{ datail.category }}</a>
+        <div class="blog-subcategory">
+            <a class="blog-subcategory-a" href='/topic/{{ datail.subcategory }}'>{{ datail.subcategory }}</a>
+            <div class="blog-category2">
+                <a class="blog-category2-a" href='/topic/{{ datail.category2 }}'>{{ datail.category2 }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="blog-cont" style="height:auto">
+        <div class="blog-title">
+            <a class="blog-title-a" href='/blogs/{{ datail.url }}'>{{ datail.title }}</a>
+        </div>
+        <div class="blog-content" style="overflow:auto;height: auto;">{{ datail.content|safe }}</div>
+    </div>
+</div>

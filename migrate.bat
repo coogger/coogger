@@ -1,2 +1,2 @@
-py manage.py makemigrations blogapp
+py manage.py makemigrations cooggerapp
 py manage.py migrate

@@ -1,0 +1,50 @@
+<div class="bt-header">
+    <div class="logo ft-cl">
+        <a href="/" class="logo-a" data-background="#DCE1E3">
+            <span style="color:#943322">hi</span><span style="color:#943322">hah</span>.com
+        </a>
+    </div>
+    <div class="open-header">
+        <div class="open-header-border"></div>
+        <div class="open-header-border"> </div>
+        <div class="open-header-border"></div>
+    </div>
+</div>
+
+<header>
+    <ul class="header-ul">
+        <li class="header-ul-li">
+            <div class="search">
+                <form class="search-form" action="/search">
+                    <input type="text" class="search-input ft-it" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" />
+                    <input type="submit" class="search-button ft-it" />
+                </form>
+            </div>
+        </li>
+        {% if not user.is_authenticated %}
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/signup">Kayıt ol</a>
+            </div>
+        </li>
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/login">Giriş yap</a>
+            </div>
+        </li>
+
+        {% else %}
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/logout">Çıkış</a>
+            </div>
+        </li>
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/admin">Yönetim paneli</a>
+            </div>
+        </li>
+
+    </ul>
+    {% endif %}
+</header>

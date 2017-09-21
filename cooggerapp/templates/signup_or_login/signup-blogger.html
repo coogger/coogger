@@ -1,0 +1,60 @@
+{% if not request.is_ajax %} {% include 'home/head.html' %}
+
+<body>
+    {% endif %}
+
+    <div class="siteWrapper">
+        <div class="logo ft-cl">
+            <a class="logo-text" href="/">
+                <span style="color:#943322">hi</span><span style="color:#943322">hah</span>.com
+            </a>
+        </div>
+        <div class="clearfix">
+            <div class="cos-login-text ft-ar">Yazar olarak kayıt ol</div>
+            <ul class="cx-ul">
+                <form action="/signup-author" method="post">
+                    {% csrf_token %}
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="text" name="Name" value="" placeholder="Adınız">
+                        </div>
+                    </li>
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="text" name="Surname" value="" placeholder="Soyadınız">
+                        </div>
+                    </li>
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="number" name="Iban" value="" placeholder="Kart ıban numaranız">
+                        </div>
+                    </li>
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="text" name="Username" value="" placeholder="Kullanıcı adı">
+                        </div>
+                    </li>
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="password" name="Password" value="" placeholder="Şifre">
+                        </div>
+                    </li>
+                    <li class="cx-li">
+                        <div class="">
+                            <input class="cx-input" type="password" name="Confirm" value="" placeholder="Şifreyi tekrar girin">
+                        </div>
+                    </li>
+                    <input class="cx-submit-b" type="submit" value="Kayıt ol">
+                </form>
+            </ul>
+        </div>
+        <div class="ft ft-ar">
+            Kayıt Ol butonuna tıkladığında
+            <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş oluyorsun.
+        </div>
+    </div>
+    {% if not request.is_ajax %}
+</body>
+
+</html>
+{% endif %}

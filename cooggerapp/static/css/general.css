@@ -1,0 +1,95 @@
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0;
+    background: rgb(241, 241, 241);
+}
+
+.main-blog-cards {
+    padding: 4px;
+    display: block;
+    width: fit-content;
+    margin: auto;
+}
+
+.blogs {
+    position: relative;
+    top: 140px;
+    height: -webkit-fill-available;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background-color: rgba(167, 166, 166, 0.23);
+    width: 90%;
+    margin: auto;
+    display: table;
+    margin-bottom: 40px;
+    border-radius: 4px;
+}
+
+.datail {
+    position: relative;
+    background-color: rgba(232, 247, 237, 0.29);
+    width: 90%;
+    margin: auto;
+    top: 40px;
+    border: 1px solid #f1f1f1;
+    border-radius: 4px;
+    box-shadow: 0px 0px 1px 0px #f1f1f1;
+}
+
+.ft-cl {
+    /*kanal*/
+    font-family: 'Lobster Two', cursive;
+}
+
+.ft-sd {
+    /*sound*/
+    font-family: 'Raleway', sans-serif;
+}
+
+.ft-ct {
+    /*comment*/
+    font-family: 'Dosis', sans-serif;
+}
+
+.ft-dn {
+    /*duration*/
+    font-family: 'Quicksand', sans-serif;
+}
+
+.ft-ns {
+    /*notes*/
+    font-family: 'Roboto', sans-serif;
+}
+
+.ft-io {
+    font-family: 'Roboto', sans-serif;
+}
+
+.ft-it {
+    /*input*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.ft-os {
+    /*options*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.ft-ar {
+    /*another*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.ft-pe {
+    /*profile*/
+    font-family: 'Roboto Condensed', sans-serif;
+}

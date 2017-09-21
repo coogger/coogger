@@ -1,0 +1,41 @@
+footer {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    height: 50%;
+    margin-bottom: 40px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    top: 130px;
+    border: 1px solid #fff;
+}
+
+.main-footer {
+    width: 50%;
+    height: 90%;
+    float: right;
+    overflow: auto;
+    border-left: 1px solid #fff;
+}
+
+.footer-ul-li {
+    float: left;
+    margin: 1px;
+    border: 1px solid #fafafa;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
+}
+
+.footer-ul-li-a {
+    color: #fff;
+}
+
+.footer-topic {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+    border-bottom: 1px solid #787878;
+}
