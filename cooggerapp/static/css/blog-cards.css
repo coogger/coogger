@@ -1,5 +1,6 @@
 .blog-cards {
     float: left;
+    width: 280px;
     height: 400px;
     border: 1px solid rgba(0, 0, 0, 0.04);
     border-radius: 4px;
@@ -10,7 +11,7 @@
 }
 
 .blog-user {
-    float: left;
+    padding-bottom: 6px;
 }
 
 .blog-user-profil {}
@@ -24,7 +25,6 @@
     border-radius: 6px;
     margin-left: 6px;
     background: rgb(0, 0, 0);
-    margin-top: 6px;
 }
 
 .blog-user-description {}
@@ -50,7 +50,10 @@
     font-size: 8px;
 }
 
-.blog-cont {}
+.blog-cont {
+    width: 90%;
+    margin: auto;
+}
 
 .blog-title {
     text-align: center;
@@ -78,7 +81,7 @@ a:hover {
 .blog-content {
     margin: auto;
     height: 280px;
-    width: 92%;
+    width: 100%;
     overflow: hidden;
     word-wrap: break-word;
 }

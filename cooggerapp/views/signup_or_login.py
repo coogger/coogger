@@ -83,7 +83,7 @@ def signup_author(request):
         user = User.objects.create_user(first_name=name,last_name=surname,username=username,password=password)
         user.is_active=True
         user.is_staff=True
-        per = Permission.objects.get(name='Can add blog')
+        per = Permission.objects.get(name='Can add content')
         user.user_permissions.add(per)
         user.save()
         Author(user =user,iban=iban).save()

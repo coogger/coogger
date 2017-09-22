@@ -13,23 +13,23 @@
     <link href='' rel='icon' type='image/x-icon' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width" initial-scale="1" maximum-scale="1">
-    <link href=" {% static 'css/blog-cards.css' %}" rel="stylesheet">
-    <link href=" {% static 'css/header.css' %}" rel="stylesheet">
-    <link href=" {% static 'css/general.css' %}" rel="stylesheet">
-    <link href=" {% static 'css/footer.css' %}" rel="stylesheet">
-    <link href="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Dosis|Lobster+Two|Roboto+Condensed|Roboto|Quicksand|Raleway" rel="stylesheet">
     <script src=" {% static 'js/jquery.js' %}"></script>
     <script src=" {% static 'js/jquery.touchSwipe.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Lobster+Two|Roboto+Condensed|Roboto|Quicksand|Raleway" rel="stylesheet">
+    <link href="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
     <script src="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
-    <script src=" {% static 'js/general.js' %}"></script>
     <script>
         hljs.initHighlightingOnLoad();
     </script>
     {% if signup_or_login %}
     <link rel="stylesheet" href="/static/css/signup_or_login.css">
     <script src=" {% static 'js/signup-or-login.js' %}"></script>
-    {% endif %}
+    {% else %}
+    <script src=" {% static 'js/general.js' %}"></script>
+    <link href=" {% static 'css/blog-cards.css' %}" rel="stylesheet">
+    <link href=" {% static 'css/header.css' %}" rel="stylesheet">
+    <link href=" {% static 'css/general.css' %}" rel="stylesheet">
+    <link href=" {% static 'css/footer.css' %}" rel="stylesheet"> {% endif %}
 
 </head>
 

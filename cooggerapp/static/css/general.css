@@ -11,7 +11,7 @@ body {
     width: 100%;
     margin: 0px;
     padding: 0;
-    background: rgb(241, 241, 241);
+    background: #fff;
 }
 
 .main-blog-cards {
@@ -26,7 +26,7 @@ body {
     top: 140px;
     height: -webkit-fill-available;
     border: 1px solid rgba(0, 0, 0, 0.06);
-    background-color: rgba(167, 166, 166, 0.23);
+    background-color: rgb(255, 255, 255);
     width: 90%;
     margin: auto;
     display: table;
