@@ -2,7 +2,7 @@ footer {
     position: relative;
     width: 90%;
     margin: auto;
-    height: 50%;
+    height: 60%;
     margin-bottom: 40px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -12,7 +12,7 @@ footer {
 
 .main-footer {
     width: 50%;
-    height: 90%;
+    height: 100%;
     float: right;
     overflow: auto;
     border-left: 1px solid #fff;
@@ -23,7 +23,7 @@ footer {
     margin: 1px;
     border: 1px solid #fafafa;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgb(112, 126, 255);
     border-radius: 6px;
 }
 
@@ -38,4 +38,10 @@ footer {
     margin-bottom: 10px;
     font-size: 20px;
     border-bottom: 1px solid #787878;
+}
+
+@media only screen and (max-width: 606px) {
+    .main-footer {
+        width: 99%;
+    }
 }

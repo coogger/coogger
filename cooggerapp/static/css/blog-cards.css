@@ -24,7 +24,7 @@
     padding: 4px 6px 4px 6px;
     border-radius: 6px;
     margin-left: 6px;
-    background: rgb(0, 0, 0);
+    background: rgb(158, 97, 255);
 }
 
 .blog-user-description {}
@@ -62,7 +62,7 @@
     padding: 4px;
     overflow: hidden;
     margin: auto;
-    border: 1px solid #f1f1f1;
+    border: 1px solid #9e61ff;
     border-radius: 4px;
     text-overflow: ellipsis;
 }
@@ -71,11 +71,6 @@ a {
     text-decoration: none;
     cursor: pointer;
     color: rgb(0, 0, 0);
-}
-
-a:hover {
-    color: rgba(0, 41, 255, 0.56);
-    text-decoration: underline;
 }
 
 .blog-content {
