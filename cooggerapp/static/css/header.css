@@ -5,7 +5,7 @@ header {
     width: 100%;
     top: 50px;
     height: 60px;
-    background-color: rgb(255, 209, 80);
+    background-color: rgb(48, 181, 92);
     border-radius: 6px;
     border: #fafafa;
     box-shadow: 1px 1px 3px 0px #f1f1f1;
@@ -13,11 +13,12 @@ header {
 
 .main-messages {
     position: fixed;
+    height: 52px;
     z-index: 3;
     width: 20%;
-    left: 40%;
     border: 1px solid #f1f1f1;
-    border-radius: 4px;
+    left: 40%;
+    background-color: white;
 }
 
 .bt-header {
@@ -34,9 +35,9 @@ header {
     border: 1px solid #f1f1f1;
     background-color: #ffffff;
     border-radius: 4px;
-    padding: 4px;
+    padding: 10px;
     float: left;
-    margin-top: 3px;
+    margin-top: 2px;
 }
 
 .logo-a {
@@ -87,14 +88,11 @@ header {
     margin-left: 10px;
 }
 
-ul li {
-    list-style-type: none;
-}
-
 .header-ul {
     width: fit-content;
     height: 60px;
     padding: 0px;
+    list-style-type: none;
     margin: auto;
 }
 
@@ -131,11 +129,37 @@ ul li {
     margin-top: 4px;
 }
 
+.messages {
+    padding: 8px;
+    margin: 9px;
+    list-style-type: none;
+}
+
+.error {}
+
+.info {}
+
+.warning {}
+
+.successful {}
+
 @media only screen and (max-width: 606px) {
     .open-header {
         display: block;
     }
     header {
-        height: 200px;
+        height: 100%;
+        padding-top: 40%;
+    }
+    .main-messages {
+        width: 100%;
+        left: 0px;
+        top: 54px;
+        font-size: 13px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        height: 56px;
+        border: 1px solid #f1f1f1;
+        overflow: hidden;
     }
 }

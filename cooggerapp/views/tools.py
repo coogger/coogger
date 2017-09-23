@@ -1,4 +1,6 @@
 from cooggerapp.blog_topics import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def topics():
     dict_topics = dict(
@@ -11,3 +13,14 @@ def topics():
         dict_topics["topic"].append(top[1])
     topics = zip(dict_topics["url"],dict_topics["topic"])
     return topics
+
+def paginator(request,queryset,hmany=20): 
+    paginator = Paginator(queryset, hmany) 
+    page = request.GET.get('page')
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page(1)
+    except EmptyPage:
+        contacts = paginator.page(paginator.num_pages)
+    return contacts

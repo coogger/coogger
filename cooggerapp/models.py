@@ -16,6 +16,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi 
     class Meta:
         verbose_name = "content"
+        ordering = ['-time']
 
 
 class Author(models.Model):

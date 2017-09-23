@@ -25,13 +25,14 @@ def topic(request,topic):
     if not queryset.exists():
         ms.error(request,"Bu konu altında henuz bir şey paylaşılmamış")
         return HttpResponseRedirect("/")
+    blogs = tools.paginator(request,queryset)
     elastic_search = dict(
      title = "coogger | "+topic,
      keywords = "coogger,konu,"+topic+",topic,"+"coogger "+topic,
      description = "coogger a hoşgeldiniz ,"+topic+" konulu içerikler burada bulunur"
     )
     output = dict(
-        blog = queryset,
+        blog = blogs,
         topics = tools.topics(),
         elastic_search = elastic_search,
     )

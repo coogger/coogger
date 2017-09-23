@@ -23,7 +23,7 @@ body {
 
 .blogs {
     position: relative;
-    top: 140px;
+    padding-top: 112px;
     height: -webkit-fill-available;
     border: 1px solid rgba(0, 0, 0, 0.06);
     background-color: rgb(255, 255, 255);
@@ -92,6 +92,32 @@ body {
 .ft-pe {
     /*profile*/
     font-family: 'Roboto Condensed', sans-serif;
+}
+
+.pagination {
+    position: relative;
+    width: 150px;
+    padding: 30px 10px 30px 10px;
+    margin: auto;
+}
+
+.step-links {}
+
+.current {
+    padding: 6px;
+    border: 1px solid #f1f1f1;
+    background: rgb(0, 0, 0);
+    color: #fff;
+    border-radius: 6px;
+    margin-right: 14px;
+}
+
+.step-links-a {
+    padding: 6px;
+    color: #fff;
+    background: blue;
+    border: 1px solid #f1f1f1;
+    border-radius: 6px;
 }
 
 @media only screen and (max-width: 606px) {

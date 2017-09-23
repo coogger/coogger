@@ -1,0 +1,12 @@
+<div class="pagination">
+    <span class="step-links">
+        {% if blog.has_previous %}
+            <a class="step-links-a" href="?page={{ blog.previous_page_number }}">geri</a>
+        {% endif %}
+
+        <span class="current">
+            {{ blog.number }} | {{ blog.paginator.num_pages }}
+        </span> {% if blog.has_next %}
+    <a class="step-links-a" href="?page={{ blog.next_page_number }}">ileri</a> {% endif %}
+    </span>
+</div>

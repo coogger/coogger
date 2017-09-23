@@ -1,7 +1,12 @@
 <div class="blog-cards" style="width:95%;margin: auto;float: none;height:auto">
     <div class="blog-user">
         <div class="blog-user-profil">
-            <div class="blog-username"><a class="blog-username-a" href='/@{{ datail.username }}'>{{ datail.username }}</a></div>
+            <div class="blog-username">
+                <a class="blog-username-a" href='/@{{ datail.username }}'>{{ datail.username }}</a>
+            </div>
+            <div class="blog-time ft-dn">
+                {{ blo.time }}
+            </div>
         </div>
         <div class="blog-user-description"></div>
     </div>

@@ -10,8 +10,9 @@ from cooggerapp.views import tools
 
 def home(request):
     queryset = Blog.objects.all()
+    blogs = tools.paginator(request,queryset)
     output = dict(
-        blog = queryset,
+        blog = blogs,
         topics = tools.topics(),
     )
     return render(request,"blog/blogs.html",output)

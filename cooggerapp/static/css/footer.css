@@ -6,7 +6,6 @@ footer {
     margin-bottom: 40px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    top: 130px;
     border: 1px solid #fff;
 }
 
@@ -16,6 +15,7 @@ footer {
     float: right;
     overflow: auto;
     border-left: 1px solid #fff;
+    list-style-type: none;
 }
 
 .footer-ul-li {
