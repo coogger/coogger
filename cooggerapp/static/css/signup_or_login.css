@@ -1,11 +1,8 @@
 body {
     position: fixed;
-    height: 40%;
-    width: 100%;
     background: #f1f1f1;
-    margin: 0px;
-    display: block;
-    top: 30%;
+    width: 100%;
+    margin: 30px 0px 0px 0px;
 }
 
 .ft-cl {
@@ -58,13 +55,12 @@ body {
 }
 
 .siteWrapper {
-    width: 333px;
+    width: 300px;
     top: 20%;
     background: #fff;
     margin: auto;
     box-shadow: 0px 0px 0.2px 0px;
     text-align: center;
-    display: block;
     border-radius: 6px;
     padding: 4px;
 }
@@ -144,14 +140,15 @@ body {
 }
 
 .signup-blogger {
-    position: relative;
-    width: 30%;
+    width: 90%;
+    text-align: center;
     margin: auto;
-    top: 20px;
+    font-size: 14px;
     border: 1px solid #fff;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.5);
+    padding: 14px;
+    background: rgb(0, 0, 0);
     border-radius: 6px;
     color: #fff;
     cursor: pointer;
+    margin-bottom: 20px;
 }

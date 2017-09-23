@@ -96,7 +96,7 @@ body {
 
 .pagination {
     position: relative;
-    width: 150px;
+    width: max-content;
     padding: 30px 10px 30px 10px;
     margin: auto;
 }
