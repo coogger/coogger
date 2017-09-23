@@ -3,20 +3,31 @@
 <html>
 
 <head>
-    <meta charset="utf-8"> {% if blog.title %}
-    <title>{{ blog.title }}</title>
-    {% else %}
-    <title>coogger</title>
-    {% endif %}
-    <meta name="keywords" content="{{ blog.tag }}" />
-    <meta name="description" content="yazılım ve elektrik blogu">
+    <meta charset="utf-8"> {% if elastic_search.title %}
+    <title>{{ elastic_search.title }}</title>{% else %}
+    <title>coogger</title>{% endif %} {% if elastic_search.keywords %}
+    <meta name="keywords" content="{{ elastic_search.keywords }}" /> {% else %}
+    <meta name="keywords" content="coogger,blog yaz,para kazanma,blog,oku,blog oku,para nasıl kazanırım," /> {% endif %} {% if elastic_search.description %}
+    <meta name="description" content="{{elastic_search.description}}"> {% else %}
+    <meta name="description" content="Coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği, izleyebileceği veya kendi içeriklerini üretip kazandığı parayı alabilceği bir platformdur"> {% endif %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="author" content="Hakan | Çelik">
     <meta property="og:title" content="Vide" />
-    <link href='' rel='icon' type='image/x-icon' />
     <link rel="shortcut icon" href="/static/media/favicon.png" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width" initial-scale="1" maximum-scale="1">
+    <meta name="viewport" content="width=device-width" initial-scale="0" maximum-scale="0">
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92538057-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments)
+        };
+        gtag('js', new Date());
+
+        gtag('config', 'UA-92538057-2');
+    </script>
     <script src=" {% static 'js/jquery.js' %}"></script>
     <script src=" {% static 'js/jquery.touchSwipe.js' %}"></script>
     <link href="https://fonts.googleapis.com/css?family=Dosis|Lobster+Two|Roboto+Condensed|Roboto|Quicksand|Raleway" rel="stylesheet">

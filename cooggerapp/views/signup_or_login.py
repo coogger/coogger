@@ -8,8 +8,14 @@ from cooggerapp.models import Author
 
 def mysignup(request): #kayıt ol
     if request.method == "GET":
+        elastic_search = dict(
+            title = "coogger | kayıt ol",
+            keywords = "coogger,kayıt ol,coogger kayıt ol,kayıt,coogger kayıt,blog kayıt,blog yaz",
+            description = "coogger a hoşgeldin ister normal üyeliği saçebilir ve yazarlarımızı takip edebilir istersende yazar olarak kayıt olabilir ve kazandığın paraları alabilirsin"
+        )
         output = dict(
-            signup_or_login = True
+            signup_or_login = True,
+            elastic_search = elastic_search
         )
         return render(request,"signup_or_login/sign.html",output)
     elif request.method == "POST":
@@ -38,8 +44,14 @@ def mysignup(request): #kayıt ol
 
 def mylogin(request): # giriş yap
     if request.method == "GET":
+        elastic_search = dict(
+            title = "coogger | Giriş yap",
+            keywords = "coogger,giriş yap,coogger giriş yap,giriş,login",
+            description = "coogger a hoşgeldin açmış olduğun hesaba giriş yap"
+        )
         output = dict(
-            signup_or_login = True
+            signup_or_login = True,
+            elastic_search = elastic_search
         )
         return render(request,"signup_or_login/login.html",output)
     elif request.method == "POST":
@@ -94,4 +106,13 @@ def signup_author(request):
             ms.success(request,"Başarılı bir şekilde kayıt oldunuz {}".format(username))
             return HttpResponseRedirect("/")
     elif request.method == "GET":
-        return render(request,"signup_or_login/signup-blogger.html",{"signup_or_login":True})
+        elastic_search = dict(
+            title = "coogger | kayıt ol",
+            keywords = "coogger,kayıt ol,coogger kayıt ol,kayıt,coogger kayıt,blog kayıt,blog yaz",
+            description = "coogger a hoşgeldin ister normal üyeliği saçebilir ve yazarlarımızı takip edebilir istersende yazar olarak kayıt olabilir ve kazandığın paraları alabilirsin"
+        )
+        output = dict(
+            signup_or_login = True, 
+            elastic_search = elastic_search
+        )
+        return render(request,"signup_or_login/signup-blogger.html",output)

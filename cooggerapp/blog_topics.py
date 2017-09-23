@@ -99,7 +99,7 @@ class Subcategory:
         )
         list_faculties = []
         for i in faculties:
-            list_faculties.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_faculties.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_faculties
     def oyun():
         pc_games = (
@@ -126,7 +126,7 @@ class Subcategory:
         games = pc_games + mobile_games
         list_games = []
         for i in games:
-            list_games.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_games.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_games
 
     def seyahat():
@@ -215,7 +215,7 @@ class Subcategory:
         )
         list_name_of_cities = []
         for i in name_of_cities:
-            list_name_of_cities.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_name_of_cities.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_name_of_cities
 
     def giyim():
@@ -227,7 +227,7 @@ class Subcategory:
         )
         list_ = []
         for i in clot:
-            list_.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
     def makyaj_ve_cilt_bakım():
         make = (
@@ -240,7 +240,7 @@ class Subcategory:
         )
         list_ = []
         for i in make:
-            list_.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def yiyecek_ve_içecek():
@@ -260,7 +260,7 @@ class Subcategory:
         )
         list_food = []
         for i in food:
-            list_food.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_food.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_food
 
     def medya():
@@ -274,7 +274,7 @@ class Subcategory:
         )
         list_ = []
         for i in med:
-            list_.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def ürün_eşya():
@@ -284,7 +284,7 @@ class Subcategory:
         )
         list_ = []
         for i in pro:
-            list_.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_ 
 
     def taşıtlar():
@@ -295,7 +295,7 @@ class Subcategory:
         )
         list_ = []
         for i in ve:
-            list_.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def tanınmış_kişi():
@@ -315,7 +315,7 @@ class Subcategory:
         )
         list_person = []
         for i in person:
-            list_person.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_person.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_person
 
     def hayvanlar():
@@ -326,7 +326,7 @@ class Subcategory:
         )
         list_ = []
         for i in anim:
-            list_.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def inanç():
@@ -336,7 +336,7 @@ class Subcategory:
         )
         list_ = []
         for i in fa:
-            list_.append((i[0].lower().replace(" ",""),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def all(): # bütün alt kategorileri almak için
@@ -367,7 +367,7 @@ class Category2:
         )
         list_ = []
         for i in en:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def tıp():
@@ -378,7 +378,7 @@ class Category2:
         )
         list_ = []
         for i in me:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def fen_edebiyat():
@@ -400,7 +400,7 @@ class Category2:
         )
         list_ = []
         for i in sl:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_ 
     
     def iktisadi_ve_idari_bilimleri():
@@ -414,7 +414,7 @@ class Category2:
         )
         list_ = []
         for i in eaas:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def eğitim():
@@ -441,7 +441,7 @@ class Category2:
         )
         list_ = []
         for i in ed:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_ 
 
     def diş_hekimliği():
@@ -457,7 +457,7 @@ class Category2:
         )
         list_ = []
         for i in de:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def mimarlık():
@@ -469,7 +469,7 @@ class Category2:
         )
         list_ = []
         for i in arc:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def islahiye_iktisadi_ve_idari_bilimleri():
@@ -483,7 +483,7 @@ class Category2:
         )
         list_ = []
         for i in ieaas:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_ 
 
     def güzel_sanatlar():
@@ -501,7 +501,7 @@ class Category2:
         )
         list_ = []
         for i in fi:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def sağlık_bilimleri():
@@ -517,7 +517,7 @@ class Category2:
         )
         list_ = []
         for i in he:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_ 
 
     def hukuk():
@@ -545,7 +545,7 @@ class Category2:
         )
         list_ = []
         for i in la:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def ilahiyat():
@@ -572,7 +572,7 @@ class Category2:
         )
         list_ = []
         for i in th:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def iletişim():
@@ -585,7 +585,7 @@ class Category2:
         )
         list_ = []
         for i in co:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
 
     def havacılık_ve_uzay_mühendisliği():
@@ -596,7 +596,7 @@ class Category2:
         )
         list_ = []
         for i in ae:
-            list_.append((i[0].lower(),i[1].lower())) 
+            list_.append((i[0].lower().replace(" ","_"),i[1].lower())) 
         return list_
     def all():
         all_ = Category2.mühendislik() + Category2.tıp() + Category2.fen_edebiyat() + Category2.iktisadi_ve_idari_bilimleri()\
