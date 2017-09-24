@@ -6,9 +6,9 @@ from django.contrib.auth.models import User
 
 class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi  
     username = models.ForeignKey(User, null =True,blank=True,verbose_name = "kullanıcı adı")
-    category = models.CharField(choices = Category().category ,max_length=11,verbose_name ="Kategori") 
-    subcategory = models.CharField(blank=True, null=True,choices = Subcategory.all() ,max_length=16,verbose_name ="Alt kategori") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
-    category2 = models.CharField(blank=True, null=True,choices = Category2.all() ,max_length=5,verbose_name = "İkinci alt kategori")
+    category = models.CharField(choices = Category().category ,max_length=30,verbose_name ="Kategori") 
+    subcategory = models.CharField(blank=True, null=True,choices = Subcategory.all() ,max_length=30,verbose_name ="Alt kategori") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
+    category2 = models.CharField(blank=True, null=True,choices = Category2.all() ,max_length=30,verbose_name = "İkinci alt kategori")
     title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
     url = models.SlugField(unique = True ,max_length=100,verbose_name = "Web adresi, başlık ile aynı olmasına özen gösterin ") # blogun url adresi 
     content = RichTextField(verbose_name = "içeriğinizi oluşturun")  # yazılan yazılar burda 
