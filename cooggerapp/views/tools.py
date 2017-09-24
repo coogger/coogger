@@ -1,6 +1,6 @@
 from cooggerapp.blog_topics import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.shortcuts import render
 
 def topics():
     dict_topics = dict(
@@ -24,3 +24,8 @@ def paginator(request,queryset,hmany=20):
     except EmptyPage:
         contacts = paginator.page(paginator.num_pages)
     return contacts
+
+def seo(request): 
+    "arama motoru optimizasyonu için robot.txt ve site haritası"
+    file = request.get_full_path()
+    return render(request,"seo/"+file,{})

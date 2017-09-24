@@ -1,0 +1,4 @@
+User-agent: * <br>
+Disallow: /static  <br>
+Sitemap: http://coogger.com/sitemap.xml <br>
+
