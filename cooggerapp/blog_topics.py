@@ -18,7 +18,6 @@ class Category:
             ("dil","dil"),
             ("metafizik","metafizik"),
             ("aşk_arkadaşlık","aşk - arkadaşlık"),
-            ("erotik","erotik"),
         )
         self.category = []
         for i in list_category:

@@ -1,14 +1,11 @@
 header {
-    position: fixed;
-    left: 0%;
-    z-index: 1;
-    width: 100%;
-    top: 50px;
+    position: relative;
+    padding-top: 50px;
     height: 60px;
     background-color: rgb(48, 181, 92);
-    border-radius: 6px;
     border: #fafafa;
     box-shadow: 1px 1px 3px 0px #f1f1f1;
+    margin: auto;
 }
 
 .main-messages {
@@ -22,7 +19,7 @@ header {
 }
 
 .bt-header {
-    position: fixed;
+    position: relative;
     left: 0px;
     z-index: 2;
     background: #ffffff;
@@ -47,15 +44,10 @@ header {
 }
 
 .search {
-    position: relative;
-    width: 300px;
-    margin: auto;
     padding: 13px;
 }
 
-.search-form {
-    margin: auto;
-}
+.search-form {}
 
 .search-input {
     padding: 9px;
@@ -89,17 +81,15 @@ header {
 }
 
 .header-ul {
-    width: fit-content;
+    width: max-content;
     height: 60px;
-    padding: 0px;
     list-style-type: none;
     margin: auto;
+    padding: 0px;
 }
 
 .header-ul-li {
-    position: relative;
     float: left;
-    margin: auto;
 }
 
 .open-header {
@@ -148,8 +138,9 @@ header {
         display: block;
     }
     header {
-        height: 100%;
-        padding-top: 40%;
+        width: 99%;
+        height: 20%;
+        padding-top: 10px;
     }
     .main-messages {
         width: 100%;
@@ -161,5 +152,11 @@ header {
         height: 56px;
         border: 1px solid #f1f1f1;
         overflow: hidden;
+    }
+    .header-ul {
+        width: 300px;
+    }
+    .search-input {
+        width: 170px;
     }
 }

@@ -25,15 +25,17 @@ $(document).ready(function() {
     }
 
     set();
-    $(window).resize(function() {
-        set();
-    });
+    var wid = $(window).width();
+    var heig = $(window).height();
+    if (wid > 769) {
+        $(window).resize(function() {
+            set();
+        });
+    } else {
+        $(".open-header").click(function() {
+            $("header").toggle("fast");
+        });
+    }
 
-    $(".open-header").click(function() {
-
-        $("header").toggle("fast");
-
-
-    });
 
 });

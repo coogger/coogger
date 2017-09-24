@@ -1,10 +1,10 @@
-{% include 'home/head.html' %} {% include 'home/header.html' %} {% if blog %}
+{% include 'home/head.html' %} {% include 'home/header.html' %} {% include 'home/nav.html' %} {% if blog %}
 <div class="blogs">
     <div class="main-blog-cards">
         {% include 'blog/blog-cards.html' %}
     </div>
 </div>
-{% include "home/paginator.html" %} {% endif %} {% include 'home/footer.html' %}
+{% include "home/paginator.html" %} {% endif %}
 </body>
 
 </html>

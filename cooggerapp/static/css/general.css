@@ -23,11 +23,11 @@ body {
 
 .blogs {
     position: relative;
-    padding-top: 112px;
+    padding-bottom: 4px;
     height: -webkit-fill-available;
     border: 1px solid rgba(0, 0, 0, 0.06);
     background-color: rgb(255, 255, 255);
-    width: 90%;
+    width: 0px;
     margin: auto;
     display: table;
     margin-bottom: 40px;
@@ -37,9 +37,10 @@ body {
 .datail {
     position: relative;
     background-color: rgb(255, 255, 255);
-    width: 90%;
+    width: 70%;
+    top: 130px;
     margin: auto;
-    top: 140px;
+    padding: 30px 0px 30px 0px;
     border: 1px solid #f1f1f1;
     border-radius: 4px;
     box-shadow: 0px 0px 1px 0px #f1f1f1;
@@ -123,6 +124,6 @@ body {
 @media only screen and (max-width: 606px) {
     .datail {
         width: 99%;
-        top: 74px;
+        top: 110px;
     }
 }

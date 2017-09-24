@@ -1,3 +1,12 @@
 <nav>
-    <div></div>
+    <ul class="main-nav">
+        <li class="nav-topic nav-ul-li">
+            Konular
+        </li>
+        {% for url,topic in topics_category %}
+        <li class="nav-ul-li">
+            <a class="nav-ul-li-a" href="/topic/{{ url }}">{{ topic }}</a>
+        </li>
+        {% endfor %}
+    </ul>
 </nav>
