@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^chosecat2/(?P<value>.*)',myadmin.chose_category2),
     url(r'^chosenone/',myadmin.chosenone),
     url(r'^topic/(?P<topic>.*)',topics.topic),
-    url(r'^robot.txt$',tools.seo),
+    url(r'^robots.txt$',tools.seo),
     url(r'^sitemap.xml$',tools.seo),
     url(r'^@(?P<username>.*)', users.user,name = "user"),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
