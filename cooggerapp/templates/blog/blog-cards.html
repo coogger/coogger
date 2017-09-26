@@ -11,11 +11,13 @@
         </div>
         <div class="blog-user-description"></div>
     </div>
-    <div class="blog-category ft-os"> <a class="blog-category-a" href='/topic/{{ blo.category }}'>{{ blo.category }}</a>
-        <div class="blog-subcategory"><a class="blog-subcategory-a" href='/topic/{{ blo.subcategory }}'>{{ blo.subcategory }}</a>
+    <div class="blog-category ft-os"><a class="blog-category-a" href='/topic/{{ blo.category }}'>{{ blo.category }}</a> {% if blo.subcategory != None %}
+        <div class="blog-subcategory"><a class="blog-subcategory-a" href='/topic/{{ blo.subcategory }}'>{{ blo.subcategory }}</a> {% if blo.category2 != None %}
             <div class="blog-category2"><a class="blog-category2-a" href='/topic/{{ blo.category2 }}'>{{ blo.category2 }}</a>
             </div>
+            {%endif%}
         </div>
+        {%endif%}
     </div>
     <div class="blog-cont">
         <div class="blog-title ft-ns">

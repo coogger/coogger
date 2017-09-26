@@ -41,8 +41,8 @@ class Topics():
         topics = zip(dict_topics["url"],dict_topics["topic"])
         return topics
 
-def paginator(request,queryset,hmany=20): 
-    paginator = Paginator(queryset, hmany) 
+def paginator(request,queryset,hmany=20):
+    paginator = Paginator(queryset, hmany)
     page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
@@ -52,7 +52,7 @@ def paginator(request,queryset,hmany=20):
         contacts = paginator.page(paginator.num_pages)
     return contacts
 
-def seo(request): 
+def seo(request):
     "arama motoru optimizasyonu için robot.txt ve site haritası"
     file = request.get_full_path()
     return render(request,"seo/"+file,{})

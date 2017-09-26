@@ -9,13 +9,15 @@ header {
 }
 
 .main-messages {
-    position: fixed;
+    position: relative;
     height: 52px;
-    z-index: 3;
-    width: 20%;
+    width: 40%;
+    text-align: center;
+    color: #fff;
     border: 1px solid #f1f1f1;
-    left: 40%;
-    background-color: white;
+    left: 30%;
+    background-color: rgb(241, 57, 57);
+    border-radius: 4px;
 }
 
 .bt-header {
@@ -35,11 +37,12 @@ header {
     padding: 10px;
     float: left;
     margin-top: 2px;
+    margin-left: 10px;
 }
 
 .logo-a {
     text-decoration: none;
-    font-size: 24px;
+    font-size: 20px;
     padding: 0px 6px 0px 6px;
 }
 
@@ -108,10 +111,10 @@ header {
 
 .logo-img {
     background-image: url(/static/media/favicon.png);
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     background-repeat: no-repeat;
-    background-size: 40px;
+    background-size: 50px;
     float: left;
     border-radius: 70px;
     margin-left: 20px;
@@ -121,11 +124,13 @@ header {
 
 .messages {
     padding: 8px;
-    margin: 9px;
+    margin: 8px;
     list-style-type: none;
 }
 
-.error {}
+.error {
+    font-size: 16px;
+}
 
 .info {}
 
@@ -133,30 +138,40 @@ header {
 
 .successful {}
 
+.close-ms {
+    float: right;
+    margin: 4px;
+    list-style-type: none;
+    background: #000;
+    padding: 12px;
+    width: 20px;
+    border-radius: 4px;
+    height: 20px;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 606px) {
     .open-header {
         display: block;
     }
     header {
         width: 99%;
-        height: 20%;
+        height: 0px;
         padding-top: 10px;
     }
     .main-messages {
         width: 100%;
         left: 0px;
-        top: 54px;
-        font-size: 13px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        height: 56px;
-        border: 1px solid #f1f1f1;
-        overflow: hidden;
+        height: 54px;
+        border: 0px solid #f1f1f1;
     }
     .header-ul {
         width: 300px;
     }
     .search-input {
         width: 170px;
+    }
+    .error {
+        font-size: 14px;
     }
 }

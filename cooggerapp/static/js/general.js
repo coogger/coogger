@@ -27,15 +27,23 @@ $(document).ready(function() {
     set();
     var wid = $(window).width();
     var heig = $(window).height();
-    if (wid > 769) {
+    if (wid > 769) { // mobil değil ise
         $(window).resize(function() {
             set();
         });
-    } else {
+    } else { // mobil ise
         $(".open-header").click(function() {
-            $("header").toggle("fast");
+            if ($("header").height() == "0") {
+                $("header").animate({ height: "70%" });
+                $("header").css("display", "block");
+            } else {
+                $("header").animate({ height: "0px" });
+                $("header").css("display", "none");
+            }
         });
     }
-
-
+    // her zaman
+    $(".close-ms").click(function() {
+        $(".main-messages").remove();
+    })
 });

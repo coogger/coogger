@@ -7,22 +7,21 @@ from cooggerapp.views import tools
 
 
 def topic(request,topic):
-    model = Blog 
-    topics_list = [url for url,top in tools.topics()]
+    top = tools.Topics()
+    topi = top.category+top.subcatecory+top.category2
+    topics_list = [url for url,top in topi]
     if topic.replace(" ","_") not in topics_list:
          ms.error(request,"Böyle bir konu bulunmamakta")
          return HttpResponseRedirect("/")
-    try:
-        queryset = model.objects.filter(category = topic)
-    except:
-         try:
-             queryset = model.objects.filter(category = topic)
-         except:
-             try:
-                 queryset = model.objects.filter(category = topic)
-             except:
-                 return HttpResponseRedirect("/")
-    if not queryset.exists():
+    queryset = False
+    data1 = Blog.objects.filter(category = topic)
+    data2 = Blog.objects.filter(subcategory = topic)
+    data3 = Blog.objects.filter(category2 = topic)
+    data = [data1,data2,data3]
+    for dat in data:
+        if dat.exists():
+            queryset = dat 
+    if not queryset:
         ms.error(request,"Bu konu altında henuz bir şey paylaşılmamış")
         return HttpResponseRedirect("/")
     blogs = tools.paginator(request,queryset)
@@ -33,7 +32,7 @@ def topic(request,topic):
     )
     output = dict(
         blog = blogs,
-        topics = tools.topics(),
+        topics_category = top.category,
         elastic_search = elastic_search,
     )
     return render(request,"blog/blogs.html",output)
