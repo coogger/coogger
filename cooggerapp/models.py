@@ -3,6 +3,7 @@ from django.utils import timezone
 from ckeditor.fields import RichTextField 
 from cooggerapp.blog_topics import *
 from django.contrib.auth.models import User
+from cooggerapp.views import tools
 
 class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi  
     username = models.ForeignKey(User, null =True,blank=True,verbose_name = "kullanıcı adı")

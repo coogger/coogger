@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+import os 
 from .views import home
 from .views import signup_or_login
 from .views import admin as myadmin
@@ -10,6 +11,7 @@ from .views import users
 from .views import topics
 from .views import tools
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 urlpatterns = [
     url(r'^$', home.home,name = "home"),
     url(r'^admin/', admin.site.urls),
@@ -25,5 +27,7 @@ urlpatterns = [
     url(r'^topic/(?P<topic>.*)',topics.topic),
     url(r'^robots.txt$',tools.seo),
     url(r'^sitemap.xml$',tools.seo),
+    url(r'^user-upload-pp$',users.upload_pp,name="user_upload_pp"),
+    url(r'^@(?P<username>.*/(?P<utopic>.*))', users.u_topic,name = "u-topic"),
     url(r'^@(?P<username>.*)', users.user,name = "user"),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+] + static("/media/",document_root=os.path.join(BASE_DIR, 'media'))

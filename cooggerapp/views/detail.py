@@ -14,6 +14,7 @@ def main_detail(request,blog_path):
     )
     output = dict(
         datail = queryset,
-        elastic_search = elastic_search
+        elastic_search = elastic_search,
+        general = True,
     )
     return render(request,"detail/main_detail.html",output)

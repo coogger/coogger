@@ -46,13 +46,12 @@
     {% if signup_or_login %}
     <link rel="stylesheet" href="/static/css/signup_or_login.css">
     <script src=" {% static 'js/signup-or-login.js' %}"></script>
-    {% else %}
+    {% elif general %}
     <script src=" {% static 'js/general.js' %}"></script>
-    <link href=" {% static 'css/blog-cards.css' %}" rel="stylesheet">
-    <link href=" {% static 'css/header.css' %}" rel="stylesheet">
-    <link href=" {% static 'css/general.css' %}" rel="stylesheet">
-    <link href=" {% static 'css/nav.css' %}" rel="stylesheet"> {% endif %}
-
+    <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% endif %} {% if users %}
+    <link href=" {% static 'css/users.css' %}" rel="stylesheet">
+    <script src=" {% static 'js/users.js' %}"></script>
+    {% endif %}
 </head>
 
 <body>

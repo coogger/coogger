@@ -19,6 +19,7 @@ def home(request):
     output = dict(
         blog = blogs,
         topics_category = category,
+        general = True,
     )
 
     return render(request,"blog/blogs.html",output)

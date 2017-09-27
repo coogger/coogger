@@ -34,5 +34,6 @@ def topic(request,topic):
         blog = blogs,
         topics_category = top.category,
         elastic_search = elastic_search,
+        general = True,
     )
     return render(request,"blog/blogs.html",output)

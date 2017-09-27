@@ -1,0 +1,29 @@
+<header>
+    <div class="main-logo">
+        <div class="logo-img"></div>
+        <div class="logo ft-cl">
+            <a href="/" class="logo-a" data-background="#DCE1E3">
+                <span style="color:#ff0000">coo</span>gg<span style="color:#ff0000">er</span>.com
+            </a>
+        </div>
+    </div>
+    {% if request.user.username == username %}
+    <form class="uploadform" action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <input type="file" name="u-upload-pp" id="u-upload-pp" class="u-input-pp">
+            <label class="u-upload-label" for="u-upload-pp"><strong>profil resmi seç</strong></label>
+        </div>
+        <input class="u-pp-submit" type="submit" value="profili değiş" />
+    </form>
+    {% endif %}
+    <div class="u-i">
+        <div class="u-pp">
+            {% if pp %}
+            <img class="u-pp-img" src="/media/users/pp/pp-{{ username }}.jpg" /> {% else %}
+            <img class="u-pp-img" src="/static/media/profil.png" /> {% endif %}
+            <h1 class="u-username ft-cl">@{{ username }}</h1>
+        </div>
+        <div class="user-one-line"></div>
+    </div>
+</header>
