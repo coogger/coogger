@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^control/$',controls.panel,name="control"),
     url(r'^create/$',controls.create,name="create"),
     url(r'^(change/(?P<content_id>.*))',controls.change,name="change"),
-    url(r'^(delete/(?P<content_id>.*))',controls.create,name="delete"),
+    url(r'^(delete/(?P<content_id>.*))',controls.delete,name="delete"),
 
 ] + static("/media/",document_root=os.path.join(BASE_DIR, 'media'))
 

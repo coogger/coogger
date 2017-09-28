@@ -1,8 +1,8 @@
 {% include 'home/head.html' %} {% include 'controls/header.html' %} {% include 'controls/nav.html' %}
 <div class="c-change">
-    <form method="post" class="c-change-form" action="/create" enctype="multipart/form-data">
-        {{ create_form.as_p }} {{ create_form.media }}
-        <input type="submit" value="Düzenlemeyi kayıt et">
+    <form method="post" class="c-change-form" action="/create/" enctype="multipart/form-data">
+        {% csrf_token %} {{ create_form.as_p }} {{ create_form.media }}
+        <input class="c-create-input" type="submit" value="Paylaş">
     </form>
 </div>
 </body>

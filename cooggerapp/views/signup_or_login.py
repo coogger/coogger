@@ -84,9 +84,6 @@ def signup_author(request):
             return HttpResponseRedirect("/signup_author")
         user = User.objects.create_user(first_name=name,last_name=surname,email = email,username=username,password=password)
         user.is_active=True
-        user.is_staff=True
-        per = Permission.objects.get(name='Can add content')
-        user.user_permissions.add(per)
         user.save()
         Author(user =user,iban=iban).save()
         user = authenticate(username=username, password=password)

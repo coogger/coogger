@@ -1,8 +1,15 @@
-{% include 'home/head.html' %} {% include 'controls/header.html' %} {% include 'controls/nav.html' %}
+{% include 'home/head.html' %}
+<div class="main-messages ft-io">
+    <li class="close-ms">x</li>
+    <ul class="messages">
+        <li class="error"></li>
+    </ul>
+</div>
+{% include 'controls/header.html' %} {% include 'controls/nav.html' %}
 <div class="c-main">
     <div class="c-contents">
         {% for content in contents %}
-        <ul class="c-contents-ul">
+        <ul class="c-contents-ul id-{{ content.id }}">
             <div class="c-contents-li c-contents-div">
                 <a class="c-contents-li-a c-contents-div-a" href="/change/{{ content.id }}">{{ content.title }}</a>
             </div>
@@ -19,7 +26,7 @@
                 <a class="c-contents-li-a " href="/change/{{ content.id }}">{{ content.category2 }}</a>
             </li>
             <li class="c-contents-li">
-                <a class="c-contents-li-a delete">Sil</a>
+                <a class="c-contents-li-a delete" data-delete-id="{{ content.id }}">Sil</a>
 
             </li>
         </ul>
