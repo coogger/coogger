@@ -10,6 +10,7 @@ from .views import detail
 from .views import users
 from .views import topics
 from .views import tools
+from .views import controls
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 urlpatterns = [
@@ -30,4 +31,11 @@ urlpatterns = [
     url(r'^user-upload-pp$',users.upload_pp,name="user_upload_pp"),
     url(r'^@(?P<username>.*/(?P<utopic>.*))', users.u_topic,name = "u-topic"),
     url(r'^@(?P<username>.*)', users.user,name = "user"),
+
+    url(r'^control/$',controls.panel,name="control"),
+    url(r'^create/$',controls.create,name="create"),
+    url(r'^(change/(?P<content_id>.*))',controls.change,name="change"),
+    url(r'^(delete/(?P<content_id>.*))',controls.create,name="delete"),
+
 ] + static("/media/",document_root=os.path.join(BASE_DIR, 'media'))
+

@@ -9,7 +9,7 @@ import os
 def user(request,username): 
     "herhangi kullanıcının anasayfası"
     pp = False
-    if os.path.exists(os.getcwd()+"/media/users/pp/pp-"+username+".jpg"):
+    if os.path.exists(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg"):
         pp = True
     output = dict(
         users = True,
@@ -28,12 +28,12 @@ def upload_pp(request):
             ms.error(request,"Dosya alma sırasında bir sorun oluştu")
             return HttpResponseRedirect("/@"+username)
 
-        with open(os.getcwd()+"/media/users/pp/pp-"+username+".jpg",'wb+') as destination:
+        with open(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg",'wb+') as destination:
             for chunk in image.chunks():
                 destination.write(chunk)
-        im = Image.open(os.getcwd()+"/media/users/pp/pp-"+username+".jpg")
+        im = Image.open(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg")
         im.thumbnail((150,150))
-        im.save(os.getcwd()+"/media/users/pp/pp-"+username+".jpg", "JPEG")
+        im.save(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg", "JPEG")
         return HttpResponseRedirect("/@"+username)
 
 def u_topic(request):

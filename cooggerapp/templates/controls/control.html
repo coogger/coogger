@@ -1,0 +1,31 @@
+{% include 'home/head.html' %} {% include 'controls/header.html' %} {% include 'controls/nav.html' %}
+<div class="c-main">
+    <div class="c-contents">
+        {% for content in contents %}
+        <ul class="c-contents-ul">
+            <div class="c-contents-li c-contents-div">
+                <a class="c-contents-li-a c-contents-div-a" href="/change/{{ content.id }}">{{ content.title }}</a>
+            </div>
+            <li class="c-contents-li">
+                <a class="c-contents-li-a" href="/change/{{ content.id }}">{{ content.time }}</a>
+            </li>
+            <li class="c-contents-li">
+                <a class="c-contents-li-a " href="/change/{{ content.id }}">{{ content.category }}</a>
+            </li>
+            <li class="c-contents-li">
+                <a class="c-contents-li-a" href="/change/{{ content.id }}">{{ content.subcategory }}</a>
+            </li>
+            <li class="c-contents-li">
+                <a class="c-contents-li-a " href="/change/{{ content.id }}">{{ content.category2 }}</a>
+            </li>
+            <li class="c-contents-li">
+                <a class="c-contents-li-a delete">Sil</a>
+
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+</div>
+</body>
+
+</html>

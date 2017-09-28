@@ -48,9 +48,12 @@
     <script src=" {% static 'js/signup-or-login.js' %}"></script>
     {% elif general %}
     <script src=" {% static 'js/general.js' %}"></script>
-    <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% endif %} {% if users %}
+    <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% elif users %}
     <link href=" {% static 'css/users.css' %}" rel="stylesheet">
     <script src=" {% static 'js/users.js' %}"></script>
+    {% elif controls %}
+    <link href=" {% static 'css/controls.css' %}" rel="stylesheet">
+    <script src=" {% static 'js/controls.js' %}"></script>
     {% endif %}
 </head>
 

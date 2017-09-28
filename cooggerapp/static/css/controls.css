@@ -1,0 +1,162 @@
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0;
+    background: #fff;
+}
+
+header {
+    position: relative;
+    padding-top: 1px;
+    height: 52px;
+    background-color: rgb(48, 181, 92);
+    border: #fafafa;
+    box-shadow: 1px 1px 3px 0px #f1f1f1;
+    margin: auto;
+}
+
+.logo {
+    border: 1px solid #f1f1f1;
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.logo-a {
+    text-decoration: none;
+    font-size: 20px;
+    padding: 0px 6px 0px 6px;
+}
+
+.logo-img {
+    background-image: url(/static/media/favicon.png);
+    height: 50px;
+    width: 50px;
+    background-repeat: no-repeat;
+    background-size: 50px;
+    border-radius: 70px;
+    margin-left: 20px;
+    background-color: #fff;
+}
+
+nav {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    z-index: 1;
+    height: 42px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.c-nav-ul {
+    position: relative;
+    width: max-content;
+    height: 40px;
+    list-style-type: none;
+    padding: 0px;
+    margin: auto;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #f1f1f1;
+}
+
+.c-nav-li {
+    margin: 1px;
+    padding: 10px;
+    background: #ffffff;
+    float: left;
+    border-radius: 2px;
+}
+
+.c-nav-li-a {
+    color: #000;
+    padding: 12px 0px;
+    text-decoration: none;
+}
+
+.c-username {}
+
+.c-username-h1 {}
+
+.c-header {
+    margin: 0px;
+    padding: 0px;
+}
+
+.c-header-li {
+    float: left;
+    list-style: none;
+}
+
+.c-main {
+    width: 90%;
+    margin: auto;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    display: flex;
+    padding: 30px 0px;
+}
+
+.c-contents {
+    margin: auto;
+    width: 91%;
+}
+
+.c-contents-ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.c-contents-li {
+    list-style: none;
+    float: left;
+    border-bottom: 1px solid #707eff;
+    padding: 12px 0px;
+}
+
+li.c-contents-li {}
+
+.c-contents-li-a {
+    font-size: 16px;
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+    padding: 12px 30px;
+}
+
+.c-contents-div {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #30b55c;
+}
+
+.c-contents-div-a {
+    font-size: 20px;
+}
+
+.delete {
+    background-color: red;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.create {
+    background-color: #3aa7f9;
+    color: #fff;
+    border-radius: 4px;
+    padding: 12px;
+    text-decoration: none;
+}

@@ -8,3 +8,7 @@ class CommentForm(ModelForm):
          model = Comment
          fields = ["comment"]
 
+class ContentForm(ModelForm):
+    class Meta:
+        model = Blog 
+        fields = ["category","subcategory","category2","title","content","tag"]
