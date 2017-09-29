@@ -2,27 +2,30 @@
     <div class="blog-user">
         <div class="blog-user-profil">
             <div class="blog-username">
-                <a class="blog-username-a" href='/@{{ datail.username }}'>{{ datail.username }}</a>
+                <a class="blog-username-a" href='/@{{ detail.username }}'>{{ detail.username }}</a>
             </div>
             <div class="blog-time ft-dn">
-                {{ blo.time }}
+                {{ detail.time }}
             </div>
         </div>
         <div class="blog-user-description"></div>
     </div>
     <div class="blog-category">
-        <a class="blog-category-a" href='/topic/{{ datail.category }}'>{{ datail.category }}</a>
+        <a class="blog-category-a" href='/topic/{{ detail.category }}'>{{ detail.category }}</a> {% if detail.subcategory != None %}
         <div class="blog-subcategory">
-            <a class="blog-subcategory-a" href='/topic/{{ datail.subcategory }}'>{{ datail.subcategory }}</a>
+            {% if detail.category2 != None %}
+            <a class="blog-subcategory-a" href='/topic/{{ detail.subcategory }}'>{{ detail.subcategory }}</a>
             <div class="blog-category2">
-                <a class="blog-category2-a" href='/topic/{{ datail.category2 }}'>{{ datail.category2 }}</a>
+                <a class="blog-category2-a" href='/topic/{{ detail.category2 }}'>{{ detail.category2 }}</a>
             </div>
+            {%endif%}
         </div>
+        {%endif%}
     </div>
     <div class="blog-cont" style="height:auto">
         <div class="blog-title">
-            <a class="blog-title-a" href='/blogs/{{ datail.url }}'>{{ datail.title }}</a>
+            <a class="blog-title-a" href='/blogs/{{ detail.url }}'>{{ detail.title }}</a>
         </div>
-        <div class="blog-content" style="overflow:auto;height: auto;">{{ datail.content|safe }}</div>
+        <div class="blog-content" style="overflow:auto;height: auto;">{{ detail.content|safe }}</div>
     </div>
 </div>

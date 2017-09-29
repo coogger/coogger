@@ -15,7 +15,7 @@ def main_detail(request,blog_path):
         description = "coogger "+str(queryset.username)+" "+queryset.category+" "+queryset.title
     )
     output = dict(
-        datail = queryset,
+        detail = queryset,
         elastic_search = elastic_search,
         general = True,
         topics_category = category,
