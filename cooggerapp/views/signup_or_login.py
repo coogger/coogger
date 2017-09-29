@@ -116,6 +116,11 @@ def signup_author(request):
         if not request_username:
             ms.error(request,"ops !")
             return HttpResponseRedirect("/")
+        user_id = User.objects.filter(username = request_username)[0].id
+        is_iban = Author.objects.filter(user_id = user_id)
+        if is_iban.exists():
+            ms.error(request,"Yazarlık başvurunuzu daha önceden almıştık, değerlendirme süreci bitiminde sizinle iletişime geçeceğiz")
+            return HttpResponseRedirect("/control")
         elastic_search = dict(
             title = "coogger | kayıt ol",
             keywords = "coogger,kayıt ol,coogger kayıt ol,kayıt,coogger kayıt,blog kayıt,blog yaz",
