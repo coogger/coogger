@@ -34,7 +34,7 @@ $(document).ready(function() {
     } else { // mobil ise
         $(".open-header").click(function() {
             if ($("header").height() == "0") {
-                $("header").animate({ height: "70%" });
+                $("header").animate({ height: "40%" });
                 $("header").css("display", "block");
             } else {
                 $("header").animate({ height: "0px" });

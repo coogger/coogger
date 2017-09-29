@@ -181,7 +181,6 @@ nav {
 }
 
 .logo {
-    border: 1px solid #f1f1f1;
     background-color: #ffffff;
     border-radius: 4px;
     padding: 10px;
@@ -239,4 +238,25 @@ nav {
     padding: 8px;
     margin: 8px;
     list-style-type: none;
+}
+
+.maindiv {
+    filter: blur(2px);
+}
+
+.preload {
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    margin: auto;
+    height: 100%;
+    cursor: wait;
+}
+
+.coogger-load {
+    margin: auto;
+    width: max-content;
+    font-size: 555%;
+    display: flex;
+    margin-top: 14%;
 }

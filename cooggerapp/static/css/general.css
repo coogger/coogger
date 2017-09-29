@@ -38,7 +38,6 @@ body {
     position: relative;
     background-color: rgb(255, 255, 255);
     width: 70%;
-    top: 130px;
     margin: auto;
     padding: 30px 0px 30px 0px;
     border: 1px solid #f1f1f1;
@@ -225,6 +224,7 @@ header {
     border: #fafafa;
     box-shadow: 1px 1px 3px 0px #f1f1f1;
     margin: auto;
+    border-radius: 4px;
 }
 
 .main-messages {
@@ -250,7 +250,6 @@ header {
 }
 
 .logo {
-    border: 1px solid #f1f1f1;
     background-color: #ffffff;
     border-radius: 4px;
     padding: 10px;
@@ -262,6 +261,7 @@ header {
 .logo-a {
     text-decoration: none;
     font-size: 20px;
+    font-weight: bold;
     padding: 0px 6px 0px 6px;
 }
 
@@ -300,6 +300,10 @@ header {
     text-align: center;
     margin-top: 10px;
     margin-left: 10px;
+}
+
+.solol a {
+    color: #fff;
 }
 
 .header-ul {
@@ -420,6 +424,27 @@ nav {
     cursor: pointer;
 }
 
+.preload {
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    margin: auto;
+    height: 100%;
+    cursor: wait;
+}
+
+.coogger-load {
+    margin: auto;
+    width: max-content;
+    font-size: 555%;
+    display: flex;
+    margin-top: 14%;
+}
+
+.maindiv {
+    filter: blur(2px);
+}
+
 @media only screen and (max-width: 606px) {
     .datail {
         width: 99%;
@@ -429,7 +454,6 @@ nav {
         display: block;
     }
     header {
-        width: 99%;
         height: 0px;
         padding-top: 10px;
     }

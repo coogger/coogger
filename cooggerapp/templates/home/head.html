@@ -74,7 +74,7 @@
     <script>
         hljs.initHighlightingOnLoad();
     </script>
-    {% if signup_or_login %}
+    <link href=" {% static 'css/animate.css' %}" rel="stylesheet"> {% if signup_or_login %}
     <link rel="stylesheet" href="/static/css/signup_or_login.css">
     <script src=" {% static 'js/signup-or-login.js' %}"></script>
     {% elif general %}
@@ -86,7 +86,30 @@
     <link href=" {% static 'css/controls.css' %}" rel="stylesheet">
     <script src=" {% static 'js/controls.js' %}"></script>
     {% endif %}
+    <script>
+        function loader() {
+            $('.preload').fadeOut('slow', function() {
+                $(this).remove();
+                $(".maindiv").css({
+                    filter: "blur(0px)"
+                });
+            });
+        }
+    </script>
+
 </head>
 
-<body>
+<body onload="loader()">
     {% if messages %} {% include 'home/ms.html' %} {% endif %}
+    <div class="preload">
+        <div class="coogger-load ft-cl">
+            <span style="color:#8B1BE6">c</span>
+            <span class="animated infinite flash" style="color:#1BA5E6">o</span>
+            <span class="animated infinite flash" style="color:#D3C71D">o</span>
+            <span class="animated infinite flash" style="color:#1BA5E6">g</span>
+            <span class="animated infinite flash" style="color:#D3C71D">g</span>
+            <span style="color:#8B1BE6">e</span>
+            <span style="color:#8B1BE6">r</span>
+        </div>
+    </div>
+    <div class="maindiv">
