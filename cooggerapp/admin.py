@@ -11,16 +11,11 @@ class BlogAdmin(admin.ModelAdmin):
     list_filter = ["category","time"]
     search_fields = ["category","title","tag","text"]
     prepopulated_fields = {"url":("title",)}
-    fields = (("category","subcategory","category2"),("title","url"),"content","tag")    
-    def save_model(self, request, obj, form, change):
-        if getattr(obj, 'username', None) is None:
-            obj.username = request.user
-            obj.time = timezone.now()
-        obj.save()
+    fields = ("username",("category","subcategory","category2"),("title","url"),"content","tag")
 
     class Media:
         js = ("js/my-admin-content.js",)
-   
+
 
 class AuthorAdmin(admin.StackedInline):
     model = Author

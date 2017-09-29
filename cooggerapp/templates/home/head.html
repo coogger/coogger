@@ -3,19 +3,50 @@
 <html>
 
 <head>
-    <meta charset="utf-8"> {% if elastic_search.title %}
-    <title>{{ elastic_search.title }}</title>{% else %}
-    <title>coogger</title>{% endif %} {% if elastic_search.keywords %}
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Hakan Çelik | hakancelik96@outlook.com | cooggerweb@gmail.com" /> {% if elastic_search.title %}
+    <title>{{ elastic_search.title }}</title>
+    <meta property="og:title" content="{{ elastic_search.title }}" />
+    <meta property="og:site_name" content="{{ elastic_search.title }}">
+    <meta name="twitter:title" content="{{ elastic_search.title }}">
+    <meta property="og:title" content="{{ elastic_search.title }}">
+    <meta itemprop="name" content="{{ elastic_search.title }}"> {% else %}
+    <title>coogger</title>
+    <meta property="og:title" content="coogger" />
+    <meta property="og:site_name" content="coogger">
+    <meta name="twitter:title" content="coogger">
+    <meta property="og:title" content="coogger">
+    <meta itemprop="name" content="coogger"> {% endif %} {% if elastic_search.keywords %}
     <meta name="keywords" content="{{ elastic_search.keywords }}" /> {% else %}
     <meta name="keywords" content="coogger,blog yaz,para kazanma,blog,oku,blog oku,para nasıl kazanırım," /> {% endif %} {% if elastic_search.description %}
-    <meta name="description" content="{{elastic_search.description}}"> {% else %}
-    <meta name="description" content="Coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği, izleyebileceği veya kendi içeriklerini üretip kazandığı parayı alabilceği bir platformdur"> {% endif %}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="author" content="Hakan | Çelik">
-    <meta property="og:title" content="Vide" />
+    <meta name="description" content="{{elastic_search.description}}" />
+    <meta property="og:description" content="{{elastic_search.description}}" />
+    <meta name="twitter:description" content="{{elastic_search.description}}">
+    <meta property="og:description" content="{{elastic_search.description}}">
+    <meta itemprop="description" content="{{elastic_search.description}}"> {% else %}
+    <meta name="description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur">
+    <meta property="og:description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur" />
+    <meta name="twitter:description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur">
+    <meta property="og:description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur">
+    <meta itemprop="description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur"> {% endif %}
     <link rel="shortcut icon" href="/static/media/favicon.png" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width" initial-scale="0" maximum-scale="0">
+    <meta property="og:image" content="/static/media/favicon.png" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="2" />
+    <meta name="revisit-after" content="2 days" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@hakancelik96">
+    <meta name="twitter:creator" content="hakancelik96">
+    <meta name="twitter:image:src" content="/static/media/favicon.png">
+    <meta property="og:url" content="http://www.coogger.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/static/media/favicon.png" />
+    <meta property="article:author" content="https://www.facebook.com/profile.php?id=100011790249138">
+    <meta property="article:publisher" content="https://www.facebook.com/profile.php?id=100011790249138">
+    <meta itemprop="image" content="/static/media/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92538057-2"></script>
     <script>
