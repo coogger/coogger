@@ -1,7 +1,7 @@
 <nav>
     <ul class="c-nav-ul">
         <li class="c-nav-li">
-            <a class="c-nav-li-a" href="/@{{ username }}">@{{ username }}</a>
+            <a class="c-nav-li-a" href="/@{{ request.user.username }}">@{{ request.user.username }}</a>
         </li>
         <li class="c-nav-li">
             <a class="c-nav-li-a create" href="/create">İçerik oluştur</a>

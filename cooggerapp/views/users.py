@@ -3,6 +3,7 @@ from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages as ms
+from cooggerapp.models import *
 from PIL import Image
 import os
 
@@ -11,10 +12,12 @@ def user(request,username):
     pp = False
     if os.path.exists(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg"):
         pp = True
+    content_list = ContentList.objects.all()
     output = dict(
         users = True,
         username = username,
         pp = pp,
+        content_list = content_list,
     )
     return render (request,"users/user.html",output)
 

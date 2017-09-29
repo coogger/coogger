@@ -12,8 +12,7 @@ def main_detail(request,blog_path):
     category = tools.Topics().category
     elastic_search = dict(
         title = username+" | "+queryset.title+" | coogger",
-        keywords =queryset.tag +","+str(username)+",coogger "+str(username)+",coogger "+queryset.category+", "+ \
-         queryset.title+",coogger "+queryset.subcategory+",coogger "+queryset.category2,
+        keywords = queryset.tag +","+str(username)+",coogger "+str(username)+",coogger "+queryset.category+", "+queryset.title+",coogger ",
         description = "coogger "+str(username)+" "+queryset.category+" "+queryset.title
     )
     output = dict(

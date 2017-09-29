@@ -11,7 +11,7 @@ class BlogAdmin(admin.ModelAdmin):
     list_filter = ["category","time"]
     search_fields = ["category","title","tag","text"]
     prepopulated_fields = {"url":("title",)}
-    fields = ("username",("category","subcategory","category2"),("title","url"),"content","tag")
+    fields = (("username","content_list"),("category","subcategory","category2"),("title","url"),"content","tag")
 
     class Media:
         js = ("js/my-admin-content.js",)

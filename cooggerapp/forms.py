@@ -11,4 +11,4 @@ class CommentForm(ModelForm):
 class ContentForm(ModelForm):
     class Meta:
         model = Blog 
-        fields = ["category","subcategory","category2","title","content","tag"]
+        fields = ["content_list","category","subcategory","category2","title","content","tag"]

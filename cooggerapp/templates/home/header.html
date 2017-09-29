@@ -55,7 +55,11 @@
                 <a href="/control">Kontrol paneli</a>
             </div>
         </li>
-
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/@{{ request.user.username }}">@{{ request.user.username }}</a>
+            </div>
+        </li>
+        {% endif %}
     </ul>
-    {% endif %}
 </header>

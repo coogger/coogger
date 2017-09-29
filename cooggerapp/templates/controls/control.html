@@ -17,13 +17,16 @@
                 <a class="c-contents-li-a" href="/change/{{ content.id }}">{{ content.time }}</a>
             </li>
             <li class="c-contents-li">
-                <a class="c-contents-li-a " href="/change/{{ content.id }}">{{ content.category }}</a>
+                <a class="c-contents-li-a " href="/change/{{ content.id }}">| {{ content.category }}</a>
             </li>
             <li class="c-contents-li">
-                <a class="c-contents-li-a" href="/change/{{ content.id }}">{{ content.subcategory }}</a>
+                <a class="c-contents-li-a" href="/change/{{ content.id }}">| {{ content.subcategory }}</a>
             </li>
             <li class="c-contents-li">
-                <a class="c-contents-li-a " href="/change/{{ content.id }}">{{ content.category2 }}</a>
+                <a class="c-contents-li-a " href="/change/{{ content.id }}">| {{ content.category2 }}</a>
+            </li>
+            <li class="c-contents-li">
+                <a class="c-contents-li-a " href="/change/{{ content.id }}">| {{ content.content_list }}</a>
             </li>
             <li class="c-contents-li">
                 <a class="c-contents-li-a delete" data-delete-id="{{ content.id }}">Sil</a>

@@ -1,14 +1,10 @@
 <nav>
-    <div class="u-topic">{{username}} kullanıcısına ait konular</div>
+    <div class="u-topic">{{username}} kullanıcısına ait listeler</div>
     <ul class="u-main-nav">
+        {% for list in content_list %}
         <li class="u-nav-li">
-            <a class="u-nav-li-a" href="@{{username}}/Konu1">Konu1</a>
+            <a class="u-nav-li-a" href="@{{username}}/{{ list.content_list }}">{{ list.content_list }}</a>
         </li>
-        <li class="u-nav-li">
-            <a class="u-nav-li-a" href="@{{username}}/Konu2">Konu2</a>
-        </li>
-        <li class="u-nav-li">
-            <a class="u-nav-li-a" href="@{{username}}/Konu3">Konu3</a>
-        </li>
+        {% endfor %}
     </ul>
 </nav>
