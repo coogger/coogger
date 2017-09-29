@@ -271,3 +271,11 @@ li.c-contents-li {}
     display: flex;
     margin-top: 14%;
 }
+
+.author {
+    background-color: #8b1be6;
+    color: #fff;
+    border-radius: 4px;
+    padding: 12px;
+    text-decoration: none;
+}

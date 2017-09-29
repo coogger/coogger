@@ -2,11 +2,18 @@
 
 <body>
     {% endif %}
-
+    <div class="signup-blogger">
+        Sizi yazar olarak görmemize çok az kaldı</div>
     <div class="siteWrapper">
         <div class="logo ft-cl">
             <a class="logo-text" href="/">
-                <span style="color:#943322">c</span>oo<span style="color:#943322">gg</span>er.com
+                <span style="color:#8B1BE6">c</span>
+                <span class="animated infinite flash" style="color:#1BA5E6">o</span>
+                <span class="animated infinite flash" style="color:#D3C71D">o</span>
+                <span class="animated infinite flash" style="color:#1BA5E6">g</span>
+                <span class="animated infinite flash" style="color:#D3C71D">g</span>
+                <span style="color:#8B1BE6">e</span>
+                <span style="color:#8B1BE6">r</span>
             </a>
         </div>
         <div class="clearfix">
@@ -16,17 +23,7 @@
                     {% csrf_token %}
                     <li class="cx-li">
                         <div class="">
-                            <input class="cx-input" type="text" name="Name" value="" placeholder="Adınız">
-                        </div>
-                    </li>
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="text" name="Surname" value="" placeholder="Soyadınız">
-                        </div>
-                    </li>
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="text" name="EmailorPhone" value="" placeholder="E-posta / Telefon">
+                            <input class="cx-input" type="number" name="Phone" value="" placeholder="Telefon">
                         </div>
                     </li>
                     <li class="cx-li">
@@ -44,12 +41,7 @@
                             <input class="cx-input" type="password" name="Password" value="" placeholder="Şifre">
                         </div>
                     </li>
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="password" name="Confirm" value="" placeholder="Şifreyi tekrar girin">
-                        </div>
-                    </li>
-                    <input class="cx-submit-b" type="submit" value="Kayıt ol">
+                    <input class="cx-submit-b" type="submit" value="Başvuruyu tamamla">
                 </form>
             </ul>
         </div>

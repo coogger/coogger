@@ -1,2 +1,2 @@
 User-agent: * 
-Sitemap: http://coogger.com/sitemap.xml
+Sitemap: http://coogger.com/sitemab.xml

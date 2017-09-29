@@ -8,6 +8,9 @@ from cooggerapp.models import Author
 
 def mysignup(request): #kayıt ol
     if request.method == "GET":
+        if request.user.username:
+            ms.error(request,"Yeni hesap açma işlemi için önce çıkış yapmalısınız")
+            return HttpResponseRedirect("/")
         elastic_search = dict(
             title = "coogger | kayıt ol",
             keywords = "coogger,kayıt ol,coogger kayıt ol,kayıt,coogger kayıt,blog kayıt,blog yaz",
@@ -19,6 +22,9 @@ def mysignup(request): #kayıt ol
         )
         return render(request,"signup_or_login/sign.html",output)
     elif request.method == "POST":
+        if request.user.username:
+            ms.error(request,"Yeni hesap açma işlemi için önce çıkış yapmalısınız")
+            return HttpResponseRedirect("/")
         name = request.POST.get("Name")
         surname = request.POST.get("Surname")
         email=request.POST.get("EmailorPhone")
@@ -30,7 +36,6 @@ def mysignup(request): #kayıt ol
             return HttpResponseRedirect("/signup")
         user = User.objects.create_user(first_name=name,last_name=surname,email = email,username=username,password=password)
         user.is_active=True
-        user.is_staff=True
         user.save()
         user = authenticate(username=username, password=password)
         if user is not None:
@@ -39,7 +44,11 @@ def mysignup(request): #kayıt ol
             return HttpResponseRedirect("/")
 
 def mylogin(request): # giriş yap
+    username = request.user.username
     if request.method == "GET":
+        if username:
+            ms.error(request,"Başarıyla giriş yaptınız {}".format(username))
+            return HttpResponseRedirect("/")
         elastic_search = dict(
             title = "coogger | Giriş yap",
             keywords = "coogger,giriş yap,coogger giriş yap,giriş,login",
@@ -51,6 +60,9 @@ def mylogin(request): # giriş yap
         )
         return render(request,"signup_or_login/login.html",output)
     elif request.method == "POST":
+        if username:
+            ms.error(request,"ops {}".format(username))
+            return HttpResponseRedirect("/")
         username=request.POST.get("Username")
         password=request.POST.get("Password")
         user = authenticate(username=username, password=password)
@@ -62,36 +74,48 @@ def mylogin(request): # giriş yap
         return HttpResponseRedirect("/login")
 
 def mylogout(request): # çıkış
+    username = request.user.username
+    if not username:
+        ms.error(request,"ops !")
+        return HttpResponseRedirect("/")
     try:
         logout(request)
     except KeyError:
         ms.error(request,"Çıkış yapılırken beklenmedik hata oluştur")
+    ms.success(request,"Tekrar görüşmek üzere {}".format(username))
     return HttpResponseRedirect("/")
 
 def signup_author(request):
+    request_username = request.user.username
     if request.is_ajax():
+        if not request_username:
+            ms.error(request,"ops !")
+            return HttpResponseRedirect("/")
         return render(request,"signup_or_login/signup-blogger.html",{})
     elif request.method == "POST":
-        name = request.POST.get("Name")
-        surname = request.POST.get("Surname")
-        email=request.POST.get("EmailorPhone")
+        if not request_username:
+            ms.error(request,"ops !")
+            return HttpResponseRedirect("/")
+        phone=request.POST.get("Phone")
         iban = request.POST.get("Iban")
         username = request.POST.get("Username")
         password = request.POST.get("Password")
-        confirm = request.POST.get("Confirm")
-        check = check_user(request,username,password,confirm)
-        if not check:
-            return HttpResponseRedirect("/signup_author")
-        user = User.objects.create_user(first_name=name,last_name=surname,email = email,username=username,password=password)
-        user.is_active=True
-        user.save()
-        Author(user =user,iban=iban).save()
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            ms.success(request,"Başarılı bir şekilde kayıt oldunuz {}".format(username))
+        
+        if username != request_username:
+            ms.success(request,"Kullanıcı adınızı yanlış yazdınız")
             return HttpResponseRedirect("/")
+        user = authenticate(username=username, password=password)
+        if user is None:
+            ms.success(request,"Kullanıcı adınız ve şifreniz eşleşmedi")
+            return HttpResponseRedirect("/")
+        User.objects.filter(username = username).update(email = phone)   
+        Author(user = user,iban=iban).save()
+        ms.success(request,"Yazarlık başvurunuzu değerlendireceğiz bu genellikle 2-3 gün sürer {}".format(username))
+        return HttpResponseRedirect("/")
     elif request.method == "GET":
+        if not request_username:
+            ms.error(request,"ops !")
+            return HttpResponseRedirect("/")
         elastic_search = dict(
             title = "coogger | kayıt ol",
             keywords = "coogger,kayıt ol,coogger kayıt ol,kayıt,coogger kayıt,blog kayıt,blog yaz",

@@ -8,11 +8,13 @@ from cooggerapp.views import tools
 def main_detail(request,blog_path):
     "blogların detail kısmı "
     queryset = Blog.objects.filter(url = blog_path)[0]
+    username = queryset.username
     category = tools.Topics().category
     elastic_search = dict(
-        title = "coogger | "+queryset.title,
-        keywords =queryset.tag +",coogger "+str(queryset.username)+",coogger "+queryset.category+", "+queryset.title,
-        description = "coogger "+str(queryset.username)+" "+queryset.category+" "+queryset.title
+        title = username+" | "+queryset.title+" | coogger",
+        keywords =queryset.tag +","+str(username)+",coogger "+str(username)+",coogger "+queryset.category+", "+ \
+         queryset.title+",coogger "+queryset.subcategory+",coogger "+queryset.category2,
+        description = "coogger "+str(username)+" "+queryset.category+" "+queryset.title
     )
     output = dict(
         detail = queryset,

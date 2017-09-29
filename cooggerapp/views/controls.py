@@ -38,7 +38,7 @@ def create(request):
         title = str(title).lower().replace(" ","-")
         for t,e in zip(tr,en):
             title = title.replace(t,e)
-        url = title
+        url = username+"-"+title
         content.url = url
         content.save()
         return HttpResponseRedirect("/blogs/"+url)
