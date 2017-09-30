@@ -22,7 +22,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
 
 class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
     username = models.CharField(max_length=37)
-    content_list = models.SlugField(unique = True,max_length=30,verbose_name ="İçerik listeniz")
+    content_list = models.SlugField(max_length=30,verbose_name ="İçerik listeniz")
     content_count = models.IntegerField(verbose_name = "liste içindeki nesne sayısı")
 
 class Author(models.Model):

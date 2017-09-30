@@ -34,7 +34,11 @@ def mysignup(request): #kayıt ol
         check = check_user(request,username,password,confirm)
         if not check:
             return HttpResponseRedirect("/signup")
-        user = User.objects.create_user(first_name=name,last_name=surname,email = email,username=username,password=password)
+        try:
+            user = User.objects.create_user(first_name=name,last_name=surname,email = email,username=username,password=password)
+        except:
+            ms.error(request,"Bu kullanıcı ismi alınmış, farklı bir kullanıcı ismi ile kayıt olmayı deneyin")
+            return HttpResponseRedirect("/signup")
         user.is_active=True
         user.save()
         user = authenticate(username=username, password=password)

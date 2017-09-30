@@ -279,3 +279,31 @@ li.c-contents-li {}
     padding: 12px;
     text-decoration: none;
 }
+
+.pagination {
+    position: relative;
+    width: max-content;
+    padding: 30px 10px 30px 10px;
+    margin: auto;
+}
+
+.current {
+    padding: 6px;
+    border: 1px solid #f1f1f1;
+    background: rgb(0, 0, 0);
+    color: #fff;
+    border-radius: 6px;
+    margin-right: 14px;
+}
+
+.step-links-a {
+    padding: 6px;
+    color: #fff;
+    background: blue;
+    border: 1px solid #f1f1f1;
+    border-radius: 6px;
+}
+
+a {
+    text-decoration: none;
+}
