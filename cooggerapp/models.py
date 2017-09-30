@@ -29,7 +29,7 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     iban = models.CharField(max_length=24)
 
-# ------------------------------------
+"""# ------------------------------------
 class Comment(models.Model): # yapılan yorumlar
     username = models.CharField(max_length=100)
     url = models.SlugField(unique = True ,max_length=100)
@@ -50,4 +50,4 @@ class Bookmark(models.Model): # beğendiği yazıları daha sonra okuması için
     username = models.CharField(max_length=100)
     url = models.SlugField(unique = True ,max_length=100)
     time = models.DateTimeField(default=timezone.now) # tarih bilgisi 
-
+"""
