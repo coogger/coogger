@@ -51,7 +51,7 @@ $(document).ready(function() {
             filter: "blur(3px)",
         });
         var dor = this.getAttribute("data-dor");
-        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi  " + dor + "</li></ul></div>");
+        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi  " + dor + " dakika</li></ul></div>");
     });
     $(".b-content").mouseout(function() {
         $(".blog-cont").css({
