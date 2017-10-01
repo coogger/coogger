@@ -1,32 +1,54 @@
-<div class="blog-cards" style="width:95%;margin: auto;float: none;height:auto">
-    <div class="blog-user">
-        <div class="blog-user-profil">
-            <div class="blog-username">
-                <a class="blog-username-a" href='/@{{ detail.username }}'>{{ detail.username }}</a>
-                <a class="blog-username-a" href='/@{{ detail.username }}/{{ detail.content_list }}'>| {{ detail.content_list }}</a>
+<div class="b-user-info">
+    <ul class="blog-user">
+        <ul class="b-user-ul">
+            <li class="b-user-ul-li">
+                <div class="b-user-img">
+                    <img class="b-user-img-src" src="/media/users/pp/pp-{{ detail.username }}.jpg">
+                </div>
+            </li>
+            <li class="b-user-ul-li">
+                <div class="blog-username ">
+                    <a class="blog-username-a" href='/@{{ detail.username }}'>@{{ detail.username }}</a>
+                </div>
+            </li>
+        </ul>
+        <li class="blog-user-li">
+            <div class="blog-content-list-name ">
+                <a class="blog-username-a" href='/@{{ detail.username }}/{{ detail.content_list }}'>#{{ detail.content_list }}</a>
             </div>
-            <div class="blog-time ft-dn">
-                {{ detail.time }}
-            </div>
-        </div>
-        <div class="blog-user-description"></div>
+        </li>
+    </ul>
+</div>
+
+<div class="b-content-info">
+    <div class="blog-time ft-dn">
+        <span>Tahmini okuma süresi {{ detail.dor }}</span>
+        <div></div>
+        <span>{{ detail.time }} | </span><span> {{ detail.time|timesince }} önce</span>
     </div>
-    <div class="blog-category">
-        <a class="blog-category-a" href='/topic/{{ detail.category }}'>{{ detail.category }}</a> {% if detail.subcategory != None %}
-        <div class="blog-subcategory">
-            {% if detail.category2 != None %}
-            <a class="blog-subcategory-a" href='/topic/{{ detail.subcategory }}'>{{ detail.subcategory }}</a>
-            <div class="blog-category2">
-                <a class="blog-category2-a" href='/topic/{{ detail.category2 }}'>{{ detail.category2 }}</a>
-            </div>
-            {%endif%}
-        </div>
+
+    <ul class="blog-category ft-os">
+        <li class="blog-category-li">
+            <a class="blog-category-a" href='/topic/{{ detail.category }}'>{{ detail.category|title }}</a>
+        </li>
+        {% if detail.subcategory != None %}
+        <li class="blog-category-li">
+            <a class="blog-subcategory-a" href='/topic/{{ detail.subcategory }}'>{{ detail.subcategory|title }}</a>
+        </li>
+        {% endif %} {% if detail.category2 != None %}
+        <li class="blog-category-li">
+            <a class="blog-category2-a" href='/topic/{{ detail.category2 }}'>{{ detail.category2|title }}</a>
+        </li>
         {%endif%}
+    </ul>
+
+    <div class="blog-title ft-ns" style="font-size: 30px;">
+        {{ detail.title|title }}
     </div>
-    <div class="blog-cont" style="height:auto">
-        <div class="blog-title">
-            <a class="blog-title-a" href='/{{ detail.url }}'>{{ detail.title }}</a>
-        </div>
-        <div class="blog-content" style="overflow:auto;height: auto;">{{ detail.content|safe }}</div>
+</div>
+
+<div>
+    <div class="blog-cont">
+        <div class="blog-content ft-ct" style="height:100%;">{{ detail.content|safe }}</div>
     </div>
 </div>

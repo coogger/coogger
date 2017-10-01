@@ -1,6 +1,7 @@
 from cooggerapp.blog_topics import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from bs4 import BeautifulSoup
 
 class Topics():
     def __init__(self):
@@ -56,3 +57,13 @@ def seo(request):
     "arama motoru optimizasyonu için robot.txt ve site haritası"
     file = request.get_full_path()
     return render(request,"seo/"+file,{})
+
+def durationofread(text):
+    reading_speed = 20 # 1 saniyede 20 harf okuyorum
+    read_content = BeautifulSoup(text, 'html.parser').get_text().replace(" ","")
+    how_much_words = len(read_content)
+    words_time = float((how_much_words/reading_speed)/60)
+    return (str(words_time)[:3])
+
+
+    

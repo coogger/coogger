@@ -46,4 +46,17 @@ $(document).ready(function() {
     $(".close-ms").click(function() {
         $(".main-messages").remove();
     })
+    $(".b-content").mouseover(function() {
+        $(this).find(".blog-cont").css({
+            filter: "blur(3px)",
+        });
+        var dor = this.getAttribute("data-dor");
+        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi  " + dor + "</li></ul></div>");
+    });
+    $(".b-content").mouseout(function() {
+        $(".blog-cont").css({
+            filter: "blur(0px)",
+        });
+        $(".duread-main").remove();
+    });
 });

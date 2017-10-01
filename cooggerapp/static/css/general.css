@@ -30,7 +30,7 @@ body {
     width: 0px;
     margin: auto;
     display: table;
-    margin-bottom: 40px;
+    margin-bottom: 80px;
     border-radius: 4px;
 }
 
@@ -39,10 +39,11 @@ body {
     background-color: rgb(255, 255, 255);
     width: 70%;
     margin: auto;
-    padding: 12px 0px 30px 0px;
+    padding: 24px 12px;
     border: 1px solid #f1f1f1;
     border-radius: 4px;
-    box-shadow: 0px 0px 1px 0px #f1f1f1;
+    box-shadow: 0px 0px 2px 0px #000000;
+    margin-bottom: 100px;
 }
 
 .ft-cl {
@@ -99,6 +100,7 @@ body {
     width: max-content;
     padding: 30px 10px 30px 10px;
     margin: auto;
+    margin-bottom: 60px;
 }
 
 .step-links {}
@@ -124,29 +126,46 @@ body {
     float: left;
     width: 280px;
     height: 420px;
-    border: 1px solid rgba(0, 0, 0, 0.04);
     border-radius: 4px;
     padding: 6px;
     background-color: #fff;
     margin: 6px;
     box-shadow: 0px 0px 2px 0px #000000;
+    border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .blog-user {
-    padding-bottom: 6px;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.blog-user-li {
+    max-width: 280px;
+    float: right;
 }
 
 .blog-user-profil {}
 
 .blog-username {
     font-size: 12px;
-    color: #ffffff;
-    border: 1px solid;
-    max-width: 150px;
-    padding: 4px 6px 4px 6px;
+    text-align: center;
+    width: 216px;
+    padding: 4px 6px;
     border-radius: 6px;
-    float: left;
-    margin-left: 6px;
+    overflow: hidden;
+    background: rgb(158, 97, 255);
+    text-overflow: ellipsis;
+    margin: 10px 0px 0px 12px;
+    white-space: nowrap;
+}
+
+.blog-content-list-name {
+    font-size: 12px;
+    padding: 4px 6px;
+    text-align: center;
+    width: max-content;
+    border-radius: 6px;
     overflow: hidden;
     background: rgb(158, 97, 255);
     text-overflow: ellipsis;
@@ -156,40 +175,40 @@ body {
 .blog-user-description {}
 
 .blog-category {
-    width: 280px;
-    height: 60px;
+    width: max-content;
     font-size: 14px;
-    padding-top: 24px;
     text-align: center;
     margin: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    list-style: none;
+    padding: 6px 0px;
 }
 
-.blog-subcategory {
-    border-top: 1px solid #9e61ff;
-}
-
-.blog-category2 {
-    border-top: 1px solid #9e61ff;
+.blog-category-li {
+    border-bottom: 1px solid #9e61ff;
+    padding: 0px 12px;
 }
 
 .blog-cont {
-    width: 90%;
+    position: relative;
     margin: auto;
+    width: 90%;
+    z-index: 2;
 }
 
 .blog-title {
-    text-align: center;
-    width: 90%;
-    height: 16px;
-    padding: 4px;
-    overflow: hidden;
     margin: auto;
-    border: 1px solid #9e61ff;
-    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 16px;
+}
+
+.blog-title-a {
+    font-weight: 900;
 }
 
 a {
@@ -199,11 +218,8 @@ a {
 }
 
 .blog-content {
-    margin: auto;
-    height: 280px;
-    width: 100%;
+    height: 240px;
     overflow: hidden;
-    word-wrap: break-word;
 }
 
 .blog-username-a {
@@ -216,8 +232,13 @@ a {
 }
 
 .blog-time {
-    float: right;
     font-size: 12px;
+    background-color: rgba(0, 0, 0, 0.50);
+    color: #fff;
+    border-radius: 4px;
+    width: max-content;
+    text-align: center;
+    padding: 2px 22px;
 }
 
 header {
@@ -383,8 +404,8 @@ nav {
     overflow: auto;
     z-index: 1;
     height: 42px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     background-color: rgb(255, 255, 255);
 }
 
@@ -401,8 +422,7 @@ nav {
 }
 
 .nav-ul-li {
-    margin: 1px;
-    padding: 10px;
+    padding: 10px 0px;
     background: #ffffff;
     float: left;
     border-radius: 2px;
@@ -410,11 +430,12 @@ nav {
 
 .nav-ul-li-a {
     color: #000;
-    padding: 12px 0px;
+    padding: 12px 12px;
 }
 
-.nav-ul-li:hover {
+.nav-ul-li-a:hover {
     background-color: #30b55c;
+    color: #fff;
 }
 
 .nav-topic {
@@ -447,6 +468,62 @@ nav {
 
 .maindiv {
     filter: blur(2px);
+}
+
+.b-content {}
+
+.b-content-info {
+    margin-top: 30px;
+}
+
+.b-user-info {}
+
+.b-user-img {
+    width: 40px;
+    height: 40px;
+}
+
+.b-user-img-src {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+}
+
+.b-user-ul-li {
+    float: left;
+}
+
+.b-user-ul {
+    list-style: none;
+    margin: auto;
+    padding: 0px;
+    height: 42px;
+}
+
+.duread-main {
+    position: relative;
+    bottom: 210px;
+    z-index: 1;
+    width: 280px;
+    height: 200px;
+}
+
+.duread-ul {
+    padding: 0px;
+    list-style: none;
+}
+
+.duread-li {
+    text-align: center;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.50);
+    color: #fff;
+    padding: 4px 0px;
+    border-radius: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 4px;
+    white-space: nowrap;
 }
 
 @media only screen and (max-width: 606px) {

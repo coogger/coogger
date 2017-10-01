@@ -43,8 +43,10 @@ def create(request):
         content.username = request_username
         content_list = slugify(request.POST["content_list"])
         content.content_list = content_list
-        url = slugify(content.title)
+        title = content.title
+        url = slugify(title)
         content.url = "@"+request_username+"/"+content_list+"/blog/"+url
+        content.dor = tools.durationofread(content.content+title)
         try:
             content_list_save = ContentList.objects.filter(username = request_username,content_list = content_list)[0]
             content_list_save.content_count = F("content_count")+1
@@ -85,8 +87,10 @@ def change(request,content_id):
         content_list = str(slugify(request.POST["content_list"]))
         content.content_list = content_list
         content.time = queryset.time
-        url = slugify(content.title)
-        content.url = "@"+real_username+"/"+content_list+"/blog/"+url  
+        title = content.title
+        url = slugify(title)
+        content.url = "@"+real_username+"/"+content_list+"/blog/"+url 
+        content.dor = tools.durationofread(content.content+title) 
         content.save()
         if content_list != old_content_list: # content_list değişmiş ise
             try:
