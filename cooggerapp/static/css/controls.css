@@ -103,17 +103,14 @@ nav {
 }
 
 .c-main {
-    width: 90%;
+    width: 80%;
     margin: auto;
-    border: 1px solid #000000;
-    border-radius: 4px;
     display: flex;
-    padding: 30px 0px;
 }
 
 .c-contents {
     margin: auto;
-    width: 91%;
+    width: 100%;
 }
 
 .c-contents-ul {
@@ -124,8 +121,8 @@ nav {
 .c-contents-li {
     list-style: none;
     float: left;
-    border-bottom: 1px solid #707eff;
-    padding: 12px 0px;
+    border-bottom: 1px solid #676767;
+    padding: 8px 0px;
 }
 
 li.c-contents-li {}
@@ -135,14 +132,12 @@ li.c-contents-li {}
     text-decoration: none;
     color: #000000;
     text-align: center;
-    padding: 12px 30px;
+    padding: 7px 26px;
 }
 
 .c-contents-div {
     width: 100%;
     text-align: center;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #30b55c;
 }
 
 .c-contents-div-a {

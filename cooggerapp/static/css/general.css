@@ -123,7 +123,6 @@ body {
 }
 
 .blog-cards {
-    float: left;
     width: 280px;
     height: 420px;
     border-radius: 4px;
@@ -257,6 +256,7 @@ header {
     height: 52px;
     width: 40%;
     text-align: center;
+    display: none;
     color: #fff;
     border: 1px solid #f1f1f1;
     left: 30%;
@@ -526,10 +526,55 @@ nav {
     white-space: nowrap;
 }
 
+.b-edit {
+    width: 292px;
+    margin: auto;
+    height: 20px;
+}
+
+.b-edit-ul {
+    list-style: none;
+    padding: 0px;
+    height: 20px;
+    margin: 0px;
+    display: none;
+}
+
+.b-edit-li {
+    float: left;
+    /* padding: 2px 0px; */
+    /* margin: 0px 14px; */
+}
+
+.b-edit-li-a {
+    padding: 2px 38px;
+    margin: 0px;
+    background-color: #3f4a46;
+    border-radius: 40px;
+    color: #fff;
+}
+
+.b-blog {
+    float: left;
+}
+
+.b-edit-point {
+    float: right;
+    color: #fff;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.border {
+    border-bottom: 1px solid #484545;
+    margin-bottom: 6px;
+    height: 0px;
+    width: 14px;
+}
+
 @media only screen and (max-width: 606px) {
     .datail {
-        width: 99%;
-        top: 110px;
+        width: 90%;
     }
     .open-header {
         display: block;

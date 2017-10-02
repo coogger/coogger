@@ -59,4 +59,17 @@ $(document).ready(function() {
         });
         $(".duread-main").remove();
     });
+    $(".delete").click(function() {
+        var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
+        if (conf) {
+            var delete_id = this.getAttribute("data-delete-id");
+            $(".error").load("/delete/" + delete_id);
+            $(".main-messages").css({ display: "block" });
+            $(".id-" + delete_id).remove();
+        }
+    });
+    $(".b-edit-point").click(function() {
+        var data_edit_id = this.getAttribute("data-edit-id");
+        $(".data-edit-id-" + data_edit_id).toggle("fast");
+    });
 });
