@@ -1,4 +1,4 @@
-{% for blo in blog %}
+{% for blo,pp in blog %}
 <div class="b-blog">
 
     <div class="b-edit">
@@ -25,7 +25,9 @@
                 <ul class="b-user-ul">
                     <li class="b-user-ul-li">
                         <div class="b-user-img">
-                            <img class="b-user-img-src" src="/media/users/pp/pp-{{ blo.username }}.jpg">
+                            {% if pp %}
+                            <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ blo.username }}.jpg" /> {% else %}
+                            <img class="b-user-img-src" src="/static/media/profil.png" /> {% endif %}
                         </div>
                     </li>
                     <li class="b-user-ul-li">

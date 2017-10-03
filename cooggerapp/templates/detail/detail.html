@@ -3,7 +3,9 @@
         <ul class="b-user-ul">
             <li class="b-user-ul-li">
                 <div class="b-user-img">
-                    <img class="b-user-img-src" src="/media/users/pp/pp-{{ detail.username }}.jpg">
+                    {% if pp %}
+                    <img class="b-user-img-src" alt='{{ detail.username }}' src="/media/users/pp/pp-{{ detail.username }}.jpg"> {% else %}
+                    <img class="b-user-img-src" src="/static/media/profil.png" /> {% endif %}
                 </div>
             </li>
             <li class="b-user-ul-li">

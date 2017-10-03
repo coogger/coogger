@@ -7,10 +7,12 @@
             <a class="c-nav-li-a create" href="/create">İçerik oluştur</a>
         </li>
         <li class="c-nav-li">
-            <a class="c-nav-li-a" href="/control">Kontrol panel</a>
+            <a class="c-nav-li-a" href="/control">Kontrol paneli</a>
         </li>
+        {% if not request.user.author.author %}
         <li class="c-nav-li">
             <a class="c-nav-li-a author" href="/signup-author">Yazarlık başvurusu</a>
         </li>
+        {% endif %}
     </ul>
 </nav>

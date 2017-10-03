@@ -12,11 +12,15 @@ def home(request):
     queryset = Blog.objects.all()
     username = request.user.username
     blogs = tools.paginator(request,queryset)
+    paginator = blogs
+    pp = tools.get_pp(blogs)
+    blogs = zip(blogs,pp)
     category = tools.Topics().category
     output = dict(
         blog = blogs,
         topics_category = category,
         general = True,
         username = username,
+        paginator = paginator,
     )
     return render(request,"blog/blogs.html",output)

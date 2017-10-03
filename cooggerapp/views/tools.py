@@ -2,6 +2,9 @@ from cooggerapp.blog_topics import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from bs4 import BeautifulSoup
+from django.contrib.auth.models import User
+from cooggerapp import models
+
 
 class Topics():
     def __init__(self):
@@ -65,5 +68,11 @@ def durationofread(text):
     words_time = float((how_much_words/reading_speed)/60)
     return (str(words_time)[:3])
 
-
+def get_pp(queryset):
+    pp = []
+    for p in queryset:
+        user_id = User.objects.filter(username = p.username)[0].id
+        is_pp = models.Author.objects.filter(user_id = user_id)[0].pp
+        pp.append(is_pp)
+    return pp
     

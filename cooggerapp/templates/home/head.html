@@ -4,7 +4,6 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="author" content="Hakan Çelik | hakancelik96@outlook.com | cooggerweb@gmail.com" /> {% if elastic_search.title %}
     <title>{{ elastic_search.title }}</title>
     <meta property="og:title" content="{{ elastic_search.title }}" />
@@ -68,7 +67,7 @@
     </script>
     <script src=" {% static 'js/jquery.js' %}"></script>
     <script src=" {% static 'js/jquery.touchSwipe.js' %}"></script>
-    <link href="https://fonts.googleapis.com/css?family=Dosis|Lobster+Two|Roboto+Condensed|Roboto|Quicksand|Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/fonts.css">
     <link href="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
     <script src="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
     <script>
@@ -101,8 +100,8 @@
 
 <body onload="loader()">
     {% if messages %} {% include 'home/ms.html' %} {% endif %}
-    <div class="main-messages ft-io">
-        <li class="close-ms">x</li>
+    <div class="main-messages ft-io" style="display:none">
+        <span class="close-ms">x</span>
         <ul class="messages">
             <li class="error"></li>
         </ul>

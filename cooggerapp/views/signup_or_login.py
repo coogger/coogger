@@ -27,7 +27,7 @@ def mysignup(request): #kayıt ol
             return HttpResponseRedirect("/")
         name = request.POST.get("Name")
         surname = request.POST.get("Surname")
-        email=request.POST.get("EmailorPhone")
+        email=request.POST.get("Email")
         username=request.POST.get("Username")
         password=request.POST.get("Password")
         confirm=request.POST.get("Confirm")
@@ -41,6 +41,8 @@ def mysignup(request): #kayıt ol
             return HttpResponseRedirect("/signup")
         user.is_active=True
         user.save()
+        user = authenticate(username=username)
+        Author(user = user,pp=False,is_author=False,author=False).save()
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
@@ -104,7 +106,6 @@ def signup_author(request):
         iban = request.POST.get("Iban")
         username = request.POST.get("Username")
         password = request.POST.get("Password")
-        
         if username != request_username:
             ms.success(request,"Kullanıcı adınızı yanlış yazdınız")
             return HttpResponseRedirect("/")
@@ -112,8 +113,7 @@ def signup_author(request):
         if user is None:
             ms.success(request,"Kullanıcı adınız ve şifreniz eşleşmedi")
             return HttpResponseRedirect("/")
-        User.objects.filter(username = username).update(email = phone)   
-        Author(user = user,iban=iban).save()
+        Author.objects.filter(user = user).update(iban = iban,phone = phone,author = True)
         ms.success(request,"Yazarlık başvurunuzu değerlendireceğiz bu genellikle 2-3 gün sürer {}".format(username))
         return HttpResponseRedirect("/")
     elif request.method == "GET":
@@ -121,8 +121,8 @@ def signup_author(request):
             ms.error(request,"ops !")
             return HttpResponseRedirect("/")
         user_id = User.objects.filter(username = request_username)[0].id
-        is_iban = Author.objects.filter(user_id = user_id)
-        if is_iban.exists():
+        is_done_author = Author.objects.filter(user_id = user_id)[0].author # yazarlık başvurusu yapmışmı
+        if is_done_author:
             ms.error(request,"Yazarlık başvurunuzu daha önceden almıştık, değerlendirme süreci bitiminde sizinle iletişime geçeceğiz")
             return HttpResponseRedirect("/control")
         elastic_search = dict(

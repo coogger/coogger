@@ -56,7 +56,7 @@ header {
 
 .u-username {
     text-overflow: ellipsis;
-    font-size: 46px;
+    font-size: 26px;
     white-space: nowrap;
     overflow: hidden;
     margin: auto;
@@ -75,8 +75,8 @@ header {
 }
 
 .u-pp-img {
-    width: 150px;
-    max-height: 220px;
+    width: 120px;
+    max-height: 120px;
     border-radius: 120px 16px;
 }
 
@@ -202,7 +202,7 @@ nav {
     padding: 0px 6px 0px 6px;
 }
 
-.main-messages {
+. {
     position: relative;
     height: 52px;
     width: 40%;

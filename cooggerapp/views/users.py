@@ -11,21 +11,20 @@ import os
 
 def user(request,username): 
     "herhangi kullanıcının anasayfası"
-    pp = False
-    if os.path.exists(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg"):
-        pp = True
     content_list = ContentList.objects.filter(username = username)
-    user_info = User.objects.filter(username = username)[0]
+    user = User.objects.filter(username = username)
+    pp = Author.objects.filter(user = user)[0].pp
+    user_info = user[0]
     elastic_search = dict(
      title = username+" | coogger",
-     keywords ="coogger "+username+","+username+","+user_info.first_name+","+user_info.last_name+","+user_info.first_name+","+user_info.last_name,
+     keywords ="coogger "+username+","+username+","+user_info.first_name+","+user_info.last_name+","+user_info.first_name+" "+user_info.last_name,
      description =user_info.first_name+" | "+user_info.last_name+" ,"+username+" adı ile coogger'da"
     )
 
     output = dict(
         users = True,
-        username = username,
         pp = pp,
+        username = username,
         content_list = content_list,
         elastic_search = elastic_search,
     )
@@ -33,21 +32,23 @@ def user(request,username):
 
 def upload_pp(request):
     "kullanıcılar profil resmini  değiştirmeleri için"
-    username = request.user.username
+    request_username = request.user.username
     if request.method == "POST":
         try:
             image=request.FILES['u-upload-pp']
         except:
             ms.error(request,"Dosya alma sırasında bir sorun oluştu")
-            return HttpResponseRedirect("/@"+username)
+            return HttpResponseRedirect("/@"+request_username)
 
-        with open(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg",'wb+') as destination:
+        with open(os.getcwd()+"/media/users/pp/pp-"+request_username+".jpg",'wb+') as destination:
             for chunk in image.chunks():
                 destination.write(chunk)
-        im = Image.open(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg")
+        im = Image.open(os.getcwd()+"/media/users/pp/pp-"+request_username+".jpg")
         im.thumbnail((150,150))
-        im.save(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg", "JPEG")
-        return HttpResponseRedirect("/@"+username)
+        im.save(os.getcwd()+"/media/users/pp/pp-"+request_username+".jpg", "JPEG")
+        user_id = User.objects.filter(username = request_username)[0].id
+        Author.objects.filter(user_id = user_id).update(pp = True)
+        return HttpResponseRedirect("/@"+request_username)
 
 def u_topic(request,username,utopic):
     "kullanıcıların kendi hesaplarında açmış olduğu konulara yönlendirme"
@@ -57,6 +58,9 @@ def u_topic(request,username,utopic):
         ms.error(request,"{} adlı kullanıcı nın {} adlı bir yazı listesi yoktur".format(username,utopic))
         return HttpResponseRedirect("/")
     blogs = tools.paginator(request,queryset)
+    paginator = blogs
+    pp = tools.get_pp(logs)
+    blogs = zip(blogs,pp)
     category = tools.Topics().category
 
     elastic_search = dict(
@@ -68,6 +72,7 @@ def u_topic(request,username,utopic):
         blog = blogs,
         topics_category = category,
         general = True,
+        paginator = paginator,
         username = username,
         elastic_search = elastic_search,
     )

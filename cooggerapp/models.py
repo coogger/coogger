@@ -28,7 +28,11 @@ class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    iban = models.CharField(max_length=24)
+    iban = models.CharField(blank=True, null=True,max_length=24,verbose_name = "iban numarası")
+    pp = models.BooleanField(blank=True,verbose_name = "profil resmi yüklemiş mi ?") # profil resmi yüklemişmi
+    is_author = models.BooleanField(blank=True,verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
+    author = models.BooleanField(blank=True,verbose_name = "yazarlık başvurusu yaptımı") # yazar başvurusu yaptımı ?
+    phone = models.CharField(blank=True, null=True,max_length=11,verbose_name = "telefon numarası")
 
 """# ------------------------------------
 class Comment(models.Model): # yapılan yorumlar

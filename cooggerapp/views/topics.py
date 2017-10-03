@@ -25,6 +25,9 @@ def topic(request,topic):
         ms.error(request,"Bu konu altında henuz bir şey paylaşılmamış")
         return HttpResponseRedirect("/")
     blogs = tools.paginator(request,queryset)
+    paginator = blogs
+    pp = tools.get_pp(blogs)
+    blogs = zip(blogs,pp)
     elastic_search = dict(
      title = "coogger | "+topic,
      keywords = "coogger,konu,"+topic+",topic,"+"coogger "+topic,
@@ -35,5 +38,6 @@ def topic(request,topic):
         topics_category = top.category,
         elastic_search = elastic_search,
         general = True,
+        paginator = paginator,
     )
     return render(request,"blog/blogs.html",output)
