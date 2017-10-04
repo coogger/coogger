@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("header").mouseover(function() {
+    $(".u-i").mouseover(function() {
         $(".uploadform").css({ display: "block" });
     }).mouseout(function() {
         $(".uploadform").css({ display: "none" });

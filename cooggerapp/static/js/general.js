@@ -33,13 +33,7 @@ $(document).ready(function() {
         });
     } else { // mobil ise
         $(".open-header").click(function() {
-            if ($("header").height() == "0") {
-                $("header").animate({ height: "330px" });
-                $("header").css("display", "block");
-            } else {
-                $("header").animate({ height: "0px" });
-                $("header").css("display", "none");
-            }
+            $("header").toggle("fast");
         });
     }
     // her zaman

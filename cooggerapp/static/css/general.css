@@ -11,7 +11,7 @@ body {
     width: 100%;
     margin: 0px;
     padding: 0;
-    background: #fff;
+    background: #ececec;
 }
 
 .main-blog-cards {
@@ -25,13 +25,13 @@ body {
     position: relative;
     padding-bottom: 4px;
     height: -webkit-fill-available;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    background-color: rgb(255, 255, 255);
+    background-color: #ececec;
     width: 0px;
     margin: auto;
     display: table;
     margin-bottom: 80px;
     border-radius: 4px;
+    box-shadow: 0px 0px 2px 0px #c5c5c5;
 }
 
 .datail {
@@ -107,19 +107,17 @@ body {
 
 .current {
     padding: 6px;
-    border: 1px solid #f1f1f1;
     background: rgb(0, 0, 0);
     color: #fff;
-    border-radius: 6px;
+    border-radius: 4px;
     margin-right: 14px;
 }
 
 .step-links-a {
-    padding: 6px;
+    padding: 6px 12px;
     color: #fff;
-    background: blue;
-    border: 1px solid #f1f1f1;
-    border-radius: 6px;
+    background: #248644;
+    border-radius: 4px;
 }
 
 .blog-cards {
@@ -129,8 +127,7 @@ body {
     padding: 6px;
     background-color: #fff;
     margin: 6px;
-    box-shadow: 0px 0px 2px 0px #000000;
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 1px 2px 1px #c5c5c5;
 }
 
 .blog-user {
@@ -153,7 +150,7 @@ body {
     padding: 4px 6px;
     border-radius: 6px;
     overflow: hidden;
-    background: rgb(158, 97, 255);
+    background: #0f391d;
     text-overflow: ellipsis;
     margin: 10px 0px 0px 12px;
     white-space: nowrap;
@@ -166,7 +163,7 @@ body {
     width: max-content;
     border-radius: 6px;
     overflow: hidden;
-    background: rgb(158, 97, 255);
+    background: #0f391d;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -185,10 +182,7 @@ body {
     padding: 6px 0px;
 }
 
-.blog-category-li {
-    border-bottom: 1px solid #9e61ff;
-    padding: 0px 12px;
-}
+.blog-category-li {}
 
 .blog-cont {
     position: relative;
@@ -232,23 +226,15 @@ a {
 
 .blog-time {
     font-size: 12px;
-    background-color: rgba(0, 0, 0, 0.50);
-    color: #fff;
     border-radius: 4px;
-    width: max-content;
     text-align: center;
-    padding: 2px 22px;
+    margin: auto;
+    padding: 2px 6px;
+    border: 1px solid #0f391d;
 }
 
 header {
-    position: relative;
-    padding-top: 50px;
-    height: 60px;
-    background-color: rgb(48, 181, 92);
-    border: #fafafa;
-    box-shadow: 1px 1px 3px 0px #f1f1f1;
-    margin: auto;
-    border-radius: 4px;
+    background-color: #0f391d;
 }
 
 .main-messages {
@@ -259,32 +245,27 @@ header {
     color: #fff;
     border: 1px solid #f1f1f1;
     left: 30%;
-    background-color: rgb(241, 57, 57);
+    background-color: #cd0e0e;
     border-radius: 4px;
 }
 
 .bt-header {
     position: relative;
-    left: 0px;
     z-index: 2;
-    background: #ffffff;
-    width: 100%;
-    float: left;
-    height: 54px;
+    width: max-content;
 }
 
 .logo {
     background-color: #ffffff;
-    border-radius: 4px;
-    padding: 10px;
+    border-radius: 2px;
+    padding: 10px 12px;
     float: left;
-    margin-top: 2px;
-    margin-left: 10px;
+    margin: 10px 0px 10px 4px;
 }
 
 .logo-a {
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     padding: 0px 6px 0px 6px;
 }
@@ -307,20 +288,20 @@ header {
 }
 
 .search-button {
-    background-color: rgb(112, 126, 255);
-    padding: 6px 15px 7px 15px;
-    border: 0px solid blue;
+    background-color: transparent;
+    padding: 7px 12px;
     border-radius: 4px;
     color: #fff;
     cursor: pointer;
+    border: 0px solid;
+    font-size: 16px;
 }
 
 .solol {
     position: relative;
-    background-color: #30b55c;
+    background-color: transparent;
     width: 100px;
     padding: 10px;
-    border-right: 1px solid #999;
     text-align: center;
     margin-top: 10px;
     margin-left: 10px;
@@ -343,17 +324,16 @@ header {
 }
 
 .open-header {
-    width: 60px;
-    padding: 4px;
-    float: right;
-    margin: 8px;
     display: none;
+    right: 0px;
+    float: right;
+    padding: 2px 12px;
 }
 
 .open-header-border {
-    border-bottom: 1px solid #000;
-    margin-bottom: 13px;
-    width: 30px;
+    border-bottom: 10px solid #248644;
+    margin-bottom: 2px;
+    width: 6px;
 }
 
 .logo-img {
@@ -405,26 +385,20 @@ nav {
     height: 60px;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color: transparent;
 }
 
 .main-nav {
-    position: relative;
     width: max-content;
-    height: 40px;
     list-style-type: none;
     padding: 0px;
     margin: auto;
     overflow: hidden;
-    background-color: #fff;
-    border: 1px solid #f1f1f1;
 }
 
 .nav-ul-li {
     padding: 10px 0px;
-    background: #ffffff;
     float: left;
-    border-radius: 2px;
 }
 
 .nav-ul-li-a {
@@ -433,19 +407,16 @@ nav {
 }
 
 .nav-ul-li-a:hover {
-    background-color: #30b55c;
+    background-color: #0f391d;
     color: #fff;
 }
 
 .nav-topic {
-    text-align: center;
     color: #fff;
-    background-color: rgb(48, 181, 92);
-    padding-bottom: 24px;
-    padding: 10px;
+    padding: 10px 16px;
     margin: 0px;
-    border: none;
     cursor: pointer;
+    background-color: #0f391d;
 }
 
 .preload {
@@ -475,7 +446,9 @@ nav {
     margin-top: 30px;
 }
 
-.b-user-info {}
+.b-user-info {
+    margin-top: 6px;
+}
 
 .b-user-img {
     width: 40px;
@@ -485,7 +458,7 @@ nav {
 .b-user-img-src {
     width: 40px;
     height: 40px;
-    border-radius: 40px;
+    border-radius: 6px;
 }
 
 .b-user-ul-li {
@@ -548,7 +521,7 @@ nav {
 .b-edit-li-a {
     padding: 2px 38px;
     margin: 0px;
-    background-color: #3f4a46;
+    background-color: #25644d;
     border-radius: 40px;
     color: #fff;
 }
@@ -562,13 +535,14 @@ nav {
     color: #fff;
     border-radius: 40px;
     cursor: pointer;
+    padding-top: 4px;
 }
 
 .border {
     border-bottom: 1px solid #484545;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     height: 0px;
-    width: 14px;
+    width: 12px;
 }
 
 @media only screen and (max-width: 606px) {
@@ -581,6 +555,8 @@ nav {
     header {
         height: 0px;
         padding-top: 10px;
+        height: 230px;
+        display: none;
     }
     .main-messages {
         width: 100%;

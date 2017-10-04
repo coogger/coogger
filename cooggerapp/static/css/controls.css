@@ -11,26 +11,19 @@ body {
     width: 100%;
     margin: 0px;
     padding: 0;
-    background: #fff;
+    background: #ececec;
 }
 
 header {
-    position: relative;
-    padding-top: 1px;
-    height: 52px;
-    background-color: rgb(48, 181, 92);
-    border: #fafafa;
-    box-shadow: 1px 1px 3px 0px #f1f1f1;
-    margin: auto;
+    height: 49px;
+    background-color: #0f391d;
 }
 
 .logo {
     background-color: #ffffff;
     border-radius: 4px;
     padding: 10px;
-    float: left;
-    margin-top: 2px;
-    margin-left: 10px;
+    margin: 3px 0px 0px 4px;
 }
 
 .logo-a {
@@ -52,31 +45,21 @@ header {
 }
 
 nav {
-    position: relative;
-    width: 100%;
     overflow: auto;
     z-index: 1;
-    height: 50px;
-    padding-top: 2px;
-    padding-bottom: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color: #0f391d;
 }
 
 .c-nav-ul {
-    position: relative;
     width: max-content;
     list-style-type: none;
     padding: 0px;
     margin: auto;
     overflow: hidden;
-    background-color: #fff;
-    border: 1px solid #f1f1f1;
 }
 
 .c-nav-li {
-    margin: 4px 4px;
-    padding: 10px 0px;
-    background: rgb(255, 255, 255);
+    padding: 12px 4px;
     float: left;
 }
 
@@ -84,7 +67,6 @@ nav {
     color: #fff;
     padding: 12px 12px;
     text-decoration: none;
-    background: rgb(19, 72, 37);
     border-radius: 4px;
 }
 
@@ -103,7 +85,6 @@ nav {
 }
 
 .c-main {
-    width: 80%;
     margin: auto;
     display: flex;
 }
@@ -145,17 +126,15 @@ li.c-contents-li {}
 }
 
 .delete {
-    background-color: rgb(203, 0, 0);
+    background-color: #cd0e0e;
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .c-change {
-    width: 90%;
+    width: 96%;
     margin: auto;
-    padding: 12px;
-    border: 1px solid #3aa7f9;
     display: table;
 }
 
@@ -168,11 +147,11 @@ li.c-contents-li {}
 .django-ckeditor-widget {}
 
 .c-create-input {
-    padding: 12px 22px;
-    background-color: rgb(0, 0, 98);
+    padding: 12px 24px;
+    background-color: #248644;
     color: #fff;
-    border: 0px solid #333;
     float: right;
+    border: 0px;
     cursor: pointer;
     border-radius: 4px;
 }
@@ -181,7 +160,6 @@ li.c-contents-li {}
     padding: 6px 12px;
     border: 1px solid rgb(92, 92, 92);
     border-radius: 4px;
-    width: 40%;
 }
 
 .c-change-form p label {
@@ -258,7 +236,6 @@ li.c-contents-li {}
 }
 
 .author {
-    background-color: rgb(32, 119, 60);
     color: #fff;
     border-radius: 4px;
     padding: 12px;
@@ -273,22 +250,26 @@ li.c-contents-li {}
 }
 
 .current {
-    padding: 6px;
-    border: 1px solid #f1f1f1;
+    padding: 6px 12px;
     background: rgb(0, 0, 0);
     color: #fff;
-    border-radius: 6px;
+    border-radius: 4px;
     margin-right: 14px;
 }
 
 .step-links-a {
-    padding: 6px;
+    padding: 6px 12px;
     color: #fff;
-    background: blue;
-    border: 1px solid #f1f1f1;
-    border-radius: 6px;
+    background: #248644;
+    border-radius: 4px;
 }
 
 a {
     text-decoration: none;
+}
+
+@media only screen and (max-width: 606px) {
+    .c-contents-li {
+        float: none;
+    }
 }

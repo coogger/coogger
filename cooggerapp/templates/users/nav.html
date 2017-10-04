@@ -1,6 +1,5 @@
 <nav>
-    <div class="u-topic">{{username}} kullanıcısına ait listeler</div>
-    <ul class="u-main-nav">
+    <ul class="u-main-nav ft-ar">
         {% for list in content_list %}
         <li class="u-nav-li">
             <a class="u-nav-li-a" href="@{{username}}/{{ list.content_list }}">{{ list.content_list }}</a>

@@ -1,33 +1,16 @@
-<div class="bt-header">
-    <!--
-    </1> <a href="/">
-        <div class="logo-img"></div>
-    </a>
-    -->
-    <div class="logo ft-cl">
-        <a href="/" class="logo-a" data-background="#DCE1E3">
-            <span style="color:#8B1BE6">c</span>
-            <span class="animated infinite flash" style="color:#1BA5E6">o</span>
-            <span class="animated infinite flash" style="color:#D3C71D">o</span>
-            <span class="animated infinite flash" style="color:#1BA5E6">g</span>
-            <span class="animated infinite flash" style="color:#D3C71D">g</span>
-            <span style="color:#8B1BE6">e</span>
-            <span style="color:#8B1BE6">r</span>
-        </a>
-    </div>
-    <div class="open-header">
-        <div class="open-header-border"></div>
-        <div class="open-header-border"> </div>
-        <div class="open-header-border"></div>
-    </div>
+{% include 'home/logo.html' %}
+<div class="open-header">
+    <div class="open-header-border"></div>
+    <div class="open-header-border"> </div>
+    <div class="open-header-border"></div>
 </div>
 
 <header>
-    <ul class="header-ul">
+    <ul class="header-ul ft-it">
         <li class="header-ul-li">
             <div class="search">
                 <form class="search-form" action="/search">
-                    <input type="text" class="search-input ft-it" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" />
+                    <input type="text" class="search-input" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" />
                     <input type="submit" class="search-button ft-it" />
                 </form>
             </div>

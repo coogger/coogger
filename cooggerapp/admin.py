@@ -8,8 +8,8 @@ from cooggerapp.models import Author
 class BlogAdmin(admin.ModelAdmin):
     list_display = ["category","title","time"]
     list_display_links = ["category","title","time"]
-    list_filter = ["category","time"]
-    search_fields = ["category","title","tag","text"]
+    list_filter = ["time"]
+    search_fields = ["title","tag"]
     prepopulated_fields = {"url":("title",)}
     fields = (("username","content_list"),("category","subcategory","category2"),("title","url"),"content","tag")
 

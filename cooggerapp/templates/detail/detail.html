@@ -1,3 +1,20 @@
+<div class="b-edit">
+    {% if detail.username == request.user.username %}
+
+    <span class="b-edit-point" data-edit-id="{{ detail.id }}">
+    <div class="border"></div>
+    <div class="border"></div>
+    <div class="border"></div>
+    </span>
+    <ul class="b-edit-ul data-edit-id-{{ detail.id }} ft-ar">
+        <li class="b-edit-li">
+            <a class="b-edit-li-a " href="/change/{{ detail.id }}">Düzenle</a>
+        </li>
+        <li class="b-edit-li">
+            <a class="b-edit-li-a delete" data-delete-id="{{ detail.id }}">Sil</a>
+        </li>
+    </ul>{% endif %}
+</div>
 <div class="b-user-info">
     <ul class="blog-user">
         <ul class="b-user-ul">

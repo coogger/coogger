@@ -47,11 +47,15 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+body {
+    margin: 0px;
+}
+
 header {
     position: relative;
-    height: 240px;
+    height: 50px;
     margin: auto;
-    background-color: rgb(127, 255, 212);
+    background-color: #0f391d;
 }
 
 .u-username {
@@ -60,24 +64,21 @@ header {
     white-space: nowrap;
     overflow: hidden;
     margin: auto;
+    color: #cd0e0e;
 }
 
 .u-i {
-    width: 80%;
-    margin: auto;
+    margin-top: 6px;
 }
 
 .u-pp {
-    padding-top: 12px;
-    width: 70%;
-    margin: auto;
     text-align: center;
 }
 
 .u-pp-img {
     width: 120px;
-    max-height: 120px;
-    border-radius: 120px 16px;
+    max-height: 190px;
+    border-radius: 0px 20px;
 }
 
 .user-one-line {}
@@ -93,10 +94,11 @@ header {
 
 .u-pp-submit {
     padding: 0.400rem 1.25rem;
-    background-color: #c4d339;
+    background-color: #248644;
     color: #fff;
     border: 0px solid #000;
     cursor: pointer;
+    float: right;
 }
 
 .u-upload-label {
@@ -110,7 +112,13 @@ header {
     overflow: hidden;
     padding: 0.625rem 1.25rem;
     color: #f1e5e6;
-    background-color: #d3394c;
+    background-color: #cd0e0e;
+}
+
+.u-uploadpp {
+    position: absolute;
+    right: 6px;
+    top: 53px;
 }
 
 .uploadform {
@@ -121,7 +129,7 @@ header {
 
 nav {
     overflow: auto;
-    height: 75px;
+    height: 60px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: rgb(255, 255, 255);
@@ -152,7 +160,7 @@ nav {
 }
 
 .u-nav-li:hover {
-    background-color: rgb(48, 181, 92);
+    background-color: #248644;
 }
 
 .u-nav-li-a:hover {

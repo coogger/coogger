@@ -25,6 +25,7 @@ def panel(request):
     queryset = tools.paginator(request,queryset)
     output = dict(
         controls = True,
+        paginator = queryset,
         contents = queryset,
         blog = queryset, # sayfalama yapabilmek için blog adında tekrar gönderdik veriyi 
     ) 

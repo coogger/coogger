@@ -70,10 +70,9 @@ body {
     top: 4px;
     width: 200px;
     height: 26px;
-    background: #000;
     margin: auto;
-    border: 1px solid #f1f1f1;
     border-radius: 6px;
+    font-size: 16px;
 }
 
 .logo-text {
@@ -95,7 +94,7 @@ body {
 }
 
 .cos-login-text {
-    font-size: 16px;
+    font-size: 14px;
     color: tomato;
     font-weight: 600;
 }

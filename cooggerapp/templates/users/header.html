@@ -1,35 +1,12 @@
 <header>
     <div class="main-logo">
         <!-- <div class="logo-img"></div>  -->
-        <div class="logo ft-cl">
-            <a href="/" class="logo-a" data-background="#DCE1E3">
-                <span style="color:#8B1BE6">c</span>
-                <span class="animated infinite flash" style="color:#1BA5E6">o</span>
-                <span class="animated infinite flash" style="color:#D3C71D">o</span>
-                <span class="animated infinite flash" style="color:#1BA5E6">g</span>
-                <span class="animated infinite flash" style="color:#D3C71D">g</span>
-                <span style="color:#8B1BE6">e</span>
-                <span style="color:#8B1BE6">r</span>
+        <div class="logo ft-cl float-right">
+            <a href="/" class="logo-a" data-background="#DCE1E3" style="color:#0f391d">
+                <span style="color:#80177e">@</span>
+                <span class="animated infinite flash">{{ username }}</span>
             </a>
         </div>
     </div>
-    {% if request.user.username == username %}
-    <form class="uploadform" action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div>
-            <input type="file" name="u-upload-pp" id="u-upload-pp" class="u-input-pp">
-            <label class="u-upload-label" for="u-upload-pp"><strong>profil resmi seç</strong></label>
-        </div>
-        <input class="u-pp-submit" type="submit" value="profili değiş" />
-    </form>
-    {% endif %}
-    <div class="u-i">
-        <div class="u-pp">
-            {% if pp %}
-            <img class="u-pp-img" alt='{{ username }}' src="/media/users/pp/pp-{{ username }}.jpg" /> {% else %}
-            <img class="u-pp-img" src="/static/media/profil.png" /> {% endif %}
-            <h1 class="u-username ft-cl">@{{ username }}</h1>
-        </div>
-        <div class="user-one-line"></div>
-    </div>
 </header>
+{% include 'users/pp.html' %}
