@@ -48,8 +48,9 @@ body {
 
 .d-main-start {
     margin: auto;
-    width: 283px;
+    width: 220px;
     height: 15px;
+    margin-bottom: 20px;
 }
 
 .d-starts-ul {

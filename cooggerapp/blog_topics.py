@@ -268,6 +268,7 @@ class Subcategory:
             ("radyo","radyo"),
             ("sinema","sinema"),
             ("müzik","müzik"),
+            ("kitap","kitap"),
             ("video","video"),
             ("ses","ses"),
         )
