@@ -10,7 +10,6 @@ from django.db.models import F
 from django.utils.text import slugify
 from cooggerapp.views import tools
 
-
 def panel(request):
     "control panel for users"
     request_username = request.user.username 

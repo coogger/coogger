@@ -18,9 +18,17 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi 
     dor = models.TextField() # duration of read içerik okuma süresi
     stars = models.IntegerField(default = 0, verbose_name = "Yıldız")
+    hmstars = models.IntegerField(default = 0,verbose_name = "kaç kişi oy kullandı")
     class Meta:
         verbose_name = "content"
         ordering = ['-time']
+
+class Voters(models.Model):
+    username_id = models.IntegerField()
+    blog_id = models.IntegerField(verbose_name = "hangi blog")
+    star = models.IntegerField(default = 0, verbose_name = "Yıldız")
+
+
 
 class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
     username = models.CharField(max_length=37)
