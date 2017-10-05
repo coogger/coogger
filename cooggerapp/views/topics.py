@@ -8,7 +8,10 @@ from cooggerapp.views import tools
 
 def topic(request,topic):
     top = tools.Topics()
-    topi = top.category+top.subcatecory+top.category2
+    category = top.category
+    subcategory = top.subcatecory
+    category2 = top.category2
+    topi = category+subcategory+category2
     topics_list = [url for url,top in topi]
     if topic.replace(" ","_") not in topics_list:
          ms.error(request,"Böyle bir konu bulunmamakta")
@@ -35,6 +38,7 @@ def topic(request,topic):
     )
     output = dict(
         blog = blogs,
+        topics_another = subcategory+category2,
         topics_category = top.category,
         elastic_search = elastic_search,
         general = True,

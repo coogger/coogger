@@ -61,7 +61,10 @@ def u_topic(request,username,utopic):
     paginator = blogs
     pp = tools.get_pp(blogs)
     blogs = zip(blogs,pp)
-    category = tools.Topics().category
+    top = tools.Topics()
+    category = top.category
+    subcategory = top.subcatecory
+    category2 = top.category2
     elastic_search = dict(
      title = username+" | "+utopic+" | coogger",
      keywords = "coogger "+username+" "+utopic+","+utopic+",coogger "+utopic+","+utopic+","+username,
@@ -72,6 +75,7 @@ def u_topic(request,username,utopic):
         topics_category = category,
         general = True,
         paginator = paginator,
+        topics_another = subcategory+category2,
         username = username,
         elastic_search = elastic_search,
     )

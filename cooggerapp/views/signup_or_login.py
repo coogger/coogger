@@ -39,15 +39,17 @@ def mysignup(request): #kayıt ol
         except:
             ms.error(request,"Bu kullanıcı ismi alınmış, farklı bir kullanıcı ismi ile kayıt olmayı deneyin")
             return HttpResponseRedirect("/signup")
-        user.is_active=True
-        user.save()
-        user = authenticate(username=username)
-        Author(user = user,pp=False,is_author=False,author=False).save()
-        user = authenticate(username=username, password=password)
         if user is not None:
+            user.is_active=True
+            user.save()
+            user = authenticate(username=username, password=password)
+            Author(user = user,pp=False,is_author=False,author=False).save()
             login(request, user)
             ms.success(request,"Başarılı bir şekilde kayıt oldunuz {}".format(username))
             return HttpResponseRedirect("/")
+        else:
+            ms.success(request,"Kayıt sırasında beklenmedik hata {}".format(username))
+            return HttpResponseRedirect("/")            
 
 def mylogin(request): # giriş yap
     username = request.user.username

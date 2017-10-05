@@ -45,9 +45,12 @@ $(document).ready(function() {
             filter: "blur(3px)",
         });
         var dor = this.getAttribute("data-dor");
-        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi  " + dor + " dakika</li></ul></div>");
-    });
-    $(".b-content").mouseout(function() {
+        var url = this.getAttribute("data-url");
+        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi" + dor + "dakika</li></ul></div>");
+        $(this).click(function() {
+            window.location = "/" + url
+        });
+    }).mouseout(function() {
         $(".blog-cont").css({
             filter: "blur(0px)",
         });

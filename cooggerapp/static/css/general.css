@@ -189,6 +189,7 @@ body {
     margin: auto;
     width: 90%;
     z-index: 2;
+    cursor: pointer;
 }
 
 .blog-title {
@@ -487,7 +488,7 @@ nav {
 
 .duread-li {
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
     background-color: rgba(0, 0, 0, 0.50);
     color: #fff;
     padding: 4px 0px;
@@ -545,6 +546,45 @@ nav {
     width: 12px;
 }
 
+footer {
+    position: absolute;
+    margin: auto;
+    background-color: rgb(236, 236, 236);
+    border-radius: 4px;
+    margin-bottom: 24px;
+    border: 1px solid #0f391d;
+    box-shadow: 0px 0px 1px 0px #0f391d;
+}
+
+.b-footer-ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    max-height: 460px;
+    overflow: auto;
+    border-right: 1px solid #0f391d;
+}
+
+.b-footer-main {
+    position: relative;
+    float: left;
+    z-index: 5;
+    width: 33%;
+}
+
+.b-footer-li {
+    margin: 24px 12px;
+}
+
+.b-footer-info {
+    text-align: center;
+    margin: auto;
+    border-bottom: 1px solid #fff;
+    width: 50%;
+    padding-bottom: 4px;
+    padding-top: 6px;
+}
+
 @media only screen and (max-width: 606px) {
     .datail {
         width: 90%;
@@ -572,5 +612,8 @@ nav {
     }
     .error {
         font-size: 14px;
+    }
+    .b-footer-main {
+        width: 100%;
     }
 }

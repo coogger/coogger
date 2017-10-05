@@ -16,9 +16,12 @@ def home(request):
     pp = tools.get_pp(blogs)
     blogs = zip(blogs,pp)
     category = tools.Topics().category
+    subcategory = tools.Topics().subcatecory
+    category2 = tools.Topics().category2
     output = dict(
         blog = blogs,
         topics_category = category,
+        topics_another = subcategory+category2,
         general = True,
         username = username,
         paginator = paginator,

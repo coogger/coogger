@@ -1,3 +1,58 @@
 <footer>
+    <div class="b-footer-main">
+        <div class="b-footer-info ft-os">Sosyal medya hesapları</div>
+        <ul class="b-footer-ul">
+            <li class="b-footer-li">
+                <a class="ft-os" target="_blank" href="https://www.instagram.com/cooggerweb">
+                    <img src="/static/media/icons/instagram.svg" /> @cooggerweb</a>
+            </li>
+            <li class="b-footer-li">
+                <a class="ft-os" target="_blank" href="https://www.instagram.com/hakancelik.py">
+                    <img src="/static/media/icons/instagram.svg" /> @hakancelik.py</a>
+            </li>
+            <li class="b-footer-li">
+                <a class="ft-os" target="_blank" href="https://www.facebook.com/coogger">
+                    <img src="/static/media/icons/facebook.svg" /> coogger</a>
+            </li>
+        </ul>
+        <div class="b-footer-info ft-os">Github</div>
+        <ul class="b-footer-ul">
+            <li class="b-footer-li">
+                <a class="ft-os" target="_blank" href="https://www.github.com/hakancelik96">
+                    <img src="/static/media/icons/github.svg" /> @hakancelik96</a>
+            </li>
+            <li class="b-footer-li">
+                <a class="ft-os" target="_blank" href="https://www.github.com/hakancelik96/coogger">
+                    <img src="/static/media/icons/github.svg" /> coogger</a>
+            </li>
+        </ul>
+    </div>
+    <div class="b-footer-main">
+        <div class="b-footer-info ft-os">İletişim</div>
+        <ul class="b-footer-ul" style="text-align:center">
+            <li class="b-footer-li">
+                <div>E posta : cooggerweb@gmail.com</div>
+                <div>Telefon : +905383578146</div>
+                <div>Adres : Gaziantep üniversitesi</div>
+            </li>
+            <li class="b-footer-li">
+                <div>Kurucu, Yazılım, Tasarım Hakan ÇELİK</div>
+            </li>
+            <li class="b-footer-li" style="margin: auto;width: 111px;height: 60px;border-radius: 2px;background-color: #0f391d;">
+                {% include 'home/logo.html' %}
+            </li>
+        </ul>
+    </div>
+    <div class="b-footer-main">
+        <div class="b-footer-info ft-os">Diğer kategoriler</div>
+        <ul class="b-footer-ul">
+            {% for url,topic in topics_another %}
+            <li class="nav-ul-li">
+                <a class="nav-ul-li-a" href="/topic/{{ url }}">{{ topic }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
 
 </footer>

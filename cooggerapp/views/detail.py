@@ -11,6 +11,8 @@ def main_detail(request,blog_path,utopic,path,):
     queryset = Blog.objects.filter(url = blog_path)[0]
     username = queryset.username
     category = tools.Topics().category
+    subcategory = tools.Topics().subcatecory
+    category2 = tools.Topics().category2
     user = User.objects.filter(username = username)
     pp = Author.objects.filter(user = user)[0].pp
     elastic_search = dict(
@@ -22,6 +24,7 @@ def main_detail(request,blog_path,utopic,path,):
         detail = queryset,
         elastic_search = elastic_search,
         general = True,
+        topics_another = subcategory+category2,
         pp = pp,
         topics_category = category,
     )
