@@ -46,7 +46,8 @@ $(document).ready(function() {
         });
         var dor = this.getAttribute("data-dor");
         var url = this.getAttribute("data-url");
-        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi" + dor + "dakika</li></ul></div>");
+        var stars = this.getAttribute("data-stars");
+        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi " + dor + " dakika</li><li class='duread-li'>yıldızlar " + stars + " </li></ul></div>");
         $(this).click(function() {
             window.location = "/" + url
         });
@@ -68,5 +69,10 @@ $(document).ready(function() {
     $(".b-edit-point").click(function() {
         var data_edit_id = this.getAttribute("data-edit-id");
         $(".data-edit-id-" + data_edit_id).toggle("fast");
+    });
+    $(".d-starts-li").click(function() {
+        var stars_id = this.getAttribute("data-starts-id");
+        var post_id = this.getAttribute("data-post-id");
+        $(".d-starts-ul").load("/stars/" + post_id + "/" + stars_id);
     });
 });

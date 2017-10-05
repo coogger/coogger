@@ -17,6 +17,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     tag = models.CharField(max_length=200,verbose_name = "İçeriğiniz ili ilgili anahtar kelimeleri virgul kullanarak yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi 
     dor = models.TextField() # duration of read içerik okuma süresi
+    stars = models.IntegerField(default = 0, verbose_name = "Yıldız")
     class Meta:
         verbose_name = "content"
         ordering = ['-time']

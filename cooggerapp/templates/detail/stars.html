@@ -1,0 +1,9 @@
+<div class="d-main-start">
+        <ul class="d-starts-ul">
+            {% for i in "0123456789" %} {% if i <= stars %}
+            <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"><img class="d-starts-a" src="/static/media/icons/star.svg"></li>
+            {% else %}
+            <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"> <img class="d-starts-a" src="/static/media/icons/star({{i}}).svg"></li>
+            {% endif %} {% endfor %}
+        </ul>
+    </div>

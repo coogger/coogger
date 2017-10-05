@@ -1,0 +1,26 @@
+<div class="b-content-info">
+    <div class="blog-time ft-dn">
+        <span>Tahmini okuma süresi {{ detail.dor }} dakika</span>
+        <div></div>
+        <span>{{ detail.time }} | </span><span> {{ detail.time|timesince }} önce</span>
+    </div>
+
+    <ul class="blog-category ft-os">
+        <li class="blog-category-li">
+            <a class="blog-category-a" href='/topic/{{ detail.category }}'>{{ detail.category|title }}</a>
+        </li>
+        {% if detail.subcategory != None %}
+        <li class="blog-category-li">
+            <a class="blog-subcategory-a" href='/topic/{{ detail.subcategory }}'>{{ detail.subcategory|title }}</a>
+        </li>
+        {% endif %} {% if detail.category2 != None %}
+        <li class="blog-category-li">
+            <a class="blog-category2-a" href='/topic/{{ detail.category2 }}'>{{ detail.category2|title }}</a>
+        </li>
+        {%endif%}
+    </ul>
+
+    <div class="blog-title ft-ns" style="font-size: 30px;">
+        {{ detail.title|title }}
+    </div>
+</div>

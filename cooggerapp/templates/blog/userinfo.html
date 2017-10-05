@@ -1,0 +1,23 @@
+<div class="b-user-info">
+    <ul class="blog-user">
+        <ul class="b-user-ul">
+            <li class="b-user-ul-li">
+                <div class="b-user-img">
+                    {% if pp %}
+                    <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ blo.username }}.jpg" /> {% else %}
+                    <img class="b-user-img-src" src="/static/media/profil.png" /> {% endif %}
+                </div>
+            </li>
+            <li class="b-user-ul-li">
+                <div class="blog-username ">
+                    <a class="blog-username-a ft-cl" href='/@{{ blo.username }}'>@{{ blo.username }}</a>
+                </div>
+            </li>
+        </ul>
+        <li class="blog-user-li">
+            <div class="blog-content-list-name ">
+                <a class="blog-username-a" href='/@{{ blo.username }}/{{ blo.content_list }}'>#{{ blo.content_list }}</a>
+            </div>
+        </li>
+    </ul>
+</div>

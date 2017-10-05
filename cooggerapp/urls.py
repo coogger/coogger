@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^chosecat2/(?P<value>.*)',myadmin.chose_category2),
     url(r'^chosenone/$',myadmin.chosenone),
     url(r'^topic/(?P<topic>.*)',topics.topic),
+    url(r'^stars/(?P<post_id>[0-9].*)/(?P<stars_id>[0-9])$',detail.stars),
 
     url(r'^robots.txt$',tools.seo),
     url(r'^sitemab.xml$',tools.seo),
