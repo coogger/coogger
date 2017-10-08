@@ -26,8 +26,13 @@
                 <a href="/login">Giriş yap</a>
             </div>
         </li>
-
-        {% else %}
+        {% else%} {% if not request.user.otherinformationofusers.author %}
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/signup-author">Yazarlık başvurusu</a>
+            </div>
+        </li>
+        {% endif %} {% if request.user.otherinformationofusers.is_author %}
         <li class="header-ul-li">
             <div class="solol">
                 <a href="/@{{ request.user.username }}">@{{ request.user.username }}</a>
@@ -43,7 +48,12 @@
                 <a href="/control">Kontrol paneli</a>
             </div>
         </li>
-
+        {% endif %}
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/@{{ request.user.username }}">@{{ request.user.username }}</a>
+            </div>
+        </li>
         <li class="header-ul-li">
             <div class="solol">
                 <a href="/logout">Çıkış</a>

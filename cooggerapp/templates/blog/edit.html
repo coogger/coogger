@@ -1,5 +1,5 @@
 <div class="b-edit">
-    {% if blo.username == request.user.username %}
+    {% if blo.username == request.user.username or request.user.is_superuser %}
     <span class="b-edit-point" data-edit-id="{{ blo.id }}">
         <div class="border"></div>
         <div class="border"></div>

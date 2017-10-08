@@ -75,4 +75,38 @@ $(document).ready(function() {
         var post_id = this.getAttribute("data-post-id");
         $(".d-starts-ul").load("/stars/" + post_id + "/" + stars_id);
     });
+    // nesneleri ekrana ortalar
+    // her sayfada sadece 1 tane nesne ortalanabilir
+    var body_heig = $("body").height();
+    var class_heig = $(".wincenter").height(); // ortalanmak istenen nesneye width değeri verilmeli ardından body 100% olmalı ve wincenter class ismi eklenmeli
+    $(".wincenter").css("margin", "auto");
+    $(".wincenter").css("margin-top", (body_heig - class_heig) / 2);
+    // nesneleri ekrana ortalar
+    // ---------
+    // controls
+    $("#id_category").change(function() {
+        var str = "";
+        $("#id_category option:selected").each(function() {
+            str += $(this).val();
+            $("#id_subcategory").load("/chosesub/" + str);
+            $("#id_category2").load("/chosenone/");
+        });
+    });
+
+    $("#id_subcategory").change(function() {
+        var str = "";
+        $("#id_subcategory option:selected").each(function() {
+            str += $(this).val();
+            $("#id_category2").load("/chosecat2/" + str);
+        });
+    });
+    // controls    
+    //--------------
+    //users
+    $(".u-i").mouseover(function() {
+        $(".uploadform").css({ display: "block" });
+    }).mouseout(function() {
+        $(".uploadform").css({ display: "none" });
+    });
+    //users
 });

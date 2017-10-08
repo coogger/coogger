@@ -48,7 +48,7 @@ body {
 
 .d-main-start {
     margin: auto;
-    width: 220px;
+    width: 300px;
     height: 15px;
     margin-bottom: 20px;
 }
@@ -60,7 +60,7 @@ body {
     text-align: center;
 }
 
-.d-starts-li {
+.d-starts-ul li {
     float: left;
     margin-right: 7px;
     cursor: pointer;
@@ -289,7 +289,7 @@ header {
 .logo {
     background-color: #ffffff;
     border-radius: 2px;
-    padding: 10px 12px;
+    padding: 8px 10px;
     float: left;
     margin: 10px 0px 10px 4px;
 }
@@ -329,9 +329,6 @@ header {
 }
 
 .solol {
-    position: relative;
-    background-color: transparent;
-    width: 100px;
     padding: 10px;
     text-align: center;
     margin-top: 10px;
@@ -580,40 +577,34 @@ nav {
 footer {
     position: absolute;
     margin: auto;
-    background-color: rgb(236, 236, 236);
     border-radius: 4px;
-    margin-bottom: 24px;
-    border: 1px solid #0f391d;
-    box-shadow: 0px 0px 1px 0px #0f391d;
+    margin-bottom: 12px;
+    font-size: 12px;
+    border-top: 1px solid #cdcdcd;
 }
 
 .b-footer-ul {
     list-style: none;
-    padding: 0px;
-    margin: 0px;
-    max-height: 460px;
+    max-height: 163px;
     overflow: auto;
-    border-right: 1px solid #0f391d;
 }
 
 .b-footer-main {
     position: relative;
     float: left;
-    z-index: 5;
     width: 33%;
+    margin-top: 24px;
 }
 
 .b-footer-li {
-    margin: 24px 12px;
+    margin: auto;
+    width: 250px;
 }
 
 .b-footer-info {
     text-align: center;
     margin: auto;
-    border-bottom: 1px solid #fff;
     width: 50%;
-    padding-bottom: 4px;
-    padding-top: 6px;
 }
 
 @media only screen and (max-width: 606px) {

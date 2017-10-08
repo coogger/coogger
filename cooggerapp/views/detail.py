@@ -16,14 +16,14 @@ def main_detail(request,blog_path,utopic,path,):
     subcategory = tools.Topics().subcatecory
     category2 = tools.Topics().category2
     user = User.objects.filter(username = username)
-    pp = Author.objects.filter(user = user)[0].pp
+    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     try:
         stars = str(int(queryset.stars/queryset.hmstars))
     except ZeroDivisionError:
         stars = ""
     elastic_search = dict(
         title = username+" | "+utopic+" | "+queryset.title+" | coogger",
-        keywords = queryset.tag +","+str(username)+",coogger "+str(username)+","+username+utopic+",coogger"+username+utopic+",coogger "+queryset.category+", "+queryset.title+",coogger ",
+        keywords = queryset.tag +","+username+" "+utopic+",coogger"+username+" "+utopic+",coogger "+queryset.category+", "+queryset.title,
         description = "coogger | "+str(username)+" | "+utopic+" "+queryset.category+" "+queryset.title
     )
     output = dict(
@@ -67,10 +67,12 @@ def stars(request,post_id,stars_id):
     stars = blog.stars
     hmstars = blog.hmstars
     rate = stars/hmstars
-    for i in "0123456789":
-        if i <= str(int(rate)):
-            output += first_li.replace("{{i}}",i)
-        if i > str(int(rate)):
-            output += second_li.replace("{{i}}",i)
+    for i in range(0,10):
+        if i <= int(rate):
+            output += first_li.replace("{{i}}",str(i))
+        if i > int(rate):
+            output += second_li.replace("{{i}}",str(i))
+        if i == 9:
+            output +="<li> : "+str(hmstars)+"</li>"
     return HttpResponse(output)
 

@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.db.models import F
 from cooggerapp.models import *
 from cooggerapp.forms import *
-from cooggerapp.blog_topics import *
 from cooggerapp.views import tools
 
 def home(request):
@@ -14,10 +13,17 @@ def home(request):
     blogs = tools.paginator(request,queryset)
     paginator = blogs
     pp = tools.get_pp(blogs)
-    blogs = zip(blogs,pp)
-    category = tools.Topics().category
-    subcategory = tools.Topics().subcatecory
-    category2 = tools.Topics().category2
+    stars = []
+    for i in blogs:
+        try:
+            stars.append(str(int(i.stars/i.hmstars)+1))
+        except ZeroDivisionError:
+            stars.append("0")
+    blogs = zip(blogs,pp,stars)
+    tools_topic = tools.Topics()
+    category = tools_topic.category
+    subcategory = tools_topic.subcatecory
+    category2 = tools_topic.category2
     output = dict(
         blog = blogs,
         topics_category = category,

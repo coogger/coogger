@@ -3,7 +3,7 @@ from cooggerapp.models import *
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from cooggerapp.models import Author
+from cooggerapp.models import OtherInformationOfUsers
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ["category","title","time"]
@@ -16,16 +16,20 @@ class BlogAdmin(admin.ModelAdmin):
     class Media:
         js = ("js/my-admin-content.js",)
 
+## users ##
+class OtherInformationOfUsersAdmin(admin.StackedInline):
+    model = OtherInformationOfUsers
+    can_delete = False
+    verbose_name_plural = 'kullanıcıların diğer bilgileri'
 
 class AuthorAdmin(admin.StackedInline):
     model = Author
     can_delete = False
-    verbose_name_plural = 'Yazar, iban'
-
+    verbose_name_plural = 'yazarlık bilgileri'
 
 class UserAdmin(BaseUserAdmin):
     #Mevcut modele(tasarıma) yeni özellikleri entegre ediyoruz. Bu bize admin panelde görünecektir.
-    inlines = (AuthorAdmin, )
+    inlines = (OtherInformationOfUsersAdmin,AuthorAdmin, )
 
 
 admin.site.unregister(User)

@@ -1,65 +1,65 @@
 <!--kayıt olma sayfası-->
 {% load static from staticfiles %} {% include 'home/head.html' %}
 
-<body>
+
+<div class="siteWrapper wincenter">
     <div class="signup-blogger">
-        Üye olduktan sonra, dilerseniz sizi aramıza yazar olarak alabilir ve ürettiğiniz içeriklerden elde ettiğiniz geliri size gönderebiliriz, işlem sonrası açılan kontrol panelini ziyaret edin</div>
-    <div class="siteWrapper">
-        <div class="logo ft-cl">
-            <a class="logo-text" href="/" style="color:#0f391d">
-                <span style="color:#80177e">c</span>
-                <span class="animated infinite flash">o</span>
-                <span class="animated infinite flash">o</span>
-                <span class="animated infinite flash">g</span>
-                <span class="animated infinite flash">g</span>
-                <span style="color:#80177e">e</span>
-                <span style="color:#80177e">r</span>
-            </a>
-        </div>
-        <div class="clearfix">
-            <div class="cos-login-text ft-ar">Normal kullanıcı olarak kayıt ol</div>
-            <ul class="cx-ul">
-                <form action="/signup" method="post">
-                    {% csrf_token %}
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="text" name="Name" value="" placeholder="Adınız">
-                        </div>
-                    </li>
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="text" name="Surname" value="" placeholder="Soyadınız">
-                        </div>
-                    </li>
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="text" name="Email" value="" placeholder="E-posta">
-                        </div>
-                    </li>
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="text" name="Username" value="" placeholder="kullanıcı adı">
-                        </div>
-                    </li>
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="password" name="Password" value="" placeholder="şifre">
-                        </div>
-                    </li>
-                    <li class="cx-li">
-                        <div class="">
-                            <input class="cx-input" type="password" name="Confirm" value="" placeholder="şifre onay">
-                        </div>
-                    </li>
-                    <input class="cx-submit-b" type="submit" value="Kayıt ol">
-                </form>
-            </ul>
-        </div>
-        <div class="ft ft-ar">
-            Kayıt Ol butonuna tıkladığında
-            <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş oluyorsun.
-        </div>
+        <span>Üye olduktan sonra,dilerseniz  </span>
+        <span>sizi aramıza yazar olarak alabilir</span>
+        <span>ve ürettiğiniz içeriklerden elde ettiğiniz gelirin belirli bir miktarını</span>
+        <span> size gönderebiliriz</span>
+        <span>, işlem sonrası açılan yazar olarak başvur </span>
+        <span>bölümünü ziyaret edin </span>
     </div>
+    <div class="logo ft-cl">
+        <a class="logo-text" href="/" style="color:#0f391d">
+            <span style="color:#80177e">c</span>
+            <span class="animated infinite flash">o</span>
+            <span class="animated infinite flash">o</span>
+            <span class="animated infinite flash">g</span>
+            <span class="animated infinite flash">g</span>
+            <span style="color:#80177e">e</span>
+            <span style="color:#80177e">r</span>
+        </a>
+    </div>
+    <div class="clearfix">
+        <div class="cos-login-text ft-ar">Normal kullanıcı olarak kayıt ol</div>
+        <ul class="cx-ul">
+            <form action="/signup" method="post">
+                {% csrf_token %}
+                <li class="cx-li">
+                    <label>Adınız</label>
+                    <input class="cx-input" type="text" name="Name" value="">
+                </li>
+                <li class="cx-li">
+                    <label>Soyadınız</label>
+                    <input class="cx-input" type="text" name="Surname" value="">
+                </li>
+                <li class="cx-li">
+                    <label>E-posta</label>
+                    <input class="cx-input" type="text" name="Email" value="">
+                </li>
+                <li class="cx-li">
+                    <label>Kullanıcı adı</label>
+                    <input class="cx-input" type="text" name="Username" value="">
+                </li>
+                <li class="cx-li">
+                    <label>Şifre</label>
+                    <input class="cx-input" type="password" name="Password" value="">
+                </li>
+                <li class="cx-li">
+                    <label>Şifre onay</label>
+                    <input class="cx-input" type="password" name="Confirm" value="">
+                </li>
+                <input class="cx-submit-b" type="submit" value="Kayıt ol">
+            </form>
+        </ul>
+    </div>
+    <div class="ft ft-ar">
+        Kayıt Ol butonuna tıkladığında
+        <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş olursun.
+    </div>
+</div>
 </body>
 
 </html>

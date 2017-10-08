@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^(change/(?P<content_id>.*))',controls.change,name="change"),
     url(r'^(delete/(?P<content_id>.*))',controls.delete,name="delete"),
 
-    url(r'^(?P<blog_path>@.*/(?P<utopic>.*)/blog/(?P<path>.*))', detail.main_detail,name = "blogs"),
+    url(r'^(?P<blog_path>@.*/(?P<utopic>.*)/(?P<path>.*))', detail.main_detail,name = "blogs"),
     url(r'^@(?P<username>.*/(?P<utopic>.*))', users.u_topic,name = "u-topic"),
     url(r'^@(?P<username>.*)', users.user,name = "user"),
 

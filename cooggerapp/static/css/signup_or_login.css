@@ -2,7 +2,8 @@ body {
     position: fixed;
     background: #f1f1f1;
     width: 100%;
-    margin: 30px 0px 0px 0px;
+    height: 100%;
+    margin: 0px;
 }
 
 .ft-cl {
@@ -56,9 +57,8 @@ body {
 
 .siteWrapper {
     width: 300px;
-    top: 20%;
+    font-size: 12px;
     background: #fff;
-    margin: auto;
     box-shadow: 0px 0px 0.2px 0px;
     text-align: center;
     border-radius: 6px;
@@ -80,16 +80,30 @@ body {
     text-decoration: none;
 }
 
-.cx-li {
-    display: block;
-    padding-bottom: 6px;
+.cx-ul li {
+    list-style: none;
+    height: 36px;
+}
+
+.cx-ul li label {
+    float: left;
+    margin-left: 6px;
+    margin-top: 11.5px;
+}
+
+.cx-ul li select {
+    color: tomato;
+    float: right;
+    margin-right: 6px;
+    width: 136px;
+    border-radius: 4px;
+    padding: 6px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.16);
 }
 
 .clearfix {
     background: #fafafa;
     margin: 10px 0px 10px 0px;
-    position: relative;
-    top: 4px;
     display: grid;
 }
 
@@ -100,9 +114,6 @@ body {
 }
 
 .cx-ul {
-    position: relative;
-    top: 4px;
-    display: block;
     margin: auto;
     list-style-type: disc;
     -webkit-margin-before: 1em;
@@ -112,21 +123,22 @@ body {
     -webkit-padding-start: 0px;
 }
 
-.cx-input {
-    padding: 4px;
+.cx-ul li input {
+    padding: 6px 12px;
     border: 1px solid rgba(0, 0, 0, 0.16);
     color: tomato;
+    width: 110px;
     border-radius: 4px;
+    float: right;
+    margin-right: 6px;
 }
 
 .cx-submit-b {
-    position: relative;
-    top: 4px;
-    padding: 6px 8px 6px 8px;
-    border: 1px solid #fafafa;
+    padding: 8px 82px;
+    border: 0px solid #fafafa;
     border-radius: 4px;
-    background: rgba(128, 128, 128, 0.68);
-    color: #fff;
+    background: #343e34;
+    color: #ffffff;
 }
 
 .ft {
@@ -139,16 +151,9 @@ body {
 }
 
 .signup-blogger {
-    width: 90%;
-    text-align: center;
-    margin: auto;
-    font-size: 14px;
-    border: 1px solid #fff;
-    padding: 14px;
-    background: rgb(0, 0, 0);
+    padding: 12px;
+    background: rgb(241, 241, 241);
     border-radius: 6px;
-    color: #fff;
-    margin-bottom: 20px;
 }
 
 .preload {

@@ -1,14 +1,26 @@
+{% include 'home/logo.html' %}
+<div class="open-header">
+    <div class="open-header-border"></div>
+    <div class="open-header-border"> </div>
+    <div class="open-header-border"></div>
+</div>
+
 <header>
-    <ul class="c-header">
-        <li class="c-header-li">
-            <!-- <a href="/">
-                <div class="logo-img"></div>
-            </a>
-        -->
+    <ul class="header-ul ft-it">
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/@{{ request.user.username }}">@{{ request.user.username }}</a>
+            </div>
         </li>
-        <li class="c-header-li">
-            {% include 'home/logo.html' %}
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/create">İçerik oluştur</a>
+            </div>
+        </li>
+        <li class="header-ul-li">
+            <div class="solol">
+                <a href="/control">Kontrol paneli</a>
+            </div>
         </li>
     </ul>
-
 </header>

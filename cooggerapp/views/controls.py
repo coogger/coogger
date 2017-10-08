@@ -12,50 +12,49 @@ from cooggerapp.views import tools
 
 def panel(request):
     "control panel for users"
-    request_username = request.user.username 
-    user_objects = User.objects.filter(username=request_username)
-    if not user_objects.exists():
-        ms.error(request,"Kontrol paneline erişmek için giriş yapın veya üye olun !")
+    request_user = request.user
+    user_objects = User.objects.filter(username = request_user.username)
+    if not request_user.otherinformationofusers.is_author:
+        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
         return HttpResponseRedirect("/")
-    elif user_objects[0].is_superuser:
+    elif request_user.is_superuser:
         queryset = Blog.objects.all()
     else:
-        queryset = Blog.objects.filter(username = request_username)
+        queryset = Blog.objects.filter(username = request_user.username)
     queryset = tools.paginator(request,queryset)
     output = dict(
         controls = True,
         paginator = queryset,
         contents = queryset,
-        blog = queryset, # sayfalama yapabilmek için blog adında tekrar gönderdik veriyi 
     ) 
     return render(request,"controls/control.html",output)
 
 def create(request): 
     "to create new content"
-    request_username = request.user.username 
-    if not User.objects.filter(username=request_username).exists():
-        ms.error(request,"İçerik oluşturmak için giriş yapın veya üye olun !")
+    request_user = request.user
+    if not request_user.otherinformationofusers.is_author:
+        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
         return HttpResponseRedirect("/")
     create_form = ContentForm(request.POST or None)
     # post method
     if create_form.is_valid():
         content = create_form.save(commit=False)
-        content.username = request_username
+        content.username = request_user.username
         content_list = slugify(request.POST["content_list"])
         content.content_list = content_list
         title = content.title
         url = slugify(title)
-        content.url = "@"+request_username+"/"+content_list+"/blog/"+url
+        content.url = "@"+request_user.username+"/"+content_list+"/"+url
         content.dor = tools.durationofread(content.content+title)
         try:
-            content_list_save = ContentList.objects.filter(username = request_username,content_list = content_list)[0]
+            content_list_save = ContentList.objects.filter(username = request_user.username,content_list = content_list)[0]
             content_list_save.content_count = F("content_count")+1
             content_list_save.save()
             # kullanıcının açmış oldugu listeleri kayıt ediyoruz
         except: # önceden oluşmuş ise hata verir ve biz 1 olarak kayıt ederiz
-            ContentList(username = request_username,content_list = content_list,content_count = 1).save()
+            ContentList(username = request_user.username,content_list = content_list,content_count = 1).save()
         content.save()
-        return HttpResponseRedirect("/@"+request_username+"/"+content_list+"/blog/"+url)
+        return HttpResponseRedirect("/@"+request_user.username+"/"+content_list+"/"+url)
     # get method
     output = dict(
         controls = True,
@@ -65,14 +64,14 @@ def create(request):
 
 def change(request,content_id):
     "to change the content"
-    request_username = request.user.username 
-    if not request_username:
-        ms.error(request,"Düzenleme yapmak için giriş yapın veya üye olun !")
+    request_user = request.user
+    if not request_user.otherinformationofusers.is_author:
+        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
         return HttpResponseRedirect("/")
-    elif User.objects.filter(username=request_username)[0].is_superuser:
+    elif request_user.is_superuser:
         queryset = Blog.objects.filter(id = content_id)
     else:
-        queryset = Blog.objects.filter(username = request_username,id = content_id)
+        queryset = Blog.objects.filter(username = request_user.username,id = content_id)
     real_username = queryset[0].username # içeriği yazan kişinin kullanıcı ismi
     if not queryset.exists():
         ms.error(request,"Girmek istediğiniz sayfada yönetim iznine sahip değilsiniz !")
@@ -89,7 +88,7 @@ def change(request,content_id):
         content.time = queryset.time
         title = content.title
         url = slugify(title)
-        content.url = "@"+real_username+"/"+content_list+"/blog/"+url 
+        content.url = "@"+real_username+"/"+content_list+"/"+url 
         content.dor = tools.durationofread(content.content+title) 
         content.save()
         if content_list != old_content_list: # content_list değişmiş ise
@@ -109,7 +108,7 @@ def change(request,content_id):
             content_list_save.save()
         except IndexError:
             ContentList(username = real_username,content_list = content_list,content_count = 1).save() # yoksa yeni bir tane acıyor
-        return HttpResponseRedirect("/@"+real_username+"/"+content_list+"/blog/"+url)
+        return HttpResponseRedirect("/@"+real_username+"/"+content_list+"/"+url)
     # get method
     output = dict(
         controls = True,
@@ -121,17 +120,17 @@ def change(request,content_id):
             
 def delete(request,content_id):
     "to delete the content"
-    request_username = request.user.username
+    request_user = request.user
     if not request.is_ajax():
         ms.error(request,"ops !")
         return HttpResponseRedirect("/")
-    elif not request_username:
+    elif not request_user.username:
         ms.error(request,"Silme işleminden önce giriş yapmalısınız !")
         return HttpResponseRedirect("/")
-    elif User.objects.filter(username=request_username)[0].is_superuser: # admin
+    elif request_user.is_superuser: # admin
         queryset = Blog.objects.filter(id = content_id) 
     else:
-        queryset = Blog.objects.filter(username = request_username,id = content_id)
+        queryset = Blog.objects.filter(username = request_user.username,id = content_id)
     real_username = queryset[0].username # içeriği yazan kişinin kullanıcı ismi
     if not queryset.exists():
         ms.error(request,"Girmek istediğiniz sayfada yönetim iznine sahip değilsiniz !")

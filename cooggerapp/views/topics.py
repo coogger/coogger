@@ -30,11 +30,17 @@ def topic(request,topic):
     blogs = tools.paginator(request,queryset)
     paginator = blogs
     pp = tools.get_pp(blogs)
-    blogs = zip(blogs,pp)
+    stars = []
+    for i in blogs:
+        try:
+            stars.append(str(int(i.stars/i.hmstars)+1))
+        except ZeroDivisionError:
+            stars.append("0")
+    blogs = zip(blogs,pp,stars)
     elastic_search = dict(
-     title = "coogger | "+topic,
-     keywords = "coogger,konu,"+topic+",topic,"+"coogger "+topic,
-     description = "coogger a hoşgeldiniz ,"+topic+" konulu içerikler burada bulunur"
+     title = topic+" | coogger",
+     keywords = topic+"coogger "+topic,
+     description = "coogger "+topic+" konulu içerikler"
     )
     output = dict(
         blog = blogs,

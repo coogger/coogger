@@ -13,12 +13,12 @@ def user(request,username):
     "herhangi kullanıcının anasayfası"
     content_list = ContentList.objects.filter(username = username)
     user = User.objects.filter(username = username)
-    pp = Author.objects.filter(user = user)[0].pp
+    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     user_info = user[0]
     elastic_search = dict(
      title = username+" | coogger",
-     keywords ="coogger "+username+","+username+","+user_info.first_name+","+user_info.last_name+","+user_info.first_name+" "+user_info.last_name,
-     description =user_info.first_name+" | "+user_info.last_name+" ,"+username+" adı ile coogger'da"
+     keywords =username+","+user_info.first_name+" "+user_info.last_name,
+     description =user_info.first_name+", "+user_info.last_name+", "+username+" adı ile coogger'da",
     )
 
     output = dict(
@@ -47,7 +47,7 @@ def upload_pp(request):
         im.thumbnail((150,150))
         im.save(os.getcwd()+"/media/users/pp/pp-"+request_username+".jpg", "JPEG")
         user_id = User.objects.filter(username = request_username)[0].id
-        Author.objects.filter(user_id = user_id).update(pp = True)
+        OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = True)
         return HttpResponseRedirect("/@"+request_username)
 
 def u_topic(request,username,utopic):
@@ -60,14 +60,20 @@ def u_topic(request,username,utopic):
     blogs = tools.paginator(request,queryset)
     paginator = blogs
     pp = tools.get_pp(blogs)
-    blogs = zip(blogs,pp)
+    stars = []
+    for i in blogs:
+        try:
+            stars.append(str(int(i.stars/i.hmstars)+1))
+        except ZeroDivisionError:
+            stars.append("0")
+    blogs = zip(blogs,pp,stars)
     top = tools.Topics()
     category = top.category
     subcategory = top.subcatecory
     category2 = top.category2
     elastic_search = dict(
-     title = username+" | "+utopic+" | coogger",
-     keywords = "coogger "+username+" "+utopic+","+utopic+",coogger "+utopic+","+utopic+","+username,
+     title = username+" - "+utopic+" | coogger",
+     keywords = username+" "+utopic+","+utopic+",coogger "+utopic+","+utopic+","+username,
      description = username+" adlı kullanıcının "+utopic+" adlı içerik listesi",
     )
     output = dict(

@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.contrib.auth.models import User,Permission
 from django.contrib.auth import *
 from django.contrib import messages as ms
-from cooggerapp.models import Author
+from cooggerapp.models import Author,OtherInformationOfUsers
+from cooggerapp.forms import AuthorForm
+from django.contrib.auth.models import User
 
 
 def mysignup(request): #kayıt ol
@@ -13,8 +15,8 @@ def mysignup(request): #kayıt ol
             return HttpResponseRedirect("/")
         elastic_search = dict(
             title = "coogger | kayıt ol",
-            keywords = "coogger,kayıt ol,coogger kayıt ol,kayıt,coogger kayıt,blog kayıt,blog yaz",
-            description = "coogger a hoşgeldin ister normal üyeliği saçebilir ve yazarlarımızı takip edebilir istersende yazar olarak kayıt olabilir ve kazandığın paraları alabilirsin"
+            keywords = "coogger kayıt ol,coogger kaydol",
+            description = "coogger'a kaydol"
         )
         output = dict(
             signup_or_login = True,
@@ -43,7 +45,7 @@ def mysignup(request): #kayıt ol
             user.is_active=True
             user.save()
             user = authenticate(username=username, password=password)
-            Author(user = user,pp=False,is_author=False,author=False).save()
+            OtherInformationOfUsers(user = user,pp=False,is_author=False,author=False).save()
             login(request, user)
             ms.success(request,"Başarılı bir şekilde kayıt oldunuz {}".format(username))
             return HttpResponseRedirect("/")
@@ -59,8 +61,8 @@ def mylogin(request): # giriş yap
             return HttpResponseRedirect("/")
         elastic_search = dict(
             title = "coogger | Giriş yap",
-            keywords = "coogger,giriş yap,coogger giriş yap,giriş,login",
-            description = "coogger a hoşgeldin açmış olduğun hesaba giriş yap"
+            keywords = "coogger giriş yap",
+            description = "coogger'a giriş yap"
         )
         output = dict(
             signup_or_login = True,
@@ -95,48 +97,40 @@ def mylogout(request): # çıkış
 
 def signup_author(request):
     request_username = request.user.username
-    if request.is_ajax():
+    otherinfo_form = AuthorForm(request.POST or None)
+    if otherinfo_form.is_valid():
         if not request_username:
             ms.error(request,"ops !")
             return HttpResponseRedirect("/")
-        return render(request,"signup_or_login/signup-blogger.html",{})
-    elif request.method == "POST":
-        if not request_username:
-            ms.error(request,"ops !")
-            return HttpResponseRedirect("/")
-        phone=request.POST.get("Phone")
-        iban = request.POST.get("Iban")
-        username = request.POST.get("Username")
-        password = request.POST.get("Password")
-        if username != request_username:
-            ms.success(request,"Kullanıcı adınızı yanlış yazdınız")
-            return HttpResponseRedirect("/")
-        user = authenticate(username=username, password=password)
-        if user is None:
-            ms.success(request,"Kullanıcı adınız ve şifreniz eşleşmedi")
-            return HttpResponseRedirect("/")
-        Author.objects.filter(user = user).update(iban = iban,phone = phone,author = True)
-        ms.success(request,"Yazarlık başvurunuzu değerlendireceğiz bu genellikle 2-3 gün sürer {}".format(username))
-        return HttpResponseRedirect("/")
-    elif request.method == "GET":
-        if not request_username:
-            ms.error(request,"ops !")
-            return HttpResponseRedirect("/")
+        otherinfo_form = otherinfo_form.save(commit=False)
         user_id = User.objects.filter(username = request_username)[0].id
-        is_done_author = Author.objects.filter(user_id = user_id)[0].author # yazarlık başvurusu yapmışmı
-        if is_done_author:
-            ms.error(request,"Yazarlık başvurunuzu daha önceden almıştık, değerlendirme süreci bitiminde sizinle iletişime geçeceğiz")
-            return HttpResponseRedirect("/control")
-        elastic_search = dict(
-            title = "coogger | kayıt ol",
-            keywords = "coogger,kayıt ol,coogger kayıt ol,kayıt,coogger kayıt,blog kayıt,blog yaz",
-            description = "coogger a hoşgeldin ister normal üyeliği saçebilir ve yazarlarımızı takip edebilir istersende yazar olarak kayıt olabilir ve kazandığın paraları alabilirsin"
-        )
-        output = dict(
-            signup_or_login = True, 
-            elastic_search = elastic_search
-        )
-        return render(request,"signup_or_login/signup-blogger.html",output)
+        otherinfo_form.user_id = user_id
+        otherinfo_form.pp = True
+        otherinfo_form.is_author = False
+        otherinfo_form.author = True
+        otherinfo_form.save()
+        OtherInformationOfUsers.objects.filter(user_id = user_id).update(author = True)
+        ms.success(request,"Yazarlık başvurunuzu değerlendireceğiz bu genellikle 2-3 gün sürer {}".format(request_username))
+        return HttpResponseRedirect("/")
+    if not request_username:
+        ms.error(request,"ops !")
+        return HttpResponseRedirect("/")
+    user_id = User.objects.filter(username = request_username)[0].id
+    is_done_author = OtherInformationOfUsers.objects.filter(user_id = user_id)[0].author # yazarlık başvurusu yapmışmı
+    if is_done_author:
+        ms.error(request,"Yazarlık başvurunuzu daha önceden almıştık, değerlendirme süreci bitiminde sizinle iletişime geçeceğiz")
+        return HttpResponseRedirect("/control")
+    elastic_search = dict(
+        title = "Yazarlık başvurusu | coogger",
+        keywords = "coogger yazarlık,coogger yazarlık başvurusu",
+        description = "coogger'a yazarlık başvurusu"
+    )
+    output = dict(
+        signup_or_login = True, 
+        elastic_search = elastic_search,
+        otherinfo_form = otherinfo_form,
+    )
+    return render(request,"signup_or_login/signup-blogger.html",output)
 
 def check_user(request,username,password,confirm):
     if password != confirm:

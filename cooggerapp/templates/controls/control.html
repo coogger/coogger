@@ -6,7 +6,7 @@
             <li class="c-contents-li c-contents-div">
                 <a class="c-contents-li-a c-contents-div-a" href="/change/{{ content.id }}">{{ content.title }}</a>
             </li>
-            {% if requsts.user.is_superuser == 1%}
+            {% if requsts.user.is_superuser %}
             <li class="c-contents-li c-contents-div">
                 <a class="c-contents-li-a c-contents-div-a" href="/@{{ content.username }}">@{{ content.username }}</a>
             </li>

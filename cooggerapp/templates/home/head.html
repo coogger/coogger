@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="Hakan Çelik | hakancelik96@outlook.com | cooggerweb@gmail.com" /> {% if elastic_search.title %}
+    <meta name="author" content="Hakan Çelik | hakancelik96@outlook.com | cooggerapp@gmail.com" /> {% if elastic_search.title %}
     <title>{{ elastic_search.title }}</title>
     <meta property="og:title" content="{{ elastic_search.title }}" />
     <meta property="og:site_name" content="{{ elastic_search.title }}">
@@ -18,7 +18,7 @@
     <meta property="og:title" content="coogger">
     <meta itemprop="name" content="coogger"> {% endif %} {% if elastic_search.keywords %}
     <meta name="keywords" content="{{ elastic_search.keywords }}" /> {% else %}
-    <meta name="keywords" content="coogger,blog yaz,para kazanma,blog,oku,blog oku,para nasıl kazanırım," /> {% endif %} {% if elastic_search.description %}
+    <meta name="keywords" content="coogger" /> {% endif %} {% if elastic_search.description %}
     <meta name="description" content="{{elastic_search.description}}" />
     <meta property="og:description" content="{{elastic_search.description}}" />
     <meta name="twitter:description" content="{{elastic_search.description}}">
@@ -75,18 +75,13 @@
     <script>
         hljs.initHighlightingOnLoad();
     </script>
-    <link href=" {% static 'css/animate.css' %}" rel="stylesheet"> {% if signup_or_login %}
-    <link rel="stylesheet" href="/static/css/signup_or_login.css">
-    <script src=" {% static 'js/signup_or_login.js' %}"></script>
-    {% elif general %}
     <script src=" {% static 'js/general.js' %}"></script>
+    <link href=" {% static 'css/animate.css' %}" rel="stylesheet"> {% if signup_or_login %}
+    <link rel="stylesheet" href="/static/css/signup_or_login.css"> {% elif general %}
+
     <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% elif users %}
-    <link href=" {% static 'css/users.css' %}" rel="stylesheet">
-    <script src=" {% static 'js/users.js' %}"></script>
-    {% elif controls %}
-    <link href=" {% static 'css/controls.css' %}" rel="stylesheet">
-    <script src=" {% static 'js/controls.js' %}"></script>
-    {% endif %}
+    <link href=" {% static 'css/users.css' %}" rel="stylesheet"> {% elif controls %}
+    <link href=" {% static 'css/controls.css' %}" rel="stylesheet"> {% endif %}
     <script>
         function loader() {
             $('.preload').fadeOut('slow', function() {

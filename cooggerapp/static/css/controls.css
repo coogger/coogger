@@ -1,3 +1,52 @@
+.ft-cl {
+    /*kanal*/
+    font-family: 'Lobster Two', cursive;
+}
+
+.ft-sd {
+    /*sound*/
+    font-family: 'Raleway', sans-serif;
+}
+
+.ft-ct {
+    /*comment*/
+    font-family: 'Dosis', sans-serif;
+}
+
+.ft-dn {
+    /*duration*/
+    font-family: 'Quicksand', sans-serif;
+}
+
+.ft-ns {
+    /*notes*/
+    font-family: 'Roboto', sans-serif;
+}
+
+.ft-io {
+    font-family: 'Roboto', sans-serif;
+}
+
+.ft-it {
+    /*input*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.ft-os {
+    /*options*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.ft-ar {
+    /*another*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.ft-pe {
+    /*profile*/
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
 html {
     height: 100%;
     width: 100%;
@@ -15,20 +64,43 @@ body {
 }
 
 header {
-    height: 49px;
     background-color: #0f391d;
+}
+
+.header-ul {
+    width: max-content;
+    height: 60px;
+    list-style-type: none;
+    margin: auto;
+    padding: 6px;
+}
+
+.header-ul-li {
+    float: left;
+}
+
+.solol {
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.solol a {
+    color: #fff;
 }
 
 .logo {
     background-color: #ffffff;
-    border-radius: 4px;
-    padding: 10px;
-    margin: 3px 0px 0px 4px;
+    border-radius: 2px;
+    padding: 8px 10px;
+    float: left;
+    margin: 10px 0px 10px 4px;
 }
 
 .logo-a {
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     padding: 0px 6px 0px 6px;
 }
@@ -45,21 +117,26 @@ header {
 }
 
 nav {
+    position: relative;
+    width: 100%;
     overflow: auto;
     z-index: 1;
-    background-color: #0f391d;
+    height: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: transparent;
 }
 
 .c-nav-ul {
     width: max-content;
+    height: 60px;
     list-style-type: none;
-    padding: 0px;
     margin: auto;
-    overflow: hidden;
+    padding: 0px;
 }
 
 .c-nav-li {
-    padding: 12px 4px;
+    padding: 20px 4px;
     float: left;
 }
 
@@ -104,6 +181,19 @@ nav {
     float: left;
     border-bottom: 1px solid #676767;
     padding: 8px 0px;
+}
+
+.open-header {
+    display: none;
+    right: 0px;
+    float: right;
+    padding: 2px 12px;
+}
+
+.open-header-border {
+    border-bottom: 10px solid #248644;
+    margin-bottom: 2px;
+    width: 6px;
 }
 
 li.c-contents-li {}
@@ -271,5 +361,18 @@ a {
 @media only screen and (max-width: 606px) {
     .c-contents-li {
         float: none;
+    }
+    .open-header {
+        display: block;
+    }
+    header {
+        height: 0px;
+        padding-top: 10px;
+        height: 230px;
+        display: none;
+    }
+    .header-ul {
+        width: 300px;
+        margin-top: 50px;
     }
 }

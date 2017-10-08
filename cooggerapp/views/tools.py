@@ -1,16 +1,23 @@
-from cooggerapp.blog_topics import *
+from cooggerapp.choices import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from cooggerapp import models
+from django.utils.text import slugify
 
+def make_choices(choice):
+    "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
+    slugs = []
+    for cho in choice:
+        slugs.append((slugify(cho),cho))
+    return slugs
 
 class Topics():
     def __init__(self):
-        self.category = Category().category
-        self.subcatecory = Subcategory.all()
-        self.category2 = Category2.all()
+        self.category = make_choices(Category().category)
+        self.subcatecory = make_choices(Subcategory.all())
+        self.category2 = make_choices(Category2.all())
 
     def category(self):
         dict_topics = dict(
@@ -72,7 +79,7 @@ def get_pp(queryset):
     pp = []
     for p in queryset:
         user_id = User.objects.filter(username = p.username)[0].id
-        is_pp = models.Author.objects.filter(user_id = user_id)[0].pp
+        is_pp = models.OtherInformationOfUsers.objects.filter(user_id = user_id)[0].pp
         pp.append(is_pp)
     return pp
     

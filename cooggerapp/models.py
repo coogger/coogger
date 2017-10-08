@@ -1,16 +1,21 @@
 from django.db import models
 from django.utils import timezone
 from ckeditor.fields import RichTextField 
-from cooggerapp.blog_topics import *
+from cooggerapp.choices import *
 from django.contrib.auth.models import User
-from cooggerapp.views import tools
+from cooggerapp.views.tools import Topics,make_choices
+from cooggerapp.choices import *
 
 class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi  
+    tools_topic = Topics()
+    choices_category = tools_topic.category
+    choices_subcategory = tools_topic.subcatecory
+    choices_category2 = tools_topic.category2
     username = models.CharField(max_length=37)
     content_list = models.CharField(max_length=30,verbose_name ="İçeriğinizin liste ismini yazın")
-    category = models.CharField(choices = Category().category ,max_length=30,verbose_name ="Kategori") 
-    subcategory = models.CharField(blank=True, null=True,choices = Subcategory.all() ,max_length=50,verbose_name ="Alt kategori") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
-    category2 = models.CharField(blank=True, null=True,choices = Category2.all() ,max_length=80,verbose_name = "İkinci alt kategori")
+    category = models.CharField(choices = choices_category ,max_length=30,verbose_name ="Kategori") 
+    subcategory = models.CharField(blank=True, null=True,choices=choices_subcategory,max_length=50,verbose_name ="Alt kategori") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
+    category2 = models.CharField(blank=True, null=True,choices=choices_category2,max_length=80,verbose_name = "İkinci alt kategori")
     title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
     url = models.SlugField(unique = True ,max_length=100,verbose_name = "Web adresi, başlık ile aynı olmasına özen gösterin ") # blogun url adresi 
     content = RichTextField(verbose_name = "içeriğinizi oluşturun")  # yazılan yazılar burda 
@@ -23,11 +28,11 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
         verbose_name = "content"
         ordering = ['-time']
 
+
 class Voters(models.Model):
     username_id = models.IntegerField()
     blog_id = models.IntegerField(verbose_name = "hangi blog")
     star = models.IntegerField(default = 0, verbose_name = "Yıldız")
-
 
 
 class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
@@ -35,13 +40,38 @@ class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
     content_list = models.SlugField(max_length=30,verbose_name ="İçerik listeniz")
     content_count = models.IntegerField(verbose_name = "liste içindeki nesne sayısı")
 
-class Author(models.Model):
+class Author(models.Model): # yazarlık bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    iban = models.CharField(blank=True, null=True,max_length=24,verbose_name = "iban numarası")
-    pp = models.BooleanField(blank=True,verbose_name = "profil resmi yüklemiş mi ?") # profil resmi yüklemişmi
-    is_author = models.BooleanField(blank=True,verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
-    author = models.BooleanField(blank=True,verbose_name = "yazarlık başvurusu yaptımı") # yazar başvurusu yaptımı ?
-    phone = models.CharField(blank=True, null=True,max_length=11,verbose_name = "telefon numarası")
+    choices_sex = (
+        ("male","erkek"),
+        ("female","kadın"),
+    )
+    choices_country = make_choices(Subcategory.seyahat())
+    old = [i for i in range(4,110)]
+    choices_old = make_choices(old)
+
+    choices_university = (
+        ("gaün","gaziantep"),
+    )
+    choices_jop = (
+        ("student","öğrenci"),
+    )
+    sex = models.CharField(choices = choices_sex,max_length=6,verbose_name="cinsiyet")
+    county = models.CharField(choices = choices_country,max_length=50,verbose_name="memleket")
+    old = models.CharField(choices = choices_old,verbose_name="Yaş",max_length=4)
+    university = models.CharField(null=True,choices = choices_university,verbose_name="üniversite",max_length=20)
+    jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30) # boş olamaz uni yazmamış ise öğrenci olarak seçer 
+    iban = models.CharField(max_length=24,null=True,verbose_name = "kart iban numarası")
+    phone = models.IntegerField(verbose_name = "telefon numarası")
+
+class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    pp = models.BooleanField(verbose_name = "profil resmi yüklemiş mi ?") # profil resmi yüklemişmi
+    is_author = models.BooleanField(verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
+    author = models.BooleanField(verbose_name = "yazarlık başvurusu yaptımı") # yazar başvurusu yaptımı ?
+
+
+
 
 """# ------------------------------------
 class Comment(models.Model): # yapılan yorumlar
