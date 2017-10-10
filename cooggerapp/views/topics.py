@@ -13,7 +13,7 @@ def topic(request,topic):
     category2 = top.category2
     topi = category+subcategory+category2
     topics_list = [url for url,top in topi]
-    if topic.replace(" ","_") not in topics_list:
+    if topic not in topics_list:
          ms.error(request,"Böyle bir konu bulunmamakta")
          return HttpResponseRedirect("/")
     queryset = False

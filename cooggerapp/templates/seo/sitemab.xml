@@ -4,426 +4,81 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-
-
-<url>
-    <loc>http://www.coogger.com/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/signup</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/login</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/topic/ders</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>http://www.coogger.com/topic/metafizik</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>http://www.coogger.com/topic/aşk_arkadaşlık</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>http://www.coogger.com/@hakancelik</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>http://www.coogger.com/@hakancelik/django</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>http://www.coogger.com/topic/mühendislik</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>http://www.coogger.com/topic/yazılım</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-<url>
-    <loc>http://www.coogger.com/@hakancelik/django/blog/djangoda-sayfalama</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@baristutakli</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@baristutakli/franszca-dersler</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/topic/eğitim</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/topic/yabancı_diller</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@baristutakli/franszca-dersler/blog/franszca-baslangc-dersi</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@ufukozer</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@ufukozer/django</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@ufukozer/django/blog/djangoda-login-sayfas-hazrlama</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@baristutakli/turtle-modulu</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@baristutakli/turtle-modulu/blog/turtle-modulu-anlatm1-yuru-kaplumbaga</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@ufukozer/django/blog/djangoda-giris-yapmadan-sayfay-gorememek</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/django/blog/django-da-user-modelini-genisletmek</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/muzik-onerileri</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/topic/müzik</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/muzik-onerileri/blog/lana-del-rey-lust-for-life-lyrics</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@imerafera</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@imerafera/gulsahdbgl</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@imerafera/gulsahdbgl/blog/gulsah-doboglu</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@baristutakli/python</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@baristutakli/python/blog/pandas-modulu-ve-yararlar</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/python</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/python/blog/python-ile-radyo-yayn-adreslerini-bulma</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/chemistry</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/topic/elektrik_ve_elektronik</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/chemistry/blog/general-chemistry-first-lesson</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@ufukozer/django/blog/djangoda-jquery-ile-csrf-token</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/python/blog/django-20-surum-notlar-halen-gelistirilmekte</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-dream-deneyimi-4</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-ruya-deneyimi-3</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-ruya-deneyimi-2-buyuk-karsklk</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-dream-de-ilk-deneyimim</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-dreamde-beynin-oyunu</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-dream-ruya-da-bilinci-acmak-icin-genelde-uygulanan-bir-kac-teknik</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-dream-sonraki-adm</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/None</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/?page=2</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/#</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-dream-ruya-gorme-suresini-uzatmak</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/lucid-dream-ruya-katmanlar</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/ruya-kontrolunun-yararlar-zararlar-ve-yapabildiklerimiz</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/arastrmalar-tansma-ve-gelisim</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/@hakancelik/lucidream/blog/ruya-kontrolu-ilk-yasadgm-deneyim</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
-<url>
-    <loc>http://www.coogger.com/?page=1</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.80</priority>
-</url>
-
-
-
+<url><loc>http://www.coogger.com/</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/signup</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/login</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/ders</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/yiyecek-ve-icecek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/medya</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/metafizik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/ask-arkadaslk</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/franszca-dersler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/egitim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/yabanc-diller</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/fraszca-soru-kalplar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@ibrahimsmngl</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@ibrahimsmngl/yemek-tarifleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/ev-yemekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@ibrahimsmngl/yemek-tarifleri/karn-yark</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@fadimekaplan</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@fadimekaplan/kitap-tavsiyeleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/kitap</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@fadimekaplan/kitap-tavsiyeleri/kurk-mantolu-madonna</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/python-opencv</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/muhendislik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/yazlm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/python-opencv/opencv-kurulum-resim-okuma-resmi-gormek-ve-resmi-yazmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/franszca-baslangc-dersi-3telaffuz</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/franszca-baslangc-dersi-2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/python</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/python/pandas-ile-csvtxtjson-uzantl-dosya-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/django/djangoda-sayfalama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/franszca-baslangc-dersi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@ufukozer</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@ufukozer/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@ufukozer/django/djangoda-login-sayfas-hazrlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/turtle-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/turtle-modulu/turtle-modulu-anlatm1-yuru-kaplumbaga</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@ufukozer/django/djangoda-giris-yapmadan-sayfay-gorememek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/django/django-da-user-modelini-genisletmek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/muzik-onerileri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/muzik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/muzik-onerileri/lana-del-rey-lust-for-life-lyrics</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@imerafera</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@imerafera/gulsahdbgl</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@imerafera/gulsahdbgl/gulsah-doboglu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@baristutakli/python/pandas-modulu-ve-yararlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/python</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/python/python-ile-radyo-yayn-adreslerini-bulma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/chemistry</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/elektrik-ve-elektronik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/chemistry/general-chemistry-first-lesson</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@ufukozer/django/djangoda-jquery-ile-csrf-token</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/django/django-20-surum-notlar-halen-gelistirilmekte</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/?page=2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/porselen-makyaj</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/kalc-makyaj</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/deniz</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/din-insan</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/sinema-oyuncusu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/assassins-creed</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/topic/gumushane</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/#</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dream-deneyimi-4</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-ruya-deneyimi-3</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-ruya-deneyimi-2-buyuk-karsklk</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dream-de-ilk-deneyimim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dreamde-beynin-oyunu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dream-ruya-da-bilinci-acmak-icin-genelde-uygulanan-bir-kac-teknik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dream-sonraki-adm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dream-ruya-gorme-suresini-uzatmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dream-ruya-katmanlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/ruya-kontrolunun-yararlar-zararlar-ve-yapabildiklerimiz</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/arastrmalar-tansma-ve-gelisim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/@hakancelik/lucidream/ruya-kontrolu-ilk-yasadgm-deneyim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+<url><loc>http://www.coogger.com/?page=1</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
 </urlset>

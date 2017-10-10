@@ -47,19 +47,15 @@ class Author(models.Model): # yazarlık bilgileri
         ("female","kadın"),
     )
     choices_country = make_choices(Subcategory.seyahat())
-    old = [i for i in range(4,110)]
+    old = [i for i in range(1905,2017)]
     choices_old = make_choices(old)
+    choices_university = make_choices(university())
+    choices_jop = make_choices(jop())
 
-    choices_university = (
-        ("gaün","gaziantep"),
-    )
-    choices_jop = (
-        ("student","öğrenci"),
-    )
     sex = models.CharField(choices = choices_sex,max_length=6,verbose_name="cinsiyet")
     county = models.CharField(choices = choices_country,max_length=50,verbose_name="memleket")
-    old = models.CharField(choices = choices_old,verbose_name="Yaş",max_length=4)
-    university = models.CharField(null=True,choices = choices_university,verbose_name="üniversite",max_length=20)
+    old = models.CharField(choices = choices_old,verbose_name="doğum tarihin",max_length=4)
+    university = models.CharField(null=True,choices = choices_university,verbose_name="üniversite",max_length=100)
     jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30) # boş olamaz uni yazmamış ise öğrenci olarak seçer 
     iban = models.CharField(max_length=24,null=True,verbose_name = "kart iban numarası")
     phone = models.IntegerField(verbose_name = "telefon numarası")
