@@ -102,12 +102,7 @@ def change(request,content_id):
                     pass
             except IndexError:
                 pass
-        try:
-            content_list_save = ContentList.objects.filter(username = real_username,content_list = content_list)[0]
-            content_list_save.content_count = F("content_count")+1 # zaten bu isim varsa bir artırıyor
-            content_list_save.save()
-        except IndexError:
-            ContentList(username = real_username,content_list = content_list,content_count = 1).save() # yoksa yeni bir tane acıyor
+            ContentList(username = real_username,content_list = content_list,content_count = 1).save() # yeni bir tane acıyor
         return HttpResponseRedirect("/@"+real_username+"/"+content_list+"/"+url)
     # get method
     output = dict(

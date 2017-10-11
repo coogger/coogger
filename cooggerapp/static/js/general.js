@@ -24,6 +24,17 @@ $(document).ready(function() {
         }
     }
 
+    function wincenter() {
+        // nesneleri ekrana ortalar
+        // her sayfada sadece 1 tane nesne ortalanabilir
+        var body_heig = $("body").height();
+        var class_heig = $(".wincenter").height(); // ortalanmak istenen nesneye width değeri verilmeli ardından body 100% olmalı ve wincenter class ismi eklenmeli
+        $(".wincenter").css("margin", "auto");
+        $(".wincenter").css("margin-top", (body_heig - class_heig) / 2);
+        // nesneleri ekrana ortalar
+        // ---------
+    }
+
     set();
     var wid = $(window).width();
     var heig = $(window).height();
@@ -36,7 +47,14 @@ $(document).ready(function() {
             $("header").toggle("fast");
         });
     }
-    // her zaman
+
+    // her zaman ekran değiştiğinde çalışacak kodlar
+    wincenter();
+    $(window).resize(function() {
+        wincenter();
+    });
+
+    // her zaman çalışacak kodlar
     $(".close-ms").click(function() {
         $(".main-messages").remove();
     })
@@ -75,14 +93,7 @@ $(document).ready(function() {
         var post_id = this.getAttribute("data-post-id");
         $(".d-starts-ul").load("/stars/" + post_id + "/" + stars_id);
     });
-    // nesneleri ekrana ortalar
-    // her sayfada sadece 1 tane nesne ortalanabilir
-    var body_heig = $("body").height();
-    var class_heig = $(".wincenter").height(); // ortalanmak istenen nesneye width değeri verilmeli ardından body 100% olmalı ve wincenter class ismi eklenmeli
-    $(".wincenter").css("margin", "auto");
-    $(".wincenter").css("margin-top", (body_heig - class_heig) / 2);
-    // nesneleri ekrana ortalar
-    // ---------
+
     // controls
     $("#id_category").change(function() {
         var str = "";

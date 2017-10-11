@@ -19,6 +19,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
     url = models.SlugField(unique = True ,max_length=100,verbose_name = "Web adresi, başlık ile aynı olmasına özen gösterin ") # blogun url adresi 
     content = RichTextField(verbose_name = "içeriğinizi oluşturun")  # yazılan yazılar burda 
+    show = RichTextField(verbose_name = "İçeriğinizin anasayfadaki görünümünü ayarlayın max : 400")
     tag = models.CharField(max_length=200,verbose_name = "İçeriğiniz ili ilgili anahtar kelimeleri virgul kullanarak yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi 
     dor = models.TextField() # duration of read içerik okuma süresi
@@ -57,8 +58,8 @@ class Author(models.Model): # yazarlık bilgileri
     old = models.CharField(choices = choices_old,verbose_name="doğum tarihin",max_length=4)
     university = models.CharField(null=True,choices = choices_university,verbose_name="üniversite",max_length=100)
     jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30) # boş olamaz uni yazmamış ise öğrenci olarak seçer 
-    iban = models.CharField(max_length=24,null=True,verbose_name = "kart iban numarası")
-    phone = models.IntegerField(verbose_name = "telefon numarası")
+    iban = models.CharField(unique = True,max_length=24,null=True,verbose_name = "kart iban numarası")
+    phone = models.IntegerField(unique = True,verbose_name = "telefon numarası")
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)

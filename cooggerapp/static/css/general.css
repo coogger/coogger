@@ -579,6 +579,7 @@ footer {
     margin: auto;
     border-radius: 4px;
     margin-bottom: 12px;
+    background-color: white;
     font-size: 12px;
     border-top: 1px solid #cdcdcd;
 }
@@ -598,7 +599,7 @@ footer {
 
 .b-footer-li {
     margin: auto;
-    width: 250px;
+    width: 237px;
 }
 
 .b-footer-info {
