@@ -14,23 +14,14 @@ body {
     background: #ececec;
 }
 
-.main-blog-cards {
-    padding: 4px;
-    display: block;
-    width: fit-content;
-    margin: auto;
-}
+.main-blog-cards {}
 
 .blogs {
     position: relative;
-    padding-bottom: 4px;
-    height: -webkit-fill-available;
     background-color: #ececec;
-    width: 0px;
-    margin: auto;
     display: table;
-    margin-bottom: 80px;
-    border-radius: 4px;
+    margin: 60px auto;
+    z-index: 0;
     box-shadow: 0px 0px 2px 0px #c5c5c5;
 }
 
@@ -128,9 +119,7 @@ body {
 .pagination {
     position: relative;
     width: max-content;
-    padding: 30px 10px 30px 10px;
-    margin: auto;
-    margin-bottom: 60px;
+    margin: 24px auto;
 }
 
 .step-links {}
@@ -151,12 +140,13 @@ body {
 }
 
 .blog-cards {
+    position: relative;
+    z-index: 0;
     width: 280px;
     height: 420px;
     border-radius: 4px;
-    padding: 6px;
+    padding: 12px;
     background-color: #fff;
-    margin: 6px;
     box-shadow: 0px 1px 2px 1px #c5c5c5;
 }
 
@@ -266,11 +256,17 @@ a {
 
 header {
     background-color: #0f391d;
+    position: fixed;
+    width: 100%;
+    height: 40px;
+    z-index: 5;
+    top: 0px;
 }
 
 .main-messages {
     position: relative;
     height: 52px;
+    z-index: 1;
     width: 40%;
     text-align: center;
     color: #fff;
@@ -287,11 +283,14 @@ header {
 }
 
 .logo {
+    position: fixed;
     background-color: #ffffff;
     border-radius: 2px;
-    padding: 8px 10px;
+    padding: 7px 12px;
     float: left;
-    margin: 10px 0px 10px 4px;
+    z-index: 6;
+    top: 0px;
+    margin: 1px 1px;
 }
 
 .logo-a {
@@ -302,7 +301,7 @@ header {
 }
 
 .search {
-    padding: 13px;
+    padding: 3px 12px;
 }
 
 .search-form {}
@@ -329,10 +328,8 @@ header {
 }
 
 .solol {
-    padding: 10px;
+    padding: 10px 12px;
     text-align: center;
-    margin-top: 10px;
-    margin-left: 10px;
 }
 
 .solol a {
@@ -340,22 +337,25 @@ header {
 }
 
 .header-ul {
-    width: max-content;
-    height: 60px;
     list-style-type: none;
     margin: auto;
     padding: 0px;
+    width: max-content;
 }
 
 .header-ul-li {
     float: left;
+    margin-right: 16px;
 }
 
 .open-header {
     display: none;
     right: 0px;
+    position: fixed;
     float: right;
+    z-index: 6;
     padding: 2px 12px;
+    top: 0px;
 }
 
 .open-header-border {
@@ -406,37 +406,42 @@ header {
 }
 
 nav {
-    position: relative;
-    width: 100%;
-    overflow: auto;
+    position: fixed;
     z-index: 1;
-    height: 60px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: transparent;
+    background-color: #fff;
 }
 
 .main-nav {
-    width: max-content;
     list-style-type: none;
     padding: 0px;
-    margin: auto;
-    overflow: hidden;
+    margin: 0px;
+    overflow: auto;
 }
 
 .nav-ul-li {
-    padding: 10px 0px;
-    float: left;
+    text-align: center;
+    color: #fff;
+    padding-bottom: 24px;
+    padding: 10px;
+    margin: 0px;
+    border: none;
+    background: #ffffff;
+    border-radius: 2px;
+    cursor: pointer;
 }
 
-.nav-ul-li-a {
-    color: #000;
-    padding: 12px 12px;
+.nav-ul-li:hover {
+    background-color: #248644;
 }
 
 .nav-ul-li-a:hover {
-    background-color: #0f391d;
     color: #fff;
+}
+
+.nav-ul-li-a {
+    padding: 12px 24px;
+    color: #000;
+    text-decoration: none;
 }
 
 .nav-topic {
@@ -444,7 +449,7 @@ nav {
     padding: 10px 16px;
     margin: 0px;
     cursor: pointer;
-    background-color: #0f391d;
+    background-color: #248644;
 }
 
 .preload {
@@ -528,60 +533,68 @@ nav {
 }
 
 .b-edit {
-    width: 292px;
-    margin: auto;
-    height: 20px;
+    position: absolute;
+    z-index: 2;
 }
 
 .b-edit-ul {
     list-style: none;
+    margin: auto;
     padding: 0px;
-    height: 20px;
-    margin: 0px;
-    display: none;
+    width: 160px;
+    height: 340px;
+    margin-top: 46px;
+    background-color: #248644;
+    border-radius: 4px;
 }
 
 .b-edit-li {
-    float: left;
-    /* padding: 2px 0px; */
-    margin: 0px 15px;
+    border-radius: 4px;
+    padding: 6px 0px;
+    height: 30px;
+}
+
+.b-edit-li-a:hover {
+    background-color: #0f391d;
+    color: #fff;
 }
 
 .b-edit-li-a {
-    padding: 2px 38px;
-    margin: 0px;
-    background-color: #25644d;
-    border-radius: 40px;
-    color: #fff;
+    padding: 10px 62px;
+    font-size: 12px;
+    background-color: #fff;
+    border-radius: 37px;
 }
 
 .b-blog {
     float: left;
+    margin: 6px 6px;
 }
 
 .b-edit-point {
-    float: right;
-    color: #fff;
-    border-radius: 40px;
     cursor: pointer;
-    padding-top: 4px;
+    position: relative;
+    padding: 2px;
+    border-radius: 20px;
+    background-color: #333;
 }
 
 .border {
-    border-bottom: 1px solid #484545;
-    margin-bottom: 4px;
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 6px;
+    margin-top: 6px;
     height: 0px;
-    width: 12px;
+    width: 2px;
 }
 
 footer {
     position: absolute;
     margin: auto;
     border-radius: 4px;
-    margin-bottom: 12px;
-    background-color: white;
     font-size: 12px;
     border-top: 1px solid #cdcdcd;
+    background-color: #fff;
+    right: 0px;
 }
 
 .b-footer-ul {
@@ -599,7 +612,7 @@ footer {
 
 .b-footer-li {
     margin: auto;
-    width: 237px;
+    width: 250px;
 }
 
 .b-footer-info {
@@ -608,7 +621,19 @@ footer {
     width: 50%;
 }
 
-@media only screen and (max-width: 606px) {
+.b-edit-panel {
+    position: absolute;
+    list-style: none;
+    border-radius: 4px;
+    height: 444px;
+    width: 304px;
+    display: none;
+    margin: 0px;
+    padding: 0px;
+    background-color: #248644;
+}
+
+@media only screen and (max-width:1160px) {
     .datail {
         width: 90%;
     }
@@ -618,7 +643,7 @@ footer {
     header {
         height: 0px;
         padding-top: 10px;
-        height: 230px;
+        height: 100%;
         display: none;
     }
     .main-messages {
@@ -627,9 +652,8 @@ footer {
         height: 54px;
         border: 0px solid #f1f1f1;
     }
-    .header-ul {
-        width: 300px;
-    }
+    .header-ul {}
+    .header-ul-li {}
     .search-input {
         width: 170px;
     }
@@ -638,5 +662,29 @@ footer {
     }
     .b-footer-main {
         width: 100%;
+    }
+    nav {
+        width: 100%;
+        overflow: auto;
+        z-index: 1;
+        height: 60px;
+        background-color: #ececec;
+        top: 64px;
+    }
+    .nav-ul-li {
+        float: left;
+    }
+    .logo {
+        width: 100%;
+        margin: 0px;
+        height: 50px;
+        background-color: #ececec;
+    }
+    .main-nav {
+        width: max-content;
+        overflow: hidden;
+    }
+    .blogs {
+        margin: 130px auto;
     }
 }

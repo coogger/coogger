@@ -52,10 +52,12 @@ body {
 }
 
 header {
-    position: relative;
-    height: 50px;
-    margin: auto;
     background-color: #0f391d;
+    position: fixed;
+    width: 100%;
+    height: 40px;
+    z-index: 5;
+    top: 0px;
 }
 
 .u-username {
@@ -68,7 +70,7 @@ header {
 }
 
 .u-i {
-    margin-top: 6px;
+    margin-top: 60px;
 }
 
 .u-pp {
@@ -93,25 +95,27 @@ header {
 }
 
 .u-pp-submit {
-    padding: 0.400rem 1.25rem;
+    padding: 9px 30px;
     background-color: #248644;
     color: #fff;
     border: 0px solid #000;
     cursor: pointer;
     float: right;
+    font-size: 12px;
+    border-radius: 6px;
 }
 
 .u-upload-label {
-    max-width: 80%;
-    font-size: 1.25rem;
-    font-weight: 700;
+    max-width: 130px;
+    font-size: 12px;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
     display: inline-block;
     overflow: hidden;
-    padding: 0.625rem 1.25rem;
+    padding: 10px 12px;
     color: #f1e5e6;
+    border-radius: 7px;
     background-color: #cd0e0e;
 }
 
@@ -181,12 +185,14 @@ nav {
 }
 
 .logo {
+    position: fixed;
     background-color: #ffffff;
-    border-radius: 4px;
-    padding: 10px;
+    border-radius: 2px;
+    padding: 6px 12px;
     float: left;
-    margin-top: 2px;
-    margin-left: 10px;
+    z-index: 6;
+    top: 0px;
+    margin: 1px 1px;
 }
 
 .logo-img {

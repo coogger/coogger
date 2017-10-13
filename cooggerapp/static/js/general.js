@@ -1,27 +1,27 @@
 $(document).ready(function() {
     function set() {
-        var wid = $(window).width();
-        if (wid > 48 && wid < 687) {
-            $(".main-blog-cards").css({ width: "306px" });
-        }
-        if (wid > 686 && wid < 1028) {
-            $(".main-blog-cards").css({ width: "612px" });
-        }
-        if (wid > 1027 && wid < 1369) {
-            $(".main-blog-cards").css({ width: "918px" });
-        }
-        if (wid > 1368 && wid < 1710) {
-            $(".main-blog-cards").css({ width: "1224px" });
-        }
-        if (wid > 1709 && wid < 2051) {
-            $(".main-blog-cards").css({ width: "1530px" });
-        }
-
-        if (wid < 607) {
-            $("header").css("display", "none");
+        var wid = parseInt($(window).width());
+        var heig = parseInt($(window).height());
+        if (wid < 1160) {
+            var nav_wid = 0;
         } else {
-            $("header").css("display", "block");
+            var nav_wid = parseInt($("nav").width() - 24);
         }
+        var blog_wid = parseInt($(".b-blog").width() + 12); // bir içeriğin genişliği
+        var total_wid = parseInt(wid - nav_wid); // ekranda boş kalan yer
+        var hmblogs = parseInt(total_wid / (blog_wid)); // kaç tane sığar
+        var total_blogs_wid = parseInt(blog_wid * hmblogs);
+        var pagi_wid = parseInt($(".pagination").width());
+        // footer
+        $("footer").css({ width: wid - nav_wid });
+        // blogs konumlandırma
+        var hmany_blogs = parseInt();
+        $(".blogs").css({ width: total_blogs_wid });
+        $(".blogs").css("margin-left", (wid - total_blogs_wid + nav_wid) / 2);
+        // paginator konumlandırma
+        $(".pagination").css("margin-left", (total_wid - pagi_wid) / 2 + nav_wid);
+        // nav yükseklik ayarı
+        $(".main-nav").css("height", heig - 120);
     }
 
     function wincenter() {
@@ -35,22 +35,19 @@ $(document).ready(function() {
         // ---------
     }
 
-    set();
-    var wid = $(window).width();
-    var heig = $(window).height();
-    if (wid > 769) { // mobil değil ise
-        $(window).resize(function() {
-            set();
-        });
-    } else { // mobil ise
+    var wid = parseInt($(window).width());
+    if (wid < 1160) { // mobil ve tablet
+        $(".header-ul").addClass("wincenter");
         $(".open-header").click(function() {
-            $("header").toggle("fast");
+            $("header").toggle("fast")
         });
     }
 
-    // her zaman ekran değiştiğinde çalışacak kodlar
+    //ekran değiştiğinde çalışacak kodlar
+    set();
     wincenter();
     $(window).resize(function() {
+        set();
         wincenter();
     });
 
@@ -58,6 +55,9 @@ $(document).ready(function() {
     $(".close-ms").click(function() {
         $(".main-messages").remove();
     })
+    setTimeout(function() {
+        $(".main-messages").remove();
+    }, 3000);
     $(".b-content").mouseover(function() {
         $(this).find(".blog-cont").css({
             filter: "blur(3px)",

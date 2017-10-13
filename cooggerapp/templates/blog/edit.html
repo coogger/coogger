@@ -1,17 +1,19 @@
 <div class="b-edit">
     {% if blo.username == request.user.username or request.user.is_superuser %}
-    <span class="b-edit-point" data-edit-id="{{ blo.id }}">
+    <div class="b-edit-panel data-edit-id-{{ blo.id }}">
+        <ul class="b-edit-ul ft-ar">
+            <li class="b-edit-li">
+                <a class="b-edit-li-a " href="/change/{{ blo.id }}">Düzenle</a>
+            </li>
+            <li class="b-edit-li">
+                <a class="b-edit-li-a delete" data-delete-id="{{ blo.id }}">Sil</a>
+            </li>
+        </ul>
+    </div>
+    <div class="b-edit-point" data-edit-id="{{ blo.id }}">
         <div class="border"></div>
         <div class="border"></div>
         <div class="border"></div>
-    </span>
-    <ul class="b-edit-ul data-edit-id-{{ blo.id }} ft-ar">
-        <li class="b-edit-li">
-            <a class="b-edit-li-a " href="/change/{{ blo.id }}">Düzenle</a>
-        </li>
-        <li class="b-edit-li">
-            <a class="b-edit-li-a delete" data-delete-id="{{ blo.id }}">Sil</a>
-        </li>
-    </ul>
+    </div>
     {% endif %}
 </div>
