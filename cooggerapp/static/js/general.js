@@ -5,13 +5,13 @@ $(document).ready(function() {
         if (wid < 1160) {
             var nav_wid = 0;
         } else {
-            var nav_wid = parseInt($("nav").width() - 24);
+            var nav_wid = parseInt($("nav").width() + 24);
         }
         var blog_wid = parseInt($(".b-blog").width() + 12); // bir içeriğin genişliği
         var total_wid = parseInt(wid - nav_wid); // ekranda boş kalan yer
         var hmblogs = parseInt(total_wid / (blog_wid)); // kaç tane sığar
-        var total_blogs_wid = parseInt(blog_wid * hmblogs);
-        var pagi_wid = parseInt($(".pagination").width());
+        var total_blogs_wid = parseInt(blog_wid * hmblogs); // ekrana sığan blog sayısınca olan genişlik
+        var pagi_wid = parseInt($(".pagination").width()); // pagination sınıfının genişliği
         // footer
         $("footer").css({ width: wid - nav_wid });
         // blogs konumlandırma
@@ -22,6 +22,13 @@ $(document).ready(function() {
         $(".pagination").css("margin-left", (total_wid - pagi_wid) / 2 + nav_wid);
         // nav yükseklik ayarı
         $(".main-nav").css("height", heig - 120);
+        // detail ayarı
+        var detail_wid = parseInt((total_wid * 90) / 100); // detail sınıfının genişliği
+        if (wid > 1160) {
+            $(".datail").css("margin-right", (total_wid - detail_wid) / 2);
+        }
+        $(".datail").css("width", detail_wid);
+
     }
 
     function wincenter() {

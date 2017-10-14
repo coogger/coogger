@@ -28,18 +28,17 @@ body {
 .datail {
     position: relative;
     background-color: rgb(255, 255, 255);
-    width: 70%;
-    margin: auto;
     padding: 24px 12px;
     border: 1px solid #f1f1f1;
     border-radius: 4px;
     box-shadow: 0px 0px 2px 0px #000000;
-    margin-bottom: 100px;
+    z-index: 0;
+    margin: 100px auto;
 }
 
 .d-main-start {
     margin: auto;
-    width: 300px;
+    width: 288px;
     height: 15px;
     margin-bottom: 20px;
 }
@@ -534,7 +533,7 @@ nav {
 
 .b-edit {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
 }
 
 .b-edit-ul {
@@ -636,6 +635,7 @@ footer {
 @media only screen and (max-width:1160px) {
     .datail {
         width: 90%;
+        margin-top: 140px;
     }
     .open-header {
         display: block;
@@ -653,7 +653,9 @@ footer {
         border: 0px solid #f1f1f1;
     }
     .header-ul {}
-    .header-ul-li {}
+    .header-ul-li {
+        float: none;
+    }
     .search-input {
         width: 170px;
     }
