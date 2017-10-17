@@ -36,8 +36,7 @@ def topic(request,topic):
             stars.append(str(int(i.stars/i.hmstars)+1))
         except ZeroDivisionError:
             stars.append("0")
-    ads = [ad for ad in range(1,21)]
-    blogs = zip(blogs,pp,stars,ads)
+    blogs = zip(blogs,pp,stars)
     elastic_search = dict(
      title = topic+" | coogger",
      keywords = topic+"coogger "+topic,

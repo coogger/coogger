@@ -1,14 +1,14 @@
 $(document).ready(function() {
     function set() {
-        var wid = parseInt($(window).width());
-        var heig = parseInt($(window).height());
+        var wid = $(window).width();
+        var heig = $(window).height();
         if (wid < 1160) {
             var free_space = 0;
             var nav_heig = 40;
         } else {
             var free_space = 320;
-            var nav_heig = heig - 120
-                // main-nav ayarlama
+            var nav_heig = heig - 120;
+            // main-nav ayarlama
             $(".main-nav").mouseover(function() {
                 $(".main-nav").css("overflow", "auto");
                 $(".main-nav").css("height", nav_heig);
@@ -19,17 +19,16 @@ $(document).ready(function() {
                 $(".blogs").css("filter", "blur(0px)");
             });
         }
-        var blog_wid = parseInt($(".b-blog").width() + 12); // bir içeriğin genişliği
-        var total_wid = parseInt(wid - free_space); // ekranda boş kalan yer
-        var hmblogs = parseInt(total_wid / blog_wid); // kaç tane sığar
-        var total_blogs_wid = parseInt(blog_wid * hmblogs); // ekrana sığan blog sayısınca olan genişlik
+        var total_wid = wid - free_space; // ekranda boş kalan yer
         // footer
         $("footer").css({ width: wid - free_space });
         // blogs konumlandırma
-        var hmany_blogs = parseInt();
+        var blog_wid = $(".b-blog").width() + 6; // bir içeriğin genişliği
+        var hmblogs = parseInt(total_wid / blog_wid); // kaç tane sığar
+        var total_blogs_wid = blog_wid * hmblogs; // ekrana sığan blog sayısınca olan genişlik
         $(".blogs").css({ width: total_blogs_wid });
         // detail ayarı
-        var detail_wid = parseInt((total_wid * 90) / 100); // detail sınıfının genişliği
+        var detail_wid = (total_wid * 90) / 100; // detail sınıfının genişliği
         $(".datail").css("width", detail_wid);
 
     }

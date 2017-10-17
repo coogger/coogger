@@ -1,4 +1,4 @@
-{% for blo,pp,stars,ads in blog %}
+{% for blo,pp,stars in blog %}
 <div class="b-blog data-post-id-{{blo.id}}">
     {% include "blog/edit.html" %}
     <div class="blog-cards">
@@ -10,15 +10,4 @@
         </div>
     </div>
 </div>
-
-
-{% if ads == 2 or ads == 5 or ads == 7 or ads == 14 or ads == 19 %}
-<div class="b-home-ads">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- coogger home feed -->
-    <ins class="adsbygoogle" style="display:inline-block;width:240px;height:420px" data-ad-client="ca-pub-9215854020523450" data-ad-slot="4278988846"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
-{% endif %} {% endfor %}
+{% endfor %}

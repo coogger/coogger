@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib import messages as ms
-from cooggerapp.models import *
+from cooggerapp.models import ContentList,OtherInformationOfUsers,Blog,UserFollow
+from cooggerapp.forms import UserFollowForm
 from cooggerapp.views import tools
 from PIL import Image
 import os
@@ -15,16 +16,35 @@ def user(request,username):
     user = User.objects.filter(username = username)
     pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     user_info = user[0]
+    try:
+        user_follow = UserFollow.objects.filter(user = user)
+    except:
+        user_follow = []
+    # yaptığı paylaşımlar
+    queryset = Blog.objects.filter(username = username)
+    blogs = tools.paginator(request,queryset,10)
+    paginator = blogs
+    pp = tools.get_pp(blogs)
+    stars = []
+    for i in blogs:
+        try:
+            stars.append(str(int(i.stars/i.hmstars)+1))
+        except ZeroDivisionError:
+            stars.append("0")
+    blogs = zip(blogs,pp,stars)
+    #
     elastic_search = dict(
      title = username+" | coogger",
      keywords =username+","+user_info.first_name+" "+user_info.last_name,
      description =user_info.first_name+", "+user_info.last_name+", "+username+" adı ile coogger'da",
     )
-
     output = dict(
         users = True,
         pp = pp,
+        blog = blogs,
         username = username,
+        paginator = paginator,
+        user_follow = user_follow,
         content_list = content_list,
         elastic_search = elastic_search,
     )
@@ -66,8 +86,7 @@ def u_topic(request,username,utopic):
             stars.append(str(int(i.stars/i.hmstars)+1))
         except ZeroDivisionError:
             stars.append("0")
-    ads = [ad for ad in range(1,21)]
-    blogs = zip(blogs,pp,stars,ads)
+    blogs = zip(blogs,pp,stars)
     top = tools.Topics()
     category = top.category
     subcategory = top.subcatecory

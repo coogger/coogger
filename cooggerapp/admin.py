@@ -18,16 +18,26 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 class ContentListAdmin(admin.ModelAdmin):
-    list_display = ["username","content_list","content_count"]
-    list_display_links = ["username","content_list","content_count"]
+    list_ = ["username","content_list","content_count"]
+    list_display = list_
+    list_display_links = list_
     list_filter = ["content_count"]
-    search_fields = ["username","content_list","content_count"]
+    search_fields = list_
 
 class VotersAdmin(admin.ModelAdmin):
-    list_display = ["username_id","blog_id","star"]
-    list_display_links = ["username_id","blog_id","star"]
+    list_ = ["username_id","blog_id","star"]
+    list_display = list_
+    list_display_links = list_
     list_filter = ["star"]
-    search_fields = ["username_id","blog_id","star"]
+    search_fields = list_
+
+class UserFollowAdmin(admin.ModelAdmin):
+    list_ = ["user","choices","adress"]
+    list_display = list_
+    list_display_links = list_
+    list_filter = ["choices"]
+    search_fields = list_
+
 
 ## users ##
 class OtherInformationOfUsersAdmin(admin.StackedInline):
@@ -59,6 +69,7 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Blog,BlogAdmin)
+admin.site.register(UserFollow,UserFollowAdmin)
 admin.site.register(ContentList,ContentListAdmin) 
 admin.site.register(Voters,VotersAdmin) 
 admin.site.register(OtherInformationOfUsers,OtherInformationOfUsersADMIN) 

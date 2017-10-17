@@ -37,8 +37,9 @@ body::-webkit-scrollbar-thumb {
 .blogs {
     position: relative;
     background-color: #ececec;
-    display: table;
+    display: flow-root;
     margin: 56px auto;
+    padding: 6px;
     z-index: 0;
     box-shadow: 0px 0px 2px 0px #c5c5c5;
 }
@@ -162,7 +163,7 @@ body::-webkit-scrollbar-thumb {
     width: 280px;
     height: 420px;
     border-radius: 4px;
-    padding: 12px;
+    padding: 10px;
     background-color: #fff;
     box-shadow: 0px 1px 2px 1px #c5c5c5;
 }
@@ -648,7 +649,7 @@ nav::-webkit-scrollbar-thumb {
 
 .b-blog {
     float: left;
-    margin: 6px 6px;
+    margin: 6px 3px;
 }
 
 .b-home-ads {

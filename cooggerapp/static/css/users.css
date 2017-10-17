@@ -49,6 +49,7 @@
 
 body {
     margin: 0px;
+    background-color: #ececec;
 }
 
 header {
@@ -133,10 +134,9 @@ header {
 
 nav {
     overflow: auto;
-    height: 60px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    height: max-content;
     background-color: rgb(255, 255, 255);
+    padding: 4px 0px;
 }
 
 .u-main-nav {
@@ -208,6 +208,28 @@ nav {
     margin-top: 4px;
 }
 
+footer {
+    margin: auto;
+    background-color: #fff;
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+.u-footer-ul {
+    list-style: none;
+    margin: auto;
+    padding: 0px;
+    width: max-content;
+}
+
+.u-footer-info {
+    margin: auto;
+    width: max-content;
+    padding: 8px 0px;
+    color: #000;
+}
+
 .main-logo {}
 
 .logo-a {
@@ -216,16 +238,9 @@ nav {
     padding: 0px 6px 0px 6px;
 }
 
-. {
-    position: relative;
-    height: 52px;
-    width: 40%;
-    text-align: center;
-    color: #fff;
-    border: 1px solid #f1f1f1;
-    left: 30%;
-    background-color: rgb(241, 57, 57);
-    border-radius: 4px;
+.u-footer-main {
+    margin: auto;
+    width: 100%;
 }
 
 .close-ms {
@@ -265,4 +280,249 @@ nav {
     font-size: 555%;
     display: flex;
     margin-top: 14%;
+}
+
+.blogs {
+    position: relative;
+    background-color: #ececec;
+    display: flow-root;
+    margin: 56px auto;
+    z-index: 0;
+    box-shadow: 0px 0px 2px 0px #c5c5c5;
+}
+
+.b-blog {
+    float: left;
+    margin: 6px 3px;
+}
+
+.b-edit {
+    position: absolute;
+    z-index: 3;
+}
+
+.b-edit-panel {
+    position: absolute;
+    list-style: none;
+    border-radius: 4px;
+    height: 444px;
+    width: 304px;
+    display: none;
+    margin: 0px;
+    padding: 0px;
+    background-color: #248644;
+}
+
+.b-edit-ul {
+    list-style: none;
+    margin: auto;
+    padding: 0px;
+    width: 160px;
+    height: 340px;
+    margin-top: 46px;
+    background-color: #248644;
+    border-radius: 4px;
+}
+
+.b-edit-li {
+    border-radius: 4px;
+    padding: 6px 0px;
+    height: 30px;
+}
+
+.b-edit-li-a {
+    padding: 10px 62px;
+    font-size: 12px;
+    background-color: #fff;
+    border-radius: 37px;
+}
+
+.b-edit-point {
+    cursor: pointer;
+    position: relative;
+    padding: 2px;
+    border-radius: 20px;
+    background-color: #333;
+}
+
+.border {
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    height: 0px;
+    width: 2px;
+}
+
+.blog-cards {
+    position: relative;
+    z-index: 0;
+    width: 280px;
+    height: 420px;
+    border-radius: 4px;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0px 1px 2px 1px #c5c5c5;
+}
+
+.blog-user {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.b-user-ul {
+    list-style: none;
+    margin: auto;
+    padding: 0px;
+    height: 42px;
+}
+
+.b-user-ul-li {
+    float: left;
+}
+
+.b-user-img {
+    width: 40px;
+    height: 40px;
+}
+
+.b-user-img-src {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+}
+
+.blog-user-li {
+    max-width: 280px;
+    float: right;
+}
+
+.blog-content-list-name {
+    font-size: 12px;
+    padding: 4px 6px;
+    text-align: center;
+    width: max-content;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #0f391d;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.blog-username-a {
+    color: #fff;
+}
+
+.blog-username {
+    font-size: 12px;
+    text-align: center;
+    width: 216px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #0f391d;
+    text-overflow: ellipsis;
+    margin: 10px 0px 0px 12px;
+    white-space: nowrap;
+}
+
+.b-content-info {
+    margin-top: 30px;
+}
+
+.blog-time {
+    font-size: 12px;
+    border-radius: 4px;
+    text-align: center;
+    margin: auto;
+    padding: 2px 6px;
+    border: 1px solid #0f391d;
+}
+
+.blog-category {
+    width: max-content;
+    font-size: 14px;
+    text-align: center;
+    margin: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    list-style: none;
+    padding: 6px 0px;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+
+.blog-title {
+    margin: auto;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+}
+
+.blog-cont {
+    position: relative;
+    margin: auto;
+    width: 90%;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.blog-content {
+    height: 240px;
+    overflow: hidden;
+}
+
+.pagination {
+    position: relative;
+    width: max-content;
+    margin: 24px auto;
+}
+
+.current {
+    padding: 6px;
+    background: rgb(0, 0, 0);
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 14px;
+}
+
+.step-links-a {
+    padding: 6px 12px;
+    color: #fff;
+    background: #248644;
+    border-radius: 4px;
+}
+
+.duread-main {
+    position: relative;
+    bottom: 210px;
+    z-index: 1;
+    width: 280px;
+    height: 200px;
+}
+
+.duread-ul {
+    padding: 0px;
+    list-style: none;
+    border-radius: 4px;
+    background-color: #248644;
+}
+
+.duread-li {
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    padding: 4px 0px;
+    border-radius: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 4px;
+    white-space: nowrap;
 }

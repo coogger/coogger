@@ -19,7 +19,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
     url = models.SlugField(unique = True ,max_length=100,verbose_name = "web adresi") # blogun url adresi 
     content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda 
-    show = RichTextField(verbose_name = "Max 400 : harf ile anasayfa görünümünü ayarlayın")
+    show = models.CharField(max_length=400,verbose_name = "Anasayfa'da görünecek içerik notu ekleyin")
     tag = models.CharField(max_length=200,verbose_name = "Virgül kullanarak ahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi 
     dor = models.TextField() # duration of read içerik okuma süresi
@@ -52,7 +52,6 @@ class Author(models.Model): # yazarlık bilgileri
     choices_old = make_choices(old)
     choices_university = make_choices(university())
     choices_jop = make_choices(jop())
-
     sex = models.CharField(choices = choices_sex,max_length=6,verbose_name="cinsiyet")
     county = models.CharField(choices = choices_country,max_length=50,verbose_name="memleket")
     old = models.CharField(choices = choices_old,verbose_name="doğum tarihin",max_length=4)
@@ -66,6 +65,11 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     pp = models.BooleanField(verbose_name = "profil resmi yüklemiş mi ?") # profil resmi yüklemişmi
     is_author = models.BooleanField(verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
     author = models.BooleanField(verbose_name = "yazarlık başvurusu yaptımı") # yazar başvurusu yaptımı ?
+
+class UserFollow(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    choices = models.CharField(max_length=15, choices = make_choices(follow()))
+    adress = models.CharField(max_length=150,verbose_name = "Adresi yazın")
 
 
 

@@ -1,0 +1,19 @@
+<footer>
+    <div class="u-footer-main">
+        {% if user_follow %}
+        <div class="u-footer-info ft-os">Sosyal medya hesapları</div>
+        {% else %}
+        <div class="u-footer-info ft-os">Herhangi bir sosyal medya hesab kaydı bulunmamakta</div>
+        {% endif %}
+        <ul class="u-footer-ul">
+            {% for follow in user_follow %}
+            <li class="u-footer-li">
+                <a class="ft-os" target="_blank" href="//{{follow.adress}}">
+                    <img src="/static/media/icons/{{follow.choices}}.svg" />
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</footer>

@@ -1752,3 +1752,14 @@ def jop():
         'Zoolog'
     )
     return jo
+
+def follow():
+    fo = (
+        "facebook",
+        "instagram",
+        "youtube",
+        "github",
+        "linkedin",
+        "web site",
+    )
+    return fo

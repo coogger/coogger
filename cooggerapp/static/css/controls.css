@@ -200,7 +200,7 @@ nav {
 .c-blogs {
     position: relative;
     background-color: #ececec;
-    display: table;
+    display: flow-root;
     margin: 56px auto;
     z-index: 0;
     box-shadow: 0px 0px 2px 0px #c5c5c5;
@@ -446,7 +446,6 @@ nav {
     padding: 12px 24px;
     background-color: #248644;
     color: #fff;
-    float: right;
     border: 0px;
     cursor: pointer;
     border-radius: 4px;
@@ -456,6 +455,8 @@ nav {
     padding: 6px 12px;
     border: 1px solid rgb(92, 92, 92);
     border-radius: 4px;
+    float: right;
+    width: 50%;
 }
 
 .c-change-form p label {
@@ -470,6 +471,8 @@ nav {
     padding: 6px 12px;
     border: 1px solid rgb(92, 92, 92);
     border-radius: 4px;
+    float: right;
+    width: 50%;
 }
 
 .main-messages {
@@ -580,5 +583,19 @@ a {
     .header-ul {
         width: 300px;
         margin-top: 50px;
+    }
+}
+
+@media only screen and (max-width: 890px) {
+    .c-change,
+    .c-create {
+        width: 96%;
+    }
+    .c-change-form p label {
+        font-size: 12px;
+    }
+    .c-create-input {
+        font-size: 12px;
+        padding: 8px 12px;
     }
 }

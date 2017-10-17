@@ -1,7 +1,8 @@
 {% include 'home/head.html' %} {% include 'users/header.html' %} {% if content_list %} {% include 'users/nav.html' %} {% endif %}
-<div class="u-contents">
-    <div class="u-content"></div>
+<div class="blogs">
+    {% include 'blog/blog-cards.html' %}
 </div>
+{% include "home/paginator.html" %} {% include 'users/footer.html' %}
 </body>
 
 </html>

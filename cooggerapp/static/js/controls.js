@@ -2,31 +2,37 @@ $(document).ready(function() {
     var str = "";
     $("#id_content_list").each(function() {
         str += $(this).val();
-        $(".blog-content-list-name a").html("#" + str)
+        $(".blog-content-list-name a").html("#" + str);
     });
 
     var str = "";
     $("#id_category option:selected").each(function() {
         str += $(this).val();
-        $(".blog-category-a").html(str)
+        $(".blog-category-a").html(str);
     });
 
     var str = "";
     $("#id_subcategory option:selected").each(function() {
         str += $(this).val();
-        $(".blog-subcategory-a").html(str)
+        $(".blog-subcategory-a").html(str);
     });
 
     var str = "";
     $("#id_category2 option:selected").each(function() {
         str += $(this).val();
-        $(".blog-category2-a").html(str)
+        $(".blog-category2-a").html(str);
     });
 
     var str = "";
     $("#id_title").each(function() {
         str += $(this).val();
-        $(".blog-title-a").html(str)
+        $(".blog-title-a").html(str);
+    });
+
+    var str = "";
+    $("#id_show").each(function() {
+        str += $(this).val();
+        $(".blog-content p").html(str);
     });
     // ----------------------------------
 
@@ -34,7 +40,7 @@ $(document).ready(function() {
         var str = "";
         $("#id_content_list").each(function() {
             str += $(this).val();
-            $(".blog-content-list-name a").html("#" + str)
+            $(".blog-content-list-name a").html("#" + str);
         });
     });
 
@@ -42,7 +48,7 @@ $(document).ready(function() {
         var str = "";
         $("#id_category option:selected").each(function() {
             str += $(this).val();
-            $(".blog-category-a").html(str)
+            $(".blog-category-a").html(str);
         });
     });
 
@@ -50,7 +56,7 @@ $(document).ready(function() {
         var str = "";
         $("#id_subcategory option:selected").each(function() {
             str += $(this).val();
-            $(".blog-subcategory-a").html(str)
+            $(".blog-subcategory-a").html(str);
         });
     });
 
@@ -58,7 +64,7 @@ $(document).ready(function() {
         var str = "";
         $("#id_category2 option:selected").each(function() {
             str += $(this).val();
-            $(".blog-category2-a").html(str)
+            $(".blog-category2-a").html(str);
         });
     });
 
@@ -66,7 +72,15 @@ $(document).ready(function() {
         var str = "";
         $("#id_title").each(function() {
             str += $(this).val();
-            $(".blog-title-a").html(str)
+            $(".blog-title-a").html(str);
+        });
+    });
+
+    $("#id_show").change(function() {
+        var str = "";
+        $("#id_show").each(function() {
+            str += $(this).val();
+            $(".blog-content p").html(str);
         });
     });
 });

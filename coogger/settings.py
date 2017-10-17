@@ -77,6 +77,7 @@ CKEDITOR_CONFIGS = {
     'default': {
         "toolbar":"full",
         'skin': 'moono',
+        "width":"100%",
         "extraPlugins":'codesnippet',
         "codeSnippet_theme": 'github'}
         }
