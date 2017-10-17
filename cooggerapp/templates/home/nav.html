@@ -3,9 +3,57 @@
         <li class="nav-topic nav-ul-li">
             Konular
         </li>
-        {% for url,topic in topics_category %}
+        {% for url,topic in nav_category %}
         <li class="nav-ul-li">
-            <a class="nav-ul-li-a" href="/topic/{{ url }}">{{ topic }}</a>
+            <a class="main-nav-detail-li-a" href="/topic/{{ url }}">{{ topic }}</a> {% if "ders" == url %}
+            <ul class="main-nav-detail ft-ar">
+                {% for ders in nav_subcategory.ders %}
+                <li class="main-nav-detail-li">
+                    <a class="main-nav-detail-li-a" href="/topic/{{ ders }}">{{ ders }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% if "oyun" == url %}
+            <ul class="main-nav-detail ft-ar">
+                {% for oyun in nav_subcategory.oyun %}
+                <li class="main-nav-detail-li">
+                    <a class="main-nav-detail-li-a" href="/topic/{{ oyun }}">{{ oyun }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% if "seyahat" == url %}
+            <ul class="main-nav-detail ft-ar">
+                {% for seyahat in nav_subcategory.seyahat %}
+                <li class="main-nav-detail-li">
+                    <a class="main-nav-detail-li-a" href="/topic/{{ seyahat }}">{{ seyahat }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% if "giyim" == url %}
+            <ul class="main-nav-detail ft-ar">
+                {% for giyim in nav_subcategory.giyim %}
+                <li class="main-nav-detail-li">
+                    <a class="main-nav-detail-li-a" href="/topic/{{ giyim }}">{{ giyim }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% if "medya" == url %}
+            <ul class="main-nav-detail ft-ar">
+                {% for ders in nav_subcategory.medya %}
+                <li class="main-nav-detail-li">
+                    <a class="main-nav-detail-li-a" href="/topic/{{ ders }}">{{ ders }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% if "hayvanlar" == url %}
+            <ul class="main-nav-detail ft-ar">
+                {% for ders in nav_subcategory.hayvanlar %}
+                <li class="main-nav-detail-li">
+                    <a class="main-nav-detail-li-a" href="/topic/{{ ders }}">{{ ders }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

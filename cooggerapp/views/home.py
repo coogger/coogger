@@ -10,7 +10,7 @@ from cooggerapp.views import tools
 def home(request):
     queryset = Blog.objects.all()
     username = request.user.username
-    blogs = tools.paginator(request,queryset)
+    blogs = tools.paginator(request,queryset,10)
     paginator = blogs
     pp = tools.get_pp(blogs)
     stars = []
@@ -19,15 +19,25 @@ def home(request):
             stars.append(str(int(i.stars/i.hmstars)+1))
         except ZeroDivisionError:
             stars.append("0")
-    blogs = zip(blogs,pp,stars)
+    ads = [ad for ad in range(1,21)]
+    blogs = zip(blogs,pp,stars,ads)
     tools_topic = tools.Topics()
     category = tools_topic.category
-    subcategory = tools_topic.subcatecory
-    category2 = tools_topic.category2
+    subcategory = {}
+    for url,topic in category:
+        sub_data = tools.take_subcategory(request,url,permission=True)
+        if sub_data == None:
+            continue
+        for sub in sub_data:
+            try:
+                subcategory[topic].append(sub[0].lower())
+            except KeyError:
+                subcategory[topic] = []
+                subcategory[topic].append(sub[0].lower())
     output = dict(
         blog = blogs,
-        topics_category = category,
-        topics_another = subcategory+category2,
+        nav_category = category,
+        nav_subcategory = subcategory,
         general = True,
         username = username,
         paginator = paginator,

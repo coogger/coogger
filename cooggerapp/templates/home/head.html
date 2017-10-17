@@ -7,28 +7,26 @@
     <meta name="author" content="Hakan Çelik | hakancelik96@outlook.com | cooggerapp@gmail.com" /> {% if elastic_search.title %}
     <title>{{ elastic_search.title }}</title>
     <meta property="og:title" content="{{ elastic_search.title }}" />
-    <meta property="og:site_name" content="{{ elastic_search.title }}">
-    <meta name="twitter:title" content="{{ elastic_search.title }}">
-    <meta property="og:title" content="{{ elastic_search.title }}">
-    <meta itemprop="name" content="{{ elastic_search.title }}"> {% else %}
+    <meta property="og:site_name" content="{{ elastic_search.title }}" />
+    <meta name="twitter:title" content="{{ elastic_search.title }}" />
+    <meta itemprop="name" content="{{ elastic_search.title }}" /> {% else %}
     <title>coogger</title>
     <meta property="og:title" content="coogger" />
-    <meta property="og:site_name" content="coogger">
-    <meta name="twitter:title" content="coogger">
-    <meta property="og:title" content="coogger">
-    <meta itemprop="name" content="coogger"> {% endif %} {% if elastic_search.keywords %}
+    <meta property="og:site_name" content="coogger" />
+    <meta name="twitter:title" content="coogger" />
+    <meta itemprop="name" content="coogger" /> {% endif %} {% if elastic_search.keywords %}
     <meta name="keywords" content="{{ elastic_search.keywords }}" /> {% else %}
     <meta name="keywords" content="coogger" /> {% endif %} {% if elastic_search.description %}
     <meta name="description" content="{{elastic_search.description}}" />
     <meta property="og:description" content="{{elastic_search.description}}" />
-    <meta name="twitter:description" content="{{elastic_search.description}}">
-    <meta property="og:description" content="{{elastic_search.description}}">
-    <meta itemprop="description" content="{{elastic_search.description}}"> {% else %}
-    <meta name="description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur">
+    <meta name="twitter:description" content="{{elastic_search.description}}" />
+    <meta property="og:description" content="{{elastic_search.description}}" />
+    <meta itemprop="description" content="{{elastic_search.description}}" /> {% else %}
+    <meta name="description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur" />
     <meta property="og:description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur" />
-    <meta name="twitter:description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur">
-    <meta property="og:description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur">
-    <meta itemprop="description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur"> {% endif %}
+    <meta name="twitter:description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur" />
+    <meta property="og:description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur" />
+    <meta itemprop="description" content="coogger'a hoşgeldin, herkesin bir şeyler bulabileciği, okuyabileceği ,inceliyebileceği veya kendi içeriklerini üretip kazandığı parayı alabileceği bir platformdur" /> {% endif %}
     <link rel="shortcut icon" href="/static/media/favicon.png" type="image/x-icon" />
     <meta property="og:image" content="/static/media/favicon.png" />
     <meta property="og:locale" content="tr_TR" />
@@ -36,16 +34,16 @@
     <meta name="revisit-after" content="2" />
     <meta name="revisit-after" content="2 days" />
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@hakancelik96">
-    <meta name="twitter:creator" content="hakancelik96">
-    <meta name="twitter:image:src" content="/static/media/favicon.png">
-    <meta property="og:url" content="http://www.coogger.com">
-    <meta property="og:type" content="website">
+    <meta name="twitter:site" content="@hakancelik96" />
+    <meta name="twitter:creator" content="hakancelik96" />
+    <meta name="twitter:image:src" content="/static/media/favicon.png" />
+    <meta property="og:url" content="http://www.coogger.com" />
+    <meta property="og:type" content="website" />
     <meta property="og:image" content="/static/media/favicon.png" />
-    <meta property="article:author" content="https://www.facebook.com/profile.php?id=100011790249138">
-    <meta property="article:publisher" content="https://www.facebook.com/profile.php?id=100011790249138">
-    <meta itemprop="image" content="/static/media/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta property="article:author" content="https://www.facebook.com/profile.php?id=100011790249138" />
+    <meta property="article:publisher" content="https://www.facebook.com/profile.php?id=100011790249138" />
+    <meta itemprop="image" content="/static/media/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <!-- GOOGLE -->
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
@@ -76,6 +74,9 @@
         hljs.initHighlightingOnLoad();
     </script>
     <script src=" {% static 'js/general.js' %}"></script>
+    {% if controls %}
+    <script src=" {% static 'js/controls.js' %}"></script>
+    {% endif %}
     <link href=" {% static 'css/animate.css' %}" rel="stylesheet"> {% if signup_or_login %}
     <link rel="stylesheet" href="/static/css/signup_or_login.css"> {% elif general %}
 
@@ -97,7 +98,7 @@
 
 <body onload="loader()">
     {% if messages %} {% include 'home/ms.html' %} {% endif %}
-    <div class="main-messages ft-io" style="display:none">
+    <div class="b-messages ft-io" style="display:none">
         <span class="close-ms">x</span>
         <ul class="messages">
             <li class="error"></li>

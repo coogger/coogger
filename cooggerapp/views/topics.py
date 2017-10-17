@@ -23,7 +23,7 @@ def topic(request,topic):
     data = [data1,data2,data3]
     for dat in data:
         if dat.exists():
-            queryset = dat 
+            queryset = dat
     if not queryset:
         ms.error(request,"Bu konu altında henuz bir şey paylaşılmamış")
         return HttpResponseRedirect("/")
@@ -36,7 +36,8 @@ def topic(request,topic):
             stars.append(str(int(i.stars/i.hmstars)+1))
         except ZeroDivisionError:
             stars.append("0")
-    blogs = zip(blogs,pp,stars)
+    ads = [ad for ad in range(1,21)]
+    blogs = zip(blogs,pp,stars,ads)
     elastic_search = dict(
      title = topic+" | coogger",
      keywords = topic+"coogger "+topic,

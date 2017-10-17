@@ -9,7 +9,7 @@ from cooggerapp.views import tools
 from PIL import Image
 import os
 
-def user(request,username): 
+def user(request,username):
     "herhangi kullanıcının anasayfası"
     content_list = ContentList.objects.filter(username = username)
     user = User.objects.filter(username = username)
@@ -66,7 +66,8 @@ def u_topic(request,username,utopic):
             stars.append(str(int(i.stars/i.hmstars)+1))
         except ZeroDivisionError:
             stars.append("0")
-    blogs = zip(blogs,pp,stars)
+    ads = [ad for ad in range(1,21)]
+    blogs = zip(blogs,pp,stars,ads)
     top = tools.Topics()
     category = top.category
     subcategory = top.subcatecory

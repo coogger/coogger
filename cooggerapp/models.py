@@ -12,15 +12,15 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     choices_subcategory = tools_topic.subcatecory
     choices_category2 = tools_topic.category2
     username = models.CharField(max_length=37)
-    content_list = models.CharField(max_length=30,verbose_name ="İçeriğinizin liste ismini yazın")
+    content_list = models.CharField(max_length=30,verbose_name ="Liste ismi")
     category = models.CharField(choices = choices_category ,max_length=30,verbose_name ="Kategori") 
     subcategory = models.CharField(blank=True, null=True,choices=choices_subcategory,max_length=50,verbose_name ="Alt kategori") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
     category2 = models.CharField(blank=True, null=True,choices=choices_category2,max_length=80,verbose_name = "İkinci alt kategori")
     title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
-    url = models.SlugField(unique = True ,max_length=100,verbose_name = "Web adresi, başlık ile aynı olmasına özen gösterin ") # blogun url adresi 
-    content = RichTextField(verbose_name = "içeriğinizi oluşturun")  # yazılan yazılar burda 
-    show = RichTextField(verbose_name = "İçeriğinizin anasayfadaki görünümünü ayarlayın max : 400")
-    tag = models.CharField(max_length=200,verbose_name = "İçeriğiniz ili ilgili anahtar kelimeleri virgul kullanarak yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    url = models.SlugField(unique = True ,max_length=100,verbose_name = "web adresi") # blogun url adresi 
+    content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda 
+    show = RichTextField(verbose_name = "Max 400 : harf ile anasayfa görünümünü ayarlayın")
+    tag = models.CharField(max_length=200,verbose_name = "Virgül kullanarak ahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi 
     dor = models.TextField() # duration of read içerik okuma süresi
     stars = models.IntegerField(default = 0, verbose_name = "Yıldız")

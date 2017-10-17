@@ -10,25 +10,6 @@ from django.db.models import F
 from django.utils.text import slugify
 from cooggerapp.views import tools
 
-def panel(request):
-    "control panel for users"
-    request_user = request.user
-    user_objects = User.objects.filter(username = request_user.username)
-    if not request_user.otherinformationofusers.is_author:
-        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
-        return HttpResponseRedirect("/")
-    elif request_user.is_superuser:
-        queryset = Blog.objects.all()
-    else:
-        queryset = Blog.objects.filter(username = request_user.username)
-    queryset = tools.paginator(request,queryset)
-    output = dict(
-        controls = True,
-        paginator = queryset,
-        contents = queryset,
-    ) 
-    return render(request,"controls/control.html",output)
-
 def create(request): 
     "to create new content"
     request_user = request.user
@@ -146,3 +127,26 @@ def delete(request,content_id):
     except:
         return HttpResponse("Silme işlemi sırasında beklenmedik hata !")
     return HttpResponse("Silme işlemi başarılı ")
+
+def chose_subcategory(request,value): 
+    "value ile gelen fields kodunu alıp ilgili bir alt dallarını seçip gönderiyorum"
+    subcategory = tools.take_subcategory(request,value)
+    if subcategory == None:
+        return HttpResponse("<option value='' selected='selected'>---------</option>")
+    option = "<option value='' selected='selected'>---------</option>"
+    for sub in subcategory:
+        option += "<option value='{}'>{}</option>".format(sub[0].lower(),sub[1].lower()) # html format yaptık ve yolladık
+    return HttpResponse(option)
+        
+def chose_category2(request,value):
+    "value ile gelen fields kodunu alıp ilgili ikinci bir alt dallarını seçip gönderiyorum"
+    category2 = tools.take__category2(request,value)
+    if category2 == None:
+        return HttpResponse("<option value='' selected='selected'>---------</option>")
+    option = "<option value='' selected='selected'>---------</option>"
+    for cat in category2:
+        option += "<option value='{}'>{}</option>".format(cat[0].lower(),cat[1].lower()) # html format yaptık ve yolladık
+    return HttpResponse(option)
+
+def chosenone(request):
+    return HttpResponse("<option value='' selected='selected'>---------</option>")

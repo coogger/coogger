@@ -82,4 +82,31 @@ def get_pp(queryset):
         is_pp = models.OtherInformationOfUsers.objects.filter(user_id = user_id)[0].pp
         pp.append(is_pp)
     return pp
-    
+
+def take_subcategory(request,value,permission=False): 
+    "value ile gelen fields kodunu alıp ilgili bir alt dalı seçip gönderiyorum"
+    if not request.is_ajax() and not permission:
+        return None
+    values = []
+    for i in dir(Subcategory): # burada gelen value bilgisini kontrol ediyoruz ki istenmeyen bir value gelmesin
+        if not i.startswith("__"):
+            values.append(i)
+    value = value.replace("-","_")
+    if value not in values:
+        subcategory = None
+    else:
+        subcategory = make_choices(eval("Subcategory."+value+"()"))
+    return subcategory
+
+def take__category2(request,value,permission=False): 
+    if not request.is_ajax():
+        return None
+    values = []
+    for i in dir(Category2): # burada gelen value bilgisini kontrol ediyoruz ki istenmeyen bir value gelmesin
+        if not i.startswith("__"):
+            values.append(i)
+    value = value.replace("-","_")
+    if value not in values:
+        category2 = None
+    category2 = make_choices(eval("Category2."+value+"()"))
+    return category2

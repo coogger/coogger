@@ -1,9 +1,9 @@
 {% include 'home/head.html' %} {% include 'controls/header.html' %} {% include 'controls/nav.html' %}
 <div class="c-change">
     <form method="post" class="c-change-form" action="/change/{{ content_id }}" enctype="multipart/form-data">
-        {% csrf_token %} {{ change_form.as_p }} {{ change_form.media }}
-        <input class="c-create-input" type="submit" value="Düzenlemeyi kaydet">
+        <input class="c-create-input" type="submit" value="Düzenlemeyi kaydet">{% csrf_token %} {{ change_form.as_p }} {{ change_form.media }}
     </form>
+    {% include 'controls/preview.html' %}
 </div>
 </body>
 

@@ -3,30 +3,33 @@ $(document).ready(function() {
         var wid = parseInt($(window).width());
         var heig = parseInt($(window).height());
         if (wid < 1160) {
-            var nav_wid = 0;
+            var free_space = 0;
+            var nav_heig = 40;
         } else {
-            var nav_wid = parseInt($("nav").width() + 24);
+            var free_space = 320;
+            var nav_heig = heig - 120
+                // main-nav ayarlama
+            $(".main-nav").mouseover(function() {
+                $(".main-nav").css("overflow", "auto");
+                $(".main-nav").css("height", nav_heig);
+                $(".blogs").css("filter", "blur(3px)");
+            }).mouseout(function() {
+                $(".main-nav").css("overflow", "hidden");
+                $(".main-nav").css("height", 40);
+                $(".blogs").css("filter", "blur(0px)");
+            });
         }
         var blog_wid = parseInt($(".b-blog").width() + 12); // bir içeriğin genişliği
-        var total_wid = parseInt(wid - nav_wid); // ekranda boş kalan yer
-        var hmblogs = parseInt(total_wid / (blog_wid)); // kaç tane sığar
+        var total_wid = parseInt(wid - free_space); // ekranda boş kalan yer
+        var hmblogs = parseInt(total_wid / blog_wid); // kaç tane sığar
         var total_blogs_wid = parseInt(blog_wid * hmblogs); // ekrana sığan blog sayısınca olan genişlik
-        var pagi_wid = parseInt($(".pagination").width()); // pagination sınıfının genişliği
         // footer
-        $("footer").css({ width: wid - nav_wid });
+        $("footer").css({ width: wid - free_space });
         // blogs konumlandırma
         var hmany_blogs = parseInt();
         $(".blogs").css({ width: total_blogs_wid });
-        $(".blogs").css("margin-left", (wid - total_blogs_wid + nav_wid) / 2);
-        // paginator konumlandırma
-        $(".pagination").css("margin-left", (total_wid - pagi_wid) / 2 + nav_wid);
-        // nav yükseklik ayarı
-        $(".main-nav").css("height", heig - 120);
         // detail ayarı
         var detail_wid = parseInt((total_wid * 90) / 100); // detail sınıfının genişliği
-        if (wid > 1160) {
-            $(".datail").css("margin-right", (total_wid - detail_wid) / 2);
-        }
         $(".datail").css("width", detail_wid);
 
     }
@@ -85,10 +88,13 @@ $(document).ready(function() {
     $(".delete").click(function() {
         var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
         if (conf) {
-            var delete_id = this.getAttribute("data-delete-id");
+            var delete_id = this.getAttribute("data-post-id");
             $(".error").load("/delete/" + delete_id);
-            $(".main-messages").css({ display: "block" });
-            $(".id-" + delete_id).remove();
+            $(".b-messages").css({ display: "block" });
+            $(".data-post-id-" + delete_id).remove();
+            setTimeout(function() {
+                $(".b-messages").css({ display: "none" });
+            }, 3000);
         }
     });
     $(".b-edit-point").click(function() {

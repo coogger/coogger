@@ -1,7 +1,7 @@
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -76,7 +76,7 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
         "toolbar":"full",
+        'skin': 'moono',
         "extraPlugins":'codesnippet',
-        "codeSnippet_theme": 'github'
-    },
-}
+        "codeSnippet_theme": 'github'}
+        }
