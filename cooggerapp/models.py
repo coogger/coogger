@@ -67,7 +67,8 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     author = models.BooleanField(verbose_name = "yazarlık başvurusu yaptımı") # yazar başvurusu yaptımı ?
 
 class UserFollow(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    choices_user = make_choices(users())
+    user = models.CharField(choices = choices_user,max_length=37)
     choices = models.CharField(max_length=15, choices = make_choices(follow()))
     adress = models.CharField(max_length=150,verbose_name = "Adresi yazın")
 

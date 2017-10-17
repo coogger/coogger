@@ -1763,3 +1763,10 @@ def follow():
         "web site",
     )
     return fo
+
+def users():
+    from django.contrib.auth.models import User
+    user = []
+    for i in User.objects.all():
+        user.append(i.username)
+    return user
