@@ -284,6 +284,11 @@ footer {
     cursor: wait;
 }
 
+.user-top-ads {
+    margin: auto;
+    margin-top: 60px;
+}
+
 .coogger-load {
     margin: auto;
     width: max-content;

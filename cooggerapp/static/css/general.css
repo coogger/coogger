@@ -554,6 +554,11 @@ nav::-webkit-scrollbar-thumb {
     filter: blur(2px);
 }
 
+.home-top-ads {
+    margin: auto;
+    margin-top: 60px;
+}
+
 .b-content {}
 
 .b-content-info {

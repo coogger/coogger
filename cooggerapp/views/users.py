@@ -98,6 +98,7 @@ def u_topic(request,username,utopic):
      description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
     )
     output = dict(
+        u_topic = True,
         blog = blogs,
         general = True,
         paginator = paginator,
