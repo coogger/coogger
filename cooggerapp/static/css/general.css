@@ -557,6 +557,7 @@ nav::-webkit-scrollbar-thumb {
 .home-top-ads {
     margin: auto;
     margin-top: 60px;
+    overflow: auto;
 }
 
 .b-content {}
@@ -787,6 +788,10 @@ footer {
         overflow: hidden;
     }
     .blogs {
-        margin: 130px auto;
+        margin: auto;
+        margin-top: 20px;
+    }
+    .home-top-ads {
+        margin-top: 130px;
     }
 }
