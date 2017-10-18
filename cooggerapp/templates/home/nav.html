@@ -6,7 +6,7 @@
 
         {% for url,topic in nav_category %} {% if nameoftopic %} {% if topic == nameoftopic %} {% if u_topic %}
         <li class="nav-ul-li" style="background: #333;">
-            <a class="main-nav-detail-li-a" href="/@username/{{ url }}" style="color: #fff;">{{ topic }}</a>
+            <a class="main-nav-detail-li-a" href="/@{{ username }}/{{ url }}" style="color: #fff;">{{ topic }}</a>
         </li>
         {% else %}
         <li class="nav-ul-li" style="background: #333;">
@@ -14,7 +14,7 @@
         </li>
         {% endif %} {% else %} {% if u_topic %}
         <li class="nav-ul-li">
-            <a class="main-nav-detail-li-a" href="/@username/{{ url }}">{{ topic }}</a>
+            <a class="main-nav-detail-li-a" href="/@{{ username }}/{{ url }}">{{ topic }}</a>
         </li>
         {% else %}
         <li class="nav-ul-li">
