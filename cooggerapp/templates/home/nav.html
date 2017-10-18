@@ -1,12 +1,20 @@
 <nav>
     <ul class="main-nav ft-ar">
         <li class="nav-topic nav-ul-li">
-            Konular
+            {% if nameoflist %} {{ nameoflist }} {% else %} kategoriler {% endif %}
         </li>
-        {% for url,topic in nav_category %}
+        {% for url,topic in nav_category %} {% if nameoftopic %} {% if topic == nameoftopic %}
+        <li class="nav-ul-li" style="background: #333;">
+            <a class="main-nav-detail-li-a" href="/{{ url }}" style="color: #fff;">{{ topic }}</a>
+        </li>
+        {% else %}
+        <li class="nav-ul-li">
+            <a class="main-nav-detail-li-a" href="/{{ url }}">{{ topic }}</a>
+        </li>
+        {% endif %} {% else %}
         <li class="nav-ul-li">
             <a class="main-nav-detail-li-a" href="/topic/{{ url }}">{{ topic }}</a>
         </li>
-        {% endfor %}
+        {% endif %} {% endfor %}
     </ul>
 </nav>

@@ -7,33 +7,38 @@ from cooggerapp.models import *
 from cooggerapp.views import tools
 from django.db.models import F
 from django.contrib.auth.models import User
+from bs4 import BeautifulSoup
 
 def main_detail(request,blog_path,utopic,path,):
     "blogların detail kısmı "
     queryset = Blog.objects.filter(url = blog_path)[0]
     username = queryset.username
     category = tools.Topics().category
-    subcategory = tools.Topics().subcatecory
-    category2 = tools.Topics().category2
     user = User.objects.filter(username = username)
     pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     try:
         stars = str(int(queryset.stars/queryset.hmstars))
     except ZeroDivisionError:
         stars = ""
+    description = BeautifulSoup(queryset.show, 'html.parser').get_text()
+    another_content = Blog.objects.filter(username = username,content_list = utopic)
+    nav_category = []
+    for content in another_content:
+        nav_category.append((content.url,content.title))
     elastic_search = dict(
-        title = username+" | "+utopic+" | "+queryset.title+" | coogger",
-        keywords = queryset.tag +","+username+" "+utopic+",coogger"+username+" "+utopic+",coogger "+queryset.category+", "+queryset.title,
-        description = "coogger | "+str(username)+" | "+utopic+" "+queryset.category+" "+queryset.title
+        title = queryset.title+" | coogger",
+        keywords = queryset.tag +","+username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
+        description = description,
     )
     output = dict(
         detail = queryset,
         elastic_search = elastic_search,
         general = True,
-        topics_another = subcategory+category2,
         pp = pp,
         stars = stars,
-        topics_category = category,
+        nameoftopic = queryset.title,
+        nav_category = nav_category,
+        nameoflist = utopic,
     )
     return render(request,"detail/main_detail.html",output)
 

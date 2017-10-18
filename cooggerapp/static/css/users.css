@@ -214,6 +214,7 @@ footer {
     color: #fff;
     border-radius: 4px;
     padding: 6px 12px;
+    display: flow-root;
 }
 
 .u-footer-ul {
@@ -221,6 +222,15 @@ footer {
     margin: auto;
     padding: 0px;
     width: max-content;
+}
+
+.u-footer-li {
+    float: left;
+    padding: 0px 12px;
+}
+
+.u-footer-li:hover {
+    border-bottom: 1px solid #000;
 }
 
 .u-footer-info {

@@ -17,7 +17,7 @@ def user(request,username):
     pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     user_info = user[0]
     try:
-        user_follow = UserFollow.objects.filter(user = user)
+        user_follow = UserFollow.objects.filter(user = username)
     except:
         user_follow = []
     # yaptığı paylaşımlar
@@ -88,21 +88,23 @@ def u_topic(request,username,utopic):
             stars.append("0")
     blogs = zip(blogs,pp,stars)
     top = tools.Topics()
-    category = top.category
-    subcategory = top.subcatecory
-    category2 = top.category2
+    another_utopic = ContentList.objects.filter(username = username)
+    nav_category = []
+    for a_utopic in another_utopic:
+        nav_category.append((a_utopic.content_list,a_utopic.content_list))
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic+",coogger "+utopic+","+utopic+","+username,
-     description = username+" adlı kullanıcının "+utopic+" adlı içerik listesi",
+     description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
     )
     output = dict(
         blog = blogs,
-        topics_category = category,
         general = True,
         paginator = paginator,
-        topics_another = subcategory+category2,
         username = username,
+        nav_category = nav_category,
+        nameoftopic = utopic,
+        nameoflist = "Listeler",
         elastic_search = elastic_search,
     )
     return render(request,"blog/blogs.html",output)

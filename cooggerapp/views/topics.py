@@ -44,10 +44,10 @@ def topic(request,topic):
     )
     output = dict(
         blog = blogs,
-        topics_another = subcategory+category2,
-        topics_category = top.category,
         elastic_search = elastic_search,
         general = True,
+        nameoftopic = topic,
+        nav_category = top.category,
         paginator = paginator,
     )
     return render(request,"blog/blogs.html",output)
