@@ -431,6 +431,7 @@ nav {
     top: 0px;
     right: 0px;
     z-index: 5;
+    width: 20%;
 }
 
 nav::-webkit-scrollbar-track {

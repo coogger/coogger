@@ -16,11 +16,15 @@
         <li class="nav-ul-li">
             <a class="main-nav-detail-li-a" href="/@{{ username }}/{{ url }}">{{ topic }}</a>
         </li>
-        {% else %}
+        {% else %} {% if detail %}
         <li class="nav-ul-li">
             <a class="main-nav-detail-li-a" href="/{{ url }}">{{ topic }}</a>
         </li>
-        {% endif %} {% endif %} {% else %}
+        {% else %}
+        <li class="nav-ul-li">
+            <a class="main-nav-detail-li-a" href="/topic/{{ url }}">{{ topic }}</a>
+        </li>
+        {% endif %} {% endif %} {% endif %} {% else %}
         <li class="nav-ul-li">
             <a class="main-nav-detail-li-a" href="/topic/{{ url }}">{{ topic }}</a>
         </li>
