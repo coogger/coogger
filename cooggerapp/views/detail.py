@@ -13,13 +13,16 @@ def main_detail(request,blog_path,utopic,path,):
     "blogların detail kısmı "
     queryset = Blog.objects.filter(url = blog_path)[0]
     username = queryset.username
-    ip = request.META['REMOTE_ADDR'] 
+    try:
+        ip = get_client_ip(request)
+    except:
+        ip = "127.0.0.1"
     model_views = Views.objects.filter(blog_id = queryset.id,ip = ip)
     if not model_views.exists():
         Views(blog_id = queryset.id ,ip = ip).save()
         queryset.views = F("views") + 1
-        queryset.save()  
-        queryset = Blog.objects.filter(url = blog_path)[0]      
+        queryset.save()
+        queryset = Blog.objects.filter(url = blog_path)[0]
     category = tools.Topics().category
     user = User.objects.filter(username = username)
     pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
@@ -52,7 +55,7 @@ def main_detail(request,blog_path,utopic,path,):
 def stars(request,post_id,stars_id):
     if not request.is_ajax():
         return None
-    request_username = request.user.username 
+    request_username = request.user.username
     user = User.objects.filter(username=request_username)
     blog = Blog.objects.filter(id = post_id)[0]
     if not user.exists():
@@ -67,7 +70,7 @@ def stars(request,post_id,stars_id):
         Voters(username_id = user[0].id,blog_id = blog.id,star = stars_id).save()
         blog.hmstars = F("hmstars")+1
         blog.stars = F("stars")+stars_id
-        blog.save()         
+        blog.save()
     first_li = """<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """>
             <img class="d-starts-a" src="/static/media/icons/star.svg">
             </li>"""
@@ -88,3 +91,12 @@ def stars(request,post_id,stars_id):
             output +="<li> : "+str(hmstars)+"</li>"
     return HttpResponse(output)
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[-1].strip()
+    elif request.META.get('HTTP_X_REAL_IP'):
+        ip = request.META.get('HTTP_X_REAL_IP')
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
