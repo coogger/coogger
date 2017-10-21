@@ -542,10 +542,15 @@ nav {
 }
 
 .pagination {
-    position: relative;
-    width: max-content;
-    padding: 30px 10px 30px 10px;
     margin: auto;
+    background-color: #fff;
+    color: #fff;
+    border-radius: 4px;
+    padding: 12px 12px;
+    display: flow-root;
+    width: max-content;
+    margin-bottom: 12px;
+    margin-top: 12px;
 }
 
 .current {

@@ -32,11 +32,18 @@ def user(request,username):
         except ZeroDivisionError:
             stars.append("0")
     blogs = zip(blogs,pp,stars)
-    #
+
+    facebook = None
+    for f in user_follow:
+        if f.choices  == "facebook":
+            facebook = f.adress
+
     elastic_search = dict(
      title = username+" | coogger",
      keywords =username+","+user_info.first_name+" "+user_info.last_name,
-     description =user_info.first_name+", "+user_info.last_name+", "+username+" adı ile coogger'da",
+     description =user_info.first_name+" "+user_info.last_name+", "+username+" adı ile coogger'da",
+     author = facebook,
+     img = "/media/users/pp/pp-"+username+".jpg",
     )
     output = dict(
         users = True,
@@ -60,12 +67,12 @@ def upload_pp(request):
             ms.error(request,"Dosya alma sırasında bir sorun oluştu")
             return HttpResponseRedirect("/@"+request_username)
 
-        with open(os.getcwd()+"/media/users/pp/pp-"+request_username+".jpg",'wb+') as destination:
+        with open(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg",'wb+') as destination:
             for chunk in image.chunks():
                 destination.write(chunk)
-        im = Image.open(os.getcwd()+"/media/users/pp/pp-"+request_username+".jpg")
+        im = Image.open(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg")
         im.thumbnail((150,150))
-        im.save(os.getcwd()+"/media/users/pp/pp-"+request_username+".jpg", "JPEG")
+        im.save(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg", "JPEG")
         user_id = User.objects.filter(username = request_username)[0].id
         OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = True)
         return HttpResponseRedirect("/@"+request_username)
@@ -92,10 +99,19 @@ def u_topic(request,username,utopic):
     nav_category = []
     for a_utopic in another_utopic:
         nav_category.append((a_utopic.content_list,a_utopic.content_list))
+    facebook = None
+    try:
+        for f in UserFollow.objects.filter(user = username):
+            if f.choices  == "facebook":
+                facebook = f.adress
+    except:
+        pass
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic+",coogger "+utopic+","+utopic+","+username,
      description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
+     author = facebook,
+     img = "/media/users/pp/pp-"+username+".jpg",
     )
     output = dict(
         u_topic = True,

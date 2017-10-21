@@ -27,6 +27,7 @@ def create(request):
         url = slugify(title)
         content.url = "@"+request_user.username+"/"+content_list+"/"+url
         content.dor = tools.durationofread(content.content+title)
+        content.save()
         try:
             content_list_save = ContentList.objects.filter(username = request_user.username,content_list = content_list)[0]
             content_list_save.content_count = F("content_count")+1
@@ -34,7 +35,7 @@ def create(request):
             # kullanıcının açmış oldugu listeleri kayıt ediyoruz
         except: # önceden oluşmuş ise hata verir ve biz 1 olarak kayıt ederiz
             ContentList(username = request_user.username,content_list = content_list,content_count = 1).save()
-        content.save()
+        
         return HttpResponseRedirect("/@"+request_user.username+"/"+content_list+"/"+url)
     # get method
     output = dict(
@@ -83,7 +84,12 @@ def change(request,content_id):
                     pass
             except IndexError:
                 pass
-            ContentList(username = real_username,content_list = content_list,content_count = 1).save() # yeni bir tane acıyor
+            try:
+                content_list_ = ContentList.objects.filter(username = real_username,content_list = content_list)[0]
+                content_list_.content_count = F("content_count")+1
+                content_list_.save()
+            except:
+                ContentList(username = real_username,content_list = content_list,content_count = 1).save()       
         return HttpResponseRedirect("/@"+real_username+"/"+content_list+"/"+url)
     # get method
     output = dict(

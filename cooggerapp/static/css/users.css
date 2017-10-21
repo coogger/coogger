@@ -501,9 +501,15 @@ a {
 }
 
 .pagination {
-    position: relative;
+    margin: auto;
+    background-color: #fff;
+    color: #fff;
+    border-radius: 4px;
+    padding: 12px 12px;
+    display: flow-root;
     width: max-content;
-    margin: 24px auto;
+    margin-bottom: 12px;
+    margin-top: 12px;
 }
 
 .current {

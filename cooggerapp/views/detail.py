@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
-from cooggerapp.models import Blog,Views,OtherInformationOfUsers
+from cooggerapp.models import Blog,Views,OtherInformationOfUsers,UserFollow
 from cooggerapp.views import tools
 from django.db.models import F
 from django.contrib.auth.models import User
@@ -19,7 +19,7 @@ def main_detail(request,blog_path,utopic,path,):
     except:
         ip = request.META.get('REMOTE_ADDR')
     try:
-        Views.objects.filter(blog_id = queryset.id,ip = ip)[0]
+        Views.objects.filter(blog_id = queryset.id,ip = ip)[0].ip
     except:
         Views(blog_id = queryset.id ,ip = ip).save()
         queryset.views = F("views") + 1
@@ -37,10 +37,19 @@ def main_detail(request,blog_path,utopic,path,):
     nav_category = []
     for content in another_content:
         nav_category.append((content.url,content.title))
+    facebook = None
+    try:
+        for f in UserFollow.objects.filter(user = username):
+            if f.choices  == "facebook":
+                facebook = f.adress
+    except:
+        pass
     elastic_search = dict(
         title = queryset.title+" | coogger",
         keywords = queryset.tag +","+username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
         description = description,
+        author = facebook,
+        img = "/media/users/pp/pp-"+username+".jpg",
     )
     output = dict(
         detail = queryset,
