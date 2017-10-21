@@ -14,11 +14,13 @@ def main_detail(request,blog_path,utopic,path,):
     queryset = Blog.objects.filter(url = blog_path)[0]
     username = queryset.username
     try:
-        ip = get_client_ip(request)
+        ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
+        
     except:
-        ip = "127.0.0.1"
-    model_views = Views.objects.filter(blog_id = queryset.id,ip = ip)
-    if not model_views.exists():
+        ip = request.META.get('REMOTE_ADDR')
+    try:
+        Views.objects.filter(blog_id = queryset.id,ip = ip)[0]
+    except:
         Views(blog_id = queryset.id ,ip = ip).save()
         queryset.views = F("views") + 1
         queryset.save()
@@ -91,12 +93,3 @@ def stars(request,post_id,stars_id):
             output +="<li> : "+str(hmstars)+"</li>"
     return HttpResponse(output)
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[-1].strip()
-    elif request.META.get('HTTP_X_REAL_IP'):
-        ip = request.META.get('HTTP_X_REAL_IP')
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip

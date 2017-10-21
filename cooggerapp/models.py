@@ -32,7 +32,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
 
 class Views(models.Model): # görüntülenme ip ve blog_id bilgisini kayıt eder
     blog_id = models.IntegerField()
-    ip = models.CharField(max_length=200)
+    ip = models.CharField(max_length=200,unique = True)
 
 class Voters(models.Model):
     username_id = models.IntegerField()
