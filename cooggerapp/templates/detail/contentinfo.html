@@ -1,10 +1,13 @@
 <div class="b-content-info">
     <div class="blog-time ft-dn">
-        <span>Tahmini okuma süresi {{ detail.dor }} dakika</span>
-        <div></div>
+        <span>Görüntüleme {{ detail.views }}</span>
+    </div>
+    <div class="blog-time ft-dn">
         <span>{{ detail.time }} | </span><span> {{ detail.time|timesince }} önce</span>
     </div>
-
+    <div class="blog-time ft-dn">
+        <span>Tahmini okuma süresi {{ detail.dor }} dakika</span>
+    </div>
     <ul class="blog-category ft-os">
         <li class="blog-category-li">
             <a class="blog-category-a" href='/topic/{{ detail.category }}'>{{ detail.category|title }}</a>

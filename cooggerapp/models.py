@@ -25,10 +25,14 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     dor = models.TextField() # duration of read içerik okuma süresi
     stars = models.IntegerField(default = 0, verbose_name = "Yıldız")
     hmstars = models.IntegerField(default = 0,verbose_name = "kaç kişi oy kullandı")
+    views = models.IntegerField(default = 0,verbose_name = "görüntülenme sayısı") # görütülenme sayısını kayıt eder
     class Meta:
         verbose_name = "content"
         ordering = ['-time']
 
+class Views(models.Model): # görüntülenme ip ve blog_id bilgisini kayıt eder
+    blog_id = models.IntegerField()
+    ip = models.CharField(max_length=200)
 
 class Voters(models.Model):
     username_id = models.IntegerField()

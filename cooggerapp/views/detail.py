@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
-from cooggerapp.models import *
+from cooggerapp.models import Blog,Views,OtherInformationOfUsers
 from cooggerapp.views import tools
 from django.db.models import F
 from django.contrib.auth.models import User
@@ -13,6 +13,13 @@ def main_detail(request,blog_path,utopic,path,):
     "blogların detail kısmı "
     queryset = Blog.objects.filter(url = blog_path)[0]
     username = queryset.username
+    ip = request.META['REMOTE_ADDR'] 
+    model_views = Views.objects.filter(blog_id = queryset.id,ip = ip)
+    if not model_views.exists():
+        Views(blog_id = queryset.id ,ip = ip).save()
+        queryset.views = F("views") + 1
+        queryset.save()  
+        queryset = Blog.objects.filter(url = blog_path)[0]      
     category = tools.Topics().category
     user = User.objects.filter(username = username)
     pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp

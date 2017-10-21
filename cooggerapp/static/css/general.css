@@ -225,7 +225,7 @@ body::-webkit-scrollbar-thumb {
 .blog-cont {
     position: relative;
     margin: auto;
-    width: 90%;
+    width: 100%;
     z-index: 2;
     cursor: pointer;
 }
@@ -233,7 +233,6 @@ body::-webkit-scrollbar-thumb {
 .blog-title {
     margin: auto;
     text-align: center;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 16px;
@@ -251,6 +250,7 @@ a {
 
 .blog-content {
     height: 240px;
+    overflow: hidden;
 }
 
 .blog-username-a {
@@ -267,6 +267,7 @@ a {
     border-radius: 4px;
     text-align: center;
     margin: auto;
+    margin-bottom: 4px;
     padding: 2px 6px;
     border: 1px solid #0f391d;
 }

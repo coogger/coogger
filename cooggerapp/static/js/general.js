@@ -64,9 +64,11 @@ $(document).ready(function() {
     $(".close-ms").click(function() {
         $(".main-messages").remove();
     })
+
     setTimeout(function() {
         $(".main-messages").remove();
     }, 3000);
+
     $(".b-content").mouseover(function() {
         $(this).find(".blog-cont").css({
             filter: "blur(3px)",
@@ -84,6 +86,7 @@ $(document).ready(function() {
         });
         $(".duread-main").remove();
     });
+
     $(".delete").click(function() {
         var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
         if (conf) {
@@ -96,10 +99,12 @@ $(document).ready(function() {
             }, 3000);
         }
     });
+
     $(".b-edit-point").click(function() {
         var data_edit_id = this.getAttribute("data-edit-id");
         $(".data-edit-id-" + data_edit_id).toggle("fast");
     });
+
     $(".d-starts-li").click(function() {
         var stars_id = this.getAttribute("data-starts-id");
         var post_id = this.getAttribute("data-post-id");
