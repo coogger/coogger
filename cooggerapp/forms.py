@@ -11,7 +11,7 @@ class ContentForm(ModelForm):
 class AuthorForm(ModelForm):
     class Meta:
         model = Author
-        fields = ["sex","county","old","university","jop","iban","phone"]
+        fields = ["sex","county","old","university","jop","phone"]
 
 class UserFollowForm(ModelForm):
     class Meta:

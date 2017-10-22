@@ -61,7 +61,7 @@ class Author(models.Model): # yazarlık bilgileri
     old = models.CharField(choices = choices_old,verbose_name="doğum tarihin",max_length=4)
     university = models.CharField(null=True,choices = choices_university,verbose_name="üniversite",max_length=100)
     jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30) # boş olamaz uni yazmamış ise öğrenci olarak seçer 
-    iban = models.CharField(unique = True,max_length=24,null=True,verbose_name = "kart iban numarası")
+    #iban = models.CharField(unique = True,max_length=24,null=True,verbose_name = "kart iban numarası")
     phone = models.IntegerField(unique = True,verbose_name = "telefon numarası")
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
