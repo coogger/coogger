@@ -27,6 +27,7 @@ def create(request):
         url = slugify(title)
         content.url = "@"+request_user.username+"/"+content_list+"/"+url
         content.dor = tools.durationofread(content.content+title)
+        content.tag = [slugify(i) for i in content.tag.split(",")]
         content.save()
         try:
             content_list_save = ContentList.objects.filter(username = request_user.username,content_list = content_list)[0]
@@ -72,6 +73,10 @@ def change(request,content_id):
         url = slugify(title)
         content.url = "@"+real_username+"/"+content_list+"/"+url 
         content.dor = tools.durationofread(content.content+title) 
+        tags = ""
+        for i in content.tag.split(","):
+             tags = tags+","+slugify(i) 
+        content.tag = tags
         content.save()
         if content_list != old_content_list: # content_list değişmiş ise
             try:

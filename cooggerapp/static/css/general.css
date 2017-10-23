@@ -47,12 +47,14 @@ body::-webkit-scrollbar-thumb {
 .datail {
     position: relative;
     background-color: rgb(255, 255, 255);
-    padding: 24px 12px;
+    padding: 26px 12px;
     border: 1px solid #f1f1f1;
     border-radius: 4px;
     box-shadow: 0px 0px 2px 0px #000000;
     z-index: 0;
-    margin: 100px auto;
+    margin: auto;
+    margin-bottom: 40px;
+    margin-top: 100px;
 }
 
 .d-main-start {
@@ -234,6 +236,7 @@ body::-webkit-scrollbar-thumb {
     width: 100%;
     z-index: 2;
     cursor: pointer;
+    display: flow-root;
 }
 
 .blog-title {
@@ -254,10 +257,36 @@ a {
     color: rgb(0, 0, 0);
 }
 
+.hashtag-img {
+    border-radius: 20px;
+    padding: 2px;
+}
+
+.hashtag-text {
+    color: #248644;
+    background-color: #cdcdcd;
+    padding: 4px 6px;
+    border-radius: 6px;
+}
+
 .blog-content {
     height: 210px;
     overflow: hidden;
 }
+
+.hashtag {
+    margin: auto;
+    list-style: none;
+    padding: 0px;
+    border-top: 1px solid #0f391d;
+}
+
+.hashtag-li {
+    float: left;
+    margin: 12px;
+}
+
+.hashtag-a {}
 
 .blog-username-a {
     color: #fff;

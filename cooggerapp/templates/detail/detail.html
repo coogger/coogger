@@ -1,7 +1,15 @@
 {% include "detail/stars.html" %}{% include "detail/edit.html" %} {% include "detail/userinfo.html" %} {% include "detail/contentinfo.html" %}
 
-<div>
-    <div class="blog-cont" style="cursor: default;">
-        <div class="blog-content ft-ct" style="height:100%;">{{ detail.content|safe }}</div>
-    </div>
+<div class="blog-cont" style="cursor: default;">
+    <div class="blog-content ft-ct" style="height:100%;">{{ detail.content|safe }}</div>
+    <ul class="hashtag">
+        {% for i in global_hashtag %}
+        <li class="hashtag-li">
+            <a class="hashtag-a" href="/tags/{{ i }}">
+                <img class="hashtag-img" src="/static/media/icons/hashtag.svg" />
+                <div class="hashtag-text">#{{ i }}</div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
 </div>

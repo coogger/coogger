@@ -29,3 +29,5 @@ def home(request):
         paginator = paginator,
     )
     return render(request,"blog/blogs.html",output)
+
+

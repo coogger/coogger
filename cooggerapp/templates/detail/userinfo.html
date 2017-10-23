@@ -16,8 +16,13 @@
         </ul>
         <li class="blog-user-li">
             <div class="blog-content-list-name ">
-                <a class="blog-username-a" href='/@{{ detail.username }}/{{ detail.content_list }}'>#{{ detail.content_list }}</a>
+                <a class="blog-username-a" href='/@{{ detail.username }}/{{ detail.content_list }}'>{{ detail.content_list }}</a>
             </div>
+        </li>
+        <li class="blog-user-li">
+            <a class="blog-user-hashtag" href='/list/{{ detail.content_list }}'>
+                <img class="hashtag-img" src="/static/media/icons/list.svg" />
+            </a>
         </li>
     </ul>
 </div>

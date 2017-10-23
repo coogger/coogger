@@ -10,6 +10,7 @@ from .views import users
 from .views import topics
 from .views import tools
 from .views import controls
+from .views import explorer
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 urlpatterns = [
@@ -40,6 +41,9 @@ urlpatterns = [
     url(r'^(?P<blog_path>@.*/(?P<utopic>.*)/(?P<path>.*))', detail.main_detail,name = "blogs"),
     url(r'^@(?P<username>.*/(?P<utopic>.*))', users.u_topic,name = "u-topic"),
     url(r'^@(?P<username>.*)', users.user,name = "user"),
+
+    url(r'^tags/(?P<hashtag>.*)',explorer.hashtag,name = "hashtag"),
+    url(r'^list/(?P<list>.*)',explorer.list,name = "list"),
 
 ] + static("/media/",document_root=os.path.join(BASE_DIR, 'media'))
 

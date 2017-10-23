@@ -3,19 +3,19 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
-from cooggerapp.models import Blog,Views,OtherInformationOfUsers,UserFollow
+from cooggerapp.models import Blog,Views,OtherInformationOfUsers,UserFollow,Voters
 from cooggerapp.views import tools
 from django.db.models import F
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
+from django.utils.text import slugify
 
-def main_detail(request,blog_path,utopic,path,):
+def main_detail(request,blog_path,utopic,path):
     "blogların detail kısmı "
     queryset = Blog.objects.filter(url = blog_path)[0]
     username = queryset.username
     try:
         ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
-        
     except:
         ip = request.META.get('REMOTE_ADDR')
     try:
@@ -60,6 +60,7 @@ def main_detail(request,blog_path,utopic,path,):
         nameoftopic = queryset.title,
         nav_category = nav_category,
         nameoflist = utopic,
+        global_hashtag = [i for i in queryset.tag.split(",") if i != ""]
     )
     return render(request,"detail/main_detail.html",output)
 
