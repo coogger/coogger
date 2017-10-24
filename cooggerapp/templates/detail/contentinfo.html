@@ -1,12 +1,13 @@
 <div class="b-content-info">
     <div class="b-time ft-dn">
-        <span>Görüntüleme {{ detail.views }}</span>
+        <img class="b-time-img" src="/static/media/icons/employee.svg" /> okuma {{ detail.views }}
+
     </div>
     <div class="b-time ft-dn">
-        <span>{{ detail.time }} | </span><span> {{ detail.time|timesince }} önce</span>
+        <img class="b-time-img" src="/static/media/icons/calendar.svg" /> {{ detail.time }} | {{ detail.time|timesince }} önce
     </div>
     <div class="b-time ft-dn">
-        <span>Tahmini okuma süresi {{ detail.dor }} dakika</span>
+        <img class="b-time-img" src="/static/media/icons/stopwatch.svg" /> Tahmini okuma süresi {{ detail.dor }} dakika
     </div>
     <ul class="b-category ft-os">
         <li class="b-category-li">
@@ -23,7 +24,7 @@
         {%endif%}
     </ul>
 
-    <div class="b-title ft-ns" style="font-size: 30px;">
+    <h1 class="b-title ft-ns" style="font-size: 30px;">
         {{ detail.title|title }}
-    </div>
+    </h1>
 </div>

@@ -310,8 +310,14 @@ a {
     text-align: center;
     margin: auto;
     margin-bottom: 4px;
+    width: 268px;
     padding: 2px 6px;
     border: 1px solid #f0f0f0;
+    height: 20px;
+}
+
+.b-time-img {
+    float: left;
 }
 
 .h-header {
@@ -519,8 +525,9 @@ a {
 }
 
 .h-nav-d-li-a {
-    padding: 6px 24%;
-    font-size: 16px;
+    padding: 12px 24px;
+    color: #000000;
+    text-decoration: none;
 }
 
 .h-nav-d-li-a:hover {
@@ -590,6 +597,7 @@ a {
 
 .maindiv {
     filter: blur(2px);
+    margin-bottom: 120px;
 }
 
 .home-top-ads {
@@ -924,6 +932,7 @@ a {
 .u-footer-li {
     float: left;
     padding: 0px 12px;
+    border-bottom: 1px solid #fff;
 }
 
 .u-footer-li:hover {
@@ -947,6 +956,7 @@ a {
     margin-top: 20px;
     margin-bottom: 20px;
     overflow: auto;
+    display: none;
 }
 
 
@@ -1041,25 +1051,43 @@ a {
         float: none;
     }
     .h-nav {
-        width: 100%;
         position: relative;
+        width: -webkit-fill-available;
         overflow: auto;
-        z-index: 1;
-        height: 46px;
-        top: 12px;
-        background-color: #ececec;
+        background-color: rgb(255, 255, 255);
+        padding: 4px 0px;
+        top: 26px;
+        z-index: auto;
     }
     .h-nav-ul {
         width: max-content;
+        height: 40px;
+        list-style-type: none;
+        padding: 0px;
+        margin: auto;
         overflow: hidden;
+        background-color: #fff;
+        border: 1px solid #f1f1f1;
     }
     .h-nav-li {
+        text-align: center;
+        color: #248644;
+        padding-bottom: 24px;
+        padding: 10px;
+        margin: 0px;
+        border: none;
+        background: #ffffff;
         float: left;
+        border-radius: 2px;
+        cursor: pointer;
     }
     .c-create-form {
         width: 96%;
     }
-    .logo {
-        background-color: transparent;
+}
+
+@media only screen and (max-width:768px) {
+    .b-user-mobil {
+        float: right;
     }
 }

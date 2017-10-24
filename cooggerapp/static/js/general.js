@@ -77,7 +77,7 @@ $(document).ready(function() {
         var dor = this.getAttribute("data-dor");
         var url = this.getAttribute("data-url");
         var stars = this.getAttribute("data-stars");
-        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi " + dor + " dakika</li><li class='duread-li'>yıldız " + stars + " </li><li class='duread-li'>görüntülenme " + views + " </li></ul></div>");
+        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi " + dor + " dakika</li><li class='duread-li'>yıldız " + stars + " </li><li class='duread-li'>okuma " + views + " </li></ul></div>");
         $(this).click(function() {
             window.location = "/" + url
         });

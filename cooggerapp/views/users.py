@@ -35,7 +35,7 @@ def user(request,username):
     for f in user_follow:
         if f.choices  == "facebook":
             facebook = f.adress
-    if os.path.exists("/media/users/pp/pp-"+username+".jpg"):
+    if pp[0]:
         img = "/media/users/pp/pp-"+username+".jpg"
     else:
         img = "/static/media/profil.png"
@@ -48,7 +48,7 @@ def user(request,username):
     )
     output = dict(
         users = True,
-        pp = pp,
+        pp = pp[0],
         blog = blogs,
         username = username,
         paginator = paginator,
@@ -72,10 +72,13 @@ def upload_pp(request):
             for chunk in image.chunks():
                 destination.write(chunk)
         im = Image.open(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg")
-        im.thumbnail((150,150))
-        im.save(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg", "JPEG")
-        user_id = User.objects.filter(username = request_username)[0].id
-        OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = True)
+        im.thumbnail((250,250))
+        try: # resim yükleme sırasında bir hata olursa pp = False olacak hata olmaz ise True
+            im.save(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg", "JPEG")
+            user_id = User.objects.filter(username = request_username)[0].id
+            OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = True)
+        except:
+            OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = False)
         return HttpResponseRedirect("/@"+request_username)
 
 def u_topic(request,username,utopic):
@@ -107,7 +110,7 @@ def u_topic(request,username,utopic):
                 facebook = f.adress
     except:
         pass
-    if os.path.exists("/media/users/pp/pp-"+username+".jpg"):
+    if pp[0]:
         img = "/media/users/pp/pp-"+username+".jpg"
     else:
         img = "/static/media/profil.png"
