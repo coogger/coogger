@@ -80,11 +80,8 @@
     <script src=" {% static 'js/controls.js' %}"></script>
     {% endif %}
     <link href=" {% static 'css/animate.css' %}" rel="stylesheet"> {% if signup_or_login %}
-    <link rel="stylesheet" href="/static/css/signup_or_login.css"> {% elif general %}
-
-    <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% elif users %}
-    <link href=" {% static 'css/users.css' %}" rel="stylesheet"> {% elif controls %}
-    <link href=" {% static 'css/controls.css' %}" rel="stylesheet"> {% endif %}
+    <link rel="stylesheet" href="/static/css/signup_or_login.css"> {% elif general or users or controls%}
+    <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% endif %}
     <script>
         function loader() {
             $('.preload').fadeOut('slow', function() {
@@ -100,7 +97,7 @@
 
 <body onload="loader()">
     {% if messages %} {% include 'home/ms.html' %} {% endif %}
-    <div class="b-messages ft-io" style="display:none">
+    <div class="h-messages ft-io" style="display:none">
         <span class="close-ms">x</span>
         <ul class="messages">
             <li class="error"></li>

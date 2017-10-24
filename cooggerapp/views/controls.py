@@ -27,7 +27,10 @@ def create(request):
         url = slugify(title)
         content.url = "@"+request_user.username+"/"+content_list+"/"+url
         content.dor = tools.durationofread(content.content+title)
-        content.tag = [slugify(i) for i in content.tag.split(",")]
+        tags = ""
+        for i in content.tag.split(","):
+             tags = tags+","+slugify(i) 
+        content.tag = tags
         content.save()
         try:
             content_list_save = ContentList.objects.filter(username = request_user.username,content_list = content_list)[0]

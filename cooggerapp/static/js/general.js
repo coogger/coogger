@@ -8,28 +8,28 @@ $(document).ready(function() {
         } else {
             var free_space = 320;
             var nav_heig = heig - 120;
-            // main-nav ayarlama
-            $(".main-nav").mouseover(function() {
-                $(".main-nav").css("overflow", "auto");
-                $(".main-nav").css("height", nav_heig);
-                $(".blogs").css("filter", "blur(3px)");
+            // h-nav-ul ayarlama
+            $(".h-nav-ul").mouseover(function() {
+                $(".h-nav-ul").css("overflow", "auto");
+                $(".h-nav-ul").css("height", nav_heig);
+                $(".b-blogs").css("filter", "blur(3px)");
             }).mouseout(function() {
-                $(".main-nav").css("overflow", "hidden");
-                $(".main-nav").css("height", 40);
-                $(".blogs").css("filter", "blur(0px)");
+                $(".h-nav-ul").css("overflow", "hidden");
+                $(".h-nav-ul").css("height", 40);
+                $(".b-blogs").css("filter", "blur(0px)");
             });
         }
         var total_wid = wid - free_space; // ekranda boş kalan yer
-        // footer
-        $("footer").css({ width: wid - free_space });
-        // blogs konumlandırma
+        // h-footer
+        $(".h-footer").css({ width: wid - free_space });
+        // b-blogs konumlandırma
         var blog_wid = $(".b-blog").width() + 6; // bir içeriğin genişliği
         var hmblogs = parseInt(total_wid / blog_wid); // kaç tane sığar
         var total_blogs_wid = blog_wid * hmblogs; // ekrana sığan blog sayısınca olan genişlik
-        $(".blogs").css({ width: total_blogs_wid });
-        // detail ayarı
+        $(".b-blogs").css({ width: total_blogs_wid });
+        // d-detail ayarı
         var detail_wid = (total_wid * 90) / 100; // detail sınıfının genişliği
-        $(".datail").css("width", detail_wid);
+        $(".d-detail").css("width", detail_wid);
 
     }
 
@@ -46,9 +46,9 @@ $(document).ready(function() {
 
     var wid = parseInt($(window).width());
     if (wid < 1160) { // mobil ve tablet
-        $(".header-ul").addClass("wincenter");
+        $(".h-header-ul").addClass("wincenter");
         $(".open-header").click(function() {
-            $("header").toggle("fast")
+            $(".h-header").toggle("fast")
         });
     }
 
@@ -70,8 +70,8 @@ $(document).ready(function() {
     }, 3000);
 
     $(".b-content").mouseover(function() {
-        $(this).find(".blog-cont").css({
-            filter: "blur(3px)",
+        $(this).find(".b-cont").css({
+            opacity: "0.1",
         });
         var views = this.getAttribute("data-views")
         var dor = this.getAttribute("data-dor");
@@ -82,8 +82,8 @@ $(document).ready(function() {
             window.location = "/" + url
         });
     }).mouseout(function() {
-        $(".blog-cont").css({
-            filter: "blur(0px)",
+        $(this).find(".b-cont").css({
+            opacity: "1",
         });
         $(".duread-main").remove();
     });
@@ -100,6 +100,23 @@ $(document).ready(function() {
             }, 3000);
         }
     });
+
+    /* detail delete  */
+
+    $(".d-delete").click(function() {
+        var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
+        if (conf) {
+            var delete_id = this.getAttribute("data-post-id");
+            $(".error").load("/delete/" + delete_id);
+            $(".b-messages").css({ display: "block" });
+            $(".data-post-id-" + delete_id).remove();
+            setTimeout(function() {
+                $(".b-messages").css({ display: "none" });
+            }, 3000);
+        }
+    });
+
+    /* detail delete  */
 
     $(".b-edit-point").click(function() {
         var data_edit_id = this.getAttribute("data-edit-id");
@@ -133,9 +150,9 @@ $(document).ready(function() {
     //--------------
     //users
     $(".u-i").mouseover(function() {
-        $(".uploadform").css({ display: "block" });
+        $(".u-uploadform").css({ display: "block" });
     }).mouseout(function() {
-        $(".uploadform").css({ display: "none" });
+        $(".u-uploadform").css({ display: "none" });
     });
     //users
 });

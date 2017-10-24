@@ -14,7 +14,6 @@ def user(request,username):
     "herhangi kullanıcının anasayfası"
     content_list = ContentList.objects.filter(username = username)
     user = User.objects.filter(username = username)
-    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     user_info = user[0]
     try:
         user_follow = UserFollow.objects.filter(user = username)
@@ -32,18 +31,20 @@ def user(request,username):
         except ZeroDivisionError:
             stars.append("0")
     blogs = zip(blogs,pp,stars)
-
     facebook = None
     for f in user_follow:
         if f.choices  == "facebook":
             facebook = f.adress
-
+    if os.path.exists("/media/users/pp/pp-"+username+".jpg"):
+        img = "/media/users/pp/pp-"+username+".jpg"
+    else:
+        img = "/static/media/profil.png"
     elastic_search = dict(
      title = username+" | coogger",
      keywords =username+","+user_info.first_name+" "+user_info.last_name,
      description =user_info.first_name+" "+user_info.last_name+", "+username+" adı ile coogger'da",
      author = facebook,
-     img = "/media/users/pp/pp-"+username+".jpg",
+     img = img,
     )
     output = dict(
         users = True,
@@ -106,12 +107,16 @@ def u_topic(request,username,utopic):
                 facebook = f.adress
     except:
         pass
+    if os.path.exists("/media/users/pp/pp-"+username+".jpg"):
+        img = "/media/users/pp/pp-"+username+".jpg"
+    else:
+        img = "/static/media/profil.png"
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic+",coogger "+utopic+","+utopic+","+username,
      description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
      author = facebook,
-     img = "/media/users/pp/pp-"+username+".jpg",
+     img = img,
     )
     output = dict(
         u_topic = True,

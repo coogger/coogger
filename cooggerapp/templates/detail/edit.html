@@ -1,19 +1,15 @@
-<div class="b-edit">
+<div class="d-edit">
     {% if detail.username == request.user.username or request.user.is_superuser %}
-    <div class="b-edit-panel data-edit-id-{{ detail.id }}">
-        <ul class="b-edit-ul ft-ar">
-            <li class="b-edit-li">
-                <a class="b-edit-li-a " href="/change/{{ detail.id }}">Düzenle</a>
+    <div class="d-edit-panel data-edit-id-{{ detail.id }}">
+        <ul class="d-edit-ul ft-ar">
+            <li class="d-edit-li">
+                <a class="d-edit-li-a " href="/change/{{ detail.id }}">Düzenle</a>
             </li>
-            <li class="b-edit-li">
-                <a class="b-edit-li-a delete" data-post-id="{{detail.id}}">Sil</a>
+            <li class="d-edit-li">
+                <a class="d-edit-li-a d-delete" data-post-id="{{detail.id}}">Sil</a>
             </li>
         </ul>
     </div>
-    <div class="b-edit-point" data-edit-id="{{ detail.id }}">
-        <div class="border"></div>
-        <div class="border"></div>
-        <div class="border"></div>
-    </div>
+
     {% endif %}
 </div>

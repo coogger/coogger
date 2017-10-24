@@ -1,32 +1,32 @@
-<nav>
-    <ul class="main-nav ft-ar">
-        <li class="nav-topic nav-ul-li">
+<nav class="h-nav">
+    <ul class="h-nav-ul ft-ar">
+        <li class="h-nav-topic h-nav-li">
             {% if nameoflist %} {{ nameoflist }} {% else %} kategoriler {% endif %}
         </li>
 
         {% for url,topic in nav_category %} {% if nameoftopic %} {% if topic == nameoftopic %} {% if u_topic %}
-        <li class="nav-ul-li" style="background: #333;">
-            <a class="main-nav-detail-li-a" href="/@{{ username }}/{{ url }}" style="color: #fff;">{{ topic }}</a>
+        <li class="h-nav-li" style="background: #333;">
+            <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}" style="color: #fff;">{{ topic }}</a>
         </li>
         {% else %}
-        <li class="nav-ul-li" style="background: #333;">
-            <a class="main-nav-detail-li-a" href="/{{ url }}" style="color: #fff;">{{ topic }}</a>
+        <li class="h-nav-li" style="background: #333;">
+            <a class="h-nav-d-li-a" href="/{{ url }}" style="color: #fff;">{{ topic }}</a>
         </li>
         {% endif %} {% else %} {% if u_topic %}
-        <li class="nav-ul-li">
-            <a class="main-nav-detail-li-a" href="/@{{ username }}/{{ url }}">{{ topic }}</a>
+        <li class="h-nav-li">
+            <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}">{{ topic }}</a>
         </li>
         {% else %} {% if detail %}
-        <li class="nav-ul-li">
-            <a class="main-nav-detail-li-a" href="/{{ url }}">{{ topic }}</a>
+        <li class="h-nav-li">
+            <a class="h-nav-d-li-a" href="/{{ url }}">{{ topic }}</a>
         </li>
         {% else %}
-        <li class="nav-ul-li">
-            <a class="main-nav-detail-li-a" href="/topic/{{ url }}">{{ topic }}</a>
+        <li class="h-nav-li">
+            <a class="h-nav-d-li-a" href="/topic/{{ url }}">{{ topic }}</a>
         </li>
         {% endif %} {% endif %} {% endif %} {% else %}
-        <li class="nav-ul-li">
-            <a class="main-nav-detail-li-a" href="/topic/{{ url }}">{{ topic }}</a>
+        <li class="h-nav-li">
+            <a class="h-nav-d-li-a" href="/topic/{{ url }}">{{ topic }}</a>
         </li>
         {% endif %} {% endfor %}
     </ul>

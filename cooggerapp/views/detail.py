@@ -9,6 +9,7 @@ from django.db.models import F
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
 from django.utils.text import slugify
+import os
 
 def main_detail(request,blog_path,utopic,path):
     "blogların detail kısmı "
@@ -44,12 +45,16 @@ def main_detail(request,blog_path,utopic,path):
                 facebook = f.adress
     except:
         pass
+    if os.path.exists("/media/users/pp/pp-"+username+".jpg"):
+        img = "/media/users/pp/pp-"+username+".jpg"
+    else:
+        img = "/static/media/profil.png"
     elastic_search = dict(
         title = queryset.title+" | coogger",
         keywords = queryset.tag +","+username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
         description = description,
         author = facebook,
-        img = "/media/users/pp/pp-"+username+".jpg",
+        img = img,
     )
     output = dict(
         detail = queryset,

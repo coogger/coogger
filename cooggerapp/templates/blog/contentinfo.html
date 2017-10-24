@@ -1,24 +1,24 @@
 <div class="b-content-info">
-    <div class="blog-time ft-dn">
+    <div class="b-time ft-dn">
         <span>{{ blo.time }} | </span><span> {{ blo.time|timesince }} önce</span>
     </div>
 
-    <ul class="blog-category ft-os">
-        <li class="blog-category-li">
-            <a class="blog-category-a" href='/topic/{{ blo.category }}'>{{ blo.category|title }}</a>
+    <ul class="b-category ft-os">
+        <li class="b-category-li">
+            <a class="b-category-a" href='/topic/{{ blo.category }}'>{{ blo.category|title }}</a>
         </li>
         {% if blo.subcategory != None %}
-        <li class="blog-category-li">
-            <a class="blog-subcategory-a" href='/topic/{{ blo.subcategory }}'>{{ blo.subcategory|title }}</a>
+        <li class="b-category-li">
+            <a class="b-subcategory-a" href='/topic/{{ blo.subcategory }}'>{{ blo.subcategory|title }}</a>
         </li>
         {% endif %} {% if blo.category2 != None %}
-        <li class="blog-category-li">
-            <a class="blog-category2-a" href='/topic/{{ blo.category2 }}'>{{ blo.category2|title }}</a>
+        <li class="b-category-li">
+            <a class="b-category2-a" href='/topic/{{ blo.category2 }}'>{{ blo.category2|title }}</a>
         </li>
         {%endif%}
     </ul>
 
-    <div class="blog-title ft-ns">
-        <a class="blog-title-a" href='/{{ blo.url }}'>{{ blo.title|title }}</a>
+    <div class="b-title ft-ns">
+        <a class="b-title-a" href='/{{ blo.url }}'>{{ blo.title|title }}</a>
     </div>
 </div>

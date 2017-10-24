@@ -1,6 +1,6 @@
 {% if request.user.username == username %}
 <div class="u-uploadpp">
-    <form class="uploadform" action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data">
+    <form class="u-uploadform " action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div>
             <input type="file" name="u-upload-pp" id="u-upload-pp" class="u-input-pp">
