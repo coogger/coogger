@@ -14,6 +14,7 @@
                 </div>
             </li>
         </ul>
+        {% if blo.content_list %}
         <li class="b-user-li">
             <div class="b-content-list-name ">
                 <a class="b-username-a" href='/@{{ blo.username }}/{{ blo.content_list }}'>{{ blo.content_list }}</a>
@@ -24,5 +25,6 @@
                 <img class="hashtag-img" src="/static/media/icons/list.svg" />
             </a>
         </li>
+        {% endif %}
     </ul>
 </div>

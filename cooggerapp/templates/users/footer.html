@@ -1,9 +1,9 @@
 <footer class="u-footer">
     <div class="u-footer-main">
         {% if user_follow %}
-        <div class="u-footer-info ft-os">{{ username }} adlı kullanıcımızın sosyal medya hesapları</div>
+        <div class="u-footer-info ft-os">{{ username }} adlı kullanıcımızın diğer web adresler</div>
         {% else %}
-        <div class="u-footer-info ft-os">Herhangi bir sosyal medya hesab kaydı bulunmamakta</div>
+        <div class="u-footer-info ft-os">{{ username }} adlı kullanıcımızın herhangi bir web adres kaydı bulunmamakta</div>
         {% endif %}
         <ul class="u-footer-ul">
             {% for follow in user_follow %}

@@ -11,8 +11,9 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     choices_category = tools_topic.category
     choices_subcategory = tools_topic.subcatecory
     choices_category2 = tools_topic.category2
+    
     username = models.CharField(max_length=37)
-    content_list = models.CharField(max_length=30,verbose_name ="Liste ismi")
+    content_list = models.CharField(blank=True, null=True,max_length=30,verbose_name ="Liste ismi")
     category = models.CharField(choices = choices_category ,max_length=30,verbose_name ="Kategori") 
     subcategory = models.CharField(blank=True, null=True,choices=choices_subcategory,max_length=50,verbose_name ="Alt kategori") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
     category2 = models.CharField(blank=True, null=True,choices=choices_category2,max_length=80,verbose_name = "İkinci alt kategori")
@@ -20,7 +21,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     url = models.SlugField(unique = True ,max_length=100,verbose_name = "web adresi") # blogun url adresi 
     content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda 
     show = models.CharField(max_length=400,verbose_name = "Anasayfa'da görünecek içerik notu ekleyin")
-    tag = models.CharField(max_length=200,verbose_name = "Virgül kullanarak ahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    tag = models.CharField(max_length=200,verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi 
     dor = models.TextField() # duration of read içerik okuma süresi
     stars = models.IntegerField(default = 0, verbose_name = "Yıldız")
@@ -62,7 +63,7 @@ class Author(models.Model): # yazarlık bilgileri
     university = models.CharField(null=True,choices = choices_university,verbose_name="üniversite",max_length=100)
     jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30) # boş olamaz uni yazmamış ise öğrenci olarak seçer 
     #iban = models.CharField(unique = True,max_length=24,null=True,verbose_name = "kart iban numarası")
-    phone = models.IntegerField(unique = True,verbose_name = "telefon numarası")
+    phone = models.IntegerField(blank=True, null=True,unique = True,verbose_name = "telefon numarası")
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
