@@ -7,43 +7,44 @@
         {% for url,topic in nav_category %} {% if nameoftopic %} {% if topic == nameoftopic %} {% if u_topic %}
         <li class="h-nav-li" style="background: #333;">
             <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}" style="color: #fff;">
-                <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+                <img class="h-nav-li-img" src="/static/media/icons/list.svg" />
+                <div class="h-nav-li-text">{{ topic }}</div> 1
             </a>
         </li>
         {% else %}
         <li class="h-nav-li" style="background: #333;">
             <a class="h-nav-d-li-a" href="/{{ url }}" style="color: #fff;">
-                <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+                <img class="h-nav-li-img" src="/static/media/icons/hashtag.svg" />
+                <div class="h-nav-li-text">{{ topic }}</div>2
             </a>
         </li>
         {% endif %} {% else %} {% if u_topic %}
         <li class="h-nav-li">
             <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}">
-                <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+                <img class="h-nav-li-img" src="/static/media/icons/list.svg" />
+                <div class="h-nav-li-text">{{ topic }}</div>3
             </a>
         </li>
         {% else %} {% if detail %}
         <li class="h-nav-li">
             <a class="h-nav-d-li-a" href="/{{ url }}">
                 <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+                <div class="h-nav-li-text">{{ topic }}</div>4
             </a>
         </li>
+
         {% else %}
         <li class="h-nav-li">
             <a class="h-nav-d-li-a" href="/topic/{{ url }}">
                 <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+                <div class="h-nav-li-text">{{ topic }}</div>5
             </a>
         </li>
         {% endif %} {% endif %} {% endif %} {% else %}
         <li class="h-nav-li">
             <a class="h-nav-d-li-a" href="/topic/{{ url }}">
                 <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+                <div class="h-nav-li-text">{{ topic }}</div>6
             </a>
         </li>
         {% endif %} {% endfor %}

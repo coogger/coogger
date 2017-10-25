@@ -37,17 +37,19 @@ def topic(request,topic):
         except ZeroDivisionError:
             stars.append("0")
     blogs = zip(blogs,pp,stars)
+    nameofexplain = queryset[0].category
     elastic_search = dict(
      title = topic+" | coogger",
      keywords = topic+"coogger "+topic,
-     description = "coogger "+topic+" konulu içerikler"
+     description = "coogger "+topic+" konulu içerikler",
+     img="/static/media/topics/"+nameofexplain+".svg",
     )
     output = dict(
         blog = blogs,
         elastic_search = elastic_search,
         general = True,
         nameoftopic = topic,
-        nameofexplain = queryset[0].category,
+        nameofexplain = nameofexplain,
         ogurl = request.META["PATH_INFO"],
         nav_category = top.category,
         paginator = paginator,

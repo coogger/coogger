@@ -45,7 +45,7 @@ def main_detail(request,blog_path,utopic,path):
                 facebook = f.adress
     except:
         pass
-    if os.path.exists("/media/users/pp/pp-"+username+".jpg"):
+    if os.path.exists(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg"):
         img = "/media/users/pp/pp-"+username+".jpg"
     else:
         img = "/static/media/profil.png"

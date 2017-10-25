@@ -26,6 +26,7 @@ def hashtag(request,hashtag):
      title ="#"+hashtag+" | coogger",
      keywords = hashtag,
      description = hashtag +" konu etiketi altında ki bütün coogger bilgilerini gör",
+     img="/static/media/icons/hashtag.svg",
     )
     output = dict(
         blog = blogs,
@@ -58,6 +59,7 @@ def list(request,list):
      title = list +" | coogger",
      keywords = list,
      description = list +" liste etiketi altında ki bütün coogger bilgilerini gör",
+     img="/static/media/icons/list.svg",
     )
     output = dict(
         blog = blogs,
@@ -65,7 +67,7 @@ def list(request,list):
         general = True,
         username = username,
         ogurl = request.META["PATH_INFO"],
-        nameoflist = list,
+        nameoflist_ex = list,
         paginator = paginator,
         elastic_search = elastic_search,
     )

@@ -271,7 +271,7 @@ a {
     color: #248644;
     background-color: #cdcdcd;
     padding: 4px 6px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-size: 12px;
 }
 
@@ -284,7 +284,7 @@ a {
 
 .d-hashtag-li {
     float: left;
-    margin: 12px;
+    margin: 6px 4px;
 }
 
 .d-hashtag-a {}
@@ -1058,16 +1058,21 @@ a {
 }
 
 .h-ex-text {
-    font-size: 36px;
+    font-size: 26px;
     font-weight: bold;
     color: #ececec;
     margin: auto;
     width: max-content;
-    padding: 4px 32px;
+    padding: 2px 16px;
     background-color: #0f391d;
     border-radius: 4px;
     margin-bottom: 4px;
     overflow: auto;
+}
+
+.h-ex-h2 {
+    color: #000000;
+    font-size: 16px;
 }
 
 @media only screen and (max-width:1160px) {
