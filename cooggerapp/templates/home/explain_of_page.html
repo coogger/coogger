@@ -1,0 +1,23 @@
+{% if nameofexplain %}
+<div class="h-explain">
+    <img class="h-ex-img" src="/static/media/topics/{{ nameofexplain }}.svg" />
+    <h1 class="h-ex-text">{{ nameoftopic }}</h1>
+</div>
+{% elif nameoftopic %}
+<div class="h-explain">
+    {% if pp %}
+    <img class="h-ex-img" src="/media/users/pp/pp-{{ username }}.jpg" /> {% else %}
+    <img class="h-ex-img" src="/static/media/profil.png" /> {% endif %}
+    <h1 class="h-ex-text">@{{ username }} - {{ nameoftopic}}</h1>
+</div>
+{% elif nameoflist %}
+<div class="h-explain">
+    <img class="h-ex-img" src="/static/media/icons/list.svg" />
+    <h1 class="h-ex-text">{{ nameoflist }}</h1>
+</div>
+{% elif nameofhashtag %}
+<div class="h-explain">
+    <img class="h-ex-img" src="/static/media/icons/hashtag.svg" />
+    <h1 class="h-ex-text">{{ nameofhashtag }}</h1>
+</div>
+{% endif %}

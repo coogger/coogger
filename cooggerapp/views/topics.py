@@ -47,6 +47,8 @@ def topic(request,topic):
         elastic_search = elastic_search,
         general = True,
         nameoftopic = topic,
+        nameofexplain = queryset[0].category,
+        ogurl = request.META["PATH_INFO"],
         nav_category = top.category,
         paginator = paginator,
     )

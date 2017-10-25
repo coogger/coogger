@@ -20,7 +20,8 @@ def mysignup(request): #kayıt ol
         )
         output = dict(
             signup_or_login = True,
-            elastic_search = elastic_search
+            elastic_search = elastic_search,
+            ogurl = request.META["PATH_INFO"],
         )
         return render(request,"signup_or_login/sign.html",output)
     elif request.method == "POST":
@@ -66,7 +67,8 @@ def mylogin(request): # giriş yap
         )
         output = dict(
             signup_or_login = True,
-            elastic_search = elastic_search
+            elastic_search = elastic_search,
+            ogurl = request.META["PATH_INFO"],
         )
         return render(request,"signup_or_login/login.html",output)
     elif request.method == "POST":

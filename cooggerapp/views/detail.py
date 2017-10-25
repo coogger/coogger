@@ -65,6 +65,7 @@ def main_detail(request,blog_path,utopic,path):
         nameoftopic = queryset.title,
         nav_category = nav_category,
         nameoflist = utopic,
+        ogurl = request.META["PATH_INFO"],
         global_hashtag = [i for i in queryset.tag.split(",") if i != ""]
     )
     return render(request,"detail/main_detail.html",output)

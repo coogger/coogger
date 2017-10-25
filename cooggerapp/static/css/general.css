@@ -525,13 +525,22 @@ a {
 }
 
 .h-nav-d-li-a {
-    padding: 12px 24px;
+    padding: 12px 20px;
     color: #000000;
     text-decoration: none;
 }
 
 .h-nav-d-li-a:hover {
     color: #fff;
+}
+
+.h-nav-li-img {
+    width: 20px;
+    height: 20px;
+}
+
+.h-nav-li-text {
+    float: right;
 }
 
 .main-nav::-webkit-scrollbar-track {
@@ -552,7 +561,7 @@ a {
 }
 
 .h-nav-li {
-    padding: 6px 0px;
+    display: grid;
 }
 
 .h-nav-li:hover {
@@ -1036,6 +1045,31 @@ a {
     font-size: 14px;
 }
 
+.h-explain {
+    margin: auto;
+    margin-top: 12px;
+    width: 80%;
+    border-bottom: 1px solid #0f391d;
+}
+
+.h-ex-img {
+    width: 120px;
+    height: 120px;
+}
+
+.h-ex-text {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ececec;
+    margin: auto;
+    width: max-content;
+    padding: 4px 32px;
+    background-color: #0f391d;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    overflow: auto;
+}
+
 @media only screen and (max-width:1160px) {
     .h-header {
         height: 0px;
@@ -1058,6 +1092,7 @@ a {
         padding: 4px 0px;
         top: 26px;
         z-index: auto;
+        border-radius: 0;
     }
     .h-nav-ul {
         width: max-content;
@@ -1070,19 +1105,25 @@ a {
         border: 1px solid #f1f1f1;
     }
     .h-nav-li {
-        text-align: center;
         color: #248644;
-        padding-bottom: 24px;
-        padding: 10px;
-        margin: 0px;
-        border: none;
         background: #ffffff;
         float: left;
-        border-radius: 2px;
-        cursor: pointer;
     }
     .c-create-form {
         width: 96%;
+    }
+    .h-nav-li-text {
+        margin-left: 12px;
+    }
+    .h-explain {
+        margin-top: 46px;
+    }
+    .h-ex-img {
+        width: 60px;
+        height: 60px;
+    }
+    .h-ex-text {
+        font-size: 16px;
     }
 }
 

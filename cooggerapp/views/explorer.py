@@ -32,6 +32,8 @@ def hashtag(request,hashtag):
         nav_category = category,
         general = True,
         username = username,
+        nameofhashtag = hashtag,
+        ogurl = request.META["PATH_INFO"],
         paginator = paginator,
         elastic_search = elastic_search,
     )
@@ -62,6 +64,8 @@ def list(request,list):
         nav_category = category,
         general = True,
         username = username,
+        ogurl = request.META["PATH_INFO"],
+        nameoflist = list,
         paginator = paginator,
         elastic_search = elastic_search,
     )

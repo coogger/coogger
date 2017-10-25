@@ -26,6 +26,7 @@ def home(request):
         nav_category = category,
         general = True,
         username = username,
+        ogurl = request.META["PATH_INFO"],
         paginator = paginator,
     )
     return render(request,"blog/blogs.html",output)

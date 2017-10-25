@@ -54,6 +54,7 @@ def user(request,username):
         paginator = paginator,
         user_follow = user_follow,
         content_list = content_list,
+        ogurl = request.META["PATH_INFO"],
         elastic_search = elastic_search,
     )
     return render (request,"users/user.html",output)
@@ -116,7 +117,7 @@ def u_topic(request,username,utopic):
         img = "/static/media/profil.png"
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
-     keywords = username+" "+utopic+","+utopic+",coogger "+utopic+","+utopic+","+username,
+     keywords = username+" "+utopic+","+utopic,
      description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
      author = facebook,
      img = img,
@@ -124,10 +125,12 @@ def u_topic(request,username,utopic):
     output = dict(
         u_topic = True,
         blog = blogs,
+        pp = pp[0],
         general = True,
         paginator = paginator,
         username = username,
-        nav_category = nav_category,
+        nav_category = nav_category, 
+        ogurl = request.META["PATH_INFO"],
         nameoftopic = utopic,
         nameoflist = "Listeler",
         elastic_search = elastic_search,
