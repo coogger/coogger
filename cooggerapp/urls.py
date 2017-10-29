@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^chosenone/$',controls.chosenone),
 
     url(r'^(?P<blog_path>@.*/(?P<utopic>.*)/(?P<path>.*))', detail.main_detail,name = "blogs"),
-    url(r'^@(?P<username>.*/(?P<utopic>.*))', users.u_topic,name = "u-topic"),
+    url(r'^@(?P<username>.*)/(?P<utopic>.*)', users.u_topic,name = "u-topic"),
     url(r'^@(?P<username>.*)', users.user,name = "user"),
 
     url(r'^tags/(?P<hashtag>.*)',explorer.hashtag,name = "hashtag"),

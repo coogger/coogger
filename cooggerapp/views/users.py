@@ -12,15 +12,14 @@ import os
 
 def user(request,username):
     "herhangi kullanıcının anasayfası"
-    content_list = ContentList.objects.filter(username = username)
-    user = User.objects.filter(username = username)
-    user_info = user[0]
+    user = User.objects.filter(username = username)[0]
+    content_list = ContentList.objects.filter(user = user)
     try:
-        user_follow = UserFollow.objects.filter(user = username)
+        user_follow = UserFollow.objects.filter(user = user)
     except:
         user_follow = []
     # yaptığı paylaşımlar
-    queryset = Blog.objects.filter(username = username)
+    queryset = Blog.objects.filter(username = user)
     blogs = tools.paginator(request,queryset,10)
     paginator = blogs
     pp = tools.get_pp(blogs)
@@ -31,24 +30,28 @@ def user(request,username):
         except ZeroDivisionError:
             stars.append("0")
     blogs = zip(blogs,pp,stars)
+    try:
+        pp = pp[0]
+    except IndexError:
+        pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     facebook = None
     for f in user_follow:
         if f.choices  == "facebook":
             facebook = f.adress
-    if pp[0]:
+    if pp:
         img = "/media/users/pp/pp-"+username+".jpg"
     else:
         img = "/static/media/profil.png"
     elastic_search = dict(
      title = username+" | coogger",
-     keywords =username+","+user_info.first_name+" "+user_info.last_name,
-     description =user_info.first_name+" "+user_info.last_name+", "+username+" adı ile coogger'da",
+     keywords =username+","+user.first_name+" "+user.last_name,
+     description =user.first_name+" "+user.last_name+", "+username+" adı ile coogger'da",
      author = facebook,
      img = img,
     )
     output = dict(
         users = True,
-        pp = pp[0],
+        pp = pp,
         blog = blogs,
         username = username,
         paginator = paginator,
@@ -82,12 +85,12 @@ def upload_pp(request):
             OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = False)
         return HttpResponseRedirect("/@"+request_username)
 
-def u_topic(request,username,utopic):
+def u_topic(request,username,utopic):   
     "kullanıcıların kendi hesaplarında açmış olduğu konulara yönlendirme"
-    username = username.replace("/"+utopic,"")
-    queryset = Blog.objects.filter(username = username,content_list = utopic)
+    user = User.objects.filter(username = username)[0]
+    queryset = Blog.objects.filter(username = user,content_list = utopic)
     if not queryset.exists():
-        ms.error(request,"{} adlı kullanıcı nın {} adlı bir yazı listesi yoktur".format(username,utopic))
+        ms.error(request,"{} adlı kullanıcı nın {} adlı bir içerik listesi yoktur".format(username,utopic))
         return HttpResponseRedirect("/")
     blogs = tools.paginator(request,queryset)
     paginator = blogs
@@ -100,13 +103,13 @@ def u_topic(request,username,utopic):
             stars.append("0")
     blogs = zip(blogs,pp,stars)
     top = tools.Topics()
-    another_utopic = ContentList.objects.filter(username = username)
+    another_utopic = ContentList.objects.filter(user = user)
     nav_category = []
     for a_utopic in another_utopic:
         nav_category.append((a_utopic.content_list,a_utopic.content_list))
     facebook = None
     try:
-        for f in UserFollow.objects.filter(user = username):
+        for f in UserFollow.objects.filter(user = user):
             if f.choices  == "facebook":
                 facebook = f.adress
     except:

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
-from cooggerapp.models import Blog,Views,OtherInformationOfUsers,UserFollow,Voters
+from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters
 from cooggerapp.views import tools
 from django.db.models import F
 from django.contrib.auth.models import User
@@ -14,44 +14,44 @@ import os
 def main_detail(request,blog_path,utopic,path):
     "blogların detail kısmı "
     queryset = Blog.objects.filter(url = blog_path)[0]
-    username = queryset.username
+    username_id = queryset.username_id
+    user = User.objects.filter(id = username_id)[0]
     try:
         ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
     except:
         ip = request.META.get('REMOTE_ADDR')
     try:
-        Views.objects.filter(blog_id = queryset.id,ip = ip)[0].ip
+        Blogviews.objects.filter(blog = queryset,ip = ip)[0].ip
     except:
-        Views(blog_id = queryset.id ,ip = ip).save()
+        Blogviews(blog = queryset,ip = ip).save()
         queryset.views = F("views") + 1
         queryset.save()
         queryset = Blog.objects.filter(url = blog_path)[0]
     category = tools.Topics().category
-    user = User.objects.filter(username = username)
-    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
+    pp = OtherInformationOfUsers.objects.filter(user = user)
     try:
         stars = str(int(queryset.stars/queryset.hmstars))
     except ZeroDivisionError:
         stars = ""
     description = BeautifulSoup(queryset.show, 'html.parser').get_text()
-    another_content = Blog.objects.filter(username = username,content_list = utopic)
+    another_content = Blog.objects.filter(username = username_id,content_list = utopic)
     nav_category = []
     for content in another_content:
         nav_category.append((content.url,content.title))
     facebook = None
     try:
-        for f in UserFollow.objects.filter(user = username):
+        for f in UserFollow.objects.filter(user = user):
             if f.choices  == "facebook":
                 facebook = f.adress
     except:
         pass
-    if os.path.exists(os.getcwd()+"/coogger/media/users/pp/pp-"+username+".jpg"):
-        img = "/media/users/pp/pp-"+username+".jpg"
+    if pp:
+        img = "/media/users/pp/pp-"+user.username+".jpg"
     else:
         img = "/static/media/profil.png"
     elastic_search = dict(
         title = queryset.title+" | coogger",
-        keywords = queryset.tag +","+username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
+        keywords = queryset.tag +","+user.username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
         description = description,
         author = facebook,
         img = img,
@@ -60,7 +60,7 @@ def main_detail(request,blog_path,utopic,path):
         detail = queryset,
         elastic_search = elastic_search,
         general = True,
-        pp = pp,
+        pp = pp[0].pp,
         stars = stars,
         nameoftopic = queryset.title,
         nav_category = nav_category,
@@ -73,19 +73,20 @@ def main_detail(request,blog_path,utopic,path):
 def stars(request,post_id,stars_id):
     if not request.is_ajax():
         return None
+    user = User.objects.filter(username = request.user.username)
     request_username = request.user.username
-    user = User.objects.filter(username=request_username)
     blog = Blog.objects.filter(id = post_id)[0]
     if not user.exists():
         return HttpResponse("Oy vermek için giriş yapmalı veya üye olmalısınız")
+    user = user[0]
     try:
-        vot = Voters.objects.filter(username_id = user[0].id,blog_id = blog.id) # daha önceden verdiği oy varsa alıyoruz
+        vot = Voters.objects.filter(user = user,blog = blog) # daha önceden verdiği oy varsa alıyoruz
         old = vot[0].star
         vot.update(star = stars_id)
         blog.stars = F("stars")-old+stars_id
         blog.save()
     except IndexError: # ilk kez oylama yapıyor
-        Voters(username_id = user[0].id,blog_id = blog.id,star = stars_id).save()
+        Voters(user = user,blog = blog,star = stars_id).save()
         blog.hmstars = F("hmstars")+1
         blog.stars = F("stars")+stars_id
         blog.save()

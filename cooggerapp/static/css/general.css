@@ -506,6 +506,7 @@ a {
     padding: 0px;
     margin: 0px;
     overflow: hidden;
+    background-color: #111;
     height: 40px;
 }
 
@@ -525,18 +526,17 @@ a {
 }
 
 .h-nav-d-li-a {
-    padding: 12px 20px;
-    color: #000000;
+    padding: 6px 20px;
+    color: #ffffff;
     text-decoration: none;
-}
-
-.h-nav-d-li-a:hover {
-    color: #fff;
 }
 
 .h-nav-li-img {
     width: 20px;
     height: 20px;
+    background-color: #fff;
+    border-radius: 40px;
+    padding: 2px;
 }
 
 .h-nav-li-text {
@@ -562,6 +562,7 @@ a {
 
 .h-nav-li {
     display: grid;
+    background-color: #111;
 }
 
 .h-nav-li:hover {

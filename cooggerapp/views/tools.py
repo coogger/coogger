@@ -78,9 +78,9 @@ def durationofread(text):
 def get_pp(queryset):
     pp = []
     for p in queryset:
-        user_id = User.objects.filter(username = p.username)[0].id
-        is_pp = models.OtherInformationOfUsers.objects.filter(user_id = user_id)[0].pp
-        pp.append(is_pp)
+        user = User.objects.filter(id = p.username_id)
+        is_pp = models.OtherInformationOfUsers.objects.filter(user = user)
+        pp.append(is_pp[0].pp)
     return pp
 
 def take_subcategory(request,value,permission=False): 

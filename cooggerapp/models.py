@@ -12,7 +12,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     choices_subcategory = tools_topic.subcatecory
     choices_category2 = tools_topic.category2
     
-    username = models.CharField(max_length=37)
+    username = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     content_list = models.CharField(blank=True, null=True,max_length=30,verbose_name ="Liste ismi")
     category = models.CharField(choices = choices_category ,max_length=30,verbose_name ="Kategori") 
     subcategory = models.CharField(blank=True, null=True,choices=choices_subcategory,max_length=50,verbose_name ="Alt kategori") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
@@ -31,18 +31,18 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
         verbose_name = "content"
         ordering = ['-time']
 
-class Views(models.Model): # görüntülenme ip ve blog_id bilgisini kayıt eder
-    blog_id = models.IntegerField()
+class Blogviews(models.Model): # görüntülenme ip ve blog_id bilgisini kayıt eder
+    blog = models.ForeignKey("Blog", on_delete=models.CASCADE)
     ip = models.CharField(max_length=200)
 
 class Voters(models.Model):
-    username_id = models.IntegerField()
-    blog_id = models.IntegerField(verbose_name = "hangi blog")
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    blog = models.ForeignKey("Blog",verbose_name = "hangi blog")
     star = models.IntegerField(default = 0, verbose_name = "Yıldız")
 
 
 class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
-    username = models.CharField(max_length=37)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     content_list = models.SlugField(max_length=30,verbose_name ="İçerik listeniz")
     content_count = models.IntegerField(verbose_name = "liste içindeki nesne sayısı")
 
@@ -62,7 +62,6 @@ class Author(models.Model): # yazarlık bilgileri
     old = models.CharField(choices = choices_old,verbose_name="doğum tarihin",max_length=4)
     university = models.CharField(null=True,choices = choices_university,verbose_name="üniversite",max_length=100)
     jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30) # boş olamaz uni yazmamış ise öğrenci olarak seçer 
-    #iban = models.CharField(unique = True,max_length=24,null=True,verbose_name = "kart iban numarası")
     phone = models.IntegerField(blank=True, null=True,unique = True,verbose_name = "telefon numarası")
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
@@ -72,33 +71,6 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     author = models.BooleanField(verbose_name = "yazarlık başvurusu yaptımı") # yazar başvurusu yaptımı ?
 
 class UserFollow(models.Model):
-    choices_user = make_choices(users())
-    user = models.CharField(choices = choices_user,max_length=37)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     choices = models.CharField(max_length=15, choices = make_choices(follow()))
     adress = models.CharField(max_length=150,verbose_name = "Adresi yazın")
-
-
-
-
-"""# ------------------------------------
-class Comment(models.Model): # yapılan yorumlar
-    username = models.CharField(max_length=100)
-    url = models.SlugField(unique = True ,max_length=100)
-    comment = models.CharField(max_length=210)
-    hmcomment = models.IntegerField() # yapılan yorum sayısı 
-    time = models.DateTimeField(default=timezone.now) # tarih bilgisi 
-
-
-class Like(models.Model): # beğenme beğenmeme olayları
-    username = models.CharField(max_length=100)
-    url = models.SlugField(unique = True ,max_length=100)
-    hmlike = models.IntegerField() # beğenilme sayısı 
-    hmdislike = models.IntegerField() # beğenilmeme sayısı
-    time = models.DateTimeField(default=timezone.now) # tarih bilgisi 
-
-
-class Bookmark(models.Model): # beğendiği yazıları daha sonra okuması için kayıt etme özelliği
-    username = models.CharField(max_length=100)
-    url = models.SlugField(unique = True ,max_length=100)
-    time = models.DateTimeField(default=timezone.now) # tarih bilgisi 
-"""

@@ -7,8 +7,10 @@ from cooggerapp.models import Blog
 from cooggerapp.views import tools
 
 def home(request):
+    return render(request,"blog/blogs.html",blog(request))
+
+def blog(request):
     queryset = Blog.objects.all()
-    username = request.user.username
     blogs = tools.paginator(request,queryset,10)
     paginator = blogs
     pp = tools.get_pp(blogs)
@@ -25,10 +27,7 @@ def home(request):
         blog = blogs,
         nav_category = category,
         general = True,
-        username = username,
         ogurl = request.META["PATH_INFO"],
         paginator = paginator,
     )
-    return render(request,"blog/blogs.html",output)
-
-
+    return output
