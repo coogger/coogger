@@ -591,10 +591,9 @@ a {
 .preload {
     position: fixed;
     z-index: 3;
-    width: 100%;
-    margin: auto;
-    height: 100%;
     cursor: wait;
+    width: 100%;
+    height: 100%;
 }
 
 .coogger-load {
@@ -607,7 +606,6 @@ a {
 
 .maindiv {
     filter: blur(2px);
-    margin-bottom: 120px;
 }
 
 .home-top-ads {
@@ -795,7 +793,7 @@ a {
 
 .u-header {
     background-color: #0f391d;
-    position: fixed;
+    position: relative;
     width: 100%;
     height: 40px;
     z-index: 5;
@@ -813,6 +811,7 @@ a {
 
 .u-i {
     margin-top: 60px;
+    margin-bottom: 24px;
 }
 
 .u-pp {

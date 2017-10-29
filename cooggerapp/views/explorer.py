@@ -4,24 +4,15 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
 from cooggerapp.models import Blog
-from cooggerapp.views import tools
+from cooggerapp.views.tools import paginator,Topics
+from cooggerapp.views.home import content_cards
 from django.db.models import Q
 
 def hashtag(request,hashtag):
     queryset = Blog.objects.filter(tag__regex = hashtag)
     username = request.user.username
-    blogs = tools.paginator(request,queryset,10)
-    paginator = blogs
-    pp = tools.get_pp(blogs)
-    stars = []
-    for i in blogs:
-        try:
-            stars.append(str(int(i.stars/i.hmstars)+1))
-        except ZeroDivisionError:
-            stars.append("0")
-    blogs = zip(blogs,pp,stars)
-    tools_topic = tools.Topics()
-    category = tools_topic.category
+    info_of_cards = content_cards(request,queryset)
+    category = Topics().category    
     elastic_search = dict(
      title ="#"+hashtag+" | coogger",
      keywords = hashtag,
@@ -29,13 +20,13 @@ def hashtag(request,hashtag):
      img="/static/media/icons/hashtag.svg",
     )
     output = dict(
-        blog = blogs,
+        blog = info_of_cards[0],
         nav_category = category,
         general = True,
         username = username,
         nameofhashtag = hashtag,
         ogurl = request.META["PATH_INFO"],
-        paginator = paginator,
+        paginator = info_of_cards[1],
         elastic_search = elastic_search,
     )
     return render(request,"blog/blogs.html",output)
@@ -43,18 +34,8 @@ def hashtag(request,hashtag):
 def list(request,list):
     queryset = Blog.objects.filter(content_list = list)
     username = request.user.username
-    blogs = tools.paginator(request,queryset,10)
-    paginator = blogs
-    pp = tools.get_pp(blogs)
-    stars = []
-    for i in blogs:
-        try:
-            stars.append(str(int(i.stars/i.hmstars)+1))
-        except ZeroDivisionError:
-            stars.append("0")
-    blogs = zip(blogs,pp,stars)
-    tools_topic = tools.Topics()
-    category = tools_topic.category
+    info_of_cards = content_cards(request,queryset)
+    category = Topics().category
     elastic_search = dict(
      title = list +" | coogger",
      keywords = list,
@@ -62,13 +43,13 @@ def list(request,list):
      img="/static/media/icons/list.svg",
     )
     output = dict(
-        blog = blogs,
+        blog = info_of_cards[0],
         nav_category = category,
         general = True,
         username = username,
         ogurl = request.META["PATH_INFO"],
         nameoflist_ex = list,
-        paginator = paginator,
+        paginator = info_of_cards[1],
         elastic_search = elastic_search,
     )
     return render(request,"blog/blogs.html",output)

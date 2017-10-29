@@ -1,42 +1,22 @@
 from django.http import *
 from django.shortcuts import render
 from django.contrib import messages as ms
-from cooggerapp.models import *
+from cooggerapp.models import Blog
 from django.db.models import Q
-from cooggerapp.views import tools
+from cooggerapp.views.tools import Topics
+from cooggerapp.views.home import content_cards
 
 
 def topic(request,topic):
-    top = tools.Topics()
-    category = top.category
-    subcategory = top.subcatecory
-    category2 = top.category2
-    topi = category+subcategory+category2
-    topics_list = [url for url,top in topi]
-    if topic not in topics_list:
-         ms.error(request,"Böyle bir konu bulunmamakta")
-         return HttpResponseRedirect("/")
-    queryset = False
-    data1 = Blog.objects.filter(category = topic)
-    data2 = Blog.objects.filter(subcategory = topic)
-    data3 = Blog.objects.filter(category2 = topic)
-    data = [data1,data2,data3]
-    for dat in data:
-        if dat.exists():
-            queryset = dat
-    if not queryset:
-        ms.error(request,"Bu konu altında henuz bir şey paylaşılmamış")
+    queryset = look_at_topics(request,topic) 
+    if queryset == None:
+        ms.error(request,"{} isimde bir konu coogger.com'da mevcut değil.".format(topic))
         return HttpResponseRedirect("/")
-    blogs = tools.paginator(request,queryset)
-    paginator = blogs
-    pp = tools.get_pp(blogs)
-    stars = []
-    for i in blogs:
-        try:
-            stars.append(str(int(i.stars/i.hmstars)+1))
-        except ZeroDivisionError:
-            stars.append("0")
-    blogs = zip(blogs,pp,stars)
+    else:
+        if not queryset.exists():
+            ms.error(request,"{} isimli konu altında henuz bir şey paylaşılmamış".format(topic))
+            return HttpResponseRedirect("/")
+    info_of_cards = content_cards(request,queryset)
     nameofexplain = queryset[0].category
     elastic_search = dict(
      title = topic+" | coogger",
@@ -45,13 +25,33 @@ def topic(request,topic):
      img="/static/media/topics/"+nameofexplain+".svg",
     )
     output = dict(
-        blog = blogs,
+        blog = info_of_cards[0],
         elastic_search = elastic_search,
         general = True,
         nameoftopic = topic,
         nameofexplain = nameofexplain,
         ogurl = request.META["PATH_INFO"],
-        nav_category = top.category,
-        paginator = paginator,
+        nav_category = Topics().category,
+        paginator = info_of_cards[1],
     )
     return render(request,"blog/blogs.html",output)
+
+def look_at_topics(request,topic):
+    "gelen topic (konu) bilgisine göre konu varmı yokmu bakar hangi bölümde oldugunu bulur ilgili querysetı cıktı olarak verir"
+    top = Topics()
+    category_url = [url for url,title in top.category]
+    subcategory_url = [url for url,title in top.subcatecory]
+    category2_url = [url for url,title in top.category2]
+    loop_number = 0
+    queryset = None
+    for all_topic_url in [category_url,subcategory_url,category2_url]:
+        loop_number += 1
+        for topic_url in all_topic_url:
+            if topic_url == topic:
+                if loop_number == 1:
+                    queryset = Blog.objects.filter(category = topic)
+                elif loop_number == 2:
+                    queryset = Blog.objects.filter(subcategory = topic)
+                elif loop_number == 3:
+                    queryset = Blog.objects.filter(category2 = topic)
+    return queryset  

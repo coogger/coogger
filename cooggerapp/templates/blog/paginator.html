@@ -3,7 +3,6 @@
         {% if paginator.has_previous %}
             <a class="step-links-a" href="?page={{ paginator.previous_page_number }}">geri</a>
         {% endif %}
-
         <span class="current">
             {{ paginator.number }} | {{ paginator.paginator.num_pages }}
         </span> {% if paginator.has_next %}

@@ -75,13 +75,27 @@ def durationofread(text):
     words_time = float((how_much_words/reading_speed)/60)
     return (str(words_time)[:3])
 
-def get_pp(queryset):
-    pp = []
+def get_pp_from_contents(queryset):
+    "dekoratör"
     for p in queryset:
         user = User.objects.filter(id = p.username_id)
         is_pp = models.OtherInformationOfUsers.objects.filter(user = user)
-        pp.append(is_pp[0].pp)
-    return pp
+        yield is_pp[0].pp
+
+def get_stars_from_contents(queryset):
+    "dekoratör"
+    for i in queryset:
+        try:
+            yield str(int(i.stars/i.hmstars)+1)
+        except ZeroDivisionError:
+            yield "0"
+
+def get_ip(request):
+    try:
+        ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
+    except:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 def take_subcategory(request,value,permission=False): 
     "value ile gelen fields kodunu alıp ilgili bir alt dalı seçip gönderiyorum"

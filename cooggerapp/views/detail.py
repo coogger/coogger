@@ -4,7 +4,7 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
 from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters
-from cooggerapp.views import tools
+from cooggerapp.views.tools import Topics,get_ip
 from django.db.models import F
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
@@ -16,10 +16,8 @@ def main_detail(request,blog_path,utopic,path):
     queryset = Blog.objects.filter(url = blog_path)[0]
     username_id = queryset.username_id
     user = User.objects.filter(id = username_id)[0]
-    try:
-        ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
-    except:
-        ip = request.META.get('REMOTE_ADDR')
+    ip = get_ip(request)
+    nav_category = [nav for nav in nav_category_for_detail(username_id,utopic)]
     try:
         Blogviews.objects.filter(blog = queryset,ip = ip)[0].ip
     except:
@@ -27,40 +25,24 @@ def main_detail(request,blog_path,utopic,path):
         queryset.views = F("views") + 1
         queryset.save()
         queryset = Blog.objects.filter(url = blog_path)[0]
-    category = tools.Topics().category
-    pp = OtherInformationOfUsers.objects.filter(user = user)
     try:
         stars = str(int(queryset.stars/queryset.hmstars))
     except ZeroDivisionError:
         stars = ""
-    description = BeautifulSoup(queryset.show, 'html.parser').get_text()
-    another_content = Blog.objects.filter(username = username_id,content_list = utopic)
-    nav_category = []
-    for content in another_content:
-        nav_category.append((content.url,content.title))
-    facebook = None
-    try:
-        for f in UserFollow.objects.filter(user = user):
-            if f.choices  == "facebook":
-                facebook = f.adress
-    except:
-        pass
-    if pp:
-        img = "/media/users/pp/pp-"+user.username+".jpg"
-    else:
-        img = "/static/media/profil.png"
+    facebook = get_facebook(user)
+    img_pp = get_head_img_pp(user)
     elastic_search = dict(
         title = queryset.title+" | coogger",
         keywords = queryset.tag +","+user.username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
-        description = description,
+        description = queryset.show,
         author = facebook,
-        img = img,
+        img = img_pp[0],
     )
     output = dict(
         detail = queryset,
         elastic_search = elastic_search,
         general = True,
-        pp = pp[0].pp,
+        pp = img_pp[1],
         stars = stars,
         nameoftopic = queryset.title,
         nav_category = nav_category,
@@ -110,3 +92,25 @@ def stars(request,post_id,stars_id):
             output +="<li> : "+str(hmstars)+"</li>"
     return HttpResponse(output)
 
+def get_head_img_pp(user):
+    pp = OtherInformationOfUsers.objects.filter(user = user)
+    if pp:
+        img = "/media/users/pp/pp-"+user.username+".jpg"
+    else:
+        img = "/static/media/profil.png"
+    return [img,pp]
+
+def get_facebook(user):
+    facebook = None
+    try:
+        for f in UserFollow.objects.filter(user = user):
+            if f.choices  == "facebook":
+                facebook = f.adress
+    except:
+        pass
+    return facebook
+
+def nav_category_for_detail(username_id,utopic):
+    nav_category = Blog.objects.filter(username = username_id,content_list = utopic)
+    for category in nav_category:
+       yield category.url,category.title

@@ -1,8 +1,8 @@
-{% include 'home/head.html' %} {% include 'users/header.html' %} {% if content_list %} {% include 'users/nav.html' %} {% endif %} {% include 'users/footer.html' %}
+{% include "users/users-home.html" %}
 <div class="b-blogs">
     {% include 'blog/blog-cards.html' %}
 </div>
-{% include "home/paginator.html" %} {% include "home/footer.html" %}
+{% include "blog/paginator.html" %} {% include "home/footer.html" %}
 </body>
 
 </html>

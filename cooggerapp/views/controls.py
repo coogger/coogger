@@ -16,12 +16,11 @@ def create(request):
     try:
         user = User.objects.filter(username = request_user)[0]
     except:
-        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
+        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın")
         return HttpResponseRedirect("/")
     if not request_user.otherinformationofusers.is_author:
-        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
+        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın")
         return HttpResponseRedirect("/")
-    
     create_form = ContentForm(request.POST or None)
     # post method
     if create_form.is_valid():
@@ -33,9 +32,13 @@ def create(request):
         url = slugify(title)
         content.url = "@"+request_user.username+"/"+content_list+"/"+url
         content.dor = tools.durationofread(content.content+title)
+        content_tag = content.tag.split(",")
         tags = ""
-        for i in content.tag.split(","):
-             tags = tags+","+slugify(i) 
+        for i in content_tag:
+            if i == content_tag[-1]:
+                tags += slugify(i)
+            else:
+                tags += slugify(i)+","
         content.tag = tags
         content.save()
         try:
@@ -87,9 +90,13 @@ def change(request,content_id):
         url = slugify(title)
         content.url = "@"+str(real_username)+"/"+content_list+"/"+url 
         content.dor = tools.durationofread(content.content+title) 
+        content_tag = content.tag.split(",")
         tags = ""
-        for i in content.tag.split(","):
-             tags = tags+","+slugify(i) 
+        for i in content_tag:
+            if i == content_tag[-1]:
+                tags += slugify(i)
+            else:
+                tags += slugify(i)+","
         content.tag = tags
         content.save()
         if content_list != old_content_list: # content_list değişmiş ise

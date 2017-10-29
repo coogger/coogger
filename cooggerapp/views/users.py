@@ -7,6 +7,7 @@ from django.contrib import messages as ms
 from cooggerapp.models import ContentList,OtherInformationOfUsers,Blog,UserFollow
 from cooggerapp.forms import UserFollowForm
 from cooggerapp.views import tools
+from cooggerapp.views.home import content_cards
 from PIL import Image
 import os
 
@@ -20,41 +21,22 @@ def user(request,username):
         user_follow = []
     # yaptığı paylaşımlar
     queryset = Blog.objects.filter(username = user)
-    blogs = tools.paginator(request,queryset,10)
-    paginator = blogs
-    pp = tools.get_pp(blogs)
-    stars = []
-    for i in blogs:
-        try:
-            stars.append(str(int(i.stars/i.hmstars)+1))
-        except ZeroDivisionError:
-            stars.append("0")
-    blogs = zip(blogs,pp,stars)
-    try:
-        pp = pp[0]
-    except IndexError:
-        pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
-    facebook = None
-    for f in user_follow:
-        if f.choices  == "facebook":
-            facebook = f.adress
-    if pp:
-        img = "/media/users/pp/pp-"+username+".jpg"
-    else:
-        img = "/static/media/profil.png"
+    info_of_cards = content_cards(request,queryset)
+    img_pp = get_head_img_pp(user)
+    facebook = get_facebook(user) 
     elastic_search = dict(
      title = username+" | coogger",
      keywords =username+","+user.first_name+" "+user.last_name,
      description =user.first_name+" "+user.last_name+", "+username+" adı ile coogger'da",
      author = facebook,
-     img = img,
+     img = img_pp[0],
     )
     output = dict(
         users = True,
-        pp = pp,
-        blog = blogs,
+        pp = img_pp[1],
+        blog = info_of_cards[0],
         username = username,
-        paginator = paginator,
+        paginator = info_of_cards[1],
         user_follow = user_follow,
         content_list = content_list,
         ogurl = request.META["PATH_INFO"],
@@ -92,45 +74,23 @@ def u_topic(request,username,utopic):
     if not queryset.exists():
         ms.error(request,"{} adlı kullanıcı nın {} adlı bir içerik listesi yoktur".format(username,utopic))
         return HttpResponseRedirect("/")
-    blogs = tools.paginator(request,queryset)
-    paginator = blogs
-    pp = tools.get_pp(blogs)
-    stars = []
-    for i in blogs:
-        try:
-            stars.append(str(int(i.stars/i.hmstars)+1))
-        except ZeroDivisionError:
-            stars.append("0")
-    blogs = zip(blogs,pp,stars)
-    top = tools.Topics()
-    another_utopic = ContentList.objects.filter(user = user)
-    nav_category = []
-    for a_utopic in another_utopic:
-        nav_category.append((a_utopic.content_list,a_utopic.content_list))
-    facebook = None
-    try:
-        for f in UserFollow.objects.filter(user = user):
-            if f.choices  == "facebook":
-                facebook = f.adress
-    except:
-        pass
-    if pp[0]:
-        img = "/media/users/pp/pp-"+username+".jpg"
-    else:
-        img = "/static/media/profil.png"
+    info_of_cards = content_cards(request,queryset)
+    nav_category = [nav for nav in get_nav_category(user)]
+    img_pp = get_head_img_pp(user)
+    facebook = get_facebook(user) 
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic,
      description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
      author = facebook,
-     img = img,
+     img = img_pp[0],
     )
     output = dict(
         u_topic = True,
-        blog = blogs,
-        pp = pp[0],
+        blog = info_of_cards[0],
+        pp = img_pp[0],
         general = True,
-        paginator = paginator,
+        paginator = info_of_cards[1],
         username = username,
         nav_category = nav_category, 
         ogurl = request.META["PATH_INFO"],
@@ -139,3 +99,28 @@ def u_topic(request,username,utopic):
         elastic_search = elastic_search,
     )
     return render(request,"blog/blogs.html",output)
+
+def get_nav_category(user):
+    top = tools.Topics()
+    another_utopic = ContentList.objects.filter(user = user)
+    for a_utopic in another_utopic:
+        fuck = a_utopic.content_list
+        yield fuck,fuck
+
+def get_head_img_pp(user):
+    pp = OtherInformationOfUsers.objects.filter(user = user)
+    if pp:
+        img = "/media/users/pp/pp-"+user.username+".jpg"
+    else:
+        img = "/static/media/profil.png"
+    return [img,pp]
+
+def get_facebook(user):
+    facebook = None
+    try:
+        for f in UserFollow.objects.filter(user = user):
+            if f.choices  == "facebook":
+                facebook = f.adress
+    except:
+        pass
+    return facebook
