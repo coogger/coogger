@@ -4,19 +4,16 @@ from ckeditor.fields import RichTextField
 from cooggerapp.choices import *
 from django.contrib.auth.models import User
 from cooggerapp.views.tools import Topics,make_choices
-from cooggerapp.choices import *
+from cooggerapp.choices import country,university,jop
 
 class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi  
     tools_topic = Topics()
     choices_category = tools_topic.category
     choices_subcategory = tools_topic.subcatecory
-    choices_category2 = tools_topic.category2
-    
     username = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     content_list = models.CharField(blank=True, null=True,max_length=30,verbose_name ="Liste ismi")
-    category = models.CharField(choices = choices_category ,max_length=30,verbose_name ="Kategori") 
-    subcategory = models.CharField(blank=True, null=True,choices=choices_subcategory,max_length=50,verbose_name ="Alt kategori") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
-    category2 = models.CharField(blank=True, null=True,choices=choices_category2,max_length=80,verbose_name = "İkinci alt kategori")
+    category = models.CharField(choices = choices_category ,max_length=30,verbose_name ="Fakülteler") 
+    subcategory = models.CharField(blank=True, null=True,choices=choices_subcategory,max_length=50,verbose_name ="Bölümler") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
     title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
     url = models.SlugField(unique = True ,max_length=100,verbose_name = "web adresi") # blogun url adresi 
     content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda 
@@ -52,7 +49,8 @@ class Author(models.Model): # yazarlık bilgileri
         ("male","erkek"),
         ("female","kadın"),
     )
-    choices_country = make_choices(Subcategory.seyahat())
+    choices_country = make_choices(country())
+
     old = [i for i in range(1905,2017)]
     choices_old = make_choices(old)
     choices_university = make_choices(university())

@@ -108,7 +108,7 @@ def get_nav_category(user):
         yield fuck,fuck
 
 def get_head_img_pp(user):
-    pp = OtherInformationOfUsers.objects.filter(user = user)
+    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     if pp:
         img = "/media/users/pp/pp-"+user.username+".jpg"
     else:

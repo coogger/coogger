@@ -41,10 +41,9 @@ def look_at_topics(request,topic):
     top = Topics()
     category_url = [url for url,title in top.category]
     subcategory_url = [url for url,title in top.subcatecory]
-    category2_url = [url for url,title in top.category2]
     loop_number = 0
     queryset = None
-    for all_topic_url in [category_url,subcategory_url,category2_url]:
+    for all_topic_url in [category_url,subcategory_url]:
         loop_number += 1
         for topic_url in all_topic_url:
             if topic_url == topic:
@@ -52,6 +51,4 @@ def look_at_topics(request,topic):
                     queryset = Blog.objects.filter(category = topic)
                 elif loop_number == 2:
                     queryset = Blog.objects.filter(subcategory = topic)
-                elif loop_number == 3:
-                    queryset = Blog.objects.filter(category2 = topic)
     return queryset  

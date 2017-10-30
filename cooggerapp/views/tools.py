@@ -15,9 +15,8 @@ def make_choices(choice):
 
 class Topics():
     def __init__(self):
-        self.category = make_choices(Category().category)
+        self.category = make_choices(Category().faculties)
         self.subcatecory = make_choices(Subcategory.all())
-        self.category2 = make_choices(Category2.all())
 
     def category(self):
         dict_topics = dict(
@@ -41,16 +40,6 @@ class Topics():
         topics = zip(dict_topics["url"],dict_topics["topic"])
         return topics
 
-    def catecory2(self):
-        dict_topics = dict(
-            url = [],
-            topic = []
-        )
-        for top in self.catecory2:
-            dict_topics["url"].append(top[0])
-            dict_topics["topic"].append(top[1])
-        topics = zip(dict_topics["url"],dict_topics["topic"])
-        return topics
 
 def paginator(request,queryset,hmany=20):
     paginator = Paginator(queryset, hmany)

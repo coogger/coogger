@@ -93,7 +93,7 @@ def stars(request,post_id,stars_id):
     return HttpResponse(output)
 
 def get_head_img_pp(user):
-    pp = OtherInformationOfUsers.objects.filter(user = user)
+    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
     if pp:
         img = "/media/users/pp/pp-"+user.username+".jpg"
     else:
