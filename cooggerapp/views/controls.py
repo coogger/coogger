@@ -73,6 +73,7 @@ def change(request,content_id):
     else:
         queryset = Blog.objects.filter(username = user,id = content_id)
     real_username = queryset[0].username # içeriği yazan kişinin kullanıcı ismi
+    real_user = User.objects.filter(username = real_username )[0]
     if not queryset.exists():
         ms.error(request,"Girmek istediğiniz sayfada yönetim iznine sahip değilsiniz !")
         return HttpResponseRedirect("/")
@@ -82,7 +83,7 @@ def change(request,content_id):
     # post method
     if change_form.is_valid():
         content = change_form.save(commit=False)
-        content.username = user
+        content.username = real_user
         content_list = str(slugify(request.POST["content_list"]))
         content.content_list = content_list
         content.time = queryset.time
