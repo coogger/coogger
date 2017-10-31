@@ -16,7 +16,7 @@ def home(request):
         img_pp = ["/static/media/profil.png",None]
     output = dict(
         blog = info_of_cards[0],
-        img = img_pp,
+        img = img_pp[0],
         nav_category = category,
         general = True,
         ogurl = request.META["PATH_INFO"],

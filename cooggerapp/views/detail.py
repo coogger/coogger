@@ -30,7 +30,10 @@ def main_detail(request,blog_path,utopic,path):
     except ZeroDivisionError:
         stars = ""
     facebook = get_facebook(user)
-    img_pp = get_head_img_pp(user)
+    try:
+        img_pp = get_head_img_pp(request.user)
+    except:
+        img_pp = ["/static/media/profil.png",None]
     elastic_search = dict(
         title = queryset.title+" | coogger",
         keywords = queryset.tag +","+user.username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,

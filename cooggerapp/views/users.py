@@ -22,7 +22,10 @@ def user(request,username):
     # yaptığı paylaşımlar
     queryset = Blog.objects.filter(username = user)
     info_of_cards = content_cards(request,queryset)
-    img_pp = tools.get_head_img_pp(user)
+    try:
+        img_pp = get_head_img_pp(request.user)
+    except:
+        img_pp = ["/static/media/profil.png",None]
     facebook = get_facebook(user) 
     elastic_search = dict(
      title = username+" | coogger",
@@ -76,7 +79,10 @@ def u_topic(request,username,utopic):
         return HttpResponseRedirect("/")
     info_of_cards = content_cards(request,queryset)
     nav_category = [nav for nav in get_nav_category(user)]
-    img_pp = get_head_img_pp(user)
+    try:
+        img_pp = get_head_img_pp(request.user)
+    except:
+        img_pp = ["/static/media/profil.png",None]
     facebook = get_facebook(user) 
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
