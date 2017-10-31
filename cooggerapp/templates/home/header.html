@@ -7,6 +7,43 @@
 
 <header class="h-header">
     <ul class="h-header-ul ft-it">
+        {% if not user.is_authenticated %}
+        <li class="h-header-ul-li">
+            <a class="solol-a" href="/signup">
+                <span class="solol-text">Kayıt ol </span>
+            </a>
+        </li>
+        <li class="h-header-ul-li">
+            <a class="solol-a" href="/login">
+                <span class="solol-text">Giriş yap</span>
+            </a>
+        </li>
+        {% else%}
+        <li class="h-header-ul-li">
+            <a class="solol-a" href="/@{{ request.user.username }}">
+                <img class="solol-img" src="{{ img }}">
+                <span class="solol-text">{{ request.user.username }}</span>
+            </a>
+        </li>
+        {% if not request.user.otherinformationofusers.author %}
+        <li class="h-header-ul-li">
+            <a class="solol-a" href="/signup-author">
+                <span class="solol-text">Yazarlık başvurusu</span>
+            </a>
+        </li>
+        {% endif %} {% if request.user.otherinformationofusers.is_author %}
+        <li class="h-header-ul-li">
+            <a class="solol-a" href="/create">
+                <span class="solol-text">İçerik oluştur</span>
+            </a>
+        </li>
+        {% endif %}
+        <li class="h-header-ul-li">
+            <a class="solol-a" href="/logout">
+                <span class="solol-text">Çıkış</span>
+            </a>
+        </li>
+        {% endif %}
         <li class="h-header-ul-li">
             <div class="search">
                 <form class="search-form" action="/search">
@@ -15,40 +52,5 @@
                 </form>
             </div>
         </li>
-        {% if not user.is_authenticated %}
-        <li class="h-header-ul-li">
-            <div class="solol">
-                <a href="/signup">Kayıt ol</a>
-            </div>
-        </li>
-        <li class="h-header-ul-li">
-            <div class="solol">
-                <a href="/login">Giriş yap</a>
-            </div>
-        </li>
-        {% else%} {% if not request.user.otherinformationofusers.author %}
-        <li class="h-header-ul-li">
-            <div class="solol">
-                <a href="/signup-author">Yazarlık başvurusu</a>
-            </div>
-        </li>
-        {% endif %} {% if request.user.otherinformationofusers.is_author %}
-        <li class="h-header-ul-li">
-            <div class="solol">
-                <a href="/create">İçerik oluştur</a>
-            </div>
-        </li>
-        {% endif %}
-        <li class="h-header-ul-li">
-            <div class="solol">
-                <a href="/@{{ request.user.username }}">@{{ request.user.username }}</a>
-            </div>
-        </li>
-        <li class="h-header-ul-li">
-            <div class="solol">
-                <a href="/logout">Çıkış</a>
-            </div>
-        </li>
-        {% endif %}
     </ul>
 </header>

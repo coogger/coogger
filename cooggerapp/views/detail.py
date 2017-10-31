@@ -43,6 +43,7 @@ def main_detail(request,blog_path,utopic,path):
         elastic_search = elastic_search,
         general = True,
         pp = img_pp[1],
+        img = img_pp[0],
         stars = stars,
         nameoftopic = queryset.title,
         nav_category = nav_category,

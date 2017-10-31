@@ -22,7 +22,7 @@ def user(request,username):
     # yaptığı paylaşımlar
     queryset = Blog.objects.filter(username = user)
     info_of_cards = content_cards(request,queryset)
-    img_pp = get_head_img_pp(user)
+    img_pp = tools.get_head_img_pp(user)
     facebook = get_facebook(user) 
     elastic_search = dict(
      title = username+" | coogger",
@@ -89,6 +89,7 @@ def u_topic(request,username,utopic):
         u_topic = True,
         blog = info_of_cards[0],
         pp = img_pp[0],
+        img = img_pp[0],
         general = True,
         paginator = info_of_cards[1],
         username = username,
@@ -107,13 +108,6 @@ def get_nav_category(user):
         fuck = a_utopic.content_list
         yield fuck,fuck
 
-def get_head_img_pp(user):
-    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
-    if pp:
-        img = "/media/users/pp/pp-"+user.username+".jpg"
-    else:
-        img = "/static/media/profil.png"
-    return [img,pp]
 
 def get_facebook(user):
     facebook = None

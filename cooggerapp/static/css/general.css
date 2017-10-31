@@ -394,13 +394,22 @@ a {
     font-size: 16px;
 }
 
-.solol {
-    padding: 10px 12px;
-    text-align: center;
+.solol-a {
+    color: #fff;
+    padding: 10px 30px;
+    bottom: -10px;
+    position: relative;
 }
 
-.solol a {
-    color: #fff;
+.solol-a:hover {
+    background-color: #248644;
+}
+
+.solol-img {
+    width: 40px;
+    height: 40px;
+    float: left;
+    border-radius: 70px;
 }
 
 .h-header-ul {
@@ -412,7 +421,6 @@ a {
 
 .h-header-ul-li {
     float: left;
-    margin-right: 16px;
 }
 
 .open-header {

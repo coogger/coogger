@@ -3,15 +3,20 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
-from cooggerapp.models import Blog
-from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator
+from cooggerapp.models import Blog,OtherInformationOfUsers
+from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator,get_head_img_pp
 
 def home(request):
     tools_topic = Topics()
     category = tools_topic.category
-    info_of_cards = content_cards(request)
+    info_of_cards = content_cards(request,hmany=20)
+    try:
+        img_pp = get_head_img_pp(request.user)
+    except:
+        img_pp = ["/static/media/profil.png",None]
     output = dict(
         blog = info_of_cards[0],
+        img = img_pp,
         nav_category = category,
         general = True,
         ogurl = request.META["PATH_INFO"],

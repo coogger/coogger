@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib import messages as ms
 from cooggerapp.models import Blog
 from django.db.models import Q
-from cooggerapp.views.tools import Topics
+from cooggerapp.views.tools import Topics,get_head_img_pp
 from cooggerapp.views.home import content_cards
 
 
@@ -18,6 +18,10 @@ def topic(request,topic):
             return HttpResponseRedirect("/")
     info_of_cards = content_cards(request,queryset)
     nameofexplain = queryset[0].category
+    try:
+        img_pp = get_head_img_pp(request.user)
+    except:
+        img_pp = ["/static/media/profil.png",None]
     elastic_search = dict(
      title = topic+" | coogger",
      keywords = topic+"coogger "+topic,
@@ -28,6 +32,7 @@ def topic(request,topic):
         blog = info_of_cards[0],
         elastic_search = elastic_search,
         general = True,
+        img = img_pp[0],
         nameoftopic = topic,
         nameofexplain = nameofexplain,
         ogurl = request.META["PATH_INFO"],
