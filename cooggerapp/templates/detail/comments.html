@@ -16,7 +16,7 @@
   <ul class="d-comments-ul">
     {% for com in comment_form %}
     <li class="d-comments-li">
-      <div class="d-comments-user"><img class="comments-pp" src="/media/users/pp/pp-@{{ com.user }}.jpg"><spam>{{ com.user }}</spam>
+      <div class="d-comments-user"><img class="comments-pp" src="/media/users/pp/pp-{{ com.user }}.jpg"><spam>@{{ com.user }}</spam>
         <div class="d-comment"> <spam>{{ com.comment }}</spam></div>
         <div class="d-comment-date"> <spam>{{ com.date|timesince }} önce</spam></div>
       </div>
@@ -39,7 +39,7 @@ $(document).ready(function() {
           }
       }).done(function (response) {
           // okunan json veriyi, #user idli yere yaz
-          $(".d-comments-ul" ).append("<li class='d-comments-li'><div class='d-comments-user'><img class='comments-pp' src='/media/users/pp/pp-@"+response.user+".jpg'><spam>response.user</spam><div class='d-comment'> <spam>"+response.comment+"</spam></div><div class='d-comment-date'> <spam>"+response.date+"</spam></div></div></li>");
+          $(".d-comments-ul" ).append("<li class='d-comments-li'><div class='d-comments-user'><img class='comments-pp' src='/media/users/pp/pp-@"+response.username+".jpg'><spam>@"+response.username+"</spam><div class='d-comment'> <spam>"+response.comment+"</spam></div><div class='d-comment-date'> <spam>"+response.date+" saniye önce</spam></div></div></li>");
       });
       event.preventDefault();
   });

@@ -39,7 +39,7 @@ body::-webkit-scrollbar-thumb {
     position: relative;
     background-color: #ececec;
     display: flow-root;
-    margin: 57px auto;
+    margin: 26px auto;
     padding: 6px;
     z-index: 0;
     box-shadow: 0px 0px 2px 0px #c5c5c5;
@@ -371,6 +371,25 @@ a {
     z-index: 5;
     top: 0px;
 }
+.main-logo{
+    background-color: #fff;
+}
+.main-logo:hover{
+ -webkit-animation: logo-ani 3s linear 1s infinite alternate;
+   animation:logo-ani 3s linear 1s infinite alternate;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes logo-ani {
+    from {background-color: #fff;}
+    to {background-color: #0f391d;}
+}
+
+/* Standard syntax */
+@keyframes logo-ani {
+     from {background-color: #fff;}
+    to {background-color: #0f391d;}
+}
 
 .main-messages,
 .h-messages {
@@ -394,13 +413,10 @@ a {
 
 .logo {
     position: relative;
-    border-radius: 2px;
-    padding: 7px 12px;
-    float: left;
+    padding: 12px;
+    width: max-content;
     z-index: 6;
-    top: 0px;
-    background-color: #fff;
-    margin: 1px 1px;
+    margin: auto;
 }
 
 .logo-a {
@@ -444,15 +460,13 @@ a {
     position: relative;
 }
 
-.solol-a:hover {
-    background-color: #248644;
-}
-
 .solol-img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     float: left;
     border-radius: 70px;
+    border: 2px solid #248644;
+    padding: 2px;
 }
 
 .h-header-ul {
@@ -464,23 +478,12 @@ a {
 
 .h-header-ul-li {
     float: left;
+    height: 40px;
 }
-
-.open-header {
-    display: none;
-    right: 0px;
-    position: relative;
-    float: right;
-    z-index: 6;
-    padding: 2px 12px;
-    top: 0px;
+.h-header-ul-li:hover{
+        background-color: #248644;
 }
-
-.open-header-border {
-    border-bottom: 10px solid #248644;
-    margin-bottom: 2px;
-    width: 6px;
-}
+.d-comments-user img{ width: 40px; height: 40px; float: left; border-radius: 60px; padding: 4px; border: 2px solid #248644; }.d-comment{ color: #248644; font-size: 14px; margin: 6px 0px 6px 60px; border-top: 1px solid; width: 80%; }
 
 .logo-img {
     background-image: url(/static/media/favicon.png);
@@ -523,16 +526,7 @@ a {
     cursor: pointer;
 }
 
-.h-nav {
-    position: absolute;
-    z-index: 1;
-    background-color: #fff;
-    top: 0px;
-    right: 0px;
-    z-index: 5;
-    width: 16%;
-    border-radius: 6px;
-}
+.h-nav {}
 
 .h-nav::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -554,13 +548,37 @@ a {
 
 .h-nav-ul {
     list-style-type: none;
-    padding: 0px;
+    position: absolute;
+    top: 44px;
+    right: 6px;
+    z-index: 5;
     margin: 0px;
+    padding: 0px;
     overflow: hidden;
-    background-color: #111;
+    width: 280px;
     height: 40px;
 }
-
+.h-noti-li{
+    width: -webkit-fill-available;
+    padding: 6px 12px;
+}
+.h-noti-topic{
+    padding: 12px 30px;
+    color: #fff;
+}
+.h-notifications-ul{
+     list-style-type: none;
+     z-index: 7;
+     margin: 0px;
+     padding: 0px;
+     overflow: hidden;
+     width: 300px;
+     height: 40px;
+     top: 44px;
+     font-size: 14px;
+     position: absolute;
+     background-color: #ffffff;
+}
 .main-nav-detail {
     padding: 12px 0px;
     margin: 0px;
@@ -577,8 +595,8 @@ a {
 }
 
 .h-nav-d-li-a {
-    padding: 6px 20px;
-    color: #ffffff;
+    padding: 10px 20px;
+    color: #000000;
     text-decoration: none;
 }
 
@@ -586,12 +604,13 @@ a {
     width: 20px;
     height: 20px;
     background-color: #fff;
-    border-radius: 40px;
+    border-radius: 4px;
     padding: 2px;
 }
 
 .h-nav-li-text {
     float: right;
+    margin-top: 3px;
 }
 
 .main-nav::-webkit-scrollbar-track {
@@ -613,7 +632,7 @@ a {
 
 .h-nav-li {
     display: grid;
-    background-color: #111;
+    background-color: #fff;
 }
 
 .h-nav-li:hover {
@@ -632,11 +651,11 @@ a {
 
 .h-nav-topic {
     color: #fff;
-    padding: 10px 16px;
+    padding: 11px 16px;
     margin: 0px;
     text-align: center;
     cursor: pointer;
-    background-color: #248644;
+    background-color: #0f391d;
 }
 
 .preload {
@@ -684,7 +703,9 @@ a {
 .b-user-img-src {
     width: 40px;
     height: 40px;
-    border-radius: 6px;
+    border-radius: 60px;
+    border: 2px solid #248644;
+    padding: 2px;
 }
 
 .b-user-ul-li {
@@ -864,7 +885,11 @@ a {
     margin-top: 60px;
     margin-bottom: 24px;
 }
-
+.h-not-time{
+    border-bottom: 1px solid #cdcdcd;
+    margin-bottom: 10px;
+    color: #333;
+}
 .u-pp {
     text-align: center;
 }
@@ -981,7 +1006,7 @@ a {
     padding: 6px 12px;
     display: flow-root;
 }
-
+.h-noti-info{border-bottom: 1px solid #cdcdcd;margin-bottom: 10px;color: #666;}
 .u-footer-ul {
     list-style: none;
     margin: auto;
@@ -1129,26 +1154,24 @@ a {
 @media only screen and (max-width:1160px) {
     .h-header {
         height: 0px;
-        padding-top: 10px;
-        display: none;
-        position: fixed;
-        height: 100%;
-    }
-    .open-header {
-        display: block;
+        padding-top: 40px;
+        position: relative;
+        height: 80px;
+        overflow: auto;
     }
     .h-header-ul-li {
-        float: none;
     }
+    .solol-a{
+    padding: 10px 12px;
+}
     .h-nav {
         position: relative;
         width: -webkit-fill-available;
         overflow: auto;
         background-color: rgb(255, 255, 255);
         padding: 4px 0px;
-        top: 26px;
         z-index: auto;
-        border-radius: 0;
+        height: max-content;
     }
     .h-nav-ul {
         width: max-content;
@@ -1156,14 +1179,28 @@ a {
         list-style-type: none;
         padding: 0px;
         margin: auto;
+        position: relative;
         overflow: hidden;
+        z-index: 4;
         background-color: #fff;
         border: 1px solid #f1f1f1;
+        top: 0px;
+        right: 0px;
     }
     .h-nav-li {
-        color: #248644;
-        background: #ffffff;
+        color: #ffffff;
+        background: #fff;
         float: left;
+        margin: 0px;
+        border-radius: 0;
+    }
+    .h-noti-li{
+      background: #fff;
+      float: left;
+      margin: 0px;
+      border-radius: 0;
+      padding: 2px 6px;
+      width: -webkit-fill-available;
     }
     .c-create-form {
         width: 96%;
@@ -1188,6 +1225,27 @@ a {
     .d-wcomment{
         width: 100%;
     }
+    .h-noti-topic{
+      color: #fff;
+      padding: 12px 59px;
+      margin: 0px;
+      text-align: center;
+      cursor: pointer;
+      background-color: #0f391d;
+    }
+    .h-notifications-ul{
+    color: #000;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    top: 0px;
+    position: absolute;
+    right: 0px;
+    padding: 0px;
+    width: 200px;
+    margin: 0px;
+    }
+    .h-noti-text{}
+
 }
 
 @media only screen and (max-width:768px) {

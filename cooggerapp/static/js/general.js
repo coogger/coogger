@@ -4,14 +4,12 @@ $(document).ready(function() {
         var heig = $(window).height();
         if (wid < 1160) {
             var free_space = 0;
-            var nav_heig = 40;
         } else {
             var free_space = 320;
-            var nav_heig = heig - 120;
             // h-nav-ul ayarlama
             $(".h-nav-ul").mouseover(function() {
                 $(".h-nav-ul").css("overflow", "auto");
-                $(".h-nav-ul").css("height", nav_heig);
+                $(".h-nav-ul").css("height", "auto");
                 $(".b-blogs").css("filter", "blur(3px)");
             }).mouseout(function() {
                 $(".h-nav-ul").css("overflow", "hidden");
@@ -19,6 +17,15 @@ $(document).ready(function() {
                 $(".b-blogs").css("filter", "blur(0px)");
             });
         }
+        $(".h-notifications-ul").mouseover(function() {
+            $(".h-notifications-ul").css("overflow", "auto");
+            $(".h-notifications-ul").css("height", "auto");
+            $(".b-blogs").css("filter", "blur(3px)");
+        }).mouseout(function() {
+            $(".h-notifications-ul").css("overflow", "hidden");
+            $(".h-notifications-ul").css("height", 40);
+            $(".b-blogs").css("filter", "blur(0px)");
+        });
         var total_wid = wid - free_space; // ekranda boş kalan yer
         // h-footer
         $(".h-footer").css({ width: wid - free_space });
@@ -46,7 +53,7 @@ $(document).ready(function() {
 
     var wid = parseInt($(window).width());
     if (wid < 1160) { // mobil ve tablet
-        $(".h-header-ul").addClass("wincenter");
+      //  $(".h-header-ul").addClass("wincenter");
         $(".open-header").click(function() {
             $(".h-header").toggle("fast")
         });

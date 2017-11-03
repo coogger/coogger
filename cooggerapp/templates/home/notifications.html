@@ -1,0 +1,37 @@
+{% if notifications %}
+<ul class="h-notifications-ul ft-ar">
+    <li style="background-color:#0f391d;" class="h-noti-topic h-noti-li">
+      Bildirimler ( {{ hmanynotifications }} )
+    </li>
+    {% for noti in notifications %}
+        {% if noti.even == 1 %}
+        <li class="h-noti-li">
+          <a class="h-nav-d-li-a" href="/{{ noti.address }}">
+            <img class="h-nav-li-img" src="/static/media/icons/comments.svg" />
+            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
+            <div class="h-noti-info">İçeriğine bir yorum yapıldı</div>
+            <div class="h-noti-text">{{ noti.content }}</div>
+          </a>
+        </li>
+        {% elif noti.even == 2 %}
+        <li class="h-noti-li">
+          <a class="h-nav-d-li-a" href="/{{ noti.address }}">
+            <img class="h-nav-li-img" src="/static/media/icons/star.svg" />
+            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
+            <div>İçeriğine yeni bir oy verildi</div>
+            <<div class="h-noti-text">{{ noti.content }}</div>
+          </a>
+        </li>
+        % elif noti.even == 3 %}
+        <li class="h-noti-li">
+          <a class="h-nav-d-li-a" href="/{{ noti.address }}">
+            <img class="h-nav-li-img" src="/static/media/topics/checked.svg" />
+            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
+            <div>Yeni takipçi kazandın</div>
+            <div class="h-noti-text">{{ noti.content }}</div>
+          </a>
+        </li>
+        {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}

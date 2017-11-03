@@ -1,6 +1,6 @@
 <nav class="h-nav">
     <ul class="h-nav-ul ft-ar">
-        <li class="h-nav-topic h-nav-li">
+        <li style="background-color:#0f391d;"  class="h-nav-topic h-nav-li">
             {% if nameoflist %} {{ nameoflist }} {% else %} Fakülteler {% endif %}
         </li>
         {% for url,topic in nav_category %} {% if nameoftopic %} {% if topic == nameoftopic %} {% if u_topic %}
@@ -49,3 +49,4 @@
         {% endif %} {% endfor %}
     </ul>
 </nav>
+{% include 'home/notifications.html' %}

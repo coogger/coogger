@@ -13,7 +13,7 @@ class BlogAdmin(admin.ModelAdmin):
     list_filter = ["username","content_list","views","hmstars","dor","time"]
     search_fields = list_
     prepopulated_fields = {"url":("title",)}
-    fields = (("username","content_list"),("category","subcategory"),("title","url"),"content","tag")
+    fields = (("username","content_list"),("category","subcategory"),("title","url"),"content","tag",("views","hmanycomment","hmstars","stars","dor"))
 
     class Media:
         js = ("js/my-admin-content.js",)
@@ -61,7 +61,7 @@ class OtherInformationOfUsersAdmin(admin.StackedInline):
     list_filter = ["author","is_author"]
 
 class OtherInformationOfUsersADMIN(admin.ModelAdmin):
-    list_ = ["author","is_author","pp"]
+    list_ = ["user","author","is_author","pp"]
     list_display = list_
     list_display_links = list_
     list_filter = list_

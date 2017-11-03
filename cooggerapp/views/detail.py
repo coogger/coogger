@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
-from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters,Comment
+from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters,Comment,Notification
 from cooggerapp.views.tools import Topics,get_ip
 from django.db.models import F
 from django.contrib.auth.models import User
@@ -107,10 +107,12 @@ def comment(request,content_path):
         query = Blog.objects.filter(url = content_path)[0]
         query.hmanycomment = F("hmanycomment")+1
         query.save()
+        if content.username != request.user.username:
+            Notification(user=content.username,even = 1,content=comment,address = content_path).save()
         return HttpResponse(
             json.dumps({
                 "comment": comment,
-                "user":request.user.username,
+                "username":request.user.username,
                 "date":1,
             })
         )

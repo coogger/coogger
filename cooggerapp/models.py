@@ -20,7 +20,7 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     show = models.CharField(max_length=400,verbose_name = "Anasayfa'da görünecek içerik notu ekleyin")
     tag = models.CharField(max_length=200,verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi
-    dor = models.TextField() # duration of read içerik okuma süresi
+    dor = models.IntegerField(default = 0, verbose_name = "duration of read") # duration of read içerik okuma süresi
     stars = models.IntegerField(default = 0, verbose_name = "Yıldız")
     hmstars = models.IntegerField(default = 0,verbose_name = "kaç kişi oy kullandı")
     views = models.IntegerField(default = 0,verbose_name = "görüntülenme sayısı") # görütülenme sayısını kayıt eder
@@ -86,3 +86,4 @@ class Notification(models.Model):
     content = models.CharField(max_length=310,verbose_name="bildirim mesajı")
     show = models.BooleanField(default=False,verbose_name="gördü/görmedi")
     address = models.SlugField(verbose_name="bildirimin gerçekleştiği adres")
+    time = models.DateTimeField(default = timezone.now,verbose_name="tarih")

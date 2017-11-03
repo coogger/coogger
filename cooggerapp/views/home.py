@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
-from cooggerapp.models import Blog,OtherInformationOfUsers
+from cooggerapp.models import Blog,OtherInformationOfUsers,Notification
 from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator,get_head_img_pp
 from django.db.models import Q
 
@@ -11,6 +11,7 @@ def home(request):
     tools_topic = Topics()
     category = tools_topic.category
     info_of_cards = content_cards(request,hmany=20)
+    notifications = notification(request)
     try:
         img_pp = get_head_img_pp(request.user)
     except:
@@ -22,7 +23,9 @@ def home(request):
         general = True,
         ogurl = request.META["PATH_INFO"],
         paginator = info_of_cards[1],
-    )
+        notifications = notifications[0],
+        hmanynotifications = notifications[1],
+        )
     return render(request,"blog/blogs.html",output)
 
 def search(request):
@@ -45,6 +48,14 @@ def search(request):
         paginator = info_of_cards[1],
     )
     return render(request,"blog/blogs.html",output)
+
+def notification(request):
+    try:
+        queryset = Notification.objects.filter(user = request.user)
+    except:
+        return False,False
+    # bildirimler,görmediği kaç bildirim olduğu sayısı
+    return queryset,queryset.filter(show = False).count()
 
 def content_cards(request,queryset = Blog.objects.all(),hmany = 10):
     "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
