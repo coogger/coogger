@@ -23,10 +23,10 @@ def user(request,username):
     queryset = Blog.objects.filter(username = user)
     info_of_cards = content_cards(request,queryset)
     try:
-        img_pp = get_head_img_pp(request.user)
+        img_pp = tools.get_head_img_pp(user)
     except:
         img_pp = ["/static/media/profil.png",None]
-    facebook = get_facebook(user) 
+    facebook = get_facebook(user)
     elastic_search = dict(
      title = username+" | coogger",
      keywords =username+","+user.first_name+" "+user.last_name,
@@ -70,7 +70,7 @@ def upload_pp(request):
             OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = False)
         return HttpResponseRedirect("/@"+request_username)
 
-def u_topic(request,username,utopic):   
+def u_topic(request,username,utopic):
     "kullanıcıların kendi hesaplarında açmış olduğu konulara yönlendirme"
     user = User.objects.filter(username = username)[0]
     queryset = Blog.objects.filter(username = user,content_list = utopic)
@@ -80,10 +80,10 @@ def u_topic(request,username,utopic):
     info_of_cards = content_cards(request,queryset)
     nav_category = [nav for nav in get_nav_category(user)]
     try:
-        img_pp = get_head_img_pp(request.user)
+        img_pp = tools.get_head_img_pp(request.user)
     except:
         img_pp = ["/static/media/profil.png",None]
-    facebook = get_facebook(user) 
+    facebook = get_facebook(user)
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic,
@@ -99,7 +99,7 @@ def u_topic(request,username,utopic):
         general = True,
         paginator = info_of_cards[1],
         username = username,
-        nav_category = nav_category, 
+        nav_category = nav_category,
         ogurl = request.META["PATH_INFO"],
         nameoftopic = utopic,
         nameoflist = "Listeler",

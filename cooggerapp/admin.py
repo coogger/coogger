@@ -3,7 +3,7 @@ from cooggerapp.models import *
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from cooggerapp.models import OtherInformationOfUsers ,Blogviews
+from cooggerapp.models import OtherInformationOfUsers ,Blogviews,Comment
 
 
 class BlogAdmin(admin.ModelAdmin):
@@ -13,13 +13,13 @@ class BlogAdmin(admin.ModelAdmin):
     list_filter = ["username","content_list","views","hmstars","dor","time"]
     search_fields = list_
     prepopulated_fields = {"url":("title",)}
-    fields = (("username","content_list"),("category","subcategory","category2"),("title","url"),"content","tag")
+    fields = (("username","content_list"),("category","subcategory"),("title","url"),"content","tag")
 
     class Media:
         js = ("js/my-admin-content.js",)
 
 class ViewsAdmin(admin.ModelAdmin):
-    list_ = ["blog","ip"]
+    list_ = ["content","ip"]
     list_display = list_
     list_display_links = list_
     search_fields = list_
@@ -43,6 +43,13 @@ class UserFollowAdmin(admin.ModelAdmin):
     list_display = list_
     list_display_links = list_
     list_filter = ["choices"]
+    search_fields = list_
+
+class CommentAdmin(admin.ModelAdmin):
+    list_ = ["user","content","comment"]
+    list_display = list_
+    list_display_links = list_
+    list_filter = ["user"]
     search_fields = list_
 
 
@@ -81,3 +88,4 @@ admin.site.register(UserFollow,UserFollowAdmin)
 admin.site.register(ContentList,ContentListAdmin)
 admin.site.register(Voters,VotersAdmin)
 admin.site.register(OtherInformationOfUsers,OtherInformationOfUsersADMIN)
+admin.site.register(Comment,CommentAdmin)

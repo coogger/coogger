@@ -9,10 +9,10 @@ from cooggerapp.views.home import content_cards
 from django.db.models import Q
 
 def hashtag(request,hashtag):
-    queryset = Blog.objects.filter(tag__regex = hashtag)
+    queryset = Blog.objects.filter(tag__contains = hashtag)
     username = request.user.username
     info_of_cards = content_cards(request,queryset)
-    category = Topics().category   
+    category = Topics().category
     try:
         img_pp = get_head_img_pp(request.user)
     except:

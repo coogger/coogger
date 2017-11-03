@@ -3,7 +3,7 @@
     {% include "blog/edit.html" %}
     <div class="b-cards">
         {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %}
-        <div class="b-content" data-views="{{ blo.views }}" data-dor="{{ blo.dor }}" data-url="{{ blo.url }}" data-stars="{{ stars }}">
+        <div class="b-content" data-views="{{ blo.views }}" data-dor="{{ blo.dor }}" data-url="{{ blo.url }}" data-stars="{{ stars }}" data-hmanycomment="{{ blo.hmanycomment }}">
             <div class="b-cont ft-ct" style="height: 180px;">
                 {{ blo.show }}
             </div>

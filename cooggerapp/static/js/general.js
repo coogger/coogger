@@ -77,7 +77,8 @@ $(document).ready(function() {
         var dor = this.getAttribute("data-dor");
         var url = this.getAttribute("data-url");
         var stars = this.getAttribute("data-stars");
-        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi " + dor + " dakika</li><li class='duread-li'>yıldız " + stars + " </li><li class='duread-li'>okuma " + views + " </li></ul></div>");
+        var hmanycomment = this.getAttribute("data-hmanycomment");
+        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi " + dor + " dakika</li><li class='duread-li'>Yıldız " + stars + " </li><li class='duread-li'>Okuma " + views + " </li><li class='duread-li'>Yorum sayısı " + hmanycomment + "</li></ul></div>");
         $(this).click(function() {
             window.location = "/" + url
         });
@@ -146,7 +147,7 @@ $(document).ready(function() {
             $("#id_category2").load("/chosecat2/" + str);
         });
     });
-    // controls    
+    // controls
     //--------------
     //users
     $(".u-i").mouseover(function() {
@@ -155,4 +156,5 @@ $(document).ready(function() {
         $(".u-uploadform").css({ display: "none" });
     });
     //users
+
 });

@@ -1,16 +1,16 @@
-# content control 
+# content control
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages as ms
 from cooggerapp.models import *
 from django.contrib.auth.models import User
-from cooggerapp.forms import *
+from cooggerapp.forms import ContentForm
 from django.db.models import F
 from django.utils.text import slugify
 from cooggerapp.views import tools
 
-def create(request): 
+def create(request):
     "to create new content"
     request_user = request.user
     try:
@@ -48,7 +48,7 @@ def create(request):
             # kullanıcının açmış oldugu listeleri kayıt ediyoruz
         except: # önceden oluşmuş ise hata verir ve biz 1 olarak kayıt ederiz
             ContentList(user = user,content_list = content_list,content_count = 1).save()
-        
+
         return HttpResponseRedirect("/@"+request_user.username+"/"+content_list+"/"+url)
     # get method
     output = dict(
@@ -89,8 +89,8 @@ def change(request,content_id):
         content.time = queryset.time
         title = content.title
         url = slugify(title)
-        content.url = "@"+str(real_username)+"/"+content_list+"/"+url 
-        content.dor = tools.durationofread(content.content+title) 
+        content.url = "@"+str(real_username)+"/"+content_list+"/"+url
+        content.dor = tools.durationofread(content.content+title)
         content_tag = content.tag.split(",")
         tags = ""
         for i in content_tag:
@@ -116,7 +116,7 @@ def change(request,content_id):
                 content_list_.content_count = F("content_count")+1
                 content_list_.save()
             except:
-                ContentList(username = user,content_list = content_list,content_count = 1).save()       
+                ContentList(username = user,content_list = content_list,content_count = 1).save()
         return HttpResponseRedirect("/@"+str(real_username)+"/"+content_list+"/"+url)
     # get method
     output = dict(
@@ -126,7 +126,7 @@ def change(request,content_id):
         change_form = change_form,
     )
     return render(request,"controls/change.html",output)
-            
+
 def delete(request,content_id):
     "to delete the content"
     request_user = request.user
@@ -134,7 +134,7 @@ def delete(request,content_id):
         ms.error(request,"ops !")
         return HttpResponseRedirect("/")
     elif request_user.is_superuser: # admin
-        queryset = Blog.objects.filter(id = content_id) 
+        queryset = Blog.objects.filter(id = content_id)
     else:
         queryset = Blog.objects.filter(username = user,id = content_id)
     real_username = queryset[0].username # içeriği yazan kişinin kullanıcı ismi
@@ -159,7 +159,7 @@ def delete(request,content_id):
         return HttpResponse("Silme işlemi sırasında beklenmedik hata !")
     return HttpResponse("Silme işlemi başarılı ")
 
-def chose_subcategory(request,value): 
+def chose_subcategory(request,value):
     "value ile gelen fields kodunu alıp ilgili bir alt dallarını seçip gönderiyorum"
     subcategory = tools.take_subcategory(request,value)
     if subcategory == None:
@@ -168,7 +168,7 @@ def chose_subcategory(request,value):
     for sub in subcategory:
         option += "<option value='{}'>{}</option>".format(sub[0].lower(),sub[1].lower()) # html format yaptık ve yolladık
     return HttpResponse(option)
-        
+
 def chose_category2(request,value):
     "value ile gelen fields kodunu alıp ilgili ikinci bir alt dallarını seçip gönderiyorum"
     category2 = tools.take__category2(request,value)

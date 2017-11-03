@@ -3,13 +3,15 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
-from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters
+from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters,Comment
 from cooggerapp.views.tools import Topics,get_ip
 from django.db.models import F
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
 from django.utils.text import slugify
+import json
 import os
+from django.utils import timezone
 
 def main_detail(request,blog_path,utopic,path):
     "blogların detail kısmı "
@@ -21,7 +23,7 @@ def main_detail(request,blog_path,utopic,path):
     try:
         Blogviews.objects.filter(blog = queryset,ip = ip)[0].ip
     except:
-        Blogviews(blog = queryset,ip = ip).save()
+        Blogviews(content = queryset,ip = ip).save()
         queryset.views = F("views") + 1
         queryset.save()
         queryset = Blog.objects.filter(url = blog_path)[0]
@@ -31,7 +33,7 @@ def main_detail(request,blog_path,utopic,path):
         stars = ""
     facebook = get_facebook(user)
     try:
-        img_pp = get_head_img_pp(request.user)
+        img_pp = get_head_img_pp(user)
     except:
         img_pp = ["/static/media/profil.png",None]
     elastic_search = dict(
@@ -52,7 +54,8 @@ def main_detail(request,blog_path,utopic,path):
         nav_category = nav_category,
         nameoflist = utopic,
         ogurl = request.META["PATH_INFO"],
-        global_hashtag = [i for i in queryset.tag.split(",") if i != ""]
+        global_hashtag = [i for i in queryset.tag.split(",") if i != ""],
+        comment_form = Comment.objects.filter(content=queryset),
     )
     return render(request,"detail/main_detail.html",output)
 
@@ -95,6 +98,22 @@ def stars(request,post_id,stars_id):
         if i == 9:
             output +="<li> : "+str(hmstars)+"</li>"
     return HttpResponse(output)
+
+def comment(request,content_path):
+    if request.method=="POST" and request.is_ajax():
+        comment = request.POST["comment"]
+        content = Blog.objects.filter(url = content_path)[0]
+        Comment(user=request.user,comment=comment,content = content).save()
+        query = Blog.objects.filter(url = content_path)[0]
+        query.hmanycomment = F("hmanycomment")+1
+        query.save()
+        return HttpResponse(
+            json.dumps({
+                "comment": comment,
+                "user":request.user.username,
+                "date":1,
+            })
+        )
 
 def get_head_img_pp(user):
     pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp

@@ -45,5 +45,8 @@ urlpatterns = [
     url(r'^tags/(?P<hashtag>.*)',explorer.hashtag,name = "hashtag"),
     url(r'^list/(?P<list>.*)',explorer.list,name = "list"),
 
-] + static("/media/",document_root=os.path.join(BASE_DIR, 'media'))
+    url(r'^search',home.search,name = "search"),
 
+    url(r'^comment/(?P<content_path>.*)$',detail.comment,name = "comment"),
+
+] + static("/media/",document_root=os.path.join(BASE_DIR, 'media'))

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class ContentForm(ModelForm):
     class Meta:
-        model = Blog 
+        model = Blog
         fields = ["content_list","category","subcategory","title","content","show","tag"]
 
 class AuthorForm(ModelForm):

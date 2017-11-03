@@ -1,18 +1,18 @@
 <div class="d-main-start">
     <ul class="d-starts-ul">
         {% for i in "0123456789" %}
-        
+
         {% if i <= stars %}
         <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"><img class="d-starts-a" src="/static/media/icons/star.svg"></li>
-        {% endif %} 
+        {% endif %}
         {% if i > stars %}
         <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"> <img class="d-starts-a" src="/static/media/icons/star({{i}}).svg"></li>
-        {% endif %} 
+        {% endif %}
         {% if i == "9" %}
-        <li> : {{ detail.hmstars }}</li>
-        {% endif %} 
-        
-        
+        <li style="width: 220px;margin: auto;">{{ detail.hmstars }} kişi oy kullandı</li>
+        {% endif %}
+
+
         {% endfor %}
     </ul>
 </div>
