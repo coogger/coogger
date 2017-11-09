@@ -83,10 +83,10 @@ def get_ip(request):
     try:
         ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
     except:
-        ip = request.META.get('REMOTE_ADDR')
+        ip = request.META['REMOTE_ADDR']
     return ip
 
-def take_subcategory(request,value,permission=False): 
+def take_subcategory(request,value,permission=False):
     "value ile gelen fields kodunu alıp ilgili bir alt dalı seçip gönderiyorum"
     if not request.is_ajax() and not permission:
         return None
@@ -101,7 +101,7 @@ def take_subcategory(request,value,permission=False):
         subcategory = make_choices(eval("Subcategory."+value+"()"))
     return subcategory
 
-def take__category2(request,value,permission=False): 
+def take__category2(request,value,permission=False):
     if not request.is_ajax():
         return None
     values = []

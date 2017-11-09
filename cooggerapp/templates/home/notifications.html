@@ -19,10 +19,10 @@
             <img class="h-nav-li-img" src="/static/media/icons/star.svg" />
             <div class="h-not-time">{{ noti.time|timesince }} önce</div>
             <div>İçeriğine yeni bir oy verildi</div>
-            <<div class="h-noti-text">{{ noti.content }}</div>
+            <div class="h-noti-text">{{ noti.content }} yıldız</div>
           </a>
         </li>
-        % elif noti.even == 3 %}
+      {% elif noti.even == 3 %}
         <li class="h-noti-li">
           <a class="h-nav-d-li-a" href="/{{ noti.address }}">
             <img class="h-nav-li-img" src="/static/media/topics/checked.svg" />

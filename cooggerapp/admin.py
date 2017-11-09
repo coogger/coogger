@@ -53,6 +53,12 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = list_
 
 
+class SearchedWordsAdmin(admin.ModelAdmin):
+    list_ = ["word","hmany"]
+    list_display = list_
+    list_display_links = list_
+    search_fields = list_
+
 ## users ##
 class OtherInformationOfUsersAdmin(admin.StackedInline):
     model = OtherInformationOfUsers
@@ -79,7 +85,6 @@ class UserAdmin(BaseUserAdmin):
     inlines = (OtherInformationOfUsersAdmin,AuthorAdmin, )
 
 
-
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Blogviews,ViewsAdmin)
@@ -89,3 +94,4 @@ admin.site.register(ContentList,ContentListAdmin)
 admin.site.register(Voters,VotersAdmin)
 admin.site.register(OtherInformationOfUsers,OtherInformationOfUsersADMIN)
 admin.site.register(Comment,CommentAdmin)
+admin.site.register(SearchedWords,SearchedWordsAdmin)

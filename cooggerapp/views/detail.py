@@ -14,15 +14,13 @@ import os
 from django.utils import timezone
 
 def main_detail(request,blog_path,utopic,path):
-    "blogların detail kısmı "
+    "blogların detay kısmı "
     queryset = Blog.objects.filter(url = blog_path)[0]
     username_id = queryset.username_id
     user = User.objects.filter(id = username_id)[0]
     ip = get_ip(request)
     nav_category = [nav for nav in nav_category_for_detail(username_id,utopic)]
-    try:
-        Blogviews.objects.filter(blog = queryset,ip = ip)[0].ip
-    except:
+    if not Blogviews.objects.filter(content = queryset,ip = ip).exists():
         Blogviews(content = queryset,ip = ip).save()
         queryset.views = F("views") + 1
         queryset.save()
@@ -79,6 +77,8 @@ def stars(request,post_id,stars_id):
         blog.hmstars = F("hmstars")+1
         blog.stars = F("stars")+stars_id
         blog.save()
+    if str(blog.username) != str(user.username):
+        Notification(user=blog.username,even = 2,content=str(int(stars_id)+1),address = blog.url).save()
     first_li = """<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """>
             <img class="d-starts-a" src="/static/media/icons/star.svg">
             </li>"""
@@ -100,14 +100,16 @@ def stars(request,post_id,stars_id):
     return HttpResponse(output)
 
 def comment(request,content_path):
-    if request.method=="POST" and request.is_ajax():
+    user = User.objects.filter(username = request.user.username)
+    if request.method=="POST" and request.is_ajax() and user.exists():
+        user = request.user
         comment = request.POST["comment"]
         content = Blog.objects.filter(url = content_path)[0]
-        Comment(user=request.user,comment=comment,content = content).save()
+        Comment(user=user,comment=comment,content = content).save()
         query = Blog.objects.filter(url = content_path)[0]
         query.hmanycomment = F("hmanycomment")+1
         query.save()
-        if content.username != request.user.username:
+        if str(content.username) != str(user.username):
             Notification(user=content.username,even = 1,content=comment,address = content_path).save()
         return HttpResponse(
             json.dumps({

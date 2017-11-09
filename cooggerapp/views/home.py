@@ -3,9 +3,10 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
-from cooggerapp.models import Blog,OtherInformationOfUsers,Notification
+from cooggerapp.models import Blog,OtherInformationOfUsers,Notification,SearchedWords
 from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator,get_head_img_pp
 from django.db.models import Q
+
 
 def home(request):
     tools_topic = Topics()
@@ -32,9 +33,18 @@ def search(request):
     query = request.GET["query"]
     tools_topic = Topics()
     category = tools_topic.category
-    q = Q(title__contains = query) | Q(content_list__contains = query) | Q(content__contains = query) | Q(tag__contains = query)
+    q = Q(title__contains = query) | Q(content_list__contains = query) | Q(tag__contains = query)
     queryset = Blog.objects.filter(q).order_by("-views")
     info_of_cards = content_cards(request,queryset,hmany=20)
+    data_search = SearchedWords.objects.filter(word = query)
+    if data_search.exists():
+        data_search = data_search[0]
+        data_search.hmany = F("hmany")+1
+        data_search.save()
+    else:
+        SearchedWords(word = query).save()
+
+
     try:
         img_pp = get_head_img_pp(request.user)
     except:
