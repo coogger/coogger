@@ -27,8 +27,6 @@ $(document).ready(function() {
             $(".b-blogs").css("filter", "blur(0px)");
         });
         var total_wid = wid - free_space; // ekranda boş kalan yer
-        // h-footer
-        $(".h-footer").css({ width: wid - free_space });
         // b-blogs konumlandırma
         var blog_wid = $(".b-blog").width() + 6; // bir içeriğin genişliği
         var hmblogs = parseInt(total_wid / blog_wid); // kaç tane sığar
@@ -85,7 +83,7 @@ $(document).ready(function() {
         var url = this.getAttribute("data-url");
         var stars = this.getAttribute("data-stars");
         var hmanycomment = this.getAttribute("data-hmanycomment");
-        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'>Tahmini okuma süresi " + dor + " dakika</li><li class='duread-li'>Yıldız " + stars + " </li><li class='duread-li'>Okuma " + views + " </li><li class='duread-li'>Yorum sayısı " + hmanycomment + "</li></ul></div>");
+        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'><img class='duread-img' src='/static/media/icons/stopwatch.svg'><div class='duread-text'>Tahmini okuma süresi " + dor + " dakika</div></li><li class='duread-li'><img class='duread-img' src='/static/media/icons/star.svg'><div class='duread-text'>Yıldız " + stars + " </div></li><li class='duread-li'><img class='duread-img' src='/static/media/icons/employee.svg'><div class='duread-text'>Okuma " + views + " </div></li><li class='duread-li'><img class='duread-img' src='/static/media/icons/comments.svg'><div class='duread-text'>Yorum sayısı " + hmanycomment + "</div></li></ul></div>");
         $(this).click(function() {
             window.location = "/" + url
         });

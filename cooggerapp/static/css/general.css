@@ -728,21 +728,30 @@ a {
 }
 
 .duread-ul {
-    padding: 0px;
+    padding: 6px;
+    margin: 0px;
     list-style: none;
     border-radius: 4px;
     background-color: #248644;
 }
-
+.duread-img{
+    margin-right: 16px;
+    margin-left: 6px;
+    float: left;
+    background-color: #fff;
+    border-radius: 70px;
+    padding: 4px;
+}
+.duread-text{
+    float: right;
+}
 .duread-li {
-    text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
     padding: 4px 0px;
-    border-radius: 2px;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-radius: 4px;
+    border-radius: 2px;
     white-space: nowrap;
 }
 
@@ -815,13 +824,12 @@ a {
 }
 
 .h-footer {
-    margin: auto;
-    border-radius: 4px;
     font-size: 12px;
-    border-top: 1px solid #cdcdcd;
     background-color: #fff;
     right: 0px;
     display: table;
+    width: 100%;
+    border-bottom: 6px solid #0f391d;
 }
 
 .h-footer-ul {

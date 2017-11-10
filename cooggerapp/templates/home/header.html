@@ -4,12 +4,12 @@
         {% if not user.is_authenticated %}
         <li class="h-header-ul-li">
             <a class="solol-a" href="/signup">
-                <span class="solol-text">Kayıt ol </span>
+                <span class="solol-text">Kayıt olun / Yazar olun</span>
             </a>
         </li>
         <li class="h-header-ul-li">
             <a class="solol-a" href="/login">
-                <span class="solol-text">Giriş yap</span>
+                <span class="solol-text">Giriş yapın</span>
             </a>
         </li>
         {% else%}
@@ -42,7 +42,7 @@
             <div class="search">
                 <form class="search-form" action="/search/">
                     <input type="text" class="search-input" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" />
-                    <input type="submit" class="search-button ft-it" />
+                    <input type="submit" value="Ara" class="search-button ft-it" />
                 </form>
             </div>
         </li>
