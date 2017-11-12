@@ -17,3 +17,8 @@ class UserFollowForm(ModelForm):
     class Meta:
         model = UserFollow
         fields = ["choices","adress"]
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name","last_name","username","email"]

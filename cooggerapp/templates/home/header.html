@@ -1,4 +1,3 @@
-{% include 'home/logo.html' %}
 <header class="h-header">
     <ul class="h-header-ul ft-it">
         {% if not user.is_authenticated %}
@@ -35,6 +34,11 @@
         <li class="h-header-ul-li">
             <a class="solol-a" href="/logout">
                 <span class="solol-text">Çıkış</span>
+            </a>
+        </li>
+        <li class="h-header-ul-li">
+            <a class="solol-a" href="/settings">
+                <span class="solol-text">Ayarlar</span>
             </a>
         </li>
         {% endif %}

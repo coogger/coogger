@@ -1,0 +1,12 @@
+{% include 'settings/home.html' %}
+<form method="post" class="m-s-form" action="/settings/account" enctype="multipart/form-data">{% csrf_token %}
+  <li class="cx-li">
+      <label>Yeni Şifre</label>
+      <input class="cx-input" type="password" name="Password" value="">
+  </li>
+  <li class="cx-li">
+      <label>Şifre onay</label>
+      <input class="cx-input" type="password" name="Confirm" value="">
+  </li>
+  <input class="c-create-input" type="submit" value="Kaydet">
+</form>

@@ -58,14 +58,15 @@ body::-webkit-scrollbar-thumb {
     z-index: 0;
     margin: auto;
     margin-bottom: 40px;
-    margin-top: 100px;
+    margin-top: 46px;
 }
 
 .d-main-start {
     margin: auto;
-    width: 220px;
+    width: 270px;
     height: 20px;
     text-align: center;
+    margin-bottom: 46px;
 }
 
 .d-starts-ul {
@@ -80,11 +81,6 @@ body::-webkit-scrollbar-thumb {
     margin-right: 7px;
     cursor: pointer;
 }
-
-.d-starts-li:hover {
-    border-bottom: 1px solid #0f391d;
-}
-
 .d-starts-a {}
 
 .d-starts-a:hover {
@@ -475,7 +471,6 @@ a {
     padding: 0px;
     width: max-content;
 }
-
 .h-header-ul-li {
     float: left;
     height: 40px;
@@ -721,10 +716,9 @@ a {
 
 .duread-main {
     position: absolute;
-    bottom: 0px;
+    bottom: 50px;
     z-index: 1;
     width: 280px;
-    height: 198px;
 }
 
 .duread-ul {
@@ -735,23 +729,22 @@ a {
     background-color: #248644;
 }
 .duread-img{
-    margin-right: 16px;
+    margin-right: 0px;
     margin-left: 6px;
     float: left;
     background-color: #fff;
-    border-radius: 70px;
+    border-radius: 26px;
     padding: 4px;
 }
 .duread-text{
     float: right;
 }
 .duread-li {
-    font-size: 14px;
+    font-size: 12px;
     color: #fff;
     padding: 4px 0px;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-radius: 2px;
     white-space: nowrap;
 }
 
@@ -860,8 +853,8 @@ a {
     position: absolute;
     list-style: none;
     border-radius: 4px;
-    height: 444px;
-    width: 304px;
+    height: 440px;
+    width: 300px;
     display: none;
     margin: 0px;
     padding: 0px;
@@ -945,7 +938,7 @@ a {
 .u-uploadpp {
     position: absolute;
     right: 6px;
-    top: 53px;
+    top: 100px;
 }
 
 .u-uploadform {
@@ -956,7 +949,7 @@ a {
 
 .u-nav {
     overflow: auto;
-    height: max-content;
+    /* height: max-content; */
     background-color: rgb(255, 255, 255);
     padding: 4px 0px;
 }

@@ -31,7 +31,7 @@ def main_detail(request,blog_path,utopic,path):
         stars = ""
     facebook = get_facebook(user)
     try:
-        img_pp = get_head_img_pp(user)
+        img_pp = get_head_img_pp(request.user)
     except:
         img_pp = ["/static/media/profil.png",None]
     elastic_search = dict(
@@ -60,12 +60,11 @@ def main_detail(request,blog_path,utopic,path):
 def stars(request,post_id,stars_id):
     if not request.is_ajax():
         return None
-    user = User.objects.filter(username = request.user.username)
-    request_username = request.user.username
-    blog = Blog.objects.filter(id = post_id)[0]
-    if not user.exists():
+    if not request.user.is_authenticated:
         return HttpResponse("Oy vermek için giriş yapmalı veya üye olmalısınız")
-    user = user[0]
+    user = request.user
+    request_username = user.username
+    blog = Blog.objects.filter(id = post_id)[0]
     try:
         vot = Voters.objects.filter(user = user,blog = blog) # daha önceden verdiği oy varsa alıyoruz
         old = vot[0].star
@@ -100,8 +99,7 @@ def stars(request,post_id,stars_id):
     return HttpResponse(output)
 
 def comment(request,content_path):
-    user = User.objects.filter(username = request.user.username)
-    if request.method=="POST" and request.is_ajax() and user.exists():
+    if request.method=="POST" and request.is_ajax() and request.user.is_authenticated:
         user = request.user
         comment = request.POST["comment"]
         content = Blog.objects.filter(url = content_path)[0]

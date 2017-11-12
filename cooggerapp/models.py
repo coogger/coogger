@@ -71,7 +71,7 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
 
 class UserFollow(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    choices = models.CharField(max_length=15, choices = make_choices(follow()))
+    choices = models.CharField(max_length=15, choices = make_choices(follow()),verbose_name="Web sitesi")
     adress = models.CharField(max_length=150,verbose_name = "Adresi yazın")
 
 class Comment(models.Model):

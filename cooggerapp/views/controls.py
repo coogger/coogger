@@ -9,16 +9,12 @@ from cooggerapp.forms import ContentForm
 from django.db.models import F
 from django.utils.text import slugify
 from cooggerapp.views import tools
+import random
 
 def create(request):
     "to create new content"
     request_user = request.user
-    try:
-        user = User.objects.filter(username = request_user)[0]
-    except:
-        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın")
-        return HttpResponseRedirect("/")
-    if not request_user.otherinformationofusers.is_author:
+    if not request_user.is_authenticated or not request_user.otherinformationofusers.is_author:
         ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın")
         return HttpResponseRedirect("/")
     create_form = ContentForm(request.POST or None)
@@ -27,10 +23,11 @@ def create(request):
         content = create_form.save(commit=False)
         content.username = user
         content_list = slugify(request.POST["content_list"])
+        if content_list == "":
+            content_list = "coogger"
         content.content_list = content_list
         title = content.title
         url = slugify(title)
-        content.url = "@"+request_user.username+"/"+content_list+"/"+url
         content.dor = tools.durationofread(content.content+title)
         content_tag = content.tag.split(",")
         tags = ""
@@ -40,7 +37,12 @@ def create(request):
             else:
                 tags += slugify(i)+","
         content.tag = tags
-        content.save()
+        try:
+            content.url = "@"+request_user.username+"/"+content_list+"/"+url
+            content.save()
+        except:
+            content.url = "@"+request_user.username+"/"+content_list+"/"+url+"-"+str(random.random()).replace(".","")
+            content.save()
         try:
             content_list_save = ContentList.objects.filter(user = user,content_list = content_list)[0]
             content_list_save.content_count = F("content_count")+1
@@ -60,12 +62,7 @@ def create(request):
 def change(request,content_id):
     "to change the content"
     request_user = request.user
-    try:
-        user = User.objects.filter(username = request_user)[0]
-    except:
-        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
-        return HttpResponseRedirect("/")
-    if not request_user.otherinformationofusers.is_author:
+    if not request_user.is_authenticated or not request_user.otherinformationofusers.is_author:
         ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
         return HttpResponseRedirect("/")
     elif request_user.is_superuser:

@@ -11,6 +11,7 @@ from .views import topics
 from .views import tools
 from .views import controls
 from .views import explorer
+from .views import settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 urlpatterns = [
@@ -48,5 +49,9 @@ urlpatterns = [
     url(r'^search',home.search,name = "search"),
 
     url(r'^comment/(?P<content_path>.*)$',detail.comment,name = "comment"),
+
+    url(r"^settings/profile$",settings.profile),
+    url(r"^settings/$",settings.profile),
+    url(r"^settings/account$",settings.account),
 
 ] + static("/media/",document_root=os.path.join(BASE_DIR, 'media'))

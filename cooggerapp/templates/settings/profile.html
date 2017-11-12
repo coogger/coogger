@@ -1,0 +1,6 @@
+{% include 'settings/home.html' %}
+
+<form method="post" class="m-s-form" action="/settings/profile" enctype="multipart/form-data">{% csrf_token %}
+  {{ UserForm.as_p }}
+  <input class="c-create-input" type="submit" value="Kaydet">
+</form>
