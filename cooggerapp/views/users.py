@@ -37,6 +37,7 @@ def user(request,username):
     output = dict(
         users = True,
         pp = img_pp[1],
+        img = img_pp[0],
         blog = info_of_cards[0],
         username = username,
         paginator = info_of_cards[1],

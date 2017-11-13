@@ -2,7 +2,7 @@ from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
-from cooggerapp.views.tools import Topics
+from cooggerapp.views.tools import Topics,get_head_img_pp
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from cooggerapp.forms import UserForm,UserFollowForm
@@ -21,9 +21,15 @@ def profile(request):
         return HttpResponseRedirect("/settigs/")
     tools_topic = Topics()
     category = tools_topic.category
+    try:
+       img_pp = get_head_img_pp(request.user)
+    except:
+        img_pp = ["/static/media/profil.png",None]
     output = dict(
         UserForm = user_form,
         settings = True,
+        pp = img_pp[1],
+        img = img_pp[0],
         nav_category = category,
         )
     return render(request,template,output)
@@ -47,8 +53,14 @@ def account(request):
         template = "settings/account.html"
         tools_topic = Topics()
         category = tools_topic.category
+        try:
+            img_pp = get_head_img_pp(request.user)
+        except:
+            img_pp = ["/static/media/profil.png",None]
         output = dict(
             settings = True,
+            pp = img_pp[1],
+            img = img_pp[0],
             nav_category = category,
             )
         return render(request,template,output)

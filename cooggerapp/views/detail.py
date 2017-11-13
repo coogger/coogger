@@ -31,7 +31,7 @@ def main_detail(request,blog_path,utopic,path):
         stars = ""
     facebook = get_facebook(user)
     try:
-        img_pp = get_head_img_pp(request.user)
+        img_pp = get_head_img_pp(user)
     except:
         img_pp = ["/static/media/profil.png",None]
     elastic_search = dict(

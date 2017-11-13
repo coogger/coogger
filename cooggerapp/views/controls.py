@@ -21,7 +21,7 @@ def create(request):
     # post method
     if create_form.is_valid():
         content = create_form.save(commit=False)
-        content.username = user
+        content.username = request_user
         content_list = slugify(request.POST["content_list"])
         if content_list == "":
             content_list = "coogger"
@@ -49,7 +49,7 @@ def create(request):
             content_list_save.save()
             # kullanıcının açmış oldugu listeleri kayıt ediyoruz
         except: # önceden oluşmuş ise hata verir ve biz 1 olarak kayıt ederiz
-            ContentList(user = user,content_list = content_list,content_count = 1).save()
+            ContentList(user = request_user,content_list = content_list,content_count = 1).save()
 
         return HttpResponseRedirect("/@"+request_user.username+"/"+content_list+"/"+url)
     # get method
