@@ -49,6 +49,33 @@ $(document).ready(function() {
         // ---------
     }
 
+    function delete_content(this_){//içerik silmek için
+      var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
+      if (conf) {
+          var delete_id = this_.getAttribute("data-post-id");
+          $(".error").load("/delete/" + delete_id);
+          $(".b-messages").css({ display: "block" });
+          $(".data-post-id-" + delete_id).remove();
+          setTimeout(function() {
+              $(".b-messages").css({ display: "none" });
+          }, 3000);
+      }
+    }
+
+    $(".delete").click(function() {
+      delete_content(this);
+    });
+    /* detail delete  */
+    $(".d-delete").click(function() {
+        delete_content(this);
+    });
+    //ekran değiştiğinde çalışacak kodlar
+    set();
+    wincenter();
+    $(window).resize(function() {
+        set();
+        wincenter();
+    });
     var wid = parseInt($(window).width());
     if (wid < 1160) { // mobil ve tablet
       //  $(".h-header-ul").addClass("wincenter");
@@ -57,14 +84,6 @@ $(document).ready(function() {
         });
     }
 
-    //ekran değiştiğinde çalışacak kodlar
-    set();
-    wincenter();
-    $(window).resize(function() {
-        set();
-        wincenter();
-    });
-
     // her zaman çalışacak kodlar
     $(".close-ms").click(function() {
         $(".main-messages").remove();
@@ -72,13 +91,15 @@ $(document).ready(function() {
 
     setTimeout(function() {
         $(".main-messages").remove();
+        wincenter();//bütün wincenter nesneleri ortalanması için
     }, 3000);
+
 
     $(".b-content").mouseover(function() {
         $(this).find(".b-cont").css({
             opacity: "0.1",
         });
-        var views = this.getAttribute("data-views")
+        var views = this.getAttribute("data-views");
         var dor = this.getAttribute("data-dor");
         var url = this.getAttribute("data-url");
         var stars = this.getAttribute("data-stars");
@@ -93,36 +114,6 @@ $(document).ready(function() {
         });
         $(".duread-main").remove();
     });
-
-    $(".delete").click(function() {
-        var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
-        if (conf) {
-            var delete_id = this.getAttribute("data-post-id");
-            $(".error").load("/delete/" + delete_id);
-            $(".b-messages").css({ display: "block" });
-            $(".data-post-id-" + delete_id).remove();
-            setTimeout(function() {
-                $(".b-messages").css({ display: "none" });
-            }, 3000);
-        }
-    });
-
-    /* detail delete  */
-
-    $(".d-delete").click(function() {
-        var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
-        if (conf) {
-            var delete_id = this.getAttribute("data-post-id");
-            $(".error").load("/delete/" + delete_id);
-            $(".b-messages").css({ display: "block" });
-            $(".data-post-id-" + delete_id).remove();
-            setTimeout(function() {
-                $(".b-messages").css({ display: "none" });
-            }, 3000);
-        }
-    });
-
-    /* detail delete  */
 
     $(".b-edit-point").click(function() {
         var data_edit_id = this.getAttribute("data-edit-id");

@@ -44,7 +44,7 @@ def create(request):
             content.url = "@"+request_user.username+"/"+content_list+"/"+url+"-"+str(random.random()).replace(".","")
             content.save()
         try:
-            content_list_save = ContentList.objects.filter(user = user,content_list = content_list)[0]
+            content_list_save = ContentList.objects.filter(user = request_user,content_list = content_list)[0]
             content_list_save.content_count = F("content_count")+1
             content_list_save.save()
             # kullanıcının açmış oldugu listeleri kayıt ediyoruz
@@ -99,7 +99,7 @@ def change(request,content_id):
         content.save()
         if content_list != old_content_list: # content_list değişmiş ise
             try:
-                content_list_save = ContentList.objects.filter(user = user,content_list = old_content_list)[0]
+                content_list_save = ContentList.objects.filter(user = request_user,content_list = old_content_list)[0]
                 content_list_save.content_count = F("content_count")-1 # eskisini bir azaltıyor
                 content_list_save.save()
                 try:
@@ -109,11 +109,11 @@ def change(request,content_id):
             except IndexError:
                 pass
             try:
-                content_list_ = ContentList.objects.filter(user = user,content_list = content_list)[0]
+                content_list_ = ContentList.objects.filter(user = request_user,content_list = content_list)[0]
                 content_list_.content_count = F("content_count")+1
                 content_list_.save()
             except:
-                ContentList(username = user,content_list = content_list,content_count = 1).save()
+                ContentList(username = request_user,content_list = content_list,content_count = 1).save()
         return HttpResponseRedirect("/@"+str(real_username)+"/"+content_list+"/"+url)
     # get method
     output = dict(
@@ -133,7 +133,7 @@ def delete(request,content_id):
     elif request_user.is_superuser: # admin
         queryset = Blog.objects.filter(id = content_id)
     else:
-        queryset = Blog.objects.filter(username = user,id = content_id)
+        queryset = Blog.objects.filter(username = request_user,id = content_id)
     real_username = queryset[0].username # içeriği yazan kişinin kullanıcı ismi
     user = User.objects.filter(username = real_username)[0]
     if not queryset.exists():

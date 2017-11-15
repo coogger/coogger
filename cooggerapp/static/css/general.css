@@ -63,10 +63,10 @@ body::-webkit-scrollbar-thumb {
 
 .d-main-start {
     margin: auto;
-    width: 270px;
+    width: 135px;
     height: 20px;
     text-align: center;
-    margin-bottom: 46px;
+    margin-bottom: 80px;
 }
 
 .d-starts-ul {
@@ -270,18 +270,13 @@ body::-webkit-scrollbar-thumb {
     font-size: 14px;
 }
 .d-comment-date{
-    float: right;
-    position: relative;
-    bottom: 36px;
-    background-color: #e4e4e4;
-    color: #fff;
-    padding: 4px;
-    border-radius: 6px;
+    padding: 2px 12px;
+    border-radius: 4px;
+    background-color: #fff;
     font-size: 12px;
     cursor: pointer;
-}
-.d-comment-date:hover{
-    background-color:#000;
+    margin: 0px 0px 12px 0px;
+    width: fit-content;
 }
 .b-title {
     margin: auto;
@@ -478,7 +473,7 @@ a {
 .h-header-ul-li:hover{
         background-color: #248644;
 }
-.d-comments-user img{ width: 40px; height: 40px; float: left; border-radius: 60px; padding: 4px; border: 2px solid #248644; }.d-comment{ color: #248644; font-size: 14px; margin: 6px 0px 6px 60px; border-top: 1px solid; width: 80%; }
+.d-comments-user img{ width: 40px; height: 40px; float: left; border-radius: 60px; padding: 4px; border: 2px solid #248644; }.d-comment{color: #248644;font-size: 14px;margin: 6px 0px 6px 60px;border-top: 1px solid;width;width: fit-content;}
 
 .logo-img {
     background-image: url(/static/media/favicon.png);
@@ -919,8 +914,8 @@ a {
 }
 
 .u-i {
-    margin-top: 60px;
-    margin-bottom: 24px;
+  margin-top: 4px;
+margin-bottom: 24px;
 }
 .h-not-time{
     border-bottom: 1px solid #cdcdcd;
@@ -932,9 +927,10 @@ a {
 }
 
 .u-pp-img {
-    width: 120px;
-    max-height: 190px;
-    border-radius: 0px 20px;
+    width: 300px;
+    border-radius: 24px;
+    border: 2px solid #248644;
+    padding: 2px;
 }
 
 .u-input-pp {
@@ -972,9 +968,10 @@ a {
 }
 
 .u-uploadpp {
-    position: absolute;
-    right: 6px;
-    top: 100px;
+  margin: auto;
+  position: relative;
+  width: 130px;
+  bottom: 260px;
 }
 
 .u-uploadform {

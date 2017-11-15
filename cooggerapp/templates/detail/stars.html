@@ -1,18 +1,16 @@
 <div class="d-main-start">
     <ul class="d-starts-ul">
-        {% for i in "0123456789" %}
-
-        {% if i <= stars %}
-        <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"><img class="d-starts-a" src="/static/media/icons/star.svg"></li>
-        {% endif %}
-        {% if i > stars %}
-        <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"> <img class="d-starts-a" src="/static/media/icons/star({{i}}).svg"></li>
-        {% endif %}
-        {% if i == "9" %}
-        <div style="width: 270px;margin: auto;margin-top: 9px;float: left;cursor: pointer;">{{ detail.hmstars }} kişi oy kullandı</div>
-        {% endif %}
-
-
+        {% for i in "12345" %}
+            {% if i <= stars %}
+                <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"><img class="d-starts-a" src="/static/media/icons/star.svg"></li>
+            {% endif %}
+            {% if i > stars %}
+                <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"> <img class="d-starts-a" src="/static/media/icons/star(0).svg"></li>
+            {% endif %}
+            {% if i == "5" %}
+                <div style="text-align: -webkit-left;width: 160px;margin: auto;margin-top: 9px;float: left;cursor: pointer;">Verilen oy sayısı : {{ detail.hmstars }}</div>
+                <div style="text-align: -webkit-left;width: 160px;margin: auto;margin-top: 9px;float: left;cursor: pointer;" class="gstars">Oy ortalaması : {{stars}}</div>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>
