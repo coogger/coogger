@@ -1,22 +1,22 @@
-<div class="b-content-info">
-    <div class="b-time ft-dn">
-        <img class="b-time-img" src="/static/media/icons/calendar.svg" /> {{ detail.time }} | {{ detail.time|timesince }} önce
+<div class="b-content-info" data-gnl="1 1p ortada-ol" >
+    <div class="b-time ft-dn" data-gnl="1 1p">
+        <img class="b-time-img" src="/static/media/icons/calendar.svg" data-gnl="0 solda-ol"/> {{ detail.time }} | {{ detail.time|timesince }} önce
     </div>
-    <div class="b-time ft-dn">
-        <img class="b-time-img" src="/static/media/icons/stopwatch.svg" /> Tahmini okuma süresi {{ detail.dor }} dakika
+    <div class="b-time ft-dn" data-gnl="1 1p">
+        <img class="b-time-img" src="/static/media/icons/stopwatch.svg" data-gnl="0 solda-ol"/> Tahmini okuma süresi {{ detail.dor }} dakika
     </div>
-    <div class="b-time ft-dn">
-        <img class="b-time-img" src="/static/media/icons/employee.svg" /> okuma {{ detail.views }}
+    <div class="b-time ft-dn" data-gnl="1 1p">
+        <img class="b-time-img" src="/static/media/icons/employee.svg" data-gnl="0 solda-ol"/> okuma {{ detail.views }}
     </div>
-    <div class="b-time ft-dn">
-        <img class="b-time-img" src="/static/media/icons/comments.svg" /> Yorumlar {{ detail.hmanycomment }}
+    <div class="b-time ft-dn" data-gnl="1 1p">
+        <img class="b-time-img" src="/static/media/icons/comments.svg" data-gnl="0 solda-ol" /> Yorumlar {{ detail.hmanycomment }}
     </div>
-    <ul class="b-category ft-os">
-        <li class="b-category-li">
+    <ul class="b-category ft-os" data-gnl="1 1p ortada">
+        <li class="b-category-li" data-gnl="1 1p ortada">
             <a class="b-category-a" href='/topic/{{ detail.category }}'>{{ detail.category|title }}</a>
         </li>
         {% if detail.subcategory != None %}
-        <li class="b-category-li">
+        <li class="b-category-li" data-gnl="1 1p ortada">
             <a class="b-subcategory-a" href='/topic/{{ detail.subcategory }}'>{{ detail.subcategory|title }}</a>
         </li>
         {% endif %}

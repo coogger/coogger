@@ -1,15 +1,10 @@
-<nav class="u-nav">
-    <ul class="u-main-nav ft-ar">
-        {% for list in content_list %} {% if list.content_list %}
+<nav class="u-nav" data-gnl="1 1p">
+    <ul class="u-main-nav ft-ar" data-gnl="1 1p taşmadan dürmeden">
+        {% for list in content_list %}
         <li class="u-nav-li">
             <a class="u-nav-li-a" href="@{{ username }}/{{ list.content_list }}">{{ list.content_list }}</a>
         </li>
-
-        {% else %}
-        <li class="u-nav-li">
-            <a class="u-nav-li-a" href="@{{ username }}/{{ list.content_list }}">Diğer bilgi paylaşımları</a>
-        </li>
-        {% endif %} {% endfor %}
+         {% endfor %}
     </ul>
 </nav>
 <div class="u-top-ads blogs"></div>

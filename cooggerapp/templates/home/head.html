@@ -74,21 +74,22 @@
     <script>
         hljs.initHighlightingOnLoad();
     </script>
-    <script src=" {% static 'js/general.js' %}"></script>
+   <script src=" {% static 'js/general.js' %}"></script>
     {% if controls %}
-    <script src=" {% static 'js/controls.js' %}"></script>
+   <script src=" {% static 'js/controls.js' %}"></script>
     {% endif %}
-    <link href=" {% static 'css/animate.css' %}" rel="stylesheet"> {% if signup_or_login %}
-    <link rel="stylesheet" href="/static/css/signup_or_login.css"> {% elif general or users or controls or settings%}
-    <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% endif %}
+    <link href=" {% static 'css/animate.css' %}" rel="stylesheet">
+    <link href=" {% static 'css/general.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/deveb.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
     <script>
         function loader() {
             $('.preload').fadeOut('slow', function() {
-                $(this).remove();
+              $(this).remove();
                 $(".maindiv").css({
-                    filter: "blur(0px)"
-                });
-            });
+                   filter: "blur(0px)"
+               });
+          });
         }
     </script>
 
@@ -102,8 +103,8 @@
             <li class="error"></li>
         </ul>
     </div>
-    <div class="preload">
-        <div class="coogger-load ft-cl wincenter" style="color:#0f391d">
+    <div class="preload" data-gnl="sütun ortada göbekte">
+        <div class="coogger-load ft-cl" data-gnl="0" style="color:#0f391d">
             <span style="color:#80177e">c</span>
             <span class="animated infinite flash">o</span>
             <span class="animated infinite flash">o</span>
@@ -113,4 +114,4 @@
             <span style="color:#80177e">r</span>
         </div>
     </div>
-    <div class="maindiv">
+    <div class="maindiv" >

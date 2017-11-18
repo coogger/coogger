@@ -1,9 +1,8 @@
-{% include 'blog/blog-home.html' %} {% if blog %}
-<div class="home-top-ads b-blogs"></div>
-<div class="b-blogs">
-    {% include 'blog/blog-cards.html' %}
-</div>
-{% include "blog/paginator.html" %} {% endif %} {% include "home/footer.html" %}
+{% include 'blog/blog-home.html' %}
+{% if blog %}
+{% include 'blog/blog-cards.html' %}
+{% include "blog/paginator.html" %}
+{% endif %}
+{% include "home/footer.html" %}
 </body>
-
 </html>

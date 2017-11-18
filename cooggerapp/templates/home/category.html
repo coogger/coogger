@@ -1,0 +1,54 @@
+<div data-gnl="1 1p gizle ortada üstte-ol" data-byk="1 6p" data-ort="1 8p gizle" data-dev="1 10p" data-kçm="1 12p">
+  <div  class="open" data-gnl="0 ortada oluk" style="position:absolute">
+    <div style="background-color:#0f391d;"  class="h-nav-topic h-nav-li" data-gnl="1 1p ortada">
+        {% if nameoflist %} {{ nameoflist }} {% else %} Fakülteler {% endif %}
+    </div>
+
+      {% for url,topic in nav_category %}
+        {% if nameoftopic %}
+          {% if topic == nameoftopic %}
+            {% if u_topic %}
+              <div style="background: #fff;" data-gnl="1 1p ortada oluk-çevre">
+                <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="0">
+                  <img class="h-nav-li-img" src="/static/media/topics/checked.svg" data-gnl="1 6p ortada-ol"/>
+                  <div data-gnl="1 1p ortada">{{ topic }}</div>
+                </a>
+               </div>
+              {% else %}
+              <div style="background: #fff;" data-gnl="1 1p ortada oluk-çevre">
+                <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="0">
+                    <img class="h-nav-li-img" src="/static/media/topics/checked.svg" data-gnl="1 6p ortada-ol"/>
+                    <div data-gnl="1 1p ortada">{{ topic }}</div>
+                </a>
+              </div>
+              {% endif %} {% else %} {% if u_topic %}
+              <div style="background: #fff;" data-gnl="1 1p ortada oluk-çevre">
+                <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}" data-gnl="0">
+                    <img class="h-nav-li-img" src="/static/media/icons/list.svg" data-gnl="1 6p ortada-ol"/>
+                    <div data-gnl="1 1p ortada">{{ topic }}</div>
+                </a>
+              </div>
+              {% else %} {% if detail %}
+              <div style="background: #fff;" data-gnl="1 1p ortada oluk-çevre">
+                <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="0">
+                    <img class="h-nav-li-img" src="/static/media/topics/content.svg" data-gnl="1 6p ortada-ol"/>
+                    <div data-gnl="1 1p ortada">{{ topic }}</div>
+                </a>
+              </div>
+              {% else %}
+              <div style="background: #fff;" data-gnl="1 1p ortada oluk-çevre">
+                <a class="h-nav-d-li-a" href="/topic/{{ url }}" data-gnl="0">
+                    <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" data-gnl="1 6p ortada-ol"/>
+                    <div data-gnl="1 1p ortada">{{ topic }}</div>
+                </a>
+              </div>
+                {% endif %} {% endif %} {% endif %} {% else %}
+              <div style="background: #fff;" data-gnl="1 1p ortada oluk-çevre">
+                <a class="h-nav-d-li-a" href="/topic/{{ url }}" data-gnl="0">
+                    <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" data-gnl="1 6p ortada-ol"/>
+                    <div data-gnl="1 1p ortada">{{ topic }}</div>
+                </a>
+              </div>
+                {% endif %} {% endfor %}
+              </div>
+</div>

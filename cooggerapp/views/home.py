@@ -11,7 +11,7 @@ from django.db.models import Q
 def home(request):
     tools_topic = Topics()
     category = tools_topic.category
-    info_of_cards = content_cards(request,hmany=20)
+    info_of_cards = content_cards(request,hmany=10)
     notifications = notification(request)
     try:
         img_pp = get_head_img_pp(request.user)

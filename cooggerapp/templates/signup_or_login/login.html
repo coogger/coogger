@@ -1,30 +1,34 @@
 <!--giriş yapma sayfası-->
 {% load static from staticfiles %} {% include 'home/head.html' %}
 
-<body>
-    <div class="siteWrapper wincenter">
-        {% include 'home/logo.html' %}
-        <div class="clearfix">
-            <div class="cos-login-text ft-ar">Giriş yap</div>
-            <ul class="cx-ul">
-                <form action="/login" method="post">
-                    {% csrf_token %}
-                    <li class="cx-li">
-                        <label>Kullanıcı ismi</label>
-                        <input class="cx-input" type="text" name="Username" value="">
-                    </li>
-                    <li class="cx-li">
-                        <label>Şifre</label>
-                        <input class="cx-input" type="password" name="Password" value="">
-                    </li>
-                    <input class="cx-submit-b" type="submit" value="Giriş yap">
-                </form>
-            </ul>
-        </div>
-        <div class="ft ft-ar">
-            <a>Şifreni mi Unuttun?</a>
-        </div>
+<div data-gnl="1 1p ortada" style="height:100vh;">
+  <div data-gnl="1 1p ortada göbekte-ol" data-kçk="1 2p" data-byk="1 2p" data-dev="1 3p" style="background-color: #fff;border-radius: 6px;">
+  {% include 'home/logo.html' %}
+  <span class="author-info ft-ar" data-gnl="1 1p ortada">
+      <span>Giriş yap</span>
+  </span>
+  <div data-gnl="1 1p ortada">
+    <form action="/login" method="post">
+        {% csrf_token %}
+    <div>
+      <label>Kullanıcı adı</label>
+      <input class="cx-input" type="text" name="Username" value="">
     </div>
+    <div>
+      <label>Şifre</label>
+      <input class="cx-input" type="password" name="Password" value="">
+    </div>
+
+    <div>
+  <input class="submit-input" type="submit" value="Giriş yap" data-gnl="1 1p ortada">
+    </div>
+    </form>
+  </div>
+  <div class="ft ft-ar" data-gnl="1 1p ortada">
+      <a>Şifreni mi Unuttun?</a>
+  </div>
+</div>
+  </div>
 </body>
 
 </html>

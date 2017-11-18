@@ -1,52 +1,51 @@
-<nav class="h-nav">
-    <ul class="h-nav-ul ft-ar">
-        <li style="background-color:#0f391d;"  class="h-nav-topic h-nav-li">
+<nav class="h-nav" data-byk="gizle" data-gnl="1 1p">
+    <ul class="h-nav-ul ft-ar" data-gnl="1 1p taşmadan dürmeden">
+        <li style="background-color:#0f391d;"  class="h-nav-topic h-nav-li" data-gnl="ortada">
             {% if nameoflist %} {{ nameoflist }} {% else %} Fakülteler {% endif %}
         </li>
         {% for url,topic in nav_category %} {% if nameoftopic %} {% if topic == nameoftopic %} {% if u_topic %}
-        <li class="h-nav-li" style="background: #248644;">
-            <a class="h-nav-d-li-a" href="/{{ url }}">
-                <img class="h-nav-li-img" src="/static/media/topics/checked.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+        <li class="h-nav-li" style="background: #248644;" >
+            <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="1 1p">
+                <img class="h-nav-li-img" src="/static/media/topics/checked.svg" data-gnl="1 8p göbekte-ol"/>
+                <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div>
             </a>
         </li>
         {% else %}
-        <li class="h-nav-li" style="background: #248644;">
-            <a class="h-nav-d-li-a" href="/{{ url }}">
-                <img class="h-nav-li-img" src="/static/media/topics/checked.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+        <li class="h-nav-li" style="background: #248644;" >
+            <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="1 1p">
+                <img class="h-nav-li-img" src="/static/media/topics/checked.svg" data-gnl="1 8p göbekte-ol"/>
+                <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div>
             </a>
         </li>
         {% endif %} {% else %} {% if u_topic %}
-        <li class="h-nav-li">
-            <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}">
-                <img class="h-nav-li-img" src="/static/media/icons/list.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+        <li class="h-nav-li" >
+            <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}" data-gnl="1 1p">
+                <img class="h-nav-li-img" src="/static/media/icons/list.svg" data-gnl="1 8p göbekte-ol"/>
+                <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div>
             </a>
         </li>
         {% else %} {% if detail %}
-        <li class="h-nav-li">
-            <a class="h-nav-d-li-a" href="/{{ url }}">
-                <img class="h-nav-li-img" src="/static/media/topics/content.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+        <li class="h-nav-li" >
+            <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="1 1p">
+                <img class="h-nav-li-img" src="/static/media/topics/content.svg" data-gnl="1 8p göbekte-ol" />
+                <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div>
             </a>
         </li>
 
         {% else %}
-        <li class="h-nav-li">
-            <a class="h-nav-d-li-a" href="/topic/{{ url }}">
-                <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+        <li class="h-nav-li" >
+            <a class="h-nav-d-li-a" href="/topic/{{ url }}" data-gnl="1 1p">
+                <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" data-gnl="1 8p göbekte-ol"/>
+                <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div>
             </a>
         </li>
         {% endif %} {% endif %} {% endif %} {% else %}
         <li class="h-nav-li">
-            <a class="h-nav-d-li-a" href="/topic/{{ url }}">
-                <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
+            <a class="h-nav-d-li-a" href="/topic/{{ url }}" data-gnl="1 1p">
+                <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" data-gnl="1 8p göbekte-ol"/>
+                <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div>
             </a>
         </li>
         {% endif %} {% endfor %}
     </ul>
 </nav>
-{% include 'home/notifications.html' %}

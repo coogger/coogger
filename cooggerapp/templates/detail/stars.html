@@ -1,5 +1,5 @@
-<div class="d-main-start">
-    <ul class="d-starts-ul">
+<div class="d-main-start" data-gnl="1 1p ortada">
+    <ul class="d-starts-ul" data-gnl="1 1p ortada">
         {% for i in "12345" %}
             {% if i <= stars %}
                 <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"><img class="d-starts-a" src="/static/media/icons/star.svg"></li>
@@ -7,10 +7,8 @@
             {% if i > stars %}
                 <li class="d-starts-li" data-starts-id="{{i}}" data-post-id="{{ detail.id }}"> <img class="d-starts-a" src="/static/media/icons/star(0).svg"></li>
             {% endif %}
-            {% if i == "5" %}
-                <div style="text-align: -webkit-left;width: 160px;margin: auto;margin-top: 9px;float: left;cursor: pointer;">Verilen oy sayısı : {{ detail.hmstars }}</div>
-                <div style="text-align: -webkit-left;width: 160px;margin: auto;margin-top: 9px;float: left;cursor: pointer;" class="gstars">Oy ortalaması : {{stars}}</div>
-            {% endif %}
         {% endfor %}
     </ul>
-</div>
+    <div  data-gnl="1 1p ortada">Verilen oy sayısı : {{ detail.hmstars }}</div>
+    <div  class="gstars" data-gnl="1 1p ortada">Oy ortalaması : {{stars}}</div>
+  </div>

@@ -1,8 +1,11 @@
-{% include "detail/stars.html" %}{% include "detail/edit.html" %} {% include "detail/userinfo.html" %} {% include "detail/contentinfo.html" %}
+{% include "detail/stars.html" %}
+{% include "detail/edit.html" %}
+{% include "detail/userinfo.html" %}
+{% include "detail/contentinfo.html" %}
 
-<div class="b-cont" style="cursor: default;">
-    <div class="ft-ct" style="height:100%;">{{ detail.content|safe }}</div>
-    <ul class="d-hashtag">
+<div class="d-cont" style="cursor: default;">
+    <div class="ft-ct">{{ detail.content|safe }}</div>
+    <ul class="d-hashtag" data-gnl="ortada">
         {% for i in global_hashtag %}
         <li class="d-hashtag-li">
             <a class="d-hashtag-a" href="/tags/{{ i }}">
