@@ -7,10 +7,10 @@
             <div class="border"></div>
         </div>
         {% endif %}
-      <div data-gnl="0">
+      <div data-gnl="1 8p">
           {% if pp %}
-          <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ blo.username }}.jpg" /> {% else %}
-          <img class="b-user-img-src" src="/static/media/profil.png" /> {% endif %}
+          <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ blo.username }}.jpg" data-gnl="1 1p" data-resim="daire"/> {% else %}
+          <img class="b-user-img-src" src="/static/media/profil.png" data-gnl="1 1p" data-resim="daire"/> {% endif %}
       </div>
       <div class="b-username" data-gnl="1g ortada">
           <a class="b-username-a ft-cl" href='/@{{ blo.username }}'>@{{ blo.username }}</a>

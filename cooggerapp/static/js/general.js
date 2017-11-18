@@ -14,8 +14,11 @@ $(document).ready(function() {
 
   $(".open").mouseover(function() {
     $(".b-blogs").css("filter", "blur(3px)");
+    $(".d-detail").css("filter", "blur(3px)");
+
   }).mouseout(function() {
     $(".b-blogs").css("filter", "blur(0px)");
+    $(".d-detail").css("filter", "blur(0px)");
   });
 
   $(".delete").click(function() {

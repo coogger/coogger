@@ -1,13 +1,2 @@
 {% include 'home/logo.html' %}
-<div class="open-header">
-    <div class="open-header-border"></div>
-    <div class="open-header-border"> </div>
-    <div class="open-header-border"></div>
-</div>
-<header class="h-header">
-    <ul class="h-header-ul ft-it">
-        <div class="solol">
-            <a href="/@{{ request.user.username }}">@{{ request.user.username }}</a>
-        </div>
-    </ul>
-</header>
+{% include 'home/header.html' %}
