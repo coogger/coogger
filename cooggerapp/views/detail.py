@@ -31,7 +31,7 @@ def main_detail(request,blog_path,utopic,path):
         stars = ""
     facebook = get_facebook(user)
     try:# oturum açmış kullanıcı resmi
-        output_img_pp = get_head_img_pp(request.user)
+        output_img_pp = get_head_img_pp(user)
     except:
         output_img_pp = ["/static/media/profil.png",None]
     try: # içerik sahibinin resmi
