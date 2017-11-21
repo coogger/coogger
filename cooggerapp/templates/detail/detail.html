@@ -1,18 +1,1 @@
-{% include "detail/stars.html" %}
-{% include "detail/edit.html" %}
-{% include "detail/userinfo.html" %}
-{% include "detail/contentinfo.html" %}
-
-<div class="d-cont" style="cursor: default;">
-    <div class="ft-ct">{{ detail.content|safe }}</div>
-    <ul class="d-hashtag" data-gnl="ortada">
-        {% for i in global_hashtag %}
-        <li class="d-hashtag-li">
-            <a class="d-hashtag-a" href="/tags/{{ i }}">
-                <span class="d-hashtag-text">#{{ i }}</span>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
-{% include "detail/comments.html" %}
+{% include "detail/stars.html" %}{% include "detail/edit.html" %}{% include "detail/userinfo.html" %}{% include "detail/contentinfo.html" %}<div class="d-cont" style="cursor: default;"> <div class="ft-ct">{{ detail.content|safe }}</div> <ul class="d-hashtag" data-gnl="ortada"> {% for i in global_hashtag %} <li class="d-hashtag-li"> <a class="d-hashtag-a" href="/tags/{{ i }}"> <span class="d-hashtag-text">#{{ i }}</span> </a> </li> {% endfor %} </ul></div>{% include "detail/comments.html" %}
