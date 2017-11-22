@@ -1,11 +1,1 @@
-<div class="pagination" data-gnl="ortada">
-    <span class="step-links">
-        {% if paginator.has_previous %}
-            <a class="step-links-a" href="?page={{ paginator.previous_page_number }}">geri</a>
-        {% endif %}
-        <span class="current">
-            {{ paginator.number }} | {{ paginator.paginator.num_pages }}
-        </span> {% if paginator.has_next %}
-    <a class="step-links-a" href="?page={{ paginator.next_page_number }}">ileri</a> {% endif %}
-    </span>
-</div>
+<div class="pagination" data-gnl="ortada"> <span class="step-links"> {% if paginator.has_previous %} <a class="step-links-a" href="?page={{ paginator.previous_page_number }}">geri</a> {% endif %} <span class="current"> {{ paginator.number }} | {{ paginator.paginator.num_pages }} </span> {% if paginator.has_next %} <a class="step-links-a" href="?page={{ paginator.next_page_number }}">ileri</a> {% endif %} </span></div>
