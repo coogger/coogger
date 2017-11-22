@@ -68,7 +68,7 @@ def change(request,content_id):
     elif request_user.is_superuser:
         queryset = Blog.objects.filter(id = content_id)
     else:
-        queryset = Blog.objects.filter(username = user,id = content_id)
+        queryset = Blog.objects.filter(username = request_user,id = content_id)
     real_username = queryset[0].username # içeriği yazan kişinin kullanıcı ismi
     real_user = User.objects.filter(username = real_username )[0]
     if not queryset.exists():

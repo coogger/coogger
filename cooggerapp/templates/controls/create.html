@@ -1,1 +1,19 @@
-{% include 'home/head.html' %} {% include 'controls/header.html' %} {% include 'controls/nav.html' %}<div class="c-create" data-gnl="23 24p ortada-ol ortada oluk-çevre uzat" data-ort="1 1p" data-byk="6 8p"> <form method="post" class="c-create-form" action="/create/" enctype="multipart/form-data"> <input class="c-create-input" type="submit" value="Paylaş"> {% csrf_token %} <p> <label style="color:#248644">Not : Paylaşacağınız konu ile ilgili yazınız birden fazla olmayacak ise liste ismini boş bırakabilirsiniz ;</label> </p> <p> <label style="color:#248644">fakat birden fazla değil ise boş bırakmanızı tavsiye etmiyoruz </label> </p> {{ create_form.as_p }} {{ create_form.media }} <span>Anasayfa önizlemesi ;</span> </form> {% include 'controls/preview.html' %}</div>{% include 'home/footer.html' %}</body></html>
+{% include 'home/head.html' %} {% include 'controls/header.html' %} {% include 'controls/nav.html' %}
+<div class="c-create" data-gnl="23 24p ortada-ol ortada oluk-çevre uzat" data-ort="1 1p" data-byk="6 8p">
+    <form method="post" class="c-create-form" action="/create/" enctype="multipart/form-data">
+        <input class="c-create-input" type="submit" value="Paylaş"> {% csrf_token %}
+        <p>
+            <label style="color:#248644">Not : Paylaşacağınız konu ile ilgili yazınız birden fazla olmayacak ise liste ismini boş bırakabilirsiniz ;</label>
+        </p>
+        <p>
+            <label style="color:#248644">fakat birden fazla değil ise boş bırakmanızı tavsiye etmiyoruz </label>
+        </p>
+        {{ create_form.as_p }} {{ create_form.media }}
+        <span>Anasayfa önizlemesi ;</span>
+    </form>
+    {% include 'controls/preview.html' %}
+</div>
+{% include 'home/footer.html' %}
+</body>
+
+</html>

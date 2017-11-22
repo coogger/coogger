@@ -1,1 +1,14 @@
-{% if blo.username == request.user or request.user.is_superuser %}<div class="d-edit" data-gnl="1p 1p ortada-ol"> <div class="d-edit-panel data-edit-id-{{ blo.id }}" data-gnl="1 1p" style="display: none;"> <ul class="d-edit-ul ft-ar" data-gnl="1 1p ortada göbekte-ol"> <li class="d-edit-li" data-gnl="1 2p ortada"> <a class="d-edit-li-a " href="/change/{{blo.id }}" data-gnl="1 1p ortada">Düzenle</a> </li> <li class="d-edit-li" data-gnl="1 2p ortada"> <a class="d-edit-li-a d-delete" data-post-id="{{blo.id}}" data-gnl="1 1p ortada">Sil</a> </li> </ul> </div></div>{% endif %}
+{% if blo.username == request.user or request.user.is_superuser %}
+<div class="d-edit" data-gnl="1p 1p ortada-ol">
+  <div class="d-edit-panel data-edit-id-{{ blo.id }}" data-gnl="1 1p" style="display: none;">
+    <ul class="d-edit-ul ft-ar" data-gnl="1 1p ortada göbekte-ol">
+      <li class="d-edit-li" data-gnl="1 2p ortada">
+        <a class="d-edit-li-a " href="/change/{{blo.id }}" data-gnl="1 1p ortada">Düzenle</a>
+      </li>
+      <li class="d-edit-li" data-gnl="1 2p ortada">
+        <a class="d-edit-li-a d-delete" data-post-id="{{blo.id}}" data-gnl="1 1p ortada">Sil</a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endif %}

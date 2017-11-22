@@ -13,13 +13,8 @@ def home(request):
     category = tools_topic.category
     info_of_cards = content_cards(request,hmany=10)
     notifications = notification(request)
-    try:
-        img_pp = get_head_img_pp(request.user)
-    except:
-        img_pp = ["/static/media/profil.png",None]
     output = dict(
         blog = info_of_cards[0],
-        img = img_pp[0],
         nav_category = category,
         general = True,
         ogurl = request.META["PATH_INFO"],
@@ -30,7 +25,7 @@ def home(request):
     return render(request,"blog/blogs.html",output)
 
 def search(request):
-    query = request.GET["query"]
+    query = request.GET["query"].lower()
     tools_topic = Topics()
     category = tools_topic.category
     q = Q(title__contains = query) | Q(content_list__contains = query) | Q(tag__contains = query)

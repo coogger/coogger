@@ -1,1 +1,25 @@
-{% if not request.is_ajax %} {% include 'home/head.html' %}{% endif %}<div data-gnl="1 1p ortada" style="height:100vh;"> <div data-gnl="1 1p ortada göbekte-ol" data-kçk="1 2p" data-byk="1 2p" data-dev="1 3p" style="background-color: #fff;border-radius: 6px;"> {% include 'home/logo.html' %} <span class="author-info ft-ar" data-gnl="1 1p ortada"> <span data-gnl="1 1p ortada">Sizi yazar olarak görmemize çok az kaldı <span style="color:tomato"> Bu bilgileri neden veriyorum ? </span> Yazarların coogger'da önemli bir iş yaptıklarını biliyor ve onları coogger çalışanı olarak görüyoruz bundan dolayı bir takım bilgiler istiyoruz yeni bir işe başvuruyormussunuz gibi. Not: Telefon numarası zorun lu değildir, fakat boş geçmenizi tavsiye etmiyoruz. coogger yeteri kadar gelir elde ettiğinde siz yazarlarımıza'da gelir imkanı sunmak istiyoruz, fakat şuan için belli olmayan bir bilgi bu</span> </span> <span class="author-info ft-ar" data-gnl="1 2p ortada">Yazar olarak kayıt ol</span> <div data-gnl="1 1p oluk-çevre"> <form action="/signup-author" method="post" data-gnl="1 1p sütun"> {% csrf_token %} {{ otherinfo_form.as_p }} <input class="submit-input" type="submit" value="Başvuruyu tamamla"> </form> </div> <div class="ft ft-ar"> Kayıt Ol butonuna tıkladığında <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş oluyorsun. </div></div> </div>
+{% if not request.is_ajax %} {% include 'home/head.html' %}{% endif %}
+<div data-gnl="1 1p ortada" style="height:100vh;">
+  <div data-gnl="1 1p ortada göbekte-ol" data-kçk="1 2p" data-byk="1 2p" data-dev="1 3p" style="background-color: #fff;border-radius: 6px;">
+  {% include 'home/logo.html' %}
+  <span class="author-info ft-ar" data-gnl="1 1p ortada">
+      <span data-gnl="1 1p ortada">Sizi yazar olarak görmemize çok az kaldı
+      <span style="color:tomato"> Bu bilgileri neden veriyorum ? </span>
+       Yazarların coogger'da önemli bir iş yaptıklarını biliyor ve onları coogger çalışanı olarak görüyoruz bundan dolayı bir takım bilgiler istiyoruz yeni bir işe başvuruyormussunuz gibi.
+       Not: Telefon numarası zorun lu değildir, fakat boş geçmenizi tavsiye etmiyoruz.
+      coogger yeteri kadar gelir elde ettiğinde siz yazarlarımıza'da gelir imkanı sunmak istiyoruz, fakat şuan için belli olmayan bir bilgi bu</span>
+  </span>
+    <span class="author-info ft-ar" data-gnl="1 2p ortada">Yazar olarak kayıt ol</span>
+  <div data-gnl="1 1p oluk-çevre">
+    <form action="/signup-author" method="post" data-gnl="1 1p sütun">
+        {% csrf_token %} {{ otherinfo_form.as_p }}
+        <input class="submit-input" type="submit" value="Başvuruyu tamamla">
+    </form>
+  </div>
+  <div class="ft ft-ar">
+      Kayıt Ol butonuna tıkladığında
+      <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş oluyorsun.
+  </div>
+
+</div>
+  </div>

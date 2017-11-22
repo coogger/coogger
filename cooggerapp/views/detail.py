@@ -4,7 +4,7 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
 from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters,Comment,Notification
-from cooggerapp.views.tools import Topics,get_ip
+from cooggerapp.views.tools import Topics,get_ip,paginator,get_head_img_pp,get_pp_from_contents,get_stars_from_contents
 from django.db.models import F
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
@@ -12,6 +12,7 @@ from django.utils.text import slugify
 import json
 import os
 from django.utils import timezone
+
 
 def main_detail(request,blog_path,utopic,path):
     "blogların detay kısmı "
@@ -59,6 +60,11 @@ def main_detail(request,blog_path,utopic,path):
         global_hashtag = [i for i in queryset.tag.split(",") if i != ""],
         comment_form = Comment.objects.filter(content=queryset),
     )
+    # açılan makale bittikten sonra okunulan liste altındaki diğer paylaşımları anasayfadaki gibi listeler
+    query = Blog.objects.filter(username = username_id,content_list = utopic)
+    info_of_cards = content_cards(request,query,6)
+    output["blog"] = info_of_cards[0]
+    output["paginator"] = info_of_cards[1]
     return render(request,"detail/main_detail.html",output)
 
 def stars(request,post_id,stars_id):
@@ -82,24 +88,22 @@ def stars(request,post_id,stars_id):
         blog.save()
     if str(blog.username) != str(user.username):
         Notification(user=blog.username,even = 2,content=str(int(stars_id)+1),address = blog.url).save()
-    first_li = """<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """>
-            <img class="d-starts-a" src="/static/media/icons/star.svg">
-            </li>"""
-    second_li="""<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """>
-                <img class="d-starts-a" src="/static/media/icons/star({{i}}).svg">
-            </li>"""
+    first_li = """<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """><img class="d-starts-a" src="/static/media/icons/star.svg"></li>"""
+    second_li="""<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """><img class="d-starts-a" src="/static/media/icons/star(0).svg"></li>"""
     output = ""
     blog = Blog.objects.filter(id = post_id)[0]
     stars = blog.stars
     hmstars = blog.hmstars
     rate = stars/hmstars
-    for i in range(0,10):
+    for i in range(1,6,1):
         if i <= int(rate):
             output += first_li.replace("{{i}}",str(i))
         if i > int(rate):
             output += second_li.replace("{{i}}",str(i))
-        if i == 9:
-            output +="<li> : "+str(hmstars)+"</li>"
+        if i == 5:
+            output = "<ul class='d-starts-ul' data-gnl='1 1p ortada'>"+output+"</ul>"
+            output +="<div  data-gnl='1 1p ortada'>Verilen oy sayısı : "+str(hmstars)+"</div>"
+            output +="<div  class='gstars' data-gnl='1 1p ortada'>Oy ortalaması : "+str(int(rate))+"</div>"
     return HttpResponse(output)
 
 def comment(request,content_path):
@@ -143,3 +147,11 @@ def nav_category_for_detail(username_id,utopic):
     nav_category = Blog.objects.filter(username = username_id,content_list = utopic)
     for category in nav_category:
        yield category.url,category.title
+
+def content_cards(request,queryset,hmany):
+    "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
+    paginator_of_cards = paginator(request,queryset,hmany)
+    pp_in_cc = [pp for pp in get_pp_from_contents(paginator_of_cards)]
+    stars = [s for s in get_stars_from_contents(paginator_of_cards)]
+    cars = zip(paginator_of_cards,pp_in_cc,stars)
+    return cars,paginator_of_cards # cardlar için gereken bütün bilgiler burda

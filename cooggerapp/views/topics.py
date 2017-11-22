@@ -8,7 +8,7 @@ from cooggerapp.views.home import content_cards
 
 
 def topic(request,topic):
-    queryset = look_at_topics(request,topic) 
+    queryset = look_at_topics(request,topic)
     if queryset == None:
         ms.error(request,"{} isimde bir konu coogger.com'da mevcut değil.".format(topic))
         return HttpResponseRedirect("/")
@@ -36,7 +36,7 @@ def topic(request,topic):
         nameoftopic = topic,
         nameofexplain = nameofexplain,
         ogurl = request.META["PATH_INFO"],
-        nav_category = Topics().category,
+        nav_category = Topics().category_slug ,
         paginator = info_of_cards[1],
     )
     return render(request,"blog/blogs.html",output)
@@ -56,4 +56,4 @@ def look_at_topics(request,topic):
                     queryset = Blog.objects.filter(category = topic)
                 elif loop_number == 2:
                     queryset = Blog.objects.filter(subcategory = topic)
-    return queryset  
+    return queryset

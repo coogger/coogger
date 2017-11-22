@@ -93,7 +93,6 @@ def u_topic(request,username,utopic):
      img = img_pp[0],
     )
     output = dict(
-        u_topic = True,
         blog = info_of_cards[0],
         pp = img_pp[0],
         img = img_pp[0],

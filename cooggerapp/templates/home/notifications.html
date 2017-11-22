@@ -1,1 +1,37 @@
-<nav class="h-nav" data-byk="gizle" data-gnl="1 1p"> <ul class="h-nav-ul ft-ar" data-gnl="1 1p taşmadan dürmeden"> <li style="background-color:#0f391d;" class="h-nav-topic h-nav-li" data-gnl="ortada"> {% if nameoflist %} {{ nameoflist }} {% else %} Fakülteler {% endif %} </li> {% for url,topic in nav_category %} {% if nameoftopic %} {% if topic == nameoftopic %} {% if u_topic %} <li class="h-nav-li" style="background: #248644;" > <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/topics/checked.svg" data-gnl="1 8p göbekte-ol"/> <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div> </a> </li> {% else %} <li class="h-nav-li" style="background: #248644;" > <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/topics/checked.svg" data-gnl="1 8p göbekte-ol"/> <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div> </a> </li> {% endif %} {% else %} {% if u_topic %} <li class="h-nav-li" > <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/icons/list.svg" data-gnl="1 8p göbekte-ol"/> <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div> </a> </li> {% else %} {% if detail %} <li class="h-nav-li" > <a class="h-nav-d-li-a" href="/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/topics/content.svg" data-gnl="1 8p göbekte-ol" /> <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div> </a> </li> {% else %} <li class="h-nav-li" > <a class="h-nav-d-li-a" href="/topic/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" data-gnl="1 8p göbekte-ol"/> <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div> </a> </li> {% endif %} {% endif %} {% endif %} {% else %} <li class="h-nav-li"> <a class="h-nav-d-li-a" href="/topic/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" data-gnl="1 8p göbekte-ol"/> <div class="h-nav-li-text" data-gnl="6 7p göbekte-ol sağda">{{ topic }}</div> </a> </li> {% endif %} {% endfor %} </ul></nav>
+{% if notifications %}
+<div data-gnl="1 1p gizle ortada üstte-ol" data-byk="1 6p" data-ort="1 8p gizle" data-dev="1 10p" data-kçm="1 12p">
+<div class="open ft-ar" data-gnl="0 ortada oluk" style="position:absolute">
+    <div style="background-color:#0f391d;" class="h-noti-topic h-noti-li" data-gnl="1 1p ortada">Bildirimler ( {{ hmanynotifications }} )</div>
+    {% for noti in notifications %}
+        {% if noti.even == 1 %}
+        <div class="h-noti-li" data-gnl="1 1p oluk-çevre">
+          <a class="h-nav-d-li-a" href="/{{ noti.address }}" data-gnl="1 1p ortada">
+            <img class="h-nav-li-img" src="/static/media/icons/comments.svg" data-gnl="0"/>
+            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
+            <div class="h-noti-info">İçeriğine bir yorum yapıldı</div>
+            <div class="h-noti-text">{{ noti.content }}</div>
+          </a>
+        </div>
+        {% elif noti.even == 2 %}
+        <div class="h-noti-li" data-gnl="1 1p oluk-çevre">
+          <a class="h-nav-d-li-a" href="/{{ noti.address }}" data-gnl="1 1p ortada">
+            <img class="h-nav-li-img" src="/static/media/icons/star.svg" data-gnl="0" />
+            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
+            <div>İçeriğine yeni bir oy verildi</div>
+            <div class="h-noti-text">{{ noti.content }} yıldız</div>
+          </a>
+        </div>
+      {% elif noti.even == 3 %}
+        <div class="h-noti-li" data-gnl="1 1p oluk-çevre">
+          <a class="h-nav-d-li-a" href="/{{ noti.address }}" data-gnl="1 1p ortada">
+            <img class="h-nav-li-img" src="/static/media/topics/checked.svg" data-gnl="0"/>
+            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
+            <div>Yeni takipçi kazandın</div>
+            <div class="h-noti-text">{{ noti.content }}</div>
+          </a>
+        </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+    </div>
+{% endif %}

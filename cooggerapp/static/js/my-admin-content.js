@@ -1,1 +1,20 @@
-!function(o){o(document).ready(function(){o("#id_category").change(function(){var c="";o("#id_category option:selected").each(function(){c+=o(this).val(),o("#id_subcategory").load("/chosesub/"+c),o("#id_category2").load("/chosenone/")})}),o("#id_subcategory").change(function(){var c="";o("#id_subcategory option:selected").each(function(){c+=o(this).val(),o("#id_category2").load("/chosecat2/"+c)})})})}(django.jQuery);
+(function($) {
+    $(document).ready(function() {
+        $("#id_category").change(function() {
+            var str = "";
+            $("#id_category option:selected").each(function() {
+                str += $(this).val();
+                $("#id_subcategory").load("/chosesub/" + str);
+                $("#id_category2").load("/chosenone/");
+            });
+        });
+
+        $("#id_subcategory").change(function() {
+            var str = "";
+            $("#id_subcategory option:selected").each(function() {
+                str += $(this).val();
+                $("#id_category2").load("/chosecat2/" + str);
+            });
+        });
+    });
+})(django.jQuery);

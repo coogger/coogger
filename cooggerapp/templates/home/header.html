@@ -1,1 +1,56 @@
-<header class="h-header" data-gnl="ortada"> <div data-gnl="1 1p ortada oluk-çevre"> {% if not user.is_authenticated %} <div class="h-h-border" data-gnl="1 1p göbekte-ol" data-ort="1 6p" data-byk="1 8p" data-dev="1 10p" data-kçm="1 12p"> <a href="/signup" data-gnl="1 1p ortada"> <span>Kayıt olun / Yazar olun</span> </a> </div> <div class="h-h-border" data-gnl="1 1p ortada göbekte-ol" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p"> <a href="/login" data-gnl="1 1p ortada"> <span>Giriş yapın</span> </a> </div> {% else%} <div class="h-h-border" data-gnl="1 1p ortada göbekte-ol"> <a href="/@{{ request.user.username }}" data-gnl="1 1p ortada" style="padding: 0px;"> <img data-resim="daire" class="solol-img" src="/media/users/pp/pp-{{ request.user.username }}.jpg"> <span data-gnl="0 göbekte-ol">{{ request.user.username }}</span> </a> </div> {% if not request.user.otherinformationofusers.author %} <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p"> <a href="/signup-author" data-gnl="1 1p ortada göbekte-ol"> <span>Yazarlık başvurusu</span> </a> </div> {% endif %} {% if request.user.otherinformationofusers.is_author %} <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 6p" data-byk="1 8p" data-dev="1 14p" data-kçm="1 16p"> <a href="/create" data-gnl="1 1p ortada göbekte-ol"> <span>İçerik oluştur</span> </a> </div> {% endif %} <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p"> <a href="/logout" data-gnl="1 1p ortada göbekte-ol"> <span>Çıkış</span> </a> </div> <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p"> <a href="/settings" data-gnl="1 1p ortada göbekte-ol"> <span>Ayarlar</span> </a> </li> </div> {% endif %} <div class="search" data-gnl="1 1p ortada" data-ort="2 5p" data-byk="1 3p" data-dev="1 5p" data-kçm="1 6p"> <form class="search-form" action="/search/" data-gnl="1 1p ortada"> <input type="text" class="search-input" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" data-gnl="3 4p göbekte-ol"/> <input type="submit" value="Ara" class="search-button ft-it" data-gnl="0 ortada"/> </form> </div> {% include 'home/notifications.html' %} {% include 'home/category.html' %} </div></header>{% include 'home/nav.html' %}
+<header class="h-header"  data-gnl="ortada">
+  <div data-gnl="1 1p ortada oluk-çevre">
+    {% if not user.is_authenticated %}
+    <div class="h-h-border" data-gnl="1 1p göbekte-ol"  data-ort="1 6p" data-byk="1 8p" data-dev="1 10p" data-kçm="1 12p">
+      <a href="/signup" data-gnl="1 1p ortada">
+          <span>Kayıt olun / Yazar olun</span>
+      </a>
+    </div>
+    <div class="h-h-border" data-gnl="1 1p ortada göbekte-ol" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p">
+      <a  href="/login" data-gnl="1 1p ortada">
+          <span>Giriş yapın</span>
+      </a>
+    </div>
+    {% else%}
+    <div class="h-h-border" data-gnl="1 1p ortada göbekte-ol">
+      <a  href="/@{{ request.user.username }}" data-gnl="1 1p ortada" style="padding: 0px;">
+          <img data-resim="daire"  class="solol-img" src="/media/users/pp/pp-{{ request.user.username }}.jpg">
+          <span data-gnl="0 göbekte-ol">{{ request.user.username }}</span>
+      </a>
+    </div>
+    {% if not request.user.otherinformationofusers.author %}
+    <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p">
+      <a href="/signup-author" data-gnl="1 1p ortada göbekte-ol">
+          <span>Yazarlık başvurusu</span>
+      </a>
+    </div>
+    {% endif %}
+    {% if request.user.otherinformationofusers.is_author %}
+    <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 6p" data-byk="1 8p" data-dev="1 14p" data-kçm="1 16p">
+      <a href="/create" data-gnl="1 1p ortada göbekte-ol">
+          <span>İçerik oluştur</span>
+      </a>
+    </div>
+    {% endif %}
+    <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p">
+      <a href="/logout" data-gnl="1 1p ortada göbekte-ol">
+          <span>Çıkış</span>
+      </a>
+    </div>
+    <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p">
+      <a href="/settings" data-gnl="1 1p ortada göbekte-ol">
+        <span>Ayarlar</span>
+           </a>
+      </li>
+    </div>
+    {% endif %}
+      <div  class="search" data-gnl="1 1p ortada" data-ort="2 5p" data-byk="1 3p" data-dev="1 5p" data-kçm="1 6p">
+          <form class="search-form" action="/search/" data-gnl="1 1p ortada">
+                <input type="text" class="search-input" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" data-gnl="3 4p göbekte-ol"/>
+                <input type="submit" value="Ara" class="search-button ft-it" data-gnl="0 ortada"/>
+            </form>
+        </div>
+      {% include 'home/notifications.html' %}
+      {% include 'home/category.html' %}
+  </div>
+</header>

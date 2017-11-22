@@ -10,13 +10,24 @@ def make_choices(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
     slugs = []
     for cho in choice:
+        cho = str(cho).lower()
         slugs.append((slugify(cho),cho))
+    return slugs
+
+def make_choices_slug(choice):
+    "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
+    slugs = []
+    for cho in choice:
+        cho = cho.lower()
+        cho = slugify(cho)
+        slugs.append((cho,cho))
     return slugs
 
 class Topics():
     def __init__(self):
         self.category = make_choices(Category().faculties)
         self.subcatecory = make_choices(Subcategory.all())
+        self.category_slug = make_choices_slug(Category().faculties)
 
     def category(self):
         dict_topics = dict(

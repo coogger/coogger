@@ -1,1 +1,19 @@
-<footer class="u-footer" data-gnl="1 1p ortada"> <div class="u-footer-main" data-gnl="1 1p ortada"> {% if user_follow %} <div class="u-footer-info ft-os" data-gnl="1 1p ortada">{{ username }} adlı kullanıcımızın diğer web adresler</div> {% else %} <div class="u-footer-info ft-os" data-gnl="1 1p ortada">{{ username }} adlı kullanıcımızın herhangi bir web adres kaydı bulunmamakta</div> {% endif %} <ul class="u-footer-ul"> {% for follow in user_follow %} <li class="u-footer-li"> <a class="ft-os" target="_blank" href="//{{follow.adress}}"> <img src="/static/media/icons/{{follow.choices}}.svg" /> </a> </li> {% endfor %} </ul> </div></footer>
+<footer class="u-footer" data-gnl="1 1p ortada">
+    <div class="u-footer-main" data-gnl="1 1p ortada">
+        {% if user_follow %}
+        <div class="u-footer-info ft-os" data-gnl="1 1p ortada">{{ username }} adlı kullanıcımızın diğer web adresler</div>
+        {% else %}
+        <div class="u-footer-info ft-os" data-gnl="1 1p ortada">{{ username }} adlı kullanıcımızın herhangi bir web adres kaydı bulunmamakta</div>
+        {% endif %}
+        <ul class="u-footer-ul">
+            {% for follow in user_follow %}
+            <li class="u-footer-li">
+                <a class="ft-os" target="_blank" href="//{{follow.adress}}">
+                    <img src="/static/media/icons/{{follow.choices}}.svg" />
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</footer>
