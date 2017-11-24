@@ -1,1 +1,7 @@
-<div data-gnl="ortada"><div class="b-blogs" data-gnl="23 24p oluk-çevre uzat" data-byk="6 8p">{% for blo,pp,stars in blog %}<div class="data-post-id-{{blo.id}}" data-gnl="1 1p oluk-çevre ortada uzat" data-ufk="1 1p" data-kçk="1 2p" data-ort="1 3p" data-byk="1 3p" data-dev="1 4p" data-mnk="1 1p" > {% if nameoftopic == blo.title %}<div class="b-cards" data-gnl="1 1p ortada" style="background: #248644;">{% else %} <div class="b-cards" data-gnl="1 1p ortada">{% endif %} {% include "blog/edit.html" %} {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %} </div></div>{% endfor %}</div></div>{% include "blog/paginator.html" %}
+<div data-gnl="ortada">
+    <div class="b-blogs" data-gnl="23 24p oluk-çevre uzat" data-byk="6 8p">{% for blo,pp,stars in blog %}
+        <div class="data-post-id-{{blo.id}}" data-gnl="1 1p oluk-çevre ortada uzat" data-ufk="1 1p" data-kçk="1 2p" data-ort="1 3p" data-byk="1 3p" data-dev="1 4p" data-mnk="1 1p"> {% if nameoftopic == blo.title %}
+            <div class="b-cards" data-gnl="1 1p ortada" style="background: #248644;">{% else %}
+                <div class="b-cards" data-gnl="1 1p ortada">{% endif %} {% include "blog/edit.html" %} {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %} </div>
+            </div>{% endfor %}</div>
+    </div>{% include "blog/paginator.html" %}

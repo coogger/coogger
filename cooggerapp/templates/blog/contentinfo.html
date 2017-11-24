@@ -1,1 +1,26 @@
-<div class="b-content-info" data-gnl="1 1p"> <div class="b-time ft-dn" data-gnl="1 1p ortada"> <span>{{ blo.time }} | </span><span> {{ blo.time|timesince }} önce</span> </div> <ul class="b-category ft-os" data-gnl="1 1p ortada"> <li class="b-category-li" data-gnl="1 1p ortada"> <a class="b-category-a" href='/topic/{{ blo.category }}'>{{ blo.category|title }}</a> </li> {% if blo.subcategory != None %} <li class="b-category-li" data-gnl="1 1p ortada"> <a class="b-subcategory-a" href='/topic/{{ blo.subcategory }}'>{{ blo.subcategory|title }}</a> </li> {% endif %} </ul> <div class="b-title ft-ns" > <a class="b-title-a" href='/{{ blo.url }}'>{{ blo.title|title }}</a> </div> <div class="b-content" data-gnl="1 1p ortada uzat" data-url="{{ blo.url }}"> <div class="b-cont ft-ct" data-gnl="1 1p ortada"> {{ blo.show }} </div> <div class='duread-main' data-gnl="8 9p ortada" style="opacity:0"> <ul class='duread-ul' data-gnl="1 1p"> <li class='duread-li' data-gnl="1 1p"> <img class='duread-img' src='/static/media/icons/stopwatch.svg'> <div class='duread-text' data-gnl="0 göbekte-ol sağda-ol">Tahmini okuma süresi {{ blo.dor }} dakika</div> </li> <li class='duread-li' data-gnl="1 1p"> <img class='duread-img' src='/static/media/icons/star.svg'> <div class='duread-text' data-gnl="0 göbekte-ol sağda-ol">Yıldız {{ stars }} </div> </li> <li class='duread-li' data-gnl="1 1p"> <img class='duread-img' src='/static/media/icons/employee.svg'> <div class='duread-text' data-gnl="0 göbekte-ol sağda-ol">Okuma {{ blo.views }} </div> </li> <li class='duread-li' data-gnl="1 1p"> <img class='duread-img' src='/static/media/icons/comments.svg'> <div class='duread-text' data-gnl="0 göbekte-ol sağda-ol">Yorum sayısı {{ blo.hmanycomment }}</div> </li> </ul> </div> </div></div>
+<div class="b-content-info" data-gnl="1 1p">
+    <div class="b-time ft-dn" data-gnl="1 1p ortada"> <span>{{ blo.time }} | </span><span> {{ blo.time|timesince }} önce</span> </div>
+    <ul class="b-category ft-os" data-gnl="1 1p ortada">
+        <li class="b-category-li" data-gnl="1 1p ortada"> <a class="b-category-a" href='/topic/{{ blo.category }}'>{{ blo.category|title }}</a> </li> {% if blo.subcategory != None %}
+        <li class="b-category-li" data-gnl="1 1p ortada"> <a class="b-subcategory-a" href='/topic/{{ blo.subcategory }}'>{{ blo.subcategory|title }}</a> </li> {% endif %} </ul>
+    <div class="b-title ft-ns"> <a class="b-title-a" href='/{{ blo.url }}'>{{ blo.title|title }}</a> </div>
+    <div class="b-content" data-gnl="1 1p ortada uzat" data-url="{{ blo.url }}">
+        <div class="b-cont ft-ct" data-gnl="1 1p ortada"> {{ blo.show }} </div>
+        <div class='duread-main' data-gnl="8 9p ortada" style="opacity:0">
+            <ul class='duread-ul' data-gnl="1 1p">
+                <li class='duread-li' data-gnl="1 1p"> <img class='duread-img' src='/static/media/icons/stopwatch.svg'>
+                    <div class='duread-text' data-gnl="0 göbekte-ol sağda-ol">Tahmini okuma süresi {{ blo.dor }} dakika</div>
+                </li>
+                <li class='duread-li' data-gnl="1 1p"> <img class='duread-img' src='/static/media/icons/star.svg'>
+                    <div class='duread-text' data-gnl="0 göbekte-ol sağda-ol">Yıldız {{ stars }} </div>
+                </li>
+                <li class='duread-li' data-gnl="1 1p"> <img class='duread-img' src='/static/media/icons/employee.svg'>
+                    <div class='duread-text' data-gnl="0 göbekte-ol sağda-ol">Okuma {{ blo.views }} </div>
+                </li>
+                <li class='duread-li' data-gnl="1 1p"> <img class='duread-img' src='/static/media/icons/comments.svg'>
+                    <div class='duread-text' data-gnl="0 göbekte-ol sağda-ol">Yorum sayısı {{ blo.hmanycomment }}</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

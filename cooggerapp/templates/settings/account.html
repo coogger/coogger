@@ -1,1 +1,12 @@
-{% include 'settings/home.html' %}<div class="s-forms"><form method="post" class="m-s-form" action="/settings/account" enctype="multipart/form-data">{% csrf_token %} <p> <label>Yeni Şifre</label> <input type="password" name="Password" value=""> </p> <p> <label>Şifre onay</label> <input type="password" name="Confirm" value=""> </p> <input class="c-create-input" type="submit" value="Kaydet"></form></div>
+{% include 'settings/home.html' %}
+<div class="s-forms">
+    <form method="post" class="m-s-form" action="/settings/account" enctype="multipart/form-data">{% csrf_token %}
+        <p>
+            <label>Yeni Şifre</label>
+            <input type="password" name="Password" value=""> </p>
+        <p>
+            <label>Şifre onay</label>
+            <input type="password" name="Confirm" value=""> </p>
+        <input class="c-create-input" type="submit" value="Kaydet">
+    </form>
+</div>

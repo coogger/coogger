@@ -1,1 +1,23 @@
-<div class="d-comments"> {% if user.is_authenticated %} <div class="d-wcomment"> <form method="post" class="c-comment-form" action="/comment{{ ogurl }}"> {% csrf_token %} <input type="text" placeholder="Soru sor,veya teşekkür et bir yorum yap" name="comment" class="d-comment-input" maxlength="310"> <input type="submit" class="d-comment-sub"> </form> </div> {% else %} <div class="d-comment-war"> Yazarımıza paylaştığı bilgiler için teşekkür edin, soru sorun veya herhangi bir yorum yapın, bunlar için üye olun zaten bir hesabınız varsa giriş yapın </div> {% endif %} <ul class="d-comments-ul"> {% for com in comment_form %} <li class="d-comments-li"> <div class="d-comments-user"> <div class="d-comment-date"> <spam>{{ com.date|timesince }} önce</spam></div> <img class="comments-pp" src="/media/users/pp/pp-{{ com.user }}.jpg"> <spam>@{{ com.user }}</spam> <div class="d-comment"> <spam>{{ com.comment }}</spam></div> </div> </li> {% endfor %} </ul></div><script>$(document).ready(function() { // comments $(".d-comment-sub").click(function(event){ var comment=$("input[name=comment").val(); $.ajax({ url: "/comment"+window.location.pathname, method: 'POST', dataType: 'json', data: { csrfmiddlewaretoken: "{{ csrf_token }}", comment:comment, } }).done(function (response) { // okunan json veriyi, #user idli yere yaz $(".d-comments-ul" ).append("<li class='d-comments-li'><div class='d-comments-user'><div class='d-comment-date'> <spam>"+response.date+" saniye önce</spam></div><img class='comments-pp' src='/media/users/pp/pp-"+response.username+".jpg'><spam>@"+response.username+"</spam><div class='d-comment'> <spam>"+response.comment+"</spam></div></div></li>"); }); event.preventDefault(); }); // ! comments });</script>
+<div class="d-comments"> {% if user.is_authenticated %}
+    <div class="d-wcomment">
+        <form method="post" class="c-comment-form" action="/comment{{ ogurl }}"> {% csrf_token %}
+            <input type="text" placeholder="Soru sor,veya teşekkür et bir yorum yap" name="comment" class="d-comment-input" maxlength="310">
+            <input type="submit" class="d-comment-sub"> </form>
+    </div> {% else %}
+    <div class="d-comment-war"> Yazarımıza paylaştığı bilgiler için teşekkür edin, soru sorun veya herhangi bir yorum yapın, bunlar için üye olun zaten bir hesabınız varsa giriş yapın </div> {% endif %}
+    <ul class="d-comments-ul"> {% for com in comment_form %}
+        <li class="d-comments-li">
+            <div class="d-comments-user">
+                <div class="d-comment-date">
+                    <spam>{{ com.date|timesince }} önce</spam>
+                </div> <img class="comments-pp" src="/media/users/pp/pp-{{ com.user }}.jpg">
+                <spam>@{{ com.user }}</spam>
+                <div class="d-comment">
+                    <spam>{{ com.comment }}</spam>
+                </div>
+            </div>
+        </li> {% endfor %} </ul>
+</div>
+<script>
+    $(document).ready(function() { // comments $(".d-comment-sub").click(function(event){ var comment=$("input[name=comment").val(); $.ajax({ url: "/comment"+window.location.pathname, method: 'POST', dataType: 'json', data: { csrfmiddlewaretoken: "{{ csrf_token }}", comment:comment, } }).done(function (response) { // okunan json veriyi, #user idli yere yaz $(".d-comments-ul" ).append("<li class='d-comments-li'><div class='d-comments-user'><div class='d-comment-date'> <spam>"+response.date+" saniye önce</spam></div><img class='comments-pp' src='/media/users/pp/pp-"+response.username+".jpg'><spam>@"+response.username+"</spam><div class='d-comment'> <spam>"+response.comment+"</spam></div></div></li>"); }); event.preventDefault(); }); // ! comments });
+</script>

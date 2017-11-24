@@ -1,1 +1,5 @@
-{% include 'settings/home.html' %}<form method="post" class="m-s-form" action="/settings/web-address" enctype="multipart/form-data">{% csrf_token %} <spam>Diğer web adresleriniz</spam>{{ UserFollowForm.as_p }} <input class="c-create-input" type="submit" value="Kaydet"></form>
+{% include 'settings/home.html' %}
+<form method="post" class="m-s-form" action="/settings/web-address" enctype="multipart/form-data">{% csrf_token %}
+    <spam>Diğer web adresleriniz</spam>{{ UserFollowForm.as_p }}
+    <input class="c-create-input" type="submit" value="Kaydet">
+</form>

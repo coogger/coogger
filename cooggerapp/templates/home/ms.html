@@ -1,1 +1,6 @@
-<div data-gnl="1 1p ortada"><div class="main-messages ft-io" data-gnl="1 1p ortada"> <div data-gnl="1 24p solda"> <span data-gnl="1 1p ortada" class="close-ms">x</span> {% if messages %} </div> <ul class="messages"> {% for message in messages %} <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li> {% endfor %} </ul> {% endif %}</div></div>
+<div data-gnl="1 1p ortada">
+    <div class="main-messages ft-io" data-gnl="1 1p ortada">
+        <div data-gnl="1 24p solda"> <span data-gnl="1 1p ortada" class="close-ms">x</span> {% if messages %} </div>
+        <ul class="messages"> {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li> {% endfor %} </ul> {% endif %}</div>
+</div>
