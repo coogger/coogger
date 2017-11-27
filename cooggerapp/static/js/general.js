@@ -78,11 +78,4 @@ $("#id_subcategory").change(function() {
   });
 });
 // controls
-//--------------
-//users
-$(".u-i").mouseover(function() {
-  $(".u-uploadform").css({ display: "block" });
-}).mouseout(function() {
-  $(".u-uploadform").css({ display: "none" });
-});
   });

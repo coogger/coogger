@@ -5,7 +5,10 @@
             <div class="border"></div>
             <div class="border"></div>
         </div> {% endif %}
-        <div data-gnl="1 6p"> <a class="b-username-a ft-cl" href='/@{{ blo.username }}'> {% if pp %} <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ blo.username }}.jpg" data-gnl="1 1p" data-resim="daire"/> {% else %} <img class="b-user-img-src" src="/static/media/profil.png" data-gnl="1 1p" data-resim="daire"/> {% endif %}</a> </div>
+        <div data-gnl="0"> <a class="b-username-a ft-cl" href='/@{{ blo.username }}'>
+          {% if pp %}
+          <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ blo.username }}.jpg"  data-resim="daire"/> {% else %}
+          <img class="b-user-img-src" src="/static/media/profil.png"  data-resim="daire"/> {% endif %}</a> </div>
         <div class="b-username" data-gnl="1g ortada"> <a class="b-username-a ft-cl" href='/@{{ blo.username }}'>@{{ blo.username }}</a> </div>
     </div> {% if blo.content_list %}
     <div data-gnl="1 1p sağda">

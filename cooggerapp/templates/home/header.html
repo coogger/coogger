@@ -6,7 +6,7 @@
         <div class="h-h-border" data-gnl="1 1p ortada göbekte-ol" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p">
             <a href="/login" data-gnl="1 1p ortada"> <span>Giriş yapın</span> </a>
         </div> {% else%}
-        <div class="h-h-border" data-gnl="1 1p ortada göbekte-ol">
+        <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p">
             <a href="/@{{ request.user.username }}" data-gnl="1 1p ortada" style="padding: 0px;"> <img data-resim="daire" class="solol-img" src="/media/users/pp/pp-{{ request.user.username }}.jpg"> <span data-gnl="0 göbekte-ol">{{ request.user.username }}</span> </a>
         </div> {% if not request.user.otherinformationofusers.author %}
         <div class="h-h-border" data-gnl="1 1p ortada" data-ort="1 8p" data-byk="1 12p" data-dev="1 14p" data-kçm="1 16p">
