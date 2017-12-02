@@ -90,4 +90,4 @@ class Notification(models.Model):
 
 class SearchedWords(models.Model):
     word = models.CharField(unique=True,max_length=310,verbose_name="aranan kelime")
-    hmany = models.IntegerField(default = 0,verbose_name="kaç defa arandı")
+    hmany = models.IntegerField(default = 1,verbose_name="kaç defa arandı")
