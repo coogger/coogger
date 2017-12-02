@@ -1,31 +1,52 @@
-<!--kayıt olma sayfası-->{% load static from staticfiles %} {% include 'home/head.html' %}
-<div data-gnl="1 1p ortada" style="height:100vh;">
-    <div data-gnl="1 1p ortada göbekte-ol" data-kçk="1 2p" data-byk="1 2p" data-dev="1 3p" style="background-color: #fff;border-radius: 6px;"> {% include 'home/logo.html' %} <span class="author-info ft-ar" data-gnl="1 1p ortada"> <span>Üye olduktan sonra,dilerseniz sizi aramıza yazar olarak alabilir ve bu sayede bildiklerinizi paylaşıp başkalarına ışık olabilirsiniz , işlem sonrası açılan yazar olarak başvur bölümünü ziyaret edin </span> </span> <span class="author-info ft-ar" data-gnl="1 2p ortada">Normal kullanıcı olarak kayıt ol</span>
-        <div data-gnl="1 1p ortada">
-            <form action="/signup" method="post"> {% csrf_token %}
-                <div>
+<!--kayıt olma sayfası-->
+{% load static from staticfiles %} {% include 'home/head.html' %}
+
+
+<div class="siteWrapper wincenter">
+    <div class="signup-blogger">
+        <span>Üye olduktan sonra,dilerseniz  </span>
+        <span>sizi aramıza yazar olarak alabilir</span>
+        <span> ve bu sayede bildiklerinizi paylaşıp başkalarına ışık olabilirsiniz </span>
+        <span>, işlem sonrası açılan yazar olarak başvur </span>
+        <span>bölümünü ziyaret edin </span>
+    </div>
+  
+    <div class="clearfix">
+        <div class="cos-login-text ft-ar">Normal kullanıcı olarak kayıt ol</div>
+        <ul class="cx-ul">
+            <form action="/signup" method="post">
+                {% csrf_token %}
+                <li class="cx-li">
                     <label>Adınız</label>
-                    <input class="" type="text" name="Name" value=""> </div>
-                <div>
+                    <input class="cx-input" type="text" name="Name" value="">
+                </li>
+                <li class="cx-li">
                     <label>Soyadınız</label>
-                    <input class="" type="text" name="Surname" value=""> </div>
-                <div>
+                    <input class="cx-input" type="text" name="Surname" value="">
+                </li>
+                <li class="cx-li">
                     <label>E-posta</label>
-                    <input class="" type="text" name="Email" value=""> </div>
-                <div>
+                    <input class="cx-input" type="text" name="Email" value="">
+                </li>
+                <li class="cx-li">
                     <label>Kullanıcı adı</label>
-                    <input class="" type="text" name="Username" value=""> </div>
-                <div>
+                    <input class="cx-input" type="text" name="Username" value="">
+                </li>
+                <li class="cx-li">
                     <label>Şifre</label>
-                    <input class="" type="password" name="Password" value=""> </div>
-                <div>
+                    <input class="cx-input" type="password" name="Password" value="">
+                </li>
+                <li class="cx-li">
                     <label>Şifre onay</label>
-                    <input class="" type="password" name="Confirm" value=""> </div>
-                <div data-gnl="1 1p ortada">
-                    <input class="submit-input" type="submit" value="Kayıt ol" data-gnl="1 1p ortada"> </div>
+                    <input class="cx-input" type="password" name="Confirm" value="">
+                </li>
+                <input class="cx-submit-b" type="submit" value="Kayıt ol">
             </form>
-        </div>
-        <div class="ft ft-ar" data-gnl="1 1p ortada"> Kayıt Ol butonuna tıkladığında <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş olursun. </div>
+        </ul>
+    </div>
+    <div class="ft ft-ar">
+        Kayıt Ol butonuna tıkladığında
+        <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş olursun.
     </div>
 </div>
 </body>

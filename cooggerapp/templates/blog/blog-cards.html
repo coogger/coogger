@@ -1,7 +1,32 @@
-<div data-gnl="ortada">
-    <div class="b-blogs" data-gnl="23 24p oluk-çevre uzat" data-byk="6 8p">{% for blo,pp,stars in blog %}
-        <div class="data-post-id-{{blo.id}}" data-gnl="1 1p oluk-çevre ortada uzat" data-ufk="1 1p" data-kçk="1 2p" data-ort="1 3p" data-byk="1 3p" data-dev="1 4p" data-mnk="1 1p"> {% if nameoftopic == blo.title %}
-            <div class="b-cards" data-gnl="1 1p ortada" style="background: #248644;">{% else %}
-                <div class="b-cards" data-gnl="1 1p ortada">{% endif %} {% include "blog/edit.html" %} {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %} </div>
-            </div>{% endfor %}</div>
-    </div>{% include "blog/paginator.html" %}
+<div class="b-blogs">
+{% for blo,pp,stars in blog %}
+<div class="b-blog data-post-id-{{blo.id}}">
+    {% include "blog/edit.html" %}
+    {% if nameoftopic == blo.title %}
+    <div class="b-cards" style="background: #248644;">
+          {% else %}
+    <div class="b-cards">
+      {% endif %}
+        {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %}
+        <div class="b-content" data-views="{{ blo.views }}" data-dor="{{ blo.dor }}" data-url="{{ blo.url }}" data-stars="{{ stars }}" data-hmanycomment="{{ blo.hmanycomment }}">
+            <div class="b-cont ft-ct" style="height: 180px;">
+                {{ blo.show }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+</div>
+
+{% include "blog/paginator.html" %}
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- ads-ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9215854020523450"
+     data-ad-slot="2184851501"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>

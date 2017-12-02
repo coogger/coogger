@@ -1,4 +1,9 @@
 <div class="u-i">
-    <div class="u-pp"> {% if pp %} <img class="u-pp-img" alt='{{ username }}' src="/media/users/pp/pp-{{ username }}.jpg" /> {% else %} <img class="u-pp-img" src="/static/media/profil.png" /> {% endif %}
-        <h1 class="u-username ft-cl">@{{ username }}</h1> {% include 'users/uploadpp.html' %} </div>
+    <div class="u-pp">
+        {% if pp %}
+        <img class="u-pp-img" alt='{{ username }}' src="/media/users/pp/pp-{{ username }}.jpg" /> {% else %}
+        <img class="u-pp-img" src="/static/media/profil.png" /> {% endif %}
+        <h1 class="u-username ft-cl">@{{ username }}</h1>
+        {% include 'users/uploadpp.html' %}
+    </div>
 </div>

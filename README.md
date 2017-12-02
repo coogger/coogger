@@ -14,6 +14,9 @@ Use as follows
 -------
 
 ```python
+python manage.py migrate
+
+python manage.py makemigrations cooggerapp
 
 python manage.py runserver
 

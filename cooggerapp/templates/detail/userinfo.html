@@ -1,20 +1,36 @@
-<div class="b-user-info" data-gnl="1 1p">
-    <ul class="b-user" data-gnl="1 1p">
-        <ul class="b-user-ul" data-gnl="1 1p solda">
-            <li class="b-user-ul-li" data-gnl="0 solda oluk-çevre">
-                <div class="b-user-img" data-gnl="1 1p ortada"> <a class="b-username-a" href='/@{{ detail.username }}'> {% if pp %}
-                  <img class="b-user-img-src" alt='{{ detail.username }}' src="/media/users/pp/pp-{{ detail.username }}.jpg" data-resim="daire" style="height: 240px;width: 240px;"> {% else %}
-                   <img class="b-user-img-src" src="/static/media/profil.png" data-resim="daire" /> {% endif %} </a> </div>
+<div class="b-user-info">
+    <ul class="b-user">
+        <ul class="b-user-ul">
+            <li class="b-user-ul-li">
+                <div class="b-user-img">
+                  <a href="/@{{ detail.username }} ">
+                    {% if pp %}
+                    <img class="b-user-img-src" alt='{{ detail.username }}' src="/media/users/pp/pp-{{ detail.username }}.jpg"> {% else %}
+                    <img class="b-user-img-src" src="/static/media/profil.png" /> {% endif %}
+                    </a>
+                </div>
             </li>
-            <li class="b-user-ul-li b-user-mobil" data-gnl="0 ortada göbekte-ol">
-                <div class="b-username "> <a class="b-username-a" href='/@{{ detail.username }}'>@{{ detail.username }}</a> </div>
-            </li>
-            <li class="b-user-ul-li b-user-mobil" data-gnl="0 ortada göbekte-ol">
-                <div class="b-content-list-name "> <a class="b-username-a" href='/@{{ detail.username }}/{{ detail.content_list }}'>{{ detail.content_list }}</a> </div>
-            </li>
-            <li class="b-user-ul-li b-user-mobil" data-gnl="0 ortada göbekte-ol">
-                <a class="b-user-hashtag" href='/list/{{ detail.content_list }}'> <img class="b-hashtag-img" src="/static/media/icons/list.svg" /> </a>
+            <li class="b-user-ul-li b-user-mobil">
+              <a class="b-username-a" href='/@{{ detail.username }}'>
+                <div class="b-username ">
+                    @{{ detail.username }}
+                </div>
+                </a>
             </li>
         </ul>
+        {% if detail.content_list %}
+        <li class="b-user-li">
+          <a class="b-username-a" href='/@{{ detail.username }}/{{ detail.content_list }}'>
+            <div class="b-content-list-name ">
+                {{ detail.content_list }}
+            </div>
+            </a>
+        </li>
+        <li class="b-user-li">
+            <a class="b-user-hashtag" href='/list/{{ detail.content_list }}'>
+                <img class="b-hashtag-img" src="/static/media/icons/list.svg" />
+            </a>
+        </li>
+        {% endif %}
     </ul>
 </div>

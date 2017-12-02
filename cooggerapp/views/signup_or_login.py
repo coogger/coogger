@@ -52,7 +52,7 @@ def mysignup(request): #kayıt ol
             return HttpResponseRedirect("/")
         else:
             ms.success(request,"Kayıt sırasında beklenmedik hata {}".format(username))
-            return HttpResponseRedirect("/")            
+            return HttpResponseRedirect("/")
 
 def mylogin(request): # giriş yap
     username = request.user.username
@@ -128,7 +128,7 @@ def signup_author(request):
         description = "coogger'a yazarlık başvurusu"
     )
     output = dict(
-        signup_or_login = True, 
+        signup_or_login = True,
         elastic_search = elastic_search,
         otherinfo_form = otherinfo_form,
     )

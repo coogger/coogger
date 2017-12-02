@@ -11,9 +11,9 @@ from .views import topics
 from .views import tools
 from .views import controls
 from .views import explorer
-from .views import settings
+from .views import csettings
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 urlpatterns = [
     url(r'^$', home.home,name = "home"),
     url(r'^admin/', admin.site.urls),
@@ -50,8 +50,11 @@ urlpatterns = [
 
     url(r'^comment/(?P<content_path>.*)$',detail.comment,name = "comment"),
 
-    url(r"^settings/profile$",settings.profile),
-    url(r"^settings/$",settings.profile),
-    url(r"^settings/account$",settings.account),
+    url(r"^settings/profile$",csettings.profile),
+    url(r"^settings/$",csettings.profile),
+    url(r"^settings/account$",csettings.account),
 
-] + static("/media/",document_root=os.path.join(BASE_DIR, 'media'))
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
