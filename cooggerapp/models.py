@@ -1,5 +1,5 @@
 from ckeditor.fields import RichTextField
-from cooggerapp.choices import *
+from cooggerapp.choices import country,university,jop
 from cooggerapp.views.tools import Topics,make_choices
 from django.contrib.auth.models import User
 from django.db import models
