@@ -1,10 +1,10 @@
-from django.db import models
-from django.utils import timezone
 from ckeditor.fields import RichTextField
 from cooggerapp.choices import *
-from django.contrib.auth.models import User
 from cooggerapp.views.tools import Topics,make_choices
-from cooggerapp.choices import country,university,jop
+from django.contrib.auth.models import User
+from django.db import models
+from django.utils import timezone
+
 
 class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     tools_topic = Topics()
