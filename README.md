@@ -1,5 +1,7 @@
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hakancelik96/coogger/blob/master/LICENSE.txt)
 
+todo https://github.com/hakancelik96/coogger/projects/1
+
 coogger - is information sharing platform
 ====================
 
