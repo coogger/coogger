@@ -1,10 +1,7 @@
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hakancelik96/coogger/blob/master/LICENSE.txt)
 
-todo https://github.com/hakancelik96/coogger/projects/1
-
 coogger - is information sharing platform
 ====================
-
 
 [![web site](http://www.coogger.com/static/media/favicon.png)](http://www.coogger.com)
 
@@ -23,3 +20,10 @@ python manage.py makemigrations cooggerapp
 python manage.py runserver
 
 ```
+
+---
+
+
+[To-do](https://github.com/hakancelik96/coogger/projects/1)
+[Contribution guidelines for this project](#)
+[CODE OF CONDUCT](#)
