@@ -4,60 +4,36 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-            
-            <url><loc>http://www.coogger.com/</loc><changefreq>daily</changefreq><priority>1</priority></url>
+            <url><loc>http://www.coogger.com/</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/signup</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/login</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/topic/muhendislik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/topic/fen-edebiyat</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/topic/egitim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/web-crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/web-crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/makine-ogrenmesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/makine-ogrenmesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/topic/yazilim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/web-crawling/python-ile-facebooka-giris</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@murecoder</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@murecoder/mybb</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/mybb</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@murecoder/mybb/mybb-kilit-cop-arac</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/makine-ogrenmesi/makine-ogrenmesi-algoritmalar-regression-cesitleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/makine-ogrenmesi/makine-ogrenmesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/list/python-opencv</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-opencv/goruntuyu-puruzsuzlestirmek-smoothing-images</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/web-crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/web-crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/web-crawling/python-ile-instagrama-giris</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/sqlite3</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/sqlite3</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/sqlite3/sqlite3-sql-injection-security-python</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/mybb</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/mybb</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/mybb/mybb-uzmanlk-alanlar-yapm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/web-crawling/python-ile-facebooka-giris</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/mybb/mybb-kilit-cop-arac</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv/goruntunun-geometrik-donusumleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv/resim-esikleme-image-thresholding</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/django/birden-fazla-veri-taban-kullanm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/franszca-dersler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/topic/yabanci-diller</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/passe-composegecmis-zaman</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/django/apache-ile-django-site-yaynlama-windows-uzerinde</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/python-opencv/renk-alanlarn-degistirme-changing-colorspaces</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/encode-decode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/encode-decode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/encode-decode/base64-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/django/javascriptden-djangoya-base64-resim-decode-ve-encode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/python-opencv/performans-olcum-ve-gelistirme-teknikleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/web-security</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/web-security</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/web-security/sql-injection</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@murecoder/python2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/python2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@murecoder/python2/python-requests-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/python-pyttsx</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/python-pyttsx</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/python-pyttsx/pyttsx-kullanm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/python-pyttsx/pyttsx-text-to-speech-x-platform-kurulumu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@murecoder/mybb/mybb-python-kod-renklendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/python-numpy</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/python-numpy</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/python-numpy/python-numpy-arrays-diziler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/python-numpy/numpy-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@murecoder/mybb/mybb-sabit-ip-problemi-cozumu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@murecoder/python2/python-terminal-cktlarn-bicimlendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/?page=2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/lucidream</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/list/lucidream</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
@@ -72,24 +48,45 @@
             <url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dream-ruya-gorme-suresini-uzatmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/lucidream/lucid-dream-ruya-katmanlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/lucidream/ruya-kontrolunun-yararlar-zararlar-ve-yapabildiklerimiz</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/franszca-dersler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/topic/yabanci-diller</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/passe-composegecmis-zaman</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/franszca-soru-kalplar-2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/description-dune-personne</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/fraszca-soru-kalplar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/franszca-baslangc-dersi-3telaffuz</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/franszca-baslangc-dersi-2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@baristutakli/franszca-dersler/franszca-baslangc-dersi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/web-crawling/web-crawling-ile-bir-web-site-altnda-ki-butun-adresleri-bulmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/web-crawling/python-ile-web-crawling-yaparak-radyo-yayn-adreslerini-bulmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/facebook-login</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/facebook-giris</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/requests</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/bs4</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/web-crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/facebook-login-yapm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-ile-facebook-giris</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/mybb</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/mybb-kilit-cop</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/mybb-konu-silme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/pyqt5-ornekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/python-modulleri-kutuphaneleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/web-security</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/web-security</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/web-security/sql-injection</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/pyqt5-ornekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/pyqt5-ornekleri/pyqt5-ile-sozluk-yapm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/pyqt5-ornekleri/pyqt5-ile-hesap-makinesi-nasl-yaplr</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/regresyon</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/makine-ogrenmesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/makine-ogrenmesi-algoritmalar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/lineer-regression</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/machine-learning</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-ile-makine-ogrenmesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/numpy</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pandas</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/matploblit</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/script</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/makine-ogrenmesi-kutuphaneleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-numpy</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-pyttsx</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/django/birden-fazla-veri-taban-kullanm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-opencv/renk-alanlarn-degistirme-changing-colorspaces</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-opencv/performans-olcum-ve-gelistirme-teknikleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/python-pyttsx</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-pyttsx/pyttsx-kullanm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-pyttsx/pyttsx-text-to-speech-x-platform-kurulumu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv/goruntulerde-aritmetik-islemler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv/goruntulerle-ilgili-temel-islemler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv/renk-paleti-olarak-parca-cubugu-trackbar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
@@ -98,8 +95,42 @@
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv/opencv-video-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv/opencv-resim-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/python-opencv/opencv-nedir-opencv-kurulumu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/opencv-goruntunun-geometrik-donusumleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/opencv</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/opencv-de-goruntu-filtreleme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/goruntu-isleme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-goruntu-isleme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/opencv-resim-yumastma-bulur</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/opencv-bulanklastrma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/web-crawling/web-crawling-ile-bir-web-site-altnda-ki-butun-adresleri-bulmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/web-crawling/python-ile-web-crawling-yaparak-radyo-yayn-adreslerini-bulmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/requests</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/bs4</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/beautifulsoup</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-ile-instagram</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/instagram</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-instagram-botu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/web-crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/python2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/python2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/python2/python-requests-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/mybb/mybb-python-kod-renklendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/mybb/mybb-sabit-ip-problemi-cozumu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@murecoder/python2/python-terminal-cktlarn-bicimlendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/sqlite3</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/sqlite</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-sqlite</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-sqlite3</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/sqlite3-guvenligi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/mybb</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/hazr-sistemler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/mybb-uzmanlk</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/facebook-login</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/facebook-giris</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/facebook-login-yapm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-ile-facebook-giris</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/mybb-kilit-cop</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/mybb-konu-silme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/opencv-goruntunun-geometrik-donusumleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/opencv-transformations</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/opencv-resize</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/opencv-goruntu-isleme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
@@ -108,84 +139,13 @@
             <url><loc>http://www.coogger.com/tags/image-thresholding</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/cv2threshold</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/cv2adaptivethreshold</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/django/djangoda-sayfalama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/django/django-da-user-modelini-genisletmek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@hakancelik/django/django-20-surum-notlar-halen-gelistirilmekte</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/django/djangoda-login-sayfas-hazrlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/django/djangoda-giris-yapmadan-sayfay-gorememek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/django/djangoda-jquery-ile-csrf-token</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/multiple-databases</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/django-databases</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/veri-tabanlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/django-birden-fazla-veri-taban-kullanma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/django-veri-taban-ayarlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/pyqt5-ornekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/python-modulleri-kutuphaneleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/pyqt5-ornekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/pyqt5-ornekleri/pyqt5-ile-sozluk-yapm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/pyqt5-ornekleri/pyqt5-ile-hesap-makinesi-nasl-yaplr</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/python-modulleri-kutuphaneleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/python-modulleri-kutuphaneleri/pythonda-pandas-kutuphanesi-ile-csvtxtjson-uzantl-dosya-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/passe-compose</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/franszca-gecmis-zaman</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/conjugaison-detre-et-avoir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/mobil-uygulama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/list/mobil-uygulama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@ufukozer/mobil-uygulama/mobil-uygulama-gelistirmeye-nereden-baslamalym</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/django-site-yaynlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/apache-ile-yaynlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/mod_wsgi-ile-yaynlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/cv2cvtcolor</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/cv2inrange</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/opencv-ile-renk-alanlarn-degistirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/base64-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/base64-ornek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/base64</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/decode-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/decode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/encode-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/encode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/javascriptten-djangoya-base64-resim-encode-decode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/javascript</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/cv2gettickcount</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/cv2gettickfrequency</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/cv2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/opencv-dersleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/opencv-performans-olcumleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/sql-injection</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/sql-cesitleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/sql-kodlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-http-istekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-requests-proxy-kullanm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyttsx3init</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyttsx</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyttsx-kullanm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyttsx-dersleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyttsx-anlatm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-ile-metin-okuma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyttsx-yukleme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-modules</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-modulleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/hazr-sistemler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/mybb-kod-renklendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/syntax-highlight</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-kod-renklendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/numpy</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-numpy</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/arrays</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-arrays</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/numpy-arrays</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/numpy-dizi-olusturma-fonksiyonlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/numpy-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/mybb-ip-caksmas</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/mybb-ip-sorunu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/yazlm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-terminal-bicimlendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/getpass</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-terminal</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/django/apache-ile-django-site-yaynlama-windows-uzerinde</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/encode-decode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/encode-decode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/encode-decode/base64-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/django/javascriptden-djangoya-base64-resim-decode-ve-encode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/?page=1</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/?page=3</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/@hakancelik/lucidream/arastrmalar-tansma-ve-gelisim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
@@ -221,6 +181,9 @@
             <url><loc>http://www.coogger.com/tags/lucid-yararlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/lucid-zararlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/ruya-kontrolu-ile-yaplabilenler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/passe-compose</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/franszca-gecmis-zaman</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/conjugaison-detre-et-avoir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/poser-des-questions</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/apprendre-le-francais</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/franszca-soru-kalplar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
@@ -247,12 +210,57 @@
             <url><loc>http://www.coogger.com/tags/franszca-turkce</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/franszca-ogren</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/franszca-dersleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/web-adresler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/web-adresleri-bulmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-web-crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-radyo</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/radio</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/python-modulleri-kutuphaneleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/python-modulleri-kutuphaneleri/pythonda-pandas-kutuphanesi-ile-csvtxtjson-uzantl-dosya-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/python-modulleri-kutuphaneleri/python-turtle-modulu-anlatm-1-yuru-kaplumbaga</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@baristutakli/python-modulleri-kutuphaneleri/python-pandas-modulu-ve-yararlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/sql-injection</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/sql-cesitleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/sql-kodlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyqt5</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/difflib</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/json</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/ingilizce-sozluk</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyqt5-uygulamal</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyqt5-dersleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/qt-designer</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyqt5-egitimi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/hesap-makinesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyqt5-ornek-kodlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-hesap-makinesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyqt5-ornekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/python-numpy</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-numpy/python-numpy-arrays-diziler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/python-numpy/numpy-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/django/djangoda-sayfalama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/django/django-da-user-modelini-genisletmek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@hakancelik/django/django-20-surum-notlar-halen-gelistirilmekte</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/django/djangoda-login-sayfas-hazrlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/django/djangoda-giris-yapmadan-sayfay-gorememek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/django/djangoda-jquery-ile-csrf-token</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/django</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/multiple-databases</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/django-databases</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/veri-tabanlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/django-birden-fazla-veri-taban-kullanma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/django-veri-taban-ayarlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/cv2cvtcolor</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/cv2inrange</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/opencv-ile-renk-alanlarn-degistirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/cv2gettickcount</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/cv2gettickfrequency</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/cv2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/opencv-dersleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/opencv-performans-olcumleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyttsx3init</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyttsx</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyttsx-kullanm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyttsx-dersleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyttsx-anlatm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-ile-metin-okuma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pyttsx-yukleme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-modules</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-modulleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/aritmetik-islemler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/goruntulerde-aritmetik-islemler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/cv2add</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
@@ -285,6 +293,73 @@
             <url><loc>http://www.coogger.com/tags/python-opencv-resim-islemler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/opencv-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/opencv-kurulumu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/web-adresler</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/web-adresleri-bulmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-web-crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-radyo</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/crawling</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/radio</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-http-istekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-requests-proxy-kullanm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/mybb-kod-renklendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/syntax-highlight</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-kod-renklendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/mybb-ip-caksmas</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/mybb-ip-sorunu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python2</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/yazlm</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-terminal-bicimlendirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/getpass</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-terminal</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/mobil-uygulama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/list/mobil-uygulama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/@ufukozer/mobil-uygulama/mobil-uygulama-gelistirmeye-nereden-baslamalym</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/django-site-yaynlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/apache-ile-yaynlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/mod_wsgi-ile-yaynlama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/base64-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/base64-ornek</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/base64</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/decode-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/decode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/encode-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/encode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/javascriptten-djangoya-base64-resim-encode-decode</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/javascript</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/?page=4</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/dream</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/ruyada-uyanmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/lucid-arastr</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/arastrma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/tansma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/gelisim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/ruya-kontroluberrak-ruya</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/ruya-farkndalg</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-pandas</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/csv</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/xlsx-okuma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pandas-dosya-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-dosya-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pandas-csv</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pandas-txt</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pandas-json</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pandas-csv-txt-json-dosya-isleme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/turtle</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python3</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-turtle</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-turtle-modul</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-turtle-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pandas-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-pandas-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/pandas-yukle</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-pandas-kurulumu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-numpy</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/arrays</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/python-arrays</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/numpy-arrays</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/numpy-dizi-olusturma-fonksiyonlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/tags/numpy-nedir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/django-sayfalama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/django-pagination</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/sayfalama-nasl</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
@@ -317,30 +392,6 @@
             <url><loc>http://www.coogger.com/tags/django-csrf</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/csrf-alma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/django-csrf-alma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/python-modulleri-kutuphaneleri/python-turtle-modulu-anlatm-1-yuru-kaplumbaga</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/@baristutakli/python-modulleri-kutuphaneleri/python-pandas-modulu-ve-yararlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyqt5</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/difflib</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/json</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/ingilizce-sozluk</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyqt5-uygulamal</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyqt5-dersleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/qt-designer</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyqt5-egitimi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/hesap-makinesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyqt5-ornek-kodlar</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-hesap-makinesi</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pyqt5-ornekleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-pandas</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pandas</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/csv</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/xlsx-okuma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pandas-dosya-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-dosya-islemleri</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pandas-csv</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pandas-txt</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pandas-json</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pandas-csv-txt-json-dosya-isleme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/hybrid</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/smartphone</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/native-uygulama</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
@@ -349,22 +400,8 @@
             <url><loc>http://www.coogger.com/tags/cordova</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/mobil-uygulama-gelistirme</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
             <url><loc>http://www.coogger.com/tags/mobil-uygulama-nasl-yapilir</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/dream</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/ruyada-uyanmak</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/lucid-arastr</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/arastrma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/tansma</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/gelisim</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/ruya-kontroluberrak-ruya</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/ruya-farkndalg</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/turtle</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python3</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-turtle</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-turtle-modul</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-turtle-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pandas-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-pandas-modulu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/pandas-yukle</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
-            <url><loc>http://www.coogger.com/tags/python-pandas-kurulumu</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/?page=5</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/?page=6</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
+            <url><loc>http://www.coogger.com/?page=7</loc><changefreq>daily</changefreq><priority>0.80</priority></url>
 
 </urlset>

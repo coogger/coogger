@@ -35,16 +35,12 @@ def main_detail(request,blog_path,utopic,path):
         output_img_pp = get_head_img_pp(user)
     except:
         output_img_pp = ["/static/media/profil.png",None]
-    try: # içerik sahibinin resmi
-        es_img_pp = get_head_img_pp(user)
-    except:
-        es_img_pp = ["/static/media/profil.png",None]
     elastic_search = dict(
         title = queryset.title+" | coogger",
         keywords = queryset.tag +","+user.username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
         description = queryset.show,
         author = facebook,
-        img = es_img_pp[0],
+        img = output_img_pp[0],
     )
     output = dict(
         detail = queryset,

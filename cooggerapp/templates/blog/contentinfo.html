@@ -1,5 +1,4 @@
 <div class="b-content-info">
-  {% if blo.content_list %}
   <div class="b-content-list-name ">
     <a class="b-username-a" href='/@{{ blo.username }}/{{ blo.content_list }}'>{{ blo.content_list }}</a>
   </div>
@@ -8,7 +7,6 @@
       <img class="hashtag-img" src="/static/media/icons/list.svg" />
     </a>
   </div>
-  {% endif %}
 
   <div class="b-time ft-dn">
     <span>{{ blo.time }} | </span><span> {{ blo.time|timesince }} önce</span>

@@ -24,6 +24,8 @@ def home(request):
         )
     return render(request,"blog/blogs.html",output)
 
+
+
 def search(request):
     query = request.GET["query"].lower()
     tools_topic = Topics()
@@ -38,8 +40,6 @@ def search(request):
         data_search.save()
     else:
         SearchedWords(word = query).save()
-
-
     try:
         img_pp = get_head_img_pp(request.user)
     except:

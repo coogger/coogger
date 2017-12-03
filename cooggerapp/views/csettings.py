@@ -14,11 +14,11 @@ def profile(request):
     template = "settings/profile.html"
     user_form = UserForm(request.POST or None,instance=request.user)
     if user_form.is_valid(): # post
-        form = form.save(commit=False)
+        form = user_form.save(commit=False)
         if request.user.username != form.username:
             os.rename("/coogger/media/users/pp/pp-"+request.user.username+".jpg","/coogger/media/users/pp/pp-"+form.username+".jpg")
         form.save()
-        return HttpResponseRedirect("/settigs/")
+        return HttpResponseRedirect("/settings/")
     tools_topic = Topics()
     category = tools_topic.category
     try:

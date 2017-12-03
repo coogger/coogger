@@ -86,7 +86,7 @@ def get_stars_from_contents(queryset):
     "dekoratör"
     for i in queryset:
         try:
-            yield str(int(i.stars/i.hmstars)+1)
+            yield str(int(i.stars/i.hmstars))
         except ZeroDivisionError:
             yield "0"
 

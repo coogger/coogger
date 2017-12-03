@@ -10,8 +10,13 @@
         {% else%}
         <li class="h-header-ul-li">
             <a class="solol-a" href="/@{{ request.user.username }}">
-                <img class="solol-img" src="/media/users/pp/pp-{{ request.user.username }}.jpg">
-                <span class="solol-text">{{ request.user.username }}</span>
+              {% if request.user.otherinformationofusers.pp %}
+              <img class="solol-img" src="/media/users/pp/pp-{{ request.user }}.jpg">
+              {% else %}
+                <img class="solol-img" src="/static/media/profil.png">
+                {% endif %}
+                <span class="solol-text">{{ request.user }}</span>
+
             </a>
         </li>
         {% if not request.user.otherinformationofusers.author %}
