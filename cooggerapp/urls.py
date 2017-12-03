@@ -1,19 +1,11 @@
-from django.conf.urls import include, url
-from django.contrib import admin
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import include, url
+from django.conf.urls.static import static
+from django.contrib import admin
 import os
-from .views import home
-from .views import signup_or_login
-from .views import detail
-from .views import users
-from .views import topics
-from .views import tools
-from .views import controls
-from .views import explorer
-from .views import csettings
-
-
+from .views import (
+    controls,csettings,detail,explorer,home,signup_or_login,tools,topics,users
+    )
 urlpatterns = [
     url(r'^$', home.home,name = "home"),
     url(r'^admin/', admin.site.urls),
