@@ -22,24 +22,17 @@ def user(request,username):
     # yaptığı paylaşımlar
     queryset = Blog.objects.filter(username = user)
     info_of_cards = content_cards(request,queryset)
-    try:
-        img_pp = tools.get_head_img_pp(user)
-    except:
-        img_pp = ["/static/media/profil.png",None]
     facebook = get_facebook(user)
     elastic_search = dict(
      title = username+" | coogger",
      keywords =username+","+user.first_name+" "+user.last_name,
      description =user.first_name+" "+user.last_name+", "+username+" adı ile coogger'da",
      author = facebook,
-     img = img_pp[0],
     )
     output = dict(
         users = True,
-        pp = img_pp[1],
-        img = img_pp[0],
-        blog = info_of_cards[0],
         username = username,
+        blog = info_of_cards[0],
         paginator = info_of_cards[1],
         user_follow = user_follow,
         content_list = content_list,
@@ -80,28 +73,21 @@ def u_topic(request,username,utopic):
         return HttpResponseRedirect("/")
     info_of_cards = content_cards(request,queryset)
     nav_category = [nav for nav in get_nav_category(user)]
-    try:
-        img_pp = tools.get_head_img_pp(request.user)
-    except:
-        img_pp = ["/static/media/profil.png",None]
     facebook = get_facebook(user)
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic,
      description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
      author = facebook,
-     img = img_pp[0],
     )
     output = dict(
         blog = info_of_cards[0],
-        pp = img_pp[0],
-        img = img_pp[0],
         general = True,
         paginator = info_of_cards[1],
-        username = username,
         nav_category = nav_category,
         ogurl = request.META["PATH_INFO"],
         nameoftopic = utopic,
+        username = username,
         nameoflist = "Listeler",
         elastic_search = elastic_search,
     )

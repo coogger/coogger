@@ -4,9 +4,11 @@
             <li class="b-user-ul-li">
                 <div class="b-user-img">
                   <a href="/@{{ detail.username }} ">
-                    {% if pp %}
-                    <img class="b-user-img-src" alt='{{ detail.username }}' src="/media/users/pp/pp-{{ detail.username }}.jpg"> {% else %}
-                    <img class="b-user-img-src" src="/static/media/profil.png" /> {% endif %}
+                    {% if request.user.otherinformationofusers.pp %}
+                    <img class="b-user-img-src" alt='{{ detail.username }}' src="/media/users/pp/pp-{{ request.user }}.jpg">
+                    {% else %}
+                      <img class="b-user-img-src" src="/static/media/profil.png">
+                      {% endif %}
                     </a>
                 </div>
             </li>

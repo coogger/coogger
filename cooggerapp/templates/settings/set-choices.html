@@ -2,14 +2,32 @@
   <ul class="m-s-ul">
     <li class="m-s-li">
       <a href="/settings/profile">
-        <img class="m-s-img" src="{{ img }}"/>
+        {% if request.user.otherinformationofusers.pp %}
+        <img class="m-s-img" src="/media/users/pp/pp-{{ request.user }}.jpg"/>
+        {% else %}
+        <img class="m-s-img" src="/static/media/profil.png"/>
+          {% endif %}
         <div class="m-s-text">Profil</div>
       </a>
     </li>
     <li class="m-s-li">
       <a href="/settings/account">
-        <img class="m-s-img" src="{{ img }}"/>
+        {% if request.user.otherinformationofusers.pp %}
+        <img class="m-s-img" src="/media/users/pp/pp-{{ request.user }}.jpg"/>
+        {% else %}
+        <img class="m-s-img" src="/static/media/profil.png"/>
+          {% endif %}
         <div class="m-s-text">Hesap</div>
+      </a>
+    </li>
+    <li class="m-s-li">
+      <a href="/settings/add-address">
+        {% if request.user.otherinformationofusers.pp %}
+        <img class="m-s-img" src="/media/users/pp/pp-{{ request.user }}.jpg"/>
+        {% else %}
+        <img class="m-s-img" src="/static/media/profil.png"/>
+          {% endif %}
+        <div class="m-s-text"> Web adresi ekle</div>
       </a>
     </li>
   </ul>

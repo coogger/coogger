@@ -2,10 +2,10 @@ from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
-from cooggerapp.views.tools import Topics,get_head_img_pp
+from cooggerapp.views.tools import Topics
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
-from cooggerapp.forms import UserForm,UserFollowForm
+from cooggerapp.forms import UserForm,UserFollowForm,UserFollowForm
 import os
 
 def profile(request):
@@ -21,15 +21,9 @@ def profile(request):
         return HttpResponseRedirect("/settings/")
     tools_topic = Topics()
     category = tools_topic.category
-    try:
-       img_pp = get_head_img_pp(request.user)
-    except:
-        img_pp = ["/static/media/profil.png",None]
     output = dict(
         UserForm = user_form,
         settings = True,
-        pp = img_pp[1],
-        img = img_pp[0],
         nav_category = category,
         )
     return render(request,template,output)
@@ -53,14 +47,28 @@ def account(request):
         template = "settings/account.html"
         tools_topic = Topics()
         category = tools_topic.category
-        try:
-            img_pp = get_head_img_pp(request.user)
-        except:
-            img_pp = ["/static/media/profil.png",None]
         output = dict(
             settings = True,
-            pp = img_pp[1],
-            img = img_pp[0],
             nav_category = category,
             )
         return render(request,template,output)
+
+def add_address(request):
+    if not request.user.is_authenticated:
+        return HttpResponse(None)
+    template = "settings/add-address.html"
+    user_form = UserFollowForm(request.POST or None)
+    if user_form.is_valid(): # post
+        form = user_form.save(commit=False)
+        form.user = request.user
+        form.save()
+        ms.error(request,"Web siteniz eklendi")
+        return HttpResponseRedirect("/settings/add-address")
+    tools_topic = Topics()
+    category = tools_topic.category
+    output = dict(
+        UserForm = user_form,
+        settings = True,
+        nav_category = category,
+        )
+    return render(request,template,output)

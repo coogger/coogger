@@ -3,13 +3,13 @@
 <div class="b-blog data-post-id-{{blo.id}}">
     {% include "blog/edit.html" %}
     {% if nameoftopic == blo.title %}
-    <div class="b-cards" style="background: #248644;">
+    <div class="b-cards" style="background: #248644;color: #fff;">
           {% else %}
     <div class="b-cards">
       {% endif %}
         {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %}
         <div class="b-content" data-views="{{ blo.views }}" data-dor="{{ blo.dor }}" data-url="{{ blo.url }}" data-stars="{{ stars }}" data-hmanycomment="{{ blo.hmanycomment }}">
-            <div class="b-cont ft-ct" style="height: 180px;">
+            <div class="b-cont ft-ct" style="height: 160px;">
                 {{ blo.show }}
             </div>
         </div>

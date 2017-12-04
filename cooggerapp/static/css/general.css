@@ -235,11 +235,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 .b-cont {
-    position: relative;
     margin: auto;
     width: 90%;
     z-index: 2;
-    top: 16px;
+    margin-top: 12px;
     overflow: hidden;
     cursor: pointer;
     display: flow-root;
@@ -353,6 +352,7 @@ a {
     width: 266px;
     padding: 4px 6px;
     border: 1px solid #f0f0f0;
+    margin: auto;
 }
 
 .b-time-img {
@@ -522,6 +522,7 @@ a {
     color: #fff;
     float: right;
     margin-top: 3px;
+    padding-left: 12px;
 }
 .m-s-ul{list-style: none;}
 .m-s-li{display: grid;border-bottom: 1px solid #333;}
@@ -539,6 +540,7 @@ a {
     border-radius: 42px;
     background-color: #fff;
 }
+
 .s-forms p{margin: 12px 0px;width: fit-content;}
 .s-forms p label{
     margin: 0px 12px;
@@ -546,7 +548,7 @@ a {
 .helptext{
     display: none;
 }
-.s-forms p input{padding: 4px 12px;border-radius: 4px;border: 1px solid #cdcdcd;}
+.s-forms p input,.s-forms select{padding: 4px 12px;border-radius: 4px;border: 1px solid #cdcdcd;}
 .h-nav::-webkit-scrollbar {
     width: 3px;
     height: 3px;
@@ -572,8 +574,7 @@ a {
     height: 40px;
 }
 .h-noti-li{
-    width: -webkit-fill-available;
-    padding: 6px 12px;
+    padding: 12px;
 }
 .h-noti-topic{
     padding: 12px 30px;
@@ -581,16 +582,14 @@ a {
 }
 .h-notifications-ul{
      list-style-type: none;
-     z-index: 7;
-     margin: 0px;
-     padding: 0px;
      overflow: hidden;
-     width: 300px;
-     height: 40px;
-     top: 44px;
      font-size: 14px;
-     position: absolute;
-     background-color: #ffffff;
+     width: 60%;
+     margin: auto;
+     margin-top: 2%;
+     padding: 0px;
+     background-color: #248644;
+     border-radius: 6px;
 }
 .main-nav-detail {
     padding: 12px 0px;
@@ -607,20 +606,20 @@ a {
     background-color: #248644;
 }
 
-.h-nav-d-li-a {
-    padding: 10px 20px;
-    color: #000000;
+.h-nav-d-li-a {padding: 10px 20px;color: #000000;text-decoration: none;}
+.h-noti-li-a{
+     color: #ffffff;
     text-decoration: none;
 }
-
-.h-nav-li-img {
+.h-nav-li-img {width: 20px;height: 20px;background-color: #fff;border-radius: 4px;padding: 2px;}
+.h-noti-li-a-img{
     width: 20px;
     height: 20px;
     background-color: #fff;
     border-radius: 4px;
-    padding: 2px;
+    padding: 4px;
+    float: left;
 }
-
 .h-nav-li-text {
     float: right;
     margin-top: 3px;
@@ -853,9 +852,9 @@ a {
 margin-bottom: 24px;
 }
 .h-not-time{
-    border-bottom: 1px solid #cdcdcd;
-    margin-bottom: 10px;
-    color: #333;
+    margin-bottom: 24px;
+    margin-left: 44px;
+    color: #fff;
 }
 .u-pp {
     text-align: center;
@@ -968,7 +967,7 @@ margin-bottom: 24px;
     padding: 6px 12px;
     display: flow-root;
 }
-.h-noti-info{border-bottom: 1px solid #cdcdcd;margin-bottom: 10px;color: #666;}
+.h-noti-info{border-bottom: 1px solid #cdcdcd;margin-bottom: 24px;margin-left: 44px;padding-bottom: 12px;}
 .u-footer-ul {
     list-style: none;
     margin: auto;
@@ -1196,18 +1195,6 @@ margin-bottom: 24px;
       cursor: pointer;
       background-color: #0f391d;
     }
-    .h-notifications-ul{
-    color: #000;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    top: 0px;
-    position: absolute;
-    right: 0px;
-    padding: 0px;
-    width: 200px;
-    margin: 0px;
-    }
-    .h-noti-text{}
     .s-main-div{margin-bottom: 70px;padding: 0px;}
 .main_settings{
     float: left;
@@ -1226,6 +1213,9 @@ margin-bottom: 24px;
 .d-detail{
     width: 100%;
     padding: 0px;
+}
+.h-notifications-ul{
+    width: 96%;
 }
 }
 

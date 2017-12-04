@@ -4,7 +4,7 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
 from cooggerapp.models import Blog,OtherInformationOfUsers,Notification,SearchedWords
-from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator,get_head_img_pp
+from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator
 from django.db.models import Q
 from django.contrib import messages as ms
 
@@ -37,13 +37,8 @@ def search(request):
         data_search.save()
     else:
         SearchedWords(word = query).save()
-    try:
-        img_pp = get_head_img_pp(request.user)
-    except:
-        img_pp = ["/static/media/profil.png",None]
     output = dict(
         blog = info_of_cards[0],
-        img = img_pp[0],
         nav_category = category,
         general = True,
         ogurl = request.META["PATH_INFO"],
@@ -53,20 +48,20 @@ def search(request):
 
 def notification(request):
     try:
-        queryset = Notification.objects.filter(user = request.user,show = False)
-        hmanynotifications = queryset.count()
+        queryset = Notification.objects.filter(user = request.user).order_by("-time")
+        hmanynotifications = queryset.filter(show=False).count()
+        queryset.update(show = True)
     except:
-        ms.error(request,"Hiç bildiriminiz yok")
+        ms.error(request,"Bildirimleri görmeniz için giriş yapın hesabınız yoksa üye olun")
         return HttpResponseRedirect("/")
     tools_topic = Topics()
     category = tools_topic.category
-    pagi = paginator(request,queryset,30)
-
+    pagi = paginator(request,queryset,10)
     output = dict(
         notifications = pagi,
         nav_category = category,
         general = True,
-        paginator = pagi[1],
+        paginator = pagi,
         hmanynotifications = hmanynotifications,
         )
     return render(request,"home/notifications.html",output)

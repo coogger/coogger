@@ -45,6 +45,7 @@ urlpatterns = [
     url(r"^settings/profile$",csettings.profile),
     url(r"^settings/$",csettings.profile),
     url(r"^settings/account$",csettings.account),
+    url(r"^settings/add-address$",csettings.add_address),
 
 ]
 

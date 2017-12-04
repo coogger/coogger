@@ -124,11 +124,3 @@ def take__category2(request,value,permission=False):
         category2 = None
     category2 = make_choices(eval("Category2."+value+"()"))
     return category2
-
-def get_head_img_pp(user):
-    pp = models.OtherInformationOfUsers.objects.filter(user = user)[0].pp
-    if pp:
-        img = "/media/users/pp/pp-"+user.username+".jpg"
-    else:
-        img = "/static/media/profil.png"
-    return [img,pp]

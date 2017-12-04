@@ -8,16 +8,8 @@
             <a class="solol-a" href="/login"><span class="solol-text">Giriş yapın</span></a>
         </li>
         {% else%}
-
-        <li class="h-header-ul-li" style="position: absolute;left: 6px;">
-            <a class="solol-a" href="/notification">
-                <img class="solol-img" src="/static/media/notification.png">
-                <span class="solol-text">Bildirimler ( {{ hmanynotifications }} )</span>
-
-            </a>
-        </li>
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/@{{ request.user.username }}">
+            <a class="solol-a" href="/@{{ request.user }}">
               {% if request.user.otherinformationofusers.pp %}
               <img class="solol-img" src="/media/users/pp/pp-{{ request.user }}.jpg">
               {% else %}
@@ -59,5 +51,12 @@
                 </form>
             </div>
         </li>
+        {% if user.is_authenticated %}
+        <li class="h-header-ul-li">
+            <a class="solol-a" href="/notification">
+                <span class="solol-text">( {{ hmanynotifications }} )</span>
+            </a>
+        </li>
+          {% endif %}
     </ul>
 </header>

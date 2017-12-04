@@ -2,14 +2,16 @@
   <div class="b-user-ul">
     <div class="b-user-img">
       <a href="/@{{blo.username}}">
-      {% if pp %}
-      <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ blo.username }}.jpg" /> {% else %}
-      <img class="b-user-img-src" src="/static/media/profil.png" /> {% endif %}
+        {% if request.user.otherinformationofusers.pp %}
+        <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ request.user }}.jpg">
+        {% else %}
+          <img class="b-user-img-src" src="/static/media/profil.png">
+          {% endif %}
     </a>
     </div>
     <div class="b-username ">
       <a class="b-username-a ft-cl" href='/@{{ blo.username }}'>@{{ blo.username }}</a>
     </div>
-    
+
   </div>
 </div>

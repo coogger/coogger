@@ -18,8 +18,14 @@
     <li class="d-comments-li">
       <div class="d-comments-user">
         <div class="d-comment-date"> <spam>{{ com.date|timesince }} önce</spam></div>
-        <img class="comments-pp" src="/media/users/pp/pp-{{ com.user }}.jpg">
+        <a href="/@{{ com.user }}">
+        {% if request.user.otherinformationofusers.pp %}
+        <img class="comments-pp" src="/media/users/pp/pp-{{ request.user }}.jpg">
+        {% else %}
+          <img class="comments-pp" src="/static/media/profil.png">
+          {% endif %}
         <spam>@{{ com.user }}</spam>
+      </a>
         <div class="d-comment"> <spam>{{ com.comment }}</spam></div>
       </div>
     </li>
@@ -41,7 +47,7 @@ $(document).ready(function() {
           }
       }).done(function (response) {
           // okunan json veriyi, #user idli yere yaz
-          $(".d-comments-ul" ).append("<li class='d-comments-li'><div class='d-comments-user'><div class='d-comment-date'> <spam>"+response.date+" saniye önce</spam></div><img class='comments-pp' src='/media/users/pp/pp-"+response.username+".jpg'><spam>@"+response.username+"</spam><div class='d-comment'> <spam>"+response.comment+"</spam></div></div></li>");
+          $(".d-comments-ul" ).append("<li class='d-comments-li'><div class='d-comments-user'><div class='d-comment-date'> <spam>"+response.date+" saniye önce</spam></div><a href=/@"+response.username+"><img class='comments-pp' src='"+response.img+"'><spam>@"+response.username+"</spam></a><div class='d-comment'> <spam>"+response.comment+"</spam></div></div></li>");
       });
       event.preventDefault();
   });

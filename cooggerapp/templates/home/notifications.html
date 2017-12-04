@@ -2,43 +2,32 @@
 {% include 'home/logo.html' %}
  {% include 'home/header.html' %}
  {% include 'home/nav.html' %}
-
 {% if notifications %}
 <ul class="h-notifications-ul ft-ar">
-    <li class="h-noti-topic h-noti-li">
-      Bildirimler ( {{ hmanynotifications }} )
-    </li>
     {% for noti in notifications %}
-        {% if noti.even == 1 %}
+      {% if noti.show %}
+        <li class="h-noti-li" style="background-color: #0f391d;">
+      {% else %}
         <li class="h-noti-li">
-          <a class="h-nav-d-li-a" href="/{{ noti.address }}">
-            <img class="h-nav-li-img" src="/static/media/icons/comments.svg" />
+      {% endif %}
+          <a class="h-noti-li-a" href="/{{ noti.address }}">
+            {% if noti.even == 1 %}
+            <img class="h-noti-li-a-img" src="/static/media/icons/comments.svg" />
             <div class="h-not-time">{{ noti.time|timesince }} önce</div>
             <div class="h-noti-info">İçeriğine bir yorum yapıldı</div>
+            {% elif noti.even == 2 %}
+            <img class="h-nav-li-img h-noti-li-a-img" src="/static/media/icons/star.svg" />
+            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
+            <div class="h-noti-info">İçeriğine yeni bir oy verildi</div>
+            {% elif noti.even == 3 %}
+            <img class="h-nav-li-img h-noti-li-a-img" src="/static/media/topics/checked.svg" />
+            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
+            <div class="h-noti-info">Yeni takipçi kazandın</div>
+            {% endif %}
             <div class="h-noti-text">{{ noti.content }}</div>
           </a>
         </li>
-        {% elif noti.even == 2 %}
-        <li class="h-noti-li">
-          <a class="h-nav-d-li-a" href="/{{ noti.address }}">
-            <img class="h-nav-li-img" src="/static/media/icons/star.svg" />
-            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
-            <div>İçeriğine yeni bir oy verildi</div>
-            <div class="h-noti-text">{{ noti.content }} yıldız</div>
-          </a>
-        </li>
-      {% elif noti.even == 3 %}
-        <li class="h-noti-li">
-          <a class="h-nav-d-li-a" href="/{{ noti.address }}">
-            <img class="h-nav-li-img" src="/static/media/topics/checked.svg" />
-            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
-            <div>Yeni takipçi kazandın</div>
-            <div class="h-noti-text">{{ noti.content }}</div>
-          </a>
-        </li>
-        {% endif %}
     {% endfor %}
   </ul>
 {% endif %}
-
-{% include "home/footer.html" %}
+{% include "blog/paginator.html" %}

@@ -4,7 +4,7 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
 from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters,Comment,Notification
-from cooggerapp.views.tools import Topics,get_ip,paginator,get_head_img_pp,get_pp_from_contents,get_stars_from_contents
+from cooggerapp.views.tools import Topics,get_ip,paginator,get_pp_from_contents,get_stars_from_contents
 from django.db.models import F
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
@@ -31,23 +31,16 @@ def main_detail(request,blog_path,utopic,path):
     except ZeroDivisionError:
         stars = ""
     facebook = get_facebook(user)
-    try:# oturum açmış kullanıcı resmi
-        output_img_pp = get_head_img_pp(user)
-    except:
-        output_img_pp = ["/static/media/profil.png",None]
     elastic_search = dict(
         title = queryset.title+" | coogger",
         keywords = queryset.tag +","+user.username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
         description = queryset.show,
         author = facebook,
-        img = output_img_pp[0],
     )
     output = dict(
         detail = queryset,
         elastic_search = elastic_search,
         general = True,
-        pp = output_img_pp[1],
-        img = output_img_pp[0],
         stars = stars,
         nameoftopic = queryset.title,
         nav_category = nav_category,
@@ -118,6 +111,7 @@ def comment(request,content_path):
                 "comment": comment,
                 "username":request.user.username,
                 "date":1,
+                "img":get_head_img_pp(request.user)[0]
             })
         )
 

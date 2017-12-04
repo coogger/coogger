@@ -7,7 +7,11 @@
         {% if nameoftopic %}
         {% if topic == nameoftopic %}
         <li class="h-nav-li"  style="background:#248644;" >
-          <a class="h-nav-d-li-a" href="/{{ url }}">
+          {% if nameoflist == "Listeler" %}
+          <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}">
+          {% else %}
+           <a class="h-nav-d-li-a" href="/{{ url }}">
+            {% endif %}
             <img class="h-nav-li-img" src="/static/media/topics/checked.svg" />
             <div class="h-nav-li-text">{{ topic }}</div>
           </a>
@@ -15,7 +19,7 @@
         {% else %}
         <li class="h-nav-li">
           {% if nameoflist == "Listeler" %}
-                    <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/icons/list.svg" />
+                <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/icons/list.svg" />
                 {% elif nameoflist %}
                 <a class="h-nav-d-li-a" href="/{{ url }}">
                    <img class="h-nav-li-img" src="/static/media/topics/content.svg" />

@@ -5,9 +5,11 @@
 </div>
 {% elif nameoftopic %}
 <div class="h-explain">
-    {% if pp %}
-    <img class="h-ex-img" src="/media/users/pp/pp-{{ username }}.jpg" /> {% else %}
-    <img class="h-ex-img" src="/static/media/profil.png" /> {% endif %}
+  {% if request.user.otherinformationofusers.pp %}
+  <img class="h-ex-img" src="/media/users/pp/pp-{{ username }}.jpg">
+  {% else %}
+    <img class="h-ex-img" src="/static/media/profil.png">
+    {% endif %}
     <h2 class="h-ex-h2">@{{ username }}</h2>
     <h1 class="h-ex-text">{{ nameoftopic}}</h1>
 </div>

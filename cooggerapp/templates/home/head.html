@@ -36,11 +36,16 @@
     <meta property="og:type" content="website" /> {% if elastic_search.author %}
     <meta name="author" content="https://{{ elastic_search.author }}" />
     <meta property="article:author" content="https://{{ elastic_search.author }}" />
-    <meta property="article:publisher" content="https://{{ elastic_search.author }}" /> {% endif %} {% if elastic_search.img %}
-    <meta property="og:image" content="{{ elastic_search.img }}" />
-    <meta itemprop="image" content="{{ elastic_search.img }}" /> {% else %}
+    <meta property="article:publisher" content="https://{{ elastic_search.author }}" /> {% endif %}
+
+    {% if request.user.otherinformationofusers.pp %}
+         <meta property="og:image" content="/media/users/pp/pp-{{ request.user }}.jpg" />
+           <meta itemprop="image" content="/media/users/pp/pp-{{ request.user }}.jpg" />
+    {% else %}
     <meta property="og:image" content="/static/media/favicon.png" />
-    <meta itemprop="image" content="/static/media/favicon.png" /> {% endif %}
+    <meta itemprop="image" content="/static/media/favicon.png" />
+      {% endif %}
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta property="og:url" content="http://www.coogger.com{{ogurl}}" />
     <!--yandex -->
