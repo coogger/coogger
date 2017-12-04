@@ -22,6 +22,17 @@ python manage.py runserver
 ```
 
 ---
+### Docker Usage
+Build it:
+```
+$ docker build -t username/coogger .
+```
+
+Run it:
+```
+$ docker run -it -p 8000:8000 username/coogger
+```
+---
 
 
 [To-do](https://github.com/hakancelik96/coogger/projects/1)
