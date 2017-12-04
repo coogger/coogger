@@ -1,6 +1,11 @@
+{% include 'home/head.html' %}
+{% include 'home/logo.html' %}
+ {% include 'home/header.html' %}
+ {% include 'home/nav.html' %}
+
 {% if notifications %}
 <ul class="h-notifications-ul ft-ar">
-    <li style="background-color:#0f391d;" class="h-noti-topic h-noti-li">
+    <li class="h-noti-topic h-noti-li">
       Bildirimler ( {{ hmanynotifications }} )
     </li>
     {% for noti in notifications %}
@@ -35,3 +40,5 @@
     {% endfor %}
   </ul>
 {% endif %}
+
+{% include "home/footer.html" %}

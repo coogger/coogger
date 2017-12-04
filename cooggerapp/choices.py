@@ -1,4 +1,4 @@
-class Category: 
+class Category:
     "kategoriler eylence/ders/"
     def __init__(self):
         self.faculties = [
@@ -116,7 +116,7 @@ class Subcategory:
             "Doğu dilleri ve edebiyati",
         ]
         return sl
-    
+
     def iktisadi_ve_idari_bilimleri():
         eaas = [ # iktisadi ve  idari
             "İktisat",
@@ -153,7 +153,7 @@ class Subcategory:
         return ed
 
     def dis_hekimligi():
-        de = [ # diş 
+        de = [ # diş
             "Ağiz Diş ve Çene Cerrahisi AD.",
             "Endodonti AD.",
             "Oral Diagnoz ve Radyoloji AD.",
@@ -214,26 +214,26 @@ class Subcategory:
         return he
 
     def hukuk():
-        la = [ # hukuk 
-            "HUKUK FAKÜLTESİ", 
-            "ANAYASA HUKUKU ANABİLİM DALI", 
-            "CEZA VE CEZA MUHAKEMESİ HUKUKU ANABİLİM DALI", 
-            "GENEL KAMU HUKUKU ANABİLİM DALI", 
-            "HUKUK FELSEFESİ VE SOSYOLOJİSİ ANABİLİM DALI", 
-            "HUKUK TARİHİ ANABİLİM DALI", 
-            "MALİ HUKUK ANABİLİM DALI", 
-            "MİLLETLERARASI HUKUK ANABİLİM DALI", 
-            "İDARE HUKUKU ANABİLİM DALI", 
-            "İNSAN HAKLARI ANABİLİM DALI", 
-            "İSLAM HUKUKU ANABİLİM DALI", 
-            "TİCARET HUKUKU ANABİLİM DALI", 
-            "AVRUPA BİRLİĞİ HUKUKU ANABİLİM DALI", 
-            "DENİZ HUKUKU ANABİLİM DALI", 
-            "KARŞILAŞTIRMALI HUKUK ANABİLİM DALI", 
-            "MEDENİ HUKUK ANABİLİM DALI", 
+        la = [ # hukuk
+            "HUKUK FAKÜLTESİ",
+            "ANAYASA HUKUKU ANABİLİM DALI",
+            "CEZA VE CEZA MUHAKEMESİ HUKUKU ANABİLİM DALI",
+            "GENEL KAMU HUKUKU ANABİLİM DALI",
+            "HUKUK FELSEFESİ VE SOSYOLOJİSİ ANABİLİM DALI",
+            "HUKUK TARİHİ ANABİLİM DALI",
+            "MALİ HUKUK ANABİLİM DALI",
+            "MİLLETLERARASI HUKUK ANABİLİM DALI",
+            "İDARE HUKUKU ANABİLİM DALI",
+            "İNSAN HAKLARI ANABİLİM DALI",
+            "İSLAM HUKUKU ANABİLİM DALI",
+            "TİCARET HUKUKU ANABİLİM DALI",
+            "AVRUPA BİRLİĞİ HUKUKU ANABİLİM DALI",
+            "DENİZ HUKUKU ANABİLİM DALI",
+            "KARŞILAŞTIRMALI HUKUK ANABİLİM DALI",
+            "MEDENİ HUKUK ANABİLİM DALI",
             "MEDENİ USUL VE İCRA İFLAS HUKUKU ANABİLİM DALI",
-            "MİLLETLERARASI ÖZEL HUKUK ANABİLİM DALI", 
-            "ROMA HUKUKU ANABİLİM DALI", 
+            "MİLLETLERARASI ÖZEL HUKUK ANABİLİM DALI",
+            "ROMA HUKUKU ANABİLİM DALI",
             "İŞ VE SOSYAL GÜVENLİK HUKUKU ANABİLİM DALI",
         ]
         return la
@@ -372,25 +372,25 @@ class Subcategory:
             "SOLUNUM TERAPİSTLİĞİ",
             "EBELİK",
             "HEMŞİRELİK",
-            "HUKUK FAKÜLTESİ", 
-            "ANAYASA HUKUKU ANABİLİM DALI", 
-            "CEZA VE CEZA MUHAKEMESİ HUKUKU ANABİLİM DALI", 
-            "GENEL KAMU HUKUKU ANABİLİM DALI", 
-            "HUKUK FELSEFESİ VE SOSYOLOJİSİ ANABİLİM DALI", 
-            "HUKUK TARİHİ ANABİLİM DALI", 
-            "MALİ HUKUK ANABİLİM DALI", 
-            "MİLLETLERARASI HUKUK ANABİLİM DALI", 
-            "İDARE HUKUKU ANABİLİM DALI", 
-            "İNSAN HAKLARI ANABİLİM DALI", 
-            "İSLAM HUKUKU ANABİLİM DALI", 
-            "TİCARET HUKUKU ANABİLİM DALI", 
-            "AVRUPA BİRLİĞİ HUKUKU ANABİLİM DALI", 
-            "DENİZ HUKUKU ANABİLİM DALI", 
-            "KARŞILAŞTIRMALI HUKUK ANABİLİM DALI", 
-            "MEDENİ HUKUK ANABİLİM DALI", 
+            "HUKUK FAKÜLTESİ",
+            "ANAYASA HUKUKU ANABİLİM DALI",
+            "CEZA VE CEZA MUHAKEMESİ HUKUKU ANABİLİM DALI",
+            "GENEL KAMU HUKUKU ANABİLİM DALI",
+            "HUKUK FELSEFESİ VE SOSYOLOJİSİ ANABİLİM DALI",
+            "HUKUK TARİHİ ANABİLİM DALI",
+            "MALİ HUKUK ANABİLİM DALI",
+            "MİLLETLERARASI HUKUK ANABİLİM DALI",
+            "İDARE HUKUKU ANABİLİM DALI",
+            "İNSAN HAKLARI ANABİLİM DALI",
+            "İSLAM HUKUKU ANABİLİM DALI",
+            "TİCARET HUKUKU ANABİLİM DALI",
+            "AVRUPA BİRLİĞİ HUKUKU ANABİLİM DALI",
+            "DENİZ HUKUKU ANABİLİM DALI",
+            "KARŞILAŞTIRMALI HUKUK ANABİLİM DALI",
+            "MEDENİ HUKUK ANABİLİM DALI",
             "MEDENİ USUL VE İCRA İFLAS HUKUKU ANABİLİM DALI",
-            "MİLLETLERARASI ÖZEL HUKUK ANABİLİM DALI", 
-            "ROMA HUKUKU ANABİLİM DALI", 
+            "MİLLETLERARASI ÖZEL HUKUK ANABİLİM DALI",
+            "ROMA HUKUKU ANABİLİM DALI",
             "İŞ VE SOSYAL GÜVENLİK HUKUKU ANABİLİM DALI",
             "Tefsir",
             "Hadis",
@@ -1454,4 +1454,4 @@ def country():
         "osmaniye",
         "düzce",
         ]
-    return name_of_cities    
+    return name_of_cities

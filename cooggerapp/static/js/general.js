@@ -16,18 +16,8 @@ $(document).ready(function() {
                 $(".h-nav-ul").css("height", 40);
                 $(".b-blogs").css("filter", "blur(0px)");
             });
+          }
         }
-        $(".h-notifications-ul").mouseover(function() {
-            $(".h-notifications-ul").css("overflow", "auto");
-            $(".h-notifications-ul").css("height", "auto");
-            $(".b-blogs").css("filter", "blur(3px)");
-        }).mouseout(function() {
-            $(".h-notifications-ul").css("overflow", "hidden");
-            $(".h-notifications-ul").css("height", 40);
-            $(".b-blogs").css("filter", "blur(0px)");
-        });
-
-    }
 
     function wincenter() {
         // nesneleri ekrana ortalar

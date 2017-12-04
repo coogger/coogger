@@ -131,10 +131,10 @@ body::-webkit-scrollbar-thumb {
     color: #fff;
 }
 .ft-os img{
-    margin-right: 16px;
-    background-color: #fff;
-    border-radius: 30%;
-    margin-bottom: 6px;
+    /* margin-right: 16px; */
+    /* background-color: #fff; */
+    /* border-radius: 30%; */
+    /* margin-bottom: 6px; */
 }
 
 .ft-ar {
@@ -814,40 +814,6 @@ a {
     width: 2px;
 }
 
-.h-footer {
-    font-size: 12px;
-    background-color: #248644;
-    right: 0px;
-    display: table;
-    width: 100%;
-    color: #fff;
-    border-bottom: 6px solid #0f391d;
-}
-
-.h-footer-ul {
-    list-style: none;
-    max-height: 163px;
-    overflow: auto;
-    margin: 14px 0px;
-    padding: 0px;
-}
-
-.h-footer-main {
-    position: relative;
-    float: left;
-    width: 50%;
-    margin-top: 24px;
-}
-
-.h-footer-li {
-    margin: auto;
-    width: 250px;
-}
-
-.h-footer-info {
-    font-size: 120%;
-    justify-content: center;
-}
 
 .b-edit-panel {
     position: absolute;

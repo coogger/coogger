@@ -8,6 +8,8 @@ from .views import (
     )
 urlpatterns = [
     url(r'^$', home.home,name = "home"),
+    url(r'^search',home.search,name = "search"),
+    url(r'^notification',home.notification),
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
@@ -37,8 +39,6 @@ urlpatterns = [
 
     url(r'^tags/(?P<hashtag>.*)',explorer.hashtag,name = "hashtag"),
     url(r'^list/(?P<list>.*)',explorer.list,name = "list"),
-
-    url(r'^search',home.search,name = "search"),
 
     url(r'^comment/(?P<content_path>.*)$',detail.comment,name = "comment"),
 

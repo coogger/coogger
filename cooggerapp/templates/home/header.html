@@ -8,6 +8,14 @@
             <a class="solol-a" href="/login"><span class="solol-text">Giriş yapın</span></a>
         </li>
         {% else%}
+
+        <li class="h-header-ul-li" style="position: absolute;left: 6px;">
+            <a class="solol-a" href="/notification">
+                <img class="solol-img" src="/static/media/notification.png">
+                <span class="solol-text">Bildirimler ( {{ hmanynotifications }} )</span>
+
+            </a>
+        </li>
         <li class="h-header-ul-li">
             <a class="solol-a" href="/@{{ request.user.username }}">
               {% if request.user.otherinformationofusers.pp %}
