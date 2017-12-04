@@ -2,11 +2,11 @@
   <div class="b-user-ul">
     <div class="b-user-img">
       <a href="/@{{blo.username}}">
-        {% if request.user.otherinformationofusers.pp %}
-        <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ request.user }}.jpg">
+        {% if pp %}
+        <img class="b-user-img-src" alt='{{blo.username}}' src="/media/users/pp/pp-{{ blo.username }}.jpg">
         {% else %}
-          <img class="b-user-img-src" src="/static/media/profil.png">
-          {% endif %}
+        <img class="b-user-img-src" src="/static/media/profil.png">
+        {% endif %}
     </a>
     </div>
     <div class="b-username ">

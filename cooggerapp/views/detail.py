@@ -41,6 +41,7 @@ def main_detail(request,blog_path,utopic,path):
         detail = queryset,
         elastic_search = elastic_search,
         general = True,
+        username  = user,
         stars = stars,
         nameoftopic = queryset.title,
         nav_category = nav_category,

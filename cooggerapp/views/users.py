@@ -31,7 +31,7 @@ def user(request,username):
     )
     output = dict(
         users = True,
-        username = username,
+        username = user,
         blog = info_of_cards[0],
         paginator = info_of_cards[1],
         user_follow = user_follow,
