@@ -35,7 +35,7 @@ class Blogviews(models.Model): # görüntülenme ip ve blog_id bilgisini kayıt 
 
 class Voters(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    blog = models.ForeignKey("Blog",verbose_name = "hangi blog")
+    blog = models.ForeignKey("Blog",verbose_name = "hangi blog", on_delete=models.CASCADE)
     star = models.IntegerField(default = 0, verbose_name = "Yıldız")
 
 

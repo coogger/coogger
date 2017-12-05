@@ -56,6 +56,7 @@ def create(request):
     output = dict(
         controls = True,
         create_form = create_form,
+        hmanynotifications = tools.hmanynotifications(request),
     )
     return render(request,"controls/create.html",output)
 

@@ -38,6 +38,7 @@ def user(request,username):
         content_list = content_list,
         ogurl = request.META["PATH_INFO"],
         elastic_search = elastic_search,
+        hmanynotifications = tools.hmanynotifications(request),
     )
     return render (request,"users/user.html",output)
 
@@ -90,6 +91,7 @@ def u_topic(request,username,utopic):
         username = username,
         nameoflist = "Listeler",
         elastic_search = elastic_search,
+        hmanynotifications = tools.hmanynotifications(request),
     )
     return render(request,"blog/blogs.html",output)
 

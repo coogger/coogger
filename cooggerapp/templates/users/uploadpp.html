@@ -1,4 +1,4 @@
-{% if request.user.username == username %}
+{% if request.user == username %}
 <div class="u-uploadpp">
     <form class="u-uploadform " action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}

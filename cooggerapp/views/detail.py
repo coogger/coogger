@@ -4,7 +4,7 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
 from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters,Comment,Notification
-from cooggerapp.views.tools import Topics,get_ip,paginator,get_pp_from_contents,get_stars_from_contents
+from cooggerapp.views.tools import Topics,get_ip,paginator,get_pp_from_contents,get_stars_from_contents,hmanynotifications
 from django.db.models import F
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
@@ -49,6 +49,7 @@ def main_detail(request,blog_path,utopic,path):
         ogurl = request.META["PATH_INFO"],
         global_hashtag = [i for i in queryset.tag.split(",") if i != ""],
         comment_form = Comment.objects.filter(content=queryset),
+        hmanynotifications = hmanynotifications(request),
     )
     # açılan makale bittikten sonra okunulan liste altındaki diğer paylaşımları anasayfadaki gibi listeler
     query = Blog.objects.filter(username = username_id,content_list = utopic)

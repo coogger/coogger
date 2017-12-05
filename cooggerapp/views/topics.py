@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib import messages as ms
 from cooggerapp.models import Blog
 from django.db.models import Q
-from cooggerapp.views.tools import Topics
+from cooggerapp.views.tools import Topics,hmanynotifications
 from cooggerapp.views.home import content_cards
 
 
@@ -32,6 +32,7 @@ def topic(request,topic):
         ogurl = request.META["PATH_INFO"],
         nav_category = Topics().category_slug ,
         paginator = info_of_cards[1],
+        hmanynotifications = hmanynotifications(request),
     )
     return render(request,"blog/blogs.html",output)
 

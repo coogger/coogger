@@ -4,7 +4,7 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
 from cooggerapp.models import Blog
-from cooggerapp.views.tools import paginator,Topics
+from cooggerapp.views.tools import paginator,Topics,hmanynotifications
 from cooggerapp.views.home import content_cards
 from django.db.models import Q
 
@@ -25,6 +25,7 @@ def hashtag(request,hashtag):
         ogurl = request.META["PATH_INFO"],
         paginator = info_of_cards[1],
         elastic_search = elastic_search,
+        hmanynotifications = hmanynotifications(request),
     )
     return render(request,"blog/blogs.html",output)
 
@@ -44,6 +45,7 @@ def list(request,list):
         ogurl = request.META["PATH_INFO"],
         nameoflist_ex = list,
         paginator = info_of_cards[1],
+        hmanynotifications = hmanynotifications(request),
         elastic_search = elastic_search,
     )
     return render(request,"blog/blogs.html",output)

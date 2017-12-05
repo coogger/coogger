@@ -2,7 +2,7 @@ from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
-from cooggerapp.views.tools import Topics
+from cooggerapp.views.tools import Topics,hmanynotifications
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from cooggerapp.forms import UserForm,UserFollowForm,UserFollowForm
@@ -25,6 +25,7 @@ def profile(request):
         UserForm = user_form,
         settings = True,
         nav_category = category,
+        hmanynotifications = hmanynotifications(request),
         )
     return render(request,template,output)
 
@@ -50,6 +51,7 @@ def account(request):
         output = dict(
             settings = True,
             nav_category = category,
+            hmanynotifications = hmanynotifications(request),
             )
         return render(request,template,output)
 
@@ -70,5 +72,6 @@ def add_address(request):
         UserForm = user_form,
         settings = True,
         nav_category = category,
+        hmanynotifications = hmanynotifications(request),
         )
     return render(request,template,output)

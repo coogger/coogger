@@ -4,7 +4,7 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
 from cooggerapp.models import Blog,OtherInformationOfUsers,Notification,SearchedWords
-from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator
+from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator,hmanynotifications
 from django.db.models import Q
 from django.contrib import messages as ms
 
@@ -65,14 +65,6 @@ def notification(request):
         hmanynotifications = hmanynotifications,
         )
     return render(request,"home/notifications.html",output)
-
-def hmanynotifications(request):
-    try:
-        queryset = Notification.objects.filter(user = request.user)
-    except:
-        return False
-      # görmediği kaç bildirim olduğu sayısı
-    return queryset.filter(show = False).count()
 
 def content_cards(request,queryset = Blog.objects.all(),hmany = 10):
     "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"

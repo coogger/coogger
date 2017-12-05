@@ -69,7 +69,7 @@ def seo(request):
     return render(request,"seo/"+file,{})
 
 def durationofread(text):
-    reading_speed = 20 # 1 saniyede 20 harf okuyorum
+    reading_speed = 20 # 1 saniyede 20 harf okunursa
     read_content = BeautifulSoup(text, 'html.parser').get_text().replace(" ","")
     how_much_words = len(read_content)
     words_time = float((how_much_words/reading_speed)/60)
@@ -78,9 +78,9 @@ def durationofread(text):
 def get_pp_from_contents(queryset):
     "dekoratör"
     for p in queryset:
-        user = User.objects.filter(id = p.username_id)
-        is_pp = models.OtherInformationOfUsers.objects.filter(user = user)
-        yield is_pp[0].pp
+        user = User.objects.filter(username = p.username)[0]
+        is_pp = models.OtherInformationOfUsers.objects.filter(user = user)[0].pp
+        yield is_pp
 
 def get_stars_from_contents(queryset):
     "dekoratör"
@@ -124,3 +124,11 @@ def take__category2(request,value,permission=False):
         category2 = None
     category2 = make_choices(eval("Category2."+value+"()"))
     return category2
+
+def hmanynotifications(request):
+    try:
+        queryset = models.Notification.objects.filter(user = request.user)
+    except:
+        return False
+      # görmediği kaç bildirim olduğu sayısı
+    return queryset.filter(show = False).count()
