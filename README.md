@@ -2,11 +2,13 @@
 
 coogger - is information sharing platform
 ====================
+coogger.com, the information sharing platform, is currently available only in Turkish
+-
 
 [![web site](http://www.coogger.com/static/media/favicon.png)](http://www.coogger.com)
 
 before
----
+-
 - pip install -r requirements.txt
 
 Use as follows
