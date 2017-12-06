@@ -2,10 +2,14 @@
 
 coogger - is information sharing platform
 ====================
-coogger.com, the information sharing platform, is currently available only in Turkish
--
 
 [![web site](http://www.coogger.com/static/media/favicon.png)](http://www.coogger.com)
+
++ coogger.com, the information sharing platform, is currently available only in Turkish
++ follow us or join us
+  - [instagram page](https://www.instagram.com/coogger_com/)
+  - [Facebook page](https://www.facebook.com/coogger)
+  - [facebook group](https://www.facebook.com/groups/366304783810038/)
 
 before
 -
