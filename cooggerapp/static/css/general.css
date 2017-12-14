@@ -366,9 +366,11 @@ a {
     height: 40px;
     z-index: 5;
     top: 0px;
+    display: flex;
 }
 .main-logo{
     background-color: #fff;
+    display: flex;
 }
 .main-messages,
 .h-messages {
@@ -405,7 +407,7 @@ a {
 }
 
 .search {
-    padding: 3px 12px;
+    padding: 1px 12px;
 }
 
 .search-form {}
@@ -1224,3 +1226,4 @@ margin-bottom: 24px;
         float: right;
     }
 }
+
