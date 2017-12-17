@@ -28,9 +28,6 @@ urlpatterns = [
     url(r'^create/$',controls.create,name="create"),
     url(r'^(change/(?P<content_id>.*))',controls.change,name="change"),
     url(r'^(delete/(?P<content_id>.*))',controls.delete,name="delete"),
-    url(r'^chosesub/(?P<value>.*)',controls.chose_subcategory),
-    url(r'^chosecat2/(?P<value>.*)',controls.chose_category2),
-    url(r'^chosenone/$',controls.chosenone),
 
     url(r'^(?P<blog_path>@.*/(?P<utopic>.*)/(?P<path>.*))', detail.main_detail,name = "blogs"),
     url(r'^@(?P<username>.*)/(?P<utopic>.*)', users.u_topic,name = "u-topic"),

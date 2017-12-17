@@ -1,86 +1,53 @@
 $(document).ready(function() {
-    var str = "";
-    $("#id_content_list").each(function() {
-        str += $(this).val();
-        $(".b-content-list-name a").html("#" + str);
-    });
-
-    var str = "";
-    $("#id_category option:selected").each(function() {
-        str += $(this).val();
-        $(".b-category-a").html(str);
-    });
-
-    var str = "";
-    $("#id_subcategory option:selected").each(function() {
-        str += $(this).val();
-        $(".b-subcategory-a").html(str);
-    });
-
-    var str = "";
-    $("#id_category2 option:selected").each(function() {
-        str += $(this).val();
-        $(".b-category2-a").html(str);
-    });
-
-    var str = "";
-    $("#id_title").each(function() {
-        str += $(this).val();
-        $(".b-title-a").html(str);
-    });
-
-    var str = "";
-    $("#id_show").each(function() {
-        str += $(this).val();
-        $(".b-content p").html(str);
-    });
-    // ----------------------------------
-
-    $("#id_content_list").change(function() {
-        var str = "";
+  function editor_change(){
         $("#id_content_list").each(function() {
+          var str = "";
             str += $(this).val();
             $(".b-content-list-name a").html("#" + str);
         });
-    });
 
-    $("#id_category").change(function() {
-        var str = "";
-        $("#id_category option:selected").each(function() {
-            str += $(this).val();
-            $(".b-category-a").html(str);
-        });
-    });
-
-    $("#id_subcategory").change(function() {
-        var str = "";
-        $("#id_subcategory option:selected").each(function() {
-            str += $(this).val();
-            $(".b-subcategory-a").html(str);
-        });
-    });
-
-    $("#id_category2").change(function() {
-        var str = "";
-        $("#id_category2 option:selected").each(function() {
-            str += $(this).val();
-            $(".b-category2-a").html(str);
-        });
-    });
-
-    $("#id_title").change(function() {
-        var str = "";
         $("#id_title").each(function() {
+          var str = "";
             str += $(this).val();
             $(".b-title-a").html(str);
         });
-    });
 
-    $("#id_show").change(function() {
-        var str = "";
         $("#id_show").each(function() {
+          var str = "";
             str += $(this).val();
             $(".b-content p").html(str);
         });
-    });
+
+
+        $("#id_tag").each(function() {
+          var str = "";
+            str += $(this).val();
+            str = new String(str);
+            str = str.split(",");
+            var tag = "";
+            for (i=0; i < str.length; i++) {
+              if (str[i] != ""){
+                tag += '<li class="tag" default="pm" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3">'+str[i]+'</li>'
+              }
+            }
+            $(".tags").html(tag);
+        });
+
+        $("#id_content_list").each(function() {
+          var str = "";
+            str += $(this).val();
+            str = new String(str);
+            if (str != ""){
+                str = '<li class="tag" default="pm" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3">'+str+'</li>'
+            }
+            $(".list").html(str );
+        });
+
+        }
+
+ setInterval(function(){
+    editor_change();
+  },100);
+
+
 });

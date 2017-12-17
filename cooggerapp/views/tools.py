@@ -44,7 +44,7 @@ def durationofread(text):
     read_content = BeautifulSoup(text, 'html.parser').get_text().replace(" ","")
     how_much_words = len(read_content)
     words_time = float((how_much_words/reading_speed)/60)
-    return (str(words_time)[:3])
+    return str(words_time)[:3]
 
 def get_pp_from_contents(queryset):
     "dekoratör"

@@ -67,9 +67,13 @@
     <script src=" {% static 'js/general.js' %}"></script>
     {% if controls %}
     <script src=" {% static 'js/controls.js' %}"></script>
-    {% endif %}{% if signup_or_login %}
-    <link rel="stylesheet" href="/static/css/signup_or_login.css"> {% elif general or users or controls or settings%}
-    <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% endif %}
+    {% endif %}
+    <link href=" {% static 'css/coogger.css' %}" rel="stylesheet"> 
+    {% if signup_or_login %}
+    <link rel="stylesheet" href="/static/css/signup_or_login.css">
+    {% elif general or users or controls or settings%}
+    <link href=" {% static 'css/general.css' %}" rel="stylesheet">
+    {% endif %}
 </head>
 
 <body>

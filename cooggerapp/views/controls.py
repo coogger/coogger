@@ -156,26 +156,3 @@ def delete(request,content_id):
     except:
         return HttpResponse("Silme işlemi sırasında beklenmedik hata !")
     return HttpResponse("Silme işlemi başarılı ")
-
-def chose_subcategory(request,value):
-    "value ile gelen fields kodunu alıp ilgili bir alt dallarını seçip gönderiyorum"
-    subcategory = tools.take_subcategory(request,value)
-    if subcategory == None:
-        return HttpResponse("<option value='' selected='selected'>---------</option>")
-    option = "<option value='' selected='selected'>---------</option>"
-    for sub in subcategory:
-        option += "<option value='{}'>{}</option>".format(sub[0].lower(),sub[1].lower()) # html format yaptık ve yolladık
-    return HttpResponse(option)
-
-def chose_category2(request,value):
-    "value ile gelen fields kodunu alıp ilgili ikinci bir alt dallarını seçip gönderiyorum"
-    category2 = tools.take__category2(request,value)
-    if category2 == None:
-        return HttpResponse("<option value='' selected='selected'>---------</option>")
-    option = "<option value='' selected='selected'>---------</option>"
-    for cat in category2:
-        option += "<option value='{}'>{}</option>".format(cat[0].lower(),cat[1].lower()) # html format yaptık ve yolladık
-    return HttpResponse(option)
-
-def chosenone(request):
-    return HttpResponse("<option value='' selected='selected'>---------</option>")

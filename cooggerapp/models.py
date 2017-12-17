@@ -12,10 +12,10 @@ class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
     title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
     url = models.SlugField(unique = True ,max_length=100,verbose_name = "web adresi") # blogun url adresi
     content = models.TextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda
-    show = models.CharField(max_length=400,verbose_name = "Anasayfa'da görünecek içerik notu ekleyin")
+    show = models.TextField(max_length=400,verbose_name = "Anasayfa'da görünecek içerik notu ekleyin")
     tag = models.CharField(max_length=200,verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi
-    dor = models.TextField(default = 0, verbose_name = "duration of read")
+    dor = models.CharField(default = 0,max_length=10,verbose_name = "duration of read")
     stars = models.IntegerField(default = 0, verbose_name = "Yıldız")
     hmstars = models.IntegerField(default = 0,verbose_name = "kaç kişi oy kullandı")
     views = models.IntegerField(default = 0,verbose_name = "görüntülenme sayısı") # görütülenme sayısını kayıt eder
