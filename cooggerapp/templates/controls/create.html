@@ -1,7 +1,7 @@
 {% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
 <div class="c-create">
     <form method="post" class="c-create-form" action="/create/" enctype="multipart/form-data">
-        <input class="c-create-input" type="submit" value="Paylaş"> {% csrf_token %}
+        {% csrf_token %}
         <p>
             <label style="color:#248644">Not : Paylaşacağınız konu ile ilgili yazınız birden fazla olmayacak ise liste ismini boş bırakabilirsiniz ;</label>
         </p>
@@ -9,6 +9,7 @@
             <label style="color:#248644">fakat birden fazla değil ise boş bırakmanızı tavsiye etmiyoruz </label>
         </p>
         {{ create_form.as_p }} {{ create_form.media }}
+        <input class="c-create-input" type="submit" value="Paylaş"> 
         <span>Anasayfa önizlemesi ;</span>
     </form>
     {% include 'controls/preview.html' %}

@@ -64,16 +64,10 @@
     <!-- GOOGLE -->
     <script src=" {% static 'js/jquery.js' %}"></script>
     <link rel="stylesheet" href="/static/css/fonts.css">
-    <link href="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
-    <script src="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
-    <script>
-        hljs.initHighlightingOnLoad();
-    </script>
     <script src=" {% static 'js/general.js' %}"></script>
     {% if controls %}
     <script src=" {% static 'js/controls.js' %}"></script>
-    {% endif %}
-    <link href=" {% static 'css/animate.css' %}" rel="stylesheet"> {% if signup_or_login %}
+    {% endif %}{% if signup_or_login %}
     <link rel="stylesheet" href="/static/css/signup_or_login.css"> {% elif general or users or controls or settings%}
     <link href=" {% static 'css/general.css' %}" rel="stylesheet"> {% endif %}
 </head>

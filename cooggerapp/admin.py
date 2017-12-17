@@ -6,13 +6,13 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from cooggerapp.models import OtherInformationOfUsers ,Blogviews,Comment,Notification
 
 class BlogAdmin(admin.ModelAdmin):
-    list_ = ["username","content_list","title","category","dor","stars","hmstars","time","views"]
+    list_ = ["username","content_list","title","dor","stars","hmstars","time","views"]
     list_display = list_
     list_display_links = list_
     list_filter = ["username","content_list","time"]
     search_fields = list_
     prepopulated_fields = {"url":("title",)}
-    fields = (("username","content_list"),("category","subcategory"),("title","url"),"content","tag",("views","hmanycomment","hmstars","stars","dor"))
+    fields = (("username","content_list"),("title","url"),"content","tag",("views","hmanycomment","hmstars","stars","dor"))
 
     class Media:
         js = ("js/my-admin-content.js",)

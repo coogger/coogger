@@ -96,7 +96,6 @@ def u_topic(request,username,utopic):
     return render(request,"blog/blogs.html",output)
 
 def get_nav_category(user):
-    top = tools.Topics()
     another_utopic = ContentList.objects.filter(user = user)
     for a_utopic in another_utopic:
         fuck = a_utopic.content_list

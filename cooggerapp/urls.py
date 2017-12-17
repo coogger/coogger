@@ -18,7 +18,6 @@ urlpatterns = [
     url(r"^login$",signup_or_login.mylogin,name = "login"),
     url(r"^logout/$",signup_or_login.mylogout,name = "logout"),
 
-    url(r'^topic/(?P<topic>.*)',topics.topic),
     url(r'^stars/(?P<post_id>[0-9].*)/(?P<stars_id>[0-9])$',detail.stars),
 
     url(r'^robots.txt$',tools.seo),

@@ -1,22 +1,17 @@
 from ckeditor.fields import RichTextField
 from cooggerapp.choices import country,university,jop,follow
-from cooggerapp.views.tools import Topics,make_choices
+from cooggerapp.views.tools import make_choices
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
 
 class Blog(models.Model): # blog için yazdığım yazıların tüm bilgisi
-    tools_topic = Topics()
-    choices_category = tools_topic.category
-    choices_subcategory = tools_topic.subcatecory
     username = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     content_list = models.CharField(blank=True, null=True,max_length=30,verbose_name ="Liste ismi")
-    category = models.CharField(choices = choices_category ,max_length=30,verbose_name ="Fakülteler")
-    subcategory = models.CharField(blank=True, null=True,choices=choices_subcategory,max_length=50,verbose_name ="Bölümler") # konu belirleme yanı bu yazı yazılımlamı ilgili elektriklemi , bu sayede ilgili yere gidebilecek
     title = models.CharField(max_length=100,verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
     url = models.SlugField(unique = True ,max_length=100,verbose_name = "web adresi") # blogun url adresi
-    content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda
+    content = models.TextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda
     show = models.CharField(max_length=400,verbose_name = "Anasayfa'da görünecek içerik notu ekleyin")
     tag = models.CharField(max_length=200,verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now,verbose_name="tarih") # tarih bilgisi

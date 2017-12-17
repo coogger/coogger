@@ -11,16 +11,7 @@
   <div class="b-time ft-dn">
     <span>{{ blo.time }} | </span><span> {{ blo.time|timesince }} önce</span>
   </div>
-  <ul class="b-category ft-os">
-    <li class="b-category-li">
-      <a class="b-category-a" href='/topic/{{ blo.category }}'>{{ blo.category|title }}</a>
-    </li>
-    {% if blo.subcategory != None %}
-    <li class="b-category-li">
-      <a class="b-subcategory-a" href='/topic/{{ blo.subcategory }}'>{{ blo.subcategory|title }}</a>
-    </li>
-    {% endif %}
-  </ul>
+
   <div class="b-title ft-ns">
     <a class="b-title-a" href='/{{ blo.url }}'>{{ blo.title|title }}</a>
   </div>

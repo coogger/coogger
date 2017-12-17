@@ -1,9 +1,4 @@
-{% if nameofexplain %}
-<div class="h-explain">
-    <img class="h-ex-img" src="/static/media/topics/{{ nameofexplain }}.svg" />
-    <h1 class="h-ex-text">{{ nameoftopic }}</h1>
-</div>
-{% elif nameoftopic %}
+{% if nameoftopic %}
 <div class="h-explain">
   {% if request.user.otherinformationofusers.pp %}
   <img class="h-ex-img" src="/media/users/pp/pp-{{ username }}.jpg">
@@ -13,12 +8,14 @@
     <h2 class="h-ex-h2">@{{ username }}</h2>
     <h1 class="h-ex-text">{{ nameoftopic}}</h1>
 </div>
+
 {% elif nameoflist_ex %}
 <div class="h-explain">
     <img class="h-ex-img" src="/static/media/topics/earth.svg" />
     <img class="h-ex-img" src="/static/media/icons/list.svg" style="width: 60px;height: 60px;" />
     <h1 class="h-ex-text">{{ nameoflist_ex }}</h1>
 </div>
+
 {% elif nameofhashtag %}
 <div class="h-explain">
     <img class="h-ex-img" src="/static/media/topics/earth.svg" />

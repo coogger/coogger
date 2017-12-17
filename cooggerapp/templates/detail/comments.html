@@ -4,7 +4,7 @@
     <form method="post" class="c-comment-form" action="/comment{{ ogurl }}">
       {% csrf_token %}
       <input type="text" placeholder="Soru sor,veya teşekkür et bir yorum yap" name="comment" class="d-comment-input" maxlength="310">
-      <input type="submit" class="d-comment-sub">
+      <input type="submit" class="d-comment-sub" value="yorum yap">
     </form>
   </div>
   {% else %}

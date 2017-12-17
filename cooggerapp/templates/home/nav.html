@@ -1,7 +1,8 @@
+{% if nav_category %}
 <nav class="h-nav">
     <ul class="h-nav-ul ft-ar">
         <li style="background-color:#0f391d;"  class="h-nav-topic h-nav-li">
-          {% if nameoflist %} {{ nameoflist }}{% else %}Fakülteler{% endif %}
+           {{ nameoflist }}
         </li>
         {% for url,topic in nav_category %}
         {% if nameoftopic %}
@@ -22,19 +23,14 @@
                 <a class="h-nav-d-li-a" href="/@{{ username }}/{{ url }}" data-gnl="1 1p"> <img class="h-nav-li-img" src="/static/media/icons/list.svg" />
                 {% elif nameoflist %}
                 <a class="h-nav-d-li-a" href="/{{ url }}">
-                   <img class="h-nav-li-img" src="/static/media/topics/content.svg" />
-                    {% else %}
-                    <a class="h-nav-d-li-a" href="/topic/{{ url }}" > <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                       {% endif %}
+                  <img class="h-nav-li-img" src="/static/media/topics/content.svg" />
+                  {% endif %}
                 <div class="h-nav-li-text">{{ topic }}</div>
             </a>
         </li>
-      {% endif %} {% else %}
-        <li class="h-nav-li">
-              <a class="h-nav-d-li-a" href="/topic/{{ url }}" > <img class="h-nav-li-img" src="/static/media/topics/{{ url }}.svg" />
-                <div class="h-nav-li-text">{{ topic }}</div>
-            </a>
-        </li>
-{% endif %} {% endfor %}
+      {% endif %} 
+{% endif %}
+{% endfor %}
     </ul>
 </nav>
+{% endif %}

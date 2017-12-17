@@ -4,17 +4,15 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
 from cooggerapp.models import Blog,OtherInformationOfUsers,Notification,SearchedWords
-from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,Topics,paginator,hmanynotifications
+from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,paginator,hmanynotifications
 from django.db.models import Q
 from django.contrib import messages as ms
 
 def home(request):
-    tools_topic = Topics()
-    category = tools_topic.category
     info_of_cards = content_cards(request,hmany=10)
     output = dict(
         blog = info_of_cards[0],
-        nav_category = category,
+        #nav_category = category, bu isim ile veriliyor unutma
         general = True,
         ogurl = request.META["PATH_INFO"],
         paginator = info_of_cards[1],
@@ -25,8 +23,6 @@ def home(request):
 
 def search(request):
     query = request.GET["query"].lower()
-    tools_topic = Topics()
-    category = tools_topic.category
     q = Q(title__contains = query) | Q(content_list__contains = query) | Q(tag__contains = query)
     queryset = Blog.objects.filter(q).order_by("-views")
     info_of_cards = content_cards(request,queryset,hmany=20)
@@ -39,7 +35,6 @@ def search(request):
         SearchedWords(word = query).save()
     output = dict(
         blog = info_of_cards[0],
-        nav_category = category,
         general = True,
         ogurl = request.META["PATH_INFO"],
         paginator = info_of_cards[1],
@@ -54,12 +49,9 @@ def notification(request):
     except:
         ms.error(request,"Bildirimleri görmeniz için giriş yapın hesabınız yoksa üye olun")
         return HttpResponseRedirect("/")
-    tools_topic = Topics()
-    category = tools_topic.category
     pagi = paginator(request,queryset,10)
     output = dict(
         notifications = pagi,
-        nav_category = category,
         general = True,
         paginator = pagi,
         hmanynotifications = hmanynotifications,

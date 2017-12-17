@@ -4,14 +4,13 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
 from cooggerapp.models import Blog
-from cooggerapp.views.tools import paginator,Topics,hmanynotifications
+from cooggerapp.views.tools import paginator,hmanynotifications
 from cooggerapp.views.home import content_cards
 from django.db.models import Q
 
 def hashtag(request,hashtag):
     queryset = Blog.objects.filter(tag__contains = hashtag)
     info_of_cards = content_cards(request,queryset)
-    category = Topics().category
     elastic_search = dict(
      title ="#"+hashtag+" | coogger",
      keywords = hashtag,
@@ -19,7 +18,6 @@ def hashtag(request,hashtag):
     )
     output = dict(
         blog = info_of_cards[0],
-        nav_category = category,
         general = True,
         nameofhashtag = hashtag,
         ogurl = request.META["PATH_INFO"],
@@ -32,7 +30,6 @@ def hashtag(request,hashtag):
 def list(request,list):
     queryset = Blog.objects.filter(content_list = list)
     info_of_cards = content_cards(request,queryset)
-    category = Topics().category
     elastic_search = dict(
      title = list +" | coogger",
      keywords = list,
@@ -40,7 +37,6 @@ def list(request,list):
     )
     output = dict(
         blog = info_of_cards[0],
-        nav_category = category,
         general = True,
         ogurl = request.META["PATH_INFO"],
         nameoflist_ex = list,

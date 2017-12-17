@@ -4,7 +4,7 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
 from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters,Comment,Notification
-from cooggerapp.views.tools import Topics,get_ip,paginator,get_pp_from_contents,get_stars_from_contents,hmanynotifications
+from cooggerapp.views.tools import get_ip,paginator,get_pp_from_contents,get_stars_from_contents,hmanynotifications
 from django.db.models import F
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
@@ -33,7 +33,7 @@ def main_detail(request,blog_path,utopic,path):
     facebook = get_facebook(user)
     elastic_search = dict(
         title = queryset.title+" | coogger",
-        keywords = queryset.tag +","+user.username+" "+utopic+", "+utopic+",coogger "+queryset.category+", "+queryset.title,
+        keywords = queryset.tag +","+user.username+" "+utopic+", "+utopic+",coogger, "+queryset.title,
         description = queryset.show,
         author = facebook,
     )
