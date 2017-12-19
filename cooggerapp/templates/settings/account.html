@@ -1,14 +1,15 @@
 {% include 'settings/home.html' %}
-<div class="s-forms">
-<form method="post" class="m-s-form" action="/settings/account" enctype="multipart/form-data">{% csrf_token %}
-  <p>
+<div flx="jc-c" gnrl="bg-white br-2" default="pm">
+  <form class="my" flx="fd-c jc-fe" method="post" action="/settings/account" enctype="multipart/form-data">{% csrf_token %}
+    <p>
       <label>Yeni Şifre</label>
       <input type="password" name="Password" value="">
-  </p>
-  <p>
+    </p>
+    <p>
       <label>Şifre onay</label>
       <input type="password" name="Confirm" value="">
-  </p>
-  <input class="c-create-input" type="submit" value="Kaydet">
-</form>
+    </p>
+    <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c"
+    hvr="bg-white c-success brc-success" default="b pm" type="submit" value="Kaydet" style="width: 200px;">
+  </form>
 </div>

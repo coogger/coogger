@@ -1,34 +1,34 @@
-<div class="main_settings">
-  <ul class="m-s-ul">
-    <li class="m-s-li">
-      <a href="/settings/profile">
+<div flx="ai-c jc-c" default="pm">
+  <div flx="jc-c fd-c" gnrl="bg-white" default="pm">
+    <div default="pm" hvr="bg-primary" gnrl="br-2">
+      <a hvr="c-white" flx="ai-c" href="/settings/profile">
         {% if request.user.otherinformationofusers.pp %}
-        <img class="m-s-img" src="/media/users/pp/pp-{{ request.user }}.jpg"/>
+        <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
         {% else %}
-        <img class="m-s-img" src="/static/media/profil.png"/>
+        <img default="pm" src="/static/media/profil.png" style="height: 30px;width: 30px;"/>
           {% endif %}
-        <div class="m-s-text">Profil</div>
+        Profil
       </a>
-    </li>
-    <li class="m-s-li">
-      <a href="/settings/account">
+    </div>
+    <div default="pm" hvr="bg-primary" gnrl="br-2">
+      <a hvr="c-white" flx="ai-c" href="/settings/account">
         {% if request.user.otherinformationofusers.pp %}
-        <img class="m-s-img" src="/media/users/pp/pp-{{ request.user }}.jpg"/>
+        <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
         {% else %}
-        <img class="m-s-img" src="/static/media/profil.png"/>
+        <img default="pm" src="/static/media/profil.png" style="height: 30px;width: 30px;"/>
           {% endif %}
-        <div class="m-s-text">Hesap</div>
+        Hesap
       </a>
-    </li>
-    <li class="m-s-li">
-      <a href="/settings/add-address">
+    </div>
+    <div default="pm" hvr="bg-primary" gnrl="br-2">
+      <a hvr="c-white" flx="ai-c" href="/settings/add-address">
         {% if request.user.otherinformationofusers.pp %}
-        <img class="m-s-img" src="/media/users/pp/pp-{{ request.user }}.jpg"/>
+        <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
         {% else %}
-        <img class="m-s-img" src="/static/media/profil.png"/>
+        <img default="pm" src="/static/media/profil.png" style="height: 30px;width: 30px;"/>
           {% endif %}
-        <div class="m-s-text"> Web adresi ekle</div>
+          Web adresi ekle
       </a>
-    </li>
-  </ul>
-</div>
+    </div>
+  </div>
+  </div>

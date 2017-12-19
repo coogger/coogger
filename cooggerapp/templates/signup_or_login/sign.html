@@ -1,54 +1,55 @@
 <!--kayıt olma sayfası-->
 {% load static from staticfiles %} {% include 'home/head.html' %}
-
-
-<div class="siteWrapper wincenter">
-    <div class="signup-blogger">
-        <span>Üye olduktan sonra,dilerseniz  </span>
-        <span>sizi aramıza yazar olarak alabilir</span>
-        <span> ve bu sayede bildiklerinizi paylaşıp başkalarına ışık olabilirsiniz </span>
-        <span>, işlem sonrası açılan yazar olarak başvur </span>
-        <span>bölümünü ziyaret edin </span>
+<div gnrl="unselectable" flx="jc-c ai-c" default="bg" style="height:100vh;">
+    <div gnrl="bg-white br-2" default="pm" flx="fd-c">
+      {% include "home/logo.html" %}
+      <div default="pm" flx="jc-c" gnrl="bg-muted br-2 txt-s c-white" hvr="c-dark" style="text-align: center;">
+            <br>Üye olduktan sonra,dilerseniz sizi aramıza</br>
+            <br>yazar olarak alabilir ve bu sayede bildiklerinizi</br>
+            <br>paylaşıp başkalarına ışık olabilirsiniz</br>
+            <br>işlem sonrası açılan yazar olarak başvur</br>
+            <br>bölümünü ziyaret edin
+      </div>
+      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Normal kullanıcı olarak kayıt ol</div>
+      <div>
+        <ul flx="jc-c" default="pm">
+         <form action="/signup" method="post" flx="fd-c">
+          {% csrf_token %}
+          <li flx="jc-fe" default="pm">
+            <label flx="ai-c" default="pm">Adınız</label>
+            <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="text" name="Name" value="">
+          </li>
+          <li flx="jc-fe" default="pm">
+            <label flx="ai-c" default="pm">Soyadınız</label>
+            <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="text" name="Surname" value="">
+          </li>
+          <li flx="jc-fe" default="pm">
+            <label flx="ai-c" default="pm">E-posta</label>
+            <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="text" name="Email" value="">
+          </li>
+          <li flx="jc-fe" default="pm">
+            <label flx="ai-c" default="pm">Kullanıcı adı</label>
+            <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="text" name="Username" value="">
+          </li>
+          <li flx="jc-fe" default="pm">
+            <label flx="ai-c" default="pm">Şifre</label>
+            <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="password" name="Password" value="">
+          </li>
+          <li flx="jc-fe" default="pm">
+            <label flx="ai-c" default="pm">Şifre onay</label>
+            <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="password" name="Confirm" value="">
+          </li>
+          <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c" hvr="bg-white c-success brc-success" default="b pm"  style="width: 200px;" type="submit" value="Kayıt ol">
+        </form>
+      </ul>
     </div>
-  
-    <div class="clearfix">
-        <div class="cos-login-text ft-ar">Normal kullanıcı olarak kayıt ol</div>
-        <ul class="cx-ul">
-            <form action="/signup" method="post">
-                {% csrf_token %}
-                <li class="cx-li">
-                    <label>Adınız</label>
-                    <input class="cx-input" type="text" name="Name" value="">
-                </li>
-                <li class="cx-li">
-                    <label>Soyadınız</label>
-                    <input class="cx-input" type="text" name="Surname" value="">
-                </li>
-                <li class="cx-li">
-                    <label>E-posta</label>
-                    <input class="cx-input" type="text" name="Email" value="">
-                </li>
-                <li class="cx-li">
-                    <label>Kullanıcı adı</label>
-                    <input class="cx-input" type="text" name="Username" value="">
-                </li>
-                <li class="cx-li">
-                    <label>Şifre</label>
-                    <input class="cx-input" type="password" name="Password" value="">
-                </li>
-                <li class="cx-li">
-                    <label>Şifre onay</label>
-                    <input class="cx-input" type="password" name="Confirm" value="">
-                </li>
-                <input class="cx-submit-b" type="submit" value="Kayıt ol">
-            </form>
-        </ul>
-    </div>
-    <div class="ft ft-ar">
+      <div flx="jc-c" default="pm b" hvr="c-white bg-dark" gnrl="br-2 c-muted" flx="flx-1 jc-c">
         Kayıt Ol butonuna tıkladığında
-        <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş olursun.
+        <a gnrl="c-success" hvr="c-warning" href="#" target="_blank" > Hizmet Kullanım Şartları </a> ve
+        <a gnrl="c-success" hvr="c-warning" href="#" target="_blank"> Gizlilik Koşulları </a>
+        nı kabul etmiş olursun.
+      </div>
     </div>
-</div>
 </body>
 
 </html>

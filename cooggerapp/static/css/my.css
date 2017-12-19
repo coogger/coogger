@@ -1,0 +1,18 @@
+.my p{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.my input,.my select{
+  display: flex;
+  align-content: flex-end;
+  margin: 0px 12px;
+  border: 1px solid #f1f1f1;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: #0f391d;
+  background-color: #fff;
+}
+.my label{
+  margin-right: auto;
+}

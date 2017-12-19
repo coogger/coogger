@@ -2,14 +2,14 @@
     <ul class="h-header-ul ft-it">
         {% if not user.is_authenticated %}
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/signup"><span class="solol-text">Kayıt olun / Yazar olun</span></a>
+            <a hvr="c-primary" class="solol-a" href="/signup"><span class="solol-text">Kayıt olun / Yazar olun</span></a>
         </li>
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/login"><span class="solol-text">Giriş yapın</span></a>
+            <a hvr="c-primary" class="solol-a" href="/login"><span class="solol-text">Giriş yapın</span></a>
         </li>
         {% else%}
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/@{{ request.user }}">
+            <a hvr="c-primary" class="solol-a" href="/@{{ request.user }}">
               {% if request.user.otherinformationofusers.pp %}
               <img class="solol-img" src="/media/users/pp/pp-{{ request.user }}.jpg">
               {% else %}
@@ -21,24 +21,24 @@
         </li>
         {% if not request.user.otherinformationofusers.author %}
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/signup-author">
+            <a hvr="c-primary" class="solol-a" href="/signup-author">
                 <span class="solol-text">Yazarlık başvurusu</span>
             </a>
         </li>
         {% endif %} {% if request.user.otherinformationofusers.is_author %}
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/create">
+            <a hvr="c-primary" class="solol-a" href="/create">
                 <span class="solol-text">İçerik oluştur</span>
             </a>
         </li>
         {% endif %}
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/logout">
+            <a hvr="c-primary" class="solol-a" href="/logout">
                 <span class="solol-text">Çıkış</span>
             </a>
         </li>
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/settings">
+            <a hvr="c-primary" class="solol-a" href="/settings">
                 <span class="solol-text">Ayarlar</span>
             </a>
         </li>
@@ -53,7 +53,7 @@
         </li>
         {% if user.is_authenticated %}
         <li class="h-header-ul-li">
-            <a class="solol-a" href="/notification">
+            <a hvr="c-primary" class="solol-a" href="/notification">
                 <span class="solol-text">( {{ hmanynotifications }} )</span>
             </a>
         </li>

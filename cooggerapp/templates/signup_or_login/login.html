@@ -1,30 +1,31 @@
 <!--giriş yapma sayfası-->
 {% load static from staticfiles %} {% include 'home/head.html' %}
-
-<body>
-    <div class="siteWrapper wincenter">
-        
-        <div class="clearfix">
-            <div class="cos-login-text ft-ar">Giriş yap</div>
-            <ul class="cx-ul">
-                <form action="/login" method="post">
-                    {% csrf_token %}
-                    <li class="cx-li">
-                        <label>Kullanıcı ismi</label>
-                        <input class="cx-input" type="text" name="Username" value="">
-                    </li>
-                    <li class="cx-li">
-                        <label>Şifre</label>
-                        <input class="cx-input" type="password" name="Password" value="">
-                    </li>
-                    <input class="cx-submit-b" type="submit" value="Giriş yap">
-                </form>
-            </ul>
-        </div>
-        <div class="ft ft-ar">
-            <a>Şifreni mi Unuttun?</a>
-        </div>
+<body gnrl="unselectable">
+  <div flx="jc-c ai-c" default="bg" style="height:100vh;">
+    <div gnrl="bg-white br-2" default="pm">
+      {% include "home/logo.html" %}
+      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Giriş yap</div>
+      <div flx="jc-c">
+        <ul flx="jc-c">
+          <form action="/login" method="post" flx="fd-c">
+            {% csrf_token %}
+            <li flx="jc-fe" default="pm">
+              <label flx="ai-c" default="pm">Kullanıcı ismi</label>
+              <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="text" name="Username" value="">
+            </li>
+            <li flx="jc-fe" gnrl="" default="pm">
+              <label flx="ai-c" default="pm">Şifre</label>
+              <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="password" name="Password" value="">
+            </li>
+            <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c" hvr="bg-white c-success brc-success" default="b pm"
+            type="submit" value="Giriş yap" style="width: 200px;">
+          </form>
+        </ul>
+      </div>
+      <div flx="jc-c">
+        <a default="pm b" hvr="c-white bg-muted" gnrl="br-2 c-muted" flx="flx-1 jc-c">Şifreni mi Unuttun?</a>
+      </div>
     </div>
+  </div>
 </body>
-
 </html>

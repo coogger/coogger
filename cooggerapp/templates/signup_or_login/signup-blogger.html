@@ -1,32 +1,24 @@
-{% if not request.is_ajax %} {% include 'home/head.html' %}
-
-<body>
-    {% endif %}
-    <div class="siteWrapper wincenter">
-        <div class="signup-blogger">
-            Sizi yazar olarak görmemize çok az kaldı,
-            <div style="color:tomato"> Bu bilgileri neden veriyorum ? </div>
-            <div style="color:#343e34"> Yazarların coogger'da önemli bir iş yaptıklarını biliyor ve onları coogger çalışanı olarak görüyoruz bundan dolayı bir takım bilgiler istiyoruz yeni bir işe başvuruyormussunuz gibi.</div>
-            <div style="color:#1114CE"> Not: Telefon numarası zorun lu değildir, fakat boş geçmenizi tavsiye etmiyoruz.</div>
-            <div> coogger yeteri kadar gelir elde ettiğinde siz yazarlarımıza'da gelir imkanı sunmak istiyoruz, fakat şuan için belli olmayan bir bilgi bu</div>
-        </div>
-        {% include 'home/logo.html' %}
-        <div class="clearfix">
-            <div class="cos-login-text ft-ar">Yazar olarak kayıt ol</div>
-            <ul class="cx-ul">
-                <form action="/signup-author" method="post">
-                    {% csrf_token %} {{ otherinfo_form.as_ul }}
-                    <input class="cx-submit-b" type="submit" value="Başvuruyu tamamla">
-                </form>
-            </ul>
-        </div>
-        <div class="ft ft-ar">
-            Kayıt Ol butonuna tıkladığında
-            <a href="#" target="_blank">Hizmet Kullanım Şartları</a> ve <a href="#" target="_blank">Gizlilik Koşulları</a>nı kabul etmiş oluyorsun.
-        </div>
+{% load static from staticfiles %} {% include 'home/head.html' %}
+<body gnrl="unselectable">
+  <div flx="jc-c ai-c" default="bg" style="height:100vh;">
+    <div gnrl="bg-white br-2" default="pm">
+      {% include "home/logo.html" %}
+      <div flx="jc-c" default="pm" gnrl="bg-warning br-2 c-white">Not: Telefon numarası zorun lu değildir</div>
+      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Yazar olarak kayıt ol</div>
+      <div flx="jc-c">
+        <ul flx="fd-c">
+          <form class="my" action="/signup-author" method="post" flx="fd-c" class="signup-author">
+              {% csrf_token %} {{ otherinfo_form.as_p }}
+              <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c"
+              hvr="bg-white c-success brc-success" default="b pm"
+               type="submit" value="Başvuruyu tamamla">
+          </form>
+        </ul>
+      </div>
+      <div flx="jc-c">
+        <a default="pm b" hvr="c-white bg-muted" gnrl="br-2 c-muted" flx="flx-1 jc-c">Şifreni mi Unuttun?</a>
+      </div>
     </div>
-    {% if not request.is_ajax %}
+  </div>
 </body>
-
 </html>
-{% endif %}
