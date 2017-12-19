@@ -1,31 +1,32 @@
 {% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
-<div class="c-create" flx="jc-c" default="pm">
-    <form method="post" class="c-create-form" action="/create/" flx="fd-c" default="pm" gnrl="bg-white br-2">
+<div flx="jc-c" gnrl="bg-muted br-2" default="pm">
+    <form  class="my" gnrl="bg-white" default="pm" flx="fd-c jc-fe" method="post" class="c-create-form" action="/create/">
         {% csrf_token %}
-        <div flx="fd-c" default="m p">
-          <label flx="ai-c jc-c" default="m p" gnrl="bg-dark c-white br-2" for="id_content_list">Liste ismi:</label>
+        <p>
+          <label for="id_content_list">Liste ismi:</label>
+          <input name="content_list" maxlength="30" id="id_content_list" type="text">
           <ul flx class="list"></ul>
-          <input default="b pm" gnrl="bg-white txt-l br-2 c-private brc-dark" name="content_list" maxlength="30" id="id_content_list" type="text">
-        </div>
-      <div flx="fd-c" default="m p">
-          <label flx="ai-c jc-c" default="m p" gnrl="bg-dark c-white br-2" for="id_title">Başlık yazın:</label>
-          <input default="b pm" gnrl="bg-white txt-l br-2 c-private brc-dark" name="title" maxlength="100" required="" id="id_title" type="text">
-        </div>
-      <div flx="fd-c" default="m p">
-          <label flx="ai-c jc-c" default="m p" gnrl="bg-dark c-white br-2" for="id_content">İçeriğinizi yazın:</label>
-          <textarea default="b pm" gnrl="bg-white txt-l br-2 c-private brc-dark" default="pm" name="content" cols="40" rows="10" required="" id="id_content"></textarea>
-        </div>
-        <div flx="fd-c" default="m p">
-          <label flx="ai-c jc-c" default="m p" gnrl="bg-dark c-white br-2" for="id_show">Anasayfa'da görünecek içerik notu ekleyin:</label>
-          <textarea default="b pm" gnrl="bg-white txt-l br-2 c-private brc-dark" default="pm" name="show" cols="40" rows="10" maxlength="400" required="" id="id_show"></textarea>
-        </div>
-        <div flx="fd-c" default="m p">
-          <label flx="ai-c jc-c" default="m p" gnrl="bg-dark c-white br-2" for="id_tag">Virgül kullanarak anahtar kelimeleri yazın:</label>
+        </p>
+        <p>
+          <label  for="id_title">Başlık yazın:</label>
+          <input default="b pm"  name="title" maxlength="100" required="" id="id_title" type="text">
+        </p>
+        <p>
+          <label  for="id_content">İçeriğinizi yazın:</label>
+          <textarea name="content" cols="40" rows="10" required="" id="id_content"></textarea>
+        </p>
+        <p>
+          <label  for="id_show">Anasayfa'da görünecek içerik notu ekleyin:</label>
+          <textarea name="show" cols="40" rows="10" maxlength="400" required="" id="id_show"></textarea>
+        </p>
+        <p>
+          <label for="id_tag">Virgül kullanarak anahtar kelimeleri yazın:</label>
+          <input name="tag" maxlength="200" required="" id="id_tag" type="text">
           <ul flx class="tags"></ul>
-          <input default="b pm" gnrl="bg-white txt-l br-2 c-private brc-dark" name="tag" maxlength="200" required="" id="id_tag" type="text">
-      </div>
-        <input gnrl="bg-info c-white br-2" default="b pm" hvr="brc-success bg-success" class="c-create-input" value="Paylaş" type="submit">
-        <span flx="ai-c jc-c" default="m p" gnrl="bg-dark c-white br-2">Anasayfa önizlemesi ;</span>
+        </p>
+        <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c"
+        hvr="bg-white c-success brc-success" default="b pm" type="submit" value="Paylaş" style="width: 200px;">
+        <span flx="ai-c jc-c" default="pm" gnrl="br-2">Anasayfa önizlemesi</span>
           {% include 'controls/preview.html' %}
     </form>
 </div>

@@ -19,17 +19,6 @@ $(document).ready(function() {
           }
         }
 
-    function wincenter() {
-        // nesneleri ekrana ortalar
-        // her sayfada sadece 1 tane nesne ortalanabilir
-        var body_heig = $("body").height();
-        var class_heig = $(".wincenter").height(); // ortalanmak istenen nesneye width değeri verilmeli ardından body 100% olmalı ve wincenter class ismi eklenmeli
-        $(".wincenter").css("margin", "auto");
-        $(".wincenter").css("margin-top", (body_heig - class_heig) / 2);
-        // nesneleri ekrana ortalar
-        // ---------
-    }
-
     function delete_content(this_){//içerik silmek için
       var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
       if (conf) {
@@ -52,28 +41,14 @@ $(document).ready(function() {
     });
     //ekran değiştiğinde çalışacak kodlar
     set();
-    wincenter();
     $(window).resize(function() {
         set();
-        wincenter();
     });
-    var wid = parseInt($(window).width());
-    if (wid < 1160) { // mobil ve tablet
-      //  $(".h-header-ul").addClass("wincenter");
-        $(".open-header").click(function() {
-            $(".h-header").toggle("fast")
-        });
-    }
 
     // her zaman çalışacak kodlar
     $(".close-ms").click(function() {
         $(".main-messages").remove();
     })
-
-    setTimeout(function() {
-        wincenter();//bütün wincenter nesneleri ortalanması için
-    }, 100);
-
 
     $(".b-content").mouseover(function() {
         $(this).find(".b-cont").css({
@@ -105,23 +80,4 @@ $(document).ready(function() {
         var post_id = this.getAttribute("data-post-id");
         $(".d-starts-ul").load("/stars/" + post_id + "/" + stars_id);
     });
-
-    // controls
-    $("#id_category").change(function() {
-        var str = "";
-        $("#id_category option:selected").each(function() {
-            str += $(this).val();
-            $("#id_subcategory").load("/chosesub/" + str);
-            $("#id_category2").load("/chosenone/");
-        });
-    });
-
-    $("#id_subcategory").change(function() {
-        var str = "";
-        $("#id_subcategory option:selected").each(function() {
-            str += $(this).val();
-            $("#id_category2").load("/chosecat2/" + str);
-        });
-    });
-    // controls
 });

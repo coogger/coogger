@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: flex-end;
 }
-.my input,.my select{
+.my p input,.my p select,.my p textarea{
   display: flex;
   align-content: flex-end;
   margin: 0px 12px;

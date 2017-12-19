@@ -1,12 +1,11 @@
 {% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
-<div class="c-create">
-    <form method="post" class="c-create-form" action="/change/{{ content_id }}" enctype="multipart/form-data">
-        {% csrf_token %} {{ change_form.as_p }} {{ change_form.media }}
-        <input class="c-create-input" type="submit" value="Düzenlemeyi kaydet">
-    </form>
-    {% include 'controls/preview.html' %}
+<div flx="jc-c" gnrl="bg-muted br-2" default="pm">
+  <form class="my" gnrl="bg-white" default="pm" flx="fd-c jc-fe" method="post"  action="/change/{{ content_id }}" enctype="multipart/form-data">
+    {% csrf_token %} {{ change_form.as_p }}
+    <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c"
+    hvr="bg-white c-success brc-success" default="b pm" type="submit" value="Düzenlemeyi kaydet" style="width: 200px;">
+  </form>
 </div>
-
+{% include 'controls/preview.html' %}
 </body>
-
 </html>
