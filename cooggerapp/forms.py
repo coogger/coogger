@@ -1,11 +1,11 @@
 from django.forms import ModelForm
-from cooggerapp.models import Blog,Author,UserFollow,UserFollow
+from cooggerapp.models import Content,Author,UserFollow
 from django.contrib.auth.models import User
 
 
 class ContentForm(ModelForm):
     class Meta:
-        model = Blog
+        model = Content
         fields = ["content_list","title","content","show","tag"]
 
 class AuthorForm(ModelForm):

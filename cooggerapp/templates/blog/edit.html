@@ -1,5 +1,5 @@
 <div class="b-edit">
-    {% if blo.username == request.user or request.user.is_superuser %}
+    {% if blo.user == request.user or request.user.is_superuser %}
     <div class="b-edit-panel data-edit-id-{{ blo.id }}" style="display: none;">
         <ul class="b-edit-ul ft-ar">
             <li class="b-edit-li">

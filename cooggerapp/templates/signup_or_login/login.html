@@ -4,26 +4,26 @@
   <div flx="jc-c ai-c" default="bg" style="height:100vh;">
     <div gnrl="bg-white br-2" default="pm">
       {% include "home/logo.html" %}
-      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Giriş yap</div>
+      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Kullanıcı adınızı ve şifrenizi girin</div>
       <div flx="jc-c">
         <ul flx="jc-c">
           <form action="/login" method="post" flx="fd-c">
             {% csrf_token %}
             <li flx="jc-fe" default="pm">
               <label flx="ai-c" default="pm">Kullanıcı ismi</label>
-              <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="text" name="Username" value="">
+              <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="text" name="Username" value="">
             </li>
             <li flx="jc-fe" gnrl="" default="pm">
               <label flx="ai-c" default="pm">Şifre</label>
-              <input default="pm b" gnrl="c-private bg-white br-2 brc-muted" type="password" name="Password" value="">
+              <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="password" name="Password" value="">
             </li>
-            <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c" hvr="bg-white c-success brc-success" default="b pm"
+            <input gnrl="c-white bg-success brc-white br-2 b-1" flx="jc-c as-c" hvr="bg-white c-success brc-success" default="pm"
             type="submit" value="Giriş yap" style="width: 200px;">
           </form>
         </ul>
       </div>
       <div flx="jc-c">
-        <a default="pm b" hvr="c-white bg-muted" gnrl="br-2 c-muted" flx="flx-1 jc-c">Şifreni mi Unuttun?</a>
+        <a default="pm" hvr="c-primary" gnrl="br-2 c-muted b-1" flx="flx-1 jc-c">Şifreni mi Unuttun?</a>
       </div>
     </div>
   </div>

@@ -3,13 +3,13 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
-from cooggerapp.models import Blog
+from cooggerapp.models import Content
 from cooggerapp.views.tools import paginator,hmanynotifications
 from cooggerapp.views.home import content_cards
 from django.db.models import Q
 
 def hashtag(request,hashtag):
-    queryset = Blog.objects.filter(tag__contains = hashtag)
+    queryset = Content.objects.filter(tag__contains = hashtag)
     info_of_cards = content_cards(request,queryset)
     elastic_search = dict(
      title ="#"+hashtag+" | coogger",
@@ -27,19 +27,19 @@ def hashtag(request,hashtag):
     )
     return render(request,"blog/blogs.html",output)
 
-def list(request,list):
-    queryset = Blog.objects.filter(content_list = list)
+def list(request,list_):
+    queryset = Content.objects.filter(content_list = list_)
     info_of_cards = content_cards(request,queryset)
     elastic_search = dict(
-     title = list +" | coogger",
-     keywords = list,
-     description = list +" liste etiketi altında ki bütün coogger bilgilerini gör",
+     title = list_,
+     keywords = list_,
+     description = list_ +" liste etiketi altında ki bütün coogger bilgilerini gör",
     )
     output = dict(
         blog = info_of_cards[0],
         general = True,
         ogurl = request.META["PATH_INFO"],
-        nameoflist_ex = list,
+        nameoflist_ex = list_,
         paginator = info_of_cards[1],
         hmanynotifications = hmanynotifications(request),
         elastic_search = elastic_search,

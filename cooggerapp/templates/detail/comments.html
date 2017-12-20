@@ -18,7 +18,7 @@
     <li class="d-comments-li">
       <div class="d-comments-user">
         <div class="d-comment-date"> <spam>{{ com.date|timesince }} önce</spam></div>
-        <a href="/@{{ com.user }}">
+        <a href="/@{{ com.user}}">
         {% if request.user.otherinformationofusers.pp %}
         <img class="comments-pp" src="/media/users/pp/pp-{{ request.user }}.jpg">
         {% else %}

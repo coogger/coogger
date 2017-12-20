@@ -14,8 +14,8 @@ def mysignup(request): #kayıt ol
             ms.error(request,"Yeni hesap açma işlemi için önce çıkış yapmalısınız")
             return HttpResponseRedirect("/")
         elastic_search = dict(
-            title = "coogger | kayıt ol",
-            keywords = "coogger kayıt ol,coogger kaydol",
+            title = "Kayıt ol | coogger",
+            keywords = "Kayıt ol,coogger kayıt ol,coogger kaydol",
             description = "coogger'a kaydol"
         )
         output = dict(

@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 import os
 from .views import (
-    controls,csettings,detail,explorer,home,signup_or_login,tools,topics,users
+    controls,csettings,detail,explorer,home,signup_or_login,tools,users
     )
 urlpatterns = [
     url(r'^$', home.home,name = "home"),

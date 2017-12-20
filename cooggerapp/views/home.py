@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
-from cooggerapp.models import Blog,OtherInformationOfUsers,Notification,SearchedWords
+from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords
 from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,paginator,hmanynotifications
 from django.db.models import Q
 from django.contrib import messages as ms
@@ -12,7 +12,6 @@ def home(request):
     info_of_cards = content_cards(request,hmany=10)
     output = dict(
         blog = info_of_cards[0],
-        #nav_category = category, bu isim ile veriliyor unutma
         general = True,
         ogurl = request.META["PATH_INFO"],
         paginator = info_of_cards[1],
@@ -24,7 +23,7 @@ def home(request):
 def search(request):
     query = request.GET["query"].lower()
     q = Q(title__contains = query) | Q(content_list__contains = query) | Q(tag__contains = query)
-    queryset = Blog.objects.filter(q).order_by("-views")
+    queryset = Content.objects.filter(q).order_by("-views")
     info_of_cards = content_cards(request,queryset,hmany=20)
     data_search = SearchedWords.objects.filter(word = query)
     if data_search.exists():
@@ -58,7 +57,7 @@ def notification(request):
         )
     return render(request,"home/notifications.html",output)
 
-def content_cards(request,queryset = Blog.objects.all(),hmany = 10):
+def content_cards(request,queryset = Content.objects.all(),hmany = 10):
     "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
     paginator_of_cards = paginator(request,queryset,hmany)
     pp_in_cc = [pp for pp in get_pp_from_contents(paginator_of_cards)]

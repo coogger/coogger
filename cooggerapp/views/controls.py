@@ -1,15 +1,18 @@
 # content control
+import random
+
 from django.http import *
 from django.shortcuts import render
-from django.contrib.auth import *
-from django.contrib import messages as ms
-from cooggerapp.models import *
-from django.contrib.auth.models import User
-from cooggerapp.forms import ContentForm
 from django.db.models import F
 from django.utils.text import slugify
+
+from django.contrib import messages as ms
+from django.contrib.auth.models import User
+from django.contrib.auth import *
+
+from cooggerapp.forms import ContentForm
+from cooggerapp.models import Content,ContentList
 from cooggerapp.views import tools
-import random
 
 def create(request):
     "to create new content"
@@ -21,7 +24,7 @@ def create(request):
     # post method
     if create_form.is_valid():
         content = create_form.save(commit=False)
-        content.username = request_user
+        content.user = request_user
         content_list = slugify(request.POST["content_list"])
         if content_list == "":
             content_list = "coogger"
@@ -66,20 +69,20 @@ def change(request,content_id):
         ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
         return HttpResponseRedirect("/")
     elif request_user.is_superuser:
-        queryset = Blog.objects.filter(id = content_id)
+        queryset = Content.objects.filter(id = content_id)
     else:
-        queryset = Blog.objects.filter(username = request_user,id = content_id)
+        queryset = Content.objects.filter(user = request_user,id = content_id)
     if not queryset.exists():
         ms.error(request,"Girmek istediğiniz sayfada yönetim iznine sahip değilsiniz !")
         return HttpResponseRedirect("/")
     queryset = queryset[0]
-    real_username = queryset.username # içeriği yazan kişinin kullanıcı ismi
+    real_username = queryset.user # içeriği yazan kişinin kullanıcı ismi
     old_content_list = str(queryset.content_list)
     change_form = ContentForm(request.POST or None,instance=queryset)
     # post method
     if change_form.is_valid():
         content = change_form.save(commit=False)
-        content.username = real_username
+        content.user = real_username
         content_list = str(slugify(request.POST["content_list"]))
         content.content_list = content_list
         content.time = queryset.time
@@ -131,9 +134,9 @@ def delete(request,content_id):
         ms.error(request,"ops !")
         return HttpResponseRedirect("/")
     elif request_user.is_superuser: # admin
-        queryset = Blog.objects.filter(id = content_id)
+        queryset = Content.objects.filter(id = content_id)
     else:
-        queryset = Blog.objects.filter(username = request_user,id = content_id)
+        queryset = Content.objects.filter(user = request_user,id = content_id)
     real_username = queryset[0].username # içeriği yazan kişinin kullanıcı ismi
     user = User.objects.filter(username = real_username)[0]
     if not queryset.exists():

@@ -1,58 +1,56 @@
+import json
+import os
+from bs4 import BeautifulSoup
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
-from cooggerapp.models import Blog,Blogviews,OtherInformationOfUsers,UserFollow,Voters,Comment,Notification
-from cooggerapp.views.tools import get_ip,paginator,get_pp_from_contents,get_stars_from_contents,hmanynotifications
 from django.db.models import F
-from django.contrib.auth.models import User
-from bs4 import BeautifulSoup
 from django.utils.text import slugify
-import json
-import os
 from django.utils import timezone
-
+from cooggerapp.models import Content,Contentviews,OtherInformationOfUsers,UserFollow,Voters,Comment,Notification
+from cooggerapp.views.tools import get_ip,paginator,get_pp_from_contents,get_stars_from_contents,hmanynotifications
 
 def main_detail(request,blog_path,utopic,path):
     "blogların detay kısmı "
-    queryset = Blog.objects.filter(url = blog_path)[0]
-    username_id = queryset.username_id
-    user = User.objects.filter(id = username_id)[0]
+    queryset = Content.objects.filter(url = blog_path)[0]
+    content_user = queryset.user
     ip = get_ip(request)
-    nav_category = [nav for nav in nav_category_for_detail(username_id,utopic)]
-    if not Blogviews.objects.filter(content = queryset,ip = ip).exists():
-        Blogviews(content = queryset,ip = ip).save()
+    nav_category = [nav for nav in nav_category_for_detail(content_user,utopic)]
+    if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
+        Contentviews(content = queryset,ip = ip).save()
         queryset.views = F("views") + 1
         queryset.save()
-        queryset = Blog.objects.filter(url = blog_path)[0]
+        queryset = Content.objects.filter(url = blog_path)[0]
     try:
         stars = str(int(queryset.stars/queryset.hmstars))
     except ZeroDivisionError:
         stars = ""
-    facebook = get_facebook(user)
+    facebook = get_facebook(content_user)
     elastic_search = dict(
         title = queryset.title+" | coogger",
-        keywords = queryset.tag +","+user.username+" "+utopic+", "+utopic+",coogger, "+queryset.title,
+        keywords = queryset.title,
         description = queryset.show,
         author = facebook,
     )
+    quer = Content.objects.filter(url = blog_path)
     output = dict(
         detail = queryset,
         elastic_search = elastic_search,
         general = True,
-        username  = user,
+        username  = content_user,
         stars = stars,
         nameoftopic = queryset.title,
         nav_category = nav_category,
         nameoflist = utopic,
         ogurl = request.META["PATH_INFO"],
         global_hashtag = [i for i in queryset.tag.split(",") if i != ""],
-        comment_form = Comment.objects.filter(content=queryset),
+        comment_form = Comment.objects.filter(content=quer[0]),
         hmanynotifications = hmanynotifications(request),
     )
     # açılan makale bittikten sonra okunulan liste altındaki diğer paylaşımları anasayfadaki gibi listeler
-    query = Blog.objects.filter(username = username_id,content_list = utopic)
+    query = Content.objects.filter(user = content_user,content_list = utopic)
     info_of_cards = content_cards(request,query,6)
     output["blog"] = info_of_cards[0]
     output["paginator"] = info_of_cards[1]
@@ -65,7 +63,7 @@ def stars(request,post_id,stars_id):
         return HttpResponse("Oy vermek için giriş yapmalı veya üye olmalısınız")
     user = request.user
     request_username = user.username
-    blog = Blog.objects.filter(id = post_id)[0]
+    blog = Content.objects.filter(id = post_id)[0]
     try:
         vot = Voters.objects.filter(user = user,blog = blog) # daha önceden verdiği oy varsa alıyoruz
         old = vot[0].star
@@ -82,7 +80,7 @@ def stars(request,post_id,stars_id):
     first_li = """<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """><img class="d-starts-a" src="/static/media/icons/star.svg"></li>"""
     second_li="""<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """><img class="d-starts-a" src="/static/media/icons/star(0).svg"></li>"""
     output = ""
-    blog = Blog.objects.filter(id = post_id)[0]
+    blog = Content.objects.filter(id = post_id)[0]
     stars = blog.stars
     hmstars = blog.hmstars
     rate = stars/hmstars
@@ -101,13 +99,13 @@ def comment(request,content_path):
     if request.method=="POST" and request.is_ajax() and request.user.is_authenticated:
         user = request.user
         comment = request.POST["comment"]
-        content = Blog.objects.filter(url = content_path)[0]
+        content = Content.objects.filter(url = content_path)[0]
         Comment(user=user,comment=comment,content = content).save()
-        query = Blog.objects.filter(url = content_path)[0]
+        query = Content.objects.filter(url = content_path)[0]
         query.hmanycomment = F("hmanycomment")+1
         query.save()
-        if str(content.username) != str(user.username):
-            Notification(user=content.username,even = 1,content=comment,address = content_path).save()
+        if str(content.user) != str(user.username):
+            Notification(user=content.user,even = 1,content=comment,address = content_path).save()
         return HttpResponse(
             json.dumps({
                 "comment": comment,
@@ -135,8 +133,8 @@ def get_facebook(user):
         pass
     return facebook
 
-def nav_category_for_detail(username_id,utopic):
-    nav_category = Blog.objects.filter(username = username_id,content_list = utopic)
+def nav_category_for_detail(user,utopic):
+    nav_category = Content.objects.filter(user = user,content_list = utopic)
     for category in nav_category:
        yield category.url,category.title
 

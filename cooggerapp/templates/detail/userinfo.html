@@ -3,9 +3,9 @@
         <ul class="b-user-ul">
             <li class="b-user-ul-li">
                 <div class="b-user-img">
-                  <a href="/@{{ detail.username }} ">
+                  <a href="/@{{ detail.user }} ">
                     {% if username.otherinformationofusers.pp %}
-                    <img class="b-user-img-src" alt='{{ detail.username }}' src="/media/users/pp/pp-{{ detail.username }}.jpg">
+                    <img class="b-user-img-src" alt='{{ detail.user }}' src="/media/users/pp/pp-{{ detail.user }}.jpg">
                     {% else %}
                       <img class="b-user-img-src" src="/static/media/profil.png">
                       {% endif %}
@@ -13,16 +13,16 @@
                 </div>
             </li>
             <li class="b-user-ul-li b-user-mobil">
-              <a class="b-username-a" href='/@{{ detail.username }}'>
+              <a class="b-username-a" href='/@{{ detail.user }}'>
                 <div class="b-username ">
-                    @{{ detail.username }}
+                    @{{ detail.user }}
                 </div>
                 </a>
             </li>
         </ul>
         {% if detail.content_list %}
         <li class="b-user-li">
-          <a class="b-username-a" href='/@{{ detail.username }}/{{ detail.content_list }}'>
+          <a class="b-username-a" href='/@{{ detail.user }}/{{ detail.content_list }}'>
             <div class="b-content-list-name ">
                 {{ detail.content_list }}
             </div>

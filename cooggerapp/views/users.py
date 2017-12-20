@@ -1,15 +1,18 @@
 # kullanıcıların yaptıkları tüm işlemler
+from PIL import Image
+import os
+
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib import messages as ms
-from cooggerapp.models import ContentList,OtherInformationOfUsers,Blog,UserFollow
+
+from cooggerapp.models import ContentList,OtherInformationOfUsers,Content,UserFollow
 from cooggerapp.forms import UserFollowForm
-from cooggerapp.views import tools
+from cooggerapp.views.tools import hmanynotifications
 from cooggerapp.views.home import content_cards
-from PIL import Image
-import os
+
 
 def user(request,username):
     "herhangi kullanıcının anasayfası"
@@ -20,7 +23,7 @@ def user(request,username):
     except:
         user_follow = []
     # yaptığı paylaşımlar
-    queryset = Blog.objects.filter(username = user)
+    queryset = Content.objects.filter(user = user)
     info_of_cards = content_cards(request,queryset)
     facebook = get_facebook(user)
     elastic_search = dict(
@@ -38,7 +41,7 @@ def user(request,username):
         content_list = content_list,
         ogurl = request.META["PATH_INFO"],
         elastic_search = elastic_search,
-        hmanynotifications = tools.hmanynotifications(request),
+        hmanynotifications = hmanynotifications(request),
     )
     return render (request,"users/user.html",output)
 
@@ -56,7 +59,7 @@ def upload_pp(request):
             for chunk in image.chunks():
                 destination.write(chunk)
         im = Image.open(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg")
-        im.thumbnail((250,250))
+        im.thumbnail((350,350))
         try: # resim yükleme sırasında bir hata olursa pp = False olacak hata olmaz ise True
             im.save(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg", "JPEG")
             user_id = User.objects.filter(username = request_username)[0].id
@@ -68,7 +71,7 @@ def upload_pp(request):
 def u_topic(request,username,utopic):
     "kullanıcıların kendi hesaplarında açmış olduğu konulara yönlendirme"
     user = User.objects.filter(username = username)[0]
-    queryset = Blog.objects.filter(username = user,content_list = utopic)
+    queryset = Content.objects.filter(user = user,content_list = utopic)
     if not queryset.exists():
         ms.error(request,"{} adlı kullanıcı nın {} adlı bir içerik listesi yoktur".format(username,utopic))
         return HttpResponseRedirect("/")
@@ -91,7 +94,7 @@ def u_topic(request,username,utopic):
         username = username,
         nameoflist = "Listeler",
         elastic_search = elastic_search,
-        hmanynotifications = tools.hmanynotifications(request),
+        hmanynotifications = hmanynotifications(request),
     )
     return render(request,"blog/blogs.html",output)
 

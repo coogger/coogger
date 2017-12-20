@@ -7,11 +7,20 @@
         {% endif %}
         <ul class="u-footer-ul">
             {% for follow in user_follow %}
+            {{follow.choices}}
+            {% if follow.choices == "web-site" %}
             <li class="u-footer-li">
                 <a class="ft-os" target="_blank" href="{{follow.adress}}">
                     <img src="/static/media/icons/{{follow.choices}}.svg" />
                 </a>
             </li>
+            {% else %}
+            <li class="u-footer-li">
+                <a class="ft-os" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
+                    <img src="/static/media/icons/{{follow.choices}}.svg" />
+                </a>
+            </li>
+            {% endif %}
             {% endfor %}
         </ul>
 
