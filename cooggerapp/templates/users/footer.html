@@ -1,28 +1,29 @@
-<footer class="u-footer">
-    <div class="u-footer-main">
+<footer default="pm" gnrl="bg-white br-2 txt-s b-1 brc-white" hvr-a="brc-private" hvr="c-private">
+    <div flx="jc-c" default="pm">
         {% if user_follow %}
-        <div class="u-footer-info ft-os">{{ username }} adlı kullanıcımızın diğer web adresler</div>
+        <div flx="jc-c" default="pm">{{ username }} adlı kullanıcımızın diğer web adresler</div>
         {% else %}
-        <div class="u-footer-info ft-os">{{ username  }} adlı kullanıcımızın herhangi bir web adres kaydı bulunmamakta</div>
+        <div flx="jc-c" default="pm">{{ username  }} adlı kullanıcımızın herhangi bir web adres kaydı bulunmamakta</div>
         {% endif %}
-        <ul class="u-footer-ul">
-            {% for follow in user_follow %}
-            {{follow.choices}}
-            {% if follow.choices == "web-site" %}
-            <li class="u-footer-li">
-                <a class="ft-os" target="_blank" href="{{follow.adress}}">
-                    <img src="/static/media/icons/{{follow.choices}}.svg" />
-                </a>
-            </li>
-            {% else %}
-            <li class="u-footer-li">
-                <a class="ft-os" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
-                    <img src="/static/media/icons/{{follow.choices}}.svg" />
-                </a>
-            </li>
-            {% endif %}
-            {% endfor %}
-        </ul>
-
+      </div>
+      <div flx="jc-c" default="pm">
+        {% for follow in user_follow %}
+        {% if follow.choices == "web-site" %}
+        <div default="pm">
+          <a default="pm" flx hvr-a="bg-primary" gnlr="bg-2" hvr="c-white bg-white"  target="_blank" href="{{follow.adress}}">
+            <img hvr-a="bg-white" gnrl="br-circle" src="/static/media/icons/{{follow.choices}}.svg" />
+            <span flx="jc-c ai-c" default="m">{{follow.choices}}</span>
+          </a>
+        </div>
+        {% else %}
+        <div default="pm">
+          <a default="pm" flx hvr-a="bg-primary" gnlr="bg-2" hvr="c-white bg-white" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
+            <img hvr-a="bg-white" gnrl="br-circle" src="/static/media/icons/{{follow.choices}}.svg" />
+            <span flx="jc-c ai-c" default="m">{{follow.choices}}</span>
+          </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
     </div>
 </footer>

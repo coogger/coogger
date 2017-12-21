@@ -58,6 +58,7 @@ def create(request):
     # get method
     output = dict(
         controls = True,
+        create_form = create_form,
         hmanynotifications = tools.hmanynotifications(request),
     )
     return render(request,"controls/create.html",output)
@@ -137,7 +138,7 @@ def delete(request,content_id):
         queryset = Content.objects.filter(id = content_id)
     else:
         queryset = Content.objects.filter(user = request_user,id = content_id)
-    real_username = queryset[0].username # içeriği yazan kişinin kullanıcı ismi
+    real_username = queryset[0].user # içeriği yazan kişinin kullanıcı ismi
     user = User.objects.filter(username = real_username)[0]
     if not queryset.exists():
         ms.error(request,"Girmek istediğiniz sayfada yönetim iznine sahip değilsiniz !")

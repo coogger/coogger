@@ -1,17 +1,12 @@
-<div class="b-user-info">
-  <div class="b-user-ul">
-    <div class="b-user-img">
-      <a href="/@{{blo.user}}">
-        {% if pp %}
-        <img class="b-user-img-src" alt='{{blo.user}}' src="/media/users/pp/pp-{{ blo.user }}.jpg">
-        {% else %}
-        <img class="b-user-img-src" src="/static/media/profil.png">
-        {% endif %}
+<div default="p">
+  <div hvr-a="brc-private" gnrl="b-1 brc-white br-2"  default="pm">
+    <a href="/@{{blo.user}}" flx="ai-c" gnrl="txt-s" hvr-a="c-private">
+      {% if pp %}
+      <img gnrl="br-circle"  alt='{{blo.user}}' src="/media/users/pp/pp-{{ blo.user }}.jpg" style="width: 50px;height: 50px;">
+      {% else %}
+      <img gnrl="br-circle" src="/static/media/profil.png" style="width: 50px;height: 50px;">
+      {% endif %}
+      @{{ blo.user }}
     </a>
-    </div>
-    <div class="b-username ">
-      <a class="b-username-a ft-cl" href='/@{{ blo.user }}'>@{{ blo.user }}</a>
-    </div>
-
   </div>
 </div>

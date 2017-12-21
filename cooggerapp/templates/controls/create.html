@@ -7,25 +7,14 @@
           <input name="content_list" maxlength="30" id="id_content_list" type="text">
           <ul flx class="list"></ul>
         </p>
-        <p>
-          <label  for="id_title">Başlık yazın:</label>
-          <input default="b pm"  name="title" maxlength="100" required="" id="id_title" type="text">
-        </p>
-        <p>
-          <label  for="id_content">İçeriğinizi yazın:</label>
-          <textarea name="content" cols="40" rows="10" required="" id="id_content"></textarea>
-        </p>
-        <p>
-          <label  for="id_show">Anasayfa'da görünecek içerik notu ekleyin:</label>
-          <textarea name="show" cols="40" rows="10" maxlength="400" required="" id="id_show"></textarea>
-        </p>
+          {{ create_form.as_p }}{{ create_form.media }}
         <p>
           <label for="id_tag">Virgül kullanarak anahtar kelimeleri yazın:</label>
           <input name="tag" maxlength="200" required="" id="id_tag" type="text">
           <ul flx class="tags"></ul>
         </p>
-        <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c"
-        hvr="bg-white c-success brc-success" default="b pm" type="submit" value="Paylaş" style="width: 200px;">
+        <input gnrl="c-white bg-success brc-white br-2 b-1" flx="jc-c as-c"
+        hvr="bg-white c-success brc-success" default="pm" type="submit" value="Paylaş" style="width: 200px;">
         <span flx="ai-c jc-c" default="pm" gnrl="br-2">Anasayfa önizlemesi</span>
           {% include 'controls/preview.html' %}
     </form>

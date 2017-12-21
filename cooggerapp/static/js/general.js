@@ -1,23 +1,4 @@
 $(document).ready(function() {
-    function set() {
-        var wid = $(window).width();
-        var heig = $(window).height();
-        if (wid < 1160) {
-            var free_space = 0;
-        } else {
-            var free_space = 320;
-            // h-nav-ul ayarlama
-            $(".h-nav-ul").mouseover(function() {
-                $(".h-nav-ul").css("overflow", "auto");
-                $(".h-nav-ul").css("height", "auto");
-                $(".b-blogs").css("filter", "blur(3px)");
-            }).mouseout(function() {
-                $(".h-nav-ul").css("overflow", "hidden");
-                $(".h-nav-ul").css("height", 40);
-                $(".b-blogs").css("filter", "blur(0px)");
-            });
-          }
-        }
 
     function delete_content(this_){//içerik silmek için
       var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
@@ -38,11 +19,6 @@ $(document).ready(function() {
     /* detail delete  */
     $(".d-delete").click(function() {
         delete_content(this);
-    });
-    //ekran değiştiğinde çalışacak kodlar
-    set();
-    $(window).resize(function() {
-        set();
     });
 
     // her zaman çalışacak kodlar
@@ -80,4 +56,13 @@ $(document).ready(function() {
         var post_id = this.getAttribute("data-post-id");
         $(".d-starts-ul").load("/stars/" + post_id + "/" + stars_id);
     });
+
+    /* pp değişmek için */
+    $("#u-upload-pp").change(function(){
+      $("#u-upload-pp").each(function()
+      {
+        /* pp post */
+      });
+    });
+
 });

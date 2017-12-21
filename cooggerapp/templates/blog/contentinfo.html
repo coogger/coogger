@@ -1,18 +1,18 @@
-<div class="b-content-info">
-  <div class="b-content-list-name ">
-    <a class="b-username-a" href='/@{{ blo.user }}/{{ blo.content_list }}'>{{ blo.content_list }}</a>
+<div flx="fd-c">
+  <div default="p" flx="jc-fe" style="border-bottom: 1px solid #1414144d;">
+    <a href='/@{{ blo.user }}/{{ blo.content_list }}'>{{ blo.content_list }}</a>
   </div>
-  <div class="b-user-li">
-    <a class="b-user-hashtag" href='/list/{{ blo.content_list }}'>
-      <img class="hashtag-img" src="/static/media/icons/list.svg" />
+  <div default="p" flx="fd-fs fd-c">
+    <a href='/list/{{ blo.content_list }}'>
+      <img src="/static/media/icons/list.svg" />
     </a>
   </div>
-
-  <div class="b-time ft-dn">
-    <span>{{ blo.time }} | </span><span> {{ blo.time|timesince }} önce</span>
+  <div default="p" flx="jc-c" gnrl="txt-s br-2 b-1 brc-muted">
+    {{ blo.time }} | {{ blo.time|timesince }}
   </div>
-
-  <div class="b-title ft-ns">
-    <a class="b-title-a" href='/{{ blo.url }}'>{{ blo.title|title }}</a>
-  </div>
+  <div default="p"></div>
+  <a default="p" flx="jc-c ai-c" gnrl="txt-s b-1 brc-private br-2 c-private"
+  href='/{{ blo.url }}' style="text-align: center;">
+    {{ blo.title|title }}
+  </a>
 </div>

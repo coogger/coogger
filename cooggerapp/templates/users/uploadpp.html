@@ -1,12 +1,10 @@
 {% if request.user == username %}
-<div class="u-uploadpp">
-    <form class="u-uploadform " action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data">
+<div>
+    <form action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div>
-            <input type="file" name="u-upload-pp" id="u-upload-pp" class="u-input-pp">
-            <label class="u-upload-label" for="u-upload-pp"><strong>profil resmi seç</strong></label>
-        </div>
-        <input class="u-pp-submit" type="submit" value="profili değiş" />
+        <input type="file" name="u-upload-pp" id="u-upload-pp" style="display: none;">
+        <label for="u-upload-pp" flx="jc-c" gnrl="bg-danger c-white br-2 b-1" default="pm" hvr-a="bg-white" hvr="c-danger">profil resmini güncelle</label>
+        <input type="submit" value="profili değiş" style="display: none;"/>
     </form>
 </div>
 {% endif %}

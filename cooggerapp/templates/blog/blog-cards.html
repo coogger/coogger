@@ -1,6 +1,6 @@
-<div class="b-blogs">
+<div class="b-blogs" flx="jc-c">
 {% for blo,pp,stars in blog %}
-<div class="b-blog data-post-id-{{blo.id}}">
+<div class="data-post-id-{{blo.id}}" style="margin:6px 6px;">
     {% include "blog/edit.html" %}
     {% if nameoftopic == blo.title %}
     <div class="b-cards" style="background: #248644;color: #fff;">
@@ -9,7 +9,7 @@
       {% endif %}
         {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %}
         <div class="b-content" data-views="{{ blo.views }}" data-dor="{{ blo.dor }}" data-url="{{ blo.url }}" data-stars="{{ stars }}" data-hmanycomment="{{ blo.hmanycomment }}">
-            <div class="b-cont ft-ct" style="height: 160px;">
+            <div gnrl="txt-s" flx="jc-c ai-c" class="b-cont" style="height:210px;">
                 {{ blo.show }}
             </div>
         </div>
