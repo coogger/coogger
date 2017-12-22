@@ -1,3 +1,3 @@
 *.pyc
-coogger/settings.py
+settings.py
 coogger_db
