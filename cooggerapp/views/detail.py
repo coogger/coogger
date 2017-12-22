@@ -17,7 +17,7 @@ def main_detail(request,blog_path,utopic,path):
     queryset = Content.objects.filter(url = blog_path)[0]
     content_user = queryset.user
     ip = get_ip(request)
-    nav_category = [nav for nav in nav_category_for_detail(content_user,utopic)]
+    nav_category = Content.objects.filter(user = content_user,content_list = utopic)
     if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
         Contentviews(content = queryset,ip = ip).save()
         queryset.views = F("views") + 1
@@ -28,6 +28,10 @@ def main_detail(request,blog_path,utopic,path):
     except ZeroDivisionError:
         stars = ""
     facebook = get_facebook(content_user)
+    try:
+        user_follow = UserFollow.objects.filter(user = content_user)
+    except:
+        user_follow = []
     elastic_search = dict(
         title = queryset.title+" | coogger",
         keywords = queryset.title,
@@ -48,6 +52,7 @@ def main_detail(request,blog_path,utopic,path):
         global_hashtag = [i for i in queryset.tag.split(",") if i != ""],
         comment_form = Comment.objects.filter(content=quer[0]),
         hmanynotifications = hmanynotifications(request),
+        user_follow = user_follow,
     )
     # açılan makale bittikten sonra okunulan liste altındaki diğer paylaşımları anasayfadaki gibi listeler
     query = Content.objects.filter(user = content_user,content_list = utopic)
@@ -132,11 +137,6 @@ def get_facebook(user):
     except:
         pass
     return facebook
-
-def nav_category_for_detail(user,utopic):
-    nav_category = Content.objects.filter(user = user,content_list = utopic)
-    for category in nav_category:
-       yield category.url,category.title
 
 def content_cards(request,queryset,hmany):
     "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"

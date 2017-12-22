@@ -17,7 +17,7 @@ from cooggerapp.views.home import content_cards
 def user(request,username):
     "herhangi kullanıcının anasayfası"
     user = User.objects.filter(username = username)[0]
-    content_list = ContentList.objects.filter(user = user)
+    nav_category = ContentList.objects.filter(user = user)
     try:
         user_follow = UserFollow.objects.filter(user = user)
     except:
@@ -38,7 +38,7 @@ def user(request,username):
         blog = info_of_cards[0],
         paginator = info_of_cards[1],
         user_follow = user_follow,
-        content_list = content_list,
+        nav_category = nav_category,
         ogurl = request.META["PATH_INFO"],
         elastic_search = elastic_search,
         hmanynotifications = hmanynotifications(request),
@@ -76,8 +76,12 @@ def u_topic(request,username,utopic):
         ms.error(request,"{} adlı kullanıcı nın {} adlı bir içerik listesi yoktur".format(username,utopic))
         return HttpResponseRedirect("/")
     info_of_cards = content_cards(request,queryset)
-    nav_category = [nav for nav in get_nav_category(user)]
+    nav_category = ContentList.objects.filter(user = user)
     facebook = get_facebook(user)
+    try:
+        user_follow = UserFollow.objects.filter(user = user)
+    except:
+        user_follow = []
     elastic_search = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic,
@@ -95,15 +99,9 @@ def u_topic(request,username,utopic):
         nameoflist = "Listeler",
         elastic_search = elastic_search,
         hmanynotifications = hmanynotifications(request),
+        user_follow = user_follow,
     )
-    return render(request,"blog/blogs.html",output)
-
-def get_nav_category(user):
-    another_utopic = ContentList.objects.filter(user = user)
-    for a_utopic in another_utopic:
-        fuck = a_utopic.content_list
-        yield fuck,fuck
-
+    return render (request,"users/user.html",output)
 
 def get_facebook(user):
     facebook = None

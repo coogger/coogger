@@ -1,15 +1,43 @@
+{% if nav_category and not detail %}
 <nav flx="fw-nw jc-c" gnrl="bg-white br-2 b-1 brc-white txt-m" default="pm" hvr-a="brc-private" style="height: 90px;">
   <div flx="fw-nw" default="pm" style="overflow: auto;">
-    {% for list in content_list %} {% if list.content_list %}
-    <div default="m" hvr-a="bg-primary" gnrl="br-2" flx="as-c">
-      <a flx="" default="p" gnrl="b-1 br-2 brc-secondary c-primary"  hvr-a="c-white" hvr="brc-primary"
-       href="@{{ username  }}/{{ list.content_list }}"
-       style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">{{ list.content_list }}</a>
+    {% for list in nav_category %}
+      {% if list.content_list == nameoftopic %}
+        <div default="m" hvr-a="bg-white" gnrl="br-2 bg-primary" flx="as-c">
+          <a flx="" default="p" gnrl="b-1 br-2 brc-secondary c-white"  hvr-a="c-primary" hvr="brc-primary"
+           href="/@{{ username  }}/{{ list.content_list }}"
+           style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">{{ list.content_list }}</a>
+      </div>
+     {% else%}
+       <div default="m" hvr-a="bg-primary" gnrl="br-2" flx="as-c">
+         <a flx="" default="p" gnrl="b-1 br-2 brc-secondary c-primary"  hvr-a="c-white" hvr="brc-primary"
+         href="/@{{ username  }}/{{ list.content_list }}"
+         style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">{{ list.content_list }}</a>
     </div>
-    {% else %}
-    <div>
-      <a href="@{{ username  }}/{{ list.content_list }}">Diğer bilgi paylaşımları</a>
-    </div>
-    {% endif %} {% endfor %}
+    {% endif %}
+     {% endfor %}
   </div>
 </nav>
+{% else %}
+<nav flx="fw-nw jc-c" gnrl="bg-white br-2 b-1 brc-white txt-m" default="pm" hvr-a="brc-private" style="height: 90px;">
+  <div flx="fw-nw" default="pm" style="overflow: auto;">
+    {% for list in nav_category %}
+      {% if list.title == nameoftopic %}
+        <div default="m" hvr-a="bg-white" gnrl="br-2 bg-primary" flx="as-c">
+          <a flx="" default="p" gnrl="b-1 br-2 brc-secondary c-white"  hvr-a="c-primary" hvr="brc-primary"
+           href="/{{list.url}}"
+           style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+           {{ list.title }}</a>
+      </div>
+     {% else%}
+       <div default="m" hvr-a="bg-primary" gnrl="br-2" flx="as-c">
+         <a flx="" default="p" gnrl="b-1 br-2 brc-secondary c-primary"  hvr-a="c-white" hvr="brc-primary"
+         href="/{{list.url}}"
+         style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+         {{ list.title }}</a>
+    </div>
+    {% endif %}
+     {% endfor %}
+  </div>
+</nav>
+{% endif %}

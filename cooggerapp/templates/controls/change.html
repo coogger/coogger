@@ -1,7 +1,19 @@
 {% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
 <div flx="jc-c" gnrl="bg-muted br-2" default="pm">
   <form class="my" gnrl="bg-white" default="pm" flx="fd-c jc-fe" method="post"  action="/change/{{ content_id }}" enctype="multipart/form-data">
-    {% csrf_token %} {{ change_form.as_p }}
+    {% csrf_token %}
+    <p>
+      <label for="id_content_list">Liste ismi:</label>
+      <input name="content_list" maxlength="30" id="id_content_list"
+      type="text" value="{{ change.content_list }}">
+      <ul flx class="list"></ul>
+    </p>
+    {{ change_form.as_p }}{{ change_form.media }}
+    <p>
+      <label for="id_tag">Virgül kullanarak anahtar kelimeleri yazın:</label>
+      <input name="tag" maxlength="200" required="" id="id_tag" type="text" value="{{ change.tag }}">
+      <ul flx class="tags"></ul>
+    </p>
     <input default="input" type="submit" value="Düzenlemeyi kaydet">
   </form>
 </div>

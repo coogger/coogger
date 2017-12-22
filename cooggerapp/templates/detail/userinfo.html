@@ -1,38 +1,16 @@
 <div class="b-user-info">
-    <ul class="b-user">
-        <ul class="b-user-ul">
-            <li class="b-user-ul-li">
-                <div class="b-user-img">
-                  <a href="/@{{ detail.user }} ">
-                    {% if username.otherinformationofusers.pp %}
-                    <img class="b-user-img-src" alt='{{ detail.user }}' src="/media/users/pp/pp-{{ detail.user }}.jpg">
-                    {% else %}
-                      <img class="b-user-img-src" src="/static/media/profil.png">
-                      {% endif %}
-                    </a>
-                </div>
-            </li>
-            <li class="b-user-ul-li b-user-mobil">
-              <a class="b-username-a" href='/@{{ detail.user }}'>
-                <div class="b-username ">
-                    @{{ detail.user }}
-                </div>
-                </a>
-            </li>
-        </ul>
-        {% if detail.content_list %}
-        <li class="b-user-li">
-          <a class="b-username-a" href='/@{{ detail.user }}/{{ detail.content_list }}'>
-            <div class="b-content-list-name ">
-                {{ detail.content_list }}
-            </div>
-            </a>
-        </li>
-        <li class="b-user-li">
-            <a class="b-user-hashtag" href='/list/{{ detail.content_list }}'>
-                <img class="b-hashtag-img" src="/static/media/icons/list.svg" />
-            </a>
-        </li>
-        {% endif %}
-    </ul>
+  <ul class="b-user">
+    <li class="b-user-li">
+      <a class="b-username-a" href='/@{{ detail.user }}/{{ detail.content_list }}'>
+        <div class="b-content-list-name ">
+          {{ detail.content_list }}
+        </div>
+      </a>
+    </li>
+    <li class="b-user-li">
+      <a class="b-user-hashtag" href='/list/{{ detail.content_list }}'>
+        <img class="b-hashtag-img" src="/static/media/icons/list.svg" />
+      </a>
+    </li>
+  </ul>
 </div>
