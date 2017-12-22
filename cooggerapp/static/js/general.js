@@ -25,27 +25,7 @@ $(document).ready(function() {
     $(".close-ms").click(function() {
         $(".main-messages").remove();
     })
-
-    $(".b-content").mouseover(function() {
-        $(this).find(".b-cont").css({
-            opacity: "0.1",
-        });
-        var views = this.getAttribute("data-views");
-        var dor = this.getAttribute("data-dor");
-        var url = this.getAttribute("data-url");
-        var stars = this.getAttribute("data-stars");
-        var hmanycomment = this.getAttribute("data-hmanycomment");
-        $(this).append("<div class='duread-main'><ul class='duread-ul'><li class='duread-li'><img class='duread-img' src='/static/media/icons/stopwatch.svg'><div class='duread-text'>Tahmini okuma süresi " + dor + " dakika</div></li><li class='duread-li'><img class='duread-img' src='/static/media/icons/star.svg'><div class='duread-text'>Yıldız " + stars + " </div></li><li class='duread-li'><img class='duread-img' src='/static/media/icons/employee.svg'><div class='duread-text'>Okuma " + views + " </div></li><li class='duread-li'><img class='duread-img' src='/static/media/icons/comments.svg'><div class='duread-text'>Yorum sayısı " + hmanycomment + "</div></li></ul></div>");
-        $(this).click(function() {
-            window.location = "/" + url
-        });
-    }).mouseout(function() {
-        $(this).find(".b-cont").css({
-            opacity: "1",
-        });
-        $(".duread-main").remove();
-    });
-
+    
     $(".b-edit-point").click(function() {
         var data_edit_id = this.getAttribute("data-edit-id");
         $(".data-edit-id-" + data_edit_id).toggle("fast");

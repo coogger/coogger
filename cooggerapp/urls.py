@@ -34,7 +34,7 @@ urlpatterns = [
     url(r'^@(?P<username>.*)', users.user,name = "user"),
 
     url(r'^tags/(?P<hashtag>.*)',explorer.hashtag,name = "hashtag"),
-    url(r'^list/(?P<list>.*)',explorer.list,name = "list"),
+    url(r'^list/(?P<list_>.*)',explorer.users_list,name = "list"),
 
     url(r'^comment/(?P<content_path>.*)$',detail.comment,name = "comment"),
 

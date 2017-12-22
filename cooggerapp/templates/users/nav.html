@@ -1,8 +1,10 @@
-<nav flx="jc-c" gnrl="bg-white br-2 b-1 brc-white" default="pm" hvr-a="brc-private">
-  <div default="pm" flx>
+<nav flx="fw-nw jc-c" gnrl="bg-white br-2 b-1 brc-white txt-m" default="pm" hvr-a="brc-private" style="height: 90px;">
+  <div flx="fw-nw" default="pm" style="overflow: auto;">
     {% for list in content_list %} {% if list.content_list %}
-    <div default="m" flx hvr-a="bg-primary" gnrl="br-2">
-      <a default="p" gnrl="b-1 br-2 brc-secondary c-primary"  hvr-a="c-white" hvr="brc-primary" href="@{{ username  }}/{{ list.content_list }}">{{ list.content_list }}</a>
+    <div default="m" hvr-a="bg-primary" gnrl="br-2" flx="as-c">
+      <a flx="" default="p" gnrl="b-1 br-2 brc-secondary c-primary"  hvr-a="c-white" hvr="brc-primary"
+       href="@{{ username  }}/{{ list.content_list }}"
+       style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">{{ list.content_list }}</a>
     </div>
     {% else %}
     <div>

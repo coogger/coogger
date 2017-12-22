@@ -2,8 +2,7 @@
 <div flx="jc-c" gnrl="bg-muted br-2" default="pm">
   <form class="my" gnrl="bg-white" default="pm" flx="fd-c jc-fe" method="post"  action="/change/{{ content_id }}" enctype="multipart/form-data">
     {% csrf_token %} {{ change_form.as_p }}
-    <input gnrl="c-white bg-success brc-white br-2 b-1" flx="jc-c as-c"
-    hvr="bg-white c-success brc-success" default="pm" type="submit" value="Düzenlemeyi kaydet" style="width: 200px;">
+    <input default="input" type="submit" value="Düzenlemeyi kaydet">
   </form>
 </div>
 {% include 'controls/preview.html' %}

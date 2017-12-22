@@ -8,9 +8,31 @@
     <div class="b-cards">
       {% endif %}
         {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %}
-        <div class="b-content" data-views="{{ blo.views }}" data-dor="{{ blo.dor }}" data-url="{{ blo.url }}" data-stars="{{ stars }}" data-hmanycomment="{{ blo.hmanycomment }}">
+        <div class="b-content">
             <div gnrl="txt-s" flx="jc-c ai-c" class="b-cont" style="height:210px;">
                 {{ blo.show }}
+                <a href="{{ blo.url }}">
+                <div class='duread-main'>
+                  <ul class='duread-ul'>
+                    <li class='duread-li'>
+                      <img class='duread-img' src='/static/media/icons/stopwatch.svg'>
+                      <div class='duread-text'>Tahmini okuma süresi {{ blo.dor }} dakika</div>
+                    </li>
+                    <li class='duread-li'>
+                      <img class='duread-img' src='/static/media/icons/star.svg'>
+                      <div class='duread-text'>Yıldız {{ stars }}</div>
+                    </li>
+                    <li class='duread-li'>
+                      <img class='duread-img' src='/static/media/icons/employee.svg'>
+                      <div class='duread-text'>Okuma {{ blo.views }}</div>
+                    </li>
+                    <li class='duread-li'>
+                      <img class='duread-img' src='/static/media/icons/comments.svg'>
+                      <div class='duread-text'>Yorum sayısı {{ blo.hmanycomment }}</div>
+                    </li>
+                  </ul>
+                </div>
+              </a>
             </div>
         </div>
     </div>

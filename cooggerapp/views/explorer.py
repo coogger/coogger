@@ -27,7 +27,7 @@ def hashtag(request,hashtag):
     )
     return render(request,"blog/blogs.html",output)
 
-def list(request,list_):
+def users_list(request,list_):
     queryset = Content.objects.filter(content_list = list_)
     info_of_cards = content_cards(request,queryset)
     elastic_search = dict(

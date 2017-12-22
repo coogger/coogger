@@ -2,14 +2,13 @@
 <div flx="jc-c" gnrl="bg-white br-2" default="pm">
   <form class="my" flx="fd-c jc-fe" method="post" action="/settings/account" enctype="multipart/form-data">{% csrf_token %}
     <p>
-      <label>Yeni Şifre</label>
-      <input type="password" name="Password" value="">
+      <label default="label">Yeni Şifre</label>
+      <input default="input" type="password" name="Password" value="">
     </p>
     <p>
-      <label>Şifre onay</label>
-      <input type="password" name="Confirm" value="">
+      <label default="label">Şifre onay</label>
+      <input default="input" type="password" name="Confirm" value="">
     </p>
-    <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c"
-    hvr="bg-white c-success brc-success" default="b pm" type="submit" value="Kaydet" style="width: 200px;">
+    <input default="input" type="submit" value="Kaydet">
   </form>
 </div>
