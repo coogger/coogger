@@ -1,17 +1,15 @@
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
-from django.contrib import messages
 from cooggerapp.views.tools import hmanynotifications
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
-from cooggerapp.forms import UserForm,UserFollowForm,UserFollowForm
+from cooggerapp.forms import UserForm,UserFollowForm
 import os
 
 def profile(request):
     if not request.user.is_authenticated:
         return HttpResponse(None)
-    template = "settings/profile.html"
     user_form = UserForm(request.POST or None,instance=request.user)
     if user_form.is_valid(): # post
         form = user_form.save(commit=False)
@@ -19,12 +17,13 @@ def profile(request):
             os.rename("/coogger/media/users/pp/pp-"+request.user.username+".jpg","/coogger/media/users/pp/pp-"+form.username+".jpg")
         form.save()
         return HttpResponseRedirect("/settings/")
-    output = dict(
-        UserForm = user_form,
-        settings = True,
-        hmanynotifications = hmanynotifications(request),
-        )
-    return render(request,template,output)
+    context = dict(
+    UserForm = user_form,
+    settings = True,
+    hmanynotifications = hmanynotifications(request),
+    )
+    template = "settings/profile.html"
+    return render(request,template,context)
 
 def account(request):
     if not request.user.is_authenticated:
@@ -42,17 +41,16 @@ def account(request):
             ms.error(request,"Şifreler eşleşmedi")
             return HttpResponseRedirect("/settings/account")
     elif request.method == "GET":
+        context = dict(
+        settings = True,
+        hmanynotifications = hmanynotifications(request),
+        )
         template = "settings/account.html"
-        output = dict(
-            settings = True,
-            hmanynotifications = hmanynotifications(request),
-            )
-        return render(request,template,output)
+        return render(request,template,context)
 
 def add_address(request):
     if not request.user.is_authenticated:
         return HttpResponse(None)
-    template = "settings/add-address.html"
     user_form = UserFollowForm(request.POST or None)
     if user_form.is_valid(): # post
         form = user_form.save(commit=False)
@@ -60,9 +58,10 @@ def add_address(request):
         form.save()
         ms.error(request,"Web siteniz eklendi")
         return HttpResponseRedirect("/settings/add-address")
-    output = dict(
-        UserForm = user_form,
-        settings = True,
-        hmanynotifications = hmanynotifications(request),
-        )
-    return render(request,template,output)
+    context = dict(
+    UserForm = user_form,
+    settings = True,
+    hmanynotifications = hmanynotifications(request),
+    )
+    template = "settings/add-address.html"
+    return render(request,template,context)

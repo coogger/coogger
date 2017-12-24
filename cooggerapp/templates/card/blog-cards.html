@@ -1,22 +1,22 @@
 <div class="b-blogs" flx="jc-c">
-{% for blo,pp,stars in blog %}
-<div class="data-post-id-{{blo.id}}" style="margin:6px 6px;">
-    {% include "blog/edit.html" %}
-    {% if nameoftopic == blo.title %}
+{% for ct,pp,stars in content %}
+<div class="data-post-id-{{ct.id}}" style="margin:6px 6px;">
+    {% include "card/edit.html" %}
+    {% if nameoftopic == ct.title %}
     <div class="b-cards" style="background: #248644;color: #fff;">
           {% else %}
     <div class="b-cards">
       {% endif %}
-        {% include "blog/userinfo.html" %} {% include "blog/contentinfo.html" %}
+        {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
         <div class="b-content">
             <div gnrl="txt-s" flx="jc-c ai-c" class="b-cont" style="height:210px;">
-                {{ blo.show }}
-                <a href="/{{ blo.url }}">
+                {{ ct.show }}
+                <a href="/{{ ct.url }}">
                 <div class='duread-main'>
                   <ul class='duread-ul'>
                     <li class='duread-li'>
                       <img class='duread-img' src='/static/media/icons/stopwatch.svg'>
-                      <div class='duread-text'>Tahmini okuma süresi {{ blo.dor }} dakika</div>
+                      <div class='duread-text'>Tahmini okuma süresi {{ ct.dor }} dakika</div>
                     </li>
                     <li class='duread-li'>
                       <img class='duread-img' src='/static/media/icons/star.svg'>
@@ -24,11 +24,11 @@
                     </li>
                     <li class='duread-li'>
                       <img class='duread-img' src='/static/media/icons/employee.svg'>
-                      <div class='duread-text'>Okuma {{ blo.views }}</div>
+                      <div class='duread-text'>Okuma {{ ct.views }}</div>
                     </li>
                     <li class='duread-li'>
                       <img class='duread-img' src='/static/media/icons/comments.svg'>
-                      <div class='duread-text'>Yorum sayısı {{ blo.hmanycomment }}</div>
+                      <div class='duread-text'>Yorum sayısı {{ ct.hmanycomment }}</div>
                     </li>
                   </ul>
                 </div>
@@ -40,5 +40,4 @@
 {% endfor %}
 </div>
 </div>
-
-{% include "blog/paginator.html" %}
+{% include "card/paginator.html" %}

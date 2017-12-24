@@ -1,5 +1,5 @@
 <div class="d-comments">
-  {% if user.is_authenticated %}
+  {% if request.user.is_authenticated %}
   <div class="d-wcomment">
     <form method="post" class="c-comment-form" action="/comment{{ ogurl }}">
       {% csrf_token %}
@@ -19,8 +19,8 @@
       <div class="d-comments-user">
         <div class="d-comment-date"> <spam>{{ com.date|timesince }} önce</spam></div>
         <a href="/@{{ com.user}}">
-        {% if request.user.otherinformationofusers.pp %}
-        <img class="comments-pp" src="/media/users/pp/pp-{{ request.user }}.jpg">
+        {% if com.user.otherinformationofusers.pp %}
+        <img class="comments-pp" src="/media/users/pp/pp-{{ com.user }}.jpg">
         {% else %}
           <img class="comments-pp" src="/static/media/profil.png">
           {% endif %}

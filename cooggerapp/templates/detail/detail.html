@@ -1,4 +1,7 @@
-{% include "detail/stars.html" %}{% include "detail/edit.html" %} {% include "detail/userinfo.html" %} {% include "detail/contentinfo.html" %}
+{% include "detail/stars.html" %}
+{% include "detail/edit.html" %}
+{% include "detail/userinfo.html" %}
+{% include "detail/contentinfo.html" %}
 <div class="b-cont" style="cursor: default;">
     <div class="ft-ct" style="height:100%;">{{ detail.content|safe }}</div>
     <ul class="d-hashtag">
@@ -11,4 +14,5 @@
         {% endfor %}
     </ul>
 </div>
- {% include 'blog/blog-cards.html' %} {% include "detail/comments.html" %}
+ {% include 'card/blog-cards.html' %}
+ {% include "detail/comments.html" %}

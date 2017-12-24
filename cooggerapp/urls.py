@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 import os
-from .views import (
+from cooggerapp.views import (
     controls,csettings,detail,explorer,home,signup_or_login,tools,users
     )
 urlpatterns = [
@@ -18,7 +18,7 @@ urlpatterns = [
     url(r"^login$",signup_or_login.mylogin,name = "login"),
     url(r"^logout/$",signup_or_login.mylogout,name = "logout"),
 
-    url(r'^stars/(?P<post_id>[0-9].*)/(?P<stars_id>[0-9])$',detail.stars),
+    url(r'^stars/(?P<post_id>[0-9].*)/(?P<stars_id>[0-9])$',detail.give_stars),
 
     url(r'^robots.txt$',tools.seo),
     url(r'^sitemab.xml$',tools.seo),

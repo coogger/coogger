@@ -1,3 +1,4 @@
+{% if paginator %}
 <div class="pagination">
     <span class="step-links">
         {% if paginator.has_previous %}
@@ -9,3 +10,4 @@
     <a class="step-links-a" href="?page={{ paginator.next_page_number }}">ileri</a> {% endif %}
     </span>
 </div>
+{% endif %}

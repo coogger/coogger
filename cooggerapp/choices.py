@@ -1030,3 +1030,11 @@ def country():
         "düzce",
         ]
     return name_of_cities
+
+def make_choices(choice):
+    from django.utils.text import slugify
+    slugs = []
+    for cho in choice:
+        cho = str(cho).lower()
+        slugs.append((slugify(cho),cho))
+    return slugs

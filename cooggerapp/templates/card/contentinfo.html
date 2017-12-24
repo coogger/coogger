@@ -1,18 +1,18 @@
 <div flx="fd-c">
   <div default="p" flx="jc-fe" style="border-bottom: 1px solid #1414144d;">
-    <a href='/@{{ blo.user }}/{{ blo.content_list }}'>{{ blo.content_list }}</a>
+    <a href='/@{{ ct.user }}/{{ ct.content_list }}'>{{ ct.content_list }}</a>
   </div>
   <div default="p" flx="fd-fs fd-c">
-    <a href='/list/{{ blo.content_list }}'>
+    <a href='/list/{{ ct.content_list }}'>
       <img src="/static/media/icons/list.svg" />
     </a>
   </div>
   <div default="p" flx="jc-c" gnrl="txt-s br-2 b-1 brc-muted">
-    {{ blo.time }} | {{ blo.time|timesince }}
+    {{ ct.time }} | {{ ct.time|timesince }}
   </div>
   <div default="p"></div>
   <a default="p" flx="jc-c ai-c" gnrl="txt-s b-1 brc-private br-2 c-private"
-  href='/{{ blo.url }}' style="text-align: center;">
-    {{ blo.title|title }}
+  href='/{{ ct.url }}' style="text-align: center;">
+    {{ ct.title|title }}
   </a>
 </div>

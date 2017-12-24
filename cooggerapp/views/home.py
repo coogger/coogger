@@ -4,20 +4,19 @@ from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
 from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords
-from cooggerapp.views.tools import get_pp_from_contents,get_stars_from_contents,paginator,hmanynotifications
+from cooggerapp.views.tools import paginator,hmanynotifications,content_cards
 from django.db.models import Q
 from django.contrib import messages as ms
 
 def home(request):
     info_of_cards = content_cards(request,hmany=10)
-    output = dict(
-        blog = info_of_cards[0],
-        general = True,
-        ogurl = request.META["PATH_INFO"],
-        paginator = info_of_cards[1],
-        hmanynotifications = hmanynotifications(request),
-        )
-    return render(request,"blog/blogs.html",output)
+    context = dict(
+    content = info_of_cards[0],
+    paginator = info_of_cards[1],
+    hmanynotifications = hmanynotifications(request),
+    )
+    template = "card/blogs.html"
+    return render(request,template,context)
 
 
 def search(request):
@@ -32,13 +31,12 @@ def search(request):
         data_search.save()
     else:
         SearchedWords(word = query).save()
-    output = dict(
-        blog = info_of_cards[0],
-        general = True,
-        ogurl = request.META["PATH_INFO"],
+    context = dict(
+        content = info_of_cards[0],
         paginator = info_of_cards[1],
     )
-    return render(request,"blog/blogs.html",output)
+    template = "card/blogs.html"
+    return render(request,template,context)
 
 def notification(request):
     try:
@@ -49,18 +47,10 @@ def notification(request):
         ms.error(request,"Bildirimleri görmeniz için giriş yapın hesabınız yoksa üye olun")
         return HttpResponseRedirect("/")
     pagi = paginator(request,queryset,10)
-    output = dict(
+    context = dict(
         notifications = pagi,
-        general = True,
         paginator = pagi,
         hmanynotifications = hmanynotifications,
         )
-    return render(request,"home/notifications.html",output)
-
-def content_cards(request,queryset = Content.objects.all(),hmany = 10):
-    "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
-    paginator_of_cards = paginator(request,queryset,hmany)
-    pp_in_cc = [pp for pp in get_pp_from_contents(paginator_of_cards)]
-    stars = [s for s in get_stars_from_contents(paginator_of_cards)]
-    cards = zip(paginator_of_cards,pp_in_cc,stars)
-    return cards,paginator_of_cards # cardlar için gereken bütün bilgiler burda
+    template = "home/notifications.html"
+    return render(request,template,context)

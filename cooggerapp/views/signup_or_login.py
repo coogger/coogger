@@ -13,17 +13,16 @@ def mysignup(request): #kayıt ol
         if request.user.username:
             ms.error(request,"Yeni hesap açma işlemi için önce çıkış yapmalısınız")
             return HttpResponseRedirect("/")
-        elastic_search = dict(
+        html_head = dict(
             title = "Kayıt ol | coogger",
             keywords = "Kayıt ol,coogger kayıt ol,coogger kaydol",
             description = "coogger'a kaydol"
         )
-        output = dict(
-            signup_or_login = True,
-            elastic_search = elastic_search,
-            ogurl = request.META["PATH_INFO"],
+        context = dict(
+            head = html_head,
         )
-        return render(request,"signup_or_login/sign.html",output)
+        template = "signup_or_login/sign.html"
+        return render(request,template,context)
     elif request.method == "POST":
         if request.user.username:
             ms.error(request,"Yeni hesap açma işlemi için önce çıkış yapmalısınız")
@@ -60,17 +59,16 @@ def mylogin(request): # giriş yap
         if username:
             ms.error(request,"Başarıyla giriş yaptınız {}".format(username))
             return HttpResponseRedirect("/")
-        elastic_search = dict(
+        html_head = dict(
             title = "coogger | Giriş yap",
             keywords = "coogger giriş yap",
             description = "coogger'a giriş yap"
         )
-        output = dict(
-            signup_or_login = True,
-            elastic_search = elastic_search,
-            ogurl = request.META["PATH_INFO"],
+        context = dict(
+            head = html_head,
         )
-        return render(request,"signup_or_login/login.html",output)
+        template = "signup_or_login/login.html"
+        return render(request,template,context)
     elif request.method == "POST":
         if username:
             ms.error(request,"ops {}".format(username))
@@ -122,17 +120,18 @@ def signup_author(request):
     if is_done_author:
         ms.error(request,"Yazarlık başvurunuzu daha önceden almıştık, değerlendirme süreci bitiminde sizinle iletişime geçeceğiz")
         return HttpResponseRedirect("/control")
-    elastic_search = dict(
+    html_head = dict(
         title = "Yazarlık başvurusu | coogger",
         keywords = "coogger yazarlık,coogger yazarlık başvurusu",
         description = "coogger'a yazarlık başvurusu"
     )
-    output = dict(
+    context = dict(
         signup_or_login = True,
-        elastic_search = elastic_search,
+        head = html_head,
         otherinfo_form = otherinfo_form,
     )
-    return render(request,"signup_or_login/signup-blogger.html",output)
+    template = "signup_or_login/signup-blogger.html"
+    return render(request,template,context)
 
 def check_user(request,username,password,confirm):
     if password != confirm:

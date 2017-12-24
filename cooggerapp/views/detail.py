@@ -1,6 +1,5 @@
 import json
 import os
-from bs4 import BeautifulSoup
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
@@ -9,83 +8,91 @@ from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
 from django.utils import timezone
-from cooggerapp.models import Content,Contentviews,OtherInformationOfUsers,UserFollow,Voters,Comment,Notification
-from cooggerapp.views.tools import get_ip,paginator,get_pp_from_contents,get_stars_from_contents,hmanynotifications
+from bs4 import BeautifulSoup
+from cooggerapp.models import Content,Contentviews,UserFollow,Voters,Comment,Notification
+from cooggerapp.views.tools import (get_ip,html_head,get_head_img_pp,content_cards,hmanynotifications,users_web)
+
 
 def main_detail(request,blog_path,utopic,path):
     "blogların detay kısmı "
-    queryset = Content.objects.filter(url = blog_path)[0]
-    content_user = queryset.user
     ip = get_ip(request)
-    nav_category = Content.objects.filter(user = content_user,content_list = utopic)
+    ctof = Content.objects.filter
+    queryset = ctof(url = blog_path)[0]
+    content_user = queryset.user
     if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
         Contentviews(content = queryset,ip = ip).save()
+        queryset2 = queryset # değişeceği için kopyalıyorum
         queryset.views = F("views") + 1
         queryset.save()
-        queryset = Content.objects.filter(url = blog_path)[0]
-    try:
-        stars = str(int(queryset.stars/queryset.hmstars))
-    except ZeroDivisionError:
-        stars = ""
-    facebook = get_facebook(content_user)
-    try:
-        user_follow = UserFollow.objects.filter(user = content_user)
-    except:
-        user_follow = []
-    elastic_search = dict(
-        title = queryset.title+" | coogger",
-        keywords = queryset.title,
-        description = queryset.show,
-        author = facebook,
-    )
-    quer = Content.objects.filter(url = blog_path)
-    output = dict(
-        detail = queryset,
-        elastic_search = elastic_search,
-        general = True,
-        username  = content_user,
-        stars = stars,
-        nameoftopic = queryset.title,
-        nav_category = nav_category,
-        nameoflist = utopic,
-        ogurl = request.META["PATH_INFO"],
-        global_hashtag = [i for i in queryset.tag.split(",") if i != ""],
-        comment_form = Comment.objects.filter(content=quer[0]),
-        hmanynotifications = hmanynotifications(request),
-        user_follow = user_follow,
-    )
+        queryset = queryset2 # değiştikten sonra yine eski değerine atıyorum
+        # bundan dolayı okuma hemen 1 artmış olmaz
+        del queryset2 # silelim
     # açılan makale bittikten sonra okunulan liste altındaki diğer paylaşımları anasayfadaki gibi listeler
-    query = Content.objects.filter(user = content_user,content_list = utopic)
-    info_of_cards = content_cards(request,query,6)
-    output["blog"] = info_of_cards[0]
-    output["paginator"] = info_of_cards[1]
-    return render(request,"detail/main_detail.html",output)
+    content_id = queryset.id
+    nav_category = ctof(user = content_user,content_list = utopic)
+    nav_list = []
+    for nav in nav_category: # şuan okuduğu yazının öncesi
+        if nav.id < content_id:
+            if len(nav_list) < 6:
+                nav_list.append(nav)
+    nav_list.append(queryset) # şuan okuduğu yazı
+    for nav in nav_category: # sonrası
+        if nav.id > content_id:
+            if len(nav_list) < 3:
+                nav_list.append(nav)
+    nav_category = nav_list
+    info_of_cards = content_cards(request,nav_category,5)
+    context = dict(
+    head = html_head(queryset),
+    content_user = content_user,
+    nav_category = nav_category,
+    nameoftopic = queryset.title,
+    nameoflist = utopic,
+    stars = stars(queryset),
+    content = info_of_cards[0],
+    detail = queryset,
+    global_hashtag = [i for i in queryset.tag.split(",") if i != ""],
+    comment_form = Comment.objects.filter(content=queryset),
+    hmanynotifications = hmanynotifications(request),
+    user_follow = users_web(content_user),
+    )
+    template = "detail/main_detail.html"
+    return render(request,template,context)
 
-def stars(request,post_id,stars_id):
+def stars(queryset):
+    try:
+        stars_ = str(int(queryset.stars/queryset.hmstars))
+    except ZeroDivisionError:
+        stars_ = ""
+    return stars_
+
+def give_stars(request,post_id,stars_id):
     if not request.is_ajax():
         return None
     if not request.user.is_authenticated:
         return HttpResponse("Oy vermek için giriş yapmalı veya üye olmalısınız")
     user = request.user
     request_username = user.username
-    blog = Content.objects.filter(id = post_id)[0]
+    ctof = Content.objects.filter
+    blog = ctof(id = post_id)[0]
+    blog2 = blog
     try:
-        vot = Voters.objects.filter(user = user,blog = blog) # daha önceden verdiği oy varsa alıyoruz
+        vot = Voters.objects.filter(user = user,content = blog) # daha önceden verdiği oy varsa alıyoruz
         old = vot[0].star
         vot.update(star = stars_id)
         blog.stars = F("stars")-old+stars_id
         blog.save()
     except IndexError: # ilk kez oylama yapıyor
-        Voters(user = user,blog = blog,star = stars_id).save()
+        Voters(user = user,content = blog,star = stars_id).save()
         blog.hmstars = F("hmstars")+1
         blog.stars = F("stars")+stars_id
         blog.save()
-    if str(blog.username) != str(user.username):
-        Notification(user=blog.username,even = 2,content=str(int(stars_id)+1),address = blog.url).save()
+    if str(blog.user) != str(user.username):
+        Notification(user=blog.user,even = 2,content=str(int(stars_id)+1),address = blog.url).save()
     first_li = """<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """><img class="d-starts-a" src="/static/media/icons/star.svg"></li>"""
     second_li="""<li class="d-starts-li" data-starts-id="{{i}}" data-post-id="""+ post_id+ """><img class="d-starts-a" src="/static/media/icons/star(0).svg"></li>"""
     output = ""
-    blog = Content.objects.filter(id = post_id)[0]
+    blog = ctof(id = post_id)[0]
     stars = blog.stars
     hmstars = blog.hmstars
     rate = stars/hmstars
@@ -96,8 +103,8 @@ def stars(request,post_id,stars_id):
             output += second_li.replace("{{i}}",str(i))
         if i == 5:
             output = "<ul class='d-starts-ul' data-gnl='1 1p ortada'>"+output+"</ul>"
-            output +="<div  data-gnl='1 1p ortada'>Verilen oy sayısı : "+str(hmstars)+"</div>"
-            output +="<div  class='gstars' data-gnl='1 1p ortada'>Oy ortalaması : "+str(int(rate))+"</div>"
+            output +="<div style='text-align: -webkit-left;width: 160px;margin: auto;margin-top: 9px;float: left;cursor: pointer;'>Verilen oy sayısı : "+str(hmstars)+"</div>"
+            output +="<div  class='gstars' style='text-align: -webkit-left;width: 160px;margin: auto;margin-top: 9px;float: left;cursor: pointer;'>Oy ortalaması : "+str(int(rate))+"</div>"
     return HttpResponse(output)
 
 def comment(request,content_path):
@@ -119,29 +126,3 @@ def comment(request,content_path):
                 "img":get_head_img_pp(request.user)[0]
             })
         )
-
-def get_head_img_pp(user):
-    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
-    if pp:
-        img = "/media/users/pp/pp-"+user.username+".jpg"
-    else:
-        img = "/static/media/profil.png"
-    return [img,pp]
-
-def get_facebook(user):
-    facebook = None
-    try:
-        for f in UserFollow.objects.filter(user = user):
-            if f.choices  == "facebook":
-                facebook = f.adress
-    except:
-        pass
-    return facebook
-
-def content_cards(request,queryset,hmany):
-    "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
-    paginator_of_cards = paginator(request,queryset,hmany)
-    pp_in_cc = [pp for pp in get_pp_from_contents(paginator_of_cards)]
-    stars = [s for s in get_stars_from_contents(paginator_of_cards)]
-    cars = zip(paginator_of_cards,pp_in_cc,stars)
-    return cars,paginator_of_cards # cardlar için gereken bütün bilgiler burda

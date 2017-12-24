@@ -1,0 +1,19 @@
+<div class="b-edit">
+    {% if ct.user == request.user or request.user.is_superuser %}
+    <div class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;">
+        <ul class="b-edit-ul ft-ar">
+            <li class="b-edit-li">
+                <a class="b-edit-li-a " href="/change/{{ ct.id }}">Düzenle</a>
+            </li>
+            <li class="b-edit-li">
+                <a class="b-edit-li-a delete" data-post-id="{{ct.id}}">Sil</a>
+            </li>
+        </ul>
+    </div>
+    <div class="b-edit-point" data-edit-id="{{ ct.id }}">
+        <div class="border"></div>
+        <div class="border"></div>
+        <div class="border"></div>
+    </div>
+    {% endif %}
+</div>

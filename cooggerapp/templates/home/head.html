@@ -1,27 +1,26 @@
 {% load static from staticfiles %}
 <!-- Doctype HTML5 -->
 <!doctype html>
-
 <head>
     <html lang="tr">
     <meta charset="UTF-8" />
-    <link rel="shortcut icon" href="/static/media/favicon.png" type="image/x-icon" /> {% if elastic_search.title %}
-    <title>{{ elastic_search.title|truncatechars:55 }}</title>
-    <meta property="og:title" content="{{ elastic_search.title }}" />
-    <meta property="og:site_name" content="{{ elastic_search.title }}" />
-    <meta name="twitter:title" content="{{ elastic_search.title }}" />
-    <meta itemprop="name" content="{{ elastic_search.title }}" /> {% else %}
+    <link rel="shortcut icon" href="/static/media/favicon.png" type="image/x-icon" /> {% if head.title %}
+    <title>{{ head.title|truncatechars:55 }}</title>
+    <meta property="og:title" content="{{ head.title }}" />
+    <meta property="og:site_name" content="{{ head.title }}" />
+    <meta name="twitter:title" content="{{ head.title }}" />
+    <meta itemprop="name" content="{{ head.title }}" /> {% else %}
     <title>coogger</title>
     <meta property="og:title" content="coogger" />
     <meta property="og:site_name" content="coogger" />
     <meta name="twitter:title" content="coogger" />
-    <meta itemprop="name" content="coogger" /> {% endif %} {% if elastic_search.keywords %}
-    <meta name="keywords" content="{{ elastic_search.keywords }}" /> {% else %}
-    <meta name="keywords" content="coogger" /> {% endif %} {% if elastic_search.description %}
-    <meta name="description" content="{{elastic_search.description}}" />
-    <meta name="twitter:description" content="{{elastic_search.description|truncatechars:150}}" />
-    <meta property="og:description" content="{{elastic_search.description|truncatechars:150}}" />
-    <meta itemprop="description" content="{{elastic_search.description|truncatechars:150}}" /> {% else %}
+    <meta itemprop="name" content="coogger" /> {% endif %} {% if head.keywords %}
+    <meta name="keywords" content="{{ head.keywords }}" /> {% else %}
+    <meta name="keywords" content="coogger" /> {% endif %} {% if head.description %}
+    <meta name="description" content="{{head.description}}" />
+    <meta name="twitter:description" content="{{head.description|truncatechars:150}}" />
+    <meta property="og:description" content="{{head.description|truncatechars:150}}" />
+    <meta itemprop="description" content="{{head.description|truncatechars:150}}" /> {% else %}
     <meta name="description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
     <meta name="twitter:description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
     <meta property="og:description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
@@ -32,20 +31,23 @@
     <meta name="revisit-after" content="2 days" />
     <meta name="twitter:card" content="summary">
     <!-- <meta name="twitter:creator" content="hakancelik96" /> -->
-    <meta name="twitter:image:src" content="/static/media/favicon.png" />
-    <meta property="og:type" content="website" /> {% if elastic_search.author %}
-    <meta name="author" content="https://{{ elastic_search.author }}" />
-    <meta property="article:author" content="https://{{ elastic_search.author }}" />
-    <meta property="article:publisher" content="https://{{ elastic_search.author }}" /> {% endif %}
-    {% if request.user.otherinformationofusers.pp %}
-         <meta property="og:image" content="/media/users/pp/pp-{{ request.user }}.jpg" />
-           <meta itemprop="image" content="/media/users/pp/pp-{{ request.user }}.jpg" />
+    <meta property="og:type" content="website" />
+    {% if head.author %}
+    <meta name="author" content="https://{{ head.author }}" />
+    <meta property="article:author" content="https://{{ head.author }}" />
+    <meta property="article:publisher" content="https://{{ head.author }}" />
+    {% endif %}
+    {% if content_user.otherinformationofusers.pp %}
+    <meta property="og:image" content="/media/users/pp/pp-{{ content_user }}.jpg" />
+    <meta itemprop="image" content="/media/users/pp/pp-{{ content_user }}.jpg" />
+    <meta name="twitter:image:src" content="/media/users/pp/pp-{{ content_user }}.jpg" />
     {% else %}
     <meta property="og:image" content="/static/media/favicon.png" />
     <meta itemprop="image" content="/static/media/favicon.png" />
-      {% endif %}
+    <meta name="twitter:image:src" content="/static/media/favicon.png" />
+    {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta property="og:url" content="http://www.coogger.com{{ogurl}}" />
+    <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}" />
     <!--yandex -->
     <meta name="yandex-verification" content="d8be2feff15c1e50" />
     <!--yandex-->

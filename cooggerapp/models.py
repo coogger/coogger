@@ -1,10 +1,8 @@
 from ckeditor.fields import RichTextField
-from cooggerapp.choices import country,university,jop,follow
-from cooggerapp.views.tools import make_choices
+from cooggerapp.choices import country,university,jop,follow,make_choices
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-
 
 class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
@@ -13,7 +11,7 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     url = models.SlugField(unique = True, max_length=100, verbose_name = "web adresi") # blogun url adresi
     content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda
     show = models.CharField(max_length=400, verbose_name = "Anasayfa'da görünecek içerik notu ekleyin")
-    tag = models.SlugField(max_length=200, verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    tag = models.SlugField(null = True, blank = True, max_length=200, verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="tarih") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10, verbose_name = "duration of read")
     stars = models.IntegerField(default = 0, verbose_name = "Yıldız")

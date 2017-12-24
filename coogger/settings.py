@@ -76,6 +76,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
+        "toolbar":"full",
+        "width":"100%",
+        "extraPlugins":'codesnippet',
+        "codeSnippet_theme": 'github',
         'toolbar_YourCustomToolbarConfig': [
             {'name': 'basicstyles',
              'items': ['Bold', 'Italic', 'Underline', '-', 'Strike', '-','Subscript', 'Superscript', '-', 'RemoveFormat']},
@@ -101,3 +105,4 @@ CKEDITOR_CONFIGS = {
 
     }
 }
+

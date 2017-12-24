@@ -1,49 +1,37 @@
 # kullanıcıların yaptıkları tüm işlemler
 from PIL import Image
 import os
-
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib import messages as ms
-
 from cooggerapp.models import ContentList,OtherInformationOfUsers,Content,UserFollow
 from cooggerapp.forms import UserFollowForm
-from cooggerapp.views.tools import hmanynotifications
-from cooggerapp.views.home import content_cards
-
+from cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,content_cards
 
 def user(request,username):
     "herhangi kullanıcının anasayfası"
     user = User.objects.filter(username = username)[0]
-    nav_category = ContentList.objects.filter(user = user)
-    try:
-        user_follow = UserFollow.objects.filter(user = user)
-    except:
-        user_follow = []
-    # yaptığı paylaşımlar
     queryset = Content.objects.filter(user = user)
     info_of_cards = content_cards(request,queryset)
-    facebook = get_facebook(user)
-    elastic_search = dict(
+    html_head = dict(
      title = username+" | coogger",
      keywords =username+","+user.first_name+" "+user.last_name,
      description =user.first_name+" "+user.last_name+", "+username+" adı ile coogger'da",
-     author = facebook,
+     author = get_facebook(user),
     )
-    output = dict(
-        users = True,
-        username = user,
-        blog = info_of_cards[0],
+    context = dict(
+        content = info_of_cards[0],
+        content_user = user,
         paginator = info_of_cards[1],
-        user_follow = user_follow,
-        nav_category = nav_category,
-        ogurl = request.META["PATH_INFO"],
-        elastic_search = elastic_search,
+        user_follow = users_web(user),
+        nav_category = ContentList.objects.filter(user = user),
+        head = html_head,
         hmanynotifications = hmanynotifications(request),
     )
-    return render (request,"users/user.html",output)
+    template = "users/user.html"
+    return render(request,template,context)
 
 def upload_pp(request):
     "kullanıcılar profil resmini  değiştirmeleri için"
@@ -54,7 +42,6 @@ def upload_pp(request):
         except:
             ms.error(request,"Dosya alma sırasında bir sorun oluştu")
             return HttpResponseRedirect("/@"+request_username)
-
         with open(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg",'wb+') as destination:
             for chunk in image.chunks():
                 destination.write(chunk)
@@ -77,38 +64,22 @@ def u_topic(request,username,utopic):
         return HttpResponseRedirect("/")
     info_of_cards = content_cards(request,queryset)
     nav_category = ContentList.objects.filter(user = user)
-    facebook = get_facebook(user)
-    try:
-        user_follow = UserFollow.objects.filter(user = user)
-    except:
-        user_follow = []
-    elastic_search = dict(
+    html_head = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic,
      description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
-     author = facebook,
+     author = get_facebook(user),
     )
-    output = dict(
-        blog = info_of_cards[0],
-        general = True,
+    context = dict(
+        content = info_of_cards[0],
+        content_user = user,
         paginator = info_of_cards[1],
         nav_category = nav_category,
-        ogurl = request.META["PATH_INFO"],
         nameoftopic = utopic,
-        username = username,
         nameoflist = "Listeler",
-        elastic_search = elastic_search,
+        head = html_head,
         hmanynotifications = hmanynotifications(request),
-        user_follow = user_follow,
+        user_follow = users_web(user),
     )
-    return render (request,"users/user.html",output)
-
-def get_facebook(user):
-    facebook = None
-    try:
-        for f in UserFollow.objects.filter(user = user):
-            if f.choices  == "facebook":
-                facebook = f.adress
-    except:
-        pass
-    return facebook
+    template = "users/user.html"
+    return render(request,template,context)

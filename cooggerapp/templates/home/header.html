@@ -1,6 +1,6 @@
 <header class="h-header">
     <ul class="h-header-ul ft-it">
-        {% if not user.is_authenticated %}
+        {% if not request.user.is_authenticated %}
         <li class="h-header-ul-li">
             <a hvr="c-primary" class="solol-a" href="/signup"><span class="solol-text">Kayıt olun / Yazar olun</span></a>
         </li>
@@ -51,7 +51,7 @@
                 </form>
             </div>
         </li>
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
         <li class="h-header-ul-li">
             <a hvr="c-primary" class="solol-a" href="/notification">
                 <span class="solol-text">( {{ hmanynotifications }} )</span>

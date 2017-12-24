@@ -1,18 +1,15 @@
 # content control
 import random
-
 from django.http import *
 from django.shortcuts import render
 from django.db.models import F
 from django.utils.text import slugify
-
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from django.contrib.auth import *
-
 from cooggerapp.forms import ContentForm
 from cooggerapp.models import Content,ContentList
-from cooggerapp.views import tools
+from cooggerapp.views.tools import durationofread,hmanynotifications
 
 def create(request):
     "to create new content"
@@ -31,8 +28,8 @@ def create(request):
         content.content_list = content_list
         title = content.title
         url = slugify(title)
-        content.dor = tools.durationofread(content.content+title)
-        content_tag = content.tag.split(",")
+        content.dor = durationofread(content.content+title)
+        content_tag = request.POST["tag"].split(",")
         tags = ""
         for i in content_tag:
             if i == content_tag[-1]:
@@ -53,15 +50,16 @@ def create(request):
             # kullanıcının açmış oldugu listeleri kayıt ediyoruz
         except: # önceden oluşmuş ise hata verir ve biz 1 olarak kayıt ederiz
             ContentList(user = request_user,content_list = content_list,content_count = 1).save()
-
-        return HttpResponseRedirect("/@"+request_user.username+"/"+content_list+"/"+url)
+        redirect = "/@"+request_user.username+"/"+content_list+"/"+url
+        return HttpResponseRedirect(redirect)
     # get method
-    output = dict(
+    context = dict(
         controls = True,
         create_form = create_form,
-        hmanynotifications = tools.hmanynotifications(request),
+        hmanynotifications = hmanynotifications(request),
     )
-    return render(request,"controls/create.html",output)
+    template = "controls/create.html"
+    return render(request,template,context)
 
 def change(request,content_id):
     "to change the content"
@@ -90,8 +88,8 @@ def change(request,content_id):
         title = content.title
         url = slugify(title)
         content.url = "@"+str(real_username)+"/"+content_list+"/"+url
-        content.dor = tools.durationofread(content.content+title)
-        content_tag = content.tag.split(",")
+        content.dor = durationofread(content.content+title)
+        content_tag = request.POST["tag"].split(",")
         tags = ""
         for i in content_tag:
             if i == content_tag[-1]:
@@ -120,13 +118,14 @@ def change(request,content_id):
                 ContentList(user = real_user,content_list = content_list,content_count = 1).save()
         return HttpResponseRedirect("/@"+str(real_username)+"/"+content_list+"/"+url)
     # get method
-    output = dict(
+    context = dict(
         controls = True,
         change = queryset,
         content_id = content_id,
         change_form = change_form,
     )
-    return render(request,"controls/change.html",output)
+    template = "controls/change.html"
+    return render(request,template,context)
 
 def delete(request,content_id):
     "to delete the content"

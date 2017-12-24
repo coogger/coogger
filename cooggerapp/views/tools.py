@@ -2,19 +2,11 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
-
-from cooggerapp import models
+from cooggerapp.models import OtherInformationOfUsers,Notification,Content,UserFollow
 from cooggerapp.choices import *
-
 from bs4 import BeautifulSoup
 
-def make_choices(choice):
-    "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
-    slugs = []
-    for cho in choice:
-        cho = str(cho).lower()
-        slugs.append((slugify(cho),cho))
-    return slugs
+
 
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
@@ -48,11 +40,19 @@ def durationofread(text):
     words_time = float((how_much_words/reading_speed)/60)
     return str(words_time)[:3]
 
+def get_head_img_pp(user):
+    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
+    if pp:
+        img = "/media/users/pp/pp-"+user.username+".jpg"
+    else:
+        img = "/static/media/profil.png"
+    return [img,pp]
+
 def get_pp_from_contents(queryset):
     "dekoratör"
     for p in queryset:
         user = User.objects.filter(username = p.user)[0]
-        is_pp = models.OtherInformationOfUsers.objects.filter(user = user)[0].pp
+        is_pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
         yield is_pp
 
 def get_stars_from_contents(queryset):
@@ -72,8 +72,41 @@ def get_ip(request):
 
 def hmanynotifications(request):
     try:
-        queryset = models.Notification.objects.filter(user = request.user)
+        queryset = Notification.objects.filter(user = request.user)
     except:
         return False
       # görmediği kaç bildirim olduğu sayısı
     return queryset.filter(show = False).count()
+
+def content_cards(request,queryset = Content.objects.all(),hmany = 10):
+    "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
+    paginator_of_cards = paginator(request,queryset,hmany)
+    pp_in_cc = [pp for pp in get_pp_from_contents(paginator_of_cards)]
+    stars = [s for s in get_stars_from_contents(paginator_of_cards)]
+    cards = zip(paginator_of_cards,pp_in_cc,stars)
+    return cards,paginator_of_cards # cardlar için gereken bütün bilgiler burda
+
+def users_web(user):
+    try:
+        user_follow = UserFollow.objects.filter(user = user)
+    except:
+        user_follow = []
+
+def get_facebook(user):
+    facebook = None
+    try:
+        for f in users_web(user):
+            if f.choices  == "facebook":
+                facebook = f.adress
+    except:
+        pass
+    return facebook
+
+def html_head(queryset):
+    head = dict(
+    title = queryset.title + " | coogger",
+    keywords = queryset.tag,
+    description = queryset.show,
+    author = get_facebook(queryset.user),
+    )
+    return head
