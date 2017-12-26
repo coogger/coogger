@@ -1,15 +1,14 @@
-<div class="d-edit">
-    {% if content_user.user == request.user or request.user.is_superuser %}
-    <div class="d-edit-panel data-edit-id-{{ detail.id }}">
-        <ul class="d-edit-ul ft-ar">
-            <li class="d-edit-li">
-                <a class="d-edit-li-a " href="/change/{{ detail.id }}">Düzenle</a>
-            </li>
-            <li class="d-edit-li">
-                <a class="d-edit-li-a d-delete" data-post-id="{{detail.id}}">Sil</a>
-            </li>
-        </ul>
-    </div>
-
-    {% endif %}
+{% if content_user.user == request.user or request.user.is_superuser %}
+<div default="pm" flx="as-c jc-c">
+  <ul default="pm" flx="" data-edit-id-"{{ detail.id }}" gnrl="bg-info br-2">
+    <li>
+      <div default="pm" hvr-a="bg-success" gnrl="br-2">
+        <a href="/change/{{ detail.id }}">Düzenle</a>
+      </div>
+    </li>
+    <li>
+      <div default="pm" gnrl="c-white br-2" hvr-a="bg-success"  class="d-delete" data-post-id="{{detail.id}}">Sil</div>
+    </li>
+  </ul>
 </div>
+{% endif %}

@@ -1,41 +1,35 @@
-<div class="b-blogs" flx="jc-c">
-{% for ct,pp,stars in content %}
+<div flx="jc-c" style="position: relative;margin: 26px auto;padding: 6px;z-index: 0;width: 90%;">
+{% for ct,pp in content %}
 <div class="data-post-id-{{ct.id}}" style="margin:6px 6px;">
     {% include "card/edit.html" %}
     {% if nameoftopic == ct.title %}
-    <div class="b-cards" style="background: #248644;color: #fff;">
+    <div gnrl="bg-white br-2" style="background: #248644;color: #fff;width: 280px;height: 420px;box-shadow: 0px 1px 2px 1px #c5c5c5;padding: 6px;position: relative;">
           {% else %}
-    <div class="b-cards">
+    <div gnrl="bg-white br-2" style="width: 280px;height: 420px;box-shadow: 0px 1px 2px 1px #c5c5c5;padding: 6px;position: relative;">
       {% endif %}
         {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
-        <div class="b-content">
-            <div gnrl="txt-s" flx="jc-c ai-c" class="b-cont" style="height:210px;">
-                {{ ct.show }}
-                <a href="/{{ ct.url }}">
-                <div class='duread-main'>
-                  <ul class='duread-ul'>
-                    <li class='duread-li'>
-                      <img class='duread-img' src='/static/media/icons/stopwatch.svg'>
-                      <div class='duread-text'>Tahmini okuma süresi {{ ct.dor }} dakika</div>
-                    </li>
-                    <li class='duread-li'>
-                      <img class='duread-img' src='/static/media/icons/star.svg'>
-                      <div class='duread-text'>Yıldız {{ stars }}</div>
-                    </li>
-                    <li class='duread-li'>
-                      <img class='duread-img' src='/static/media/icons/employee.svg'>
-                      <div class='duread-text'>Okuma {{ ct.views }}</div>
-                    </li>
-                    <li class='duread-li'>
-                      <img class='duread-img' src='/static/media/icons/comments.svg'>
-                      <div class='duread-text'>Yorum sayısı {{ ct.hmanycomment }}</div>
-                    </li>
-                  </ul>
-                </div>
-              </a>
+        <div gnrl="unselectable txt-s" flx="jc-c ai-c" style="height:210px;width: 94%;z-index: 2;cursor: pointer;margin: 14px auto;">
+          {{ ct.show }}
+          <a href="/{{ ct.url }}">
+            <div class='duread-main' style="background-color: #248644;" flx="ai-c" gnrl="br-2">
+              <ul flx="fd-c" default="p" gnrl="br-2">
+                <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+                  <img src='/static/media/icons/stopwatch.svg' gnrl="bg-white br-circle" style="padding: 4px;">
+                  <div default="p" flx="jc-fe">Tahmini okuma süresi {{ ct.dor }} dakika</div>
+                </li>
+                <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+                  <img src='/static/media/icons/employee.svg' gnrl="bg-white br-circle" style="padding: 4px;">
+                  <div default="p">Okuma {{ ct.views }}</div>
+                </li>
+                <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+                  <img src='/static/media/icons/comments.svg' gnrl="bg-white br-circle" style="padding: 4px;">
+                  <div default="p">Yorum sayısı {{ ct.hmanycomment }}</div>
+                </li>
+              </ul>
             </div>
+          </a>
         </div>
-    </div>
+      </div>
 </div>
 {% endfor %}
 </div>

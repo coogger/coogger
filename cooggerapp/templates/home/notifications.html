@@ -1,33 +1,30 @@
 {% include 'home/head.html' %}
 {% include 'home/logo.html' %}
  {% include 'home/header.html' %}
- {% include 'home/nav.html' %}
 {% if notifications %}
-<ul class="h-notifications-ul ft-ar">
+<div flx="jc-c" gnrl="bg-white br-2" default="pm">
+  <ul default="pm">
     {% for noti in notifications %}
-      {% if noti.show %}
-        <li class="h-noti-li" style="background-color: #0f391d;">
-      {% else %}
-        <li class="h-noti-li">
-      {% endif %}
-          <a class="h-noti-li-a" href="/{{ noti.address }}">
+        <li flx="" gnrl="brc-muted b-1 br-2" default="pm">
+          <a gnrl="c-dark" flx="ai-c" href="/{{ noti.address }}">
             {% if noti.even == 1 %}
-            <img class="h-noti-li-a-img" src="/static/media/icons/comments.svg" />
-            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
-            <div class="h-noti-info">İçeriğine bir yorum yapıldı</div>
+            <img src="/static/media/icons/comments.svg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm"/>
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">İçeriğine bir yorum yapıldı</div>
             {% elif noti.even == 2 %}
-            <img class="h-nav-li-img h-noti-li-a-img" src="/static/media/icons/star.svg" />
-            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
-            <div class="h-noti-info">İçeriğine yeni bir oy verildi</div>
+            <img src="/static/media/icons/star.svg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm"/>
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">İçeriğine yeni bir oy verildi</div>
             {% elif noti.even == 3 %}
-            <img class="h-nav-li-img h-noti-li-a-img" src="/static/media/topics/checked.svg" />
-            <div class="h-not-time">{{ noti.time|timesince }} önce</div>
-            <div class="h-noti-info">Yeni takipçi kazandın</div>
+            <img src="/static/media/topics/checked.svg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm"/>
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">Yeni takipçi kazandın</div>
             {% endif %}
-            <div class="h-noti-text">{{ noti.content }}</div>
+            <div>{{ noti.content }}</div>
           </a>
         </li>
     {% endfor %}
   </ul>
+    </div>
 {% endif %}
 {% include "card/paginator.html" %}

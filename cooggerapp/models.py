@@ -1,8 +1,8 @@
-from ckeditor.fields import RichTextField
-from cooggerapp.choices import country,university,jop,follow,make_choices
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from ckeditor.fields import RichTextField
+from cooggerapp.choices import *
 
 class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
@@ -14,8 +14,6 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     tag = models.SlugField(null = True, blank = True, max_length=200, verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="tarih") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10, verbose_name = "duration of read")
-    stars = models.IntegerField(default = 0, verbose_name = "Yıldız")
-    hmstars = models.IntegerField(default = 0, verbose_name = "kaç kişi oy kullandı")
     views = models.IntegerField(default = 0, verbose_name = "görüntülenme sayısı") # görütülenme sayısını kayıt eder
     hmanycomment=models.IntegerField(default = 0, verbose_name = "yorum sayısı")
     class Meta:
@@ -26,13 +24,6 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
 class Contentviews(models.Model): # görüntülenme ip ve blog_id bilgisini kayıt eder
     content = models.ForeignKey("content" ,on_delete=models.CASCADE)
     ip = models.CharField(max_length=200)
-
-
-class Voters(models.Model):
-    user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    content = models.OneToOneField(Content, on_delete=models.CASCADE)
-    star = models.IntegerField(default = 0, verbose_name = "Yıldız")
-
 
 class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)

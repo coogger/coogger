@@ -55,14 +55,6 @@ def get_pp_from_contents(queryset):
         is_pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
         yield is_pp
 
-def get_stars_from_contents(queryset):
-    "dekoratör"
-    for i in queryset:
-        try:
-            yield str(int(i.stars/i.hmstars))
-        except ZeroDivisionError:
-            yield "0"
-
 def get_ip(request):
     try:
         ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
@@ -82,8 +74,7 @@ def content_cards(request,queryset = Content.objects.all(),hmany = 10):
     "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
     paginator_of_cards = paginator(request,queryset,hmany)
     pp_in_cc = [pp for pp in get_pp_from_contents(paginator_of_cards)]
-    stars = [s for s in get_stars_from_contents(paginator_of_cards)]
-    cards = zip(paginator_of_cards,pp_in_cc,stars)
+    cards = zip(paginator_of_cards,pp_in_cc)
     return cards,paginator_of_cards # cardlar için gereken bütün bilgiler burda
 
 def users_web(user):

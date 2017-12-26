@@ -16,6 +16,18 @@
 .my label{
   margin-right: auto;
 }
-.h-nav-ul:hover,.h-nav-ul:active,.h-nav-ul:focus{
-  height: calc(100% - 60px);
+.duread-main {
+    position: absolute;
+    bottom: 24px;
+    z-index: 0;
+    left: 6px;
+    right: 6px;
+    opacity: 0;
+    height: 170px;
+}
+.duread-main:hover{
+  opacity: 1;
+}
+.hljs{
+  overflow-x: auto;
 }

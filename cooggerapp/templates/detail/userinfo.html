@@ -1,15 +1,18 @@
-<div class="b-user-info">
-  <ul class="b-user">
-    <li class="b-user-li">
-      <a class="b-username-a" href='/@{{ detail.user }}/{{ detail.content_list }}'>
-        <div class="b-content-list-name ">
-          {{ detail.content_list }}
-        </div>
+<div gnrl="bg-secondary" flx="jc-c ai-c">
+  <ul default="pm" flx="jc-c ai-c">
+    <li >
+      <a href='/list/{{ detail.content_list }}'>
+        <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/>
       </a>
     </li>
-    <li class="b-user-li">
-      <a class="b-user-hashtag" href='/list/{{ detail.content_list }}'>
-        <img class="b-hashtag-img" src="/static/media/icons/list.svg" />
+    <li  gnrl="bg-white br-2" default="pm">
+      <a gnrl="c-private" href='/@{{ detail.user }}/{{ detail.content_list }}'>
+          {{ detail.content_list }}
+      </a>
+    </li>
+    <li >
+      <a href='/list/{{ detail.content_list }}'>
+        <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/>
       </a>
     </li>
   </ul>

@@ -25,16 +25,10 @@ $(document).ready(function() {
     $(".close-ms").click(function() {
         $(".main-messages").remove();
     })
-    
+
     $(".b-edit-point").click(function() {
         var data_edit_id = this.getAttribute("data-edit-id");
         $(".data-edit-id-" + data_edit_id).toggle("fast");
-    });
-
-    $(".d-starts-li").click(function() {
-        var stars_id = this.getAttribute("data-starts-id");
-        var post_id = this.getAttribute("data-post-id");
-        $(".d-starts-ul").load("/stars/" + post_id + "/" + stars_id);
     });
 
     /* pp değişmek için */

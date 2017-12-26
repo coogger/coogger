@@ -1,9 +1,22 @@
 <div class="b-content-info">
-  <h1 class="b-title ft-ns" style="font-size: 30px;">
+  <h1 default="p" flx="jc-c ai-c" gnrl="txt-xl b-1 brc-private br-2 c-private" style="text-align: center;">
       {{ detail.title|title }}
   </h1>
-    <div class="b-time ft-dn"><img class="b-time-img" src="/static/media/icons/calendar.svg" /> {{ detail.time }} | {{ detail.time|timesince }} önce</div>
-    <div class="b-time ft-dn"><img class="b-time-img" src="/static/media/icons/stopwatch.svg" /> Tahmini okuma süresi {{ detail.dor }} dakika</div>
-    <div class="b-time ft-dn"><img class="b-time-img" src="/static/media/icons/employee.svg" /> okuma {{ detail.views }}</div>
-    <div class="b-time ft-dn"><img class="b-time-img" src="/static/media/icons/comments.svg" /> Yorumlar {{ detail.hmanycomment }}</div>
 </div>
+<div flx="jc-c">
+  <div flx="fd-c" gnrl="brc-muted b-1 br-2" default="pm">
+    <div flx="ai-c" >
+      <img default="pm" src="/static/media/icons/calendar.svg" />
+       {{ detail.time }} | {{ detail.time|timesince }} önce
+     </div>
+     <div flx="ai-c" >
+       <img default="pm" src="/static/media/icons/stopwatch.svg" />
+       Tahmini okuma süresi {{ detail.dor }} dakika</div>
+       <div flx="ai-c" >
+         <img default="pm" src="/static/media/icons/employee.svg" />
+         okuma {{ detail.views }}</div>
+      <div flx="ai-c" >
+        <img default="pm" src="/static/media/icons/comments.svg" />
+        Yorumlar {{ detail.hmanycomment }}</div>
+      </div>
+  </div>

@@ -937,14 +937,6 @@ def follow():
     )
     return fo
 
-def users():
-    from django.contrib.auth.models import User
-    user = []
-    for i in User.objects.all():
-        user.append(i.username)
-    return user
-
-
 def country():
     name_of_cities = [
         "adana",

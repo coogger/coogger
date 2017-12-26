@@ -1,14 +1,15 @@
-{% include "detail/stars.html" %}
 {% include "detail/edit.html" %}
 {% include "detail/userinfo.html" %}
 {% include "detail/contentinfo.html" %}
-<div class="b-cont" style="cursor: default;">
-    <div class="ft-ct" style="height:100%;">{{ detail.content|safe }}</div>
-    <ul class="d-hashtag">
+<div flx="" default="pm">
+    <div style="width: 100%;overflow-x: auto;">{{ detail.content|safe }}</div>
+</div>
+<div flx="jc-c">
+    <ul flx  default="pm">
         {% for i in global_hashtag %}
-        <li class="d-hashtag-li">
-            <a class="d-hashtag-a" href="/tags/{{ i }}">
-                <span class="d-hashtag-text">#{{ i }}</span>
+        <li default="pm" gnrl="bg-dark br-2">
+            <a gnrl="c-white" hvr-a="c-success" href="/tags/{{ i }}">
+                <span>#{{ i }}</span>
             </a>
         </li>
         {% endfor %}

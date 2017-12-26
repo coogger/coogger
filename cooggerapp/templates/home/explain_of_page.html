@@ -1,25 +1,9 @@
-{% if nameoftopic %}
-<div class="h-explain">
-  {% if request.user.otherinformationofusers.pp %}
-  <img class="h-ex-img" src="/media/users/pp/pp-{{ username }}.jpg">
-  {% else %}
-    <img class="h-ex-img" src="/static/media/profil.png">
-    {% endif %}
-    <h2 class="h-ex-h2">@{{ username }}</h2>
-    <h1 class="h-ex-text">{{ nameoftopic}}</h1>
+{% if nameoflist_ex or nameofhashtag %}
+<div flx="jc-c" default="pm">
+  <img default="pm" src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;"/>
+  <img default="pm" flx="as-fe" src="/static/media/icons/list.svg" style="width: 60px;height: 60px;" />
 </div>
-
-{% elif nameoflist_ex %}
-<div class="h-explain">
-    <img class="h-ex-img" src="/static/media/topics/earth.svg" />
-    <img class="h-ex-img" src="/static/media/icons/list.svg" style="width: 60px;height: 60px;" />
-    <h1 class="h-ex-text">{{ nameoflist_ex }}</h1>
-</div>
-
-{% elif nameofhashtag %}
-<div class="h-explain">
-    <img class="h-ex-img" src="/static/media/topics/earth.svg" />
-    <img class="h-ex-img" src="/static/media/icons/hashtag.svg" style="width: 60px;height: 60px;border-radius: 120px;" />
-    <h1 class="h-ex-text">{{ nameofhashtag }}</h1>
+<div flx="jc-c" default="pm">
+  <h1>{{ nameoflist_ex }}</h1>{% if nameofhashtag %}<h1>#{{ nameofhashtag }}</h1>{% endif %}
 </div>
 {% endif %}

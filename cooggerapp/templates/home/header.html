@@ -1,62 +1,60 @@
-<header class="h-header">
-    <ul class="h-header-ul ft-it">
+<header gnrl="bg-private" flx="jc-c">
+    <div default="pm" flx="fw-nw ai-c" style="overflow-x: auto;">
         {% if not request.user.is_authenticated %}
-        <li class="h-header-ul-li">
-            <a hvr="c-primary" class="solol-a" href="/signup"><span class="solol-text">Kayıt olun / Yazar olun</span></a>
-        </li>
-        <li class="h-header-ul-li">
-            <a hvr="c-primary" class="solol-a" href="/login"><span class="solol-text">Giriş yapın</span></a>
-        </li>
+        <div default="pm">
+            <a flx="" flx hvr="c-primary" href="/signup" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">Kayıt olun / Yazar olun</a>
+        </div>
+        <div default="pm" >
+            <a flx="" hvr="c-primary" href="/login" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">Giriş yapın</a>
+        </div>
         {% else%}
-        <li class="h-header-ul-li">
-            <a hvr="c-primary" class="solol-a" href="/@{{ request.user }}">
+        <div>
+            <a flx="" hvr="c-primary" href="/@{{ request.user }}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
               {% if request.user.otherinformationofusers.pp %}
-              <img class="solol-img" src="/media/users/pp/pp-{{ request.user }}.jpg">
+              <img src="/media/users/pp/pp-{{ request.user }}.jpg" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
               {% else %}
-                <img class="solol-img" src="/static/media/profil.png">
+                <img src="/static/media/profil.png" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
                 {% endif %}
-                <span class="solol-text">{{ request.user }}</span>
+                <span default="pm" >{{ request.user }}</span>
 
             </a>
-        </li>
+        </div>
         {% if not request.user.otherinformationofusers.author %}
-        <li class="h-header-ul-li">
-            <a hvr="c-primary" class="solol-a" href="/signup-author">
-                <span class="solol-text">Yazarlık başvurusu</span>
+        <div default="pm" >
+            <a flx="" hvr="c-primary" href="/signup-author" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+                <span>Yazarlık başvurusu</span>
             </a>
-        </li>
+        </div>
         {% endif %} {% if request.user.otherinformationofusers.is_author %}
-        <li class="h-header-ul-li">
-            <a hvr="c-primary" class="solol-a" href="/create">
-                <span class="solol-text">İçerik oluştur</span>
+        <div default="pm" >
+            <a flx="" hvr="c-primary" href="/create" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+                <span>İçerik oluştur</span>
             </a>
-        </li>
+        </div>
         {% endif %}
-        <li class="h-header-ul-li">
-            <a hvr="c-primary" class="solol-a" href="/logout">
-                <span class="solol-text">Çıkış</span>
+        <div default="pm" >
+            <a flx="" hvr="c-primary" href="/logout" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+                <span>Çıkış</span>
             </a>
-        </li>
-        <li class="h-header-ul-li">
-            <a hvr="c-primary" class="solol-a" href="/settings">
-                <span class="solol-text">Ayarlar</span>
+        </div>
+        <div  default="pm" >
+            <a flx="" hvr="c-primary" href="/settings" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+                <span>Ayarlar</span>
             </a>
-        </li>
+        </div>
         {% endif %}
-        <li class="h-header-ul-li">
-            <div class="search">
-                <form class="search-form" action="/search/">
-                    <input type="text" class="search-input" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" />
-                    <input type="submit" value="Ara" class="search-button ft-it" />
-                </form>
-            </div>
-        </li>
+        <div default="pm" >
+          <form action="/search/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+            <input type="text" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2" default="pm b"/>
+            <input gnrl="txt-m br-2 bg-white c-dark" hvr="bg-secondary c-white" default="b" type="submit" value="Ara"/>
+          </form>
+        </div>
         {% if request.user.is_authenticated %}
-        <li class="h-header-ul-li">
-            <a hvr="c-primary" class="solol-a" href="/notification">
-                <span class="solol-text">( {{ hmanynotifications }} )</span>
+        <div  default="pm" >
+            <a flx="" hvr="c-primary" href="/notification" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+                <span>( {{ hmanynotifications }} )</span>
             </a>
-        </li>
+        </div>
           {% endif %}
-    </ul>
+    </div>
 </header>
