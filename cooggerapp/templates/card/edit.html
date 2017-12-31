@@ -1,19 +1,20 @@
-<div class="b-edit">
-    {% if ct.user == request.user or request.user.is_superuser %}
-    <div class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;">
-        <ul>
-            <li>
-                <a href="/change/{{ ct.id }}">Düzenle</a>
-            </li>
-            <li>
-                <a class="delete" data-post-id="{{ct.id}}">Sil</a>
-            </li>
-        </ul>
-    </div>
-    <div class="b-edit-point" data-edit-id="{{ ct.id }}">
-        <div class="border"></div>
-        <div class="border"></div>
-        <div class="border"></div>
-    </div>
-    {% endif %}
+{% if ct.user == request.user or request.user.is_superuser %}
+<div gnrl="bg-dark br-1" class="b-edit-point" data-edit-id="{{ ct.id }}"
+style="width: 16px;position: absolute;z-index: 2;padding: 6px;margin: 6px;">
+  <div class="border" style="border-top: 1px solid #fff;height: 4px;"></div>
+  <div class="border" style="border: 1px solid #fff;height: 4px;"></div>
+  <div class="border" style="border-bottom: 1px solid #fff;height: 4px;"></div>
 </div>
+<div gnrl="bg-success br-2" flx="jc-c" class="b-edit" style="position: absolute;z-index: 1;">
+  <div flx="ai-c jc-c" default="pm" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;height: 420px;width: 256px;">
+    <ul default="pm" flx="jc-c fd-c ai-c">
+      <li flx>
+        <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="/change/{{ ct.id }}">Düzenle</a>
+      </li>
+      <li flx>
+        <a gnrl="br-2"  default="pm" hvr-a="bg-primary" class="delete" data-post-id="{{ct.id}}">Sil</a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endif %}

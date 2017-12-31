@@ -59,7 +59,7 @@ def get_ip(request):
     try:
         ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
     except:
-        ip = request.META['REMOTE_ADDR']
+        return None
     return ip
 
 def hmanynotifications(request):
@@ -82,6 +82,7 @@ def users_web(user):
         user_follow = UserFollow.objects.filter(user = user)
     except:
         user_follow = []
+    return user_follow
 
 def get_facebook(user):
     facebook = None

@@ -15,19 +15,18 @@ from cooggerapp.views.tools import (get_ip,html_head,get_head_img_pp,content_car
 
 def main_detail(request,blog_path,utopic,path):
     "blogların detay kısmı "
-    ip = get_ip(request)
     ctof = Content.objects.filter
     queryset = ctof(url = blog_path)[0]
+    queryset2 = queryset # değişeceği için kopyalıyorum
     content_user = queryset.user
-    if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
-        Contentviews(content = queryset,ip = ip).save()
-        queryset2 = queryset # değişeceği için kopyalıyorum
-        queryset.views = F("views") + 1
-        queryset.save()
-        queryset = queryset2 # değiştikten sonra yine eski değerine atıyorum
-        # bundan dolayı okuma hemen 1 artmış olmaz
-        del queryset2 # silelim
-    # açılan makale bittikten sonra okunulan liste altındaki diğer paylaşımları anasayfadaki gibi listeler
+    ip = get_ip(request)
+    if ip is not None: # ip adres almada bir sorun olursa
+        if not Contentviews.objects.filter(content = queryset2,ip = ip).exists():
+            Contentviews(content = queryset2,ip = ip).save()
+            queryset2.views = F("views") + 1
+            queryset2.save()
+            # bundan dolayı okuma hemen 1 artmış olmaz
+        # açılan makale bittikten sonra okunulan liste altındaki diğer paylaşımları anasayfadaki gibi listeler
     content_id = queryset.id
     nav_category = ctof(user = content_user,content_list = utopic)
     nav_list = []
