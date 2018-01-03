@@ -1,57 +1,71 @@
-<div class="c-blogs" style="width: 306px;">
-    <div class="b-blog">
-        <div class="b-edit">
-            <div class="b-edit-panel data-edit-id-0" style="display: none;">
-                <ul class="b-edit-ul ft-ar">
-                    <li class="b-edit-li">
-                        <a class="b-edit-li-a" href="#Düzenle">Düzenle</a>
-                    </li>
-                    <li class="b-edit-li">
-                        <a class="b-edit-li-a" href="#Sil">Sil</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="b-edit-point" data-edit-id="0">
-                <div class="border"></div>
-                <div class="border"></div>
-                <div class="border"></div>
-            </div>
-        </div>
-        <div class="b-cards">
-            <div class="b-user-info">
-                <ul class="b-user">
-                    <ul class="b-user-ul">
-                        <li class="b-user-ul-li">
-                            <div class="b-user-img">
-                                <img class="b-user-img-src" alt='{{blo.user}}' src="/media/users/pp/pp-{{ user.user }}.jpg" />
-                            </div>
-                        </li>
-                        <li class="b-user-ul-li">
-                            <div class="b-username ">
-                                <a class="b-username-a ft-cl" href='/@{{ user.user }}'>@{{ user.username }}</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <li class="b-user-li">
-                        <div class="b-content-list-name">
-                            <a class="b-username-a" href=''></a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="b-content-info">
-                <div class="b-time ft-dn">
-                    <span> 1 saniye önce</span>
-                </div>
-                <div class="b-title ft-ns">
-                    <a class="b-title-a" href=''></a>
-                </div>
-            </div>
-            <div class="b-content">
-                <div class="b-cont ft-ct" style="height: 180px;">
-                    <p></p>
-                </div>
-            </div>
-        </div>
+<div flx="jc-c">
+<div style="margin:6px 6px;">
+  <div gnrl="bg-dark br-1" class="b-edit-point" data-edit-id="0" style="width: 16px;position: absolute;z-index: 2;padding: 6px;margin: 6px;">
+    <div class="border" style="border-top: 1px solid #fff;height: 4px;"></div>
+    <div class="border" style="border: 1px solid #fff;height: 4px;"></div>
+    <div class="border" style="border-bottom: 1px solid #fff;height: 4px;"></div>
+  </div>
+  <div gnrl="bg-success br-2" flx="jc-c" class="b-edit" style="position: absolute;z-index: 1;">
+    <div flx="ai-c jc-c" default="pm" class="b-edit-panel data-edit-id-0" style="display: none;height: 420px;width: 256px;">
+      <ul default="pm" flx="jc-c fd-c ai-c">
+        <li flx="">
+          <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="#">Düzenle</a>
+        </li>
+        <li flx="">
+          <a gnrl="br-2" default="pm" hvr-a="bg-primary" class="delete">Sil</a>
+        </li>
+      </ul>
     </div>
-</div>
+  </div>
+  <div gnrl="bg-white br-2" style="width: 280px;height: 420px;box-shadow: 0px 1px 2px 1px #c5c5c5;padding: 6px;position: relative;">
+    <div default="p">
+      <div hvr-a="brc-private" gnrl="b-1 brc-white br-2" default="pm">
+        <a gnrl="c-dark" href="#" flx="ai-c" hvr-a="c-private">
+          {% if request.user.otherinformationofusers.pp %}
+          <img gnrl="br-circle" alt="{{ request.user }}" src="/media/users/pp/pp-{{ request.user }}.jpg" style="width: 50px;height: 50px;">
+          {% else %}
+          <img src="/static/media/profil.png" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
+          {% endif %}
+          @{{ request.user }}
+        </a>
+      </div>
+    </div>
+    <div flx="fd-c">
+      <div default="p" flx="jc-fe" style="border-bottom: 1px solid #1414144d;">
+        <a gnrl="c-dark" href="#" class="list-name"></a>
+      </div>
+      <div default="p" flx="fd-fs fd-c">
+        <a href="#">
+          <img src="/static/media/icons/list.svg">
+        </a>
+      </div>
+      <div default="p" flx="jc-c" gnrl="txt-s br-2 b-1 brc-muted">
+       1 saniye önce
+      </div>
+      <div default="p"></div>
+      <a class="title" default="p" flx="jc-c ai-c" gnrl="txt-s b-1 brc-private br-2 c-private"
+      href="#" style="text-align: center;"></a>
+    </div>
+    <div gnrl="unselectable txt-s" flx="jc-c ai-c" style="height:210px;width: 94%;z-index: 2;cursor: pointer;margin: 14px auto;word-break: break-all;">
+      <span class="show"></span>
+      <a href="#">
+        <div class="duread-main" style="background-color: #248644;" flx="ai-c" gnrl="br-2">
+          <ul flx="fd-c" default="p" gnrl="br-2">
+            <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+              <img src="/static/media/icons/stopwatch.svg" gnrl="bg-white br-circle" style="padding: 4px;">
+              <div default="p" flx="jc-fe">Tahmini okuma süresi 2.8 dakika</div>
+            </li>
+            <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+              <img src="/static/media/icons/employee.svg" gnrl="bg-white br-circle" style="padding: 4px;">
+              <div default="p">Okuma 1</div>
+            </li>
+            <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+              <img src="/static/media/icons/comments.svg" gnrl="bg-white br-circle" style="padding: 4px;">
+              <div default="p">Yorum sayısı 0</div>
+            </li>
+          </ul>
+        </div>
+      </a>
+    </div>
+  </div>
+</div></div>

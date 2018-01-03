@@ -31,3 +31,6 @@
 .hljs{
   overflow-x: auto;
 }
+.helptext{
+  display: none;
+}

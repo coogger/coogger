@@ -1,4 +1,4 @@
-{% if request.user == username %}
+{% if request.user == content_user %}
 <div>
     <form action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data" flx="fd-c">
         {% csrf_token %}

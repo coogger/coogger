@@ -4,13 +4,13 @@ from django.contrib.auth import *
 from cooggerapp.views.tools import hmanynotifications
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
-from cooggerapp.forms import UserForm,UserFollowForm
+from cooggerapp.forms import CSettingsUserForm,UserFollowForm
 import os
 
 def profile(request):
     if not request.user.is_authenticated:
         return HttpResponse(None)
-    user_form = UserForm(request.POST or None,instance=request.user)
+    user_form = CSettingsUserForm(request.POST or None,instance=request.user)
     if user_form.is_valid(): # post
         form = user_form.save(commit=False)
         if request.user.username != form.username:
@@ -18,7 +18,7 @@ def profile(request):
         form.save()
         return HttpResponseRedirect("/settings/")
     context = dict(
-    UserForm = user_form,
+    CSettingsUserForm = user_form,
     settings = True,
     hmanynotifications = hmanynotifications(request),
     )

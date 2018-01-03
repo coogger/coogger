@@ -21,6 +21,11 @@ class UserFollowForm(ModelForm):
 class UserForm(ModelForm):
     class Meta:
         model = User
+        fields = ["first_name","last_name","username","email","password"]
+
+class CSettingsUserForm(ModelForm):
+    class Meta:
+        model = User
         fields = ["first_name","last_name","username","email"]
 
 class UserFollowForm(ModelForm):

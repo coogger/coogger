@@ -3,19 +3,19 @@ $(document).ready(function() {
         $("#id_content_list").each(function() {
           var str = "";
             str += $(this).val();
-            $(".b-content-list-name a").html("#" + str);
+            $(".list-name").html(str);
         });
 
         $("#id_title").each(function() {
           var str = "";
             str += $(this).val();
-            $(".b-title-a").html(str);
+            $(".title").html(str);
         });
 
         $("#id_show").each(function() {
           var str = "";
             str += $(this).val();
-            $(".b-content p").html(str);
+            $(".show").html(str);
         });
 
 

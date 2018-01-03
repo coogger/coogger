@@ -1,7 +1,7 @@
 {% include 'settings/home.html' %}
 <div flx="jc-c" gnrl="bg-white br-2" default="pm">
   <form class="my" flx="fd-c jc-fe" method="post" action="/settings/profile" enctype="multipart/form-data">{% csrf_token %}
-    {{ UserForm.as_p }}
+    {{ CSettingsUserForm.as_p }}
     <input  default="input" type="submit" value="Kaydet">
   </form>
 </div>

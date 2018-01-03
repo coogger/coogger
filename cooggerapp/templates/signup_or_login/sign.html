@@ -4,45 +4,28 @@
 <div flx="jc-c ai-c" default="bg" style="height:100vh;">
     <div gnrl="bg-white br-2" default="pm" flx="fd-c jc-c ai-c">
       {% include "home/logo.html" %}
-      <div default="pm" flx="jc-c" gnrl="bg-muted br-2 txt-s c-white" hvr="c-dark" style="text-align: center;">
-            <br>Üye olduktan sonra,dilerseniz sizi aramıza</br>
-            <br>yazar olarak alabilir ve bu sayede bildiklerinizi</br>
-            <br>paylaşıp başkalarına ışık olabilirsiniz</br>
-            <br>işlem sonrası açılan yazar olarak başvur</br>
-            <br>bölümünü ziyaret edin
+      <div default="pm" gnrl="c-private" flx="jc-c">Bilgi paylaşım ağına hoşgeldiniz, bizlerde bilgilerimizi paylaşıyoruz coogger açık kaynak bir projedir.</div>
+      <div default="pm" flx="jc-fs" gnrl="bg-muted br-2 txt-s" hvr="c-private">
+            <br>Beta aşaması süresince üye olan her kullanıcımıza</br>
+            <br>yazarlık veriyoruz</br>
+            <br>yazar olan kullanıcılarımız reklam görmez ve</br>
+            <br>bildiği konularda makaleler payşalabilir</br>
+            <br>öğrenir ve öğretir.</br>
+            <br>Unutmayın bu kurallar sadece şuan için geçerlidir.</br>
       </div>
-      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Normal kullanıcı olarak kayıt ol</div>
+      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">kayıt olun</div>
       <div>
-        <ul flx="jc-c" default="pm">
-         <form action="/signup" method="post" flx="fd-c">
+        <div flx="jc-c" default="pm">
+         <form class="my" action="/signup" method="post" flx="fd-c">
           {% csrf_token %}
-          <li flx="jc-fe" default="pm">
-            <label flx="ai-c" default="pm">Adınız</label>
-            <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="text" name="Name" value="">
-          </li>
-          <li flx="jc-fe" default="pm">
-            <label flx="ai-c" default="pm">Soyadınız</label>
-            <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="text" name="Surname" value="">
-          </li>
-          <li flx="jc-fe" default="pm">
-            <label flx="ai-c" default="pm">E-posta</label>
-            <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="text" name="Email" value="">
-          </li>
-          <li flx="jc-fe" default="pm">
-            <label flx="ai-c" default="pm">Kullanıcı adı</label>
-            <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="text" name="Username" value="">
-          </li>
-          <li flx="jc-fe" default="pm">
-            <label flx="ai-c" default="pm">Şifre</label>
-            <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="password" name="Password" value="">
-          </li>
-          <li flx="jc-fe" default="pm">
-            <label flx="ai-c" default="pm">Şifre onay</label>
-            <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="password" name="Confirm" value="">
-          </li>
-          <input gnrl="c-white bg-success brc-white br-2 b-1" flx="jc-c as-c" hvr="bg-white c-success brc-success" default="pm"  style="width: 200px;" type="submit" value="Kayıt ol">
+          {{ UserForm.as_p }}
+          <p>
+            <label for="confirm">Parola onay</label>
+            <input id="confirm" type="password" name="Confirm" value="">
+          </p>
+          <input flx="as-c" default="input" style="width: 200px;" type="submit" value="Kayıt ol">
         </form>
-      </ul>
+      </div>
     </div>
       <div flx="jc-c" default="pm" hvr="c-white bg-dark" gnrl="br-2 c-muted b-1" flx="flx-1 jc-c">
         Kayıt Ol butonuna tıkladığında

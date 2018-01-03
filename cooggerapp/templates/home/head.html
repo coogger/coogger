@@ -62,6 +62,8 @@
         gtag('config', 'UA-107674954-1');
     </script>
     <!-- GOOGLE -->
+    {% if not request.user.otherinformationofusers.is_author %}
+    {% if not signup_or_login %}
     <!-- GOOGLE ads -->
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
@@ -70,7 +72,9 @@
       enable_page_level_ads: true
     });
   </script>
+  {% endif %}
 <!-- GOOGLE -->
+{% endif %}
     <script src=" {% static 'js/jquery.js' %}"></script>
     <script src=" {% static 'js/general.js' %}"></script>
     {% if controls %}<script src=" {% static 'js/controls.js' %}"></script>{% endif %}
