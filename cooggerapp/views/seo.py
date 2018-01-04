@@ -4,8 +4,8 @@ from cooggerapp.models import Content,ContentList
 from django.contrib.auth.models import User
 
 class ContentlistSitemap(Sitemap):
-    changefreq = "weekly"
-    priority = 0.8
+    changefreq = "daily"
+    priority = 1.0
 
     def items(self):
         return ContentList.objects.all()
@@ -15,11 +15,11 @@ class ContentlistSitemap(Sitemap):
 
     def location(self,obj):
         return "/@"+str(obj.user)+"/"+str(obj.content_list)
-    
+
 
 class ContentSitemap(Sitemap):
-    changefreq = "weekly"
-    priority = 0.8
+    changefreq = "daily"
+    priority = 1.0
 
     def items(self):
         return Content.objects.all()
@@ -32,8 +32,8 @@ class ContentSitemap(Sitemap):
 
 
 class UsersSitemap(Sitemap):
-    changefreq = "weekly"
-    priority = 0.8
+    changefreq = "daily"
+    priority = 1.0
 
     def items(self):
         return User.objects.all()
