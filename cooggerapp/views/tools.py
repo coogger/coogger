@@ -28,11 +28,6 @@ def paginator(request,queryset,hmany=20):
         contacts = paginator.page(paginator.num_pages)
     return contacts
 
-def seo(request):
-    "arama motoru optimizasyonu için robot.txt ve site haritası"
-    file = request.get_full_path()
-    return render(request,"seo/"+file,{})
-
 def durationofread(text):
     reading_speed = 20 # 1 saniyede 20 harf okunursa
     read_content = BeautifulSoup(text, 'html.parser').get_text().replace(" ","")

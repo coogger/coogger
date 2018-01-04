@@ -3,9 +3,15 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 import os
-from cooggerapp.views import (
-    controls,csettings,detail,explorer,home,signup_or_login,tools,users
-    )
+from cooggerapp.views import (controls,csettings,detail,explorer,home,signup_or_login,users,seo)
+from django.contrib.sitemaps.views import sitemap
+
+sitemaps = {
+    "content_list":seo.ContentlistSitemap(),
+    "content":seo.ContentSitemap(),
+    "users":seo.UsersSitemap(),
+}
+
 urlpatterns = [
     url(r'^$', home.home,name = "home"),
     url(r'^search',home.search,name = "search"),
@@ -18,8 +24,8 @@ urlpatterns = [
     url(r"^login$",signup_or_login.mylogin,name = "login"),
     url(r"^logout/$",signup_or_login.mylogout,name = "logout"),
 
-    url(r'^robots.txt$',tools.seo),
-    url(r'^sitemab.xml$',tools.seo),
+    url(r'^robots.txt$',seo.robots),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
 
     url(r'^user-upload-pp$',users.upload_pp,name="user_upload_pp"),
 
@@ -40,7 +46,6 @@ urlpatterns = [
     url(r"^settings/$",csettings.profile),
     url(r"^settings/account$",csettings.account),
     url(r"^settings/add-address$",csettings.add_address),
-
 ]
 
 if settings.DEBUG:

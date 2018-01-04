@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from cooggerapp.models import *
 
 class ContentAdmin(admin.ModelAdmin):
-    list_ = ["user","content_list","title","dor","time","views"]
+    list_ = ["user","content_list","title","dor","time","lastmod","views"]
     list_display = list_
     list_display_links = list_
     list_filter = ["user","content_list","time"]

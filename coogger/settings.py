@@ -105,4 +105,3 @@ CKEDITOR_CONFIGS = {
 
     }
 }
-
