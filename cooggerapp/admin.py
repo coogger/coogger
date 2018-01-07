@@ -11,7 +11,7 @@ class ContentAdmin(admin.ModelAdmin):
     list_filter = ["user","content_list","time"]
     search_fields = list_
     prepopulated_fields = {"url":("title",)}
-    fields = (("username","content_list"),("title","url"),"content","tag",("views","hmanycomment","dor"))
+    fields = (("user","content_list"),("title","url"),"content","tag",("views","hmanycomment","dor"))
 
 class ViewsAdmin(admin.ModelAdmin):
     list_ = ["content_id","ip"]

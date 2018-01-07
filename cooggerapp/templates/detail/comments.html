@@ -3,7 +3,7 @@
   <div default="pm" flx="jc-c">
     <form  flx method="post" action="/comment{{ ogurl }}">
       {% csrf_token %}
-      <input default="input" default="pm" type="text" placeholder="Soru sor,veya teşekkür et bir yorum yap" name="comment" maxlength="310">
+      <input default="input" class="wcomment" default="pm" type="text" placeholder="Soru sor,veya teşekkür et bir yorum yap" name="comment" maxlength="310">
       <input default="input" type="submit" class="d-comment-sub" value="yorum yap">
     </form>
   </div>
@@ -18,13 +18,13 @@
     {% for com in comment_form %}
     <li flx="">
       <div flx>
-        <a href="/@{{ com.user}}" gnrl="c-dark" flx="ai-c">
+        <a href="/{{ com.user}}" gnrl="c-dark" flx="ai-c">
            {% if com.user.otherinformationofusers.pp %}
             <img src="/media/users/pp/pp-{{ com.user }}.jpg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm">
            {% else %}
             <img src="/static/media/profil.png" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm">
             {% endif %}
-           <spam gnrl="c-private">@{{ com.user }}</spam>
+           <spam gnrl="c-private">{{ com.user }}</spam>
        </a>
       </div>
       <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm"> {{ com.comment }}</div>
@@ -49,7 +49,8 @@ $(document).ready(function() {
           }
       }).done(function (response) {
           // okunan json veriyi, #user idli yere yaz
-          $(".d-comments-ul" ).append("<li flx=''><div flx><a href=/@"+response.username+" gnrl='c-dark' flx='ai-c'><img src='"+response.img+"' style='height: 60px;width: 60px;' gnrl='br-circle' default='pm'><spam gnrl='c-private'>@"+response.username+"</spam></a></div><div flx='as-fe' gnrl='brc-muted br-2 b-1' default='pm'> "+response.comment+"</div><div gnrl='txt-s' flx='as-fs'>"+response.date+" önce</div></li>");
+          $('.wcomment').val("");
+          $(".d-comments-ul" ).append("<li flx=''><div flx><a href=/"+response.username+" gnrl='c-dark' flx='ai-c'><img src='"+response.img+"' style='height: 60px;width: 60px;' gnrl='br-circle' default='pm'><spam gnrl='c-private'>"+response.username+"</spam></a></div><div flx='as-fe' gnrl='brc-muted br-2 b-1' default='pm'> "+response.comment+"</div><div gnrl='txt-s' flx='as-fs'>"+response.date+" önce</div></li>");
       });
       event.preventDefault();
   });

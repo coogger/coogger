@@ -13,10 +13,11 @@ from cooggerapp.models import Content,Contentviews,UserFollow,Comment,Notificati
 from cooggerapp.views.tools import (get_ip,html_head,get_head_img_pp,content_cards,hmanynotifications,users_web)
 
 
-def main_detail(request,blog_path,utopic,path):
+def main_detail(request,username,utopic,path):
     "blogların detay kısmı "
+    content_path = username+"/"+utopic+"/"+path
     ctof = Content.objects.filter
-    queryset = ctof(url = blog_path)[0]
+    queryset = ctof(url = content_path)[0]
     queryset2 = queryset # değişeceği için kopyalıyorum
     content_user = queryset.user
     ip = get_ip(request)

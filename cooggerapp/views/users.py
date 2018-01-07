@@ -12,7 +12,11 @@ from cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,con
 
 def user(request,username):
     "herhangi kullanıcının anasayfası"
-    user = User.objects.filter(username = username)[0]
+    try:
+        user = User.objects.filter(username = username)[0]
+    except IndexError:
+        ms.error(request,"{} adı ile bir kullanıcımız yoktur !".format(username))
+        return HttpResponseRedirect("/")
     queryset = Content.objects.filter(user = user)
     info_of_cards = content_cards(request,queryset)
     html_head = dict(

@@ -27,7 +27,6 @@ def create(request):
             content_list = "coogger"
         content.content_list = content_list
         title = content.title
-        url = slugify(title)
         content.dor = durationofread(content.content+title)
         content_tag = request.POST["tag"].split(",")
         tags = ""
@@ -37,11 +36,13 @@ def create(request):
             else:
                 tags += slugify(i)+","
         content.tag = tags
+        url = slugify(title)
         try:
-            content.url = "@"+request_user.username+"/"+content_list+"/"+url
+            content.url = request_user.username+"/"+content_list+"/"+url
             content.save()
         except:
-            content.url = "@"+request_user.username+"/"+content_list+"/"+url+"-"+str(random.random()).replace(".","")
+            url = url+"-"+str(random.random()).replace(".","")[:6]
+            content.url = request_user.username+"/"+content_list+"/"+url
             content.save()
         try:
             content_list_save = ContentList.objects.filter(user = request_user,content_list = content_list)[0]
@@ -50,7 +51,7 @@ def create(request):
             # kullanıcının açmış oldugu listeleri kayıt ediyoruz
         except: # önceden oluşmuş ise hata verir ve biz 1 olarak kayıt ederiz
             ContentList(user = request_user,content_list = content_list,content_count = 1).save()
-        redirect = "/@"+request_user.username+"/"+content_list+"/"+url
+        redirect = "/"+request_user.username+"/"+content_list+"/"+url
         return HttpResponseRedirect(redirect)
     # get method
     context = dict(
@@ -86,8 +87,6 @@ def change(request,content_id):
         content.content_list = content_list
         content.time = queryset.time
         title = content.title
-        url = slugify(title)
-        content.url = "@"+str(real_username)+"/"+content_list+"/"+url
         content.dor = durationofread(content.content+title)
         content_tag = request.POST["tag"].split(",")
         tags = ""
@@ -97,7 +96,14 @@ def change(request,content_id):
             else:
                 tags += slugify(i)+","
         content.tag = tags
-        content.save()
+        url = slugify(title)
+        try:
+            content.url = request_user.username+"/"+content_list+"/"+url
+            content.save()
+        except:
+            url = url+"-"+str(random.random()).replace(".","")[:6]
+            content.url = request_user.username+"/"+content_list+"/"+url
+            content.save()
         if content_list != old_content_list: # content_list değişmiş ise
             real_user = User.objects.filter(username = real_username)[0]
             try:
@@ -116,7 +122,7 @@ def change(request,content_id):
                 content_list_.save()
             except:
                 ContentList(user = real_user,content_list = content_list,content_count = 1).save()
-        return HttpResponseRedirect("/@"+str(real_username)+"/"+content_list+"/"+url)
+        return HttpResponseRedirect("/"+str(real_username)+"/"+content_list+"/"+url)
     # get method
     context = dict(
         controls = True,
@@ -127,8 +133,7 @@ def change(request,content_id):
     template = "controls/change.html"
     return render(request,template,context)
 
-def delete(request,content_id):
-    "to delete the content"
+def delete(request,content_id): # to delete the content
     request_user = request.user
     if not request.is_ajax() or not request_user.username:
         ms.error(request,"ops !")
@@ -143,18 +148,12 @@ def delete(request,content_id):
         ms.error(request,"Girmek istediğiniz sayfada yönetim iznine sahip değilsiniz !")
         return HttpResponseRedirect("/")
     content_list = queryset[0].content_list
+    queryset.delete()
+    content_list_save = ContentList.objects.filter(user = user,content_list = content_list)[0]
+    content_list_save.content_count = F("content_count")-1
+    content_list_save.save()
     try:
-        queryset.delete()
-        try:
-            content_list_save = ContentList.objects.filter(user = user,content_list = content_list)[0]
-            content_list_save.content_count = F("content_count")-1
-            content_list_save.save()
-            try:
-                ContentList.objects.filter(content_count = 0)[0].delete()
-            except:
-                return HttpResponse("12312")
-        except:
-            return HttpResponse("Nesne silindi fakat nesneye ait liste silinemedi ")
+        ContentList.objects.filter(content_count = 0)[0].delete()
     except:
-        return HttpResponse("Silme işlemi sırasında beklenmedik hata !")
+        pass
     return HttpResponse("Silme işlemi başarılı ")

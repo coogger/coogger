@@ -5,13 +5,13 @@
       {% if list.content_list == nameoftopic %}
         <div default="m" hvr-a="bg-white" gnrl="br-2 bg-primary" flx="as-c">
           <a flx="" default="p" gnrl="b-1 br-2 brc-secondary c-white"  hvr-a="c-primary" hvr="brc-primary"
-           href="/@{{ content_user }}/{{ list.content_list }}"
+           href="/{{ content_user }}/{{ list.content_list }}"
            style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">{{ list.content_list }}</a>
       </div>
      {% else%}
        <div default="m" hvr-a="bg-primary" gnrl="br-2" flx="as-c">
          <a flx="" default="p" gnrl="b-1 br-2 brc-secondary c-primary"  hvr-a="c-white" hvr="brc-primary"
-         href="/@{{ content_user  }}/{{ list.content_list }}"
+         href="/{{ content_user  }}/{{ list.content_list }}"
          style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">{{ list.content_list }}</a>
     </div>
     {% endif %}

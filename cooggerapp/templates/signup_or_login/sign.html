@@ -1,22 +1,22 @@
-<!--kayıt olma sayfası-->
+<!--giriş yapma sayfası-->
 {% load static from staticfiles %}
 {% include 'home/head.html' %}
 <div flx="jc-c ai-c" default="bg" style="height:100vh;">
-    <div gnrl="bg-white br-2" default="pm" flx="fd-c jc-c ai-c">
+  <div gnrl="bg-white br-2" default="pm">
       {% include "home/logo.html" %}
-      <div default="pm" gnrl="c-private" flx="jc-c">Bilgi paylaşım ağına hoşgeldiniz, bizlerde bilgilerimizi paylaşıyoruz coogger açık kaynak bir projedir.</div>
+      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Bilgi paylaşım ağına hoşgeldiniz, bizlerde bilgilerimizi paylaşıyoruz coogger açık kaynak bir projedir.</div>
       <div default="pm" flx="jc-fs" gnrl="bg-muted br-2 txt-s" hvr="c-private">
-            <br>Beta aşaması süresince üye olan her kullanıcımıza</br>
-            <br>yazarlık veriyoruz</br>
-            <br>yazar olan kullanıcılarımız reklam görmez ve</br>
-            <br>bildiği konularda makaleler payşalabilir</br>
-            <br>öğrenir ve öğretir.</br>
-            <br>Unutmayın bu kurallar sadece şuan için geçerlidir.</br>
-      </div>
-      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">kayıt olun</div>
-      <div>
-        <div flx="jc-c" default="pm">
-         <form class="my" action="/signup" method="post" flx="fd-c">
+      <br>Beta aşaması süresince üye olan her kullanıcımıza</br>
+      <br>yazarlık veriyoruz</br>
+      <br>yazar olan kullanıcılarımız reklam görmez ve</br>
+      <br>bildiği konularda makaleler payşalabilir</br>
+      <br>öğrenir ve öğretir.</br>
+      <br>Unutmayın bu kurallar sadece şuan için geçerlidir.</br>
+    </div>
+    <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Kayıt olun.</div>
+    <div flx="jc-c">
+      <ul flx="jc-c">
+        <form class="my" action="/signup" method="post" flx="fd-c">
           {% csrf_token %}
           {{ UserForm.as_p }}
           <p>
@@ -25,15 +25,16 @@
           </p>
           <input flx="as-c" default="input" style="width: 200px;" type="submit" value="Kayıt ol">
         </form>
-      </div>
-    </div>
-      <div flx="jc-c" default="pm" hvr="c-white bg-dark" gnrl="br-2 c-muted b-1" flx="flx-1 jc-c">
+      </ul>
+      <div flx="jc-c" default="pm" hvr="c-white bg-dark" gnrl="br-2 c-muted b-1">
         Kayıt Ol butonuna tıkladığında
         <a gnrl="c-success" hvr="c-warning" href="#" target="_blank" > Hizmet Kullanım Şartları </a> ve
         <a gnrl="c-success" hvr="c-warning" href="#" target="_blank"> Gizlilik Koşulları </a>
         nı kabul etmiş olursun.
       </div>
     </div>
+  </div>
+  {% include 'home/footer.html' %}
+</div>
 </body>
-
 </html>

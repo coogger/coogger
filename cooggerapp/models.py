@@ -8,10 +8,10 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     content_list = models.SlugField(null = True, blank = True, default="coogger", max_length=30, verbose_name ="Liste ismi")
     title = models.CharField(max_length=100, verbose_name = "Başlık yazın") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
-    url = models.SlugField(unique = True, max_length=100, verbose_name = "web adresi") # blogun url adresi
+    url = models.CharField(unique = True, max_length=100, verbose_name = "web adresi") # blogun url adresi
     content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda
     show = models.CharField(max_length=400, verbose_name = "Anasayfa'da görünecek içerik notu ekleyin")
-    tag = models.SlugField(null = True, blank = True, max_length=200, verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    tag = models.SlugField(max_length=200, verbose_name = "Virgül kullanarak anahtar kelimeleri yazın") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="tarih") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10, verbose_name = "duration of read")
     views = models.IntegerField(default = 0, verbose_name = "görüntülenme sayısı") # görütülenme sayısını kayıt eder

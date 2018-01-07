@@ -3,16 +3,16 @@
     {% for follow in user_follow %}
     {% if follow.choices == "web-site" %}
     <div default="pm">
-      <a default="pm" flx="jc-c" hvr-a="bg-primary" gnlr="bg-2" hvr="c-white bg-white"  target="_blank" href="{{follow.adress}}">
-        <img hvr-a="bg-white" gnrl="br-circle" src="/static/media/icons/{{follow.choices}}.svg" />
-        <span flx="jc-c ai-c" default="m">{{follow.choices}}</span>
+      <a default="pm" flx="jc-c ai-c" hvr-a="bg-primary" gnrl="bg-2 c-dark" hvr="c-white bg-white" target="_blank" href="{{follow.adress}}">
+        <img hvr-a="bg-white" default="m" gnrl="br-circle" src="/static/media/icons/{{follow.choices}}.svg" />
+      {{follow.choices}}
       </a>
     </div>
       {% else %}
       <div default="pm">
-        <a default="pm" flx="jc-c" hvr-a="bg-primary" gnlr="bg-2" hvr="c-white bg-white" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
-          <img hvr-a="bg-white" gnrl="br-circle" src="/static/media/icons/{{follow.choices}}.svg" />
-          <span flx="jc-c ai-c" default="m">{{follow.choices}}</span>
+        <a default="pm" flx="jc-c ai-c" hvr-a="bg-primary" gnrl="bg-2 c-dark" hvr="c-white bg-white" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
+          <img hvr-a="bg-white" gnrl="br-circle" default="m" src="/static/media/icons/{{follow.choices}}.svg" />
+          {{follow.choices}}
         </a>
       </div>
       {% endif %}
