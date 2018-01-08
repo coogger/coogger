@@ -14,7 +14,7 @@ class ContentlistSitemap(Sitemap):
         return Content.objects.filter(user = obj.user)[0].time
 
     def location(self,obj):
-        return "/@"+str(obj.user)+"/"+str(obj.content_list)
+        return "/"+str(obj.user)+"/"+str(obj.content_list)
 
 
 class ContentSitemap(Sitemap):
@@ -45,7 +45,7 @@ class UsersSitemap(Sitemap):
             pass
 
     def location(self,obj):
-        return "/@"+obj.username
+        return "/"+obj.username
 
 def robots(request):
     template = "robots.txt"
