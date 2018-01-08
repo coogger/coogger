@@ -20,7 +20,7 @@ urlpatterns = [
     url(r"^web/signup-author/$",signup_or_login.signup_author,name = "signup_author"),
     url(r"^web/login/$",signup_or_login.mylogin,name = "login"),
     url(r"^web/logout/$",signup_or_login.mylogout,name = "logout"),
-    url(r'^web/robots.txt/$',seo.robots),
+    url(r'^robots.txt$',seo.robots),
     url(r'^web/sitemap\.xml/$', sitemap, {'sitemaps': sitemaps}),
     url(r'^web/user-upload-pp/$',users.upload_pp,name="user_upload_pp"),
     url(r'^web/create/$',controls.create,name="create"),
