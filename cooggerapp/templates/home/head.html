@@ -2,6 +2,79 @@
 <!-- Doctype HTML5 -->
 <!doctype html>
 <head>
+    <html lang="tr">
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="/static/media/favicon.png" type="image/x-icon" /> {% if head.title %}
+    <title>{{ head.title|truncatechars:55 }}</title>
+    <meta property="og:title" content="{{ head.title }}" />
+    <meta property="og:site_name" content="{{ head.title }}" />
+    <meta name="twitter:title" content="{{ head.title }}" />
+    <meta itemprop="name" content="{{ head.title }}" /> {% else %}
+    <title>coogger</title>
+    <meta property="og:title" content="coogger" />
+    <meta property="og:site_name" content="coogger" />
+    <meta name="twitter:title" content="coogger" />
+    <meta itemprop="name" content="coogger" /> {% endif %} {% if head.keywords %}
+    <meta name="keywords" content="{{ head.keywords }}" /> {% else %}
+    <meta name="keywords" content="coogger" /> {% endif %} {% if head.description %}
+    <meta name="description" content="{{head.description}}" />
+    <meta name="twitter:description" content="{{head.description|truncatechars:150}}" />
+    <meta property="og:description" content="{{head.description|truncatechars:150}}" />
+    <meta itemprop="description" content="{{head.description|truncatechars:150}}" /> {% else %}
+    <meta name="description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
+    <meta name="twitter:description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
+    <meta property="og:description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
+    <meta itemprop="description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" /> {% endif %}
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="2" />
+    <meta name="revisit-after" content="2 days" />
+    <meta name="twitter:card" content="summary">
+    <!-- <meta name="twitter:creator" content="hakancelik96" /> -->
+    <meta property="og:type" content="website" />
+    {% if head.author %}
+    <meta name="author" content="https://{{ head.author }}" />
+    <meta property="article:author" content="https://{{ head.author }}" />
+    <meta property="article:publisher" content="https://{{ head.author }}" />
+    {% endif %}
+    {% if content_user.otherinformationofusers.pp %}
+    <meta property="og:image" content="/media/users/pp/pp-{{ content_user }}.jpg" />
+    <meta itemprop="image" content="/media/users/pp/pp-{{ content_user }}.jpg" />
+    <meta name="twitter:image:src" content="/media/users/pp/pp-{{ content_user }}.jpg" />
+    {% else %}
+    <meta property="og:image" content="/static/media/favicon.png" />
+    <meta itemprop="image" content="/static/media/favicon.png" />
+    <meta name="twitter:image:src" content="/static/media/favicon.png" />
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}" />
+    <!--yandex -->
+    <meta name="yandex-verification" content="d8be2feff15c1e50" />
+    <!--yandex-->
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-107674954-1');
+    </script>
+    <!-- GOOGLE -->
+    {% if not request.user.otherinformationofusers.is_author %}
+    {% if not signup_or_login %}
+    <!-- GOOGLE ads -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-9215854020523450",
+      enable_page_level_ads: true
+    });
+  </script>
+  {% endif %}
+<!-- GOOGLE -->
+{% endif %}
     <script src=" {% static 'js/jquery.js' %}"></script>
     <script src=" {% static 'js/general.js' %}"></script>
     {% if controls %}<script src=" {% static 'js/controls.js' %}"></script>{% endif %}
