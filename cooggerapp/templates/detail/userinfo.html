@@ -1,7 +1,7 @@
 <div gnrl="bg-secondary" flx="jc-c ai-c">
   <ul default="pm" flx="jc-c ai-c">
     <li >
-      <a href='/list/{{ detail.content_list }}'>
+      <a href="{% url 'list' detail.content_list  %}">
         <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/>
       </a>
     </li>
@@ -11,7 +11,7 @@
       </a>
     </li>
     <li >
-      <a href='/list/{{ detail.content_list }}'>
+      <a href="{% url 'list' detail.content_list  %}">
         <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/>
       </a>
     </li>

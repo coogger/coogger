@@ -3,7 +3,7 @@
   <ul default="pm" flx="" data-edit-id-"{{ detail.id }}" gnrl="bg-info br-2">
     <li>
       <div default="pm" hvr-a="bg-success" gnrl="br-2">
-        <a href="/change/{{ detail.id }}">Düzenle</a>
+        <a href="{% url 'change' detail.id  %}">Düzenle</a>
       </div>
     </li>
     <li>

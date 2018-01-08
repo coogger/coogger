@@ -2,10 +2,10 @@
     <div default="pm" flx="fw-nw ai-c" style="overflow-x: auto;">
         {% if not request.user.is_authenticated %}
         <div default="pm">
-            <a flx="" flx hvr="c-primary" href="/signup/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">Kayıt olun / Yazar olun</a>
+            <a flx="" flx hvr="c-primary" href="{% url 'signup' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">Kayıt olun / Yazar olun</a>
         </div>
         <div default="pm" >
-            <a flx="" hvr="c-primary" href="/login/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">Giriş yapın</a>
+            <a flx="" hvr="c-primary" href="{% url 'login' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">Giriş yapın</a>
         </div>
         {% else%}
         <div>
@@ -21,37 +21,37 @@
         </div>
         {% if not request.user.otherinformationofusers.author %}
         <div default="pm" >
-            <a flx="" hvr="c-primary" href="/signup-author/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+            <a flx="" hvr="c-primary" href="{% url 'signup_author' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
                 <span>Yazarlık başvurusu</span>
             </a>
         </div>
         {% endif %} {% if request.user.otherinformationofusers.is_author %}
         <div default="pm" >
-            <a flx="" hvr="c-primary" href="/create/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+            <a flx="" hvr="c-primary" href="{% url 'create' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
                 <span>İçerik oluştur</span>
             </a>
         </div>
         {% endif %}
         <div default="pm" >
-            <a flx="" hvr="c-primary" href="/logout/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+            <a flx="" hvr="c-primary" href="{% url 'logout' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
                 <span>Çıkış</span>
             </a>
         </div>
         <div  default="pm" >
-            <a flx="" hvr="c-primary" href="/settings/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+            <a flx="" hvr="c-primary" href="{% url 'settings' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
                 <span>Ayarlar</span>
             </a>
         </div>
         {% endif %}
         <div default="pm" >
-          <form action="/search/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+          <form action="{% url 'search' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
             <input type="text" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2" default="pm b"/>
             <input gnrl="txt-m br-2 bg-white c-dark" hvr="bg-secondary c-white" default="b" type="submit" value="Ara"/>
           </form>
         </div>
         {% if request.user.is_authenticated %}
         <div  default="pm" >
-            <a flx="" hvr="c-primary" href="/notification/" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+            <a flx="" hvr="c-primary" href="{% url 'notification' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
                 <span>( {{ hmanynotifications }} )</span>
             </a>
         </div>

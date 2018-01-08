@@ -8,7 +8,7 @@
     <ul flx  default="pm">
         {% for i in global_hashtag %}
         <li default="pm" gnrl="bg-dark br-2">
-            <a gnrl="c-white" hvr-a="c-success" href="/tags/{{ i }}">
+            <a gnrl="c-white" hvr-a="c-success" href="{% url 'hashtag' i  %}">
                 <span>#{{ i }}</span>
             </a>
         </li>

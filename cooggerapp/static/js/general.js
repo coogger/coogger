@@ -3,7 +3,7 @@ $(document).ready(function() {
         var conf = confirm("Silmek istediğinize eminmisiniz ! bu işlem geri alınamaz");
         if (conf) {
             var delete_id = this_.getAttribute("data-post-id");
-            $(".wms").load("/delete/"+delete_id);
+            $(".wms").load("/web/delete/"+delete_id);
             $(".main-messages").css({ display: "block" });
             $(".data-post-id-" + delete_id).remove();
             setTimeout(function() {

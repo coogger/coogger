@@ -1,6 +1,7 @@
 {% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
 <div flx="jc-c" gnrl="bg-muted br-2" default="pm">
-    <form  class="my" gnrl="bg-white" default="pm" flx="fd-c jc-fe" method="post" class="c-create-form" action="/create/">
+    <form  class="my" gnrl="bg-white" default="pm" flx="fd-c jc-fe" method="post"
+    class="c-create-form" action="{% url 'create' %}" >
         {% csrf_token %}
         <p>
           <label for="id_content_list">Liste ismi:</label>

@@ -1,7 +1,7 @@
 <div flx="jc-c fd-c" gnrl="bg-white" default="pm">
   {% if request.user.is_authenticated %}
   <div default="pm" flx="jc-c">
-    <form  flx method="post" action="/comment{{ ogurl }}">
+    <form  flx method="post" action="#">
       {% csrf_token %}
       <input default="input" class="wcomment" default="pm" type="text" placeholder="Soru sor,veya teşekkür et bir yorum yap" name="comment" maxlength="310">
       <input default="input" type="submit" class="d-comment-sub" value="yorum yap">
@@ -40,7 +40,7 @@ $(document).ready(function() {
   $(".d-comment-sub").click(function(event){
     var comment=$("input[name=comment").val();
       $.ajax({
-          url: "/comment"+window.location.pathname,
+          url: "/web/comment"+window.location.pathname,
           method: 'POST',
           dataType: 'json',
           data: {

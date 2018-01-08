@@ -3,7 +3,7 @@
     <a gnrl="c-dark" href='/{{ ct.user }}/{{ ct.content_list }}'>{{ ct.content_list }}</a>
   </div>
   <div default="p" flx="fd-fs fd-c">
-    <a href='/list/{{ ct.content_list }}'>
+    <a href="{% url 'list' ct.content_list  %}">
       <img src="/static/media/icons/list.svg" />
     </a>
   </div>

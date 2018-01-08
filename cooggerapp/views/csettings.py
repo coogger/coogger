@@ -16,7 +16,7 @@ def profile(request):
         if request.user.username != form.username:
             os.rename("/coogger/media/users/pp/pp-"+request.user.username+".jpg","/coogger/media/users/pp/pp-"+form.username+".jpg")
         form.save()
-        return HttpResponseRedirect("/settings/")
+        return HttpResponseRedirect(request.META["PATH_INFO"])
     context = dict(
     CSettingsUserForm = user_form,
     settings = True,
@@ -57,7 +57,7 @@ def add_address(request):
         form.user = request.user
         form.save()
         ms.error(request,"Web siteniz eklendi")
-        return HttpResponseRedirect("/settings/add-address")
+        return HttpResponseRedirect(request.META["PATH_INFO"])
     context = dict(
     UserForm = user_form,
     settings = True,

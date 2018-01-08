@@ -7,7 +7,7 @@
       <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Yazar olarak kayıt ol</div>
       <div flx="jc-c">
         <ul flx="fd-c">
-          <form class="my" action="/signup-author" method="post" flx="fd-c" class="signup-author">
+          <form class="my" action="{% url 'signup_author' %}" method="post" flx="fd-c" class="signup-author">
               {% csrf_token %} {{ otherinfo_form.as_p }}
               <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c"
               hvr="bg-white c-success brc-success" default="b pm"

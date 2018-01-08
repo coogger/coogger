@@ -1,6 +1,6 @@
 {% include 'settings/home.html' %}
 <div flx="jc-c" gnrl="bg-white br-2" default="pm">
-  <form class="my" flx="fd-c jc-fe" method="post" action="/settings/account" enctype="multipart/form-data">{% csrf_token %}
+  <form class="my" flx="fd-c jc-fe" method="post" action="{% url 'saccount' %}" enctype="multipart/form-data">{% csrf_token %}
     <p>
       <label for="password">Yeni Şifre</label>
       <input type="password" id="password" name="Password" value="">

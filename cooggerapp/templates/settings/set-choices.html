@@ -1,7 +1,7 @@
 <div flx="ai-c jc-c" default="pm">
   <div flx="jc-c fd-c" gnrl="bg-white" default="pm">
     <div default="pm" hvr="bg-secondary" gnrl="br-2">
-      <a hvr="c-white" gnrl="c-dark" flx="ai-c" href="/settings/profile">
+      <a hvr="c-white" gnrl="c-dark" flx="ai-c" href="{% url 'sprofile' %}">
         {% if request.user.otherinformationofusers.pp %}
         <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
         {% else %}
@@ -11,7 +11,7 @@
       </a>
     </div>
     <div default="pm" hvr="bg-secondary" gnrl="br-2">
-      <a gnrl="c-dark" hvr="c-white" flx="ai-c" href="/settings/account">
+      <a gnrl="c-dark" hvr="c-white" flx="ai-c" href="{% url 'saccount' %}">
         {% if request.user.otherinformationofusers.pp %}
         <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
         {% else %}
@@ -21,7 +21,7 @@
       </a>
     </div>
     <div default="pm" hvr="bg-secondary" gnrl="br-2">
-      <a gnrl="c-dark" hvr="c-white" flx="ai-c" href="/settings/add-address">
+      <a gnrl="c-dark" hvr="c-white" flx="ai-c" href="{% url 'saddaddress' %}">
         {% if request.user.otherinformationofusers.pp %}
         <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
         {% else %}

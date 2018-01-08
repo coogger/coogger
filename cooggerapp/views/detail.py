@@ -18,16 +18,16 @@ def main_detail(request,username,utopic,path):
     content_path = username+"/"+utopic+"/"+path
     ctof = Content.objects.filter
     queryset = ctof(url = content_path)[0]
-    queryset2 = queryset # değişeceği için kopyalıyorum
     content_user = queryset.user
     ip = get_ip(request)
     if ip is not None: # ip adres almada bir sorun olursa
-        if not Contentviews.objects.filter(content = queryset2,ip = ip).exists():
-            Contentviews(content = queryset2,ip = ip).save()
-            queryset2.views = F("views") + 1
-            queryset2.save()
+        if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
+            Contentviews(content = queryset,ip = ip).save()
+            queryset.views = F("views") + 1
+            queryset.save()
             # bundan dolayı okuma hemen 1 artmış olmaz
         # açılan makale bittikten sonra okunulan liste altındaki diğer paylaşımları anasayfadaki gibi listeler
+    queryset = ctof(url = content_path)[0]
     content_id = queryset.id
     nav_category = ctof(user = content_user,content_list = utopic)
     nav_list = []

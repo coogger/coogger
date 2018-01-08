@@ -9,7 +9,7 @@ style="width: 16px;position: absolute;z-index: 2;padding: 6px;margin: 6px;">
   <div flx="ai-c jc-c" default="pm" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;height: 420px;width: 256px;">
     <ul default="pm" flx="jc-c fd-c ai-c">
       <li flx>
-        <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="/change/{{ ct.id }}">Düzenle</a>
+        <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="{% url 'change' ct.id  %}">Düzenle</a>
       </li>
       <li flx>
        <a gnrl="br-2"  default="pm" hvr-a="bg-primary" class="delete" data-post-id="{{ct.id}}">Sil</a>

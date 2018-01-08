@@ -16,7 +16,7 @@
     <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Kayıt olun.</div>
     <div flx="jc-c">
       <ul flx="jc-c">
-        <form class="my" action="/signup" method="post" flx="fd-c">
+        <form class="my" action="{% url 'signup' %}" method="post" flx="fd-c">
           {% csrf_token %}
           {{ UserForm.as_p }}
           <p>
