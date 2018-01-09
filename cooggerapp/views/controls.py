@@ -1,5 +1,6 @@
 # content control
 import random
+import datetime
 from django.http import *
 from django.shortcuts import render
 from django.db.models import F
@@ -86,6 +87,7 @@ def change(request,content_id):
         content_list = str(slugify(request.POST["content_list"]))
         content.content_list = content_list
         content.time = queryset.time
+        content.lastmod = datetime.datetime.now()
         title = content.title
         content.dor = durationofread(content.content+title)
         content_tag = request.POST["tag"].split(",")

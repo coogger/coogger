@@ -18,12 +18,12 @@
 }
 .duread-main {
     position: absolute;
-    bottom: 24px;
-    z-index: 0;
+    bottom: 38px;
+    z-index: 1;
     left: 6px;
     right: 6px;
     opacity: 0;
-    height: 170px;
+    height: 188px;
 }
 .duread-main:hover{
   opacity: 1;
@@ -33,4 +33,32 @@
 }
 .helptext{
   display: none;
+}
+.mediascreen{
+  width: 50%;
+  margin: auto;
+}
+@media screen and (max-width: 900px) {
+  .mediascreen{
+    width: 80%;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 700px) {
+  .mediascreen{
+    width: 90%;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 500px) {
+  .mediascreen{
+    width: 96%;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 300px) {
+  .mediascreen{
+    width: 100%;
+    margin: auto;
+  }
 }

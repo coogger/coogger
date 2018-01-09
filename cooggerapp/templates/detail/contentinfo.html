@@ -4,7 +4,11 @@
   </h1>
 </div>
 <div flx="jc-c">
-  <div flx="fd-c" gnrl="brc-muted b-1 br-2" default="pm">
+  <div flx="fd-c" gnrl="brc-muted b-1 br-2 txt-s" default="pm">
+    <div flx="ai-c" >
+      <img default="pm" src="/static/media/icons/calendar.svg" />
+       Son güncelleme | {{ detail.lastmod|timesince }} önce
+     </div>
     <div flx="ai-c" >
       <img default="pm" src="/static/media/icons/calendar.svg" />
        {{ detail.time }} | {{ detail.time|timesince }} önce
