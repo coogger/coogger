@@ -1,12 +1,17 @@
+#django
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+
+#models
 from cooggerapp.models import OtherInformationOfUsers,Notification,Content,UserFollow
+
+#choices seçimler
 from cooggerapp.choices import *
+
+#python
 from bs4 import BeautifulSoup
-
-
 
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"

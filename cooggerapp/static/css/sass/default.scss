@@ -1,0 +1,95 @@
+/* general default settings */
+[default~="fs"]{font-size:$font-size}
+[default~="c"]{color:$c-private}
+[default~="bg"]{background-color:#ececec}
+[default~="bc"]{border-color:$brc-private}
+[default~="pm"]{padding: $padding;margin: $margin;}
+[default~="p"]{padding: $padding}
+[default~="m"]{margin: $margin;}
+[default~="mo"]{margin: auto;}
+[default~="po"]{padding: auto;}
+/* border özellikler */
+[default~="b"]{@include border(0px solid)}
+/* border-radius */
+[default~="br"]{@include border-radius(0px)}
+/* diğer default özellikler bunlar tam isimleri ile yazılacaktır */
+[default~="input"],[default~="label"]{
+  @extend [flx];
+  @extend [flx~="jc-c"];
+  @extend [gnrl~="b-1"];
+  @extend [gnrl~="br-2"];
+  @extend [gnrl~="txt-m"];
+  @extend [default~="pm"];
+  @extend [gnrl~="brc-muted"];
+  @extend [hvr-a];
+  cursor: pointer;
+}
+[default~="input"][type="submit"]{
+  @extend [gnrl~="bg-primary"];
+  @extend [gnrl~="c-white"];
+  &:hover,&:focus,&:active{@include animation(input-s,1)}
+}
+@keyframes input-s{
+  100%{
+    background-color:$c-white;
+    color:$c-primary;
+    border-color:$c-primary;
+  }
+}
+[default~="input"][type="password"],[default~="input"][type="text"]{
+  @extend [gnrl~="bg-white"];
+  &:hover,&:focus,&:active{@include animation(input-t,1)}
+}
+@keyframes input-t{
+  100%{
+    border-color:$c-secondary;
+  }
+}
+[default~="input"][type="file"]{display: none;}
+[default~="label"]{
+  @extend [gnrl~="bg-success"];
+  @extend [gnrl~="c-white"];
+  &:hover,&:focus,&:active{@include animation(label,1)}
+}
+@keyframes label{
+  100%{
+    background-color:$c-white;
+    color:$c-success;
+    border-color:$c-success;
+  }
+}
+[default~="paragraph"]{
+    @extend [flx];
+    @extend [flx~="jc-c"];
+    @extend [flx~="ai-c"];
+    @extend [gnrl~="b-1"];
+    @extend [gnrl~="br-3"];
+    @extend [gnrl~="txt-m"];
+    @extend [gnrl~="bg-white"];
+    @extend [gnrl~="brc-muted"];
+    @extend [default~="pm"];
+    overflow-x: auto;
+    width: 50%;
+    margin: auto;
+    @media screen and (max-width: 900px) {
+        width: 80%;
+    }
+    @media screen and (max-width: 700px) {
+        width: 90%;
+    }
+    @media screen and (max-width: 500px) {
+        width: 96%;
+    }
+    @media screen and (max-width: 300px) {
+        width: 100%;
+    }
+    a{
+      @extend [gnrl~="c-info"];
+      &:hover,&:focus,&:active{
+        color:$c-success;
+      }
+    }
+    li{
+      list-style: unset;
+    }
+}

@@ -1,10 +1,17 @@
+#django
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
-from cooggerapp.views.tools import hmanynotifications
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
+
+#views
+from cooggerapp.views.tools import hmanynotifications
+
+#forms
 from cooggerapp.forms import CSettingsUserForm,UserFollowForm
+
+#python
 import os
 
 def profile(request):

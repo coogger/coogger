@@ -1,8 +1,13 @@
+#django
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages as ms
+
+#models
 from cooggerapp.models import Content
+
+#views
 from cooggerapp.views.tools import paginator,hmanynotifications,content_cards
 
 def hashtag(request,hashtag):

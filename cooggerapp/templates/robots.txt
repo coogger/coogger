@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /static/
 Disallow: /media/
 Sitemap: http://www.coogger.com/web/sitemap.xml

@@ -1,0 +1,30 @@
+[animation]{
+  @include prefixed(animation-duration, $a-duration);
+  @include prefixed(animation-fill-mode, $a-fill-mode);
+}
+[animation="rebound"]{@include animation(rebound,1);}
+[animation="rebound-i"]{@include animation(rebound);}
+[animation="blink"]{@include animation(blink,1);}
+[animation="blink-i"]{@include animation(blink);}
+@keyframes rebound {
+  20%, 53%, 80% {
+    @include translate3d(0,0,0);
+  }
+  40%, 43% {
+    @include translate3d(0, -30px, 0);
+  }
+  70% {
+    @include translate3d(0, -15px, 0);
+  }
+  90% {
+    @include translate3d(0,-4px,0);
+  }
+}
+@keyframes blink {
+  40% {
+    @include opacity(0);
+  }
+  90% {
+    @include opacity(1);
+  }
+}

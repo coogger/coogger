@@ -1,22 +1,18 @@
-<div flx="jc-c" style="position: relative;margin: 26px auto;padding: 6px;z-index: 0;width: 90%;">
-{% for ct,pp in content %}
-{% if nameoftopic == ct.title %}
-<div class="data-post-id-{{ct.id}}" gnrl="bg-white br-2 c-white" style="background: #248644;margin:6px 6px;width: 280px;box-shadow: 0px 1px 2px 1px #c5c5c5;padding: 6px;position: relative;">
-{% else %}
-<div class="data-post-id-{{ct.id}}" gnrl="bg-white br-2" style="margin:6px 6px;width: 280px;box-shadow: 0px 1px 2px 1px #c5c5c5;padding: 6px;position: relative;">
-  {% endif %}
-  {% include "card/edit.html" %}
-  <div>
-    {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
-    <div gnrl="unselectable txt-s" flx="jc-c ai-c" style="height:188px;width: 94%;z-index: 2;cursor: pointer;margin:auto;margin-bottom: 36px;margin-top: 6px;">
-      <div flx="ai-c">
-        {{ ct.show }}
-      </div>
-      <a href="/{{ ct.url }}">
-        <div class='duread-main' style="background-color: #248644;" flx="ai-c" gnrl="br-2">
-          <ul flx="fd-c" default="p" gnrl="br-2">
-            <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
-              <img src='/static/media/icons/stopwatch.svg' gnrl="bg-white br-circle" style="padding: 4px;">
+<div cards>
+  {% for ct,pp in content %}
+  <div card>
+    {% include "card/edit.html" %}
+    <div>
+      {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
+      <div gnrl="unselectable txt-s" flx="jc-c ai-c" style="height:188px;width: 94%;z-index: 2;cursor: pointer;margin:auto;margin-bottom: 36px;margin-top: 6px;">
+        <div flx="ai-c">
+          {{ ct.show }}
+        </div>
+        <a href="/{{ ct.url }}">
+          <div class='duread-main' style="background-color: #248644;" flx="ai-c" gnrl="br-2">
+            <ul flx="fd-c" default="p" gnrl="br-2">
+              <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+                <img src='/static/media/icons/stopwatch.svg' gnrl="bg-white br-circle" style="padding: 4px;">
               <div default="p" flx="jc-fe">Tahmini okuma süresi {{ ct.dor }} dakika</div>
             </li>
             <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">

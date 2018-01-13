@@ -1,2 +1,4 @@
 *.pyc
 coogger_db
+*.scssc
+*.map

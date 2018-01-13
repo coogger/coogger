@@ -1,6 +1,4 @@
-# content control
-import random
-import datetime
+#django
 from django.http import *
 from django.shortcuts import render
 from django.db.models import F
@@ -8,9 +6,19 @@ from django.utils.text import slugify
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from django.contrib.auth import *
-from cooggerapp.forms import ContentForm
+
+#models
 from cooggerapp.models import Content,ContentList
+
+#views
 from cooggerapp.views.tools import durationofread,hmanynotifications
+
+#form
+from cooggerapp.forms import ContentForm
+
+#python
+import random
+import datetime
 
 def create(request):
     "to create new content"

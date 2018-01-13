@@ -1,7 +1,7 @@
 <!--giriş yapma sayfası-->
 {% load static from staticfiles %}
 {% include 'home/head.html' %}
-<div flx="jc-c ai-c" default="bg" style="height:100vh;">
+<div flx="jc-c ai-c" default="bg pm">
   <div gnrl="bg-white br-2" default="pm">
       {% include "home/logo.html" %}
       <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Bilgi paylaşım ağına hoşgeldiniz, bizlerde bilgilerimizi paylaşıyoruz coogger açık kaynak bir projedir.</div>
@@ -26,15 +26,15 @@
           <input flx="as-c" default="input" style="width: 200px;" type="submit" value="Kayıt ol">
         </form>
       </ul>
-      <div flx="jc-c" default="pm" hvr="c-white bg-dark" gnrl="br-2 c-muted b-1">
-        Kayıt Ol butonuna tıkladığında
-        <a gnrl="c-success" hvr="c-warning" href="#" target="_blank" > Hizmet Kullanım Şartları </a> ve
-        <a gnrl="c-success" hvr="c-warning" href="#" target="_blank"> Gizlilik Koşulları </a>
-        nı kabul etmiş olursun.
-      </div>
+    </div>
+    <div flx="jc-c" default="pm" hvr="c-white bg-dark" gnrl="br-2 c-muted b-1">
+      Kayıt Ol butonuna tıkladığında
+      <a gnrl="c-success" hvr="c-warning" href="#" target="_blank" > Hizmet Kullanım Şartları </a> ve
+      <a gnrl="c-success" hvr="c-warning" href="#" target="_blank"> Gizlilik Koşulları </a>
+      nı kabul etmiş olursun.
     </div>
   </div>
+  </div>
   {% include 'home/footer.html' %}
-</div>
 </body>
 </html>

@@ -1,0 +1,21 @@
+@import "options.scss"; /* önce ayarlar */
+
+@import "another-settings.scss"; /* sonra diğer varsayılan ayarlar */
+
+@import "mixin.scss"; /* fonksiyonlar */
+
+@import "default.scss"; /* sonra varsayılan özellikler*/
+
+@import "flx.scss"; /* flx özelliğikleri */
+
+@import "hvr.scss"; /* hover özellikleri*/
+
+@import "hvr-a.scss"; /* hover + animation özellikleri*/
+
+@import "hvr-flx.scss"; /* hover + flex özellikleri*/
+
+@import "animation.scss"; /* animasyonlar */
+
+@import "cards.scss"; /* genel özelikler */
+
+@import "gnrl.scss"; /* genel özelikler */

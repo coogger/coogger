@@ -1,12 +1,17 @@
+#django
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.db.models import F
-from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords
-from cooggerapp.views.tools import paginator,hmanynotifications,content_cards
 from django.db.models import Q
 from django.contrib import messages as ms
+
+#models
+from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords
+
+#views
+from cooggerapp.views.tools import paginator,hmanynotifications,content_cards
 
 def home(request):
     info_of_cards = content_cards(request,hmany=10)

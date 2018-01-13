@@ -1,14 +1,22 @@
-# kullanıcıların yaptıkları tüm işlemler
-from PIL import Image
-import os
+#django
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib import messages as ms
+
+#models
 from cooggerapp.models import ContentList,OtherInformationOfUsers,Content,UserFollow
+
+#forms
 from cooggerapp.forms import UserFollowForm
+
+#views
 from cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,content_cards
+
+#python
+from PIL import Image
+import os
 
 def user(request,username):
     "herhangi kullanıcının anasayfası"

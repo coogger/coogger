@@ -1,7 +1,10 @@
+#django
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import render
-from cooggerapp.models import Content,ContentList
 from django.contrib.auth.models import User
+
+#models
+from cooggerapp.models import Content,ContentList
 
 class ContentlistSitemap(Sitemap):
     changefreq = "daily"

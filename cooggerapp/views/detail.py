@@ -1,17 +1,24 @@
-import json
-import os
+#django
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import F
+from django.contrib import messages as ms
 from django.utils.text import slugify
 from django.utils import timezone
-from bs4 import BeautifulSoup
+
+#models
 from cooggerapp.models import Content,Contentviews,UserFollow,Comment,Notification
+
+#views
 from cooggerapp.views.tools import (get_ip,html_head,get_head_img_pp,content_cards,hmanynotifications,users_web)
 
+#python
+import json
+import os
+from bs4 import BeautifulSoup
 
 def main_detail(request,username,utopic,path):
     "blogların detay kısmı "
@@ -30,18 +37,7 @@ def main_detail(request,username,utopic,path):
     queryset = ctof(url = content_path)[0]
     content_id = queryset.id
     nav_category = ctof(user = content_user,content_list = utopic)
-    nav_list = []
-    for nav in nav_category: # şuan okuduğu yazının öncesi
-        if nav.id < content_id:
-            if len(nav_list) < 6:
-                nav_list.append(nav)
-    nav_list.append(queryset) # şuan okuduğu yazı
-    for nav in nav_category: # sonrası
-        if nav.id > content_id:
-            if len(nav_list) < 3:
-                nav_list.append(nav)
-    nav_category = nav_list
-    info_of_cards = content_cards(request,nav_category,5)
+    info_of_cards = content_cards(request,nav_category,6)
     context = dict(
     head = html_head(queryset),
     content_user = content_user,
@@ -62,18 +58,13 @@ def comment(request,content_path):
     if request.method=="POST" and request.is_ajax() and request.user.is_authenticated:
         user = request.user
         comment = request.POST["comment"]
-        content = Content.objects.filter(url = content_path)[0]
-        Comment(user=user,comment=comment,content = content).save()
-        query = Content.objects.filter(url = content_path)[0]
-        query.hmanycomment = F("hmanycomment")+1
-        query.save()
-        if str(content.user) != str(user.username):
-            Notification(user=content.user,even = 1,content=comment,address = content_path).save()
-        return HttpResponse(
-            json.dumps({
-                "comment": comment,
-                "username":request.user.username,
-                "date":1,
-                "img":get_head_img_pp(request.user)[0]
-            })
-        )
+        if comment != "":
+            content = Content.objects.filter(url = content_path)[0]
+            Comment(user=user,comment=comment,content = content).save()
+            query = Content.objects.filter(url = content_path)[0]
+            query.hmanycomment = F("hmanycomment")+1
+            query.save()
+            if str(content.user) != str(user.username):
+                Notification(user=content.user,even = 1,content=comment,address = content_path).save()
+            return HttpResponse(json.dumps({"comment": comment,"username":request.user.username,"img":get_head_img_pp(request.user)[0]}))
+        return HttpResponse(None)

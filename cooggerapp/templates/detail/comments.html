@@ -14,25 +14,26 @@
   </div>
   {% endif %}
   <div flx>
-  <ul class="d-comments-ul" default="pm">
+    <div class="d-comments-ul" default="pm">
     {% for com in comment_form %}
-    <li flx="">
-      <div flx>
+    <div default="pm">
+      <div flx="">
         <a href="/{{ com.user}}" gnrl="c-dark" flx="ai-c">
-           {% if com.user.otherinformationofusers.pp %}
-            <img src="/media/users/pp/pp-{{ com.user }}.jpg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm">
-           {% else %}
-            <img src="/static/media/profil.png" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm">
-            {% endif %}
-           <spam gnrl="c-private">{{ com.user }}</spam>
-       </a>
+          {% if com.user.otherinformationofusers.pp %}
+          <img src="/media/users/pp/pp-{{ com.user }}.jpg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm">
+          {% else %}
+          <img src="/static/media/profil.png" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm">
+          {% endif %}
+          <spam gnrl="c-private">{{ com.user }}
+            <span gnrl="txt-s c-dark" flx="as-fe">{{ com.date|timesince }} önce</span>
+          </spam>
+        </a>
+        </div>
+        <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm" style="word-break: break-all;"> {{ com.comment }}</div>
       </div>
-      <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm"> {{ com.comment }}</div>
-      <div gnrl="txt-s" flx="as-fs">{{ com.date|timesince }} önce</div>
-    </li>
-    {% endfor %}
-  </ul>
+      {% endfor %}
     </div>
+  </div>
 </div>
 <script>
 $(document).ready(function() {
@@ -50,8 +51,7 @@ $(document).ready(function() {
       }).done(function (response) {
           // okunan json veriyi, #user idli yere yaz
           $('.wcomment').val("");
-          $(".d-comments-ul" ).append("<li flx=''><div flx><a href=/"+response.username+" gnrl='c-dark' flx='ai-c'><img src='"+response.img+"' style='height: 60px;width: 60px;' gnrl='br-circle' default='pm'><spam gnrl='c-private'>"+response.username+"</spam></a></div><div flx='as-fe' gnrl='brc-muted br-2 b-1' default='pm'> "+response.comment+"</div><div gnrl='txt-s' flx='as-fs'>"+response.date+" önce</div></li>");
-      });
+          $(".d-comments-ul" ).append("<div default='pm'><div flx=''><a href='/"+response.username+"' gnrl='c-dark' flx='ai-c'><img src='"+response.img+"' style='height: 60px;width: 60px;' gnrl='br-circle' default='pm'><spam gnrl='c-private'>"+response.username+"<span gnrl='txt-s c-dark' flx='as-fe'>1 saniye önce</span></spam></a></div><div flx='as-fe' gnrl='brc-muted br-2 b-1' default='pm' style='word-break: break-all;'>"+response.comment+"</div></div>");});
       event.preventDefault();
   });
     // ! comments

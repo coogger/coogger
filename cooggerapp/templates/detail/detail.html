@@ -1,10 +1,10 @@
 <div gnrl="bg-white">
-<div class="data-post-id-{{detail.id}} mediascreen" gnrl="bg-white">
+<div class="data-post-id-{{detail.id}}">
 {% include "detail/edit.html" %}
 {% include "detail/userinfo.html" %}
 {% include "detail/contentinfo.html" %}
-<div flx="" default="pm">
-    <div style="width: 100%;overflow-x: auto;">{{ detail.content|safe }}</div>
+<div default="paragraph">
+    <div style="overflow-x: auto;">{{ detail.content|safe }}</div>
 </div>
 <div flx="jc-c">
     <ul flx  default="pm">

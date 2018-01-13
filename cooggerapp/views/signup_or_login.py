@@ -1,12 +1,16 @@
+#django
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth.models import User,Permission
 from django.contrib.auth import *
 from django.contrib import messages as ms
-from cooggerapp.models import Author,OtherInformationOfUsers
-from cooggerapp.forms import AuthorForm,UserForm
 from django.contrib.auth.models import User
 
+#models
+from cooggerapp.models import Author,OtherInformationOfUsers
+
+#forms
+from cooggerapp.forms import AuthorForm,UserForm
 
 def mysignup(request): #kayıt ol
     user_form = UserForm(request.POST or None)
