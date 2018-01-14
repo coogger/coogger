@@ -148,7 +148,10 @@ def following(request):
     return HttpResponse(None)
 
 def is_follow(request,user):
-    is_follow = Following.objects.filter(user = request.user,which_user = user)
-    if is_follow.exists():
-        return "Takibi bırak"
-    return "Takip et"
+    #try:
+        is_follow = Following.objects.filter(user = request.user,which_user = user)
+        if is_follow.exists():
+            return "Takibi bırak"
+        return "Takip et"
+    #except:
+    #    return HttpResponse(None)
