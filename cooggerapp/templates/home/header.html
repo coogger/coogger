@@ -19,6 +19,11 @@
 
             </a>
         </div>
+        <div  default="pm" >
+            <a flx="" hvr="c-primary" href="{% url 'followingcontent' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+                <span>Takiplerin</span>
+            </a>
+        </div>
         {% if not request.user.otherinformationofusers.author %}
         <div default="pm" >
             <a flx="" hvr="c-primary" href="{% url 'signup_author' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">

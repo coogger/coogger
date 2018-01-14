@@ -1,0 +1,19 @@
+<div flx="jc-c" default="pm" gnrl="bg-white">
+  <div flx="fd-c">
+    <a href="/{{ content_user }}/" flx="as-fs"
+    gnrl="c-private b-1 brc-secondary txt-l c-secondary" hvr="c-dark" default="pm">MAKALELERİM</a>
+  </div>
+  <div flx="fd-c" class="lists" style="cursor:pointer;">
+    {% if nav_category and not detail %}
+    <div flx="as-fs" gnrl="c-private b-1 brc-secondary txt-l c-secondary"
+    hvr="c-dark" default="pm">LISTELERİM</div>
+    {% else %}
+    <div flx="as-fs" gnrl="c-private b-1 brc-secondary txt-l c-secondary"
+    hvr="c-dark" default="pm">{{ detail.content_list|upper }} LİSTEM</div>
+    {% endif %}
+  </div>
+  <div flx="fd-c">
+    <a href="{% url 'userabout' content_user %}" flx="as-fs"
+    gnrl="c-private b-1 brc-secondary txt-l c-secondary" hvr="c-dark" default="pm">HAKKIMDA</a>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from cooggerapp.models import Content,Author,UserFollow
+from cooggerapp.models import Content,Author,UserFollow,OtherInformationOfUsers
 from django.contrib.auth.models import User
 
 
@@ -32,3 +32,8 @@ class UserFollowForm(ModelForm):
     class Meta:
         model = UserFollow
         fields = ["choices","adress"]
+
+class AboutForm(ModelForm):
+    class Meta:
+        model = OtherInformationOfUsers
+        fields = ["about"]

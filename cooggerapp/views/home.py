@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.contrib import messages as ms
 
 #models
-from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords
+from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords,Following
 
 #views
 from cooggerapp.views.tools import paginator,hmanynotifications,content_cards
@@ -23,6 +23,23 @@ def home(request):
     template = "card/blogs.html"
     return render(request,template,context)
 
+def following_content(request):
+    oof = []
+    for i in Following.objects.filter(user = request.user):
+        i_wuser = i.which_user
+        oof.append(i.which_user)
+    query = []
+    for q in Content.objects.all():
+        if q.user in oof:
+            query.append(q)
+    info_of_cards = content_cards(request,query,hmany=10)
+    context = dict(
+    content = info_of_cards[0],
+    paginator = info_of_cards[1],
+    hmanynotifications = hmanynotifications(request),
+    )
+    template = "card/blogs.html"
+    return render(request,template,context)
 
 def search(request):
     query = request.GET["query"].lower()

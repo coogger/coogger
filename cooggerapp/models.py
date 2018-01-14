@@ -21,10 +21,15 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         verbose_name = "content"
         ordering = ['-time']
 
+class Following(models.Model):
+    user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
+    which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name='%(class)s_requests_created')
+
 
 class Contentviews(models.Model): # görüntülenme ip ve blog_id bilgisini kayıt eder
     content = models.ForeignKey("content" ,on_delete=models.CASCADE)
-    ip = models.CharField(max_length=200)
+    ip = models.GenericIPAddressField()
+
 
 class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
@@ -57,12 +62,15 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     pp = models.BooleanField(verbose_name = "profil resmi yüklemiş mi ?") # profil resmi yüklemişmi
     is_author = models.BooleanField(verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
     author = models.BooleanField(verbose_name = "yazarlık başvurusu yaptımı") # yazar başvurusu yaptımı ?
+    about = RichTextField(null = True, blank = True,verbose_name = "")
+    following = models.IntegerField(default = 0, verbose_name = "kişinin takip ettiği kişi sayısı")
+    followers = models.IntegerField(default = 0, verbose_name = "kişiyi takip eden kişi sayısı")
 
 
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     choices = models.CharField(max_length=15, choices = make_choices(follow()),verbose_name="Web sitesi")
-    adress = models.CharField(unique = True, max_length=150, verbose_name = "Adresi yazın")
+    adress = models.CharField(max_length=150, verbose_name = "Adresi yazın")
 
 
 class Comment(models.Model):

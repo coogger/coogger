@@ -22,7 +22,7 @@ def mysignup(request): #kayıt ol
         name = form.first_name
         surname = form.last_name
         email = form.email
-        username = form.username
+        username = form.username.lower()
         password = form.password
         if password != request.POST.get("Confirm"):
             ms.error(request,"Şifreler eşleşmedi")

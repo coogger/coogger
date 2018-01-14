@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages as ms
 
 #models
-from cooggerapp.models import ContentList,OtherInformationOfUsers,Content,UserFollow
+from cooggerapp.models import ContentList,OtherInformationOfUsers,Content,UserFollow,Following
 
 #forms
-from cooggerapp.forms import UserFollowForm
+from cooggerapp.forms import UserFollowForm,AboutForm
 
 #views
 from cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,content_cards
@@ -17,6 +17,7 @@ from cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,con
 #python
 from PIL import Image
 import os
+import json
 
 def user(request,username):
     "herhangi kullanıcının anasayfası"
@@ -41,6 +42,7 @@ def user(request,username):
         nav_category = ContentList.objects.filter(user = user),
         head = html_head,
         hmanynotifications = hmanynotifications(request),
+        is_follow = is_follow(request,user)
     )
     template = "users/user.html"
     return render(request,template,context)
@@ -95,3 +97,58 @@ def u_topic(request,username,utopic):
     )
     template = "users/user.html"
     return render(request,template,context)
+
+def about(request,username):
+    try:
+        user = User.objects.filter(username = username)[0]
+    except IndexError:
+        ms.error(request,"{} adı ile bir kullanıcımız yoktur !".format(username))
+        return HttpResponseRedirect("/")
+    query = OtherInformationOfUsers.objects.filter(user = user)[0]
+    if request.user == user: # hesaba giren kendisi ise
+        about  = AboutForm(request.POST or None,instance=query)
+        if about.is_valid(): # ve post isteği ise
+            about_ = about.save(commit = False)
+            about_.user = user
+            about_.save()
+    else:#başkası ise
+        about = query.about
+    html_head = dict(
+     title = username+" hakkımda | coogger",
+     keywords = username+","+username+" hakkımda"+username+"hakkında",
+     description = username + " kimdir ?",
+     author = get_facebook(user),
+    )
+    context = dict(
+        about = about,
+        true_about = True,
+        content_user = user,
+        user_follow = users_web(user),
+        nav_category = ContentList.objects.filter(user = user),
+        head = html_head,
+        hmanynotifications = hmanynotifications(request),
+        is_follow = is_follow(request,user),
+    )
+    template = "users/user.html"
+    return render(request,template,context)
+
+def following(request):
+    if request.method=="POST" and request.is_ajax() and request.user.is_authenticated:
+        which_user = request.POST["which_user"]
+        user = User.objects.filter(username = which_user)[0]
+        if user == request.user:
+            return HttpResponse(None)
+        is_follow = Following.objects.filter(user = request.user,which_user = user)
+        if is_follow.exists():
+            is_follow.delete()
+            return HttpResponse(json.dumps({"ms":"Takip et"}))
+        Following(user = request.user,which_user = user).save()
+        #return HttpResponse("s")
+        return HttpResponse(json.dumps({"ms":"Takibi bırak"}))
+    return HttpResponse(None)
+
+def is_follow(request,user):
+    is_follow = Following.objects.filter(user = request.user,which_user = user)
+    if is_follow.exists():
+        return "Takibi bırak"
+    return "Takip et"

@@ -60,9 +60,9 @@ class OtherInformationOfUsersAdmin(admin.StackedInline):
     list_filter = ["author","is_author"]
 
 class OtherInformationOfUsersADMIN(admin.ModelAdmin):
-    list_ = ["user","author","is_author","pp"]
-    list_display = list_
-    list_display_links = list_
+    list_ = ["user","author","is_author","pp","about","following","followers"]
+    list_display = ["user","author","is_author","pp","following","followers"]
+    list_display_links = ["user","author","is_author","pp","following","followers"]
     list_filter = list_
     search_fields = list_
 
@@ -76,12 +76,23 @@ class UserAdmin(BaseUserAdmin):
     inlines = (OtherInformationOfUsersAdmin,AuthorAdmin, )
 
 admin.site.unregister(User)
+
 admin.site.register(User, UserAdmin)
-admin.site.register(Contentviews,ViewsAdmin)
-admin.site.register(Content,ContentAdmin)
-admin.site.register(UserFollow,UserFollowAdmin)
-admin.site.register(ContentList,ContentListAdmin)
+
 admin.site.register(OtherInformationOfUsers,OtherInformationOfUsersADMIN)
+
+admin.site.register(Content,ContentAdmin)
+
+admin.site.register(ContentList,ContentListAdmin)
+
 admin.site.register(Comment,CommentAdmin)
+
+admin.site.register(UserFollow,UserFollowAdmin)
+
 admin.site.register(SearchedWords,SearchedWordsAdmin)
+
 admin.site.register(Notification,NotificationAdmin)
+
+admin.site.register(Contentviews,ViewsAdmin)
+
+admin.site.register(Following)
