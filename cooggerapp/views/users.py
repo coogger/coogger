@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib import messages as ms
+from django.db.models import F
 
 #models
 from cooggerapp.models import ContentList,OtherInformationOfUsers,Content,UserFollow,Following
@@ -27,7 +28,7 @@ def user(request,username):
         ms.error(request,"{} adı ile bir kullanıcımız yoktur !".format(username))
         return HttpResponseRedirect("/")
     queryset = Content.objects.filter(user = user)
-    info_of_cards = content_cards(request,queryset)
+    info_of_cards = content_cards(request,queryset,16)
     html_head = dict(
      title = username+" | coogger",
      keywords =username+","+user.first_name+" "+user.last_name,
@@ -139,12 +140,17 @@ def following(request):
         if user == request.user:
             return HttpResponse(None)
         is_follow = Following.objects.filter(user = request.user,which_user = user)
+        num = OtherInformationOfUsers.objects.filter(user = user)[0]
+        num_ = num.followers
         if is_follow.exists():
             is_follow.delete()
-            return HttpResponse(json.dumps({"ms":"Takip et"}))
+            num.followers = F("followers")-1
+            num.save()
+            return HttpResponse(json.dumps({"ms":"Takip et","num":num_-1}))
         Following(user = request.user,which_user = user).save()
-        #return HttpResponse("s")
-        return HttpResponse(json.dumps({"ms":"Takibi bırak"}))
+        num.followers = F("followers")+1
+        num.save()
+        return HttpResponse(json.dumps({"ms":"Takibi bırak","num":num_+1}))
     return HttpResponse(None)
 
 def is_follow(request,user):

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from cooggerapp.views import (controls,csettings,detail,explorer,home,signup_or_login,users,seo)
+from cooggerapp.views import (controls,csettings,detail,explorer,home,signup_or_login,users,seo,delete)
 from django.contrib.sitemaps.views import sitemap
 
 sitemaps = {
@@ -25,7 +25,8 @@ urlpatterns = [
     url(r'^web/user-upload-pp/$',users.upload_pp,name="user_upload_pp"),
     url(r'^web/create/$',controls.create,name="create"),
     url(r'^web/change/(?P<content_id>.+)/$',controls.change,name="change"),
-    url(r'^web/delete/(?P<content_id>.+)/$',controls.delete,name="delete"),
+    url(r'^web/delete/address/$',delete.address,name="address_del"),
+    url(r'^web/delete/(?P<content_id>.+)/$',delete.content,name="content_del"),
     url(r'^tags/(?P<hashtag>.+)/$',explorer.hashtag,name = "hashtag"),
     url(r'^list/(?P<list_>.+)/$',explorer.users_list,name = "list"),
     url(r'^web/comment/(?P<content_path>.+)/$',detail.comment,name = "comment"),

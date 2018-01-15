@@ -5,6 +5,9 @@ from django.contrib.auth import *
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 
+#models
+from cooggerapp.models import UserFollow
+
 #views
 from cooggerapp.views.tools import hmanynotifications
 
@@ -33,9 +36,7 @@ def profile(request):
     return render(request,template,context)
 
 def account(request):
-    if not request.user.is_authenticated:
-        return HttpResponse(None)
-    if request.method == "POST":
+    if request.method=="POST" and request.is_ajax() and request.user.is_authenticated:
         password=request.POST.get("Password")
         confirm=request.POST.get("Confirm")
         if password == confirm:
@@ -56,7 +57,7 @@ def account(request):
         return render(request,template,context)
 
 def add_address(request):
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated and not request.is_ajax():
         return HttpResponse(None)
     user_form = UserFollowForm(request.POST or None)
     if user_form.is_valid(): # post
@@ -65,9 +66,11 @@ def add_address(request):
         form.save()
         ms.error(request,"Web siteniz eklendi")
         return HttpResponseRedirect(request.META["PATH_INFO"])
+    instance_ = UserFollow.objects.filter(user = request.user)
     context = dict(
     UserForm = user_form,
     settings = True,
+    instance_ = instance_,
     hmanynotifications = hmanynotifications(request),
     )
     template = "settings/add-address.html"

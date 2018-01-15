@@ -2,3 +2,4 @@
 coogger_db
 *.scssc
 *.map
+migrations/

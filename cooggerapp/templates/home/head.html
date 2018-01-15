@@ -52,7 +52,6 @@
     <meta name="yandex-verification" content="d8be2feff15c1e50" />
     <!--yandex-->
     {% if not request.user.is_superuser %}
-    {% if not signup_or_login %}
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
     <script>
@@ -64,6 +63,10 @@
         gtag('config', 'UA-107674954-1');
     </script>
     <!-- GOOGLE -->
+    {% endif %}
+
+    {% if not request.user.is_authenticated %}
+    {% if not signup_or_login %}
     <!-- GOOGLE ads -->
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
@@ -72,9 +75,9 @@
       enable_page_level_ads: true
     });
   </script>
+  <!-- GOOGLE -->
   {% endif %}
-<!-- GOOGLE -->
-{% endif %}
+  {% endif %}
     <script src=" {% static 'js/jquery.min.js' %}"></script>
     <script src=" {% static 'js/general.js' %}"></script>
     {% if controls %}<script src=" {% static 'js/controls.js' %}"></script>{% endif %}

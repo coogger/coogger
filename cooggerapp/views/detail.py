@@ -14,6 +14,7 @@ from cooggerapp.models import Content,Contentviews,UserFollow,Comment,Notificati
 
 #views
 from cooggerapp.views.tools import (get_ip,html_head,get_head_img_pp,content_cards,hmanynotifications,users_web)
+from cooggerapp.views.users import is_follow
 
 #python
 import json
@@ -50,6 +51,7 @@ def main_detail(request,username,utopic,path):
     comment_form = Comment.objects.filter(content=queryset),
     hmanynotifications = hmanynotifications(request),
     user_follow = users_web(content_user),
+    is_follow = is_follow(request,content_user),
     )
     template = "detail/main_detail.html"
     return render(request,template,context)
