@@ -14,7 +14,7 @@ from cooggerapp.models import Content,OtherInformationOfUsers,Notification,Searc
 from cooggerapp.views.tools import paginator,hmanynotifications,content_cards
 
 def home(request):
-    info_of_cards = content_cards(request,hmany=10)
+    info_of_cards = content_cards(request,hmany=20)
     context = dict(
     content = info_of_cards[0],
     paginator = info_of_cards[1],

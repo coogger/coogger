@@ -56,7 +56,7 @@ def upload_pp(request):
             image=request.FILES['u-upload-pp']
         except:
             ms.error(request,"Dosya alma sırasında bir sorun oluştu")
-            return HttpResponseRedirect("/@"+request_username)
+            return HttpResponseRedirect("/"+request_username)
         with open(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg",'wb+') as destination:
             for chunk in image.chunks():
                 destination.write(chunk)
@@ -68,7 +68,7 @@ def upload_pp(request):
             OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = True)
         except:
             OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = False)
-        return HttpResponseRedirect("/@"+request_username)
+        return HttpResponseRedirect("/"+request_username)
 
 def u_topic(request,username,utopic):
     "kullanıcıların kendi hesaplarında açmış olduğu konulara yönlendirme"
@@ -133,7 +133,7 @@ def about(request,username):
     template = "users/user.html"
     return render(request,template,context)
 
-def following(request):
+def following(request):# TODO: bunu bir düzenle allah için
     if request.method=="POST" and request.is_ajax() and request.user.is_authenticated:
         which_user = request.POST["which_user"]
         user = User.objects.filter(username = which_user)[0]
@@ -141,13 +141,18 @@ def following(request):
             return HttpResponse(None)
         is_follow = Following.objects.filter(user = request.user,which_user = user)
         num = OtherInformationOfUsers.objects.filter(user = user)[0]
+        num2 = OtherInformationOfUsers.objects.filter(user = request.user)[0]
         num_ = num.followers
         if is_follow.exists():
             is_follow.delete()
+            num2.following = F("following")-1
+            num2.save()
             num.followers = F("followers")-1
             num.save()
             return HttpResponse(json.dumps({"ms":"Takip et","num":num_-1}))
         Following(user = request.user,which_user = user).save()
+        num2.following = F("following")+1
+        num2.save()
         num.followers = F("followers")+1
         num.save()
         return HttpResponse(json.dumps({"ms":"Takibi bırak","num":num_+1}))
