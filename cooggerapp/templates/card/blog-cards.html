@@ -1,6 +1,6 @@
 <div cards>
   {% for ct,pp in content %}
-  <div card>
+  <div card class="data-post-id-{{ct.id}}">
     {% include "card/edit.html" %}
     <div>
       {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
@@ -12,26 +12,26 @@
           <div class='duread-main' style="background-color: #248644;" flx="ai-c" gnrl="br-2">
             <ul flx="fd-c" default="p" gnrl="br-2">
               <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
-                <img src='/static/media/icons/stopwatch.svg' gnrl="bg-white br-circle" style="padding: 4px;">
-              <div default="p" flx="jc-fe">Tahmini okuma süresi {{ ct.dor }} dakika</div>
+                <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+                <div default="p" flx="jc-fe">Okuma süresi {{ ct.dor }} dakika</div>
             </li>
             <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
-              <img src='/static/media/icons/employee.svg' gnrl="bg-white br-circle" style="padding: 4px;">
+              <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
               <div default="p">Okuma {{ ct.views }}</div>
             </li>
             <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
-              <img src='/static/media/icons/comments.svg' gnrl="bg-white br-circle" style="padding: 4px;">
-                  <div default="p">Yorum sayısı {{ ct.hmanycomment }}</div>
-                </li>
-              </ul>
-            </div>
-          </a>
+              <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+              <div default="p">Yorum {{ ct.hmanycomment }}</div>
+            </li>
+          </ul>
         </div>
-        <div flx="jc-c ai-fe" style="position: absolute;bottom: 6px;width: 96%;">
-        <div default="p" flx="jc-c as-fe" gnrl="txt-s br-2 b-1 brc-muted">Son güncelleme | {{ ct.lastmod|timesince }}</div>
-        </div>
-        </div>
-      </div>
-      {% endfor %}
+      </a>
     </div>
-  {% include "card/paginator.html" %}
+    <div flx="jc-c ai-fe" style="position: absolute;bottom: 6px;width: 96%;">
+      <div default="p" flx="jc-c as-fe" gnrl="txt-s br-2 b-1 brc-muted">Son güncelleme | {{ ct.lastmod|timesince }}</div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% include "card/paginator.html" %}

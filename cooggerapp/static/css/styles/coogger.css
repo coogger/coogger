@@ -56,6 +56,9 @@ a {
 /* border-radius border-color gibi özelliklerin her tarayıcı için ayrı ayrı çağrılmasından dolayı dogan bir fonksiyon */
 /* fonksiyonlar */
 /* general default settings */
+[default~="def"] label {
+  margin-right: auto; }
+
 [default~="fs"] {
   font-size: 16px; }
 
@@ -68,7 +71,7 @@ a {
 [default~="bc"] {
   border-color: #0f391d; }
 
-[default~="pm"], [default~="input"], [default~="label"], [default~="paragraph"] {
+[default~="pm"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="def"] label, [default~="input"], [default~="label"], [default~="paragraph"] {
   padding: 4px 12px;
   margin: 2px 6px; }
 
@@ -159,29 +162,33 @@ a {
     background-color: #fff;
     color: #1abc9c;
     border-color: #1abc9c; } }
-[default~="paragraph"] {
+[default~="media"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="paragraph"] {
   overflow-x: auto;
   width: 50%;
   margin: auto; }
   @media screen and (max-width: 900px) {
-    [default~="paragraph"] {
+    [default~="media"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="paragraph"] {
       width: 80%; } }
   @media screen and (max-width: 700px) {
-    [default~="paragraph"] {
+    [default~="media"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="paragraph"] {
       width: 90%; } }
   @media screen and (max-width: 500px) {
-    [default~="paragraph"] {
+    [default~="media"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="paragraph"] {
       width: 96%; } }
   @media screen and (max-width: 300px) {
-    [default~="paragraph"] {
+    [default~="media"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="paragraph"] {
       width: 100%; } }
-  [default~="paragraph"] a:hover, [default~="paragraph"] a:focus, [default~="paragraph"] a:active {
-    color: #1abc9c; }
-  [default~="paragraph"] li {
-    list-style: unset; }
+
+[default~="paragraph"] a:hover, [default~="paragraph"] a:focus, [default~="paragraph"] a:active {
+  color: #1abc9c; }
+[default~="paragraph"] li {
+  list-style: unset; }
+[default~="paragraph"] img {
+  max-height: 100%;
+  max-width: 100%; }
 
 /* sonra varsayılan özellikler*/
-[flx], [default~="input"], [default~="label"], [default~="paragraph"], [cards] {
+[flx], [default~="def"] p, [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="input"], [default~="label"], [default~="paragraph"], [cards] {
   /* default flex */
   display: -webkit-flex;
   display: flex;
@@ -266,7 +273,7 @@ a {
   flex-wrap: wrap-reverse;
   /* flex-wrap:nowrap | wrap | wrap-reverse;  */ }
 
-[flx~="jc-fe"] {
+[flx~="jc-fe"], [default~="def"] p {
   -webkit-justify-content: flex-end;
   -moz-justify-content: flex-end;
   -ms-justify-content: flex-end;
@@ -306,7 +313,7 @@ a {
   align-items: baseline;
   /* align-items: stretch | baseline  |  center  |  flex-start  | flex-end ; */ }
 
-[flx~="ai-c"], [default~="paragraph"] {
+[flx~="ai-c"], [default~="def"] p, [default~="paragraph"] {
   -webkit-align-items: center;
   -moz-align-items: center;
   -ms-align-items: center;
@@ -338,7 +345,7 @@ a {
   align-content: center;
   /* align-content: stretch| center  | flex-start  | flex-end | space-around  | space-between; */ }
 
-[flx~="ac-s"] {
+[flx~="ac-fs"] {
   -webkit-align-content: flex-start;
   -moz-align-content: flex-start;
   -ms-align-content: flex-start;
@@ -346,7 +353,7 @@ a {
   align-content: flex-start;
   /* align-content: stretch| center  | flex-start  | flex-end | space-around  | space-between; */ }
 
-[flx~="ac-e"] {
+[flx~="ac-fe"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea {
   -webkit-align-content: flex-end;
   -moz-align-content: flex-end;
   -ms-align-content: flex-end;
@@ -386,7 +393,7 @@ a {
   align-self: flex-end;
   /* align-content: stretch| center  | flex-start  | flex-end | space-around  | space-between; */ }
 
-[flx~="as-c"] {
+[flx~="as-c"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea {
   -webkit-align-self: center;
   -moz-align-self: center;
   -ms-align-self: center;
@@ -1832,7 +1839,7 @@ a {
 [gnrl~="c-white"], [default~="input"][type="submit"], [default~="label"] {
   color: #fff; }
 
-[gnrl~="c-dark"] {
+[gnrl~="c-dark"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea {
   color: #17202a; }
 
 [gnrl~="c-muted"] {
@@ -1860,7 +1867,7 @@ a {
 [gnrl~="bg-info"] {
   background-color: #85c1e9; }
 
-[gnrl~="bg-white"], [default~="input"][type="password"], [default~="input"][type="text"], [default~="paragraph"], [card] {
+[gnrl~="bg-white"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="input"][type="password"], [default~="input"][type="text"], [default~="paragraph"], [card] {
   background-color: #fff; }
 
 [gnrl~="bg-dark"] {
@@ -1870,7 +1877,7 @@ a {
   background-color: #eaecee; }
 
 /* border */
-[gnrl~="b-1"], [default~="input"], [default~="label"], [default~="paragraph"] {
+[gnrl~="b-1"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="def"] label, [default~="input"], [default~="label"], [default~="paragraph"] {
   -webkit-border: 1px solid;
   -moz-border: 1px solid;
   -ms-border: 1px solid;
@@ -1948,7 +1955,7 @@ a {
   -o-border-radius: 2px;
   border-radius: 2px; }
 
-[gnrl~="br-2"], [default~="input"], [default~="label"], [card] {
+[gnrl~="br-2"], [default~="def"] label, [default~="input"], [default~="label"], [card] {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -1962,7 +1969,7 @@ a {
   -o-border-radius: 6px;
   border-radius: 6px; }
 
-[gnrl~="br-4"] {
+[gnrl~="br-4"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
@@ -2054,7 +2061,7 @@ a {
   -o-border-color: #17202a;
   border-color: #17202a; }
 
-[gnrl~="brc-muted"], [default~="input"], [default~="label"], [default~="paragraph"] {
+[gnrl~="brc-muted"], [default~="def"] input, [default~="def"] select, [default~="def"] textarea, [default~="def"] label, [default~="input"], [default~="label"], [default~="paragraph"] {
   -webkit-border-color: #eaecee;
   -moz-border-color: #eaecee;
   -ms-border-color: #eaecee;

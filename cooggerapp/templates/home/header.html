@@ -10,56 +10,57 @@
         {% else%}
         <div>
             <a flx="" hvr="c-primary" href="/{{ request.user }}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
-              {% if request.user.otherinformationofusers.pp %}
-              <img src="/media/users/pp/pp-{{ request.user }}.jpg" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
-              {% else %}
-                <img src="/static/media/profil.png" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
-                {% endif %}
                 <span default="pm" >{{ request.user }}</span>
+                {% if request.user.otherinformationofusers.pp %}
+                <img src="/media/users/pp/pp-{{ request.user }}.jpg" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
+                {% else %}
+                  <img src="/static/media/profil.png" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
+                  {% endif %}
 
             </a>
         </div>
         <div  default="pm" >
             <a flx="" hvr="c-primary" href="{% url 'followingcontent' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
-                <span>Takiplerin</span>
+                <span default="m">Takipler</span><i flx="as-c" class="fa fa-users" aria-hidden="true"></i>
             </a>
         </div>
         {% if not request.user.otherinformationofusers.author %}
         <div default="pm" >
             <a flx="" hvr="c-primary" href="{% url 'signup_author' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
-                <span>Yazarlık başvurusu</span>
+                <span default="m">Yazarlık başvurusu</span>
             </a>
         </div>
         {% endif %} {% if request.user.otherinformationofusers.is_author %}
         <div default="pm" >
             <a flx="" hvr="c-primary" href="{% url 'create' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
-                <span>İçerik oluştur</span>
+                <span default="m">İçerik oluştur</span><i flx="as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
             </a>
         </div>
         {% endif %}
         <div default="pm" >
-            <a flx="" hvr="c-primary" href="{% url 'logout' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
-                <span>Çıkış</span>
+            <a flx="" hvr="c-danger" href="{% url 'logout' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
+              <span default="m">Çıkış</span><i flx="as-c" class="fa fa-sign-out" aria-hidden="true"></i>
             </a>
         </div>
         <div  default="pm" >
             <a flx="" hvr="c-primary" href="{% url 'settings' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
-                <span>Ayarlar</span>
+              <span default="m">Ayarlar</span><i flx="as-c" class="fa fa-cog" aria-hidden="true"></i>
             </a>
         </div>
         {% endif %}
-        <div default="pm" >
-          <form action="{% url 'search' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
-            <input type="text" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2" default="pm b"/>
-            <input gnrl="txt-m br-2 bg-white c-dark" hvr="bg-secondary c-white" default="b" type="submit" value="Ara"/>
-          </form>
-        </div>
         {% if request.user.is_authenticated %}
         <div  default="pm" >
             <a flx="" hvr="c-primary" href="{% url 'notification' %}" style="width: -moz-max-content;width:max-content;width: -o-max-content;width: -webkit-max-content;">
-                <span>( {{ hmanynotifications }} )</span>
+                <span default="m">{{ hmanynotifications }}</span><i flx="as-c" class="fa fa-bell-o" aria-hidden="true"></i>
             </a>
         </div>
           {% endif %}
     </div>
+
 </header>
+<div default="pm">
+  <form default="paragraph" action="{% url 'search' %}">
+    <input default="input paragraph" type="text" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2" default="pm b"/>
+    <input default="input" type="submit" value="Ara"/>
+  </form>
+</div>

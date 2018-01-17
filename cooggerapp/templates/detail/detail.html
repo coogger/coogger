@@ -11,7 +11,7 @@
         {% for i in global_hashtag %}
         <li default="pm" gnrl="bg-dark br-2">
             <a gnrl="c-white" hvr-a="c-success" href="{% url 'hashtag' i  %}">
-                <span>#{{ i }}</span>
+                <span><i class="fa fa-hashtag" aria-hidden="true"></i>{{ i }}</span>
             </a>
         </li>
         {% endfor %}

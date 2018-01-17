@@ -1,52 +1,53 @@
 {% include 'settings/home.html' %}
 <div flx="jc-c" gnrl="bg-white br-2" default="pm">
-  <div flx>
-    <form class="my" flx="fd-c jc-c" method="post" action="{% url 'saddaddress' %}">
-      {% csrf_token %}
-      {{ UserForm.as_p }}
-      <input default="input" type="submit" value="Kaydet">
-    </form>
-  </div>
+  {% include 'settings/set-choices.html' %}
+  <form flx="fd-c" default="pm def media" method="post" action="{% url 'saddaddress' %}">
+    {% csrf_token %}
+    {{ UserForm.as_p }}
+    <input default="input" type="submit" value="Kaydet">
+  </form>
   {% if instance_ %}
-  <div>
-    <div flx="jc-c" gnrl="bg-dark c-white b-1 br-2" default="pm">web adresleriniz</div>
-      <div flx="fd-c jc-fe">
-        {% for i in instance_ %}
-        <div flx="">
-          <div flx="ai-c as-c" default="pm" gnrl="b-1 br-2 brc-muted">{{ i.choices }}</div>
-          {% if i.choices == "web-site" %}
-          <a default="pm" gnrl="bg-2 c-secondary" hvr="c-primary" target="_blank" href="{{ i.adress }}">
-            {{ i.adress}}
-          </a>
-          {% else %}
-          <a default="pm" gnrl="bg-2 c-secondary" hvr="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}">
-            {{ i.adress}}
-          </a>
-          {% endif %}
-          <div class="deladdress" data-deladdress="{{ i.id }}" flx="ai-c as-c" default="pm" hvr-a="bg-danger" hvr="c-white" gnrl="b-1 br-2 brc-muted" style="cursor:pointer;">x</div>
-        </div>
-        {% endfor %}
+  <div default="media pm" flx="jc-c as-c" gnrl="bg-dark c-white b-1 br-2">web adresleriniz</div>
+  <div flx="fd-c" default="media pm">
+    {% for i in instance_ %}
+    <div flx="ai-c jc-fe" default="pm" gnrl="b-1 br-2 brc-muted">
+      <div>{{ i.choices }}</div>
+      <div>
+        {% if i.choices == "web-site" %}
+        <a default="pm" gnrl="bg-2 c-secondary" hvr="c-primary" target="_blank" href="{{ i.adress }}">
+          {{ i.adress}}
+        </a>
+        {% else %}
+        <a  default="pm" gnrl="bg-2 c-secondary" hvr="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}">
+          {{ i.adress}}
+        </a>
+        {% endif %}
+      </div>
+      <div flx="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flx="ai-c as-c" default="pm" hvr-a="bg-danger" hvr="c-white" gnrl="b-1 br-2 brc-muted" style="cursor:pointer;">
+        <i class="fa fa-trash" aria-hidden="true"></i>
       </div>
     </div>
-    <script>
-    $(document).ready(function() {
-      // comments
-      $(".deladdress").click(function(event){
-        var address_id = this.getAttribute("data-deladdress");
-          $.ajax({
-              url: "{% url 'address_del' %}",
-              method: 'POST',
-              dataType: 'json',
-              data: {
-                csrfmiddlewaretoken: "{{ csrf_token }}",
-                address_id:address_id,
-              }
-          }).done(function (response) {
-             alert(response.status);
-           });
-         });
-      });
-    </script>
-{% endif %}
+      {% endfor %}
   </div>
-  {% include 'home/footer.html' %}
+<script>
+$(document).ready(function() {
+  // comments
+  $(".deladdress").click(function(event){
+    var address_id = this.getAttribute("data-deladdress");
+    $.ajax({
+      url: "{% url 'address_del' %}",
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        address_id:address_id,
+      }
+    }).done(function (response) {
+      alert(response.status);
+    });
+  });
+});
+</script>
+{% endif %}
+</div>
+{% include 'home/footer.html' %}

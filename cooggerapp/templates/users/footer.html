@@ -1,19 +1,22 @@
+{% if user_follow %}
 <div flx="jc-c" default="pm" gnrl="txt-m b-4 brc-white">Diğer web adreslerim</div>
 <footer flx="jc-c" default="pm" gnrl="bg-white br-2 txt-s b-1 brc-white" hvr="c-private">
   <div flx="fw-nw" default="pm" style="overflow: auto;">
     {% for follow in user_follow %}
     {% if follow.choices == "web-site" %}
-    <div default="pm">
-      <a default="pm" flx="jc-c ai-c" hvr-a="bg-primary" gnrl="bg-2 c-dark" hvr="c-white bg-white" target="_blank" href="{{follow.adress}}">
-        <img hvr-a="bg-white" default="m" gnrl="br-circle" src="/static/media/icons/{{follow.choices}}.svg" />
-      {{follow.choices}}
+    <div flx>
+      <a default="pm" hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white" target="_blank" href="{{follow.adress}}">
+        <i class="fa fa-globe fa-2x" aria-hidden="true">
+          <span default="m">{{ follow.choices|cut:"-" }} </span>
+        </i>
       </a>
     </div>
       {% else %}
-      <div default="pm">
-        <a default="pm" flx="jc-c ai-c" hvr-a="bg-primary" gnrl="bg-2 c-dark" hvr="c-white bg-white" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
-          <img hvr-a="bg-white" gnrl="br-circle" default="m" src="/static/media/icons/{{follow.choices}}.svg" />
-          {{follow.choices}}
+      <div flx>
+        <a default="pm" hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
+          <i class="fa fa-{{follow.choices}} fa-2x" aria-hidden="true">
+            <span default="m" >{{follow.choices}}</span>
+          </i>
         </a>
       </div>
       {% endif %}
@@ -21,3 +24,4 @@
     </div>
   </div>
 </footer>
+{% endif %}

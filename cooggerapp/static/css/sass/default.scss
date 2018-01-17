@@ -1,4 +1,31 @@
 /* general default settings */
+[default~="def"]{
+  p{
+    @extend [flx];
+    @extend [flx~="ai-c"];
+    @extend [flx~="jc-fe"];
+  }
+  input,select,textarea{
+    @extend [flx];
+    @extend [flx~="ac-fe"];
+    @extend [flx~="as-c"];
+    @extend [gnrl~="c-dark"];
+    @extend [gnrl~="bg-white"];
+    @extend [gnrl~="brc-muted"];
+    @extend [gnrl~="b-1"];
+    @extend [gnrl~="br-4"];
+    @extend [default~="pm"];
+    @extend [default~="media"];
+  }
+  label{
+    margin-right: auto;
+    @extend [default~="pm"];
+    @extend [gnrl~="brc-muted"];
+    @extend [gnrl~="b-1"];
+    @extend [gnrl~="br-2"];
+  }
+}
+
 [default~="fs"]{font-size:$font-size}
 [default~="c"]{color:$c-private}
 [default~="bg"]{background-color:#ececec}
@@ -58,16 +85,7 @@
     border-color:$c-success;
   }
 }
-[default~="paragraph"]{
-    @extend [flx];
-    @extend [flx~="jc-c"];
-    @extend [flx~="ai-c"];
-    @extend [gnrl~="b-1"];
-    @extend [gnrl~="br-3"];
-    @extend [gnrl~="txt-m"];
-    @extend [gnrl~="bg-white"];
-    @extend [gnrl~="brc-muted"];
-    @extend [default~="pm"];
+[default~="media"]{
     overflow-x: auto;
     width: 50%;
     margin: auto;
@@ -83,6 +101,18 @@
     @media screen and (max-width: 300px) {
         width: 100%;
     }
+}
+[default~="paragraph"]{
+    @extend [flx];
+    @extend [flx~="jc-c"];
+    @extend [flx~="ai-c"];
+    @extend [gnrl~="b-1"];
+    @extend [gnrl~="br-3"];
+    @extend [gnrl~="txt-m"];
+    @extend [gnrl~="bg-white"];
+    @extend [gnrl~="brc-muted"];
+    @extend [default~="pm"];
+    @extend [default~="media"];
     a{
       @extend [gnrl~="c-info"];
       &:hover,&:focus,&:active{
@@ -91,5 +121,9 @@
     }
     li{
       list-style: unset;
+    }
+    img{
+      max-height: 100%;
+      max-width: 100%;
     }
 }

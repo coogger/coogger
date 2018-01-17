@@ -1,14 +1,28 @@
 {% if content_user.user == request.user or request.user.is_superuser %}
 <div default="pm" flx="as-c jc-c">
-  <ul default="pm" flx="" data-edit-id-"{{ detail.id }}" gnrl="bg-info br-2">
+  <ul default="pm" gnrl="bg-info br-2" flx>
+    {% if detail.user == request.user or request.user.is_superuser %}
     <li>
-      <div default="pm" hvr-a="bg-success" gnrl="br-2">
-        <a href="{% url 'change' detail.id  %}">Düzenle</a>
+      <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="{% url 'change' detail.id  %}" flx="ai-c">
+        <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
+        <div default="m" gnrl="txt-m">Düzenle</div>
+      </a>
+    </li>
+    <li >
+     <div gnrl="br-2" style="cursor:pointer;" default="pm" hvr-a="bg-danger" class="delete" data-post-id="{{detail.id}}" flx="ai-c">
+       <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
+       <div default="m" gnrl="txt-m c-white">Sil</div>
+     </div>
+    </li>
+    {% endif %}
+    {% if detail.user != request.user %}
+    <li>
+      <div class="report" style="cursor:pointer;" gnrl="br-2" default="pm" hvr-a="bg-private" flx="ai-c">
+        <i gnrl="c-white" class="fa fa-flag fa-2x" aria-hidden="true"></i>
+        <div default="m" gnrl="txt-m c-white">Bildir</div>
       </div>
     </li>
-    <li>
-      <div default="pm" gnrl="c-white br-2" hvr-a="bg-success"  class="delete" data-post-id="{{detail.id}}">Sil</div>
-</li>
+    {% endif %}
   </ul>
 </div>
 {% endif %}

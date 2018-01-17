@@ -2,25 +2,28 @@
   <h1 default="p" flx="jc-c ai-c" gnrl="txt-xl c-private" style="text-align: center;">
       {{ detail.title|title }}
   </h1>
-</div> 
+</div>
 <div flx="jc-c">
   <div flx="fd-c" gnrl="brc-muted txt-s" default="pm">
     <div flx="ai-c" >
-      <img default="pm" src="/static/media/icons/calendar.svg" />
+      <i default="m" class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
        Son güncelleme | {{ detail.lastmod|timesince }} önce
      </div>
     <div flx="ai-c" >
-      <img default="pm" src="/static/media/icons/calendar.svg" />
+      <i default="m" class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
        {{ detail.time }} | {{ detail.time|timesince }} önce
      </div>
      <div flx="ai-c" >
-       <img default="pm" src="/static/media/icons/stopwatch.svg" />
-       Tahmini okuma süresi {{ detail.dor }} dakika</div>
+       <i default="m" class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+       Okuma süresi {{ detail.dor }} dakika
+     </div>
        <div flx="ai-c" >
-         <img default="pm" src="/static/media/icons/employee.svg" />
-         okuma {{ detail.views }}</div>
+         <i default="m" class="fa fa-eye fa-2x" aria-hidden="true"></i>
+         okuma {{ detail.views }}
+       </div>
       <div flx="ai-c" >
-        <img default="pm" src="/static/media/icons/comments.svg" />
-        Yorumlar {{ detail.hmanycomment }}</div>
+        <i default="m" class="fa fa-comment fa-2x" aria-hidden="true"></i>
+        Yorum {{ detail.hmanycomment }}
+      </div>
       </div>
   </div>

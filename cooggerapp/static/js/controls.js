@@ -27,7 +27,7 @@ $(document).ready(function() {
             var tag = "";
             for (i=0; i < str.length; i++) {
               if (str[i] != ""){
-                tag += '<li class="tag" default="pm" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3">'+str[i]+'</li>'
+                tag += '<li class="tag" default="pm" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3"><i class="fa fa-hashtag" aria-hidden="true"></i>'+str[i]+'</li>'
               }
             }
             $(".tags").html(tag);

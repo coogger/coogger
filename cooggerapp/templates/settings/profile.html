@@ -1,6 +1,7 @@
 {% include 'settings/home.html' %}
 <div flx="jc-c" gnrl="bg-white br-2" default="pm">
-  <form class="my" flx="fd-c jc-fe" method="post" action="{% url 'sprofile' %}" enctype="multipart/form-data">{% csrf_token %}
+  {% include 'settings/set-choices.html' %}
+  <form flx="fd-c" default="pm def media" method="post" action="{% url 'sprofile' %}" enctype="multipart/form-data">{% csrf_token %}
     {{ CSettingsUserForm.as_p }}
     <input  default="input" type="submit" value="Kaydet">
   </form>

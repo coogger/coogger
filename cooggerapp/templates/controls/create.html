@@ -1,21 +1,21 @@
 {% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
 <div flx="jc-c" gnrl="bg-muted br-2" default="pm">
-    <form  class="my" gnrl="bg-white" default="pm" flx="fd-c jc-fe" method="post"
+    <form flx="fd-c" gnrl="bg-white br-3" default="pm def media" method="post"
     class="c-create-form" action="{% url 'create' %}" >
         {% csrf_token %}
-        <p>
-          <label for="id_content_list">Liste ismi:</label>
+        <p flx>
+          <label for="id_content_list">Konu ismi:</label>
           <input name="content_list" maxlength="30" id="id_content_list" type="text">
           <ul flx class="list"></ul>
         </p>
           {{ create_form.as_p }}{{ create_form.media }}
         <p>
-          <label for="id_tag">Virgül kullanarak anahtar kelimeleri yazın:</label>
+          <label for="id_tag">Anahtar kelimeler:</label>
           <input name="tag" maxlength="200" required="" id="id_tag" type="text">
           <ul flx class="tags"></ul>
         </p>
-        <input default="input" type="submit" value="Paylaş" >
-        <span flx="ai-c jc-c" default="pm" gnrl="br-2">Anasayfa önizlemesi</span>
+        <input default="input" type="submit" value="                 Paylaş                 " >
+        <div flx="jc-c" gnrl="bg-dark c-white br-2" default="pm" gnrl="br-2">Anasayfa önizlemesi</div>
           {% include 'controls/preview.html' %}
     </form>
 </div>

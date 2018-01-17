@@ -23,8 +23,8 @@
 [flx~="ai-fs"]{@include align-items(flex-start)}
 [flx~="ai-fe"]{@include align-items(flex-end)}
 [flx~="ac-c"]{@include align-content(center)}
-[flx~="ac-s"]{@include align-content(flex-start)}
-[flx~="ac-e"]{@include align-content(flex-end)}
+[flx~="ac-fs"]{@include align-content(flex-start)}
+[flx~="ac-fe"]{@include align-content(flex-end)}
 [flx~="ac-a"]{@include align-content(space-around)}
 [flx~="ac-b"]{@include align-content(space-between)}
 [flx~="as-fs"]{@include align-self(flex-start)}

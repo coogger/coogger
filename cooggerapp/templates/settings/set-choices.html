@@ -1,33 +1,25 @@
-<div flx="ai-c jc-c" default="pm">
+<div flx="" default="pm">
   <div flx="jc-c fd-c" gnrl="bg-white" default="pm">
     <div default="pm" hvr="bg-secondary" gnrl="br-2">
-      <a hvr="c-white" gnrl="c-dark" flx="ai-c" href="{% url 'sprofile' %}">
-        {% if request.user.otherinformationofusers.pp %}
-        <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
-        {% else %}
-        <img default="pm" src="/static/media/profil.png" style="height: 30px;width: 30px;"/>
-          {% endif %}
-        Profil
+      <a hvr="c-white" gnrl="c-dark" flx="ai-c jc-c" href="{% url 'sprofile' %}">
+        <i class="fa fa-user" aria-hidden="true">
+          <span default="m">Profil</span>
+        </i>
       </a>
     </div>
     <div default="pm" hvr="bg-secondary" gnrl="br-2">
-      <a gnrl="c-dark" hvr="c-white" flx="ai-c" href="{% url 'saccount' %}">
-        {% if request.user.otherinformationofusers.pp %}
-        <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
-        {% else %}
-        <img default="pm" src="/static/media/profil.png" style="height: 30px;width: 30px;"/>
-          {% endif %}
-        Hesap
+      <a gnrl="c-dark" hvr="c-white" flx="ai-c jc-c" href="{% url 'saccount' %}">
+        <i class="fa fa-key" aria-hidden="true">
+          <span default="m">Hesap</span>
+        </i>
+      </a>
       </a>
     </div>
     <div default="pm" hvr="bg-secondary" gnrl="br-2">
-      <a gnrl="c-dark" hvr="c-white" flx="ai-c" href="{% url 'saddaddress' %}">
-        {% if request.user.otherinformationofusers.pp %}
-        <img default="pm" src="/media/users/pp/pp-{{ request.user }}.jpg" style="height: 30px;width: 30px;"/>
-        {% else %}
-        <img default="pm" src="/static/media/profil.png" style="height: 30px;width: 30px;"/>
-          {% endif %}
-          Web adresi ekle
+      <a gnrl="c-dark" hvr="c-white" flx="ai-c jc-c" href="{% url 'saddaddress' %}">
+        <i class="fa fa-globe" aria-hidden="true">
+          <span default="m">Web adresi ekle</span>
+        </i>
       </a>
     </div>
   </div>
