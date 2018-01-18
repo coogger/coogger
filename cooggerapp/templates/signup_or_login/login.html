@@ -1,29 +1,24 @@
 <!--giriş yapma sayfası-->
 {% load static from staticfiles %}
 {% include 'home/head.html' %}
-  <div flx="jc-c ai-c" default="bg" style="height:100vh;">
-    <div gnrl="bg-white br-2" default="pm">
-      {% include "home/logo.html" %}
-      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Kullanıcı adınızı ve şifrenizi girin</div>
-      <div flx="jc-c">
-        <ul flx="jc-c">
-          <form action="{% url 'login' %}" method="post" flx="fd-c">
-            {% csrf_token %}
-            <li flx="jc-fe" default="pm">
-              <label flx="ai-c" default="pm">Kullanıcı ismi</label>
-              <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="text" name="Username" value="">
-            </li>
-            <li flx="jc-fe" gnrl="" default="pm">
-              <label flx="ai-c" default="pm">Şifre</label>
-              <input default="pm" gnrl="c-private bg-white br-2 brc-muted b-1" type="password" name="Password" value="">
-            </li>
-            <input gnrl="c-white bg-success brc-white br-2 b-1" flx="jc-c as-c" hvr="bg-white c-success brc-success" default="pm"
-            type="submit" value="Giriş yap" style="width: 200px;">
-          </form>
-        </ul>
-      </div>
-    </div>
-  </div>
-  {% include 'home/footer.html' %}
+<div gnrl="bg-white br-2" default="pm" flx="jc-c ai-c fd-c" style="height:100vh;">
+  {% include "home/logo.html" %}
+  <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Kullanıcı adınızı ve şifrenizi girin</div>
+  <ul>
+    <form flx="fd-c" default="form"  action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <li>
+        <label >Kullanıcı ismi</label>
+        <input  type="text" name="Username" value="">
+      </li>
+      <li>
+        <label >Şifre</label>
+        <input  type="password" name="Password" value="">
+      </li>
+      <input flx="as-c" type="submit" value="Giriş yap">
+    </form>
+  </ul>
+</div>
+{% include 'home/footer.html' %}
 </body>
 </html>

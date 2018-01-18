@@ -15,6 +15,7 @@
 [flx~="fw-w"]{@include flex-wrap(wrap)}
 [flx~="fw-wr"]{@include flex-wrap(wrap-reverse)}
 [flx~="jc-fe"]{@include justify-content(flex-end)}
+[flx~="jc-fs"]{@include justify-content(flex-start)}
 [flx~="jc-c"]{@include justify-content(center)}
 [flx~="jc-sa"]{@include justify-content(space-around)}
 [flx~="jc-sb"]{@include justify-content(space-between)}

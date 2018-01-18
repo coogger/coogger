@@ -5,11 +5,16 @@
     -o-#{$property}: #{$value};
     #{$property}: #{$value};
 }
+@mixin prefixed2($property, $value) {
+    #{$property}: -webkit-#{$value};
+    #{$property}: -moz-#{$value};
+    #{$property}: -ms-#{$value};
+    #{$property}: -o-#{$value};
+    #{$property}: #{$value};
+}
 /* flex aperations */
 @mixin display-flex(){
-  display: -webkit-flex;
-  display: flex;
-  display: -ms-flexbox
+  @include prefixed(display,flex);
 }
 @mixin flex-direction($fd){
   @include prefixed(flex-direction, $fd);
@@ -132,19 +137,6 @@
 @mixin transform-origin($x:center, $y:center) {
   @include prefixed(transform-origin, $x $y);
 }
-/* bu mixin çok fazla animasyon yapmadan tek boyutlu istenileni gerçekleştirir*/
-@mixin hvr-a-basic($name, $property, $value){
-  [hvr-a="#{$name}"]{
-    &:hover,&:focus,&:active{
-      @include animation($name,1)
-    }
-  }
-  @keyframes #{$name}{
-    100%{
-      #{$property}:$value;
-    }
-  }
-}
 @mixin hvr-basic($name, $property, $value){
   [hvr~="#{$name}"]{
     &:hover,&:focus,&:active
@@ -156,6 +148,19 @@
   [hvr~="#{$name}"]{&:hover,&:focus,&:active
     {
       @include prefixed($property, $value);
+    }
+  }
+}
+/* bu mixin çok fazla animasyon yapmadan tek boyutlu istenileni gerçekleştirir*/
+@mixin hvr-a-basic($name, $property, $value){
+  [hvr-a="#{$name}"]{
+    &:hover,&:focus,&:active{
+      @include animation($name,1)
+    }
+  }
+  @keyframes #{$name}{
+    100%{
+      #{$property}:$value;
     }
   }
 }
@@ -176,5 +181,10 @@
 @mixin general-prefixed($name, $property, $value){
   [gnrl~="#{$name}"]{
     @include prefixed($property, $value);
+  }
+}
+@mixin general-prefixed2($name, $property, $value){
+  [gnrl~="#{$name}"]{
+    @include prefixed2($property, $value);
   }
 }

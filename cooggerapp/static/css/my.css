@@ -7,9 +7,6 @@
     opacity: 0;
     height: 188px;
 }
-.duread-main:hover{
-  opacity: 1;
-}
 .helptext{
   display: none;
 }

@@ -1,23 +1,26 @@
 {% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
-<div flx="jc-c" gnrl="bg-muted br-2" default="pm">
-    <form flx="fd-c" gnrl="bg-white br-3" default="pm def media" method="post"
-    class="c-create-form" action="{% url 'create' %}" >
-        {% csrf_token %}
-        <p flx>
-          <label for="id_content_list">Konu ismi:</label>
-          <input name="content_list" maxlength="30" id="id_content_list" type="text">
-          <ul flx class="list"></ul>
-        </p>
-          {{ create_form.as_p }}{{ create_form.media }}
-        <p>
-          <label for="id_tag">Anahtar kelimeler:</label>
-          <input name="tag" maxlength="200" required="" id="id_tag" type="text">
-          <ul flx class="tags"></ul>
-        </p>
-        <input default="input" type="submit" value="                 Paylaş                 " >
-        <div flx="jc-c" gnrl="bg-dark c-white br-2" default="pm" gnrl="br-2">Anasayfa önizlemesi</div>
-          {% include 'controls/preview.html' %}
+<div gnrl="bg-white br-2" default="pm" flx="jc-c ai-c fd-c">
+  <ul>
+    <form flx="fd-c" default="form" method="post" class="c-create-form" action="{% url 'create' %}" >
+      {% csrf_token %}
+      <li>
+        <label for="id_content_list">Konu ismi:</label>
+        <input name="content_list" maxlength="30" id="id_content_list" type="text">
+        <ul flx class="list"></ul>
+      </li>
+      {{ create_form.as_ul }}{{ create_form.media }}
+      <li>
+        <label for="id_tag">Anahtar kelimeler:</label>
+        <input name="tag" maxlength="200" required="" id="id_tag" type="text">
+        <ul flx class="tags"></ul>
+      </li>
+      <input flx="as-c" type="submit" value="Paylaş" >
     </form>
+  </ul>
+</div>
+<div flx="jc-c" gnrl="bg-dark c-white br-2" default="pm media" gnrl="br-2">
+  <div>Önizleme</div>
+  {% include 'controls/preview.html' %}
 </div>
 {% include 'home/footer.html' %}
 </body>

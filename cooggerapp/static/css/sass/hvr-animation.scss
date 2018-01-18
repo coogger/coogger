@@ -1,0 +1,24 @@
+[hvr-animation]{
+  @include prefixed(animation-duration, $animation-duration);
+  @include prefixed(animation-fill-mode, $a-fill-mode);
+}
+[hvr-animation="rebound"]{
+  &:hover,&:focus,&:active{
+    @include animation(rebound,1);
+  }
+}
+[hvr-animation="rebound-i"]{
+  &:hover,&:focus,&:active{
+    @include animation(rebound);
+  }
+}
+[hvr-animation="blink"]{
+  &:hover,&:focus,&:active{
+    @include animation(blink,1);
+  }
+}
+[hvr-animation="blink-i"]{
+  &:hover,&:focus,&:active{
+    @include animation(blink);
+  }
+}

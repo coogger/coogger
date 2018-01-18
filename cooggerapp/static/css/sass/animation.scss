@@ -1,5 +1,5 @@
 [animation]{
-  @include prefixed(animation-duration, $a-duration);
+  @include prefixed(animation-duration, $animation-duration);
   @include prefixed(animation-fill-mode, $a-fill-mode);
 }
 [animation="rebound"]{@include animation(rebound,1);}

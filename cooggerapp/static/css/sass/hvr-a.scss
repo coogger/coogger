@@ -31,7 +31,12 @@
 @include hvr-a-basic(bg-dark,background-color, $c-dark);
 @include hvr-a-basic(bg-white,background-color, $c-white);
 @include hvr-a-basic(bg-muted,background-color, $c-muted);
+/* opacity */
+@include hvr-a-prefixed(o-0,opacity,0);
+@include hvr-a-prefixed(o,opacity,1);
+/* opacity */
 /* border-radius ayarı */
+@include hvr-a-prefixed(br-1,border-radius, 2px);
 @include hvr-a-prefixed(br-2,border-radius, 4px);
 @include hvr-a-prefixed(br-3,border-radius, 6px);
 @include hvr-a-prefixed(br-4,border-radius, 8px);

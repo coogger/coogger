@@ -1,10 +1,11 @@
+{% if request.user.is_authenticated %}
 <div gnrl="bg-dark br-1" class="b-edit-point" data-edit-id="{{ ct.id }}" style="width: 16px;position: absolute;z-index: 3;padding: 6px;margin: 6px;cursor:pointer;">
   <div class="border" style="border-top: 1px solid #fff;height: 4px;"></div>
   <div class="border" style="border: 1px solid #fff;height: 4px;"></div>
   <div class="border" style="border-bottom: 1px solid #fff;height: 4px;"></div>
 </div>
 <div gnrl="bg-success br-2" class="b-edit" style="position: absolute;z-index: 2;">
-  <div flx="ai-c jc-c as-c" default="pm" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;height: 423px; width: 244px;">
+  <div flx="ai-c jc-c as-c" default="pm" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;height: 408px; width: 244px;">
     <ul default="pm">
       {% if ct.user == request.user or request.user.is_superuser %}
       <li>
@@ -22,7 +23,7 @@
       {% endif %}
       {% if ct.user != request.user %}
       <li>
-        <div class="report" gnrl="br-2" default="pm" hvr-a="bg-private" flx="ai-c">
+        <div class="report" style="cursor:pointer;" gnrl="br-2" default="pm" hvr-a="bg-private" flx="ai-c">
           <i gnrl="c-white" class="fa fa-flag fa-2x" aria-hidden="true"></i>
           <div default="m" gnrl="txt-m c-white">Bildir</div>
         </div>
@@ -31,3 +32,4 @@
     </ul>
   </div>
 </div>
+{% endif %}

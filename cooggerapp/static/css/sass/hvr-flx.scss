@@ -26,32 +26,9 @@
 [hvr-flx~="ai-fs"]{&:hover,&:focus,&:active{@include align-items(flex-start)}}
 [hvr-flx~="ai-fe"]{&:hover,&:focus,&:active{@include align-items(flex-end)}}
 [hvr-flx~="ac-c"]{&:hover,&:focus,&:active{@include align-content(center)}}
-[hvr-flx~="ac-s"]{&:hover,&:focus,&:active{@include align-content(flex-start)}}
-[hvr-flx~="ac-e"]{&:hover,&:focus,&:active{@include align-content(flex-end)}}
-[hvr-flx~="ac-a"]{&:hover,&:focus,&:active{@include align-content(space-around)}}
-[hvr-flx~="ac-b"]{&:hover,&:focus,&:active{@include align-content(space-between)}}
-[hvr-flx="flx-1"]{&:hover,&:focus,&:active{@include flex(1)}}
-[hvr-flx="flx-2"]{&:hover,&:focus,&:active{@include flex(2)}}
-[hvr-flx="flx-3"]{&:hover,&:focus,&:active{@include flex(3)}}
-[hvr-flx="flx-4"]{&:hover,&:focus,&:active{@include flex(4)}}
-[hvr-flx="flx-5"]{&:hover,&:focus,&:active{@include flex(5)}}
-[hvr-flx="flx-6"]{&:hover,&:focus,&:active{@include flex(6)}}
-[hvr-flx="flx-7"]{&:hover,&:focus,&:active{@include flex(7)}}
-[hvr-flx="flx-8"]{&:hover,&:focus,&:active{@include flex(8)}}
-[hvr-flx="flx-9"]{&:hover,&:focus,&:active{@include flex(9)}}
-[hvr-flx="flx-10"]{&:hover,&:focus,&:active{@include flex(10)}}
-[hvr-flx="flx-11"]{&:hover,&:focus,&:active{@include flex(11)}}
-[hvr-flx="flx-12"]{&:hover,&:focus,&:active{@include flex(12)}}
-[hvr-flx="flx-13"]{&:hover,&:focus,&:active{@include flex(13)}}
-[hvr-flx="flx-14"]{&:hover,&:focus,&:active{@include flex(14)}}
-[hvr-flx="flx-15"]{&:hover,&:focus,&:active{@include flex(15)}}
-[hvr-flx="flx-16"]{&:hover,&:focus,&:active{@include flex(16)}}
-[hvr-flx="flx-17"]{&:hover,&:focus,&:active{@include flex(17)}}
-[hvr-flx="flx-18"]{&:hover,&:focus,&:active{@include flex(18)}}
-[hvr-flx="flx-19"]{&:hover,&:focus,&:active{@include flex(19)}}
-[hvr-flx="flx-20"]{&:hover,&:focus,&:active{@include flex(20)}}
-[hvr-flx="flx-21"]{&:hover,&:focus,&:active{@include flex(21)}}
-[hvr-flx="flx-22"]{&:hover,&:focus,&:active{@include flex(22)}}
-[hvr-flx="flx-23"]{&:hover,&:focus,&:active{@include flex(23)}}
-[hvr-flx="flx-24"]{&:hover,&:focus,&:active{@include flex(24)}}
+[hvr-flx~="ac-fs"]{&:hover,&:focus,&:active{@include align-content(flex-start)}}
+[hvr-flx~="ac-fe"]{&:hover,&:focus,&:active{@include align-content(flex-end)}}
+[hvr-flx~="ac-sa"]{&:hover,&:focus,&:active{@include align-content(space-around)}}
+[hvr-flx~="ac-sb"]{&:hover,&:focus,&:active{@include align-content(space-between)}}
+
 /* ---------------- */

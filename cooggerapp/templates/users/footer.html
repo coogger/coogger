@@ -6,7 +6,7 @@
     {% if follow.choices == "web-site" %}
     <div flx>
       <a default="pm" hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white" target="_blank" href="{{follow.adress}}">
-        <i class="fa fa-globe fa-2x" aria-hidden="true">
+        <i class="fa fa-globe" aria-hidden="true">
           <span default="m">{{ follow.choices|cut:"-" }} </span>
         </i>
       </a>
@@ -14,7 +14,7 @@
       {% else %}
       <div flx>
         <a default="pm" hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
-          <i class="fa fa-{{follow.choices}} fa-2x" aria-hidden="true">
+          <i class="fa fa-{{follow.choices}}" aria-hidden="true">
             <span default="m" >{{follow.choices}}</span>
           </i>
         </a>

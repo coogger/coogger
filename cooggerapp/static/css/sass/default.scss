@@ -1,31 +1,4 @@
 /* general default settings */
-[default~="def"]{
-  p{
-    @extend [flx];
-    @extend [flx~="ai-c"];
-    @extend [flx~="jc-fe"];
-  }
-  input,select,textarea{
-    @extend [flx];
-    @extend [flx~="ac-fe"];
-    @extend [flx~="as-c"];
-    @extend [gnrl~="c-dark"];
-    @extend [gnrl~="bg-white"];
-    @extend [gnrl~="brc-muted"];
-    @extend [gnrl~="b-1"];
-    @extend [gnrl~="br-4"];
-    @extend [default~="pm"];
-    @extend [default~="media"];
-  }
-  label{
-    margin-right: auto;
-    @extend [default~="pm"];
-    @extend [gnrl~="brc-muted"];
-    @extend [gnrl~="b-1"];
-    @extend [gnrl~="br-2"];
-  }
-}
-
 [default~="fs"]{font-size:$font-size}
 [default~="c"]{color:$c-private}
 [default~="bg"]{background-color:#ececec}
@@ -40,55 +13,12 @@
 /* border-radius */
 [default~="br"]{@include border-radius(0px)}
 /* diğer default özellikler bunlar tam isimleri ile yazılacaktır */
-[default~="input"],[default~="label"]{
-  @extend [flx];
-  @extend [flx~="jc-c"];
-  @extend [gnrl~="b-1"];
-  @extend [gnrl~="br-2"];
-  @extend [gnrl~="txt-m"];
-  @extend [default~="pm"];
-  @extend [gnrl~="brc-muted"];
-  @extend [hvr-a];
-  cursor: pointer;
-}
-[default~="input"][type="submit"]{
-  @extend [gnrl~="bg-primary"];
-  @extend [gnrl~="c-white"];
-  &:hover,&:focus,&:active{@include animation(input-s,1)}
-}
-@keyframes input-s{
-  100%{
-    background-color:$c-white;
-    color:$c-primary;
-    border-color:$c-primary;
-  }
-}
-[default~="input"][type="password"],[default~="input"][type="text"]{
-  @extend [gnrl~="bg-white"];
-  &:hover,&:focus,&:active{@include animation(input-t,1)}
-}
-@keyframes input-t{
-  100%{
-    border-color:$c-secondary;
-  }
-}
-[default~="input"][type="file"]{display: none;}
-[default~="label"]{
-  @extend [gnrl~="bg-success"];
-  @extend [gnrl~="c-white"];
-  &:hover,&:focus,&:active{@include animation(label,1)}
-}
-@keyframes label{
-  100%{
-    background-color:$c-white;
-    color:$c-success;
-    border-color:$c-success;
-  }
-}
 [default~="media"]{
     overflow-x: auto;
     width: 50%;
     margin: auto;
+  /*  @extend [flx];
+    @extend [flx~="jc-c"];*/
     @media screen and (max-width: 900px) {
         width: 80%;
     }
@@ -126,4 +56,57 @@
       max-height: 100%;
       max-width: 100%;
     }
+}
+[default~="forminput"]{
+  label{
+    @extend [gnrl~="txt-m"];
+    @extend [default~="pm"];
+  }
+  li label{
+    @extend [flx];
+    @extend [flx~="as-fs"];
+  }
+  input,select{
+    width: 66%;
+    min-width: 200px;
+    min-height: 16px;
+    @extend [gnrl~="txt-m"];
+    @extend [gnrl~="b-1"];
+    @extend [gnrl~="br-2"];
+    @extend [gnrl~="brc-muted"];
+    @extend [default~="pm"];
+    @extend [gnrl~="bg-white"];
+    &:hover,&:focus,&:active{
+      border-color:$c-secondary;
+    }
+  }
+  input[type="submit"]{
+    @extend [gnrl~="wf"];
+    @include prefixed2(min-width,fit-content);
+    margin: 0px 6px;
+    &:hover,&:focus{
+      border-color:$c-success;
+      background-color:$c-success;
+      color:$c-white;
+    }
+    &:active{
+      border-color:$c-primary;
+      background-color:$c-primary;
+    }
+  }
+}
+[default~="form"]{
+  /*@extend [flx];
+  @extend [flx~="ai-c"];
+  @extend [flx~="jc-c"];*/
+  @extend [default~="pm"];
+  @extend [gnrl~="b-1"];
+  @extend [gnrl~="br-2"];
+  @extend [gnrl~="bg-white"];
+  @extend [gnrl~="brc-muted"];
+  @extend [default~="forminput"];
+  p input,li input{
+    @extend [flx];
+    @extend [flx~="jc-c"];
+  }
 }

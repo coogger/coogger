@@ -58,6 +58,12 @@
 @include general-prefixed(brc-white, border-color, $c-white);
 @include general-prefixed(brc-dark, border-color, $c-dark);
 @include general-prefixed(brc-muted, border-color, $c-muted);
+/* genişlik ayarları */
+@include general-prefixed2(wf,width,fit-content);
+@include general-prefixed2(wa,width,available);
+@include general-prefixed2(wmax,width,max-content);
+@include general-prefixed2(wmin,width,min-content);
+/* genişlik ayarları */
 /* metin seçmeyi engellemek için */
 [gnrl~="unselectable"]{@include prefixed(user-select,none)}
 /* general operations */
