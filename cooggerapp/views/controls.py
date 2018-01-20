@@ -11,7 +11,7 @@ from django.contrib.auth import *
 from cooggerapp.models import Content,ContentList
 
 #views
-from cooggerapp.views.tools import durationofread,hmanynotifications
+from cooggerapp.views.tools import hmanynotifications
 
 #form
 from cooggerapp.forms import ContentForm
@@ -31,37 +31,15 @@ def create(request):
     if create_form.is_valid():
         content = create_form.save(commit=False)
         content.user = request_user
-        content_list = slugify(request.POST["content_list"])
-        if content_list == "":
-            content_list = "coogger"
-        content.content_list = content_list
-        title = content.title
-        content.dor = durationofread(content.content+title)
-        content_tag = request.POST["tag"].split(",")
-        tags = ""
-        for i in content_tag:
-            if i == content_tag[-1]:
-                tags += slugify(i)
-            else:
-                tags += slugify(i)+","
-        content.tag = tags
-        url = slugify(title)
+        content.save()
         try:
-            content.url = request_user.username+"/"+content_list+"/"+url
-            content.save()
-        except:
-            url = url+"-"+str(random.random()).replace(".","")[:6]
-            content.url = request_user.username+"/"+content_list+"/"+url
-            content.save()
-        try:
-            content_list_save = ContentList.objects.filter(user = request_user,content_list = content_list)[0]
+            content_list_save = ContentList.objects.filter(user = request_user,content_list = content.content_list)[0]
             content_list_save.content_count = F("content_count")+1
             content_list_save.save()
             # kullanıcının açmış oldugu listeleri kayıt ediyoruz
         except: # önceden oluşmuş ise hata verir ve biz 1 olarak kayıt ederiz
-            ContentList(user = request_user,content_list = content_list,content_count = 1).save()
-        redirect = "/"+request_user.username+"/"+content_list+"/"+url
-        return HttpResponseRedirect(redirect)
+            ContentList(user = request_user,content_list = content.content_list,content_count = 1).save()
+        return HttpResponseRedirect("/"+content.url)
     # get method
     context = dict(
         controls = True,
@@ -92,30 +70,11 @@ def change(request,content_id):
     if change_form.is_valid():
         content = change_form.save(commit=False)
         content.user = real_username
-        content_list = str(slugify(request.POST["content_list"]))
-        content.content_list = content_list
         content.time = queryset.time
         content.confirmation = False
         content.lastmod = datetime.datetime.now()
-        title = content.title
-        content.dor = durationofread(content.content+title)
-        content_tag = request.POST["tag"].split(",")
-        tags = ""
-        for i in content_tag:
-            if i == content_tag[-1]:
-                tags += slugify(i)
-            else:
-                tags += slugify(i)+","
-        content.tag = tags
-        url = slugify(title)
-        try:
-            content.url = request_user.username+"/"+content_list+"/"+url
-            content.save()
-        except:
-            url = url+"-"+str(random.random()).replace(".","")[:6]
-            content.url = request_user.username+"/"+content_list+"/"+url
-            content.save()
-        if content_list != old_content_list: # content_list değişmiş ise
+        content.save()
+        if content.content_list != old_content_list: # content_list değişmiş ise
             real_user = User.objects.filter(username = real_username)[0]
             try:
                 content_list_save = ContentList.objects.filter(user = real_user,content_list = old_content_list)[0]
@@ -128,12 +87,12 @@ def change(request,content_id):
             except IndexError:
                 pass
             try:
-                content_list_ = ContentList.objects.filter(user = real_user,content_list = content_list)[0]
+                content_list_ = ContentList.objects.filter(user = real_user,content_list = content.content_list)[0]
                 content_list_.content_count = F("content_count")+1
                 content_list_.save()
             except:
-                ContentList(user = real_user,content_list = content_list,content_count = 1).save()
-        return HttpResponseRedirect("/"+str(real_username)+"/"+content_list+"/"+url)
+                ContentList(user = real_user,content_list = content.content_list,content_count = 1).save()
+        return HttpResponseRedirect("/"+content.url)
     # get method
     context = dict(
         controls = True,

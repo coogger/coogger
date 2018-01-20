@@ -1,19 +1,13 @@
-<div gnrl="bg-secondary" flx="jc-c ai-c">
-  <ul default="pm" flx="jc-c ai-c">
-    <li >
-      <a href="{% url 'list' detail.content_list  %}">
+<div flx="jc-c">
+    <div flx="ai-c">
+      <a flx="ai-c" href="{% url 'list' detail.content_list  %}">
         <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/>
       </a>
-    </li>
-    <li  gnrl="bg-white br-2" default="pm">
-      <a gnrl="c-private" href='/{{ detail.user }}/{{ detail.content_list }}'>
+      <a default="pm" gnrl="c-white bg-dark br-2" href='/{{ detail.user }}/{{ detail.content_list }}'>
           {{ detail.content_list }}
       </a>
-    </li>
-    <li >
-      <a href="{% url 'list' detail.content_list  %}">
+      <a flx="ai-c" href="{% url 'list' detail.content_list  %}">
         <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/>
       </a>
-    </li>
-  </ul>
+    </div>
 </div>

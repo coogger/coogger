@@ -1,31 +1,31 @@
-<div card="">
-  <div gnrl="bg-dark br-1" class="b-edit-point" style="width: 16px;position: absolute;z-index: 3;padding: 6px;margin: 6px;cursor:pointer;">
-    <div class="border" style="border-top: 1px solid #fff;height: 4px;"></div>
-    <div class="border" style="border: 1px solid #fff;height: 4px;"></div>
-    <div class="border" style="border-bottom: 1px solid #fff;height: 4px;"></div>
-  </div>
-  <div gnrl="bg-success br-2" class="b-edit" style="position: absolute;z-index: 2;">
-    <div flx="ai-c jc-c as-c" default="pm" class="b-edit-panel"
-    style="display: none;height: 408px; width: 244px;">
-      <ul default="pm">
-        <li>
-          <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="#" flx="ai-c">
-          <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
-          <div default="m" gnrl="txt-m">Düzenle</div>
-        </a>
-      </li>
-      <li>
-       <div gnrl="br-2" style="cursor:pointer;" default="pm" hvr-a="bg-danger"  flx="ai-c">
-         <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
-         <div default="m" gnrl="txt-m c-white">Sil</div>
-       </div>
-      </li>
-    </ul>
-  </div>
-</div>
+<div cards>
+  <div card="">
+    <div gnrl="bg-dark br-1" class="b-edit-point" style="width: 16px;position: absolute;z-index: 3;padding: 6px;margin: 6px;cursor:pointer;">
+      <div class="border" style="border-top: 1px solid #fff;height: 4px;"></div>
+      <div class="border" style="border: 1px solid #fff;height: 4px;"></div>
+      <div class="border" style="border-bottom: 1px solid #fff;height: 4px;"></div>
+    </div>
+    <div gnrl="bg-success br-2" class="b-edit" style="position: absolute;z-index: 2;">
+      <div flx="ai-c jc-c as-c" default="pm" class="b-edit-panel" style="display: none;height: 408px; width: 244px;">
+        <ul default="pm">
+          <li>
+            <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="#" flx="ai-c">
+              <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
+              <div default="m" gnrl="txt-m">Düzenle</div>
+            </a>
+          </li>
+          <li>
+            <div gnrl="br-2" style="cursor:pointer;" default="pm" hvr-a="bg-danger"  flx="ai-c">
+              <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
+              <div default="m" gnrl="txt-m c-white">Sil</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div>
       <div default="p">
-  <div hvr-a="brc-private" gnrl="b-1 brc-white br-2" default="pm">
+        <div hvr-a="brc-private" gnrl="b-1 brc-white br-2" default="pm">
     <a gnrl="c-dark" href="#" flx="ai-c" hvr-a="c-private">
       {% if request.user.otherinformationofusers.pp %}
       <img gnrl="br-circle" src="/media/users/pp/pp-{{ request.user }}.jpg" style="width: 50px;height: 50px;">
@@ -83,3 +83,4 @@
       </div>
     </div>
   </div>
+</div>

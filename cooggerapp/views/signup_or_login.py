@@ -36,7 +36,7 @@ def mysignup(request): #kayıt ol
             user.is_active=True
             user.save()
             user = authenticate(username=username, password=password)
-            OtherInformationOfUsers(user = user,pp=False,is_author=True,author=True).save()
+            OtherInformationOfUsers(user = user).save()
             login(request, user)
             ms.success(request,"Başarılı bir şekilde kayıt oldunuz {}".format(username))
             return HttpResponseRedirect("/")
@@ -59,7 +59,6 @@ def mysignup(request): #kayıt ol
     )
     template = "signup_or_login/sign.html"
     return render(request,template,context)
-
 
 def mylogin(request): # giriş yap
     username = request.user.username
@@ -103,29 +102,20 @@ def mylogout(request): # çıkış
     return HttpResponseRedirect("/")
 
 def signup_author(request):
-    request_username = request.user.username
-    otherinfo_form = AuthorForm(request.POST or None)
-    if otherinfo_form.is_valid():
-        if not request_username:
-            ms.error(request,"ops !")
-            return HttpResponseRedirect("/")
-        otherinfo_form = otherinfo_form.save(commit=False)
-        user_id = User.objects.filter(username = request_username)[0].id
-        otherinfo_form.user_id = user_id
-        otherinfo_form.pp = True
-        otherinfo_form.is_author = False
-        otherinfo_form.author = True
-        otherinfo_form.save()
-        OtherInformationOfUsers.objects.filter(user_id = user_id).update(author = True)
-        ms.success(request,"Yazarlık başvurunuzu değerlendireceğiz bu genellikle 2-3 gün sürer {}".format(request_username))
-        return HttpResponseRedirect("/")
+    request_username = request.user
     if not request_username:
         ms.error(request,"ops !")
         return HttpResponseRedirect("/")
-    user_id = User.objects.filter(username = request_username)[0].id
-    is_done_author = OtherInformationOfUsers.objects.filter(user_id = user_id)[0].author # yazarlık başvurusu yapmışmı
+    otherinfo_form = AuthorForm(request.POST or None,instance = Author.objects.filter(user = request_username)[0])
+    if otherinfo_form.is_valid():
+        otherinfo_form = otherinfo_form.save(commit=False)
+        otherinfo_form.user = request_username
+        otherinfo_form.save()
+        ms.success(request,"Yazarlık başvurunuzu değerlendireceğiz bu genellikle 2-3 gün sürer {}".format(request_username))
+        return HttpResponseRedirect("/")
+    is_done_author = OtherInformationOfUsers.objects.filter(user = request_username)[0].is_author
     if is_done_author:
-        ms.error(request,"Yazarlık başvurunuzu daha önceden almıştık, değerlendirme süreci bitiminde sizinle iletişime geçeceğiz")
+        ms.error(request,"Sizin başvuru yapmanıza gerek yok")
         return HttpResponseRedirect("/")
     html_head = dict(
         title = "Yazarlık başvurusu | coogger",

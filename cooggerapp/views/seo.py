@@ -14,7 +14,7 @@ class ContentlistSitemap(Sitemap):
         return ContentList.objects.all()
 
     def lastmod(self,obj):
-        return Content.objects.filter(user = obj.user)[0].time
+        return Content.objects.filter(user = obj.user, confirmation = True)[0].time
 
     def location(self,obj):
         return "/"+str(obj.user)+"/"+str(obj.content_list)
@@ -25,7 +25,7 @@ class ContentSitemap(Sitemap):
     priority = 1.0
 
     def items(self):
-        return Content.objects.all()
+        return Content.objects.filter(confirmation = True)
 
     def lastmod(self,obj):
         return obj.lastmod
@@ -43,7 +43,7 @@ class UsersSitemap(Sitemap):
 
     def lastmod(self,obj):
         try:
-            return Content.objects.filter(user = obj)[0].time
+            return Content.objects.filter(user = obj, confirmation = True)[0].time
         except IndexError:
             pass
 

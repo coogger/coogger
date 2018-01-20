@@ -10,9 +10,6 @@ from cooggerapp.models import OtherInformationOfUsers,Notification,Content,UserF
 #choices seçimler
 from cooggerapp.choices import *
 
-#python
-from bs4 import BeautifulSoup
-
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
     slugs = []
@@ -33,28 +30,6 @@ def paginator(request,queryset,hmany=20):
         contacts = paginator.page(paginator.num_pages)
     return contacts
 
-def durationofread(text):
-    reading_speed = 20 # 1 saniyede 20 harf okunursa
-    read_content = BeautifulSoup(text, 'html.parser').get_text().replace(" ","")
-    how_much_words = len(read_content)
-    words_time = float((how_much_words/reading_speed)/60)
-    return str(words_time)[:3]
-
-def get_head_img_pp(user):
-    pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
-    if pp:
-        img = "/media/users/pp/pp-"+user.username+".jpg"
-    else:
-        img = "/static/media/profil.png"
-    return [img,pp]
-
-def get_pp_from_contents(queryset):
-    "dekoratör"
-    for p in queryset:
-        user = User.objects.filter(username = p.user)[0]
-        is_pp = OtherInformationOfUsers.objects.filter(user = user)[0].pp
-        yield is_pp
-
 def get_ip(request):
     try:
         ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
@@ -69,13 +44,6 @@ def hmanynotifications(request):
         return False
       # görmediği kaç bildirim olduğu sayısı
     return queryset.filter(show = False).count()
-
-def content_cards(request,queryset = Content.objects.filter(confirmation = True),hmany = 10):
-    "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
-    paginator_of_cards = paginator(request,queryset,hmany)
-    pp_in_cc = [pp for pp in get_pp_from_contents(paginator_of_cards)]
-    cards = zip(paginator_of_cards,pp_in_cc)
-    return cards,paginator_of_cards # cardlar için gereken bütün bilgiler burda
 
 def users_web(user):
     try:

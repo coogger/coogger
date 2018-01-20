@@ -3,6 +3,8 @@ from django.db import models
 from django.utils import timezone
 from ckeditor.fields import RichTextField
 from cooggerapp.choices import *
+from django.utils.text import slugify
+from bs4 import BeautifulSoup
 
 class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
@@ -22,6 +24,32 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         verbose_name = "content"
         ordering = ['-time']
 
+    def durationofread(self,text):
+        reading_speed = 20 # 1 saniyede 20 harf okunursa
+        read_content = BeautifulSoup(text, 'html.parser').get_text().replace(" ","")
+        how_much_words = len(read_content)
+        words_time = float((how_much_words/reading_speed)/60)
+        return str(words_time)[:3]
+
+    def save(self, *args, **kwargs):
+        user = self.user
+        list_ = slugify(self.content_list.lower(), allow_unicode=True)
+        title = slugify(self.title.lower(), allow_unicode=True)
+        url = str(user)+"/"+str(list_)+"/"+str(title)
+        tags = ""
+        tag = self.tag.split(",")
+        for i in tag:
+            if i == tag[-1]:
+                tags += slugify(i, allow_unicode=True)
+            else:
+                tags += slugify(i, allow_unicode=True)+","
+        self.url = url
+        self.content_list = list_
+        self.tag  = tags
+        self.dor = self.durationofread(self.content+self.title)
+        super(Content, self).save(*args, **kwargs)
+
+
 class Following(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name='%(class)s_requests_created')
@@ -38,18 +66,27 @@ class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
     content_count = models.IntegerField(verbose_name = "liste içindeki nesne sayısı")
 
 
-class Author(models.Model): # yazarlık bilgileri
+class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    pp = models.BooleanField(default = False,verbose_name = "profil resmi") # profil resmi yüklemişmi
+    is_author = models.BooleanField(default = True, verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
+    author = models.BooleanField(default = True, verbose_name = "yazarlık başvurusu") # yazar başvurusu yaptımı ?
+    about = RichTextField(null = True, blank = True,verbose_name = "kişi hakkında")
+    following = models.IntegerField(default = 0)
+    followers = models.IntegerField(default = 0)
+
+
+class Author(models.Model): # yazarlık bilgileri
     choices_sex = (
         ("male","erkek"),
         ("female","kadın"),
     )
     choices_country = make_choices(country())
-
     old = [i for i in range(1905,2017)]
     choices_old = make_choices(old)
     choices_university = make_choices(university())
     choices_jop = make_choices(jop())
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     sex = models.CharField(choices = choices_sex,max_length=6,verbose_name="cinsiyet")
     county = models.CharField(choices = choices_country,max_length=50,verbose_name="memleket")
     old = models.CharField(choices = choices_old,verbose_name="doğum tarihin",max_length=4)
@@ -57,15 +94,9 @@ class Author(models.Model): # yazarlık bilgileri
     jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30) # boş olamaz uni yazmamış ise öğrenci olarak seçer
     phone = models.IntegerField(blank=True, null=True,unique = True,verbose_name = "telefon numarası")
 
-
-class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    pp = models.BooleanField(verbose_name = "profil resmi yüklemiş mi ?") # profil resmi yüklemişmi
-    is_author = models.BooleanField(verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
-    author = models.BooleanField(verbose_name = "yazarlık başvurusu yaptımı") # yazar başvurusu yaptımı ?
-    about = RichTextField(null = True, blank = True,verbose_name = "")
-    following = models.IntegerField(default = 0, verbose_name = "kişinin takip ettiği kişi sayısı")
-    followers = models.IntegerField(default = 0, verbose_name = "kişiyi takip eden kişi sayısı")
+    def save(self,*args,**kwargs):
+        OtherInformationOfUsers.objects.filter(user = self.user).update(author = True)
+        super(Author,self).save(*args,**kwargs)
 
 
 class UserFollow(models.Model):
@@ -91,5 +122,5 @@ class Notification(models.Model):
 
 
 class SearchedWords(models.Model):
-    word = models.CharField(unique=True,max_length=310,verbose_name="aranan kelime")
-    hmany = models.IntegerField(default = 1,verbose_name="kaç defa arandı")
+    word = models.CharField(unique=True,max_length=310)
+    hmany = models.IntegerField(default = 1)

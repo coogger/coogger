@@ -1,19 +1,12 @@
 {% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
-<div gnrl="bg-white br-2" default="pm" flx="jc-c ai-c fd-c">
+<div gnrl="bg-white br-2" default="media" flx="jc-c ai-c fd-c">
   <ul>
     <form flx="fd-c" default="form" method="post" class="c-create-form" action="{% url 'create' %}" >
       {% csrf_token %}
-      <li>
-        <label for="id_content_list">Konu ismi:</label>
-        <input name="content_list" maxlength="30" id="id_content_list" type="text">
-        <ul flx class="list"></ul>
-      </li>
-      {{ create_form.as_ul }}{{ create_form.media }}
-      <li>
-        <label for="id_tag">Anahtar kelimeler:</label>
-        <input name="tag" maxlength="200" required="" id="id_tag" type="text">
-        <ul flx class="tags"></ul>
-      </li>
+      <ul flx class="list"></ul>
+      {{ create_form.as_ul }}
+      {{ create_form.media }}
+      <ul flx class="tags"></ul>
       <input flx="as-c" type="submit" value="Paylaş" >
     </form>
   </ul>
@@ -21,9 +14,7 @@
 <div flx="jc-c" gnrl="bg-dark c-white br-2" default="pm media" gnrl="br-2">
   <div>Önizleme</div>
 </div>
-<div cards>
 {% include 'controls/preview.html' %}
-</div>
 {% include 'home/footer.html' %}
 </body>
 </html>

@@ -2,17 +2,7 @@
 <div flx="jc-c" gnrl="bg-muted br-2" default="pm">
   <form flx="fd-c" gnrl="bg-white br-3" default="pm def media forminput" method="post"  action="{% url 'change' content_id %}">
     {% csrf_token %}
-    <p>
-      <label for="id_content_list">Liste ismi:</label>
-      <input name="content_list" maxlength="30" id="id_content_list" type="text" value="{{ change.content_list }}">
-      <ul flx class="list"></ul>
-    </p>
     {{ change_form.as_p }}{{ change_form.media }}
-    <p>
-      <label for="id_tag">Anahtar kelimeler:</label>
-      <input name="tag" maxlength="200" required="" id="id_tag" type="text" value="{{ change.tag }}">
-      <ul flx class="tags"></ul>
-    </p>
     <input flx="as-c" type="submit" value="Düzenlemeyi kaydet">
   </form>
 </div>

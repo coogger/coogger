@@ -1,4 +1,4 @@
-<div gnrl="bg-white">
+<div gnrl="bg-white" default="pm">
   {% if not detail.confirmation %}
   <div gnrl="bg-danger c-white b-2 brc-danger br-2" flx="jc-c" default="pm media">Onay bekleyen gönderi</div>
   {% endif %}
@@ -9,7 +9,7 @@
 <div default="paragraph">
     <div style="overflow-x: auto;">{{ detail.content|safe }}</div>
 </div>
-<div flx="jc-c">
+<div flx="jc-c" default="media pm">
     <ul flx  default="pm">
         {% for i in global_hashtag %}
         <li default="pm" gnrl="bg-dark br-2">

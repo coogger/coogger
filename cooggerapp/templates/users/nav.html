@@ -4,13 +4,11 @@
     {% for list in nav_category %}
       {% if list.content_list == nameoftopic %}
         <div default="m" hvr-a="bg-white" gnrl="br-2 bg-primary">
-          <a flx="jc-c" default="p" gnrl="b-1 br-2 brc-secondary c-white"  hvr-a="c-primary" hvr="brc-primary"
-           href="/{{ content_user }}/{{ list.content_list }}">{{ list.content_list }}</a>
+          <a flx="jc-c" default="p" gnrl="b-1 br-2 brc-secondary c-white txt-m"  hvr-a="c-primary" hvr="brc-primary" href="/{{ content_user }}/{{ list.content_list }}">{{ list.content_list }}</a>
       </div>
      {% else%}
        <div default="m" hvr-a="bg-primary" gnrl="br-2">
-         <a flx="jc-c" default="p" gnrl="b-1 br-2 brc-secondary c-primary"  hvr-a="c-white" hvr="brc-primary"
-         href="/{{ content_user  }}/{{ list.content_list }}">{{ list.content_list }}</a>
+         <a flx="jc-c" default="p" gnrl="b-1 br-2 brc-secondary c-primary txt-m"  hvr-a="c-white" hvr="brc-primary" href="/{{ content_user  }}/{{ list.content_list }}">{{ list.content_list }}</a>
     </div>
     {% endif %}
      {% endfor %}
@@ -22,13 +20,12 @@
     {% for list in nav_category %}
       {% if list.title == nameoftopic %}
         <div default="m" hvr-a="bg-white" gnrl="br-2 bg-primary">
-          <a flx="jc-c" default="p" gnrl="b-1 br-2 brc-secondary c-white"  hvr-a="c-primary" hvr="brc-primary"
-           href="/{{ list.url }}">
+          <a flx="jc-c" default="p" gnrl="b-1 br-2 brc-secondary c-white txt-m"  hvr-a="c-primary" hvr="brc-primary" href="/{{ list.url }}">
            {{ list.title }}</a>
       </div>
      {% else%}
        <div default="m" hvr-a="bg-primary" gnrl="br-2" >
-         <a flx="jc-c" default="p" gnrl="b-1 br-2 brc-secondary c-primary"  hvr-a="c-white" hvr="brc-primary" href="/{{list.url}}">
+         <a flx="jc-c" default="p" gnrl="b-1 br-2 brc-secondary c-primary txt-m"  hvr-a="c-white" hvr="brc-primary" href="/{{list.url}}">
          {{ list.title }}</a>
     </div>
     {% endif %}

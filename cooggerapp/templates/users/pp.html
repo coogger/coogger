@@ -13,16 +13,16 @@
         <div flx="jc-c" default="pm">
           <div default="pm" flx="fd-c">
             <div class="follownum" default="pm" flx="as-c">{{ content_user.otherinformationofusers.followers }}</div>
-            <div default="pm" gnrl="b-1 br-2 brc-muted c-secondary">Takipçi</div>
+            <div default="pm" gnrl="b-1 br-2 brc-muted c-secondary txt-s">Takipçi</div>
           </div>
           <div default="pm" flx="fd-c">
             <div default="pm" flx="as-c">{{ content_user.otherinformationofusers.following }}</div>
-            <div default="pm" gnrl="b-1 br-2 brc-muted c-secondary">Takip</div>
+            <div default="pm" gnrl="b-1 br-2 brc-muted c-secondary txt-s">Takip</div>
           </div>
         </div>
         {% if request.user != content_user and request.user.is_authenticated %}
-        <div class="follow" flx="jc-c" hvr-a="bg-private" default="pm" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;">
-          <div gnrl="c-white txt-l">
+        <div class="follow" flx="jc-c" hvr-a="bg-primary" default="pm" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;">
+          <div gnrl="c-white txt-m">
             {{ is_follow }}
           </div>
         </div>

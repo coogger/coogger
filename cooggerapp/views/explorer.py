@@ -8,7 +8,7 @@ from django.contrib import messages as ms
 from cooggerapp.models import Content
 
 #views
-from cooggerapp.views.tools import paginator,hmanynotifications,content_cards
+from cooggerapp.views.tools import paginator,hmanynotifications
 
 def hashtag(request,hashtag):
     if hashtag == "":
@@ -18,16 +18,15 @@ def hashtag(request,hashtag):
     if not queryset:
         ms.error(request,"{} etiketi henüz coogger'da bulunmuyor!".format(hashtag))
         return HttpResponseRedirect("/")
-    info_of_cards = content_cards(request,queryset)
+    info_of_cards = paginator(request,queryset,10)
     html_head = dict(
      title = hashtag+" | coogger",
      keywords = hashtag,
      description = hashtag +" konu etiketi altında ki bütün coogger bilgilerini gör",
     )
     context = dict(
-        content = info_of_cards[0],
+        content = info_of_cards,
         nameofhashtag = hashtag,
-        paginator = info_of_cards[1],
         head = html_head,
         hmanynotifications = hmanynotifications(request),
     )
@@ -42,16 +41,15 @@ def users_list(request,list_):
     if not queryset:
         ms.error(request,"{} listesi henüz coogger'da bulunmuyor!".format(list_))
         return HttpResponseRedirect("/")
-    info_of_cards = content_cards(request,queryset)
+    info_of_cards = paginator(request,queryset,10)
     html_head = dict(
      title = list_ +" | coogger",
      keywords = list_,
      description = list_ +" liste etiketi altında ki bütün coogger bilgilerini gör",
     )
     context = dict(
-        content = info_of_cards[0],
+        content = info_of_cards,
         nameoflist_ex = list_,
-        paginator = info_of_cards[1],
         hmanynotifications = hmanynotifications(request),
         head = html_head,
     )

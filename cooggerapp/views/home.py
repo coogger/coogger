@@ -11,13 +11,13 @@ from django.contrib import messages as ms
 from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords,Following
 
 #views
-from cooggerapp.views.tools import paginator,hmanynotifications,content_cards
+from cooggerapp.views.tools import paginator,hmanynotifications
 
 def home(request):
-    info_of_cards = content_cards(request,hmany=20)
+    queryset = Content.objects.filter(confirmation = True)
+    info_of_cards = paginator(request,queryset,20)
     context = dict(
-    content = info_of_cards[0],
-    paginator = info_of_cards[1],
+    content = info_of_cards,
     hmanynotifications = hmanynotifications(request),
     )
     template = "card/blogs.html"
@@ -32,10 +32,9 @@ def following_content(request):
     for q in Content.objects.filter(confirmation = True):
         if q.user in oof:
             query.append(q)
-    info_of_cards = content_cards(request,query,hmany=10)
+    info_of_cards = paginator(request,queryset,10)
     context = dict(
-    content = info_of_cards[0],
-    paginator = info_of_cards[1],
+    content = info_of_cards,
     hmanynotifications = hmanynotifications(request),
     )
     template = "card/blogs.html"
@@ -45,17 +44,16 @@ def search(request):
     query = request.GET["query"].lower()
     q = Q(title__contains = query) | Q(content_list__contains = query) | Q(tag__contains = query)
     queryset = Content.objects.filter(q,confirmation = True).order_by("-views")
-    info_of_cards = content_cards(request,queryset,hmany=20)
+    info_of_cards = paginator(request,queryset,20)
     data_search = SearchedWords.objects.filter(word = query)
     if data_search.exists():
         data_search = data_search[0]
-        data_search.hmany = F("hmany")+1
+        data_search.hmany = F("hmany") + 1
         data_search.save()
     else:
         SearchedWords(word = query).save()
     context = dict(
-        content = info_of_cards[0],
-        paginator = info_of_cards[1],
+        content = info_of_cards,
     )
     template = "card/blogs.html"
     return render(request,template,context)
@@ -63,16 +61,13 @@ def search(request):
 def notification(request):
     try:
         queryset = Notification.objects.filter(user = request.user).order_by("-time")
-        hmanynotifications = queryset.filter(show=False).count()
         queryset.update(show = True)
     except:
-        ms.error(request,"Bildirimleri görmeniz için giriş yapın hesabınız yoksa üye olun")
         return HttpResponseRedirect("/")
     pagi = paginator(request,queryset,10)
     context = dict(
         notifications = pagi,
-        paginator = pagi,
-        hmanynotifications = hmanynotifications,
+        hmanynotifications = queryset.filter(show=False).count(),
         )
     template = "home/notifications.html"
     return render(request,template,context)

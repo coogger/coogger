@@ -13,7 +13,7 @@ from cooggerapp.models import ContentList,OtherInformationOfUsers,Content,UserFo
 from cooggerapp.forms import UserFollowForm,AboutForm
 
 #views
-from cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,content_cards
+from cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,paginator
 
 #python
 from PIL import Image
@@ -31,7 +31,7 @@ def user(request,username):
         queryset = Content.objects.filter(user = user)
     else:
         queryset = Content.objects.filter(user = user,confirmation = True)
-    info_of_cards = content_cards(request,queryset,16)
+    info_of_cards = paginator(request,queryset,16)
     html_head = dict(
      title = username+" | coogger",
      keywords =username+","+user.first_name+" "+user.last_name,
@@ -39,9 +39,8 @@ def user(request,username):
      author = get_facebook(user),
     )
     context = dict(
-        content = info_of_cards[0],
+        content = info_of_cards,
         content_user = user,
-        paginator = info_of_cards[1],
         user_follow = users_web(user),
         nav_category = ContentList.objects.filter(user = user),
         head = html_head,
@@ -83,7 +82,7 @@ def u_topic(request,username,utopic):
     if not queryset.exists():
         ms.error(request,"{} adlı kullanıcı nın {} adlı bir içerik listesi yoktur".format(username,utopic))
         return HttpResponseRedirect("/")
-    info_of_cards = content_cards(request,queryset)
+    info_of_cards = paginator(request,queryset,10)
     nav_category = ContentList.objects.filter(user = user)
     html_head = dict(
      title = username+" - "+utopic+" | coogger",
@@ -92,15 +91,15 @@ def u_topic(request,username,utopic):
      author = get_facebook(user),
     )
     context = dict(
-        content = info_of_cards[0],
+        content = info_of_cards,
         content_user = user,
-        paginator = info_of_cards[1],
         nav_category = nav_category,
         nameoftopic = utopic,
         nameoflist = "Listeler",
         head = html_head,
         hmanynotifications = hmanynotifications(request),
         user_follow = users_web(user),
+        is_follow = is_follow(request,user)
     )
     template = "users/user.html"
     return render(request,template,context)

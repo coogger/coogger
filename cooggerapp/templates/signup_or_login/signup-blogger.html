@@ -1,25 +1,16 @@
-{% load static from staticfiles %} {% include 'home/head.html' %}
-<body>
-  <div flx="jc-c ai-c" default="bg" style="height:100vh;">
-    <div gnrl="bg-white br-2" default="pm">
-      {% include "home/logo.html" %}
-      <div flx="jc-c" default="pm" gnrl="bg-warning br-2 c-white">Not: Telefon numarası zorun lu değildir</div>
-      <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Yazar olarak kayıt ol</div>
-      <div flx="jc-c">
-        <ul flx="fd-c">
-          <form class="my" action="{% url 'signup_author' %}" method="post" flx="fd-c" class="signup-author">
-              {% csrf_token %} {{ otherinfo_form.as_p }}
-              <input gnrl="c-white bg-success brc-white br-2" flx="jc-c as-c"
-              hvr="bg-white c-success brc-success" default="b pm"
-               type="submit" value="Başvuruyu tamamla">
-          </form>
-        </ul>
-      </div>
-      <div flx="jc-c">
-        <a default="pm b" hvr="c-white bg-muted" gnrl="br-2 c-muted" flx="flx-1 jc-c">Şifreni mi Unuttun?</a>
-      </div>
-    </div>
-  </div>
-  {% include 'home/footer.html' %}
+<!--giriş yapma sayfası-->
+{% load static from staticfiles %}
+{% include 'home/head.html' %}
+<div gnrl="bg-white br-2" default="pm" flx="jc-c ai-c fd-c">
+  {% include "home/logo.html" %}
+  <div flx="jc-c" default="pm" gnrl="bg-danger br-2 c-white">Telefon numarası zorunlu değildir, fakat bir + puandır.</div>
+  <ul>
+    <form flx="fd-c" default="form" action="{% url 'signup_author' %}" method="post" class="signup-author">
+        {% csrf_token %} {{ otherinfo_form.as_p }}
+        <input flx="as-c" type="submit" value="Başvuruyu tamamla">
+    </form>
+  </ul>
+</div>
+{% include 'home/footer.html' %}
 </body>
 </html>
