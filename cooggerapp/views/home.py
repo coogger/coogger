@@ -29,7 +29,7 @@ def following_content(request):
         i_wuser = i.which_user
         oof.append(i.which_user)
     query = []
-    for q in Content.objects.all():
+    for q in Content.objects.filter(confirmation = True):
         if q.user in oof:
             query.append(q)
     info_of_cards = content_cards(request,query,hmany=10)
@@ -44,7 +44,7 @@ def following_content(request):
 def search(request):
     query = request.GET["query"].lower()
     q = Q(title__contains = query) | Q(content_list__contains = query) | Q(tag__contains = query)
-    queryset = Content.objects.filter(q).order_by("-views")
+    queryset = Content.objects.filter(q,confirmation = True).order_by("-views")
     info_of_cards = content_cards(request,queryset,hmany=20)
     data_search = SearchedWords.objects.filter(word = query)
     if data_search.exists():

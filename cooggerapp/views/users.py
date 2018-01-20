@@ -27,7 +27,10 @@ def user(request,username):
     except IndexError:
         ms.error(request,"{} adı ile bir kullanıcımız yoktur !".format(username))
         return HttpResponseRedirect("/")
-    queryset = Content.objects.filter(user = user)
+    if username == user:
+        queryset = Content.objects.filter(user = user)
+    else:
+        queryset = Content.objects.filter(user = user,confirmation = True)
     info_of_cards = content_cards(request,queryset,16)
     html_head = dict(
      title = username+" | coogger",
@@ -73,7 +76,10 @@ def upload_pp(request):
 def u_topic(request,username,utopic):
     "kullanıcıların kendi hesaplarında açmış olduğu konulara yönlendirme"
     user = User.objects.filter(username = username)[0]
-    queryset = Content.objects.filter(user = user,content_list = utopic)
+    if username == user:
+        queryset = Content.objects.filter(user = user,content_list = utopic)
+    else:
+        queryset = Content.objects.filter(user = user,content_list = utopic,confirmation = True)
     if not queryset.exists():
         ms.error(request,"{} adlı kullanıcı nın {} adlı bir içerik listesi yoktur".format(username,utopic))
         return HttpResponseRedirect("/")

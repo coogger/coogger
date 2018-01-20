@@ -14,7 +14,7 @@ def hashtag(request,hashtag):
     if hashtag == "":
         ms.error(request,"Boş etiket girdiniz !")
         return HttpResponseRedirect("/")
-    queryset = Content.objects.filter(tag__contains = hashtag)
+    queryset = Content.objects.filter(tag__contains = hashtag, confirmation = True)
     if not queryset:
         ms.error(request,"{} etiketi henüz coogger'da bulunmuyor!".format(hashtag))
         return HttpResponseRedirect("/")
@@ -38,7 +38,7 @@ def users_list(request,list_):
     if list_ == "":
         ms.error(request,"Boş liste girdiniz !")
         return HttpResponseRedirect("/")
-    queryset = Content.objects.filter(content_list = list_)
+    queryset = Content.objects.filter(content_list = list_, confirmation = True)
     if not queryset:
         ms.error(request,"{} listesi henüz coogger'da bulunmuyor!".format(list_))
         return HttpResponseRedirect("/")

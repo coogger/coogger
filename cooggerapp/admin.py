@@ -8,10 +8,10 @@ class ContentAdmin(admin.ModelAdmin):
     list_ = ["user","content_list","title","dor","time","lastmod","views"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["user","content_list","time"]
+    list_filter = ["time"]
     search_fields = list_
     prepopulated_fields = {"url":("title",)}
-    fields = (("user","content_list"),("title","url"),"content","tag",("views","hmanycomment","dor"))
+    fields = ("confirmation",("content_list"),("title","url"),"content","tag",("views","hmanycomment","dor"))
 
 class ViewsAdmin(admin.ModelAdmin):
     list_ = ["content_id","ip"]

@@ -70,7 +70,7 @@ def hmanynotifications(request):
       # görmediği kaç bildirim olduğu sayısı
     return queryset.filter(show = False).count()
 
-def content_cards(request,queryset = Content.objects.all(),hmany = 10):
+def content_cards(request,queryset = Content.objects.filter(confirmation = True),hmany = 10):
     "içerik kartlarının gösterilmesi için gerekli olan bütün bilgilerin üretildiği yer"
     paginator_of_cards = paginator(request,queryset,hmany)
     pp_in_cc = [pp for pp in get_pp_from_contents(paginator_of_cards)]

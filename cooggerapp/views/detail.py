@@ -25,7 +25,10 @@ def main_detail(request,username,utopic,path):
     "blogların detay kısmı "
     content_path = username+"/"+utopic+"/"+path
     ctof = Content.objects.filter
-    queryset = ctof(url = content_path)[0]
+    if username == request.user.username:
+        queryset = ctof(url = content_path)[0]
+    else:
+        queryset = ctof(url = content_path, confirmation = True)[0]
     content_user = queryset.user
     ip = get_ip(request)
     if ip is not None: # ip adres almada bir sorun olursa
