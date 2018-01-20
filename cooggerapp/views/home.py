@@ -32,7 +32,7 @@ def following_content(request):
     for q in Content.objects.filter(confirmation = True):
         if q.user in oof:
             query.append(q)
-    info_of_cards = paginator(request,queryset,10)
+    info_of_cards = paginator(request,query,10)
     context = dict(
     content = info_of_cards,
     hmanynotifications = hmanynotifications(request),

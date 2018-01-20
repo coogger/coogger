@@ -42,7 +42,6 @@ def create(request):
         return HttpResponseRedirect("/"+content.url)
     # get method
     context = dict(
-        controls = True,
         create_form = create_form,
         hmanynotifications = hmanynotifications(request),
     )
@@ -95,7 +94,6 @@ def change(request,content_id):
         return HttpResponseRedirect("/"+content.url)
     # get method
     context = dict(
-        controls = True,
         change = queryset,
         content_id = content_id,
         change_form = change_form,

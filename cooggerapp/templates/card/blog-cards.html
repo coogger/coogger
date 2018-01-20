@@ -1,25 +1,25 @@
-<div cards>
+<cards>
   {% for ct in content %}
-  <div card class="data-post-id-{{ct.id}}">
+  <card class="data-post-id-{{ct.id}}">
     {% include "card/edit.html" %}
     <div>
       {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
-      <div gnrl="unselectable txt-s" flx="jc-c ai-c" style="height:188px;width: 94%;z-index: 2;cursor: pointer;margin:auto;margin-bottom: 36px;margin-top: 6px;">
+      <div gnrl="unselectable txt-s" flx="jc-c ai-c" class="upshow">
         <div flx="ai-c">
           {{ ct.show }}
         </div>
         <a href="/{{ ct.url }}">
-          <div class='duread-main' style="background-color: #248644;" flx="ai-c" gnrl="br-2" hvr-a="o">
+          <div class='duread-main' flx="ai-c" gnrl="br-2" hvr-a="o">
             <ul flx="fd-c" default="p" gnrl="br-2">
-              <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+              <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
                 <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
                 <div default="p" flx="jc-fe">Okuma süresi {{ ct.dor }} dakika</div>
             </li>
-            <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+            <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
               <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
               <div default="p">Okuma {{ ct.views }}</div>
             </li>
-            <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+            <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
               <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
               <div default="p">Yorum {{ ct.hmanycomment }}</div>
             </li>
@@ -27,11 +27,13 @@
         </div>
       </a>
     </div>
-    <div flx="jc-c ai-fe" style="position: absolute;bottom: 6px;width: 96%;">
-      <div default="p" flx="jc-c as-fe" gnrl="txt-s br-2 b-1 brc-muted">Son güncelleme | {{ ct.lastmod|timesince }}</div>
+    <div flx="jc-c ai-fe" class="lasmod">
+      <div default="p" flx="jc-c as-fe" gnrl="txt-s br-2 b-1 brc-muted">
+        Son güncelleme | {{ ct.lastmod|timesince }}
       </div>
     </div>
   </div>
-  {% endfor %}
-</div>
+</card>
+{% endfor %}
+</cards>
 {% include "card/paginator.html" %}

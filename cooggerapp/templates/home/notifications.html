@@ -8,15 +8,15 @@
         <li flx="" gnrl="brc-muted b-1 br-2" default="pm">
           <a gnrl="c-dark" flx="ai-c" href="/{{ noti.address }}">
             {% if noti.even == 1 %}
-            <img src="/static/media/icons/comments.svg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm"/>
+            <img src="/static/media/icons/comments.svg" class="carduserimg" gnrl="br-circle" default="pm"/>
             <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
             <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">İçeriğine bir yorum yapıldı</div>
             {% elif noti.even == 2 %}
-            <img src="/static/media/icons/star.svg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm"/>
+            <img src="/static/media/icons/star.svg" class="carduserimg" gnrl="br-circle" default="pm"/>
             <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
             <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">İçeriğine yeni bir oy verildi</div>
             {% elif noti.even == 3 %}
-            <img src="/static/media/topics/checked.svg" style="height: 60px;width: 60px;" gnrl="br-circle" default="pm"/>
+            <img src="/static/media/topics/checked.svg" class="carduserimg" gnrl="br-circle" default="pm"/>
             <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
             <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">Yeni takipçi kazandın</div>
             {% endif %}

@@ -1,76 +1,70 @@
-<div cards>
-  <div card="">
-    <div gnrl="bg-dark br-1" class="b-edit-point" style="width: 16px;position: absolute;z-index: 3;padding: 6px;margin: 6px;cursor:pointer;">
-      <div class="border" style="border-top: 1px solid #fff;height: 4px;"></div>
-      <div class="border" style="border: 1px solid #fff;height: 4px;"></div>
-      <div class="border" style="border-bottom: 1px solid #fff;height: 4px;"></div>
-    </div>
-    <div gnrl="bg-success br-2" class="b-edit" style="position: absolute;z-index: 2;">
-      <div flx="ai-c jc-c as-c" default="pm" class="b-edit-panel" style="display: none;height: 408px; width: 244px;">
-        <ul default="pm">
-          <li>
-            <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="#" flx="ai-c">
-              <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
-              <div default="m" gnrl="txt-m">Düzenle</div>
-            </a>
-          </li>
-          <li>
-            <div gnrl="br-2" style="cursor:pointer;" default="pm" hvr-a="bg-danger"  flx="ai-c">
-              <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
-              <div default="m" gnrl="txt-m c-white">Sil</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+<cards>
+<card class="data-post-id-0">
+<div gnrl="bg-dark br-1" class="b-edit-point" data-edit-id="0">
+  <div class="bebordert"></div>
+  <div class="beborder"></div>
+  <div class="beborderb"></div>
+</div>
+<div gnrl="bg-success br-2" class="b-edit">
+  <div class="b-edit-panel data-edit-id-0" flx="ai-c jc-c as-c" default="pm" style="display: none;">
+    <ul default="pm">
+      <li>
+        <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="#" flx="ai-c">
+          <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
+          <div default="m" gnrl="txt-m">Düzenle</div>
+        </a>
+      </li>
+      <li>
+       <div gnrl="br-2" style="cursor:pointer;" default="pm" hvr-a="bg-danger" data-post-id="0" flx="ai-c">
+         <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
+         <div default="m" gnrl="txt-m c-white">Sil</div>
+       </div>
+      </li>
+    </ul>
+  </div>
+</div>
     <div>
       <div default="p">
-        <div hvr-a="brc-private" gnrl="b-1 brc-white br-2" default="pm">
+  <div hvr-a="brc-private" gnrl="b-1 brc-white br-2" default="pm">
     <a gnrl="c-dark" href="#" flx="ai-c" hvr-a="c-private">
       {% if request.user.otherinformationofusers.pp %}
-      <img gnrl="br-circle" src="/media/users/pp/pp-{{ request.user }}.jpg" style="width: 50px;height: 50px;">
+      <img class="carduserimg" gnrl="br-circle"  alt='{{request.user}}' width="60px" height="60px" src="/media/users/pp/pp-{{ request.user }}.jpg">
       {% else %}
-      <img gnrl="br-circle" src="/static/media/profil.png" style="width: 50px;height: 50px;">
+      <img class="carduserimg" gnrl="br-circle" alt='{{request.user}}' width="60px" height="60px" src="/static/media/profil.png">
       {% endif %}
-
-      <span default="pm" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 132px;">{{ request.user.username }}</span>
+      <span default="pm" class="carduser">{{ request.user }}</span>
     </a>
   </div>
 </div>
  <div flx="fd-c">
-  <div default="p" flx="jc-fe" style="border-bottom: 1px solid #1414144d;">
-    <a class="list-name" gnrl="c-dark" href="#"></a>
+  <div default="p" flx="jc-fe" class="content_list">
+    <a gnrl="c-dark" href="#" class="list"></a>
   </div>
   <div default="p" flx="fd-fs fd-c">
     <a href="#">
       <img src="/static/media/icons/list.svg">
     </a>
   </div>
-  <div default="p" flx="jc-c" gnrl="txt-s br-2 b-1 brc-muted">
-    {% now "j F Y H:i" %}
-  </div>
+  <cardtime>{% now "j F Y H:i" %}</cardtime>
   <div default="p"></div>
-  <a class="title" default="p" flx="jc-c ai-c" gnrl="txt-s b-1 brc-private br-2 c-private"
-   href="#" style="text-align: center;word-break: break-all;">
+  <a href="#">
+    <title class="cardtitle"></title>
   </a>
 </div>
-      <div gnrl="unselectable txt-s" flx="jc-c ai-c"
-      style="height:188px;width: 94%;z-index: 2;cursor: pointer;margin:auto;margin-bottom: 36px;margin-top: 6px;">
-        <div flx="ai-c" class="show">
-
-        </div>
+      <div gnrl="unselectable txt-s" flx="jc-c ai-c" class="upshow">
+        <div flx="ai-c" class="show"></div>
         <a href="#">
-          <div class="duread-main" style="background-color: #248644;" flx="ai-c" gnrl="br-2" hvr-a="o">
+          <div class="duread-main" flx="ai-c" gnrl="br-2" hvr-a="o">
             <ul flx="fd-c" default="p" gnrl="br-2">
-              <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+              <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
                 <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
                 <div default="p" flx="jc-fe">Okuma süresi 3.3 dakika</div>
             </li>
-            <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+            <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
               <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
               <div default="p">Okuma 1</div>
             </li>
-            <li gnrl="txt-s c-white" flx="ai-c" style="padding: 4px 0px;">
+            <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
               <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
               <div default="p">Yorum 0</div>
             </li>
@@ -78,9 +72,11 @@
         </div>
       </a>
     </div>
-    <div flx="jc-c ai-fe" style="position: absolute;bottom: 6px;width: 96%;">
-      <div default="p" flx="jc-c as-fe" gnrl="txt-s br-2 b-1 brc-muted">Son güncelleme | {% now "j F Y H:i" %}</div>
+    <div flx="jc-c ai-fe" class="lasmod">
+      <div default="p" flx="jc-c as-fe" gnrl="txt-s br-2 b-1 brc-muted">
+        Son güncelleme | {% now "j F Y H:i" %}
       </div>
     </div>
   </div>
-</div>
+</card>
+</cards>

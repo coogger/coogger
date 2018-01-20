@@ -12,9 +12,9 @@
       <a flx="" hvr="c-primary" href="/{{ request.user }}" gnrl="wmax">
         <span default="pm" >{{ request.user }}</span>
         {% if request.user.otherinformationofusers.pp %}
-        <img src="/media/users/pp/pp-{{ request.user }}.jpg" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
+        <img src="/media/users/pp/pp-{{ request.user }}.jpg" class="headeruserimg" alt="{{ request.user }} | coogger" width="30px" height="30px" gnrl="br-circle b-1 brc-white">
         {% else %}
-        <img src="/static/media/profil.png" style="width: 30px;height: 30px;" gnrl="br-circle b-1 brc-white">
+        <img src="/static/media/profil.png" class="headeruserimg" alt="{{ request.user }} | coogger" width="30px" height="30px" gnrl="br-circle b-1 brc-white">
         {% endif %}
       </a>
     </div>
