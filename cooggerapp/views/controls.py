@@ -95,6 +95,7 @@ def change(request,content_id):
         content_list = str(slugify(request.POST["content_list"]))
         content.content_list = content_list
         content.time = queryset.time
+        content.confirmation = False
         content.lastmod = datetime.datetime.now()
         title = content.title
         content.dor = durationofread(content.content+title)
