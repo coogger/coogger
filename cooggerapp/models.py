@@ -17,6 +17,7 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     views = models.IntegerField(default = 0, verbose_name = "görüntülenme sayısı") # görütülenme sayısını kayıt eder
     hmanycomment=models.IntegerField(default = 0, verbose_name = "yorum sayısı")
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="son değiştirme tarihi")
+    confirmation = models.BooleanField(default = True)
     class Meta:
         verbose_name = "content"
         ordering = ['-time']
