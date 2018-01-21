@@ -1,15 +1,1 @@
-<div flx="jc-c" default="pm" gnrl="bg-white">
-  <div flx="fd-c">
-    <a href="/{{ content_user }}/" flx="as-fs" gnrl="c-private b-1 brc-secondary txt-m c-secondary" hvr="c-dark" default="pm">MAKALELER</a>
-  </div>
-  <div flx="fd-c" class="lists" style="cursor:pointer;">
-    {% if nav_category and not detail %}
-    <div flx="as-fs" gnrl="c-private b-1 brc-secondary txt-m c-secondary" hvr="c-dark" default="pm">KONULAR</div>
-    {% else %}
-    <div flx="as-fs" gnrl="c-private b-1 brc-secondary txt-m c-secondary" hvr="c-dark" default="pm">{{ detail.content_list|upper }}</div>
-    {% endif %}
-  </div>
-  <div flx="fd-c">
-    <a href="{% url 'userabout' content_user %}" flx="as-fs" gnrl="c-private b-1 brc-secondary txt-m c-secondary" hvr="c-dark" default="pm">HAKKINDA</a>
-  </div>
-</div>
+<div flx="jc-c" default="pm" gnrl="bg-white"> <div flx="fd-c"> <a href="/{{ content_user }}/" flx="as-fs" gnrl="c-private b-1 brc-secondary txt-m c-secondary" hvr="c-dark" default="pm">MAKALELER</a> </div> <div flx="fd-c" class="lists" style="cursor:pointer;"> {% if nav_category and not detail %} <div flx="as-fs" gnrl="c-private b-1 brc-secondary txt-m c-secondary" hvr="c-dark" default="pm">KONULAR</div> {% else %} <div flx="as-fs" gnrl="c-private b-1 brc-secondary txt-m c-secondary" hvr="c-dark" default="pm">{{ detail.content_list|upper }}</div> {% endif %} </div> <div flx="fd-c"> <a href="{% url 'userabout' content_user %}" flx="as-fs" gnrl="c-private b-1 brc-secondary txt-m c-secondary" hvr="c-dark" default="pm">HAKKINDA</a> </div></div>

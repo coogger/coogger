@@ -1,17 +1,1 @@
-{% if content.has_previous or content.has_next %}
-<div flx="jc-c" default="pm bg" gnrl="txt-m br-1">
-  <span default="pm" gnrl="txt-m bg-secondary br-1">
-    {% if content.has_previous %}
-    <a default="pm" gnrl="bg-success c-white b-2" href="?page={{ content.previous_page_number }}">
-      geri
-    </a>
-    {% endif %}
-    <span>{{ content.number }} | {{ content.paginator.num_pages }}</span>
-    {% if content.has_next %}
-    <a default="pm" gnrl="bg-primary c-white b-2" href="?page={{ content.next_page_number }}">
-      ileri
-    </a>
-    {% endif %}
-  </span>
-</div>
-{% endif %}
+{% if content.has_previous or content.has_next %}<div flx="jc-c" default="pm bg" gnrl="txt-m br-1"> <span default="pm" gnrl="txt-m bg-secondary br-1"> {% if content.has_previous %} <a default="pm" gnrl="bg-success c-white b-2" href="?page={{ content.previous_page_number }}"> geri </a> {% endif %} <span>{{ content.number }} | {{ content.paginator.num_pages }}</span> {% if content.has_next %} <a default="pm" gnrl="bg-primary c-white b-2" href="?page={{ content.next_page_number }}"> ileri </a> {% endif %} </span></div>{% endif %}

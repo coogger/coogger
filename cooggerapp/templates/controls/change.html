@@ -1,12 +1,1 @@
-{% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
-<div flx="jc-c" gnrl="bg-muted br-2" default="pm">
-  <form flx="fd-c" gnrl="bg-white br-3" default="pm def media forminput" method="post"  action="{% url 'change' content_id %}">
-    {% csrf_token %}
-    {{ change_form.as_p }}{{ change_form.media }}
-    <input flx="as-c" type="submit" value="Düzenlemeyi kaydet">
-  </form>
-</div>
-{% include 'controls/preview.html' %}
-{% include 'home/footer.html' %}
-</body>
-</html>
+{% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}<div flx="jc-c" gnrl="bg-muted br-2" default="pm"> <form flx="fd-c" gnrl="bg-white br-3" default="pm def media forminput" method="post" action="{% url 'change' content_id %}"> {% csrf_token %} {{ change_form.as_p }}{{ change_form.media }} <input flx="as-c" type="submit" value="Düzenlemeyi kaydet"> </form></div>{% include 'controls/preview.html' %}{% include 'home/footer.html' %}</body></html>

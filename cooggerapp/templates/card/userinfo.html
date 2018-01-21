@@ -1,12 +1,1 @@
-<div default="p">
-  <div hvr-a="brc-private" gnrl="b-1 brc-white br-2"  default="pm">
-    <a gnrl="c-dark" href="/{{ct.user}}" flx="ai-c" gnrl="txt-s" hvr-a="c-private">
-      {% if ct.user.otherinformationofusers.pp %}
-      <img class="carduserimg" gnrl="br-circle"  alt='{{ct.user}}' width="60px" height="60px" src="/media/users/pp/pp-{{ ct.user }}.jpg">
-      {% else %}
-      <img class="carduserimg" gnrl="br-circle" alt='{{ct.user}}' width="60px" height="60px" src="/static/media/profil.png">
-      {% endif %}
-      <span default="pm" class="carduser">{{ ct.user }}</span>
-    </a>
-  </div>
-</div>
+<div default="p"> <div hvr-a="brc-private" gnrl="b-1 brc-white br-2" default="pm"> <a gnrl="c-dark" href="/{{ct.user}}" flx="ai-c" gnrl="txt-s" hvr-a="c-private"> {% if ct.user.otherinformationofusers.pp %} <img class="carduserimg" gnrl="br-circle" alt='{{ct.user}}' width="60px" height="60px" src="/media/users/pp/pp-{{ ct.user }}.jpg"> {% else %} <img class="carduserimg" gnrl="br-circle" alt='{{ct.user}}' width="60px" height="60px" src="/static/media/profil.png"> {% endif %} <span default="pm" class="carduser">{{ ct.user }}</span> </a> </div></div>

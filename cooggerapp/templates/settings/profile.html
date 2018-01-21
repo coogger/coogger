@@ -1,9 +1,1 @@
-{% include 'settings/home.html' %}
-<div flx="jc-c" gnrl="bg-white br-2" default="pm">
-  {% include 'settings/set-choices.html' %}
-  <form flx="fd-c" default="form" method="post" action="{% url 'sprofile' %}">{% csrf_token %}
-    {{ CSettingsUserForm.as_p }}
-    <input flx="as-c" type="submit" value="Kaydet">
-  </form>
-</div>
-{% include 'home/footer.html' %}
+{% include 'settings/home.html' %}<div flx="jc-c" gnrl="bg-white br-2" default="pm"> {% include 'settings/set-choices.html' %} <form flx="fd-c" default="form" method="post" action="{% url 'sprofile' %}">{% csrf_token %} {{ CSettingsUserForm.as_p }} <input flx="as-c" type="submit" value="Kaydet"> </form></div>{% include 'home/footer.html' %}

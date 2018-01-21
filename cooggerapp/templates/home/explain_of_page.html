@@ -1,9 +1,1 @@
-{% if nameoflist_ex or nameofhashtag %}
-<div flx="jc-c" default="pm">
-  <img default="pm" src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;"/>
-  <img default="pm" flx="as-fe" src="/static/media/icons/list.svg" style="width: 60px;height: 60px;" />
-</div>
-<div flx="jc-c" default="pm">
-  <h1>{{ nameoflist_ex }}</h1>{% if nameofhashtag %}<h1>#{{ nameofhashtag }}</h1>{% endif %}
-</div>
-{% endif %}
+{% if nameoflist_ex or nameofhashtag %}<div flx="jc-c" default="pm"> <img default="pm" src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;"/> <img default="pm" flx="as-fe" src="/static/media/icons/list.svg" style="width: 60px;height: 60px;" /></div><div flx="jc-c" default="pm"> <h1>{{ nameoflist_ex }}</h1>{% if nameofhashtag %}<h1>#{{ nameofhashtag }}</h1>{% endif %}</div>{% endif %}

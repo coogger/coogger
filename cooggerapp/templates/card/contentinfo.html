@@ -1,15 +1,1 @@
-<div flx="fd-c">
-  <div default="p" flx="jc-fe" class="content_list">
-    <a gnrl="c-dark" href='/{{ ct.user }}/{{ ct.content_list }}'>{{ ct.content_list }}</a>
-  </div>
-  <div default="p" flx="fd-fs fd-c">
-    <a href="{% url 'list' ct.content_list  %}">
-      <img src="/static/media/icons/list.svg" />
-    </a>
-  </div>
-  <cardtime>{{ ct.time }} | {{ ct.time|timesince }}</cardtime>
-  <div default="p"></div>
-  <a href='/{{ ct.url }}'>
-    <title>{{ ct.title|title }}</title>
-  </a>
-</div>
+<div flx="fd-c"> <div default="p" flx="jc-fe" class="content_list"> <a gnrl="c-dark" href='/{{ ct.user }}/{{ ct.content_list }}'>{{ ct.content_list }}</a> </div> <div default="p" flx="fd-fs fd-c"> <a href="{% url 'list' ct.content_list %}"> <img src="/static/media/icons/list.svg" /> </a> </div> <cardtime>{{ ct.time }} | {{ ct.time|timesince }}</cardtime> <div default="p"></div> <a href='/{{ ct.url }}'> <title>{{ ct.title|title }}</title> </a></div>
