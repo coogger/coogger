@@ -11,7 +11,7 @@ from django.contrib import messages as ms
 from cooggerapp.forms import ReportsForm
 
 #models
-from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords,Following
+from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords,Following,Report
 
 #views
 from cooggerapp.views.tools import paginator,hmanynotifications
@@ -79,11 +79,15 @@ def report(request):
     request_user = request.user
     if not request_user.is_authenticated:
         return HttpResponseRedirect("/")
-    form = ReportsForm(request.POST)
+    form = ReportsForm(request.POST or None)
     if form.is_valid():
+        content = Content.objects.filter(id = request.POST["content_id"])[0]
+        if Report.objects.filter(user = request_user,content = content).exists():
+            ms.error(request,"Şikayetiniz değerlendirme sürecinde.")
+            return HttpResponseRedirect("/")
         form  = form.save(commit=False)
         form.user = request.user
-        form.content = Content.objects.filter(id = request.POST["content_id"])[0]
+        form.content = content
         form.save()
         ms.error(request,"Şikayetiniz alınmıştır.")
         return HttpResponseRedirect("/")
