@@ -5,6 +5,18 @@ from ckeditor.fields import RichTextField
 from cooggerapp.choices import *
 from django.utils.text import slugify
 from bs4 import BeautifulSoup
+from django.db.models import F
+
+class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    pp = models.BooleanField(default = False,verbose_name = "profil resmi") # profil resmi yüklemişmi
+    is_author = models.BooleanField(default = True, verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
+    author = models.BooleanField(default = True, verbose_name = "yazarlık başvurusu") # yazar başvurusu yaptımı ?
+    about = RichTextField(null = True, blank = True,verbose_name = "kişi hakkında")
+    following = models.IntegerField(default = 0)
+    followers = models.IntegerField(default = 0)
+    hmanycontent = models.IntegerField(default = 0)
+
 
 class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
@@ -47,6 +59,7 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         self.content_list = list_
         self.tag  = tags
         self.dor = self.durationofread(self.content+self.title)
+        OtherInformationOfUsers.objects.filter(user = user).update(hmanycontent = F("hmanycontent") + 1)
         super(Content, self).save(*args, **kwargs)
 
 
@@ -64,16 +77,6 @@ class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     content_list = models.SlugField(max_length=30,verbose_name ="İçerik listeniz")
     content_count = models.IntegerField(verbose_name = "liste içindeki nesne sayısı")
-
-
-class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    pp = models.BooleanField(default = False,verbose_name = "profil resmi") # profil resmi yüklemişmi
-    is_author = models.BooleanField(default = True, verbose_name = "yazar olarak kabul et") # onaylanıp onaylanmadıgı
-    author = models.BooleanField(default = True, verbose_name = "yazarlık başvurusu") # yazar başvurusu yaptımı ?
-    about = RichTextField(null = True, blank = True,verbose_name = "kişi hakkında")
-    following = models.IntegerField(default = 0)
-    followers = models.IntegerField(default = 0)
 
 
 class Author(models.Model): # yazarlık bilgileri
@@ -124,3 +127,12 @@ class Notification(models.Model):
 class SearchedWords(models.Model):
     word = models.CharField(unique=True,max_length=310)
     hmany = models.IntegerField(default = 1)
+
+
+class Report(models.Model):
+    choices_reports = make_choices(reports())
+    user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE,verbose_name = "şikayet eden kişi")
+    content = models.ForeignKey("content" ,on_delete=models.CASCADE,verbose_name = "şikayet edilen içerik")
+    complaints = models.CharField(choices = choices_reports,max_length=12,verbose_name="şikayet türleri")
+    add = models.CharField(max_length = 600,verbose_name = "Daha fazla bilgi vermek istermisin ?")
+    date = models.DateTimeField(default = timezone.now)

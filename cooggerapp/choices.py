@@ -1023,6 +1023,14 @@ def country():
         ]
     return name_of_cities
 
+def reports():
+    re = [
+    "Bilgi teşkil etmiyor",
+    "Kopya veya çalıntı içerik",
+    "Bunun coogger'da olmaması gerek",
+    ]
+    return re
+
 def make_choices(choice):
     from django.utils.text import slugify
     slugs = []
