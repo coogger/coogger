@@ -1,10 +1,10 @@
-from django.contrib import admin
+from django.contrib.admin import ModelAdmin,StackedInline,site
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import UserAdmin
 from cooggerapp.models import *
 
-class ContentAdmin(admin.ModelAdmin):
+class ContentAdmin(ModelAdmin):
     list_ = ["user","content_list","title","dor","time","lastmod","views"]
     list_display = list_
     list_display_links = list_
@@ -13,86 +13,87 @@ class ContentAdmin(admin.ModelAdmin):
     prepopulated_fields = {"url":("title",)}
     fields = ("confirmation",("content_list"),("title","url"),"content","tag",("views","hmanycomment","dor"))
 
-class ViewsAdmin(admin.ModelAdmin):
+class ViewsAdmin(ModelAdmin):
     list_ = ["content_id","ip"]
     list_display = list_
     list_display_links = list_
     search_fields = list_
 
-class NotificationAdmin(admin.ModelAdmin):
+class NotificationAdmin(ModelAdmin):
     list_ = ["user","even","content","show","address","time"]
     list_display = list_
     list_display_links = list_
     search_fields = list_
 
-class ContentListAdmin(admin.ModelAdmin):
+class ContentListAdmin(ModelAdmin):
     list_ = ["user","content_list","content_count"]
     list_display = list_
     list_display_links = list_
     list_filter = ["content_count"]
     search_fields = list_
 
-class UserFollowAdmin(admin.ModelAdmin):
+class UserFollowAdmin(ModelAdmin):
     list_ = ["user","choices","adress"]
     list_display = list_
     list_display_links = list_
     list_filter = ["choices"]
     search_fields = list_
 
-class CommentAdmin(admin.ModelAdmin):
+class CommentAdmin(ModelAdmin):
     list_ = ["user","content_id","comment"]
     list_display = list_
     list_display_links = list_
     list_filter = ["user"]
     search_fields = list_
 
-class SearchedWordsAdmin(admin.ModelAdmin):
+class SearchedWordsAdmin(ModelAdmin):
     list_ = ["word","hmany"]
     list_display = list_
     list_display_links = list_
     search_fields = list_
 
 ## users ##
-class OtherInformationOfUsersAdmin(admin.StackedInline):
+class OtherInformationOfUsersAdmin(StackedInline):
     model = OtherInformationOfUsers
     can_delete = False
     verbose_name_plural = 'kullanıcıların diğer bilgileri'
     list_filter = ["author","is_author"]
 
-class OtherInformationOfUsersADMIN(admin.ModelAdmin):
+class OtherInformationOfUsersADMIN(ModelAdmin):
     list_ = ["user","author","is_author","pp","about","following","followers"]
     list_display = ["user","author","is_author","pp","following","followers"]
     list_display_links = ["user","author","is_author","pp","following","followers"]
     list_filter = list_
     search_fields = list_
 
-class AuthorAdmin(admin.StackedInline):
+class AuthorAdmin(StackedInline):
     model = Author
     can_delete = False
     verbose_name_plural = 'yazarlık bilgileri'
 
-class UserAdmin(BaseUserAdmin):
-    #Mevcut modele(tasarıma) yeni özellikleri entegre ediyoruz. Bu bize admin panelde görünecektir.
+class UserAdmin(UserAdmin):
     inlines = (OtherInformationOfUsersAdmin,AuthorAdmin, )
 
-admin.site.unregister(User)
+site.unregister(User)
 
-admin.site.register(User, UserAdmin)
+site.register(User, UserAdmin)
 
-admin.site.register(OtherInformationOfUsers,OtherInformationOfUsersADMIN)
+site.register(OtherInformationOfUsers,OtherInformationOfUsersADMIN)
 
-admin.site.register(Content,ContentAdmin)
+site.register(Content,ContentAdmin)
 
-admin.site.register(ContentList,ContentListAdmin)
+site.register(ContentList,ContentListAdmin)
 
-admin.site.register(Comment,CommentAdmin)
+site.register(Comment,CommentAdmin)
 
-admin.site.register(UserFollow,UserFollowAdmin)
+site.register(UserFollow,UserFollowAdmin)
 
-admin.site.register(SearchedWords,SearchedWordsAdmin)
+site.register(SearchedWords,SearchedWordsAdmin)
 
-admin.site.register(Notification,NotificationAdmin)
+site.register(Notification,NotificationAdmin)
 
-admin.site.register(Contentviews,ViewsAdmin)
+site.register(Contentviews,ViewsAdmin)
 
-admin.site.register(Following)
+site.register(Following)
+
+site.register(Report)

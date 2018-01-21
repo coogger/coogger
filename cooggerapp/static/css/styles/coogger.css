@@ -10,7 +10,6 @@
 /* align-content */
 /* color */
 /* animations op */
-/* önce ayarlar */
 /* another settings */
 h1 {
   font-size: 1.5em;
@@ -58,11 +57,9 @@ ul {
 input[type="submit"] {
   cursor: pointer; }
 
-/* sonra diğer varsayılan ayarlar */
 /* flex aperations */
 /* border-radius border-color gibi özelliklerin her tarayıcı için ayrı ayrı çağrılmasından dolayı dogan bir fonksiyon */
 /* bu mixin çok fazla animasyon yapmadan tek boyutlu istenileni gerçekleştirir*/
-/* fonksiyonlar */
 /* general default settings */
 [default~="fs"] {
   font-size: 16px; }
@@ -165,7 +162,6 @@ input[type="submit"] {
   @extend [flx~="ai-c"];
   @extend [flx~="jc-c"];*/ }
 
-/* sonra varsayılan özellikler*/
 [flx], [default~="paragraph"], [default~="forminput"] li label, [default~="form"] li label, [default~="form"] p input, [default~="form"] li input, cards, cardtime, title {
   /* default flex */
   -webkit-display: flex;
@@ -405,7 +401,6 @@ input[type="submit"] {
   align-self: stretch;
   /* align-content: stretch| center  | flex-start  | flex-end | space-around  | space-between; */ }
 
-/* flx özelliğikleri */
 /* sadece hover ayarları */
 /* text boyutları */
 [hvr~="txt-xs"]:hover, [hvr~="txt-xs"]:focus, [hvr~="txt-xs"]:active {
@@ -617,7 +612,6 @@ input[type="submit"] {
   -o-border-color: #eaecee;
   border-color: #eaecee; }
 
-/* hover özellikleri*/
 /* hover-animation hem hover hem animation özellikler*/
 [hvr-a] {
   -webkit-animation-duration: 0.45s;
@@ -1388,7 +1382,6 @@ input[type="submit"] {
     -ms-border-color: #eaecee;
     -o-border-color: #eaecee;
     border-color: #eaecee; } }
-/* hover + animation özellikleri*/
 [hvr-animation] {
   -webkit-animation-duration: 0.75s;
   -moz-animation-duration: 0.75s;
@@ -1449,7 +1442,6 @@ input[type="submit"] {
   -o-animation-iteration-count: infinite;
   animation-iteration-count: infinite; }
 
-/* hover + animation özellikleri özel animasyonlar*/
 /* hover + flex özellikler */
 /* hvr-flex */
 [hvr-flx]:hover, [hvr-flx]:focus, [hvr-flx]:active {
@@ -1636,7 +1628,6 @@ input[type="submit"] {
   /* align-content: stretch| center  | flex-start  | flex-end | space-around  | space-between; */ }
 
 /* ---------------- */
-/* hover + flex özellikleri*/
 [animation] {
   -webkit-animation-duration: 0.75s;
   -moz-animation-duration: 0.75s;
@@ -1735,7 +1726,6 @@ input[type="submit"] {
     -ms-opacity: 1;
     -o-opacity: 1;
     opacity: 1; } }
-/* animasyonlar */
 /* general operations */
 /* text boyutları */
 [gnrl~="txt-xs"] {
@@ -2049,7 +2039,6 @@ input[type="submit"] {
   user-select: none; }
 
 /* general operations */
-/* genel özelikler */
 /*  COOGGER.COM EK AYARLAR  */
 /* elementler */
 cards {

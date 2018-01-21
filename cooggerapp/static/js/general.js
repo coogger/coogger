@@ -4,8 +4,8 @@ $(document).ready(function() {
     if (conf) {
       var delete_id = this_.getAttribute("data-post-id");
       $(".wms").load("/web/delete/"+delete_id);
-      $(".main-messages").css({ display: "block" });
       $(".data-post-id-" + delete_id).remove();
+      $(".main-messages").css({ display: "block" });
       setTimeout(function() {
         $(".main-messages").css({ display: "none" });
       }, 3000);
@@ -62,6 +62,11 @@ $(document).ready(function() {
   setInterval(function(){
     editor_change();
   },100);
+
+  $(".report").click(function(event){
+    var content_id = this.getAttribute("data-content-id");
+    $("body").load("/web/report/?content_id="+content_id);
+  });
 });
 
 /* ckeditör */

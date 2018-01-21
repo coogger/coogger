@@ -1,8 +1,7 @@
 <div flx="jc-c fd-c" gnrl="bg-white" default="media">
   {% if request.user.is_authenticated %}
   <div default="pm">
-    <form default="form" flx="jc-c" method="post" action="#">
-      {% csrf_token %}
+    <form default="form" flx="jc-c">
       <input class="wcomment" type="text" placeholder="Soru sor,veya teşekkür et bir yorum yap" name="comment" maxlength="310">
       <input type="submit" class="d-comment-sub" value="yorum yap">
     </form>

@@ -7,6 +7,9 @@ from django.db.models import F
 from django.db.models import Q
 from django.contrib import messages as ms
 
+#form
+from cooggerapp.forms import ReportsForm
+
 #models
 from cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords,Following
 
@@ -70,4 +73,23 @@ def notification(request):
         hmanynotifications = queryset.filter(show=False).count(),
         )
     template = "home/notifications.html"
+    return render(request,template,context)
+
+def report(request):
+    request_user = request.user
+    if not request_user.is_authenticated:
+        return HttpResponseRedirect("/")
+    form = ReportsForm(request.POST)
+    if form.is_valid():
+        form  = form.save(commit=False)
+        form.user = request.user
+        form.content = Content.objects.filter(id = request.POST["content_id"])[0]
+        form.save()
+        ms.error(request,"Şikayetiniz alınmıştır.")
+        return HttpResponseRedirect("/")
+    context = dict(
+    report_form = form,
+    content_id = request.GET["content_id"],
+    )
+    template = "home/report.html"
     return render(request,template,context)

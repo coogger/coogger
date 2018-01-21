@@ -12,7 +12,8 @@ sitemaps = {
 }
 urlpatterns = [
     url(r'^$', home.home,name = "home"),
-    url(r'^web/search/',home.search,name = "search"),
+    url(r'^web/search/$',home.search,name = "search"),
+    url(r'^web/report/$',home.report,name = "report"),
     url(r'^web/notification/',home.notification,name = "notification"),
     url(r'^web/admin/', admin.site.urls),
     url(r'^web/ckeditor/', include('ckeditor_uploader.urls')),

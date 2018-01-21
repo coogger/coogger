@@ -133,6 +133,6 @@ class Report(models.Model):
     choices_reports = make_choices(reports())
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE,verbose_name = "şikayet eden kişi")
     content = models.ForeignKey("content" ,on_delete=models.CASCADE,verbose_name = "şikayet edilen içerik")
-    complaints = models.CharField(choices = choices_reports,max_length=12,verbose_name="şikayet türleri")
-    add = models.CharField(max_length = 600,verbose_name = "Daha fazla bilgi vermek istermisin ?")
+    complaints = models.CharField(choices = choices_reports,max_length=40,verbose_name="şikayet türleri")
+    add = models.CharField(blank = True,null = True, max_length = 600,verbose_name = "Daha fazla bilgi vermek istermisin ?")
     date = models.DateTimeField(default = timezone.now)

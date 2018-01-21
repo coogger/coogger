@@ -1,25 +1,25 @@
 /*  COOGGER.CSS  */
-@import "options.scss"; /* önce ayarlar */
+@import "options.scss";
 
-@import "another-settings.scss"; /* sonra diğer varsayılan ayarlar */
+@import "another-settings.scss";
 
-@import "mixin.scss"; /* fonksiyonlar */
+@import "mixin.scss";
 
-@import "default.scss"; /* sonra varsayılan özellikler*/
+@import "default.scss";
 
-@import "flx.scss"; /* flx özelliğikleri */
+@import "flx.scss";
 
-@import "hvr.scss"; /* hover özellikleri*/
+@import "hvr.scss";
 
-@import "hvr-a.scss"; /* hover + animation özellikleri*/
+@import "hvr-a.scss";
 
-@import "hvr-animation.scss"; /* hover + animation özellikleri özel animasyonlar*/
+@import "hvr-animation.scss";
 
-@import "hvr-flx.scss"; /* hover + flex özellikleri*/
+@import "hvr-flx.scss";
 
-@import "animation.scss"; /* animasyonlar */
+@import "animation.scss";
 
-@import "gnrl.scss"; /* genel özelikler */
+@import "gnrl.scss";
 
 /*  COOGGER.COM EK AYARLAR  */
 @import "my.scss"; /* genel özelikler */

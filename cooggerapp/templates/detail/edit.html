@@ -1,7 +1,7 @@
-{% if content_user.user == request.user or request.user.is_superuser %}
+{% if request.user.is_authenticated %}
 <div flx="as-c jc-c">
   <ul default="pm" gnrl="bg-info br-2" flx>
-    {% if detail.user == request.user %}
+    {% if detail.user == request.user or request.user.is_superuser %}
     <li>
       <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="{% url 'change' detail.id  %}" flx="ai-c">
         <i gnrl="c-white" class="fa fa-edit" aria-hidden="true"></i>
@@ -15,9 +15,9 @@
      </div>
     </li>
     {% endif %}
-    {% if detail.user != request.user %}
+    {% if detail.user != request.user and not request.user.is_superuser %}
     <li>
-      <div class="report" style="cursor:pointer;" gnrl="br-2" default="pm" hvr-a="bg-private" flx="ai-c">
+      <div class="report" data-content-id="{{ detail.id }}" style="cursor:pointer;" gnrl="br-2" default="pm" hvr-a="bg-private" flx="ai-c">
         <i gnrl="c-white" class="fa fa-flag" aria-hidden="true"></i>
         <div gnrl="txt-s c-white">Bildir</div>
       </div>
