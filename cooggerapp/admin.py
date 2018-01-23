@@ -25,13 +25,6 @@ class NotificationAdmin(ModelAdmin):
     list_display_links = list_
     search_fields = list_
 
-class ContentListAdmin(ModelAdmin):
-    list_ = ["user","content_list","content_count"]
-    list_display = list_
-    list_display_links = list_
-    list_filter = ["content_count"]
-    search_fields = list_
-
 class UserFollowAdmin(ModelAdmin):
     list_ = ["user","choices","adress"]
     list_display = list_
@@ -81,8 +74,6 @@ site.register(User, UserAdmin)
 site.register(OtherInformationOfUsers,OtherInformationOfUsersADMIN)
 
 site.register(Content,ContentAdmin)
-
-site.register(ContentList,ContentListAdmin)
 
 site.register(Comment,CommentAdmin)
 

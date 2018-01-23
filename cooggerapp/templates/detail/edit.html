@@ -1,1 +1,28 @@
-{% if request.user.is_authenticated %}<div flx="as-c jc-c"> <ul default="pm" gnrl="bg-info br-2" flx> {% if detail.user == request.user or request.user.is_superuser %} <li> <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="{% url 'change' detail.id %}" flx="ai-c"> <i gnrl="c-white" class="fa fa-edit" aria-hidden="true"></i> <div gnrl="txt-s">Düzenle</div> </a> </li> <li > <div gnrl="br-2" style="cursor:pointer;" default="pm" hvr-a="bg-danger" class="delete" data-post-id="{{detail.id}}" flx="ai-c"> <i gnrl="c-white" class="fa fa-trash" aria-hidden="true"></i> <div gnrl="txt-s c-white">Sil</div> </div> </li> {% endif %} {% if detail.user != request.user and not request.user.is_superuser %} <li> <div class="report" data-content-id="{{ detail.id }}" style="cursor:pointer;" gnrl="br-2" default="pm" hvr-a="bg-private" flx="ai-c"> <i gnrl="c-white" class="fa fa-flag" aria-hidden="true"></i> <div gnrl="txt-s c-white">Bildir</div> </div> </li> {% endif %} </ul></div>{% endif %}
+{% if request.user.is_authenticated %}
+<div flx="as-c jc-c">
+  <ul default="pm" gnrl="bg-info br-2" flx>
+    {% if detail.user == request.user or request.user.is_superuser %}
+    <li>
+      <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="{% url 'change' detail.id  %}" flx="ai-c">
+        <i gnrl="c-white" class="fa fa-edit" aria-hidden="true"></i>
+        <div gnrl="txt-s">Düzenle</div>
+      </a>
+    </li>
+    <li >
+     <div gnrl="br-2" style="cursor:pointer;" default="pm" hvr-a="bg-danger" class="delete" data-post-id="{{detail.id}}" flx="ai-c">
+       <i gnrl="c-white" class="fa fa-trash" aria-hidden="true"></i>
+       <div gnrl="txt-s c-white">Sil</div>
+     </div>
+    </li>
+    {% endif %}
+    {% if detail.user != request.user and not request.user.is_superuser %}
+    <li>
+      <div class="report" data-content-id="{{ detail.id }}" style="cursor:pointer;" gnrl="br-2" default="pm" hvr-a="bg-private" flx="ai-c">
+        <i gnrl="c-white" class="fa fa-flag" aria-hidden="true"></i>
+        <div gnrl="txt-s c-white">Bildir</div>
+      </div>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}

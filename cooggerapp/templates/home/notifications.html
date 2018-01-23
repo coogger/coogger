@@ -1,1 +1,30 @@
-{% include 'home/head.html' %}{% include 'home/logo.html' %}{% include 'home/header.html' %}{% if notifications %}<div flx="jc-c" gnrl="bg-white br-2" default="pm"> <ul default="pm"> {% for noti in notifications %} <li flx="" gnrl="brc-muted b-1 br-2" default="pm"> <a gnrl="c-dark" flx="ai-c" href="/{{ noti.address }}"> {% if noti.even == 1 %} <img src="/static/media/icons/comments.svg" class="carduserimg" gnrl="br-circle" default="pm"/> <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div> <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">İçeriğine bir yorum yapıldı</div> {% elif noti.even == 2 %} <img src="/static/media/icons/star.svg" class="carduserimg" gnrl="br-circle" default="pm"/> <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div> <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">İçeriğine yeni bir oy verildi</div> {% elif noti.even == 3 %} <img src="/static/media/topics/checked.svg" class="carduserimg" gnrl="br-circle" default="pm"/> <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div> <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">Yeni takipçi kazandın</div> {% endif %} <div>{{ noti.content }}</div> </a> </li> {% endfor %} </ul> </div>{% endif %}{% include 'home/footer.html' %}
+{% include 'home/head.html' %}
+{% include 'home/logo.html' %}
+{% include 'home/header.html' %}
+{% if notifications %}
+<div flx="jc-c" gnrl="bg-white br-2" default="pm">
+  <ul default="pm">
+    {% for noti in notifications %}
+        <li flx="" gnrl="brc-muted b-1 br-2" default="pm">
+          <a gnrl="c-dark" flx="ai-c" href="/{{ noti.address }}">
+            {% if noti.even == 1 %}
+            <img src="/static/media/icons/comments.svg" class="carduserimg" gnrl="br-circle" default="pm"/>
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">İçeriğine bir yorum yapıldı</div>
+            {% elif noti.even == 2 %}
+            <img src="/static/media/icons/star.svg" class="carduserimg" gnrl="br-circle" default="pm"/>
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">İçeriğine yeni bir oy verildi</div>
+            {% elif noti.even == 3 %}
+            <img src="/static/media/topics/checked.svg" class="carduserimg" gnrl="br-circle" default="pm"/>
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm">Yeni takipçi kazandın</div>
+            {% endif %}
+            <div>{{ noti.content }}</div>
+          </a>
+        </li>
+    {% endfor %}
+  </ul>
+    </div>
+{% endif %}
+{% include 'home/footer.html' %}

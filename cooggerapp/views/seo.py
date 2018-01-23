@@ -4,20 +4,20 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 
 #models
-from cooggerapp.models import Content,ContentList
+from cooggerapp.models import Content
 
 class ContentlistSitemap(Sitemap):
     changefreq = "daily"
     priority = 1.0
 
     def items(self):
-        return ContentList.objects.all()
+        return [i for i in Content.objects.filter(confirmation = True)]
 
     def lastmod(self,obj):
-        return Content.objects.filter(user = obj.user, confirmation = True)[0].time
+        return Content.objects.filter(content_list = obj.content_list,confirmation = True)[0].lastmod
 
     def location(self,obj):
-        return "/"+str(obj.user)+"/"+str(obj.content_list)
+        return "/"+str(obj.user)+"/"+str(obj.content_list) 
 
 
 class ContentSitemap(Sitemap):

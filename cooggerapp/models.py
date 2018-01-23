@@ -1,11 +1,18 @@
+#django
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+
+#django 3.
 from ckeditor.fields import RichTextField
+
+#choices
 from cooggerapp.choices import *
-from django.utils.text import slugify
+
+#python
 from bs4 import BeautifulSoup
-from django.db.models import F
+import random
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -20,14 +27,14 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
 
 class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    content_list = models.SlugField(null = True, blank = True, default="coogger", max_length=30, verbose_name ="Liste ismi")
-    title = models.CharField(max_length=100, verbose_name = "Başlık") # başlık bilgisi ama sadece admin de içiriğin ne oldugunu anlamak için yaptım
+    content_list = models.SlugField(default = "coogger",max_length=30,verbose_name ="Konu başlığınız")
+    title = models.CharField(max_length=100, verbose_name = "Başlık")
     url = models.CharField(unique = True, max_length=200, verbose_name = "web adresi") # blogun url adresi
     content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda
     show = models.CharField(max_length=400, verbose_name = "İçeriğinizin tanımı")
     tag = models.CharField(max_length=200, verbose_name = "Anahtar kelimeler") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="tarih") # tarih bilgisi
-    dor = models.CharField(default = 0, max_length=10, verbose_name = "duration of read")
+    dor = models.CharField(default = 0, max_length=10)
     views = models.IntegerField(default = 0, verbose_name = "görüntülenme sayısı") # görütülenme sayısını kayıt eder
     hmanycomment=models.IntegerField(default = 0, verbose_name = "yorum sayısı")
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="son değiştirme tarihi")
@@ -47,7 +54,6 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         user = self.user
         list_ = slugify(self.content_list.lower(), allow_unicode=True)
         title = slugify(self.title.lower(), allow_unicode=True)
-        url = str(user)+"/"+str(list_)+"/"+str(title)
         tags = ""
         tag = self.tag.split(",")
         for i in tag:
@@ -55,12 +61,15 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
                 tags += slugify(i, allow_unicode=True)
             else:
                 tags += slugify(i, allow_unicode=True)+","
-        self.url = url
         self.content_list = list_
         self.tag  = tags
         self.dor = self.durationofread(self.content+self.title)
-        OtherInformationOfUsers.objects.filter(user = user).update(hmanycontent = F("hmanycontent") + 1)
-        super(Content, self).save(*args, **kwargs)
+        self.url = str(user)+"/"+str(list_)+"/"+str(title)
+        try:
+            super(Content, self).save(*args, **kwargs)
+        except:
+            self.url = self.url + "-" +str(random.randrange(9999))
+            super(Content, self).save(*args, **kwargs)
 
 
 class Following(models.Model):
@@ -69,14 +78,9 @@ class Following(models.Model):
 
 
 class Contentviews(models.Model): # görüntülenme ip ve blog_id bilgisini kayıt eder
+    # TODO: bunun için ayrı bir veri tabanı açmak gerek bence çünkü çok veri kaydı yapıyor
     content = models.ForeignKey("content" ,on_delete=models.CASCADE)
     ip = models.GenericIPAddressField()
-
-
-class ContentList(models.Model): # kullanıcıların sahip oldukları listeler
-    user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    content_list = models.SlugField(max_length=30,verbose_name ="İçerik listeniz")
-    content_count = models.IntegerField(verbose_name = "liste içindeki nesne sayısı")
 
 
 class Author(models.Model): # yazarlık bilgileri

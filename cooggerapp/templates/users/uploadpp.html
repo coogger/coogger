@@ -1,1 +1,10 @@
-{% if request.user == content_user %}<div> <form flx="fd-c" action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data"> {% csrf_token %} <input type="file" name="u-upload-pp" id="u-upload-pp" style="display: none;"> <label flx="jc-c" default="pm" gnrl="bg-success c-white b-1 br-2 brc-muted txt-m" hvr-a="bg-white" hvr="c-success brc-success" style="cursor:pointer;" for="u-upload-pp">profil resmini güncelle</label> <input flx="jc-c" default="pm" gnrl="bg-primary c-white b-1 br-2 brc-muted" hvr-a="bg-white" hvr="c-primary brc-primary" type="submit" value="profili değiş"/> </form></div>{% endif %}
+{% if request.user == content_user %}
+<div flx="jc-c" default="pm">
+    <form flx="fd-c" action="{% url 'user_upload_pp' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="u-upload-pp" id="u-upload-pp" style="display: none;">
+        <label flx="jc-c" default="pm" gnrl="bg-success c-white b-1 br-2 brc-muted txt-m" hvr-a="bg-white" hvr="c-success brc-success" style="cursor:pointer;" for="u-upload-pp">profil resmini güncelle</label>
+        <input flx="jc-c" default="pm" gnrl="bg-primary c-white b-1 br-2 brc-muted"  hvr-a="bg-white" hvr="c-primary brc-primary" type="submit" value="profili değiş"/>
+    </form>
+</div>
+{% endif %}

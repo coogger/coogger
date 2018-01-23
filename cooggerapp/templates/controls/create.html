@@ -1,1 +1,20 @@
-{% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}<div gnrl="bg-white br-2" default="media" flx="jc-c ai-c fd-c"> <ul> <form flx="fd-c" default="form" method="post" class="c-create-form" action="{% url 'create' %}" > {% csrf_token %} <ul flx class="list"></ul> {{ create_form.as_ul }} {{ create_form.media }} <ul flx class="tags"></ul> <input flx="as-c" type="submit" value="Paylaş" > </form> </ul></div><div flx="jc-c" gnrl="bg-dark c-white br-2" default="pm media" gnrl="br-2"> <div>Önizleme</div></div>{% include 'controls/preview.html' %}{% include 'home/footer.html' %}</body></html>
+{% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
+<div gnrl="bg-white br-2" default="media" flx="jc-c ai-c fd-c">
+  <ul>
+    <form flx="fd-c" default="form" method="post" class="c-create-form" action="{% url 'create' %}" >
+      {% csrf_token %}
+      <ul flx class="list"></ul>
+      {{ create_form.as_ul }}
+      {{ create_form.media }}
+      <ul flx class="tags"></ul>
+      <input flx="as-c" type="submit" value="Paylaş" >
+    </form>
+  </ul>
+</div>
+<div flx="jc-c" gnrl="bg-dark c-white br-2" default="pm media" gnrl="br-2">
+  <div>Önizleme</div>
+</div>
+{% include 'controls/preview.html' %}
+{% include 'home/footer.html' %}
+</body>
+</html>

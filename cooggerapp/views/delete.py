@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models import F
 
 #models
-from cooggerapp.models import UserFollow,Content,ContentList
+from cooggerapp.models import UserFollow,Content,OtherInformationOfUsers
 
 #python
 import json
@@ -34,11 +34,5 @@ def content(request,content_id):
         return HttpResponseRedirect("/")
     content_list = queryset[0].content_list
     queryset.delete()
-    content_list_save = ContentList.objects.filter(user = user,content_list = content_list)[0]
-    content_list_save.content_count = F("content_count")-1
-    content_list_save.save()
-    try:
-        ContentList.objects.filter(content_count = 0)[0].delete()
-    except:
-        pass
+    OtherInformationOfUsers.objects.filter(user = user).update(hmanycontent = F("hmanycontent") -1)
     return HttpResponse("Silme işlemi başarılı ")

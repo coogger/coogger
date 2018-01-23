@@ -7,7 +7,7 @@ from django.contrib import messages as ms
 from django.db.models import F
 
 #models
-from cooggerapp.models import ContentList,OtherInformationOfUsers,Content,UserFollow,Following
+from cooggerapp.models import OtherInformationOfUsers,Content,UserFollow,Following
 
 #forms
 from cooggerapp.forms import UserFollowForm,AboutForm
@@ -42,7 +42,7 @@ def user(request,username):
         content = info_of_cards,
         content_user = user,
         user_follow = users_web(user),
-        nav_category = ContentList.objects.filter(user = user),
+        nav_category = [i.content_list for i in queryset],
         head = html_head,
         hmanynotifications = hmanynotifications(request),
         is_follow = is_follow(request,user)
@@ -75,15 +75,15 @@ def upload_pp(request):
 def u_topic(request,username,utopic):
     "kullanıcıların kendi hesaplarında açmış olduğu konulara yönlendirme"
     user = User.objects.filter(username = username)[0]
+    user_queryset = Content.objects.filter(user = user)
     if username == user:
-        queryset = Content.objects.filter(user = user,content_list = utopic)
+        queryset = user_queryset.filter(content_list = utopic)
     else:
-        queryset = Content.objects.filter(user = user,content_list = utopic,confirmation = True)
+        queryset = user_queryset.filter(content_list = utopic,confirmation = True)
     if not queryset.exists():
         ms.error(request,"{} adlı kullanıcı nın {} adlı bir içerik listesi yoktur".format(username,utopic))
         return HttpResponseRedirect("/")
     info_of_cards = paginator(request,queryset,10)
-    nav_category = ContentList.objects.filter(user = user)
     html_head = dict(
      title = username+" - "+utopic+" | coogger",
      keywords = username+" "+utopic+","+utopic,
@@ -93,9 +93,8 @@ def u_topic(request,username,utopic):
     context = dict(
         content = info_of_cards,
         content_user = user,
-        nav_category = nav_category,
+        nav_category = [i.content_list for i in user_queryset],
         nameoftopic = utopic,
-        nameoflist = "Listeler",
         head = html_head,
         hmanynotifications = hmanynotifications(request),
         user_follow = users_web(user),
@@ -119,6 +118,7 @@ def about(request,username):
             about_.save()
     else:#başkası ise
         about = query.about
+    queryset = Content.objects.filter(user = user,confirmation = True)
     html_head = dict(
      title = username+" hakkımda | coogger",
      keywords = username+","+username+" hakkımda"+username+"hakkında",
@@ -130,7 +130,7 @@ def about(request,username):
         true_about = True,
         content_user = user,
         user_follow = users_web(user),
-        nav_category = ContentList.objects.filter(user = user),
+        nav_category = [i.content_list for i in queryset],
         head = html_head,
         hmanynotifications = hmanynotifications(request),
         is_follow = is_follow(request,user),

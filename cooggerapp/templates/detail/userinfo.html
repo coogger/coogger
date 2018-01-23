@@ -1,1 +1,13 @@
-<div flx="jc-c"> <div flx="ai-c"> <a flx="ai-c" href="{% url 'list' detail.content_list %}"> <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/> </a> <a default="pm" gnrl="c-white bg-dark br-2" href='/{{ detail.user }}/{{ detail.content_list }}'> {{ detail.content_list }} </a> <a flx="ai-c" href="{% url 'list' detail.content_list %}"> <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/> </a> </div></div>
+<div flx="jc-c">
+    <div flx="ai-c">
+      <a flx="ai-c" href="{% url 'list' detail.content_list  %}">
+        <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/>
+      </a>
+      <a default="pm" gnrl="c-white bg-dark br-2" href='/{{ detail.user }}/{{ detail.content_list }}'>
+          {{ detail.content_list }}
+      </a>
+      <a flx="ai-c" href="{% url 'list' detail.content_list  %}">
+        <img src="/static/media/icons/list.svg" gnrl="bg-white br-circle"/>
+      </a>
+    </div>
+</div>
