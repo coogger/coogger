@@ -43,7 +43,13 @@ $(document).ready(function() {
         address_id:address_id,
       }
     }).done(function (response) {
-      alert(response.status);
+      if (response.status == "ok"){
+        alert(response.ms);
+      }
+      else {
+        alert("Beklenmedik hata");
+      }
+
     });
   });
 });

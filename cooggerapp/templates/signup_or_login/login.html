@@ -5,15 +5,15 @@
   {% include "home/logo.html" %}
   <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">Kullanıcı adınızı ve şifrenizi girin</div>
   <ul>
-    <form flx="fd-c" default="form"  action="{% url 'login' %}" method="post">
+    <form flx="fd-c" default="form" action="{% url 'login' %}" method="post">
       {% csrf_token %}
       <li>
         <label >Kullanıcı ismi</label>
-        <input  type="text" name="Username" value="">
+        <input type="text" name="Username" value="">
       </li>
       <li>
         <label >Şifre</label>
-        <input  type="password" name="Password" value="">
+        <input type="password" name="Password" value="">
       </li>
       <input flx="as-c" type="submit" value="Giriş yap">
     </form>

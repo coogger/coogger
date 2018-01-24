@@ -48,7 +48,11 @@ title{
     height: 188px;
 }
 .helptext{
-  display: none;
+  @extend [flx];
+  @extend [gnrl~="bg-danger"];
+  @extend [gnrl~="c-white"];
+  @extend [gnrl~="br-2"];
+  @extend [default~="pm"];
 }
 .upshow{
   height:188px;

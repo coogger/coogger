@@ -1,79 +1,93 @@
 #django
-from django.http import *
+from django.http import HttpResponseRedirect,HttpResponse
 from django.shortcuts import render
 from django.db.models import F
-from django.utils.text import slugify
 from django.contrib import messages as ms
-from django.contrib.auth.models import User
-from django.contrib.auth import *
+
+# class
+from django.views.generic import ListView
+from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 #models
 from cooggerapp.models import Content,OtherInformationOfUsers
 
 #views
-from cooggerapp.views.tools import hmanynotifications
+from cooggerapp.views.tools import hmanynotifications,is_user_author
 
 #form
 from cooggerapp.forms import ContentForm
 
 #python
-import random
 import datetime
 
-def create(request):
-    "to create new content"
-    request_user = request.user
-    if not request_user.is_authenticated or not request_user.otherinformationofusers.is_author:
-        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın")
-        return HttpResponseRedirect("/")
-    content_form = ContentForm(request.POST or None)
-    # post method
-    if content_form.is_valid():
-        content_form = content_form.save(commit=False)
-        content_form.user = request_user
-        content_form.confirmation = True
-        OtherInformationOfUsers.objects.filter(user = request_user).update(hmanycontent = F("hmanycontent") + 1)
-        content_form.save() # hiç hata olmaz ise kayıt etsindiye en sonda
-        return HttpResponseRedirect("/"+content_form.url)
-    # get method
-    context = dict(
-        create_form = content_form,
-        hmanynotifications = hmanynotifications(request),
-    )
-    template = "controls/create.html"
-    return render(request,template,context)
+class CreateBasedClass(View):
+    form_class = ContentForm
+    template_name = "controls/create.html"
 
-def change(request,content_id):
-    "to change the content"
-    request_user = request.user
-    if not request_user.is_authenticated or not request_user.otherinformationofusers.is_author:
-        ms.error(request,"Bu sayfa için yetkili değilsiniz,lütfen Yazarlık başvurusu yapın !")
-        return HttpResponseRedirect("/")
-    elif request_user.is_superuser:
-        queryset = Content.objects.filter(id = content_id)
-    else:
-        queryset = Content.objects.filter(user = request_user,id = content_id)
-    if not queryset.exists():
-        ms.error(request,"Böyle bir sayfa yoktur.")
-        return HttpResponseRedirect("/")
-    queryset = queryset[0]
-    old_content_list = queryset.content_list
-    content_form = ContentForm(request.POST or None,instance=queryset)
-    # post method
-    if content_form.is_valid():
-        content = content_form.save(commit=False)
-        real_user = queryset.user # içeriği yazan kişinin kullanıcı ismi
-        content.user = real_user
-        content.time = queryset.time
-        content.confirmation = True
-        content.lastmod = datetime.datetime.now()     
-        content.save()
-        return HttpResponseRedirect("/"+content.url)
-    # get method
-    context = dict(
-        change = queryset,
-        content_id = content_id,
-        change_form = content_form,
-    )
-    template = "controls/change.html"
-    return render(request,template,context)
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        if is_user_author(request):
+            context = dict(
+            create_form = self.form_class(),
+            hmanynotifications = hmanynotifications(request),
+            )
+            return render(request, self.template_name, context)
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        if is_user_author(request):
+            request_user = request.user
+            content_form = self.form_class(request.POST)
+            if content_form.is_valid():
+                content_form = content_form.save(commit=False)
+                content_form.user = request_user
+                content_form.confirmation = True
+                OtherInformationOfUsers.objects.filter(user = request_user).update(hmanycontent = F("hmanycontent") + 1)
+                content_form.save() # hiç hata olmaz ise kayıt etsindiye en sonda
+                return HttpResponseRedirect("/"+content_form.url)
+            return HttpResponse(self.get(request, *args, **kwargs))
+
+
+class ChangeBasedClass(View):
+    form_class = ContentForm
+    template_name = "controls/change.html"
+
+    @method_decorator(login_required)
+    def get(self, request, content_id, *args, **kwargs):
+        request_user = request.user
+        if is_user_author(request):
+            queryset = self.really_queryset(request,content_id)
+            old_content_list = queryset.content_list
+            content_form = self.form_class(instance=queryset)
+            context = dict(
+                change = queryset,
+                content_id = content_id,
+                change_form = content_form,
+                hmanynotifications = hmanynotifications(request),
+            )
+            return render(request, self.template_name, context)
+
+    @method_decorator(login_required)
+    def post(self, request, content_id, *args, **kwargs):
+        if is_user_author(request):
+            content_form = self.form_class(request.POST)
+            if content_form.is_valid():
+                content = content_form.save(commit=False)
+                queryset = self.really_queryset(request,content_id)
+                content.user = queryset.user # içeriği yazan kişinin kullanıcı ismi
+                content.time = queryset.time
+                content.confirmation = True
+                content.lastmod = datetime.datetime.now()
+                content.save()
+                return HttpResponseRedirect("/"+content.url)
+            return HttpResponse(self.get(request,content_id, *args, **kwargs))
+
+    @staticmethod
+    def really_queryset(request,content_id):
+        if request.user.is_superuser:
+            queryset = Content.objects.filter(id = content_id)[0]
+        else:
+            queryset = Content.objects.filter(user = request.user,id = content_id)[0]
+        return queryset

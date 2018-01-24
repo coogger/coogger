@@ -4,35 +4,51 @@ from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from django.db.models import F
 
+# class
+from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 #models
 from cooggerapp.models import UserFollow,Content,OtherInformationOfUsers
+
+#views
+from cooggerapp.views.tools import is_user_author
 
 #python
 import json
 
-def address(request):
-    if request.method=="POST" and request.is_ajax() and request.user.is_authenticated:
-        address_id = int(request.POST["address_id"])
-        ubf = UserFollow.objects.filter(id = address_id)[0]
-        if ubf.user == request.user:
-            ubf.delete()
-        return HttpResponse(json.dumps({"status":"adres silindi"}))
+class AddressBasedClass(View):
+    model = UserFollow
 
-def content(request,content_id):
-    request_user = request.user
-    if not request.is_ajax() or not request_user.username:
-        ms.error(request,"ops !")
-        return HttpResponseRedirect("/")
-    elif request_user.is_superuser: # admin
-        queryset = Content.objects.filter(id = content_id)
-    else:
-        queryset = Content.objects.filter(user = request_user,id = content_id)
-    real_username = queryset[0].user # içeriği yazan kişinin kullanıcı ismi
-    user = User.objects.filter(username = real_username)[0]
-    if not queryset.exists():
-        ms.error(request,"Girmek istediğiniz sayfada yönetim iznine sahip değilsiniz !")
-        return HttpResponseRedirect("/")
-    content_list = queryset[0].content_list
-    queryset.delete()
-    OtherInformationOfUsers.objects.filter(user = user).update(hmanycontent = F("hmanycontent") -1)
-    return HttpResponse("Silme işlemi başarılı ")
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax() and is_user_author(request):
+            address_id = int(request.POST["address_id"])
+            ubf = self.model.objects.filter(id = address_id)[0]
+            if ubf.user == request.user:
+                ubf.delete()
+            return HttpResponse(json.dumps({"status":"ok","ms":"adres silindi"}))
+
+
+class ContentBasedClass(View):
+    success = "Silme işlemi başarılı"
+    error = "hata"
+
+    @method_decorator(login_required)
+    def get(self, request,content_id, *args, **kwargs):
+        if request.is_ajax() and is_user_author(request):
+            queryset = self.really_queryset(request,content_id)
+            if request.user == queryset.user:
+                queryset.delete()
+                OtherInformationOfUsers.objects.filter(user = request.user).update(hmanycontent = F("hmanycontent") -1)
+                return HttpResponse(self.success)
+            return HttpResponse(self.error)
+
+    @staticmethod
+    def really_queryset(request,content_id):
+        if request.user.is_superuser:
+            queryset = Content.objects.filter(id = content_id)[0]
+        else:
+            queryset = Content.objects.filter(user = request.user,id = content_id)[0]
+        return queryset

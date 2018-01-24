@@ -6,126 +6,124 @@ from django.contrib.auth import *
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 
+# class
+from django.views.generic import ListView
+from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 #models
 from cooggerapp.models import Author,OtherInformationOfUsers
+
+#views
+from cooggerapp.views.tools import is_user_author
 
 #forms
 from cooggerapp.forms import AuthorForm,UserForm
 
-def mysignup(request): #kayıt ol
-    user_form = UserForm(request.POST or None)
-    if user_form.is_valid(): # POST
-        form = user_form.save(commit=False)
-        if request.user.username:
-            ms.error(request,"Yeni hesap açma işlemi için önce çıkış yapmalısınız")
-            return HttpResponseRedirect("/")
-        name = form.first_name
-        surname = form.last_name
-        email = form.email
-        username = form.username.lower()
-        password = form.password
-        if password != request.POST.get("Confirm"):
-            ms.error(request,"Şifreler eşleşmedi")
-            return HttpResponseRedirect("/signup")
-        try:
-            user = User.objects.create_user(first_name=name,last_name=surname,email = email,username=username,password=password)
-        except Exception as e:
-            ms.error(request,"hata : "+str(e))
-            return HttpResponseRedirect("/signup")
-        if user is not None:
-            user.is_active=True
-            user.save()
+
+class MySignupBasedClass(View):
+    form_class = UserForm
+    template_name = "signup_or_login/sign.html"
+    template_url = "/web/signup"
+    title = "Kayıt ol | coogger"
+    keywords = "Kayıt ol,coogger kayıt ol,coogger kaydol"
+    description = "coogger'a kaydol"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            context = dict(
+                signup_or_login = True,
+                head = {"title":self.title,"keywords":self.keywords,"description":self.description},
+                UserForm = self.form_class(),
+            )
+            return render(request,self.template_name,context)
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            sign_form = self.form_class(request.POST or None)
+            if sign_form.is_valid():
+                sign_form = sign_form.save(commit=False)
+                username = sign_form.username
+                if sign_form.password != request.POST["Confirm"]:
+                    ms.error(request,"Şifreler eşleşmedi")
+                    return HttpResponseRedirect(template_url)
+                sign_form.save()
+                user = User.objects.filter(username = username)[0]
+                OtherInformationOfUsers(user = user).save()
+                login(request, user)
+                ms.success(request,"Başarılı bir şekilde kayıt oldunuz {}".format(username))
+                return HttpResponseRedirect("/")
+            return HttpResponse(self.get(request, *args, **kwargs))
+
+class LoginBasedClass(View):
+    template_name = "signup_or_login/login.html"
+    template_url = "accounts/login/"
+    title = "coogger | Giriş yap"
+    keywords = "coogger giriş yap"
+    description = "coogger'a giriş yap"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            context = dict(
+                signup_or_login = True,
+                head = dict(title = self.title,keywords = self.keywords,description = self.description),
+            )
+            return render(request,self.template_name,context)
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            username=request.POST["Username"]
+            password=request.POST["Password"]
             user = authenticate(username=username, password=password)
-            OtherInformationOfUsers(user = user).save()
-            login(request, user)
-            ms.success(request,"Başarılı bir şekilde kayıt oldunuz {}".format(username))
-            return HttpResponseRedirect("/")
-        else:
-            ms.success(request,"Kayıt sırasında beklenmedik hata")
-            return HttpResponseRedirect("/")
-    # get
-    if request.user.username:
-        ms.error(request,"Yeni hesap açma işlemi için önce çıkış yapmalısınız")
-        return HttpResponseRedirect("/")
-    html_head = dict(
-        title = "Kayıt ol | coogger",
-        keywords = "Kayıt ol,coogger kayıt ol,coogger kaydol",
-        description = "coogger'a kaydol"
-    )
-    context = dict(
-        signup_or_login = True,
-        head = html_head,
-        UserForm = user_form,
-    )
-    template = "signup_or_login/sign.html"
-    return render(request,template,context)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect("/")
+            ms.warning(request,"Böyle bir kullanıcı bulunmamakta, lütfen şifrenizi ve kullanıcı adınızı kontrol ediniz")
+            return HttpResponseRedirect(self.template_url)
 
-def mylogin(request): # giriş yap
-    username = request.user.username
-    if request.method == "GET":
-        if username:
-            return HttpResponseRedirect("/")
-        html_head = dict(
-            title = "coogger | Giriş yap",
-            keywords = "coogger giriş yap",
-            description = "coogger'a giriş yap"
-        )
-        context = dict(
-            signup_or_login = True,
-            head = html_head,
-        )
-        template = "signup_or_login/login.html"
-        return render(request,template,context)
-    elif request.method == "POST":
-        if username:
-            ms.error(request,"ops {}".format(username))
-            return HttpResponseRedirect("/")
-        username=request.POST.get("Username")
-        password=request.POST.get("Password")
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect("/")
-        ms.warning(request,"Böyle bir kullanıcı bulunmamakta, lütfen şifrenizi ve kullanıcı adınızı kontrol ediniz")
-        return HttpResponseRedirect("/login")
+class LogoutBasedClass(View):
+    error = "Çıkış yapılırken beklenmedik hata oluştur"
+    success = "Tekrar görüşmek üzere {}"
 
-def mylogout(request): # çıkış
-    username = request.user.username
-    if not username:
-        ms.error(request,"ops !")
-        return HttpResponseRedirect("/")
-    try:
-        logout(request)
-    except KeyError:
-        ms.error(request,"Çıkış yapılırken beklenmedik hata oluştur")
-    ms.success(request,"Tekrar görüşmek üzere {}".format(username))
-    return HttpResponseRedirect("/")
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            logout(request)
+            ms.success(request,self.success.format(request.user.username))
+            return HttpResponseRedirect("/")
 
-def signup_author(request):
-    request_username = request.user
-    if not request_username:
-        ms.error(request,"ops !")
-        return HttpResponseRedirect("/")
-    otherinfo_form = AuthorForm(request.POST or None,instance = Author.objects.filter(user = request_username)[0])
-    if otherinfo_form.is_valid():
-        otherinfo_form = otherinfo_form.save(commit=False)
-        otherinfo_form.user = request_username
-        otherinfo_form.save()
-        ms.success(request,"Yazarlık başvurunuzu değerlendireceğiz bu genellikle 2-3 gün sürer {}".format(request_username))
-        return HttpResponseRedirect("/")
-    is_done_author = OtherInformationOfUsers.objects.filter(user = request_username)[0].is_author
-    if is_done_author:
-        ms.error(request,"Sizin başvuru yapmanıza gerek yok")
-        return HttpResponseRedirect("/")
-    html_head = dict(
-        title = "Yazarlık başvurusu | coogger",
-        keywords = "coogger yazarlık,coogger yazarlık başvurusu",
-        description = "coogger'a yazarlık başvurusu"
-    )
-    context = dict(
-        signup_or_login = True,
-        head = html_head,
-        otherinfo_form = otherinfo_form,
-    )
-    template = "signup_or_login/signup-blogger.html"
-    return render(request,template,context)
+class SingupAuthorBasedClass(View):
+    form_class = AuthorForm
+    template_name = "signup_or_login/signup-blogger.html"
+    title = "Yazarlık başvurusu | coogger"
+    keywords = "coogger yazarlık,coogger yazarlık başvurusu"
+    description = "coogger'a yazarlık başvurusu"
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        request_user = request.user
+        try:
+            instance_ = Author.objects.filter(user = request_user)[0]
+            otherinfo_form = self.form_class(request.GET, instance = instance_)
+        except AttributeError:
+            otherinfo_form = self.form_class(request.GET)
+        except IndexError:
+            otherinfo_form = self.form_class(request.GET)
+        is_done_author = OtherInformationOfUsers.objects.filter(user = request_user)[0].is_author
+        if not is_done_author:
+            context = dict(
+                signup_or_login = True,
+                head = {"title":self.title,"keywords":self.keywords,"description":self.description},
+                otherinfo_form = otherinfo_form,
+            )
+            return render(request,self.template_name,context)
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        otherinfo_form = self.from_class(request.POST)
+        if otherinfo_form.is_valid():
+            otherinfo_form = otherinfo_form.save(commit=False)
+            otherinfo_form.user = request_username
+            otherinfo_form.save()
+            ms.success(request,"Yazarlık başvurunuzu değerlendireceğiz bu genellikle 1-2 gün sürer {}".format(request_username))
+            return HttpResponseRedirect("/")

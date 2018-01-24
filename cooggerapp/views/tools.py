@@ -10,6 +10,12 @@ from cooggerapp.models import OtherInformationOfUsers,Notification,Content,UserF
 #choices seçimler
 from cooggerapp.choices import *
 
+
+def is_user_author(request):
+    if not request.user.otherinformationofusers.is_author:
+        return False
+    return True
+
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
     slugs = []
@@ -29,13 +35,6 @@ def paginator(request,queryset,hmany=20):
     except EmptyPage:
         contacts = paginator.page(paginator.num_pages)
     return contacts
-
-def get_ip(request):
-    try:
-        ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
-    except:
-        return None
-    return ip
 
 def hmanynotifications(request):
     try:

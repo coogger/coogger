@@ -6,6 +6,13 @@ from django.contrib.auth.models import User
 from django.contrib import messages as ms
 from django.db.models import F
 
+# class
+from django.views.generic import ListView
+from django.views.generic.base import TemplateView
+from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 #models
 from cooggerapp.models import OtherInformationOfUsers,Content,UserFollow,Following
 
@@ -20,154 +27,160 @@ from PIL import Image
 import os
 import json
 
-def user(request,username):
+class UserBasedClass(TemplateView):
     "herhangi kullanıcının anasayfası"
-    try:
-        user = User.objects.filter(username = username)[0]
-    except IndexError:
-        ms.error(request,"{} adı ile bir kullanıcımız yoktur !".format(username))
-        return HttpResponseRedirect("/")
-    if username == user:
-        queryset = Content.objects.filter(user = user)
-    else:
-        queryset = Content.objects.filter(user = user,confirmation = True)
-    info_of_cards = paginator(request,queryset,16)
-    html_head = dict(
-     title = username+" | coogger",
-     keywords =username+","+user.first_name+" "+user.last_name,
-     description =user.first_name+" "+user.last_name+", "+username+" adı ile coogger'da",
-     author = get_facebook(user),
-    )
-    context = dict(
-        content = info_of_cards,
-        content_user = user,
-        user_follow = users_web(user),
-        nav_category = [i.content_list for i in queryset],
-        head = html_head,
-        hmanynotifications = hmanynotifications(request),
-        is_follow = is_follow(request,user)
-    )
-    template = "users/user.html"
-    return render(request,template,context)
+    template_name = "users/user.html"
+    pagi = 16
+    ctof = Content.objects.filter
+    title = "{} | coogger"
+    keywords = "{},{} {}"
+    description = "{} {},{} adı ile coogger'da"
 
-def upload_pp(request):
+    def get_context_data(self, username, **kwargs):
+        user = User.objects.filter(username = username)[0]
+        if username == self.request.user.username: # kendisi ise
+            queryset = self.ctof(user = user)
+        else:
+            queryset = self.ctof(user = user,confirmation = True)
+        info_of_cards = paginator(self.request,queryset,self.pagi)
+        context = super(UserBasedClass, self).get_context_data(**kwargs)
+        nav_category = []
+        for i in queryset:
+            c_list = i.content_list
+            if c_list not in nav_category:
+                nav_category.append(c_list)
+        html_head = dict(
+         title = self.title.format(username),
+         keywords = self.keywords.format(username,user.first_name,user.last_name),
+         description = self.description.format(user.first_name,user.last_name,username),
+         author = get_facebook(user),
+        )
+        context["content"] = info_of_cards
+        context["content_user"] = user
+        context["user_follow"] = users_web(user)
+        context["nav_category"] = nav_category
+        context["head"] = html_head
+        context["hmanynotifications"] = hmanynotifications(self.request)
+        context["is_follow"] = is_follow(self.request,user)
+        return context
+
+
+class UserTopicBasedClass(UserBasedClass):
+    "kullanıcıların konu adresleri"
+    keywords = "{} {},{}"
+    description = "{} kullanıcımızın {} adlı içerik listesi"
+
+    def get_context_data(self, username, utopic, **kwargs):
+        context = super(UserTopicBasedClass, self).get_context_data(username,**kwargs)
+        user = context["content_user"]
+        user_queryset = self.ctof(user = user)
+        if username == self.request.user.username:
+            queryset = user_queryset.filter(content_list = utopic)
+        else:
+            queryset = user_queryset.filter(content_list = utopic,confirmation = True)
+        html_head = dict(
+         title = self.title.format(username+" - "+utopic),
+         keywords = self.keywords.format(username,utopic,utopic),
+         description = self.description.format(username,utopic),
+         author = get_facebook(user),
+        )
+        context["user_follow"] = users_web(user)
+        context["head"] = html_head
+        context["nameoftopic"] = utopic
+        return context
+
+
+class UserAboutBaseClass(View):
+    template_name = "users/user.html"
+    form_class = AboutForm
+    oiouof = OtherInformationOfUsers.objects.filter
+    title = "{} hakkında | coogger"
+    keywords = "{} hakkında"
+    description = "{} hakkında | coogger"
+
+    def get(self, request, username, *args, **kwargs):
+        user = User.objects.filter(username = username)[0]
+        query = self.oiouof(user = user)[0]
+        if user == request.user:
+            about_form = self.form_class(request.GET or None,instance=query)
+        else:
+            about_form = query.about
+        queryset = Content.objects.filter(user = user,confirmation = True)
+        html_head = dict(
+         title = self.title.format(username),
+         keywords = self.keywords.format(username),
+         description = self.description.format(username),
+         author = get_facebook(user),
+        )
+        context = {}
+        context["about"] = about_form
+        context["true_about"] = True
+        context["content_user"] = user
+        context["user_follow"] = users_web(user)
+        context["nav_category"] = [i.content_list for i in queryset]
+        context["head"] = html_head
+        context["hmanynotifications"] = hmanynotifications(request)
+        context["is_follow"] = is_follow(request,user)
+        return render(request,self.template_name,context)
+
+    def post(self, request, username, *args, **kwargs):
+        if request.user.is_authenticated: # oturum açmış ve
+            if request.user.username == username: # kendisi ise
+                query = self.oiouof(user = request.user)[0]
+                about_form = self.form_class(request.POST,instance=query)
+                if about_form.is_valid(): # ve post isteği ise
+                    about_form = about_form.save(commit = False)
+                    about_form.user = request.user
+                    about_form.save()
+                return HttpResponse(self.get(request, username, *args, **kwargs))
+
+
+class FollowBaseClass(View):
+    oiouof = OtherInformationOfUsers.objects.filter
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            which_user = request.POST["which_user"]
+            user = User.objects.filter(username = which_user)[0]
+            request_user = request.user
+            if user != request_user: # takip isteği ve kişisi aynı değil ise
+                is_follow = Following.objects.filter(user = request_user,which_user = user)
+                followers_num = self.oiouof(user = user)[0].followers
+                if is_follow.exists():
+                    is_follow.delete()
+                    self.oiouof(user = request_user).update(following = F("following")-1)
+                    self.oiouof(user = user).update(followers = F("followers")-1)
+                    return HttpResponse(json.dumps({"ms":"Takip et","num":followers_num-1}))
+                Following(user = request_user,which_user = user).save()
+                self.oiouof(user = request_user).update(following = F("following")+1)
+                self.oiouof(user = user).update(followers = F("followers")+1)
+                return HttpResponse(json.dumps({"ms":"Takibi bırak","num":followers_num+1}))
+
+
+class UploadppBasedClass(View):
     "kullanıcılar profil resmini  değiştirmeleri için"
-    request_username = request.user.username
-    if request.method == "POST":
-        try:
-            image=request.FILES['u-upload-pp']
-        except:
-            ms.error(request,"Dosya alma sırasında bir sorun oluştu")
-            return HttpResponseRedirect("/"+request_username)
-        with open(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg",'wb+') as destination:
+    oiouof = OtherInformationOfUsers.objects.filter
+    pp_path = os.getcwd()+"/coogger/media/users/pp/pp-{}.jpg"
+    im_size = (350,350)
+    error = "Resim dosyanız alınamadı, güncelle düymesine basarak resmi seçiniz"
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        self.pp_path = self.pp_path.format(request_user.username)
+        request_user = request.user
+        image=request.FILES['u-upload-pp']
+        with open(self.pp_path,'wb+') as destination:
             for chunk in image.chunks():
                 destination.write(chunk)
-        im = Image.open(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg")
-        im.thumbnail((350,350))
-        try: # resim yükleme sırasında bir hata olursa pp = False olacak hata olmaz ise True
-            im.save(os.getcwd()+"/coogger/media/users/pp/pp-"+request_username+".jpg", "JPEG")
-            user_id = User.objects.filter(username = request_username)[0].id
-            OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = True)
-        except:
-            OtherInformationOfUsers.objects.filter(user_id = user_id).update(pp = False)
-        return HttpResponseRedirect("/"+request_username)
-
-def u_topic(request,username,utopic):
-    "kullanıcıların kendi hesaplarında açmış olduğu konulara yönlendirme"
-    user = User.objects.filter(username = username)[0]
-    user_queryset = Content.objects.filter(user = user)
-    if username == user:
-        queryset = user_queryset.filter(content_list = utopic)
-    else:
-        queryset = user_queryset.filter(content_list = utopic,confirmation = True)
-    if not queryset.exists():
-        ms.error(request,"{} adlı kullanıcı nın {} adlı bir içerik listesi yoktur".format(username,utopic))
-        return HttpResponseRedirect("/")
-    info_of_cards = paginator(request,queryset,10)
-    html_head = dict(
-     title = username+" - "+utopic+" | coogger",
-     keywords = username+" "+utopic+","+utopic,
-     description = username+" kullanıcımızın "+utopic+" adlı içerik listesi",
-     author = get_facebook(user),
-    )
-    context = dict(
-        content = info_of_cards,
-        content_user = user,
-        nav_category = [i.content_list for i in user_queryset],
-        nameoftopic = utopic,
-        head = html_head,
-        hmanynotifications = hmanynotifications(request),
-        user_follow = users_web(user),
-        is_follow = is_follow(request,user)
-    )
-    template = "users/user.html"
-    return render(request,template,context)
-
-def about(request,username):
-    try:
-        user = User.objects.filter(username = username)[0]
-    except IndexError:
-        ms.error(request,"{} adı ile bir kullanıcımız yoktur !".format(username))
-        return HttpResponseRedirect("/")
-    query = OtherInformationOfUsers.objects.filter(user = user)[0]
-    if request.user == user: # hesaba giren kendisi ise
-        about  = AboutForm(request.POST or None,instance=query)
-        if about.is_valid(): # ve post isteği ise
-            about_ = about.save(commit = False)
-            about_.user = user
-            about_.save()
-    else:#başkası ise
-        about = query.about
-    queryset = Content.objects.filter(user = user,confirmation = True)
-    html_head = dict(
-     title = username+" hakkımda | coogger",
-     keywords = username+","+username+" hakkımda"+username+"hakkında",
-     description = username + " kimdir ?",
-     author = get_facebook(user),
-    )
-    context = dict(
-        about = about,
-        true_about = True,
-        content_user = user,
-        user_follow = users_web(user),
-        nav_category = [i.content_list for i in queryset],
-        head = html_head,
-        hmanynotifications = hmanynotifications(request),
-        is_follow = is_follow(request,user),
-    )
-    template = "users/user.html"
-    return render(request,template,context)
-
-def following(request):# TODO: bunu bir düzenle allah için
-    if request.method=="POST" and request.is_ajax() and request.user.is_authenticated:
-        which_user = request.POST["which_user"]
-        user = User.objects.filter(username = which_user)[0]
-        if user == request.user:
-            return HttpResponse(None)
-        is_follow = Following.objects.filter(user = request.user,which_user = user)
-        num = OtherInformationOfUsers.objects.filter(user = user)[0]
-        num2 = OtherInformationOfUsers.objects.filter(user = request.user)[0]
-        num_ = num.followers
-        if is_follow.exists():
-            is_follow.delete()
-            num2.following = F("following")-1
-            num2.save()
-            num.followers = F("followers")-1
-            num.save()
-            return HttpResponse(json.dumps({"ms":"Takip et","num":num_-1}))
-        Following(user = request.user,which_user = user).save()
-        num2.following = F("following")+1
-        num2.save()
-        num.followers = F("followers")+1
-        num.save()
-        return HttpResponse(json.dumps({"ms":"Takibi bırak","num":num_+1}))
-    return HttpResponse(None)
+        im = Image.open(self.pp_path)
+        im.thumbnail(im_size)
+        im.save(self.pp_path, "JPEG")
+        self.oiouof(user = request_user).update(pp = True)
+        return HttpResponseRedirect("/"+request_user.username)
 
 def is_follow(request,user):
-    try:
-        is_follow = Following.objects.filter(user = request.user,which_user = user)
-        if is_follow.exists():
-            return "Takibi bırak"
-        return "Takip et"
-    except:
-        return HttpResponse(None)
+    is_follow = Following.objects.filter(user = request.user,which_user = user)
+    if is_follow.exists():
+        return "Takibi bırak"
+    return "Takip et"

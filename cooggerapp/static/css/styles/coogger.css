@@ -73,7 +73,7 @@ input[type="submit"] {
 [default~="bc"] {
   border-color: #0f391d; }
 
-[default~="pm"], [default~="paragraph"], [default~="forminput"] label, [default~="form"] label, [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], cardtime, title {
+[default~="pm"], [default~="paragraph"], [default~="forminput"] label, [default~="form"] label, [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], cardtime, title, .helptext {
   padding: 4px 12px;
   margin: 2px 6px; }
 
@@ -162,7 +162,7 @@ input[type="submit"] {
   @extend [flx~="ai-c"];
   @extend [flx~="jc-c"];*/ }
 
-[flx], [default~="paragraph"], [default~="forminput"] li label, [default~="form"] li label, [default~="form"] p input, [default~="form"] li input, cards, cardtime, title {
+[flx], [default~="paragraph"], [default~="forminput"] li label, [default~="form"] li label, [default~="form"] p input, [default~="form"] li input, cards, cardtime, title, .helptext {
   /* default flex */
   -webkit-display: flex;
   -moz-display: flex;
@@ -1768,7 +1768,7 @@ input[type="submit"] {
 [gnrl~="c-info"], [default~="paragraph"] a {
   color: #85c1e9; }
 
-[gnrl~="c-white"] {
+[gnrl~="c-white"], .helptext {
   color: #fff; }
 
 [gnrl~="c-dark"] {
@@ -1790,7 +1790,7 @@ input[type="submit"] {
 [gnrl~="bg-success"] {
   background-color: #1abc9c; }
 
-[gnrl~="bg-danger"] {
+[gnrl~="bg-danger"], .helptext {
   background-color: #e74c3c; }
 
 [gnrl~="bg-warning"] {
@@ -1887,7 +1887,7 @@ input[type="submit"] {
   -o-border-radius: 2px;
   border-radius: 2px; }
 
-[gnrl~="br-2"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], card, cardtime, title {
+[gnrl~="br-2"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], card, cardtime, title, .helptext {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -2066,9 +2066,6 @@ title {
   right: 6px;
   opacity: 0;
   height: 188px; }
-
-.helptext {
-  display: none; }
 
 .upshow {
   height: 188px;
@@ -2293,5 +2290,28 @@ ckeditör
   opacity: 0.5; }
 
 /* genel özelikler */
+/* vietnamese */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Quicksand Regular"), local("Quicksand-Regular"), url(https://fonts.gstatic.com/s/quicksand/v7/NUrn2XQrRfyGZp5MknntaRJtnKITppOI_IvcXXDNrsc.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB; }
+/* latin-ext */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Quicksand Regular"), local("Quicksand-Regular"), url(https://fonts.gstatic.com/s/quicksand/v7/s2PXW4WrV3VLrOUpHiqsfRJtnKITppOI_IvcXXDNrsc.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+/* latin */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Quicksand Regular"), local("Quicksand-Regular"), url(https://fonts.gstatic.com/s/quicksand/v7/sKd0EMYPAh5PYCRKSryvW1tXRa8TVwTICgirnJhmVJw.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215; }
+[font~="quicksand"] {
+  font-family: 'Quicksand', sans-serif; }
 
 /*# sourceMappingURL=coogger.css.map */
