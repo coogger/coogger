@@ -4,20 +4,19 @@
 <div gnrl="bg-white">
 <div gnrl="bg-white br-2" default="pm media" flx="jc-c ai-c fd-c">
   {% include "home/logo.html" %}
-  <div flx="jc-c" default="pm" gnrl="bg-info br-2 c-white">
+  <div flx="jc-c" gnrl="bg-info br-2 c-white"  style="padding: 3px 6px;">
     Bilgi paylaşım ağına hoşgeldiniz
   </div>
-  <ul>
-    <form flx="fd-c" default="form" action="{% url 'signup' %}" method="post">
-      {% csrf_token %}
-      {{ UserForm.as_ul }}
-      <li>
-        <label for="confirm">Parola onay</label>
-        <input id="confirm" type="password" name="Confirm" value="">
-      </li>
-      <input  flx="as-c"  type="submit" value="Kayıt ol">
-    </form>
-  </ul>
+  <form flx="fd-c" default="form media" action="{% url 'signup' %}"
+  method="post" style="padding: 3px 6px;margin: 6px 0px;">
+  {% csrf_token %}
+  {{ UserForm.as_ul }}
+  <li>
+    <label for="confirm">Parola onay</label>
+    <input id="confirm" type="password" name="Confirm" value="">
+  </li>
+  <input  flx="as-c"  type="submit" value="Kayıt ol">
+</form>
 </div>
 <div flx="jc-c" default="pm media" hvr="c-white bg-dark" gnrl="bg-secondary br-2 c-muted b-1">
   Kayıt Ol butonuna tıkladığında

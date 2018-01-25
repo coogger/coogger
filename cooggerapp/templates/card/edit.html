@@ -4,32 +4,25 @@
   <div class="beborder"></div>
   <div class="beborderb"></div>
 </div>
-<div gnrl="bg-success br-2" class="b-edit">
-  <div class="b-edit-panel data-edit-id-{{ ct.id }}" flx="ai-c jc-c as-c" default="pm" >
-    <ul default="pm">
-      {% if ct.user == request.user or request.user.is_superuser %}
-      <li>
-        <a gnrl="br-2" default="pm" hvr-a="bg-primary" href="{% url 'change' ct.id  %}" flx="ai-c">
-          <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
-          <div default="m" gnrl="txt-m">Düzenle</div>
-        </a>
-      </li>
-      <li>
-       <div gnrl="br-2" style="cursor:pointer;" default="pm" hvr-a="bg-danger" class="delete" data-post-id="{{ct.id}}" flx="ai-c">
-         <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
-         <div default="m" gnrl="txt-m c-white">Sil</div>
-       </div>
-      </li>
-      {% endif %}
-      {% if ct.user != request.user and not request.user.is_superuser %}
-      <li>
-        <div class="report" data-content-id="{{ ct.id }}" style="cursor:pointer;" gnrl="br-2" default="pm" hvr-a="bg-private" flx="ai-c">
-          <i gnrl="c-white" class="fa fa-flag fa-2x" aria-hidden="true"></i>
-          <div default="m" gnrl="txt-m c-white">Bildir</div>
-        </div>
-      </li>
-      {% endif %}
-    </ul>
+<div flx="jc-c ai-c" gnrl="bg-success br-2" class="b-edit-panel data-edit-id-{{ ct.id }}">
+  {% if ct.user == request.user or request.user.is_superuser %}
+  <a flx="jc-c ai-c" gnrl="br-2" hvr-a="bg-primary" href="{% url 'change' ct.id  %}"
+  flx="ai-c" style="height: 50%;">
+    <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
+    <div gnrl="txt-m" style="margin-left:6px;">Düzenle</div>
+  </a>
+  <div flx="jc-c ai-c" gnrl="br-2" hvr-a="bg-danger"
+  class="delete" data-post-id="{{ct.id}}" flx="ai-c" style="height: 50%;cursor:pointer;">
+    <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
+    <div gnrl="txt-m c-white" style="margin-left:6px;">Sil</div>
   </div>
+  {% endif %}
+  {% if ct.user != request.user and not request.user.is_superuser %}
+  <div flx="jc-c ai-c" gnrl="br-2" class="report" data-content-id="{{ ct.id }}"
+   hvr-a="bg-private" flx="ai-c" style="height: 100%;cursor:pointer;">
+    <i gnrl="c-white" class="fa fa-flag fa-2x" aria-hidden="true"></i>
+    <div gnrl="txt-m c-white" style="margin-left:6px;">Bildir</div>
+  </div>
+  {% endif %}
 </div>
 {% endif %}

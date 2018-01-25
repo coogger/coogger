@@ -27,12 +27,12 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
 
 class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    content_list = models.SlugField(default = "coogger",max_length=30,verbose_name ="Konu başlığınız")
-    title = models.CharField(max_length=100, verbose_name = "Başlık")
+    content_list = models.SlugField(default = "coogger",max_length=30,verbose_name ="Konu başlığınız",help_text = "İçeriğiniz belirli bir konu etrafında birden fazla olacak ise anlatacağınız konuyu yazın")
+    title = models.CharField(max_length=100, verbose_name = "Başlık", help_text = "İçeriğiniz ile alakalı en güzel başlığı seçtiğinizden emin olun.")
     url = models.CharField(unique = True, max_length=200, verbose_name = "web adresi") # blogun url adresi
     content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda
-    show = models.CharField(max_length=400, verbose_name = "İçeriğinizin tanımı")
-    tag = models.CharField(max_length=200, verbose_name = "Anahtar kelimeler") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    show = models.CharField(max_length=400, verbose_name = "İçeriğinizin tanımı",help_text = "Okuyucularınıza içerik hakkında kısaca bilgi verin.")
+    tag = models.CharField(max_length=200, verbose_name = "Anahtar kelimeler",help_text = "anahtar kelimelerinizi virgül kullanarak yazın.") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="tarih") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
     views = models.IntegerField(default = 0, verbose_name = "görüntülenme sayısı") # görütülenme sayısını kayıt eder
@@ -97,9 +97,9 @@ class Author(models.Model): # yazarlık bilgileri
     sex = models.CharField(choices = choices_sex,max_length=6,verbose_name="cinsiyet")
     county = models.CharField(choices = choices_country,max_length=50,verbose_name="memleket")
     old = models.CharField(choices = choices_old,verbose_name="doğum tarihin",max_length=4)
-    university = models.CharField(null=True,choices = choices_university,verbose_name="üniversite",max_length=100)
-    jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30) # boş olamaz uni yazmamış ise öğrenci olarak seçer
-    phone = models.IntegerField(blank=True, null=True,unique = True,verbose_name = "telefon numarası")
+    university = models.CharField(blank=True, null=True,choices = choices_university,verbose_name="üniversite",max_length=100, help_text = "Zorunlu değildir.")
+    jop = models.CharField(null=True,choices = choices_jop,verbose_name="meslek",max_length=30)
+    phone = models.IntegerField(blank=True, null=True,unique = True,verbose_name = "telefon numarası", help_text = "Zorunlu alan değildir fakat telefon numaranızı vermeniz daha iyi olacaktır.")
 
     def save(self,*args,**kwargs):
         OtherInformationOfUsers.objects.filter(user = self.user).update(author = True)

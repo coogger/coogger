@@ -1,4 +1,10 @@
-<a default="pm" flx="flx-1 jc-c" href="/" style="color:#0f391d">
-  <img src="/static/media/favicon.png" width="80px" height="80px" class="logoimg">
-  <span default="pm" flx="ai-c">{{ content_user  }}</span><span flx="ai-c" style="color:#D41030"> | V1</span>
+<a flx="jc-c ai-c" gnrl="c-private" hvr-animation="blink-i" href="/" style="margin:auto;">
+  {% with logo_char=content_user|truncatechars:4|cut:"." %}
+  <span flx="ai-c" style="font-size: 60px;">
+    {{ logo_char|upper }}
+    <span gnrl="txt-m">
+      {{ content_user|cut:logo_char  }}<span gnrl="c-danger txt-m"> | V1</span>
+    </span>
+  </span>
+  {% endwith %}
 </a>

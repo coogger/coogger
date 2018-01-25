@@ -1,16 +1,16 @@
 <header gnrl="bg-private" flx="jc-c">
-  <div default="pm" flx="fw-nw ai-c" style="overflow-x: auto;">
+  <div flx="fw-nw ai-c" style="overflow-x: auto;">
     {% if not request.user.is_authenticated %}
-    <div default="pm">
+    <div>
       <a flx="" flx hvr="c-primary" href="{% url 'signup' %}" gnrl="wmax">Kayıt olun / Yazar olun</a>
     </div>
-    <div default="pm" >
+    <div >
       <a flx="" hvr="c-primary" href="{% url 'login' %}" gnrl="wmax">Giriş yapın</a>
     </div>
     {% else%}
     <div>
       <a flx="" hvr="c-primary" href="/{{ request.user }}" gnrl="wmax">
-        <span default="pm" >{{ request.user }}</span>
+        <span flx="ai-c">{{ request.user }}</span>
         {% if request.user.otherinformationofusers.pp %}
         <img src="/media/users/pp/pp-{{ request.user }}.jpg" class="headeruserimg" alt="{{ request.user }} | coogger" width="30px" height="30px" gnrl="br-circle b-1 brc-white">
         {% else %}
@@ -18,53 +18,51 @@
         {% endif %}
       </a>
     </div>
-    <div  default="pm" >
+    <div  >
       <a flx="" hvr="c-primary" href="{% url 'followingcontent' %}" gnrl="wmax">
-        <span default="m">Takipler</span><i flx="as-c" class="fa fa-users" aria-hidden="true"></i>
+        <span>Takipler</span><i flx="as-c" class="fa fa-users" aria-hidden="true"></i>
       </a>
     </div>
     {% if request.user.otherinformationofusers.is_author %}
-    <div default="pm" >
+    <div >
       <a flx="" hvr="c-primary" href="{% url 'create' %}" gnrl="wmax">
-        <span default="m">İçerik oluştur</span><i flx="as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
+        <span>İçerik oluştur</span><i flx="as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
       </a>
     </div>
     {% endif %}
     {% if not request.user.otherinformationofusers.author %}
-    <div default="pm" >
+    <div >
       <a flx="" hvr="c-primary" href="{% url 'signup_author' %}" gnrl="wmax">
-        <span default="m">Yazarlık başvurusu</span>
+        <span>Yazarlık başvurusu</span>
       </a>
     </div>
     {% endif %}
-    <div default="pm" >
+    <div >
       <a flx="" hvr="c-primary" href="{% url 'settings' %}" gnrl="wmax">
-        <span default="m">Ayarlar</span><i flx="as-c" class="fa fa-cog" aria-hidden="true"></i>
+        <span>Ayarlar</span><i flx="as-c" class="fa fa-cog" aria-hidden="true"></i>
       </a>
     </div>
-    <div  default="pm" >
+    <div  >
       <a flx="" hvr="c-primary" href="{% url 'notification' %}" gnrl="wmax">
-        <span default="m">{{ hmanynotifications }}</span><i flx="as-c" class="fa fa-bell-o" aria-hidden="true"></i>
+        <span>{{ hmanynotifications }}</span><i flx="as-c" class="fa fa-bell-o" aria-hidden="true"></i>
       </a>
     </div>
-    <div default="pm" >
+    <div >
       <a flx="" hvr="c-danger" href="{% url 'logout' %}" gnrl="wmax">
-        <span default="m">Çıkış</span><i flx="as-c" class="fa fa-sign-out" aria-hidden="true"></i>
+        <span>Çıkış</span><i flx="as-c" class="fa fa-sign-out" aria-hidden="true"></i>
       </a>
     </div>
     {% endif %}
     {% if request.user.is_superuser %}
-    <div  default="pm" >
+    <div  >
       <a flx="" hvr="c-primary" href="/web/admin/" gnrl="wmax">
-        <span default="m">admin</span>
+        <span>admin</span>
       </a>
     </div>
     {% endif %}
   </div>
 </header>
-<div default="pm">
-  <form default="form media" flx="jc-c" action="{% url 'search' %}">
-    <input type="text" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2"/>
-    <input type="submit" value="Ara"/>
-  </form>
-</div>
+<form default="form media" flx="jc-c" action="{% url 'search' %}">
+  <input type="text" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2"/>
+  <input type="submit" value="Ara"/>
+</form>

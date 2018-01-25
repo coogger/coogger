@@ -50,7 +50,7 @@ class DetailBasedClass(TemplateView):
         context["head"] = html_head(queryset)
         context["content_user"] = content_user
         context["nav_category"] = nav_category
-        context["nameoftopic"] = queryset.title
+        context["urloftopic"] = queryset.url
         context["nameoflist"] = utopic
         context["content"] = info_of_cards
         context["detail"] = queryset
@@ -79,16 +79,16 @@ class DetailBasedClass(TemplateView):
 class CommentBasedClass(View):
 
     @method_decorator(login_required)
-    def post(self, request,content_path, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         if request.is_ajax():
-            user = request.user
+            request_user = request.user
             comment = request.POST["comment"]
+            content_path = request.POST["content_path"]
             if comment:
-                content = Content.objects.filter(url = content_path)[0]
-                Comment(user=user,comment=comment,content = content).save()
-                content.hmanycomment = F("hmanycomment")+1
-                content.save()
-                if str(content.user) != str(user.username):
-                    Notification(user=content.user,even = 1,content=comment,address = content_path).save()
-                return HttpResponse(json.dumps({"comment": comment,"username":request.user.username}))
+                content = Content.objects.filter(url = content_path)
+                Comment(user = request_user,comment=comment,content = content[0]).save()
+                content.update(hmanycomment = F("hmanycomment")+1)
+                if str(content[0].user) != str(request_user.username):
+                    Notification(user=content[0].user,even = 1,content=comment,address = content_path).save()
+                return HttpResponse(json.dumps({"comment": comment,"username":request_user.username}))
             return HttpResponse(None)

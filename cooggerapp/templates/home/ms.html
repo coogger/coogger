@@ -1,13 +1,11 @@
-<div class="main-messages" style="display:block" gnrl="bg-danger c-white" default="pm" >
-  <div flx="ai-c jc-c">
-    <div gnrl="bg-dark c-white br-2" default="pm" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
+<div class="main-messages close-ms" style="display:block;cursor:pointer" gnrl="bg-danger c-white">
+  <div flx="ai-c jc-c" style="height: 10vh;">
     {% if messages %}
-    <div default="pm" gnrl="txt-m" flx=jc-c>
+    <div gnrl="txt-m" flx=jc-c>
       {% for message in messages %}
-      <div default="pm">{{ message }}</div>
+      <div>{{ message }}</div>
       {% endfor %}
     </div>
     {% endif %}
-    <div gnrl="bg-dark c-white br-2" default="pm" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
   </div>
 </div>

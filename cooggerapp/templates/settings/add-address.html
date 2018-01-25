@@ -1,7 +1,8 @@
 {% include 'settings/home.html' %}
-<div flx="jc-c" gnrl="bg-white br-2" default="pm">
+<div flx="jc-c" default="media" gnrl="bg-white br-2">
   {% include 'settings/set-choices.html' %}
-  <form flx="fd-c" default="form" method="post" action="{% url 'saddaddress' %}">
+  <form flx="fd-c" default="form media" method="post"
+   action="{% url 'saddaddress' %}" style="padding: 3px 6px;">
     {% csrf_token %}
     {{ UserForm.as_p }}
     <input flx="as-c" type="submit" value="Kaydet">
@@ -10,20 +11,21 @@
   <div default="media pm" flx="jc-c as-c" gnrl="bg-dark c-white b-1 br-2">web adresleriniz</div>
   <div flx="fd-c" default="media pm">
     {% for i in instance_ %}
-    <div flx="ai-c jc-fe" default="pm" gnrl="b-1 br-2 brc-muted">
-      <div>{{ i.choices }}</div>
-      <div>
-        {% if i.choices == "web-site" %}
-        <a default="pm" gnrl="bg-2 c-secondary" hvr="c-primary" target="_blank" href="{{ i.adress }}">
-          {{ i.adress}}
-        </a>
+    <div flx="ai-c jc-fe" gnrl="b-1 br-2 brc-muted txt-l" style="padding: 6px 6px;">
+      {{ i.choices }}
+      {% if i.choices == "web-site" %}
+      <a gnrl="bg-2 c-secondary txt-l" hvr="c-primary" target="_blank" href="{{ i.adress }}" style="padding: 6px 16px;">
+        {{ i.adress}}
+      </a>
         {% else %}
-        <a  default="pm" gnrl="bg-2 c-secondary" hvr="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}">
+        <a  gnrl="bg-2 c-secondary txt-l" hvr="c-primary"
+         target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}" style="padding: 6px 16px;">
           {{ i.adress}}
         </a>
         {% endif %}
-      </div>
-      <div flx="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flx="ai-c as-c" default="pm" hvr-a="bg-danger" hvr="c-white" gnrl="b-1 br-2 brc-muted" style="cursor:pointer;">
+      <div flx="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}"
+      flx="ai-c as-c" hvr-a="bg-danger" hvr="c-white" gnrl="b-1 br-2 brc-muted txt-l"
+      style="cursor:pointer;padding: 6px;">
         <i class="fa fa-trash" aria-hidden="true"></i>
       </div>
     </div>
@@ -56,4 +58,3 @@ $(document).ready(function() {
 </script>
 {% endif %}
 </div>
-{% include 'home/footer.html' %}

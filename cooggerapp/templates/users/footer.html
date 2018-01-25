@@ -1,21 +1,27 @@
 {% if user_follow %}
-<div flx="jc-c" default="pm" gnrl="txt-m b-4 brc-white">Diğer web adreslerim</div>
-<footer flx="jc-c" default="pm" gnrl="bg-white br-2 txt-s b-1 brc-white" hvr="c-private">
-  <div flx="fw-nw" default="pm" style="overflow: auto;">
+<div flx gnrl="bg-white">
+  <div flx="jc-c" default="media" gnrl="txt-m b-4 brc-white bg-m">
+    Diğer web adreslerim
+  </div>
+</div>
+<footer flx="jc-c" gnrl="bg-white br-2 txt-s b-1 brc-white" hvr="c-private" style="padding: 6px 0px;">
+  <div flx="fw-nw" style="overflow: auto;">
     {% for follow in user_follow %}
     {% if follow.choices == "web-site" %}
     <div flx>
-      <a default="pm" hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white" target="_blank" href="{{follow.adress}}">
+      <a hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white"
+      target="_blank" href="{{follow.adress}}" style="padding: 3px 6px;">
         <i class="fa fa-globe" aria-hidden="true">
-          <span default="m">{{ follow.choices|cut:"-" }} </span>
+          <span>{{ follow.choices|cut:"-" }} </span>
         </i>
       </a>
     </div>
       {% else %}
       <div flx>
-        <a default="pm" hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}">
+        <a hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white"
+        target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}" style="padding: 3px 6px;">
           <i class="fa fa-{{follow.choices}}" aria-hidden="true">
-            <span default="m" >{{follow.choices}}</span>
+            <span>{{follow.choices}}</span>
           </i>
         </a>
       </div>

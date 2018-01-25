@@ -1,7 +1,8 @@
 {% include 'settings/home.html' %}
-<div flx="jc-c" gnrl="bg-white br-2" default="pm">
+<div flx="jc-c" default="media" gnrl="bg-white br-2">
   {% include 'settings/set-choices.html' %}
-  <form flx="fd-c" default="form" method="post" action="{% url 'saccount' %}">
+  <form flx="fd-c" default="form media" method="post"
+  action="{% url 'saccount' %}" style="padding: 3px 6px;">
     {% csrf_token %}
     <p>
       <label for="Password">Yeni Şifre</label>
@@ -14,4 +15,3 @@
     <input flx="as-c" type="submit" value="Kaydet">
   </form>
 </div>
-{% include 'home/footer.html' %}

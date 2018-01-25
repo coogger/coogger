@@ -38,9 +38,6 @@ h6 {
   font-weight: 300;
   color: #999; }
 
-ul li {
-  list-style-type: none; }
-
 html, body {
   height: 100%;
   width: 100%;
@@ -70,43 +67,9 @@ input[type="submit"] {
 [default~="bg"] {
   background-color: #ececec; }
 
-[default~="bc"] {
-  border-color: #0f391d; }
-
-[default~="pm"], [default~="paragraph"], [default~="forminput"] label, [default~="form"] label, [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], cardtime, title, .helptext {
-  padding: 4px 12px;
-  margin: 2px 6px; }
-
-[default~="p"] {
-  padding: 4px 12px; }
-
-[default~="m"] {
-  margin: 2px 6px; }
-
-[default~="mo"] {
-  margin: auto; }
-
-[default~="po"] {
-  padding: auto; }
-
-/* border özellikler */
-[default~="b"] {
-  -webkit-border: 0px solid;
-  -moz-border: 0px solid;
-  -ms-border: 0px solid;
-  -o-border: 0px solid;
-  border: 0px solid; }
-
-/* border-radius */
-[default~="br"] {
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  -ms-border-radius: 0px;
-  -o-border-radius: 0px;
-  border-radius: 0px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box; }
+[default~="pm"], [default~="forminput"] label, [default~="form"] label, [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, .helptext {
+  padding: 3px 0px;
+  margin: 3px 0px; }
 
 /* diğer default özellikler bunlar tam isimleri ile yazılacaktır */
 [default~="media"], [default~="paragraph"] {
@@ -126,20 +89,24 @@ input[type="submit"] {
       width: 96%; } }
   @media screen and (max-width: 300px) {
     [default~="media"], [default~="paragraph"] {
-      width: 100%; } }
+      width: 98%; } }
 
-[default~="paragraph"] a:hover, [default~="paragraph"] a:focus, [default~="paragraph"] a:active {
-  color: #1abc9c; }
-[default~="paragraph"] li {
-  list-style: unset; }
-[default~="paragraph"] img {
-  max-height: 100%;
-  max-width: 100%; }
+[default~="paragraph"] {
+  padding: 0px 12px;
+  word-wrap: break-word; }
+  [default~="paragraph"] a:hover, [default~="paragraph"] a:focus, [default~="paragraph"] a:active {
+    color: #1abc9c; }
+  [default~="paragraph"] li {
+    list-style: unset; }
+  [default~="paragraph"] img {
+    max-height: 100%;
+    max-width: 100%; }
 
 [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select {
   width: 66%;
   min-width: 200px;
-  min-height: 16px; }
+  min-height: 16px;
+  padding: 4px 12px; }
   [default~="forminput"] input:hover, [default~="form"] input:hover, [default~="forminput"] input:focus, [default~="form"] input:focus, [default~="forminput"] input:active, [default~="form"] input:active, [default~="forminput"] select:hover, [default~="form"] select:hover, [default~="forminput"] select:focus, [default~="form"] select:focus, [default~="forminput"] select:active, [default~="form"] select:active {
     border-color: #99a3a4; }
 [default~="forminput"] input[type="submit"], [default~="form"] input[type="submit"] {
@@ -148,7 +115,8 @@ input[type="submit"] {
   min-width: -ms-fit-content;
   min-width: -o-fit-content;
   min-width: fit-content;
-  margin: 0px 6px; }
+  margin-left: 6px;
+  padding: 4px 12px; }
   [default~="forminput"] input[type="submit"]:hover, [default~="form"] input[type="submit"]:hover, [default~="forminput"] input[type="submit"]:focus, [default~="form"] input[type="submit"]:focus {
     border-color: #1abc9c;
     background-color: #1abc9c;
@@ -161,6 +129,8 @@ input[type="submit"] {
   /*@extend [flx];
   @extend [flx~="ai-c"];
   @extend [flx~="jc-c"];*/ }
+  [default~="form"] li {
+    list-style: none; }
 
 [flx], [default~="paragraph"], [default~="forminput"] li label, [default~="form"] li label, [default~="form"] p input, [default~="form"] li input, cards, cardtime, title, .helptext {
   /* default flex */
@@ -1731,10 +1701,10 @@ input[type="submit"] {
 [gnrl~="txt-xs"] {
   font-size: 8px; }
 
-[gnrl~="txt-s"], cardtime, title {
+[gnrl~="txt-s"], cardtime {
   font-size: 12px; }
 
-[gnrl~="txt-m"], [default~="paragraph"], [default~="forminput"] label, [default~="form"] label, [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select {
+[gnrl~="txt-m"], [default~="paragraph"], [default~="forminput"] label, [default~="form"] label, [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, title {
   font-size: 16px; }
 
 [gnrl~="txt-l"] {
@@ -1887,7 +1857,7 @@ input[type="submit"] {
   -o-border-radius: 2px;
   border-radius: 2px; }
 
-[gnrl~="br-2"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], card, cardtime, title, .helptext {
+[gnrl~="br-2"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], card, .helptext {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -1930,7 +1900,7 @@ input[type="submit"] {
   border-radius: 50%; }
 
 /* border color özelliği */
-[gnrl~="brc-private"], title {
+[gnrl~="brc-private"] {
   -webkit-border-color: #0f391d;
   -moz-border-color: #0f391d;
   -ms-border-color: #0f391d;
@@ -1993,7 +1963,7 @@ input[type="submit"] {
   -o-border-color: #17202a;
   border-color: #17202a; }
 
-[gnrl~="brc-muted"], [default~="paragraph"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], cardtime {
+[gnrl~="brc-muted"], [default~="paragraph"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], cardtime, title {
   -webkit-border-color: #eaecee;
   -moz-border-color: #eaecee;
   -ms-border-color: #eaecee;
@@ -2043,41 +2013,48 @@ input[type="submit"] {
 /* elementler */
 cards {
   position: relative;
-  margin: 26px auto;
-  z-index: 0;
-  padding: 6px; }
+  margin: 12px 0px;
+  z-index: 0; }
 
 card {
-  margin: 6px 6px;
+  margin: 3px;
   width: 280px;
   box-shadow: 0px 1px 2px 1px #c5c5c5;
   position: relative; }
 
+cardtime {
+  padding: 3px 6px; }
+
+header {
+  padding: 6px 0px;
+  margin: 6px 0px; }
+  header div div {
+    padding: 3px 6px; }
+    header div div span {
+      padding: 3px 6px; }
+
 title {
   text-align: center;
-  word-break: break-all; }
+  word-break: break-all;
+  padding: 3px 6px; }
 
 /* sınıflar */
 .duread-main {
   position: absolute;
-  bottom: 38px;
-  z-index: 1;
-  left: 6px;
-  right: 6px;
+  bottom: 26px;
+  z-index: 2;
+  left: 0px;
+  right: 0px;
   opacity: 0;
-  height: 188px; }
+  height: 60%;
+  background-color: #248644; }
 
 .upshow {
-  height: 188px;
-  width: 94%;
+  height: 270px;
+  width: 96%;
   z-index: 2;
   cursor: pointer;
-  margin: auto;
-  margin-bottom: 36px;
-  margin-top: 6px; }
-
-.duread-main {
-  background-color: #248644; }
+  margin: auto; }
 
 .duread-li {
   padding: 4px 0px; }
@@ -2088,16 +2065,17 @@ title {
   width: 96%; }
 
 .content_list {
-  border-bottom: 1px solid #1414144d; }
+  border-bottom: 1px solid #eaecee;
+  padding: 6px; }
 
 .b-edit-point {
-  width: 16px;
+  width: 18px;
   position: absolute;
-  z-index: 3;
+  z-index: 4;
   padding: 6px;
   margin: 6px;
   cursor: pointer;
-  right: 6px; }
+  right: 0px; }
 
 .bebordert {
   border-top: 1px solid #fff;
@@ -2116,7 +2094,13 @@ title {
   top: -2px; }
 
 .b-edit-panel {
-  display: none; }
+  display: none;
+  position: absolute;
+  z-index: 3;
+  left: 0px;
+  right: 0px;
+  height: 100%;
+  background-color: #248644; }
 
 .carduserimg {
   width: 50px;
@@ -2129,8 +2113,8 @@ title {
   width: 132px; }
 
 .useruserimg {
-  max-width: 320px;
-  max-height: 320px; }
+  max-width: 120px;
+  max-height: 120px; }
 
 .comment {
   word-break: break-all; }

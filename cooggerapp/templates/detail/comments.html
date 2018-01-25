@@ -1,34 +1,34 @@
 <div flx="jc-c fd-c" gnrl="bg-white" default="media">
   {% if request.user.is_authenticated %}
-  <div default="pm">
+  <div>
     <form default="form" flx="jc-c">
       <input class="wcomment" type="text" placeholder="Soru sor,veya teşekkür et bir yorum yap" name="comment" maxlength="310">
-      <input type="submit" class="d-comment-sub" value="yorum yap">
+      <input type="submit" class="subcomment" value="yorum yap">
     </form>
   </div>
   {% else %}
-  <div flx="jc-c" gnrl="bg-dark br-2 c-white txt-m" default="pm">
+  <div flx="jc-c" gnrl="bg-dark br-2 c-white txt-m">
     Yazarımıza paylaştığı bilgiler için teşekkür edin, soru sorun veya herhangi bir yorum yapın,
     bunlar için üye olun zaten bir hesabınız varsa giriş yapın
   </div>
   {% endif %}
   <div flx>
-    <div class="d-comments-ul" default="pm">
+    <div class="d-comments-ul">
     {% for com in comment_form %}
-    <div default="pm">
+    <div>
       <div flx="">
         <a href="/{{ com.user}}" title="{{ com.user}}" gnrl="c-dark" flx="ai-c">
           {% if com.user.otherinformationofusers.pp %}
-          <img src="/media/users/pp/pp-{{ com.user }}.jpg" alt="{{ com.user}}" height="60px" width="60px" class="carduserimg" gnrl="br-circle" default="pm">
+          <img src="/media/users/pp/pp-{{ com.user }}.jpg" alt="{{ com.user}}" height="60px" width="60px" class="carduserimg" gnrl="br-circle">
           {% else %}
-          <img src="/static/media/profil.png" alt="{{ com.user}}" height="60px" width="60px" class="carduserimg" gnrl="br-circle" default="pm">
+          <img src="/static/media/profil.png" alt="{{ com.user}}" height="60px" width="60px" class="carduserimg" gnrl="br-circle">
           {% endif %}
           <spam gnrl="c-private">{{ com.user }}
             <span gnrl="txt-s c-dark" flx="as-fe">{{ com.date|timesince }} önce</span>
           </spam>
         </a>
         </div>
-        <div flx="as-fe" gnrl="brc-muted br-2 b-1" default="pm" class="comment"> {{ com.comment }}</div>
+        <div flx="as-fe" gnrl="brc-muted br-2 b-1" class="comment"> {{ com.comment }}</div>
       </div>
       {% endfor %}
     </div>
@@ -37,15 +37,16 @@
 <script>
 $(document).ready(function() {
   // comments
-  $(".d-comment-sub").click(function(event){
-    var comment=$("input[name=comment").val();
+  $(".subcomment").click(function(event){
+    event.preventDefault();
       $.ajax({
-          url: "/web/comment"+window.location.pathname,
+          url: "{% url 'comment' %}",
           method: 'POST',
           dataType: 'json',
           data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            comment:comment,
+            csrfmiddlewaretoken:"{{ csrf_token }}",
+            comment:$("input[name=comment").val(),
+            content_path:"{{ detail.url }}",
           }
       }).done(function (response) {
           // okunan json veriyi, #user idli yere yaz
@@ -55,9 +56,8 @@ $(document).ready(function() {
           {% else %}
           var user_img ="/static/media/profil.png"
           {% endif %}
-          $(".d-comments-ul" ).append("<div default='pm'><div flx=''><a href='/"+response.username+"' gnrl='c-dark' flx='ai-c'><img src='"+user_img+"' style='height: 60px;width: 60px;' gnrl='br-circle' default='pm'><spam gnrl='c-private'>"+response.username+"<span gnrl='txt-s c-dark' flx='as-fe'>1 saniye önce</span></spam></a></div><div flx='as-fe' gnrl='brc-muted br-2 b-1' default='pm' style='word-break: break-all;'>"+response.comment+"</div></div>");});
-      event.preventDefault();
+          $(".d-comments-ul" ).append("<div default='pm'><div flx=''><a href='/"+response.username+"' gnrl='c-dark' flx='ai-c'><img src='"+user_img+"' style='height: 60px;width: 60px;' gnrl='br-circle' default='pm'><spam gnrl='c-private'>"+response.username+"<span gnrl='txt-s c-dark' flx='as-fe'>{% now "j F Y H:i" %} önce</span></spam></a></div><div flx='as-fe' gnrl='brc-muted br-2 b-1' default='pm' style='word-break: break-all;'>"+response.comment+"</div></div>");
+        });
   });
-    // ! comments
-  });
+});
 </script>

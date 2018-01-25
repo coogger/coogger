@@ -44,19 +44,10 @@ $(document).ready(function() {
       var tag = "";
       for (i=0; i < str.length; i++) {
         if (str[i] != ""){
-          tag += '<li class="tag" default="pm" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3"><i class="fa fa-hashtag" aria-hidden="true"></i>'+str[i]+'</li>'
+          tag += '<li style="padding:3px 6px;margin:0px 6px;" class="tag" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3"><i class="fa fa-hashtag" aria-hidden="true"></i>'+str[i]+'</li>'
         }
       }
       $(".tags").html(tag);
-    });
-    $("#id_content_list").each(function() {
-      var str = "";
-      str += $(this).val();
-      str = new String(str);
-      if (str != ""){
-        str = '<li class="tag" default="pm" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3">'+str+'</li>'
-      }
-      $(".list").html(str );
     });
   }
   setInterval(function(){

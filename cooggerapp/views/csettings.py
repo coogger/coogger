@@ -86,7 +86,7 @@ class AddaddessBasedClass(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         instance_ = self.model.objects.filter(user = request.user)
-        user_form = self.form_class(request.GET)
+        user_form = self.form_class(request.GET or None)
         context = dict(
         UserForm = user_form,
         settings = True,
@@ -97,12 +97,11 @@ class AddaddessBasedClass(View):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            user_form = self.form_class(request.POST)
-            if user_form.is_valid():
-                form = user_form.save(commit=False)
-                form.user = request.user
-                form.save()
-                ms.error(request,"Web siteniz eklendi")
-                return HttpResponseRedirect(request.META["PATH_INFO"])
-            return HttpResponse(self.get(request, *args, **kwargs))
+        user_form = self.form_class(request.POST)
+        if user_form.is_valid():
+            form = user_form.save(commit=False)
+            form.user = request.user
+            form.save()
+            ms.error(request,"Web siteniz eklendi")
+            return HttpResponseRedirect(request.META["PATH_INFO"])
+        return HttpResponse(self.get(request, *args, **kwargs))
