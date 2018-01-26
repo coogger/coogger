@@ -50,11 +50,11 @@
   {% endif %}
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}" />
-  <!--yandex
+
   <meta name="yandex-verification" content="d8be2feff15c1e50" />
-  yandex
+
    {% if not request.user.is_superuser %}
-  Global Site Tag (gtag.js) - Google Analytics
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
   <script>
       window.dataLayer = window.dataLayer || [];
@@ -64,11 +64,11 @@
       gtag('js', new Date());
       gtag('config', 'UA-107674954-1');
   </script>
-  <!-- GOOGLE
+
   {% endif %}
   {% if not request.user.is_authenticated %}
   {% if not signup_or_login %}
-  <!-- GOOGLE ads
+
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <script>
   (adsbygoogle = window.adsbygoogle || []).push({
@@ -76,9 +76,9 @@
     enable_page_level_ads: true
   });
   </script>
-  <!-- GOOGLE
+
   {% endif %}
-  {% endif %}-->
+  {% endif %}
   <script src=" {% static 'js/jquery.min.js' %}"></script>
   <script src=" {% static 'js/general.js' %}"></script>
   <link href=" {% static 'css/styles/coogger.css' %}" rel="stylesheet">
