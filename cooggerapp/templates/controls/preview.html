@@ -1,82 +1,82 @@
 <cards>
-<card class="data-post-id-0">
-<div gnrl="bg-dark br-1" class="b-edit-point" data-edit-id="0">
-  <div class="bebordert"></div>
-  <div class="beborder"></div>
-  <div class="beborderb"></div>
-</div>
-<div gnrl="bg-success br-2" class="b-edit">
-  <div class="b-edit-panel data-edit-id-0" flx="ai-c jc-c as-c" style="display: none;">
-    <ul>
-      <li>
-        <a gnrl="br-2" hvr-a="bg-primary" href="#" flx="ai-c">
-          <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
-          <div gnrl="txt-m">Düzenle</div>
-        </a>
-      </li>
-      <li>
-       <div gnrl="br-2" style="cursor:pointer;" hvr-a="bg-danger" data-post-id="0" flx="ai-c">
-         <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
-         <div gnrl="txt-m c-white">Sil</div>
-       </div>
-      </li>
-    </ul>
+
+  <card class="data-post-id-94">
+
+  <div gnrl="bg-dark br-1" class="b-edit-point" data-edit-id="0">
+    <div class="bebordert"></div>
+    <div class="beborder"></div>
+    <div class="beborderb"></div>
   </div>
-</div>
-    <div>
-      <div>
-  <div hvr-a="brc-private" gnrl="b-1 brc-white br-2">
-    <a gnrl="c-dark" href="#" flx="ai-c" hvr-a="c-private">
-      {% if request.user.otherinformationofusers.pp %}
-      <img class="carduserimg" gnrl="br-circle"  alt='{{request.user}}' width="60px" height="60px" src="/media/users/pp/pp-{{ request.user }}.jpg">
-      {% else %}
-      <img class="carduserimg" gnrl="br-circle" alt='{{request.user}}' width="60px" height="60px" src="/static/media/profil.png">
-      {% endif %}
-      <span class="carduser">{{ request.user }}</span>
+  <div flx="jc-c ai-c" gnrl="bg-success br-2" class="b-edit-panel data-edit-id-0">
+
+    <a flx="jc-c ai-c" gnrl="br-2" hvr-a="bg-primary" href="#" style="height: 50%;">
+      <i gnrl="c-white" class="fa fa-edit fa-2x" aria-hidden="true"></i>
+      <div gnrl="txt-m" style="margin-left:6px;">Düzenle</div>
     </a>
+    <div flx="jc-c ai-c" gnrl="br-2" hvr-a="bg-danger" class="delete"
+    data-post-id="0" style="height: 50%;cursor:pointer;">
+      <i gnrl="c-white" class="fa fa-trash fa-2x" aria-hidden="true"></i>
+      <div gnrl="txt-m c-white" style="margin-left:6px;">Sil</div>
+    </div>
+
+
   </div>
-</div>
- <div flx="fd-c">
-  <div flx="jc-fe" class="content_list">
-    <a gnrl="c-dark" href="#" class="list"></a>
-  </div>
-  <div flx="fd-fs fd-c">
-    <a href="#">
-      <img src="/static/media/icons/list.svg">
-    </a>
-  </div>
-  <cardtime>{% now "j F Y H:i" %}</cardtime>
-  <div></div>
-  <a href="#">
-    <title class="cardtitle"></title>
-  </a>
-</div>
-      <div gnrl="unselectable txt-s" flx="jc-c ai-c" class="upshow">
-        <div flx="ai-c" class="show"></div>
-        <a href="#">
-          <div class="duread-main" flx="ai-c" gnrl="br-2" hvr-a="o">
-            <ul flx="fd-c" gnrl="br-2">
-              <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
-                <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
-                <div flx="jc-fe">Okuma süresi 3.3 dakika</div>
-            </li>
-            <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
-              <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
-              <div>Okuma 1</div>
-            </li>
-            <li gnrl="txt-s c-white" flx="ai-c" class="duread-li">
-              <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
-              <div>Yorum 0</div>
-            </li>
-          </ul>
-        </div>
+
+
+      <div gnrl="b-1 brc-white br-2" style="padding: 6px;">
+    <div flx="ai-c">
+      <a gnrl="c-dark txt-m" href="#" flx="ai-c" hvr-a="c-private">
+        {% if request.user.otherinformationofusers.pp %}
+        <img class="carduserimg" gnrl="br-circle"  alt='{{request.user}}' width="60px" height="60px" src="/media/users/pp/pp-{{ request.user }}.jpg">
+        {% else %}
+        <img class="carduserimg" gnrl="br-circle" alt="hakancelik" src="/static/media/profil.png" width="60px" height="60px">
+        {% endif %}
+
+        <span class="carduser" style="margin-left:6px;">{{ request.user }}</span>
       </a>
     </div>
-    <div flx="jc-c ai-fe" class="lasmod">
-      <div flx="jc-c as-fe" gnrl="txt-s br-2 b-1 brc-muted">
-        Son güncelleme | {% now "j F Y H:i" %}
+  </div>
+
+      <div flx="fd-c" gnrl="txt-s">
+    <div flx="jc-fe" class="content_list">
+      <a gnrl="c-dark" href="#">
+        /{{ request.user }}/<span class="list"></span>
+      </a>
+    </div>
+    <div flx="jc-fe" gnrl="br-circle" style="padding: 6px">
+      <a gnrl="c-dark" href="#">
+        /list/<span class="list"></span>
+      </a>
+    </div>
+    <a href="#">
+      <title class="cardtitle"></title>
+    </a>
+  </div>
+
+      <div gnrl="unselectable txt-m" flx="jc-c ai-c" class="upshow">
+        <div flx="ai-c" class="show">
+        </div>
+        <a href="#">
+    <div class="duread-main" flx="ai-c jc-c" hvr-a="o">
+      <div flx="fd-c" gnrl="br-2">
+        <div gnrl="txt-s c-white" flx="ai-c" class="duread-li">
+          <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+          <div style="margin-left: 12px;">Okuma süresi 4.6 dakika</div>
+        </div>
+        <div gnrl="txt-s c-white" flx="ai-c" class="duread-li">
+          <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+          <div style="margin-left: 12px;">Okuma 1</div>
+        </div>
+        <div gnrl="txt-s c-white" flx="ai-c" class="duread-li">
+          <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+          <div style="margin-left: 12px;">Yorum 0</div>
+        </div>
       </div>
     </div>
-  </div>
-</card>
+  </a>
+
+      </div>
+      <cardtime>{% now "j F Y H:i" %} | önce paylaşıldı.</cardtime>
+    </card>
+
 </cards>

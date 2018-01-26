@@ -36,6 +36,12 @@ $(document).ready(function() {
       str += $(this).val();
       $(".show").html(str);
     });
+    $("#id_content_list").each(function() {
+      var str = "";
+      str += $(this).val();
+      $(".list").html(str);
+    });
+    id_content_list
     $("#id_tag").each(function() {
       var str = "";
       str += $(this).val();
