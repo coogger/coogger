@@ -1,4 +1,5 @@
 *.pyc
-coogger_db
+cooggerapp_db
+viewsapp_db
 *.scssc
 *.map
