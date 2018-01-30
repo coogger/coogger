@@ -43,7 +43,7 @@ class CreateBasedClass(View):
             if content_form.is_valid():
                 content_form = content_form.save(commit=False)
                 content_form.user = request_user
-                content_form.confirmation = True
+                content_form.confirmation = False
                 OtherInformationOfUsers.objects.filter(user = request_user).update(hmanycontent = F("hmanycontent") + 1)
                 content_form.save() # hiç hata olmaz ise kayıt etsindiye en sonda
                 return HttpResponseRedirect("/"+content_form.url)
