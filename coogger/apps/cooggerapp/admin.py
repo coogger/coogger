@@ -11,7 +11,7 @@ class ContentAdmin(ModelAdmin):
     list_filter = ["time","confirmation"]
     search_fields = list_
     prepopulated_fields = {"url":("title",)}
-    fields = ("user","confirmation",("content_list"),("title","url"),"content","tag",("views","hmanycomment","dor"))
+    fields = ("user","confirmation",("content_list"),("title","url"),"content","show","tag",("views","hmanycomment","dor"))
 
 
 class NotificationAdmin(ModelAdmin):

@@ -43,11 +43,10 @@ class CreateBasedClass(View):
             if content_form.is_valid():
                 content_form = content_form.save(commit=False)
                 content_form.user = request_user
-                content_form.confirmation = False
+                content_form.confirmation = True
                 OtherInformationOfUsers.objects.filter(user = request_user).update(hmanycontent = F("hmanycontent") + 1)
                 content_form.save() # hiç hata olmaz ise kayıt etsindiye en sonda
                 return HttpResponseRedirect("/"+content_form.url)
-            return HttpResponse(self.get(request, *args, **kwargs))
 
 
 class ChangeBasedClass(View):
@@ -59,6 +58,7 @@ class ChangeBasedClass(View):
         request_user = request.user
         if is_user_author(request):
             queryset = self.really_queryset(request,content_id)
+            queryset = queryset[0]
             old_content_list = queryset.content_list
             content_form = self.form_class(instance=queryset)
             context = dict(
@@ -76,18 +76,13 @@ class ChangeBasedClass(View):
             if content_form.is_valid():
                 content = content_form.save(commit=False)
                 queryset = self.really_queryset(request,content_id)
-                content.user = queryset.user # içeriği yazan kişinin kullanıcı ismi
-                content.time = queryset.time
-                content.confirmation = False
-                content.lastmod = datetime.datetime.now()
-                content.save()
-                return HttpResponseRedirect("/"+content.url)
-            return HttpResponse(self.get(request,content_id, *args, **kwargs))
+                url = content.update(queryset,content)
+                return HttpResponseRedirect("/"+url)
 
     @staticmethod
     def really_queryset(request,content_id):
         if request.user.is_superuser:
-            queryset = Content.objects.filter(id = content_id)[0]
+            queryset = Content.objects.filter(id = content_id)
         else:
-            queryset = Content.objects.filter(user = request.user,id = content_id)[0]
+            queryset = Content.objects.filter(user = request.user,id = content_id)
         return queryset

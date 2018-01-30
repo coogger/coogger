@@ -51,7 +51,6 @@ class ProfileBasedClass(View):
                     pass
             form.save()
             return HttpResponseRedirect(request.META["PATH_INFO"])
-        return HttpResponse(self.get(request, *args, **kwargs))
 
 class AccountBasedClass(View):
     template_name = "settings/account.html"
@@ -104,4 +103,3 @@ class AddaddessBasedClass(View):
             form.save()
             ms.error(request,"Web siteniz eklendi")
             return HttpResponseRedirect(request.META["PATH_INFO"])
-        return HttpResponse(self.get(request, *args, **kwargs))

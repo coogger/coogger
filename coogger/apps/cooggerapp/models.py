@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django.db.models import F
 
 #django 3.
 from ckeditor.fields import RichTextField
@@ -13,6 +14,7 @@ from apps.cooggerapp.choices import *
 #python
 from bs4 import BeautifulSoup
 import random
+import datetime
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -27,7 +29,7 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
 
 class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    content_list = models.SlugField(default = "coogger",max_length=30,verbose_name ="Konu başlığınız",help_text = "İçeriğiniz belirli bir konu etrafında birden fazla olacak ise anlatacağınız konuyu yazın")
+    content_list = models.CharField(default = "coogger",max_length=30,verbose_name ="Konu başlığınız",help_text = "İçeriğiniz belirli bir konu etrafında birden fazla olacak ise anlatacağınız konuyu yazın")
     title = models.CharField(max_length=100, verbose_name = "Başlık", help_text = "İçeriğiniz ile alakalı en güzel başlığı seçtiğinizden emin olun.")
     url = models.CharField(unique = True, max_length=200, verbose_name = "web adresi") # blogun url adresi
     content = RichTextField(verbose_name = "İçeriğinizi yazın")  # yazılan yazılar burda
@@ -63,14 +65,34 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
             else:
                 tags += slugify(i, allow_unicode=True)+","
         self.content_list = list_
-        self.tag  = tags
+        self.tag = tags
         self.dor = self.durationofread(self.content+self.title)
         self.url = str(user)+"/"+str(list_)+"/"+str(title)
+        if self.confirmation == True:
+            self.lastmod = datetime.datetime.now()
+            OtherInformationOfUsers.objects.filter(user = self.user).update(hmanycontent = F("hmanycontent") +1)
         try:
             super(Content, self).save(*args, **kwargs)
         except:
             self.url = self.url + "-" +str(random.randrange(9999))
-            super(Content, self).save(*args, **kwargs)
+            super(Content, self).update(*args, **kwargs)
+
+    def update(self,queryset,content):
+        user = queryset[0].user
+        list_ = slugify(content.content_list.lower(), allow_unicode=True)
+        title = slugify(content.title.lower(), allow_unicode=True)
+        tags = ""
+        tag = content.tag.split(",")
+        for i in tag:
+            if i == tag[-1]:
+                tags += slugify(i, allow_unicode=True)
+            else:
+                tags += slugify(i, allow_unicode=True)+","
+        dor = self.durationofread(content.content+content.title)
+        url = str(user)+"/"+str(list_)+"/"+str(title)
+        queryset.update(lastmod = datetime.datetime.now(), show = content.show,title = title, content_list = list_, tag = tags, dor = dor, url = url, content = content.content, confirmation = False)
+        return url
+
 
 class Following(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)

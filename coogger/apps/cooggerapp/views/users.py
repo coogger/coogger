@@ -139,7 +139,6 @@ class UserAboutBaseClass(View):
                     about_form = about_form.save(commit = False)
                     about_form.user = request.user
                     about_form.save()
-                return HttpResponse(self.get(request, username, *args, **kwargs))
 
 
 class FollowBaseClass(View):

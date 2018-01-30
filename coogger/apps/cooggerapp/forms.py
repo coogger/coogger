@@ -23,7 +23,7 @@ class UserFollowForm(ModelForm):
         model = UserFollow
         fields = ["choices","adress"]
 
-class UserForm(ModelForm):
+class UserSingupForm(ModelForm):
     class Meta:
         model = User
         fields = ["first_name","last_name","username","email","password"]

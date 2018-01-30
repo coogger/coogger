@@ -1,15 +1,16 @@
 #django
 from django.http import *
 from django.shortcuts import render
-from django.contrib.auth.models import User,Permission
-from django.contrib.auth import *
 from django.contrib import messages as ms
+from django.contrib.auth import logout
+from django.contrib.auth.models import User,Permission
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 # class
 from django.views.generic import ListView
 from django.views import View
-from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #models
@@ -19,11 +20,11 @@ from apps.cooggerapp.models import Author,OtherInformationOfUsers
 from apps.cooggerapp.views.tools import is_user_author
 
 #forms
-from apps.cooggerapp.forms import AuthorForm,UserForm
+from apps.cooggerapp.forms import AuthorForm,UserSingupForm
 
 
 class MySignupBasedClass(View):
-    form_class = UserForm
+    form_class = UserSingupForm
     template_name = "signup_or_login/sign.html"
     template_url = "/web/signup"
     title = "Kayıt ol | coogger"
@@ -41,20 +42,23 @@ class MySignupBasedClass(View):
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            sign_form = self.form_class(request.POST or None)
-            if sign_form.is_valid():
-                sign_form = sign_form.save(commit=False)
-                username = sign_form.username
-                if sign_form.password != request.POST["Confirm"]:
-                    ms.error(request,"Şifreler eşleşmedi")
-                    return HttpResponseRedirect(template_url)
-                sign_form.save()
+            username = request.POST["username"]
+            password = request.POST["password"]
+            first_name = request.POST["first_name"]
+            last_name = request.POST["last_name"]
+            email = request.POST["email"]
+            if password != request.POST["Confirm"]:
+                ms.error(request,"Şifreler eşleşmedi")
+                return HttpResponseRedirect(template_url)
+            user = User.objects.create_user(first_name = first_name,last_name = last_name,email = email,username = username,password = password)
+            if user is not None:
                 user = User.objects.filter(username = username)[0]
                 OtherInformationOfUsers(user = user).save()
-                login(request, user)
                 ms.success(request,"Başarılı bir şekilde kayıt oldunuz {}".format(username))
-                return HttpResponseRedirect("/")
-            return HttpResponse(self.get(request, *args, **kwargs))
+                login(request, user)
+            else:
+                ms.success(request,"Bilgiler hatalı veya var olan bir kullanıcı ismi yazdınız")
+            return HttpResponseRedirect("/")
 
 class LoginBasedClass(View):
     template_name = "signup_or_login/login.html"
@@ -73,8 +77,8 @@ class LoginBasedClass(View):
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            username=request.POST["Username"]
-            password=request.POST["Password"]
+            username = request.POST["Username"]
+            password = request.POST["Password"]
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
