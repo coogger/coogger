@@ -25,41 +25,7 @@ $(document).ready(function() {
   $(".lists").click(function(){
     $("nav").toggle("fast");
   });
-  function editor_change(){
-    $("#id_title").each(function() {
-      var str = "";
-      str += $(this).val();
-      $(".cardtitle").html(str);
-    });
-    $("#id_show").each(function() {
-      var str = "";
-      str += $(this).val();
-      $(".show").html(str);
-    });
-    $("#id_content_list").each(function() {
-      var str = "";
-      str += $(this).val();
-      $(".list").html(str);
-    });
-    id_content_list
-    $("#id_tag").each(function() {
-      var str = "";
-      str += $(this).val();
-      str = new String(str);
-      str = str.split(",");
-      var tag = "";
-      for (i=0; i < str.length; i++) {
-        if (str[i] != ""){
-          tag += '<li style="padding:3px 6px;margin:0px 6px;" class="tag" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3"><i class="fa fa-hashtag" aria-hidden="true"></i>'+str[i]+'</li>'
-        }
-      }
-      $(".tags").html(tag);
-    });
-  }
-  setInterval(function(){
-    editor_change();
-  },100);
-
+  
   $(".report").click(function(event){
     var content_id = this.getAttribute("data-content-id");
     $("body").load("/web/report/?content_id="+content_id);

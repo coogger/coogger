@@ -1,4 +1,6 @@
-{% include 'home/head.html' %} {% include 'home/logo.html' %} {% include 'home/header.html' %} {% include 'controls/nav.html' %}
+{% include 'home/head.html' %}
+{% include 'home/logo.html' %}
+{% include 'home/header.html' %} 
 <div gnrl="bg-white br-2" default="media" flx="jc-c ai-c fd-c">
   <form flx="fd-c" default="form" method="post" class="c-create-form" action="{% url 'create' %}" style="padding: 12px 6px;">
       {% csrf_token %}
@@ -14,4 +16,5 @@
 {% include 'controls/preview.html' %}
 {% include 'home/footer.html' %}
 </body>
+ {% include 'controls/js.html' %}
 </html>

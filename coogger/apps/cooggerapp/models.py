@@ -68,9 +68,6 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         self.tag = tags
         self.dor = self.durationofread(self.content+self.title)
         self.url = str(user)+"/"+str(list_)+"/"+str(title)
-        if self.confirmation == True:
-            self.lastmod = datetime.datetime.now()
-            OtherInformationOfUsers.objects.filter(user = self.user).update(hmanycontent = F("hmanycontent") +1)
         try:
             super(Content, self).save(*args, **kwargs)
         except:
@@ -90,7 +87,9 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
                 tags += slugify(i, allow_unicode=True)+","
         dor = self.durationofread(content.content+content.title)
         url = str(user)+"/"+str(list_)+"/"+str(title)
-        queryset.update(lastmod = datetime.datetime.now(), show = content.show,title = title, content_list = list_, tag = tags, dor = dor, url = url, content = content.content, confirmation = False)
+        if queryset[0].confirmation == True: # bu sayede her düzenleme yapıldıgında 1 azalmayacaktır.
+            OtherInformationOfUsers.objects.filter(user = user).update(hmanycontent = F("hmanycontent") -1)
+        queryset.update(lastmod = datetime.datetime.now(), show = content.show,title = content.title, content_list = list_, tag = tags, dor = dor, url = url, content = content.content, confirmation = False)
         return url
 
 

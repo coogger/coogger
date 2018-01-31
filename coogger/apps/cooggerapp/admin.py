@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from apps.cooggerapp.models import *
 
+# python
+import datetime
+
 class ContentAdmin(ModelAdmin):
     list_ = ["user","content_list","title","dor","time","lastmod","views"]
     list_display = list_
@@ -13,6 +16,13 @@ class ContentAdmin(ModelAdmin):
     prepopulated_fields = {"url":("title",)}
     fields = ("user","confirmation",("content_list"),("title","url"),"content","show","tag",("views","hmanycomment","dor"))
 
+    def save_model(self, request, obj, form, change):
+        # admin panelde her düzenleme yapıldıgında 1 artmasın istiyorsan
+        # confirmation'ı true yapmadan düzenlemen gerek.
+        if obj.confirmation == True:
+            obj.lastmod = datetime.datetime.now()
+            OtherInformationOfUsers.objects.filter(user = request.user).update(hmanycontent = F("hmanycontent") +1)
+        super(ContentAdmin, self).save_model(request, obj, form, change)
 
 class NotificationAdmin(ModelAdmin):
     list_ = ["user","even","content","show","address","time"]
@@ -45,14 +55,6 @@ class OtherInformationOfUsersAdmin(StackedInline):
     model = OtherInformationOfUsers
     can_delete = False
     verbose_name_plural = 'kullanıcıların diğer bilgileri'
-    list_filter = ["author","is_author"]
-
-class OtherInformationOfUsersADMIN(ModelAdmin):
-    list_ = ["user","author","is_author","pp","about","following","followers"]
-    list_display = ["user","author","is_author","pp","following","followers"]
-    list_display_links = ["user","author","is_author","pp","following","followers"]
-    list_filter = list_
-    search_fields = list_
 
 class AuthorAdmin(StackedInline):
     model = Author
@@ -65,8 +67,6 @@ class UserAdmin(UserAdmin):
 site.unregister(User)
 
 site.register(User, UserAdmin)
-
-site.register(OtherInformationOfUsers,OtherInformationOfUsersADMIN)
 
 site.register(Content,ContentAdmin)
 
