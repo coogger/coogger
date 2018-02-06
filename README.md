@@ -18,11 +18,7 @@ Use as follows
 ```python
 python manage.py migrate
 
-python manage.py migrate --database views
-
 python manage.py makemigrations cooggerapp
-
-python manage.py makemigrations viewsapp
 
 python manage.py runserver
 
