@@ -16,15 +16,11 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 # cooggerapp models
-from apps.cooggerapp.models import Content,UserFollow,Comment,Notification
-# viewsapp models
-from apps.viewsapp.models import Contentviews
+from apps.cooggerapp.models import Content,UserFollow,Comment,Notification,Contentviews
 
 # cooggerapp views
 from apps.cooggerapp.views.tools import (paginator,html_head,hmanynotifications,users_web,is_user_author)
 from apps.cooggerapp.views.users import is_follow
-#viewsapp views
-from apps.viewsapp.views import up_content_view
 
 #python
 import json
@@ -80,3 +76,15 @@ class CommentBasedClass(View):
                     Notification(user=content[0].user,even = 1,content=comment,address = content_path).save()
                 return HttpResponse(json.dumps({"comment": comment,"username":request_user.username}))
             return HttpResponse(None)
+
+def up_content_view(request,queryset):
+    try:
+        ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
+    except:
+        ip = None
+    if ip is None:
+        return False
+    if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
+        Contentviews(content = queryset,ip = ip).save()
+        queryset.views = F("views") + 1
+        queryset.save()

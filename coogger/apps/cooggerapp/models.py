@@ -156,3 +156,7 @@ class Report(models.Model):
     complaints = models.CharField(choices = choices_reports,max_length=40,verbose_name="şikayet türleri")
     add = models.CharField(blank = True,null = True, max_length = 600,verbose_name = "Daha fazla bilgi vermek istermisin ?")
     date = models.DateTimeField(default = timezone.now)
+
+class Contentviews(models.Model):
+    content = models.ForeignKey(Content ,on_delete=models.CASCADE)
+    ip = models.GenericIPAddressField()

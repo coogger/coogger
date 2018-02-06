@@ -1,10 +1,9 @@
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = [".coogger.com"]
 INSTALLED_APPS = [
-    "apps.viewsapp",
     "apps.cooggerapp",
     "ckeditor",
     'django.contrib.admin',
@@ -45,12 +44,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'coogger/db/cooggerapp_db'),
     },
-    'views': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'coogger/db/viewsapp_db'),
-    },
 }
-DATABASE_APPS_MAPPING = {'viewsapp': 'views'}
+# DATABASE_ROUTERS = []
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
