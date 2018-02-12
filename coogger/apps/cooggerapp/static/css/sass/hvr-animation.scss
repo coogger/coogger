@@ -1,24 +1,97 @@
 [hvr-animation]{
   @include prefixed(animation-duration, $animation-duration);
   @include prefixed(animation-fill-mode, $a-fill-mode);
+  @include prefixed(animation-iteration-count, 1);
 }
-[hvr-animation="rebound"]{
-  &:hover,&:focus,&:active{
-    @include animation(rebound,1);
-  }
+[hvr-animation~="i"]{
+  @include prefixed(animation-iteration-count, infinite);
 }
-[hvr-animation="rebound-i"]{
-  &:hover,&:focus,&:active{
-    @include animation(rebound);
-  }
+[hvr-animation~="c-2"]{
+  @include prefixed(animation-iteration-count, 2);
 }
-[hvr-animation="blink"]{
-  &:hover,&:focus,&:active{
-    @include animation(blink,1);
-  }
+[hvr-animation~="c-3"]{
+  @include prefixed(animation-iteration-count, 3);
 }
-[hvr-animation="blink-i"]{
-  &:hover,&:focus,&:active{
-    @include animation(blink);
-  }
+[hvr-animation~="c-4"]{
+  @include prefixed(animation-iteration-count, 4);
 }
+
+/* animation */
+@include hvr-animation("rebound");
+@include hvr-animation("blink");
+@include hvr-animation("flash");
+@include hvr-animation("pulse");
+@include hvr-animation("rubberBand");
+@include hvr-animation("shake");
+@include hvr-animation("headShake");
+@include hvr-animation("swing");
+@include hvr-animation("tada");
+@include hvr-animation("wobble");
+@include hvr-animation("jello");
+@include hvr-animation("bounceIn");
+@include hvr-animation("bounceInDown");
+@include hvr-animation("bounceInLeft");
+@include hvr-animation("bounceInRight");
+@include hvr-animation("bounceInUp");
+@include hvr-animation("bounceOut");
+@include hvr-animation("bounceOutDown");
+@include hvr-animation("bounceOutLeft");
+@include hvr-animation("bounceOutRight");
+@include hvr-animation("bounceOutUp");
+@include hvr-animation("fadeIn");
+@include hvr-animation("fadeInDown");
+@include hvr-animation("fadeInDownBig");
+@include hvr-animation("fadeInLeft");
+@include hvr-animation("fadeInLeftBig");
+@include hvr-animation("fadeInRight");
+@include hvr-animation("fadeInRightBig");
+@include hvr-animation("fadeInUp");
+@include hvr-animation("fadeInUpBig");
+@include hvr-animation("fadeOut");
+@include hvr-animation("fadeOutDown");
+@include hvr-animation("fadeOutDownBig");
+@include hvr-animation("fadeOutLeft");
+@include hvr-animation("fadeOutLeftBig");
+@include hvr-animation("fadeOutRight");
+@include hvr-animation("fadeOutRightBig");
+@include hvr-animation("fadeOutUp");
+@include hvr-animation("fadeOutUpBig");
+@include hvr-animation("flip");
+@include hvr-animation("flipInX");
+@include hvr-animation("flipInY");
+@include hvr-animation("flipOutX");
+@include hvr-animation("flipOutY");
+@include hvr-animation("lightSpeedIn");
+@include hvr-animation("lightSpeedOut");
+@include hvr-animation("rotateIn");
+@include hvr-animation("rotateInDownLeft");
+@include hvr-animation("rotateInDownRight");
+@include hvr-animation("rotateInUpLeft");
+@include hvr-animation("rotateInUpRight");
+@include hvr-animation("rotateOut");
+@include hvr-animation("rotateOutDownLeft");
+@include hvr-animation("rotateOutDownRight");
+@include hvr-animation("rotateOutUpLeft");
+@include hvr-animation("rotateOutUpRight");
+@include hvr-animation("hinge");
+@include hvr-animation("jackInTheBox");
+@include hvr-animation("rollIn");
+@include hvr-animation("rollOut");
+@include hvr-animation("zoomIn");
+@include hvr-animation("zoomInDown");
+@include hvr-animation("zoomInLeft");
+@include hvr-animation("zoomInRight");
+@include hvr-animation("zoomInUp");
+@include hvr-animation("zoomOut");
+@include hvr-animation("zoomOutDown");
+@include hvr-animation("zoomOutLeft");
+@include hvr-animation("zoomOutRight");
+@include hvr-animation("zoomOutUp");
+@include hvr-animation("slideInDown");
+@include hvr-animation("slideInLeft");
+@include hvr-animation("slideInRight");
+@include hvr-animation("slideInUp");
+@include hvr-animation("slideOutDown");
+@include hvr-animation("slideOutLeft");
+@include hvr-animation("slideOutRight");
+@include hvr-animation("slideOutUp");

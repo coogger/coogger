@@ -1,6 +1,6 @@
-<cards>
+<cards animation="fadeIn">
   {% for ct in content %}
-  <card class="data-post-id-{{ct.id}}">
+  <card class="data-post-id-{{ct.id}}" hvr-animation="pulse">
     {% include "card/edit.html" %}
     {% include "card/userinfo.html" %}
     {% include "card/contentinfo.html" %}

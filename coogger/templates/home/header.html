@@ -1,10 +1,10 @@
 <header gnrl="bg-private" flx="jc-c">
-  <div flx="fw-nw ai-c" style="overflow-x: auto;">
+  <div flx="fw-nw ai-c">
     {% if not request.user.is_authenticated %}
     <div>
-      <a flx="" flx hvr="c-primary" href="{% url 'signup' %}" gnrl="wmax">Kayıt olun / Yazar olun</a>
+      <a flx="" flx hvr="c-primary" href="{% url 'signup' %}" gnrl="wmax">Kayıt olun</a>
     </div>
-    <div >
+    <div>
       <a flx="" hvr="c-primary" href="{% url 'login' %}" gnrl="wmax">Giriş yapın</a>
     </div>
     {% else%}
@@ -47,7 +47,7 @@
         <span>{{ hmanynotifications }}</span><i flx="as-c" class="fa fa-bell-o" aria-hidden="true"></i>
       </a>
     </div>
-    <div >
+    <div hvr-animation="i tada">
       <a flx="" hvr="c-danger" href="{% url 'logout' %}" gnrl="wmax">
         <span>Çıkış</span><i flx="as-c" class="fa fa-sign-out" aria-hidden="true"></i>
       </a>

@@ -1,7 +1,20 @@
 /* hover-animation hem hover hem animation özellikler*/
 [hvr-a]{
-  @include prefixed(animation-duration, $a-duration);
+  @include prefixed(animation-duration, $animation-duration);
   @include prefixed(animation-fill-mode, $a-fill-mode);
+  @include prefixed(animation-iteration-count, 1);
+}
+[hvr-a~="i"]{
+  @include prefixed(animation-iteration-count, infinite);
+}
+[hvr-a~="c-2"]{
+  @include prefixed(animation-iteration-count, 2);
+}
+[hvr-a~="c-3"]{
+  @include prefixed(animation-iteration-count, 3);
+}
+[hvr-a~="c-4"]{
+  @include prefixed(animation-iteration-count, 4);
 }
 @include hvr-a-basic(txt-xs,font-size, 8px);
 @include hvr-a-basic(txt-s,font-size, 12px);
