@@ -6,10 +6,7 @@ class SearchedWords(models.Model):
     hmany = models.IntegerField(default = 1)
 
     def save(self, *args, **kwargs):
-        data_search = SearchedWords.objects.filter(word = self.word)
-        if data_search.exists():
-            data_search = data_search[0]
-            data_search.hmany = F("hmany") + 1
-            data_search.save()
-        else:
+        try:
             super(SearchedWords, self).save(*args, **kwargs)
+        except:
+            SearchedWords.objects.filter(word = self.word).update(hmany = F("hmany") + 1)
