@@ -1,7 +1,7 @@
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hakancelik96/coogger/blob/master/LICENSE.txt)
 
 coogger is an information sharing network that works with multiple applications
-[apps](coogger.com/apps)
+[apps](http://www.coogger.com/apps)
 ====================
 
 + coogger.com, the information sharing platform, is currently available only in Turkish
