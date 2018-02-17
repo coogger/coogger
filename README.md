@@ -17,10 +17,11 @@ Use as follows
 -------
 
 ```python
-python manage.py migrate
-
+python manage.py migrate --database=steemit
+python manage.py migrate --database=default
+python manage.py makemigrations steemitapp
 python manage.py makemigrations cooggerapp
-
+python manage.py migrate
 python manage.py runserver
 
 ```
