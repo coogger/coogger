@@ -22,20 +22,20 @@ from apps.cooggerapp.models import Content,OtherInformationOfUsers,Notification,
 #views
 from apps.cooggerapp.views.tools import paginator,hmanynotifications
 
-class HomeBasedClass(TemplateView):
-    template_name = "card/blogs.html"
+class Home(TemplateView):
+    template_name = "apps/cooggerapp/card/blogs.html"
     pagi = 20
     queryset = Content.objects.filter(confirmation = True)
 
     def get_context_data(self, **kwargs):
-        context = super(HomeBasedClass, self).get_context_data(**kwargs)
+        context = super(Home, self).get_context_data(**kwargs)
         context["content"] = paginator(self.request,self.queryset,self.pagi)
         context["hmanynotifications"] = hmanynotifications(self.request)
         return context
 
 
-class FollowingContentBasedClass(View):
-    template_name = "card/blogs.html"
+class FollowingContent(View):
+    template_name = "apps/cooggerapp/card/blogs.html"
     pagi = 16
 
     @method_decorator(login_required)
@@ -56,29 +56,23 @@ class FollowingContentBasedClass(View):
         return render(request, self.template_name, context)
 
 
-class SearchBasedClass(TemplateView):
-    template_name = "card/blogs.html"
+class Search(TemplateView):
+    template_name = "apps/cooggerapp/card/blogs.html"
     pagi = 20
 
     def get_context_data(self, **kwargs):
         query = self.request.GET["query"].lower()
+        SearchedWords(word = query).save()
         q = Q(title__contains = query) | Q(content_list__contains = query) | Q(tag__contains = query)
         queryset = Content.objects.filter(q,confirmation = True).order_by("-views")
         info_of_cards = paginator(self.request,queryset,self.pagi)
-        data_search = SearchedWords.objects.filter(word = query)
-        if data_search.exists():
-            data_search = data_search[0]
-            data_search.hmany = F("hmany") + 1
-            data_search.save()
-        else:
-            SearchedWords(word = query).save()
-        context = super(SearchBasedClass, self).get_context_data(**kwargs)
+        context = super(Search, self).get_context_data(**kwargs)
         context["content"] = info_of_cards
         return context
 
 
-class NotificationBasedClass(View):
-    template_name = "home/notifications.html"
+class Notification(View):
+    template_name = "apps/cooggerapp/home/notifications.html"
     pagi = 10
 
     @method_decorator(login_required)
@@ -92,10 +86,10 @@ class NotificationBasedClass(View):
         return render(request, self.template_name, context)
 
 
-class ReportBasedClass(View):
+class Report(View):
     form_class = ReportsForm
     initial = {'key': 'value'}
-    template_name = "home/report.html"
+    template_name = "apps/cooggerapp/home/report.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):

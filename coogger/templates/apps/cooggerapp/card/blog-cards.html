@@ -1,0 +1,17 @@
+<cards>
+  {% for ct in content %}
+  <card class="data-post-id-{{ct.id}}" hvr-animation="pulse">
+    {% include "apps/cooggerapp/card/edit.html" %}
+    {% include "apps/cooggerapp/card/userinfo.html" %}
+    {% include "apps/cooggerapp/card/contentinfo.html" %}
+    <div gnrl="unselectable txt-m" flx="jc-c ai-c" class="upshow">
+      <div flx="ai-c">
+        {{ ct.show }}
+      </div>
+      {% include "apps/cooggerapp/card/duread.html" %}
+    </div>
+    <cardtime>{{ ct.time|timesince }} | önce paylaşıldı.</cardtime>
+  </card>
+  {% endfor %}
+</cards>
+{% include "apps/cooggerapp/card/paginator.html" %}

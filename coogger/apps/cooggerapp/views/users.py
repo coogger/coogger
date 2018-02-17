@@ -7,7 +7,6 @@ from django.contrib import messages as ms
 from django.db.models import F
 
 # class
-from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 from django.views import View
 from django.contrib.auth.decorators import login_required
@@ -27,9 +26,9 @@ from PIL import Image
 import os
 import json
 
-class UserBasedClass(TemplateView):
+class UserClassBased(TemplateView):
     "herhangi kullanıcının anasayfası"
-    template_name = "users/user.html"
+    template_name = "apps/cooggerapp/users/user.html"
     pagi = 16
     ctof = Content.objects.filter
     title = "{} | coogger"
@@ -43,7 +42,7 @@ class UserBasedClass(TemplateView):
         else:
             queryset = self.ctof(user = user,confirmation = True)
         info_of_cards = paginator(self.request,queryset,self.pagi)
-        context = super(UserBasedClass, self).get_context_data(**kwargs)
+        context = super(UserClassBased, self).get_context_data(**kwargs)
         nav_category = []
         for i in queryset:
             c_list = i.content_list
@@ -65,13 +64,13 @@ class UserBasedClass(TemplateView):
         return context
 
 
-class UserTopicBasedClass(UserBasedClass):
+class UserTopic(UserClassBased):
     "kullanıcıların konu adresleri"
     keywords = "{} {},{}"
     description = "{} kullanıcımızın {} adlı içerik listesi"
 
     def get_context_data(self, username, utopic, **kwargs):
-        context = super(UserTopicBasedClass, self).get_context_data(username,**kwargs)
+        context = super(UserTopic, self).get_context_data(username,**kwargs)
         user = context["content_user"]
         user_queryset = self.ctof(user = user)
         if username == self.request.user.username:
@@ -93,7 +92,7 @@ class UserTopicBasedClass(UserBasedClass):
 
 
 class UserAboutBaseClass(View):
-    template_name = "users/user.html"
+    template_name = "apps/cooggerapp/users/user.html"
     form_class = AboutForm
     oiouof = OtherInformationOfUsers.objects.filter
     title = "{} hakkında | coogger"
@@ -164,7 +163,7 @@ class FollowBaseClass(View):
                 return HttpResponse(json.dumps({"ms":"Takibi bırak","num":followers_num+1}))
 
 
-class UploadppBasedClass(View):
+class Uploadpp(View):
     "kullanıcılar profil resmini  değiştirmeleri için"
     oiouof = OtherInformationOfUsers.objects.filter
     pp_path = os.getcwd()+"/coogger/media/users/pp/pp-{}.jpg"

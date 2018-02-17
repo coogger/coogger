@@ -1,0 +1,10 @@
+<div flx="jc-c fd-c">
+  <a flx="as-c" gnrl="c-white bg-private br-2"
+  href='/@{{ detail.user }}/{{ detail.content_list }}' style="padding: 3px 6px;">
+  coogger.com/@{{ detail.user }}/{{ detail.content_list }}
+  </a>
+  <a flx="as-c" gnrl="c-white bg-success br-2"
+  href="{% url 'cooggerapp-list' detail.content_list  %}" style="padding: 3px 6px;margin-top: 6px;">
+    coogger.com{% url 'cooggerapp-list' detail.content_list  %}
+  </a>
+</div>

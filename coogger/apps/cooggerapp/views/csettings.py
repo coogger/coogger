@@ -23,9 +23,9 @@ from apps.cooggerapp.forms import CSettingsUserForm,UserFollowForm
 import os
 
 
-class ProfileBasedClass(View):
+class Profile(View):
     form_class = CSettingsUserForm
-    template_name = "settings/profile.html"
+    template_name = "apps/cooggerapp/settings/profile.html"
     pp_path = os.getcwd()+"/coogger/media/users/pp/pp-{}.jpg"
 
     @method_decorator(login_required)
@@ -52,8 +52,8 @@ class ProfileBasedClass(View):
             form.save()
             return HttpResponseRedirect(request.META["PATH_INFO"])
 
-class AccountBasedClass(View):
-    template_name = "settings/account.html"
+class Account(View):
+    template_name = "apps/cooggerapp/settings/account.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -77,10 +77,10 @@ class AccountBasedClass(View):
                 ms.error(request,"Şifreler eşleşmedi")
                 return HttpResponseRedirect("/settings/account")
 
-class AddaddessBasedClass(View):
+class Addaddess(View):
     form_class = UserFollowForm
     model = UserFollow
-    template_name = "settings/add-address.html"
+    template_name = "apps/cooggerapp/settings/add-address.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):

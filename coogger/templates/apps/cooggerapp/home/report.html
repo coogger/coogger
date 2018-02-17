@@ -1,0 +1,8 @@
+<div flx="jc-c ai-c" gnrl="bg-muted br-2" style="height:100vh;">
+  <form gnrl="b-1 br-2 brc-danger" default="form" flx="fd-c" method="post" action="{% url 'cooggerapp-report' %}">
+    {% csrf_token %}
+    {{ report_form.as_p }}
+    <input name="content_id" value="{{ content_id }}" style="display:none;">
+    <input flx="as-c" type="submit" value="Bildir">
+  </form>
+</div>

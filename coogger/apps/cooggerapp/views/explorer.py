@@ -16,8 +16,8 @@ from apps.cooggerapp.models import Content
 #views
 from apps.cooggerapp.views.tools import paginator,hmanynotifications
 
-class HashtagBasedClass(TemplateView):
-    template_name = "card/blogs.html"
+class Hashtag(TemplateView):
+    template_name = "apps/cooggerapp/card/blogs.html"
     ctof = Content.objects.filter
     pagi = 10
     info = "konu etiketi"
@@ -26,7 +26,7 @@ class HashtagBasedClass(TemplateView):
         if hashtag != "":
             queryset = self.ctof(tag__contains = hashtag, confirmation = True)
             info_of_cards = paginator(self.request,queryset,self.pagi)
-            context = super(HashtagBasedClass, self).get_context_data(**kwargs)
+            context = super(Hashtag, self).get_context_data(**kwargs)
             html_head = dict(
              title = hashtag+" | coogger",
              keywords = hashtag,
@@ -38,11 +38,11 @@ class HashtagBasedClass(TemplateView):
             context["hmanynotifications"] = hmanynotifications(self.request)
             return context
 
-class UserlistBasedClass(HashtagBasedClass):
-    template = "card/blogs.html"
+class Userlist(Hashtag):
+    template = "apps/cooggerapp/card/blogs.html"
     info = "liste"
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
             queryset = self.ctof(content_list = list_, confirmation = True)
-            return super(UserlistBasedClass, self).get_context_data(list_,**kwargs)
+            return super(Userlist, self).get_context_data(list_,**kwargs)

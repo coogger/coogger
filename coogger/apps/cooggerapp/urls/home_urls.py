@@ -4,9 +4,9 @@ from django.conf.urls import url
 from apps.cooggerapp.views import home
 
 urlpatterns = [
-    url(r'^$', home.HomeBasedClass.as_view(),name = "home"),
-    url(r'^web/search/$',home.SearchBasedClass.as_view(),name = "search"),
-    url(r'^web/report/$',home.ReportBasedClass.as_view(),name = "report"),
-    url(r'^web/notification/$',home.NotificationBasedClass.as_view(),name = "notification"),
-    url(r"^web/following/content/$",home.FollowingContentBasedClass.as_view(),name="followingcontent"),
+    url(r'^$', home.Home.as_view(),name = "cooggerapp-home"),
+    url(r'^web/search/$',home.Search.as_view(),name = "cooggerapp-search"),
+    url(r'^web/report/$',home.Report.as_view(),name = "cooggerapp-report"),
+    url(r'^web/notification/$',home.Notification.as_view(),name = "cooggerapp-notification"),
+    url(r"^web/following/content/$",home.FollowingContent.as_view(),name="cooggerapp-followingcontent"),
     ]

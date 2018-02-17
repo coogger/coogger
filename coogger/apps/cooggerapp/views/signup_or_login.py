@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 # class
-from django.views.generic import ListView
+#from django.views.generic import ListView
 from django.views import View
 from django.utils.decorators import method_decorator
 
@@ -23,9 +23,9 @@ from apps.cooggerapp.views.tools import is_user_author
 from apps.cooggerapp.forms import AuthorForm,UserSingupForm
 
 
-class MySignupBasedClass(View):
+class MySignup(View):
     form_class = UserSingupForm
-    template_name = "signup_or_login/sign.html"
+    template_name = "apps/cooggerapp/signup_or_login/sign.html"
     template_url = "/web/signup"
     title = "Kayıt ol | coogger"
     keywords = "Kayıt ol,coogger kayıt ol,coogger kaydol"
@@ -60,8 +60,8 @@ class MySignupBasedClass(View):
                 ms.success(request,"Bilgiler hatalı veya var olan bir kullanıcı ismi yazdınız")
             return HttpResponseRedirect("/")
 
-class LoginBasedClass(View):
-    template_name = "signup_or_login/login.html"
+class Login(View):
+    template_name = "apps/cooggerapp/signup_or_login/login.html"
     template_url = "accounts/login/"
     title = "coogger | Giriş yap"
     keywords = "coogger giriş yap"
@@ -86,7 +86,7 @@ class LoginBasedClass(View):
             ms.warning(request,"Böyle bir kullanıcı bulunmamakta, lütfen şifrenizi ve kullanıcı adınızı kontrol ediniz")
             return HttpResponseRedirect(self.template_url)
 
-class LogoutBasedClass(View):
+class Logout(View):
     error = "Çıkış yapılırken beklenmedik hata oluştur"
     success = "Tekrar görüşmek üzere {}"
 
@@ -96,7 +96,7 @@ class LogoutBasedClass(View):
             ms.success(request,self.success.format(request.user.username))
             return HttpResponseRedirect("/")
 
-class SingupAuthorBasedClass(View):
+class SingupAuthor(View):
     form_class = AuthorForm
     template_name = "signup_or_login/signup-blogger.html"
     title = "Yazarlık başvurusu | coogger"

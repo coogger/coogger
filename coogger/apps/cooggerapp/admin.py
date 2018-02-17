@@ -19,9 +19,12 @@ class ContentAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         # admin panelde her düzenleme yapıldıgında 1 artmasın istiyorsan
         # confirmation'ı true yapmadan düzenlemen gerek.
+        obj.lastmod = datetime.datetime.now()
+        oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
         if obj.confirmation == True:
-            obj.lastmod = datetime.datetime.now()
-            OtherInformationOfUsers.objects.filter(user = request.user).update(hmanycontent = F("hmanycontent") +1)
+            oiouof.update(hmanycontent = F("hmanycontent") + 1)
+        elif obj.confirmation == False:
+            oiouof.update(hmanycontent = F("hmanycontent") - 1)
         super(ContentAdmin, self).save_model(request, obj, form, change)
 
 class NotificationAdmin(ModelAdmin):
@@ -41,7 +44,6 @@ class CommentAdmin(ModelAdmin):
     list_ = ["user","content_id","comment"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["user"]
     search_fields = list_
 
 class SearchedWordsAdmin(ModelAdmin):

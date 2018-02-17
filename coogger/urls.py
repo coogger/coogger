@@ -3,7 +3,21 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 
+#views
+from apps.views import Home
+
+# apps mainpage
 urlpatterns = [
+    url(r'^apps/$',Home.as_view(),name="apps-home"),
+]
+
+# steemitapp
+urlpatterns += [
+    url(r"^apps/steemitapp/",include("apps.steemitapp.urls.home_urls")),
+]
+
+# cooggerapp
+urlpatterns += [
     url(r"^",include("apps.cooggerapp.urls.home_urls")), # home
     url(r"^",include("apps.cooggerapp.urls.seo_urls")), # seo
     url(r"^post",include("apps.cooggerapp.urls.controls_urls")), # post
@@ -16,5 +30,6 @@ urlpatterns = [
     url(r"^",include("apps.cooggerapp.urls.detail_urls")), # post detail
     url(r"^",include("apps.cooggerapp.urls.users_urls")), # users en sonda olması gerek
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -1,0 +1,17 @@
+{% include 'apps/cooggerapp/home/head.html' %}
+{% include 'apps/cooggerapp/home/logo.html' %}
+
+<form default="form media" flx="jc-c" action="{% url 'steemitapp-search' %}">
+  <input type="text" placeholder='Type steemit username ..' name="username" maxlength="250" value="{{ request.GET.username }}" gnrl="br-2"/>
+  <input type="submit" value="Ara"/>
+</form>
+
+<div default="media" gnrl="wmax" flx="fd-r ai-b">
+{% if search %}
+{% include 'apps/steemitapp/home/search.html' %}
+{% endif %}
+
+
+</div>
+</body>
+</html>

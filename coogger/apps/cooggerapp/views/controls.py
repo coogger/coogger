@@ -5,7 +5,7 @@ from django.db.models import F
 from django.contrib import messages as ms
 
 # class
-from django.views.generic import ListView
+#from django.views.generic import ListView
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -22,9 +22,9 @@ from apps.cooggerapp.forms import ContentForm
 #python
 import datetime
 
-class CreateBasedClass(View):
+class Create(View):
     form_class = ContentForm
-    template_name = "controls/create.html"
+    template_name = "apps/cooggerapp/controls/create.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -48,9 +48,9 @@ class CreateBasedClass(View):
                 return HttpResponseRedirect("/"+content_form.url)
 
 
-class ChangeBasedClass(View):
+class Change(View):
     form_class = ContentForm
-    template_name = "controls/change.html"
+    template_name = "apps/cooggerapp/controls/change.html"
 
     @method_decorator(login_required)
     def get(self, request, content_id, *args, **kwargs):

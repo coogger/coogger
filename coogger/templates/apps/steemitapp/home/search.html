@@ -1,0 +1,51 @@
+{% if check_username %}{{ check_username }}{% else %}
+
+{% include 'apps/steemitapp/home/follow.html' %}
+
+<!-- price -->
+<cards flx="ai-b fd-c">
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
+To stock market prices
+  </card>
+  {% for p in price %}
+  <card flx="jc-c" style="padding:3px;">
+  {{ p }}
+  </card>
+  {% endfor %}
+</cards>
+
+<!-- payout -->
+<cards flx="ai-b fd-c">
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
+  To learn pending payout
+  </card>
+  {% for p in payout %}
+  <card flx="jc-c" style="padding:3px;">
+  {{ p }}
+  </card>
+  {% endfor %}
+  {% for p in post_payout %}
+    <card flx="jc-c" style="padding:3px;">
+    {{ p }}
+    </card>
+  {% endfor %}
+</cards>
+
+<!-- transfer -->
+<cards flx="ai-b fd-c">
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
+    To learn your money after convert your steem-dollar from blocktrades.us to bitcoin and transferring to koinim.com
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+Total value of money in your account : {{ account }} ₺
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+Total value of pending payout post in your account : {{ total }} ₺
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+Koinim change rate : {{ change_rate }}
+  </card>
+
+</cards>
+
+{% endif %}

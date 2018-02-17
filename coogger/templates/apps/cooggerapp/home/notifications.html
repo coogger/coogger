@@ -1,0 +1,30 @@
+{% include 'apps/cooggerapp/home/head.html' %}
+{% include 'apps/cooggerapp/home/logo.html' %}
+{% include 'apps/cooggerapp/home/header.html' %}
+{% if notifications %}
+<div flx="jc-c">
+  <ul default="media">
+    {% for noti in notifications %}
+        <li flx="" gnrl="brc-muted b-1 br-2">
+          <a gnrl="c-dark" flx="ai-c" href="/{{ noti.address }}">
+            {% if noti.even == 1 %}
+            <img src="/static/media/icons/comments.svg" class="carduserimg" gnrl="br-circle">
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1">İçeriğine bir yorum yapıldı</div>
+            {% elif noti.even == 2 %}
+            <img src="/static/media/icons/star.svg" class="carduserimg" gnrl="br-circle">
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1">İçeriğine yeni bir oy verildi</div>
+            {% elif noti.even == 3 %}
+            <img src="/static/media/topics/checked.svg" class="carduserimg" gnrl="br-circle">
+            <div gnrl="txt-s" flx="as-fs">{{ noti.time|timesince }} önce</div>
+            <div flx="as-fe" gnrl="brc-muted br-2 b-1">Yeni takipçi kazandın</div>
+            {% endif %}
+            <div>{{ noti.content }}</div>
+          </a>
+        </li>
+    {% endfor %}
+  </ul>
+    </div>
+{% endif %}
+{% include 'apps/cooggerapp/home/footer.html' %}

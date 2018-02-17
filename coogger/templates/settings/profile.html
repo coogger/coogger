@@ -1,9 +1,0 @@
-{% include 'settings/home.html' %}
-<div flx="jc-c" default="media" gnrl="bg-white br-2">
-  {% include 'settings/set-choices.html' %}
-  <form flx="fd-c" default="form media" method="post"
-  action="{% url 'sprofile' %}" style="padding: 3px 6px;">{% csrf_token %}
-    {{ CSettingsUserForm.as_p }}
-    <input flx="as-c" type="submit" value="Kaydet">
-  </form>
-</div>

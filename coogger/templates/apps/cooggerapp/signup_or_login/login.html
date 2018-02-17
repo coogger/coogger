@@ -1,0 +1,26 @@
+<!--giriş yapma sayfası-->
+{% load static from staticfiles %}
+{% include 'apps/cooggerapp/home/head.html' %}
+
+<div gnrl="bg-white br-2" flx="jc-c ai-c fd-c" style="height:100vh;">
+{% include "apps/cooggerapp/home/logo.html" %}
+  <div flx="jc-c" gnrl="bg-info br-2 c-white" style="padding: 3px 6px;">
+    Kullanıcı adınızı ve şifrenizi girin
+  </div>
+    <form flx="fd-c" default="form" action="{% url 'cooggerapp-login' %}"
+    method="post" style="padding: 3px 6px;margin: 6px 0px;" >
+      {% csrf_token %}
+      <li>
+        <label >Kullanıcı ismi</label>
+        <input type="text" name="Username" value="">
+      </li>
+      <li>
+        <label >Şifre</label>
+        <input type="password" name="Password" value="">
+      </li>
+      <input flx="as-c" type="submit" value="Giriş yap">
+    </form>
+</div>
+{% include 'apps/cooggerapp/home/footer.html' %}
+</body>
+</html>

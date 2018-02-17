@@ -5,6 +5,7 @@ DEBUG = False
 ALLOWED_HOSTS = [".coogger.com"]
 INSTALLED_APPS = [
     "apps.cooggerapp",
+    "apps.steemitapp",
     "ckeditor",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,8 +45,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'coogger/db/cooggerapp_db'),
     },
+    'steemit': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'coogger/db/steemitapp_db'),
+    },
 }
-# DATABASE_ROUTERS = []
+DATABASE_ROUTERS = ["routing.GeneralRouter"]
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

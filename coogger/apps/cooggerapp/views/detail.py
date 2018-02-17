@@ -27,8 +27,8 @@ import json
 import os
 from bs4 import BeautifulSoup
 
-class DetailBasedClass(TemplateView):
-    template_name = "detail/main_detail.html"
+class Detail(TemplateView):
+    template_name = "apps/cooggerapp/detail/main_detail.html"
     ctof = Content.objects.filter
     pagi = 6
 
@@ -44,7 +44,7 @@ class DetailBasedClass(TemplateView):
         nav_category = self.ctof(user = content_user,content_list = utopic)
         info_of_cards = paginator(self.request,nav_category,self.pagi)
         up_content_view(self.request,queryset) # ip aldık ve okuma sayısını 1 arttırdık
-        context = super(DetailBasedClass, self).get_context_data(**kwargs)
+        context = super(Detail, self).get_context_data(**kwargs)
         context["head"] = html_head(queryset)
         context["content_user"] = content_user
         context["nav_category"] = nav_category
@@ -60,7 +60,7 @@ class DetailBasedClass(TemplateView):
         return context
 
 
-class CommentBasedClass(View):
+class CommentClassBased(View):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):

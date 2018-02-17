@@ -4,8 +4,8 @@ from django.conf.urls import url
 from apps.cooggerapp.views import csettings
 
 urlpatterns = [
-    url(r"^/profile/",csettings.ProfileBasedClass.as_view(),name = "sprofile"),
-    url(r"^/account/",csettings.AccountBasedClass.as_view(),name = "saccount"),
-    url(r"^/add-address/",csettings.AddaddessBasedClass.as_view(),name = "saddaddress"),
-    url(r"^/",csettings.ProfileBasedClass.as_view(),name  ="settings"),
+    url(r"^/profile/",csettings.Profile.as_view(),name = "cooggerapp-sprofile"),
+    url(r"^/account/",csettings.Account.as_view(),name = "cooggerapp-saccount"),
+    url(r"^/add-address/",csettings.Addaddess.as_view(),name = "cooggerapp-saddaddress"),
+    url(r"^/",csettings.Profile.as_view(),name  ="cooggerapp-settings"),
     ]

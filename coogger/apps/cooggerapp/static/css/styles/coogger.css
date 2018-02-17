@@ -1,16 +1,287 @@
 @charset "UTF-8";
-/*  COOGGER.CSS  */
-/* private  settings*/
-/* */
-/* flex default settings */
-/* flex-direction */
-/* flex-wrap */
-/* justify-content */
-/* align-items */
-/* align-content */
-/* color */
-/* animations op */
-/* another settings */
+/* vietnamese */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v7/NUrn2XQrRfyGZp5MknntaRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v7/s2PXW4WrV3VLrOUpHiqsfRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quicksand Regular'), local('Quicksand-Regular'), url(https://fonts.gstatic.com/s/quicksand/v7/sKd0EMYPAh5PYCRKSryvW1tXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+}
+
+[font~="quicksand"]{
+  font-family: 'Quicksand', sans-serif;
+}
+.duread-main {
+  position: absolute;
+  bottom: 0px;
+  z-index: 2;
+  left: 0px;
+  right: 0px;
+  opacity: 0;
+  height: 60%;
+  background-color: #248644;
+}
+header{
+  padding: 6px 0px;
+  margin: 6px 0px;
+  div div{
+    padding: 3px 6px;
+    span{
+      padding: 3px 6px;
+    }
+  }
+}
+.upshow{
+  height: 270px;
+  width: 96%;
+  z-index: 2;
+  cursor: pointer;
+  margin: auto;
+}
+.duread-li{
+  padding: 4px 0px;
+}
+.lasmod{
+  position: absolute;
+  bottom: 6px;
+  width: 96%;
+}
+.content_list{
+  border-bottom: 1px solid #eaecee;
+  padding: 6px;
+}
+.b-edit-point{
+  width: 18px;
+  position: absolute;
+  z-index: 4;
+  padding: 6px;
+  margin: 6px;
+  cursor: pointer;
+  right: 0px;
+}
+.bebordert{
+  border-top: 1px solid #fff;
+  height: 4px;
+}
+.beborder{
+  border: 1px solid #fff;
+  height: 4px;
+}
+.beborderb{
+  border-bottom: 1px solid #fff;
+  height: 4px;
+}
+.b-edit{
+  position: relative;
+  top: -2px;
+}
+.b-edit-panel{
+  display: none;
+  position: absolute;
+  z-index: 3;
+  left: 0px;
+  right: 0px;
+  height: 100%;
+  background-color: #248644;
+}
+.carduserimg{
+  width: 50px;
+  height: 50px;
+}
+.carduser{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 132px;
+}
+.useruserimg{
+  max-width: 120px;
+  max-height: 120px;
+}
+.comment{
+  word-break: break-all;
+}
+.headeruserimg{
+  height: 30px;
+  width: 30px;
+}
+.logoimg{
+  width:80px;
+  border-radius: 50%;
+  height: 80px;
+}
+
+
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+ckeditör
+*/
+
+.hljs {
+  display: block; padding: 0.5em;
+  background: #F0F0F0;
+  overflow-x: auto;
+}
+
+.hljs,
+.hljs-subst,
+.hljs-tag .hljs-title,
+.lisp .hljs-title,
+.clojure .hljs-built_in,
+.nginx .hljs-title {
+  color: black;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-constant,
+.hljs-parent,
+.hljs-tag .hljs-value,
+.hljs-rules .hljs-value,
+.hljs-rules .hljs-value .hljs-number,
+.hljs-preprocessor,
+.hljs-pragma,
+.haml .hljs-symbol,
+.ruby .hljs-symbol,
+.ruby .hljs-symbol .hljs-string,
+.hljs-aggregate,
+.hljs-template_tag,
+.django .hljs-variable,
+.smalltalk .hljs-class,
+.hljs-addition,
+.hljs-flow,
+.hljs-stream,
+.bash .hljs-variable,
+.apache .hljs-tag,
+.apache .hljs-cbracket,
+.tex .hljs-command,
+.tex .hljs-special,
+.erlang_repl .hljs-function_or_atom,
+.asciidoc .hljs-header,
+.markdown .hljs-header,
+.coffeescript .hljs-attribute {
+  color: #800;
+}
+
+.smartquote,
+.hljs-comment,
+.hljs-annotation,
+.hljs-template_comment,
+.diff .hljs-header,
+.hljs-chunk,
+.asciidoc .hljs-blockquote,
+.markdown .hljs-blockquote {
+  color: #888;
+}
+
+.hljs-number,
+.hljs-date,
+.hljs-regexp,
+.hljs-literal,
+.hljs-hexcolor,
+.smalltalk .hljs-symbol,
+.smalltalk .hljs-char,
+.go .hljs-constant,
+.hljs-change,
+.lasso .hljs-variable,
+.makefile .hljs-variable,
+.asciidoc .hljs-bullet,
+.markdown .hljs-bullet,
+.asciidoc .hljs-link_url,
+.markdown .hljs-link_url {
+  color: #080;
+}
+
+.hljs-label,
+.hljs-javadoc,
+.ruby .hljs-string,
+.hljs-decorator,
+.hljs-filter .hljs-argument,
+.hljs-localvars,
+.hljs-array,
+.hljs-attr_selector,
+.hljs-important,
+.hljs-pseudo,
+.hljs-pi,
+.haml .hljs-bullet,
+.hljs-doctype,
+.hljs-deletion,
+.hljs-envvar,
+.hljs-shebang,
+.apache .hljs-sqbracket,
+.nginx .hljs-built_in,
+.tex .hljs-formula,
+.erlang_repl .hljs-reserved,
+.hljs-prompt,
+.asciidoc .hljs-link_label,
+.markdown .hljs-link_label,
+.vhdl .hljs-attribute,
+.clojure .hljs-attribute,
+.asciidoc .hljs-attribute,
+.lasso .hljs-attribute,
+.coffeescript .hljs-property,
+.hljs-phony {
+  color: #88F
+}
+
+.hljs-keyword,
+.hljs-id,
+.hljs-title,
+.hljs-built_in,
+.hljs-aggregate,
+.css .hljs-tag,
+.hljs-javadoctag,
+.hljs-phpdoc,
+.hljs-yardoctag,
+.smalltalk .hljs-class,
+.hljs-winutils,
+.bash .hljs-variable,
+.apache .hljs-tag,
+.go .hljs-typename,
+.tex .hljs-command,
+.asciidoc .hljs-strong,
+.markdown .hljs-strong,
+.hljs-request,
+.hljs-status {
+  font-weight: bold;
+}
+
+.asciidoc .hljs-emphasis,
+.markdown .hljs-emphasis {
+  font-style: italic;
+}
+
+.nginx .hljs-built_in {
+  font-weight: normal;
+}
+
+.coffeescript .javascript,
+.javascript .xml,
+.lasso .markup,
+.tex .hljs-formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .hljs-cdata {
+  opacity: 0.5;
+}
 h1 {
   font-size: 1.5em;
   color: #000; }
@@ -132,7 +403,13 @@ input[type="submit"] {
   [default~="form"] li {
     list-style: none; }
 
-[flx], [default~="paragraph"], [default~="forminput"] li label, [default~="form"] li label, [default~="form"] p input, [default~="form"] li input, cards, cardtime, title, .helptext {
+/* another default settings */
+title {
+  text-align: center;
+  word-break: break-all;
+  padding: 3px 6px; }
+
+[flx], [default~="paragraph"], [default~="forminput"] li label, [default~="form"] li label, [default~="form"] p input, [default~="form"] li input, title, .helptext, cards, cardtime {
   /* default flex */
   -webkit-display: flex;
   -moz-display: flex;
@@ -235,7 +512,7 @@ input[type="submit"] {
   justify-content: flex-start;
   /* justify-content: flex-start | flex-end  |  center |  space-around | space-between;  */ }
 
-[flx~="jc-c"], [default~="paragraph"], [default~="form"] p input, [default~="form"] li input, cards, cardtime, title {
+[flx~="jc-c"], [default~="paragraph"], [default~="form"] p input, [default~="form"] li input, title, cards, cardtime {
   -webkit-justify-content: center;
   -moz-justify-content: center;
   -ms-justify-content: center;
@@ -3797,7 +4074,7 @@ input[type="submit"] {
   background-color: #eaecee; }
 
 /* border */
-[gnrl~="b-1"], [default~="paragraph"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], cardtime, title {
+[gnrl~="b-1"], [default~="paragraph"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], title, cardtime {
   -webkit-border: 1px solid;
   -moz-border: 1px solid;
   -ms-border: 1px solid;
@@ -3875,7 +4152,7 @@ input[type="submit"] {
   -o-border-radius: 2px;
   border-radius: 2px; }
 
-[gnrl~="br-2"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], card, .helptext {
+[gnrl~="br-2"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], .helptext, card {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -3981,7 +4258,7 @@ input[type="submit"] {
   -o-border-color: #17202a;
   border-color: #17202a; }
 
-[gnrl~="brc-muted"], [default~="paragraph"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], cardtime, title {
+[gnrl~="brc-muted"], [default~="paragraph"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], title, cardtime {
   -webkit-border-color: #eaecee;
   -moz-border-color: #eaecee;
   -ms-border-color: #eaecee;
@@ -4027,8 +4304,6 @@ input[type="submit"] {
   user-select: none; }
 
 /* general operations */
-/*  COOGGER.COM EK AYARLAR  */
-/* elementler */
 cards {
   position: relative;
   margin: 12px 0px;
@@ -4042,279 +4317,5 @@ card {
 
 cardtime {
   padding: 3px 6px; }
-
-header {
-  padding: 6px 0px;
-  margin: 6px 0px; }
-  header div div {
-    padding: 3px 6px; }
-    header div div span {
-      padding: 3px 6px; }
-
-title {
-  text-align: center;
-  word-break: break-all;
-  padding: 3px 6px; }
-
-/* s─▒n─▒flar */
-.duread-main {
-  position: absolute;
-  bottom: 0px;
-  z-index: 2;
-  left: 0px;
-  right: 0px;
-  opacity: 0;
-  height: 60%;
-  background-color: #248644; }
-
-.upshow {
-  height: 270px;
-  width: 96%;
-  z-index: 2;
-  cursor: pointer;
-  margin: auto; }
-
-.duread-li {
-  padding: 4px 0px; }
-
-.lasmod {
-  position: absolute;
-  bottom: 6px;
-  width: 96%; }
-
-.content_list {
-  border-bottom: 1px solid #eaecee;
-  padding: 6px; }
-
-.b-edit-point {
-  width: 18px;
-  position: absolute;
-  z-index: 4;
-  padding: 6px;
-  margin: 6px;
-  cursor: pointer;
-  right: 0px; }
-
-.bebordert {
-  border-top: 1px solid #fff;
-  height: 4px; }
-
-.beborder {
-  border: 1px solid #fff;
-  height: 4px; }
-
-.beborderb {
-  border-bottom: 1px solid #fff;
-  height: 4px; }
-
-.b-edit {
-  position: relative;
-  top: -2px; }
-
-.b-edit-panel {
-  display: none;
-  position: absolute;
-  z-index: 3;
-  left: 0px;
-  right: 0px;
-  height: 100%;
-  background-color: #248644; }
-
-.carduserimg {
-  width: 50px;
-  height: 50px; }
-
-.carduser {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: 132px; }
-
-.useruserimg {
-  max-width: 120px;
-  max-height: 120px; }
-
-.comment {
-  word-break: break-all; }
-
-.headeruserimg {
-  height: 30px;
-  width: 30px; }
-
-.logoimg {
-  width: 80px;
-  border-radius: 50%;
-  height: 80px; }
-
-/*
-
-Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
-ckedit├Âr
-*/
-.hljs {
-  display: block;
-  padding: 0.5em;
-  background: #F0F0F0;
-  overflow-x: auto; }
-
-.hljs,
-.hljs-subst,
-.hljs-tag .hljs-title,
-.lisp .hljs-title,
-.clojure .hljs-built_in,
-.nginx .hljs-title {
-  color: black; }
-
-.hljs-string,
-.hljs-title,
-.hljs-constant,
-.hljs-parent,
-.hljs-tag .hljs-value,
-.hljs-rules .hljs-value,
-.hljs-rules .hljs-value .hljs-number,
-.hljs-preprocessor,
-.hljs-pragma,
-.haml .hljs-symbol,
-.ruby .hljs-symbol,
-.ruby .hljs-symbol .hljs-string,
-.hljs-aggregate,
-.hljs-template_tag,
-.django .hljs-variable,
-.smalltalk .hljs-class,
-.hljs-addition,
-.hljs-flow,
-.hljs-stream,
-.bash .hljs-variable,
-.apache .hljs-tag,
-.apache .hljs-cbracket,
-.tex .hljs-command,
-.tex .hljs-special,
-.erlang_repl .hljs-function_or_atom,
-.asciidoc .hljs-header,
-.markdown .hljs-header,
-.coffeescript .hljs-attribute {
-  color: #800; }
-
-.smartquote,
-.hljs-comment,
-.hljs-annotation,
-.hljs-template_comment,
-.diff .hljs-header,
-.hljs-chunk,
-.asciidoc .hljs-blockquote,
-.markdown .hljs-blockquote {
-  color: #888; }
-
-.hljs-number,
-.hljs-date,
-.hljs-regexp,
-.hljs-literal,
-.hljs-hexcolor,
-.smalltalk .hljs-symbol,
-.smalltalk .hljs-char,
-.go .hljs-constant,
-.hljs-change,
-.lasso .hljs-variable,
-.makefile .hljs-variable,
-.asciidoc .hljs-bullet,
-.markdown .hljs-bullet,
-.asciidoc .hljs-link_url,
-.markdown .hljs-link_url {
-  color: #080; }
-
-.hljs-label,
-.hljs-javadoc,
-.ruby .hljs-string,
-.hljs-decorator,
-.hljs-filter .hljs-argument,
-.hljs-localvars,
-.hljs-array,
-.hljs-attr_selector,
-.hljs-important,
-.hljs-pseudo,
-.hljs-pi,
-.haml .hljs-bullet,
-.hljs-doctype,
-.hljs-deletion,
-.hljs-envvar,
-.hljs-shebang,
-.apache .hljs-sqbracket,
-.nginx .hljs-built_in,
-.tex .hljs-formula,
-.erlang_repl .hljs-reserved,
-.hljs-prompt,
-.asciidoc .hljs-link_label,
-.markdown .hljs-link_label,
-.vhdl .hljs-attribute,
-.clojure .hljs-attribute,
-.asciidoc .hljs-attribute,
-.lasso .hljs-attribute,
-.coffeescript .hljs-property,
-.hljs-phony {
-  color: #88F; }
-
-.hljs-keyword,
-.hljs-id,
-.hljs-title,
-.hljs-built_in,
-.hljs-aggregate,
-.css .hljs-tag,
-.hljs-javadoctag,
-.hljs-phpdoc,
-.hljs-yardoctag,
-.smalltalk .hljs-class,
-.hljs-winutils,
-.bash .hljs-variable,
-.apache .hljs-tag,
-.go .hljs-typename,
-.tex .hljs-command,
-.asciidoc .hljs-strong,
-.markdown .hljs-strong,
-.hljs-request,
-.hljs-status {
-  font-weight: bold; }
-
-.asciidoc .hljs-emphasis,
-.markdown .hljs-emphasis {
-  font-style: italic; }
-
-.nginx .hljs-built_in {
-  font-weight: normal; }
-
-.coffeescript .javascript,
-.javascript .xml,
-.lasso .markup,
-.tex .hljs-formula,
-.xml .javascript,
-.xml .vbscript,
-.xml .css,
-.xml .hljs-cdata {
-  opacity: 0.5; }
-
-/* vietnamese */
-@font-face {
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 400;
-  src: local("Quicksand Regular"), local("Quicksand-Regular"), url(https://fonts.gstatic.com/s/quicksand/v7/NUrn2XQrRfyGZp5MknntaRJtnKITppOI_IvcXXDNrsc.woff2) format("woff2");
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB; }
-/* latin-ext */
-@font-face {
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 400;
-  src: local("Quicksand Regular"), local("Quicksand-Regular"), url(https://fonts.gstatic.com/s/quicksand/v7/s2PXW4WrV3VLrOUpHiqsfRJtnKITppOI_IvcXXDNrsc.woff2) format("woff2");
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
-/* latin */
-@font-face {
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 400;
-  src: local("Quicksand Regular"), local("Quicksand-Regular"), url(https://fonts.gstatic.com/s/quicksand/v7/sKd0EMYPAh5PYCRKSryvW1tXRa8TVwTICgirnJhmVJw.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215; }
-[font~="quicksand"] {
-  font-family: 'Quicksand', sans-serif; }
-
-/* bitti */
 
 /*# sourceMappingURL=coogger.css.map */

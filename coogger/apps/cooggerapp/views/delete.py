@@ -18,7 +18,7 @@ from apps.cooggerapp.views.tools import is_user_author
 #python
 import json
 
-class AddressBasedClass(View):
+class Address(View):
     model = UserFollow
 
     @method_decorator(login_required)
@@ -31,7 +31,7 @@ class AddressBasedClass(View):
             return HttpResponse(json.dumps({"status":"ok","ms":"adres silindi"}))
 
 
-class ContentBasedClass(View):
+class Content(View):
     success = "Silme işlemi başarılı"
     error = "hata"
 

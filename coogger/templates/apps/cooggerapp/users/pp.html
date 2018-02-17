@@ -1,0 +1,55 @@
+<div flx="jc-c fd-c ac-c" gnrl="bg-white" style="margin-top: 6px;">
+  <div flx="jc-c" style="margin-top: 12px;">
+    <div flx="fd-c">
+      {% if content_user.otherinformationofusers.pp %}
+      <img alt='{{ content_user  }}' title="{{ content_user  }}" src="/media/users/pp/pp-{{ content_user  }}.jpg" class="useruserimg">
+      {% else %}
+      <img src="/static/media/profil.png" class="useruserimg">
+      {% endif %}
+    </div>
+  </div>
+  <h1 flx="jc-c as-c" gnrl="bg-white br-2 brc-white b-1" hvr-a="brc-private" hvr="c-private">
+    <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">@{{ content_user }}</a>
+  </h1>
+  <div flx="jc-c">
+    <div flx="fd-c" style="margin: 6px;">
+      <div flx="as-c">{{ content_user.otherinformationofusers.hmanycontent }}</div>
+      <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">İçerik</div>
+    </div>
+    <div flx="fd-c" style="margin: 6px;">
+      <div class="follownum" flx="as-c">{{ content_user.otherinformationofusers.followers }}</div>
+      <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Takipçi</div>
+    </div>
+    <div flx="fd-c" style="margin: 6px;">
+      <div flx="as-c">{{ content_user.otherinformationofusers.following }}</div>
+      <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Takip</div>
+    </div>
+  </div>
+  {% if request.user != content_user and request.user.is_authenticated %}
+  <div class="follow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 3px 30px;">
+    <div gnrl="c-white txt-m">
+      {{ is_follow }}
+    </div>
+  </div>
+  {% endif %}
+  {% include 'apps/cooggerapp/users/uploadpp.html' %}
+  <script>
+  $(document).ready(function() {
+    $(".follow").click(function(event){
+      $.ajax({
+        url: "/web/following/",
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          which_user:"{{ content_user  }}",
+        }
+      }).done(function (response) {
+        $(".follow div" ).html(response.ms);
+        $(".follownum" ).html(response.num);
+      });
+      event.preventDefault();
+    });
+  });
+</script>
+</div>
