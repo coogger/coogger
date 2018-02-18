@@ -4,7 +4,7 @@
   <div class="beborder"></div>
   <div class="beborderb"></div>
 </div>
-<div flx="jc-c ai-c" gnrl="bg-success br-2" class="b-edit-panel data-edit-id-{{ ct.id }}">
+<div flx="jc-c ai-c" gnrl="bg-success br-2" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;">
   {% if ct.user == request.user or request.user.is_superuser %}
   <a flx="jc-c ai-c" gnrl="br-2" hvr-a="bg-primary" href="{% url 'cooggerapp-change' ct.id  %}"
   flx="ai-c" style="height: 50%;">

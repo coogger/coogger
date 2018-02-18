@@ -17,7 +17,7 @@ class ContentlistSitemap(Sitemap):
         return Content.objects.filter(content_list = obj.content_list,confirmation = True)[0].lastmod
 
     def location(self,obj):
-        return "/"+str(obj.user)+"/"+str(obj.content_list)
+        return "/@"+str(obj.user)+"/"+str(obj.content_list)
 
 
 class ContentSitemap(Sitemap):
@@ -31,7 +31,7 @@ class ContentSitemap(Sitemap):
         return obj.lastmod
 
     def location(self,obj):
-        return "/"+obj.url
+        return "/@"+obj.url
 
 
 class UsersSitemap(Sitemap):
@@ -48,7 +48,7 @@ class UsersSitemap(Sitemap):
             pass
 
     def location(self,obj):
-        return "/"+obj.username
+        return "/@"+obj.username
 
 def robots(request):
     template = "robots.txt"
