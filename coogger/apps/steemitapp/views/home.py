@@ -18,6 +18,12 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
+        html_head = dict(
+         title = "steemitapp | coogger",
+         keywords = "steem,steemapp,steemit,coogger app,coogger apps,",
+         description = "steemitapp is a coogger application for steemit.com"
+        )
+        context["head"] = html_head
         return context
 
 class Search(Home):
@@ -42,7 +48,14 @@ class Search(Home):
         context["payout"] = payout[1:]
         context["post_payout"] = payout[0]
         context["price"] = bot.price()
-        context["account"] = transfer[0]
-        context["total"] = transfer[1]
-        context["change_rate"] = transfer[2]
+        context["hmany_btc_in_account"] = transfer[0]
+        context["account"] = transfer[1]
+        context["total"] = transfer[2]
+        context["change_rate"] = transfer[3]
+        html_head = dict(
+         title = "{} steemitapp | coogger".format(username),
+         keywords = "{} steemit,steem,steemapp,steemit search,coogger app,coogger apps,".format(username),
+         description = "steemitapp search results of the Steemit user {}'s".format(username)
+        )
+        context["head"] = html_head
         return context

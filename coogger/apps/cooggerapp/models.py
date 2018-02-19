@@ -44,7 +44,7 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
 
     class Meta:
         verbose_name = "content"
-        ordering = ['-time']
+        ordering = ['-lastmod']
 
     def durationofread(self,text):
         reading_speed = 20 # 1 saniyede 20 harf okunursa

@@ -5,11 +5,21 @@ import json
 # bot
 from apps.steemitapp.views.money import Pending
 
-class Koinim:
-    btc_to_try_api = "https://koinim.com/ticker/"
-    r = requests.get(btc_to_try_api).text
-    j = json.loads(r)
-    sell, buy, change_rate = float(j["sell"]),float(j["buy"]),float(j["change_rate"])
+class Koinim():
+
+    def __init__(self):
+        btc_to_try_api = "https://koinim.com/ticker/"
+        r = requests.get(btc_to_try_api).text
+        self.j = json.loads(r)
+
+    def sell(self):
+        return float(self.j["sell"])
+
+    def buy(self):
+        return float(self.j["buy"])
+
+    def change_rate(self):
+        return float(self.j["change_rate"])
 
 class Blocktrades(Pending):
 

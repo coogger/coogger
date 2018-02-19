@@ -45,7 +45,7 @@ class Create(View):
                 content_form.user = request_user
                 content_form.confirmation = False
                 content_form.save()
-                return HttpResponseRedirect("/"+content_form.url)
+                return HttpResponseRedirect("/@"+content_form.url)
 
 
 class Change(View):
@@ -76,7 +76,7 @@ class Change(View):
                 content = content_form.save(commit=False)
                 queryset = self.really_queryset(request,content_id)
                 url = content.update(queryset,content)
-                return HttpResponseRedirect("/"+url)
+                return HttpResponseRedirect("/@"+url)
 
     @staticmethod
     def really_queryset(request,content_id):

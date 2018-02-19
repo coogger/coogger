@@ -78,9 +78,10 @@ class SteemitBot(Text):
 
     def transfer(self):
         b = Blocktrades(self.username)
-        k = Koinim
-        sell = k.sell
-        change_rate = k.change_rate
-        account = Pending.float_to_flot(b.account() * sell)
-        total = Pending.float_to_flot(b.total() * sell)
-        return account, total, change_rate
+        hmany_btc_in_account = b.account()
+        k = Koinim()
+        buy = k.buy()
+        change_rate = k.change_rate()
+        account = Pending.float_to_flot(hmany_btc_in_account * buy)
+        total = Pending.float_to_flot(b.total() * buy)
+        return hmany_btc_in_account,account, total, change_rate
