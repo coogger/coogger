@@ -1,0 +1,34 @@
+<div flx="ai-b jc-c">
+<cards flx="ai-b fd-c">
+    <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
+      Convert SBD from blocktrades.us to koinim.com to TRY
+      <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-sbd-try' %}">
+        <input type="number" placeholder='Enter the amount of sbd ..' name="get_sbd" value="{{ request.GET.get_sbd }}" gnrl="br-2"/>
+        <input type="submit" value="Calculate"/>
+      </form>
+    </card>
+
+</cards>
+<cards flx="ai-b fd-c">
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
+    Convert STEEM from blocktrades.us to koinim.com to TRY
+    <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-steem-try' %}">
+      <input type="number" placeholder='Enter the amount of steem ..' name="get_steem" value="{{ request.GET.get_steem }}" gnrl="br-2"/>
+      <input type="submit" value="Calculate"/>
+    </form>
+  </card>
+</cards>
+</div>
+
+{% if convert_sbd_try or convert_steem_try %}
+<div flx="ai-b jc-c">
+  <cards flx="ai-b fd-c">
+    <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
+      BTC : {{ BTC }}
+    </card>
+    <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
+      TRY : {{ TRY }}
+    </card>
+  </cards>
+</div>
+{% endif %}

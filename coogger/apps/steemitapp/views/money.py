@@ -40,5 +40,5 @@ class Pending:
     def float_to_flot(val):
         val = str(val)
         val = val.split(".")
-        val = val[0]+"."+val[1][:3]
+        val = val[0]+"."+val[1][:6]
         return float(val)

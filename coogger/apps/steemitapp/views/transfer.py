@@ -37,3 +37,10 @@ class Blocktrades(Pending):
         r = requests.get(sbd_to_btc_api).text
         j = json.loads(r)
         return float(j["outputAmount"])
+
+    @staticmethod
+    def amount_of_steem(steem = 1):
+        sbd_to_btc_api = "https://blocktrades.us/api/v2/estimate-output-amount?inputAmount={}&inputCoinType=steem&outputCoinType=btc".format(steem)
+        r = requests.get(sbd_to_btc_api).text
+        j = json.loads(r)
+        return float(j["outputAmount"])

@@ -1,4 +1,14 @@
-{% if check_username %}{{ check_username }}{% else %}
+<div default="media" gnrl="bg-white txt-xl br-2" flx="jc-c" style="margin:6px auto;">
+Search result
+</div>
+<div flx="ai-b jc-c">
+{% if check_username %}
+<cards flx="ai-b fd-c">
+  <card gnrl="c-white bg-danger" flx="jc-c" style="padding:12px;">
+  {{ check_username }}
+  </card>
+</cards>
+{% else %}
 <!-- transfer -->
 <cards flx="ai-b fd-c">
   <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
@@ -49,3 +59,4 @@ To stock market prices
 
 {% include 'apps/steemitapp/home/follow.html' %}
 {% endif %}
+</div>

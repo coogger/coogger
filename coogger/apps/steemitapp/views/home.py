@@ -33,14 +33,15 @@ class Search(Home):
         bot = SteemitBot(username)
         check_username = bot.check_username()
         context = super(Search, self).get_context_data(**kwargs)
+        context["search"] = True
         if check_username is not None :
             context["check_username"] = check_username
+            print(context)
             return context
         SearchedWords(word = username).save()
         follow = bot.follow()
         payout = bot.payout()
         transfer = bot.transfer()
-        context["search"] = True
         context["follower_count"] = follow[0]
         context["following_count"] = follow[1]
         context["d_follow"] = follow[2]

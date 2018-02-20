@@ -4,32 +4,35 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 #views
-from apps.views import Home
+from apps.views import AppsHome
+from apps.views import AppsSitemap
+from django.contrib.sitemaps.views import sitemap
 
-# apps mainpage
+# common addresses
 urlpatterns = [
-    url(r'^apps/$',Home.as_view(),name="apps-home"),
-]
-
-# steemitapp
-urlpatterns += [
-    url(r"^apps/steemitapp/",include("apps.steemitapp.urls.home_urls")),
-]
-
-# cooggerapp
-urlpatterns += [
-    url(r"^",include("apps.cooggerapp.urls.home_urls")), # home
-    url(r"^",include("apps.cooggerapp.urls.seo_urls")), # seo
-    url(r"^post",include("apps.cooggerapp.urls.controls_urls")), # post
-    url(r"^settings",include("apps.cooggerapp.urls.csettings_urls")), # settings
-    url(r"^delete",include("apps.cooggerapp.urls.delete_urls")), # delete
-    url(r"^explorer",include("apps.cooggerapp.urls.explorer_urls")), # explorer
-    url(r"^accounts",include("apps.cooggerapp.urls.signup_or_login_urls")), # accounts işlemleri
     url(r'^web/admin/', admin.site.urls), # admin panel
     url(r'^web/ckeditor/', include('ckeditor_uploader.urls')), # ckeditör
-    url(r"^",include("apps.cooggerapp.urls.detail_urls")), # post detail
-    url(r"^",include("apps.cooggerapp.urls.users_urls")), # users en sonda olması gerek
 ]
+
+# main project = coogger
+urlpatterns += [
+    url(r"^",include("apps.cooggerapp.main_urls")), # home
+]
+
+# apps mainpage
+urlpatterns += [
+    url(r'^apps/$',AppsHome.as_view(),name="apps-home"),
+    url(r'^sitemap/apps\.xml/$', sitemap, {'sitemaps': {"apps":AppsSitemap()}}),
+]
+
+# other apps - her uygulama main_urls.py adında bir dosya açmalı ve adreslerini oraya koymalı - ordan başka yere yönlendirebilir.
+for apps in settings.INSTALLED_APPS:
+    if apps.startswith("apps."):
+        app_name = apps.split(".")[1]
+        if app_name != "cooggerapp":
+            urlpatterns += [
+                url(r"^apps/{}/".format(app_name),include("apps.{}.main_urls".format(app_name))),
+            ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
