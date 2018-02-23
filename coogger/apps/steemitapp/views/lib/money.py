@@ -3,7 +3,7 @@ from steem import Steem
 steem = Steem()
 
 # bot
-from apps.steemitapp.views.post import pending_payout
+from apps.steemitapp.views.lib.post import pending_payout
 
 # py
 import json

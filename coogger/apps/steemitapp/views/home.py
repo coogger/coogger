@@ -8,7 +8,7 @@ from django.contrib import messages as ms
 from django.views.generic.base import TemplateView
 
 # views
-from apps.steemitapp.views.bot import SteemitBot
+from apps.steemitapp.views.lib.bot import SteemitBot
 
 # models
 from apps.steemitapp.models import SearchedWords

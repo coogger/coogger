@@ -8,9 +8,10 @@ import re
 import json
 
 # bot
-from apps.steemitapp.views.post import detail
-from apps.steemitapp.views.money import Pending,price
-from apps.steemitapp.views.transfer import Blocktrades,Koinim
+from apps.steemitapp.views.lib.post import detail
+from apps.steemitapp.views.lib.money import Pending,price
+from apps.steemitapp.views.lib.transfer import Blocktrades
+from apps.steemitapp.views.convert import Koinim
 
 
 class Text:
