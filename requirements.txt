@@ -5,3 +5,4 @@ djangorestframework==3.7.3
 Pillow==4.3.0
 beautifulsoup4==4.6.0
 steem
+python-binance
