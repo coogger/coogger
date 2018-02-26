@@ -23,7 +23,14 @@ class AppsSitemap(Sitemap):
     priority = 0.6
 
     def items(self):
-        return [i.split(".")[0]+"/"+i.split(".")[1] for i in settings.INSTALLED_APPS if i.startswith("apps.")]
+        i_list = []
+        for i in settings.INSTALLED_APPS:
+            if i.startswith("apps."):
+                i = i.split(".")
+                if i[1] == "cooggerapp":
+                    url = i[0]+"/"+i[1]
+                    i_list.append(url)
+        return i_list
 
     def location(self,obj):
         return "/"+obj

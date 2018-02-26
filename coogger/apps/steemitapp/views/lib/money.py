@@ -10,14 +10,19 @@ import json
 import requests
 
 def price():
+    "https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC,USD,SBD,STEEM"
+
     btc_api = "https://api.coinmarketcap.com/v1/ticker/bitcoin/"
     ltc_api = "https://api.coinmarketcap.com/v1/ticker/litecoin/"
     steem_api = "https://api.coinmarketcap.com/v1/ticker/steem/"
     sbd_api = "https://api.coinmarketcap.com/v1/ticker/steem-dollars/"
+    steem_sbd_api = "https://min-api.cryptocompare.com/data/price?fsym=STEEM&tsyms=SBD"
     coins = {}
     for r_api in [btc_api,ltc_api,steem_api,sbd_api]:
         coin_info = json.loads(requests.get(r_api).text)
         coins[coin_info[0]["symbol"]] = coin_info[0]["price_usd"]
+    steem_sbd = json.loads(requests.get(steem_sbd_api).text)
+    coins["SBD-STEEM"] = steem_sbd["SBD"]
     return coins
 
 class Pending:

@@ -9,6 +9,7 @@ from django.views.generic.base import TemplateView
 from apps.steemitapp.views.lib.transfer import Blocktrades
 from apps.steemitapp.views.lib.money import Pending
 float_to_flot = Pending.float_to_flot
+from apps.steemitapp.views.lib.money import price
 
 # python
 import requests
@@ -80,14 +81,23 @@ class Binance(Koinim):
         return context
 
     def get_name(self):
-        return self.request.GET["get_binance_steem"]
+        try:
+            return self.request.GET["get_binance_steem"],"steem"
+        except KeyError:
+            return self.request.GET["get_binance_sbd"],"sbd"
 
     def calculate_btc(self):
         # This function calculates value of how many btc from sbd or steem on Blocktrades
-        name = float(self.get_name())
+        name = self.get_name()
         binance_client = Client("Id2J31MWY7Sb0dsqzFbp8k0f2RnJa58Pwt2Qdy1VFUe96mfc9bG9F8PfmE0fQAYW", "6o4GNYxwCjDepuipegYwgMhQJISZ3QMzZTaDdE8pZ3GedH0yqzmIebAc7qJp7OsQ")
         binance_client = binance_client.get_all_tickers()
         for i in binance_client:
             if i["symbol"] == "STEEMBTC":
-                price = i["price"]
-                return float(price) * name
+                val_price = i["price"] # kaç btc
+                break
+        if name[1] == "steem":
+            return float(val_price) * float(name[0])
+        elif name[1] == "sbd":
+            sbd_steem = price()["SBD-STEEM"]
+            steem = float(sbd_steem) * float(name[0])
+            return float(val_price) * float(steem)

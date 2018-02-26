@@ -15,14 +15,14 @@ def pending_payout(username):
                 payout = Amount(post["pending_payout_value"]).amount
                 if payout == 0:
                     payout = (Amount(post["total_payout_value"]).amount + Amount(post["curator_payout_value"]).amount)
-                context[post.title] = payout * 0.75 * 0.5
+                context[post.title] = payout * 0.56 * 0.5
     return context
 
 def detail(full_address):
     detail = {}
     author,permlink = full_address.split("/")[4:]
     post = steem.get_content(author.replace("@",""), permlink)
-    detail["payout"] = post["pending_payout_value"] * 0.75 * 0.5
+    detail["payout"] = post["pending_payout_value"] * 0.56 * 0.5
     detail["net_votes"] = post["net_votes"]
     detail["votes"] = [i["voter"] for i in steem.get_active_votes(author.replace("@",""), permlink)]
     return detail

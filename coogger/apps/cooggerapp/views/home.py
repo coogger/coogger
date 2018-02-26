@@ -61,14 +61,24 @@ class Search(TemplateView):
     pagi = 20
 
     def get_context_data(self, **kwargs):
-        query = self.request.GET["query"].lower()
-        SearchedWords(word = query).save()
-        q = Q(title__contains = query) | Q(content_list__contains = query) | Q(tag__contains = query)
-        queryset = Content.objects.filter(q,confirmation = True).order_by("-views")
-        info_of_cards = paginator(self.request,queryset,self.pagi)
         context = super(Search, self).get_context_data(**kwargs)
-        context["content"] = info_of_cards
+        context["content"] = paginator(self.request,self.get_queryset(),self.pagi)
         return context
+
+    def get_form_data(self,name = "query"):
+        name = self.request.GET[name].lower()
+        SearchedWords(word = name).save()
+        return name
+
+    def search_algorithm(self):
+        searched_data = self.get_form_data()
+        q = Q(title__contains = searched_data) | Q(content_list__contains = searched_data) | Q(content__contains = searched_data)
+        queryset = Content.objects.filter(q,confirmation = True).order_by("-views")
+        return queryset
+
+    def get_queryset(self):
+        queryset = self.search_algorithm()
+        return queryset
 
 
 class Notification(View):

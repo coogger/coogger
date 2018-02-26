@@ -1,10 +1,19 @@
 <div default="media" gnrl="bg-white txt-xl br-2" flx="jc-c" style="margin:6px auto;">
-This tools for binance
+These tools for binance and koinim
 </div>
 <div flx="ai-b jc-c">
 <cards flx="ai-b fd-c">
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
+    Convert > SBD > STEEM > binance > koinim.com > TRY
+    <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-binance-sbd-try' %}">
+      <input type="text" placeholder='Enter the amount of sbd ..' name="get_binance_sbd" value="{{ request.GET.get_binance_sbd }}" gnrl="br-2"/>
+      <input type="submit" value="Calculate"/>
+    </form>
+  </card>
+</cards>
+<cards flx="ai-b fd-c">
   <card gnrl="c-white bg-secondary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
-    Convert STEEM from binance to koinim.com to TRY
+    Convert > STEEM > binance > koinim.com > TRY
     <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-binance-steem-try' %}">
       <input type="text" placeholder='Enter the amount of steem ..' name="get_binance_steem" value="{{ request.GET.get_binance_steem }}" gnrl="br-2"/>
       <input type="submit" value="Calculate"/>
@@ -12,9 +21,8 @@ This tools for binance
   </card>
 </cards>
 </div>
-{% if request.GET.get_sbd or request.GET.get_steem or request.GET.get_btc or request.GET.get_binance_steem %}
 <div default="media" gnrl="bg-warning txt-xl br-2 c-white" flx="jc-c" style="margin:6px auto;">
-Result ;
+  Result ;
 </div>
 <div flx="ai-b jc-c">
   <cards flx="ai-b fd-c">
@@ -22,11 +30,10 @@ Result ;
       BTC : {{ BTC }}
     </card>
     <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
-      TRY : {{ TRY }}
+      TRY : <span class="get_binance_steem_api">{{ TRY }}</span>
     </card>
     <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
       koinim change rate : {{ change_rate }}
     </card>
   </cards>
 </div>
-{% endif %}

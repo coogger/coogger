@@ -59,7 +59,8 @@ class SteemitBot(Text):
 
     def price(self):
         coin = price()
-        return "BTC : {} USD".format(coin["BTC"]),"LTC : {} USD".format(coin["LTC"]),"SBD : {} USD".format(coin["SBD"]),"STEEM : {} USD".format(coin["STEEM"])
+        result = "BTC : {} USD".format(coin["BTC"]),"LTC : {} USD".format(coin["LTC"]),"SBD : {} USD".format(coin["SBD"]),"STEEM : {} USD".format(coin["STEEM"]),"SBD : {} STEEM".format(coin["SBD-STEEM"])
+        return result
 
     def payout(self):
         payout_info = Pending(self.username)
