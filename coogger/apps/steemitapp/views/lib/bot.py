@@ -111,4 +111,5 @@ class SteemitBot(Text):
     def get_account_info(self):
         get_account = steem.get_account(self.username)
         get_account = json.loads(get_account["json_metadata"])
-        return get_account["profile"]
+        context = get_account["profile"]
+        return context

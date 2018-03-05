@@ -11,13 +11,13 @@ Following count : {{ follow.following_count }}
 <card flx="jc-c" gnrl="c-white bg-danger" style="padding:3px;">Those who do not follow you :</card>
 {% for i in follow.d_follow %}
 <card flx="jc-fs" style="padding:3px;">
-  <a gnrl="c-primary" href="steemit.com/@{{ i }}" target="_blank">@{{ i }}</a>
+  <a gnrl="c-primary" href="https://steemit.com/@{{ i }}" target="_blank">@{{ i }}</a>
 </card>
 {% endfor %}
 <card flx="jc-c" gnrl="c-white bg-danger"  style="padding:3px;">You did not follow :</card>
 {% for i in follow.d_following %}
 <card flx="jc-fs" style="padding:3px;">
-  <a gnrl="c-primary" href="steemit.com/@{{ i }}" target="_blank">@{{ i }}</a>
+  <a gnrl="c-primary" href="https://steemit.com/@{{ i }}" target="_blank">@{{ i }}</a>
 </card>
 {% endfor %}
 </cards>
