@@ -4,7 +4,7 @@ from steem.post import Post
 from steem.amount import Amount
 from dateutil.parser import parse
 from datetime import datetime, timedelta
-steem = Steem(nodes=['https://api.steemit.com'])
+from apps.steemitapp.views.lib.bot import steem
 
 def pending_payout(username):
     context = {}

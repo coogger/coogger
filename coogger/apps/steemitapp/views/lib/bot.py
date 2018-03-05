@@ -1,6 +1,6 @@
 # steemit
-from steem import Steem
-steem = Steem()
+from steem.steemd import Steemd
+steem = Steemd(nodes=["https://api.steemit.com"])
 
 # python
 import requests
@@ -55,7 +55,13 @@ class SteemitBot(Text):
         for i in list_followers:
             if i not in list_following:
                 d_following.append(i)
-        return follower_count,following_count,d_follow,d_following
+        context = dict(
+        follower_count = follower_count,
+        following_count = following_count,
+        d_follow = d_follow,
+        d_following = d_following,
+        )
+        return context
 
     def price(self):
         coin = price()
@@ -76,7 +82,14 @@ class SteemitBot(Text):
         money_title = payout_info.posts
         for i in money_title:
             posts.append((i,money_title[i]))
-        return posts,sbd_in_account,usd_in_account,total_sbd,total_usd
+        context = dict(
+        posts = posts,
+        sbd_in_account = sbd_in_account,
+        usd_in_account = usd_in_account,
+        total_sbd = total_sbd,
+        total_usd = total_usd,
+        )
+        return context
 
     def transfer(self):
         b = Blocktrades(self.username)
@@ -84,6 +97,18 @@ class SteemitBot(Text):
         k = Koinim()
         buy = k.buy()
         change_rate = k.change_rate()
-        account = Pending.float_to_flot(hmany_btc_in_account * buy)
+        account = Pending.float_to_flot(hmany_btc_in_account * buy - 8)
         total = Pending.float_to_flot(b.total() * buy)
-        return hmany_btc_in_account,account, total, change_rate
+        context = dict(
+        hmany_btc_in_account = hmany_btc_in_account,
+        account = account,
+        total = total,
+        change_rate = change_rate,
+        )
+        return context
+
+
+    def get_account_info(self):
+        get_account = steem.get_account(self.username)
+        get_account = json.loads(get_account["json_metadata"])
+        return get_account["profile"]

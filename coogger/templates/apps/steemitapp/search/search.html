@@ -1,54 +1,73 @@
 <div default="media" gnrl="bg-white txt-xl br-2" flx="jc-c" style="margin:6px auto;">
 Search result
 </div>
-<div flx="ai-b jc-c">
+
+<!-- account info -->
+<div default="media" flx="jc-c" style="margin:12px auto;">
+  <img flx="jc-c" gnrl="wmax br-circle" src="{{ account.profile_image }}">
+</div>
+<div default="media" flx="ai-c fd-c" style="margin:12px auto;">
+    <div flx="fd-c" gnrl="txt-xl">{{ account.name }}</div>
+    <div flx="fd-c" gnrl="txt-m">{{ account.about }}</div>
+    <div flx="fd-c" gnrl="txt-m">{{ account.location }}</div>
+    <a flx="fd-c" gnrl="c-primary" href="{{ account.website }}">{{ account.website }}</a>
+</div>
+
+<!-- error -->
 {% if check_username %}
-<cards flx="ai-b fd-c">
+<cards flx="jc-c">
   <card gnrl="c-white bg-danger" flx="jc-c" style="padding:12px;">
   {{ check_username }}
   </card>
 </cards>
 {% else %}
+
+<div flx="ai-b jc-c">
 <!-- transfer -->
 <cards flx="ai-b fd-c">
   <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
     To learn your money after convert your steem-dollar from blocktrades.us to bitcoin and transferring to koinim.com
   </card>
   <card flx="jc-c" style="padding:3px;">
-Total value of BTC in your account : {{ hmany_btc_in_account }} BTC
+Total value of BTC in your account : {{ transfer.hmany_btc_in_account }} BTC
   </card>
   <card flx="jc-c" style="padding:3px;">
-Total value of money in your account : {{ account }} ₺
+Total value of money in your account : {{ transfer.account }} ₺
   </card>
   <card flx="jc-c" style="padding:3px;">
-Total value of pending payout post in your account : {{ total }} ₺
+Total value of pending payout post in your account : {{ transfer.total }} ₺
   </card>
   <card flx="jc-c" style="padding:3px;">
-Koinim change rate : {{ change_rate }}
+Koinim change rate : {{ transfer.change_rate }}
   </card>
 </cards>
-
 <!-- payout -->
 <cards flx="ai-b fd-c">
   <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
   To learn pending payout
   </card>
-  {% for p in payout %}
   <card flx="jc-c" style="padding:3px;">
-  {{ p }}
+  {{ payout.sbd_in_account }}
   </card>
-  {% endfor %}
-  {% for p in post_payout %}
+  <card flx="jc-c" style="padding:3px;">
+    {{ payout.usd_in_account }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+    {{ payout.total_sbd }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+{{ payout.total_usd }}
+  </card>
+  {% for p in payout.posts %}
     <card flx="jc-c" style="padding:3px;">
     {{ p }}
     </card>
   {% endfor %}
 </cards>
-
 <!-- price -->
 <cards flx="ai-b fd-c">
   <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
-To stock market prices
+    To stock market prices
   </card>
   {% for p in price %}
   <card flx="jc-c" style="padding:3px;">
@@ -56,7 +75,6 @@ To stock market prices
   </card>
   {% endfor %}
 </cards>
-
-{% include 'apps/steemitapp/home/follow.html' %}
+{% include 'apps/steemitapp/search/follow.html' %}
 {% endif %}
 </div>

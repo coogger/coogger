@@ -1,6 +1,6 @@
 # steem
-from steem import Steem
-steem = Steem()
+from steem.steemd import Steemd
+from apps.steemitapp.views.lib.bot import steem
 
 # bot
 from apps.steemitapp.views.lib.post import pending_payout

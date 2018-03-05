@@ -36,23 +36,13 @@ class Search(Home):
         context["search"] = True
         if check_username is not None :
             context["check_username"] = check_username
-            print(context)
             return context
         SearchedWords(word = username).save()
-        follow = bot.follow()
-        payout = bot.payout()
-        transfer = bot.transfer()
-        context["follower_count"] = follow[0]
-        context["following_count"] = follow[1]
-        context["d_follow"] = follow[2]
-        context["d_following"] = follow[3]
-        context["payout"] = payout[1:]
-        context["post_payout"] = payout[0]
+        context["follow"] = bot.follow()
+        context["payout"] = bot.payout()
         context["price"] = bot.price()
-        context["hmany_btc_in_account"] = transfer[0]
-        context["account"] = transfer[1]
-        context["total"] = transfer[2]
-        context["change_rate"] = transfer[3]
+        context["transfer"] = bot.transfer()
+        context["account"] = bot.get_account_info()
         html_head = dict(
          title = "{} steemitapp | coogger".format(username),
          keywords = "{} steemit,steem,steemapp,steemit search,coogger app,coogger apps,".format(username),

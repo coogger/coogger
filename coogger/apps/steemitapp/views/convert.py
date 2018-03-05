@@ -11,6 +11,7 @@ from apps.steemitapp.views.lib.money import Pending
 float_to_flot = Pending.float_to_flot
 from apps.steemitapp.views.lib.money import price
 
+
 # python
 import requests
 import json
@@ -28,7 +29,7 @@ class Koinim(TemplateView):
 
     def get_context_data(self, **kwargs):
         BTC = self.calculate_btc()
-        TRY = BTC * self.buy()
+        TRY = BTC * self.buy() - 3
         context = super(Koinim, self).get_context_data(**kwargs)
         html_head = dict(
          title = "steemitapp convert | coogger",
@@ -60,8 +61,8 @@ class Koinim(TemplateView):
         elif name[1] == "btc":
             return float(name[0])
 
-    #def sell(self):
-        #return float(self.j["sell"])
+    # def sell(self):
+    #     return float(self.j["sell"])
 
     def buy(self):
         return float(self.j["buy"])
@@ -96,7 +97,7 @@ class Binance(Koinim):
                 val_price = i["price"] # kaç btc
                 break
         if name[1] == "steem":
-            return float(val_price) * float(name[0])
+            return float(val_price) * float(name[0]) - 0.001
         elif name[1] == "sbd":
             sbd_steem = price()["SBD-STEEM"]
             steem = float(sbd_steem) * float(name[0])

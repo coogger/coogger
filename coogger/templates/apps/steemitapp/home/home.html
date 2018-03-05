@@ -6,12 +6,15 @@
   <input type="submit" value="Search"/>
 </form>
 
+{% if search %}{% include 'apps/steemitapp/search/search.html' %}{% endif %}
+
 <!-- other tools -->
-<div default="media" gnrl="bg-white txt-xl br-2" flx="jc-c" style="margin:6px auto;">
-Other tools
+<div flx>
+  <span class="hother" hvr="bg-dark c-white" gnrl="wmax txt-xl bg-white br-2 unselectable" style="margin:auto;padding:6px;cursor:pointer;">Other tools</span>
 </div>
-{% include 'apps/steemitapp/convert/block-koinim.html' %}
-{% include 'apps/steemitapp/convert/binance.html' %}
-{% if search %}{% include 'apps/steemitapp/home/search.html' %}{% endif %}
+<div class="othertools" default="media" flx="jc-c fd-c" gnrl="bg-white br-2" style="margin:6px auto">
+  {% include 'apps/steemitapp/convert/block-koinim.html' %}
+  {% include 'apps/steemitapp/convert/binance.html' %}
+</div>
 </body>
 </html>

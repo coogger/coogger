@@ -1,28 +1,23 @@
 <cards flx="ai-b fd-c">
   <card flx="jc-c" gnrl="c-white bg-primary" style="padding:3px;">
-      Everything you need to know about follower/following
+      follower/following
   </card>
-
 <card flx="jc-c" style="padding:3px;">
-  Follower count : {{ follower_count }}
+  Follower count : {{ follow.follower_count }}
 </card>
 <card flx="jc-c" style="padding:3px;">
-Following count : {{ following_count }}
+Following count : {{ follow.following_count }}
 </card>
-
 <card flx="jc-c" gnrl="c-white bg-danger" style="padding:3px;">Those who do not follow you :</card>
-
-{% for i in d_follow %}
-<card flx="jc-c" style="padding:3px;">
-{{ i }}
+{% for i in follow.d_follow %}
+<card flx="jc-fs" style="padding:3px;">
+  <a gnrl="c-primary" href="steemit.com/@{{ i }}" target="_blank">@{{ i }}</a>
 </card>
 {% endfor %}
-
 <card flx="jc-c" gnrl="c-white bg-danger"  style="padding:3px;">You did not follow :</card>
-
-{% for i in d_following %}
-<card flx="jc-c" style="padding:3px;">
-{{ i }}
+{% for i in follow.d_following %}
+<card flx="jc-fs" style="padding:3px;">
+  <a gnrl="c-primary" href="steemit.com/@{{ i }}" target="_blank">@{{ i }}</a>
 </card>
 {% endfor %}
 </cards>
