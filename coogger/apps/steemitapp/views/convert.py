@@ -31,16 +31,20 @@ class Koinim(TemplateView):
         BTC = self.calculate_btc()
         TRY = BTC * self.buy() - 3
         context = super(Koinim, self).get_context_data(**kwargs)
+        context["BTC"] = float_to_flot(BTC)
+        context["TRY"] = float_to_flot(TRY)
+        context["change_rate"] = self.change_rate()
+        context["head"] = self.set_head()
+        return context
+
+    @staticmethod
+    def set_head():
         html_head = dict(
          title = "steemitapp convert | coogger",
          keywords = "sbd convert,steem convert,sbd convert try,steem convert try,bitcoin convert",
          description = "steemitapp convert results of from sbd ,steem or bitcoin to try"
         )
-        context["head"] = html_head
-        context["BTC"] = float_to_flot(BTC)
-        context["TRY"] = float_to_flot(TRY)
-        context["change_rate"] = self.change_rate()
-        return context
+        return html_head
 
     def get_name(self):
         try:
@@ -61,8 +65,8 @@ class Koinim(TemplateView):
         elif name[1] == "btc":
             return float(name[0])
 
-    # def sell(self):
-    #     return float(self.j["sell"])
+    def sell(self):
+        return float(self.j["sell"])
 
     def buy(self):
         return float(self.j["buy"])
@@ -74,12 +78,16 @@ class Binance(Koinim):
 
     def get_context_data(self, **kwargs):
         context = super(Binance, self).get_context_data(**kwargs)
+        return context
+
+    @staticmethod
+    def set_head():
         html_head = dict(
          title = "Convert STEEM from binance to koinim.com to TRY | coogger",
          keywords = "steem convert,steem convert try,",
          description = "steemitapp convert results of from steem to try on binance and koinim"
         )
-        return context
+        return html_head
 
     def get_name(self):
         try:
@@ -98,7 +106,7 @@ class Binance(Koinim):
                 break
         if name[1] == "steem":
             return float(val_price) * float(name[0]) - 0.001
-        elif name[1] == "sbd":
+        elif name[1] == "sbd": # TODO: bu bölüm yanlış hesaplanıyor market den hesaplamak lazım
             sbd_steem = price()["SBD-STEEM"]
             steem = float(sbd_steem) * float(name[0])
             return float(val_price) * float(steem)
