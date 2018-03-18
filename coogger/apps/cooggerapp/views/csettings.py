@@ -14,43 +14,13 @@ from django.utils.decorators import method_decorator
 from apps.cooggerapp.models import UserFollow
 
 #views
-from apps.cooggerapp.views.tools import hmanynotifications,is_user_author
+from apps.cooggerapp.views.tools import hmanynotifications
 
 #forms
 from apps.cooggerapp.forms import CSettingsUserForm,UserFollowForm
 
 #python
 import os
-
-
-class Profile(View):
-    form_class = CSettingsUserForm
-    template_name = "apps/cooggerapp/settings/profile.html"
-    pp_path = os.getcwd()+"/coogger/media/users/pp/pp-{}.jpg"
-
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        context = dict(
-        CSettingsUserForm = self.form_class(request.GET or None,instance=request.user),
-        settings = True,
-        hmanynotifications = hmanynotifications(request),
-        )
-        return render(request,self.template_name,context)
-
-    @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-        request_username = request.user.username
-        user_form = self.form_class(request.POST,instance=request.user)
-        if user_form.is_valid():
-            form = user_form.save(commit=False)
-            form_username = form.username
-            if request_username != form_username:
-                try:
-                    os.rename(self.pp_path.format(request_username),self.pp_path.format(form_username))
-                except FileNotFoundError:
-                    pass
-            form.save()
-            return HttpResponseRedirect(request.META["PATH_INFO"])
 
 class Account(View):
     template_name = "apps/cooggerapp/settings/account.html"

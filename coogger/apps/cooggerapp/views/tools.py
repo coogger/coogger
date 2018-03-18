@@ -10,12 +10,6 @@ from apps.cooggerapp.models import OtherInformationOfUsers,Notification,Content,
 #choices seçimler
 from apps.cooggerapp.choices import *
 
-
-def is_user_author(request):
-    if not request.user.otherinformationofusers.is_author:
-        return False
-    return True
-
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
     slugs = []

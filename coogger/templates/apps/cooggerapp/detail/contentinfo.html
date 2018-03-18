@@ -6,24 +6,36 @@
 <div flx="jc-c" style="margin-bottom: 12px;">
   <div flx="fd-c" gnrl="brc-muted txt-s">
     <div flx="ai-c" >
-      <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
       <span style="margin-left: 6px;">Son güncelleme | {{ detail.lastmod|timesince }} önce</span>
     </div>
     <div flx="ai-c" >
-      <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
       <span style="margin-left: 6px;">  {{ detail.time }} | {{ detail.time|timesince }} önce</span>
     </div>
     <div flx="ai-c" >
-      <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
       <span style="margin-left: 6px;">Okuma süresi {{ detail.dor }} dakika</span>
     </div>
     <div flx="ai-c" >
-      <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
-      <span style="margin-left: 6px;">okuma {{ detail.views }}</span>
+      <span style="margin-left: 6px;">Sayfa görüntüleme {{ detail.views }} </span>
     </div>
     <div flx="ai-c" >
-      <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+      <span style="margin-left: 6px;">okuma sayısı {{ detail.read }}</span>
+    </div>
+    <div flx="ai-c" >
       <span style="margin-left: 6px;">Yorum {{ detail.hmanycomment }}</span>
+    </div>
+    <div gnrl="bg-muted br-2 c-primary" style="padding: 2px 4px;">
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        $
+        <div style="margin-left: 12px;">${{ detail.post_reward.total }}</div>
+      </div>
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        $
+        <div style="margin-left: 12px;">steem dollar ${{ detail.post_reward.sbd }}</div>
+      </div>
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        $
+        <div style="margin-left: 12px;">steem power ${{ detail.post_reward.sp }}</div>
+      </div>
     </div>
   </div>
 </div>

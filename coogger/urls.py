@@ -14,6 +14,15 @@ urlpatterns = [
     url(r'^web/ckeditor/', include('ckeditor_uploader.urls')), # ckeditör
 ]
 
+
+import views as app_views
+
+urlpatterns = [
+    url(r'^logout/$', app_views.logout),
+    url(r'^done/$', app_views.done, name='done'),
+    url(r'', include('social_django.urls'))
+]
+
 # main project = coogger
 urlpatterns += [
     url(r"^",include("apps.cooggerapp.main_urls")), # home

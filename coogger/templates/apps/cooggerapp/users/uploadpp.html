@@ -1,8 +1,0 @@
-{% if request.user == content_user %}
-<form flx="jc-c ai-c as-c" default="form" action="{% url 'cooggerapp-user_upload_pp' %}" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <input type="file" name="u-upload-pp" id="u-upload-pp" style="display: none;">
-  <label style="cursor:pointer;padding: 0px 6px;" for="u-upload-pp">profil resmini güncelle</label>
-  <input type="submit" value="profili değiş" style="padding: 3px 6px;">
-</form>
-{% endif %}

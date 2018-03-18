@@ -19,8 +19,9 @@ from django.views import View
 from apps.cooggerapp.models import Content,UserFollow,Comment,Notification,Contentviews
 
 # cooggerapp views
-from apps.cooggerapp.views.tools import (paginator,html_head,hmanynotifications,users_web,is_user_author)
+from apps.cooggerapp.views.tools import (paginator,html_head,hmanynotifications,users_web)
 from apps.cooggerapp.views.users import is_follow
+from apps.cooggerapp.oogg import Oogg
 
 #python
 import json
@@ -43,7 +44,7 @@ class Detail(TemplateView):
         content_id = queryset.id
         nav_category = self.ctof(user = content_user,content_list = utopic)
         info_of_cards = paginator(self.request,nav_category,self.pagi)
-        up_content_view(self.request,queryset) # ip aldık ve okuma sayısını 1 arttırdık
+        self.up_content_view(queryset) # ip aldık ve okuma sayısını 1 arttırdık
         context = super(Detail, self).get_context_data(**kwargs)
         context["head"] = html_head(queryset)
         context["content_user"] = content_user
@@ -57,7 +58,22 @@ class Detail(TemplateView):
         context["hmanynotifications"] = hmanynotifications(self.request)
         context["user_follow"] = users_web(content_user)
         context["is_follow"] = is_follow(self.request,content_user)
+        context["account"] = Oogg.get_account_info(username)
+        context["follow_count"] = Oogg.follow_count(username)
         return context
+
+    def up_content_view(self,queryset):
+        Content.objects.filter(id = queryset.id).update(read = F("read")+1)
+        try:
+            ip = self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
+        except:
+            ip = None
+        if ip is None:
+            return False
+        if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
+            Contentviews(content = queryset,ip = ip).save()
+            queryset.views = F("views") + 1
+            queryset.save()
 
 
 class CommentClassBased(View):
@@ -76,15 +92,3 @@ class CommentClassBased(View):
                     Notification(user=content[0].user,even = 1,content=comment,address = content_path).save()
                 return HttpResponse(json.dumps({"comment": comment,"username":request_user.username}))
             return HttpResponse(None)
-
-def up_content_view(request,queryset):
-    try:
-        ip = request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
-    except:
-        ip = None
-    if ip is None:
-        return False
-    if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
-        Contentviews(content = queryset,ip = ip).save()
-        queryset.views = F("views") + 1
-        queryset.save()

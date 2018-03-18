@@ -1,27 +1,33 @@
 <div flx="jc-c fd-c ac-c" gnrl="bg-white" style="margin-top: 6px;">
   <div flx="jc-c" style="margin-top: 12px;">
     <div flx="fd-c">
-      {% if content_user.otherinformationofusers.pp %}
-      <img alt='{{ content_user  }}' title="{{ content_user  }}" src="/media/users/pp/pp-{{ content_user  }}.jpg" class="useruserimg">
-      {% else %}
+      {% if not account %}
       <img src="/static/media/profil.png" class="useruserimg">
+      {% else %}
+      <img flx="jc-c" gnrl="br-circle" src="{{ account.profile_image }}" class="useruserimg">
       {% endif %}
     </div>
   </div>
   <h1 flx="jc-c as-c" gnrl="bg-white br-2 brc-white b-1" hvr-a="brc-private" hvr="c-private">
     <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">@{{ content_user }}</a>
   </h1>
+  <div default="media" flx="ai-c fd-c" style="margin:12px auto;">
+      <div flx="fd-c" gnrl="txt-xl">{{ account.name }}</div>
+      <div flx="fd-c" gnrl="txt-m">{{ account.about }}</div>
+      <div flx="fd-c" gnrl="txt-m">{{ account.location }}</div>
+      <a flx="fd-c" gnrl="c-primary" href="{{ account.website }}">{{ account.website }}</a>
+  </div>
   <div flx="jc-c">
     <div flx="fd-c" style="margin: 6px;">
       <div flx="as-c">{{ content_user.otherinformationofusers.hmanycontent }}</div>
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">İçerik</div>
     </div>
     <div flx="fd-c" style="margin: 6px;">
-      <div class="follownum" flx="as-c">{{ content_user.otherinformationofusers.followers }}</div>
+      <div class="follownum" flx="as-c">{{ follow_count.follower_count }}</div>
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Takipçi</div>
     </div>
     <div flx="fd-c" style="margin: 6px;">
-      <div flx="as-c">{{ content_user.otherinformationofusers.following }}</div>
+      <div flx="as-c">{{ follow_count.following_count }}</div>
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Takip</div>
     </div>
   </div>
@@ -32,7 +38,6 @@
     </div>
   </div>
   {% endif %}
-  {% include 'apps/cooggerapp/users/uploadpp.html' %}
   <script>
   $(document).ready(function() {
     $(".follow").click(function(event){

@@ -12,9 +12,6 @@ from django.utils.decorators import method_decorator
 #models
 from apps.cooggerapp.models import UserFollow,Content,OtherInformationOfUsers
 
-#views
-from apps.cooggerapp.views.tools import is_user_author
-
 #python
 import json
 
@@ -23,7 +20,7 @@ class Address(View):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        if request.is_ajax() and is_user_author(request):
+        if request.is_ajax():
             address_id = int(request.POST["address_id"])
             ubf = self.model.objects.filter(id = address_id)[0]
             if ubf.user == request.user:
@@ -37,13 +34,11 @@ class Content(View):
 
     @method_decorator(login_required)
     def get(self, request,content_id, *args, **kwargs):
-        if request.is_ajax() and is_user_author(request):
+        if request.is_ajax():
             queryset = self.really_queryset(request,content_id)
-            if request.user == queryset.user:
-                queryset.delete()
-                OtherInformationOfUsers.objects.filter(user = request.user).update(hmanycontent = F("hmanycontent") -1)
-                return HttpResponse(self.success)
-            return HttpResponse(self.error)
+            queryset.delete()
+            OtherInformationOfUsers.objects.filter(user = request.user).update(hmanycontent = F("hmanycontent") -1)
+            return HttpResponse(self.success)
 
     @staticmethod
     def really_queryset(request,content_id):

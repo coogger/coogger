@@ -17,10 +17,11 @@ from django.utils.decorators import method_decorator
 from apps.cooggerapp.forms import ReportsForm
 
 #models
-from apps.cooggerapp.models import Content,OtherInformationOfUsers,Notification,SearchedWords,Following,Report
+from apps.cooggerapp.models import Content, OtherInformationOfUsers, Notification, SearchedWords, Report, Following
 
 #views
 from apps.cooggerapp.views.tools import paginator,hmanynotifications
+from apps.cooggerapp.oogg import Oogg
 
 class Home(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"

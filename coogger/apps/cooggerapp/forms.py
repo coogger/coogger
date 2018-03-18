@@ -2,7 +2,7 @@
 from django.forms import ModelForm
 
 # models
-from apps.cooggerapp.models import Content,Author,UserFollow,OtherInformationOfUsers,Report
+from apps.cooggerapp.models import Content,UserFollow,OtherInformationOfUsers,Report
 
 # user model
 from django.contrib.auth.models import User
@@ -12,11 +12,6 @@ class ContentForm(ModelForm):
     class Meta:
         model = Content
         fields = ["content_list","title","content","show","tag"]
-
-class AuthorForm(ModelForm):
-    class Meta:
-        model = Author
-        fields = ["sex","county","old","university","jop","phone"]
 
 class UserFollowForm(ModelForm):
     class Meta:

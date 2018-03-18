@@ -10,12 +10,12 @@
     {% else%}
     <div style="padding:  3px 12px;">
       <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m" href="/@{{ request.user }}">
-        <span flx="ai-c">{{ request.user }}</span>
-        {% if request.user.otherinformationofusers.pp %}
+        <span flx="ai-c">@{{ request.user }}</span>
+        <!-- {% if request.user.otherinformationofusers.pp %}
         <img src="/media/users/pp/pp-{{ request.user }}.jpg" class="headeruserimg" alt="{{ request.user }} | coogger" width="30px" height="30px" gnrl="br-circle b-1 brc-white">
         {% else %}
         <img src="/static/media/profil.png" class="headeruserimg" alt="{{ request.user }} | coogger" width="30px" height="30px" gnrl="br-circle b-1 brc-white">
-        {% endif %}
+        {% endif %} -->
       </a>
     </div>
     <div style="padding:  3px 12px;">
@@ -23,20 +23,11 @@
         <span>Takipler</span><i flx="as-c" class="fa fa-users" aria-hidden="true" style="margin: 0px 12px;"></i>
       </a>
     </div>
-    {% if request.user.otherinformationofusers.is_author %}
     <div style="padding:  3px 12px;">
       <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m" href="{% url 'cooggerapp-create' %}">
         <span>İçerik oluştur</span><i flx="as-c" class="fa fa-plus-circle" aria-hidden="true" style="margin: 0px 12px;"></i>
       </a>
     </div>
-    {% endif %}
-    {% if not request.user.otherinformationofusers.author %}
-    <div style="padding:  3px 12px;">
-      <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m" href="{% url 'cooggerapp-signup_author' %}">
-        <span>Yazarlık başvurusu</span>
-      </a>
-    </div>
-    {% endif %}
     <div style="padding:  3px 12px;">
       <a  style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m" href="{% url 'cooggerapp-settings' %}">
         <span>Ayarlar</span><i flx="as-c" class="fa fa-cog" aria-hidden="true" style="margin: 0px 12px;"></i>

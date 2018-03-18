@@ -64,13 +64,9 @@ class OtherInformationOfUsersAdmin(StackedInline):
     can_delete = False
     verbose_name_plural = 'kullanıcıların diğer bilgileri'
 
-class AuthorAdmin(StackedInline):
-    model = Author
-    can_delete = False
-    verbose_name_plural = 'yazarlık bilgileri'
 
 class UserAdmin(UserAdmin):
-    inlines = (OtherInformationOfUsersAdmin,AuthorAdmin, )
+    inlines = (OtherInformationOfUsersAdmin, )
 
 site.unregister(User)
 
@@ -87,7 +83,5 @@ site.register(UserFollow,UserFollowAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)
 
 site.register(Notification,NotificationAdmin)
-
-site.register(Following)
 
 site.register(Report)

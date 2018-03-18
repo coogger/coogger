@@ -13,13 +13,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #models
-from apps.cooggerapp.models import OtherInformationOfUsers,Content,UserFollow,Following
+from apps.cooggerapp.models import OtherInformationOfUsers,Content,UserFollow
 
 #forms
 from apps.cooggerapp.forms import UserFollowForm,AboutForm
 
 #views
 from apps.cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,paginator
+from apps.cooggerapp.oogg import Oogg
 
 #python
 from PIL import Image
@@ -61,8 +62,9 @@ class UserClassBased(TemplateView):
         context["head"] = html_head
         context["hmanynotifications"] = hmanynotifications(self.request)
         context["is_follow"] = is_follow(self.request,user)
+        context["account"] = Oogg.get_account_info(username)
+        context["follow_count"] = Oogg.follow_count(username)
         return context
-
 
 class UserTopic(UserClassBased):
     "kullanıcıların konu adresleri"
@@ -127,6 +129,8 @@ class UserAboutBaseClass(View):
         context["head"] = html_head
         context["hmanynotifications"] = hmanynotifications(request)
         context["is_follow"] = is_follow(request,user)
+        context["account"] = Oogg.get_account_info(username)
+        context["follow_count"] = Oogg.follow_count(username)
         return render(request,self.template_name,context)
 
     def post(self, request, username, *args, **kwargs):
@@ -162,30 +166,6 @@ class FollowBaseClass(View):
                 self.oiouof(user = user).update(followers = F("followers")+1)
                 return HttpResponse(json.dumps({"ms":"Takibi bırak","num":followers_num+1}))
 
-
-class Uploadpp(View):
-    "kullanıcılar profil resmini  değiştirmeleri için"
-    oiouof = OtherInformationOfUsers.objects.filter
-    pp_path = os.getcwd()+"/coogger/media/users/pp/pp-{}.jpg"
-    im_size = (350,350)
-    error = "Resim dosyanız alınamadı, güncelle düymesine basarak resmi seçiniz"
-
-    @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-        request_user = request.user
-        self.pp_path = self.pp_path.format(request_user.username)
-        image=request.FILES['u-upload-pp']
-        with open(self.pp_path,'wb+') as destination:
-            for chunk in image.chunks():
-                destination.write(chunk)
-        im = Image.open(self.pp_path)
-        im.thumbnail(self.im_size)
-        try:
-            im.save(self.pp_path, "JPEG")
-        except:
-            im.save(self.pp_path, "PNG")
-        self.oiouof(user = request_user).update(pp = True)
-        return HttpResponseRedirect("/"+request_user.username)
 
 def is_follow(request,user):
     try:
