@@ -8,16 +8,13 @@ def is_authenticated(user):
     else:
         return user.is_authenticated
 
-
 def associations(user, strategy):
     user_associations = strategy.storage.user.get_social_auth_for_user(user)
     if hasattr(user_associations, 'all'):
         user_associations = user_associations.all()
     return list(user_associations)
 
-
 def common_context(authentication_backends, strategy, user=None, plus_id=None, **extra):
-    """Common view context"""
     context = {
         'user': user,
         'available_backends': load_backends(authentication_backends),
@@ -25,15 +22,11 @@ def common_context(authentication_backends, strategy, user=None, plus_id=None, *
     }
 
     if user and is_authenticated(user):
-        context['associated'] = dict((association.provider, association)
-                                     for association in associations(user, strategy))
-
+        context['associated'] = dict((association.provider, association) for association in associations(user, strategy))
     if plus_id:
         context['plus_id'] = plus_id
         context['plus_scope'] = ' '.join(GooglePlusAuth.DEFAULT_SCOPE)
-
     return dict(context, **extra)
-
 
 def url_for(name, **kwargs):
     if name == 'social:begin':

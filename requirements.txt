@@ -7,3 +7,4 @@ beautifulsoup4==4.6.0
 steem
 python-binance
 social-auth-steemconnect
+(sc2py)[https://github.com/hakancelik96/sc2py]

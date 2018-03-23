@@ -1,24 +1,27 @@
-<span flx="jc-c" gnrl="txt-m">These tools for blocktrades and koinim</span>
-<cards>
-    <card gnrl="c-white bg-primary" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
-      Convert > SBD > blocktrades.us > BTC > koinim.com > TRY
-      <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-koinim-sbd-try' %}">
-        <input type="text" placeholder='Enter the amount of sbd ..' name="get_sbd" value="{{ request.GET.get_sbd }}" gnrl="br-2"/>
-        <input type="submit" value="Calculate"/>
-      </form>
-    </card>
-    <card gnrl="c-white bg-secondary" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
-      Convert > STEEM > blocktrades.us > BTC > koinim.com > TRY
-      <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-koinim-steem-try' %}">
-        <input type="text" placeholder='Enter the amount of steem ..' name="get_steem" value="{{ request.GET.get_steem }}" gnrl="br-2"/>
-        <input type="submit" value="Calculate"/>
-      </form>
-    </card>
-    <card gnrl="c-white bg-dark" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
-      Convert > BITCOIN > koinim.com > TRY
-      <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-koinim-btc-try' %}">
-        <input type="text" placeholder='Enter the amount of bitcoin ..' name="get_btc" value="{{ request.GET.get_btc }}" gnrl="br-2"/>
-        <input type="submit" value="Calculate"/>
-      </form>
-    </card>
+<span flx="jc-c" gnrl="txt-m c-white bg-dark">These tools for blocktrades and koinim</span>
+<cards flx="jc-c">
+  <div flx="fd-c"><span gnrl="bg-primary c-white br-2" style="padding:2px">Convert > SBD > blocktrades.us > BTC > koinim.com > TRY</span>
+    <card flx="as-c" gnrl="c-white bg-primary wmax" style="padding:3px;cursor:pointer;">
+    <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-koinim-sbd-try' %}">
+      <input type="text" placeholder='Enter the amount of sbd ..' name="get_sbd" value="{{ request.GET.get_sbd }}" gnrl="br-2"/>
+      <input type="submit" value="Calculate"/>
+    </form>
+  </card>
+</div>
+<div flx="fd-c"><span gnrl="bg-secondary c-white br-2" style="padding:2px">Convert > STEEM > blocktrades.us > BTC > koinim.com > TRY</span>
+  <card flx="as-c" gnrl="c-white bg-secondary wmax" style="padding:3px;cursor:pointer;">
+    <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-koinim-steem-try' %}">
+      <input type="text" placeholder='Enter the amount of steem ..' name="get_steem" value="{{ request.GET.get_steem }}" gnrl="br-2"/>
+      <input type="submit" value="Calculate"/>
+    </form>
+  </card>
+</div>
+<div flx="fd-c"><span gnrl="bg-dark c-white br-2" style="padding:2px">Convert > STEEM > blocktrades.us > BTC > koinim.com > TRY</span>
+  <card flx="as-c" gnrl="c-white bg-dark wmax" style="padding:3px;cursor:pointer;">
+    <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-koinim-btc-try' %}">
+      <input type="text" placeholder='Enter the amount of bitcoin ..' name="get_btc" value="{{ request.GET.get_btc }}" gnrl="br-2"/>
+      <input type="submit" value="Calculate"/>
+    </form>
+  </card>
+</div>
 </cards>

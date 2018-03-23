@@ -9,43 +9,63 @@ from django.contrib.auth.models import User
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.generic.base import TemplateView
 
 #models
-from apps.cooggerapp.models import UserFollow
+from apps.cooggerapp.models import UserFollow, OtherInformationOfUsers, Content
 
 #views
-from apps.cooggerapp.views.tools import hmanynotifications
+from apps.cooggerapp.views.tools import hmanynotifications,paginator
 
 #forms
-from apps.cooggerapp.forms import CSettingsUserForm,UserFollowForm
+from apps.cooggerapp.forms import CSettingsUserForm,UserFollowForm,CooggerupForm
 
 #python
 import os
 
-class Account(View):
-    template_name = "apps/cooggerapp/settings/account.html"
+class Cooggerup(View):
+    template_name = "apps/cooggerapp/settings/cooggerup.html"
+    form_class = CooggerupForm
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
+        queryset = OtherInformationOfUsers.objects.filter(user = request.user)[0]
         context = dict(
-        settings = True,
+        form = self.form_class(request.GET or None,instance = queryset),
         hmanynotifications = hmanynotifications(request),
         )
         return render(request, self.template_name, context)
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            password=request.POST["Password"]
-            if password == request.POST["Confirm"]:
-                 u = User.objects.get(username=request.user)
-                 u.set_password(password)
-                 u.save()
-                 ms.error(request,"Şifreniz başarıyla değişti, lütfen tekrar giriş yapınız")
-                 return HttpResponseRedirect("/login")
+        bot_form = self.form_class(request.POST)
+        if bot_form.is_valid():
+            try:
+                confirmation = request.POST["cooggerup_confirmation"]
+            except:
+                confirmation = "of"
+            percent = request.POST["cooggerup_percent"]
+            if confirmation == "on":
+                otherinfo_filter = OtherInformationOfUsers.objects.filter(user = request.user)
+                print(otherinfo_filter,otherinfo_filter[0])
+                otherinfo_filter.update(cooggerup_confirmation = True,cooggerup_percent = int(percent))
+                ms.error(request,"You joined in curation trails of the cooggerup bot ")
             else:
-                ms.error(request,"Şifreler eşleşmedi")
-                return HttpResponseRedirect("/settings/account")
+                ms.error(request,f"make sure that you fill in two options {confirmation} ,{percent}")
+            return HttpResponseRedirect(request.META["PATH_INFO"])
+
+
+class Draft(TemplateView):
+    template_name = "apps/cooggerapp/settings/draft.html"
+    pagi = 20
+    queryset = Content.objects.filter(draft = True)
+
+    def get_context_data(self, **kwargs):
+        context = super(Draft, self).get_context_data(**kwargs)
+        context["content"] = paginator(self.request,self.queryset,self.pagi)
+        context["hmanynotifications"] = hmanynotifications(self.request)
+        return context
+
 
 class Addaddess(View):
     form_class = UserFollowForm
@@ -58,7 +78,6 @@ class Addaddess(View):
         user_form = self.form_class(request.GET or None)
         context = dict(
         UserForm = user_form,
-        settings = True,
         instance_ = instance_,
         hmanynotifications = hmanynotifications(request),
         )

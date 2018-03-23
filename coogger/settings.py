@@ -5,7 +5,7 @@ AUTHENTICATION_BACKENDS = (
      'django.contrib.auth.backends.ModelBackend',
 )
 SOCIAL_AUTH_STEEMCONNECT_KEY = "coogger.app"
-SOCIAL_AUTH_STEEMCONNECT_DEFAULT_SCOPE = ['vote', 'comment']
+SOCIAL_AUTH_STEEMCONNECT_DEFAULT_SCOPE = ["login","vote", "comment","comment_options","custom_json","claim_reward_balance",]
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
@@ -13,7 +13,8 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "apps.cooggerapp",
-    # "apps.steemitapp",
+    "social_django",
+    "apps.steemitapp",
     "ckeditor",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -35,23 +36,21 @@ ROOT_URLCONF = 'urls'
 TEMPLATES = [
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
-        'APP_DIRS': True,
-        'DIRS': [
-            os.path.join(BASE_DIR,"coogger",'common', 'templates')
-        ],
+        'APP_DIRS': False,
+        'DIRS': [os.path.join(BASE_DIR, "coogger","templates","apps","cooggerapp","jinja")],
         'OPTIONS': {
             'match_extension': '.html',
             'match_regex': r'^(?!admin/).*',
             'filters': {
-                'backend_name': 'common.filters.backend_name',
-                'backend_class': 'common.filters.backend_class',
-                'icon_name': 'common.filters.icon_name',
-                'social_backends': 'common.filters.social_backends',
-                'legacy_backends': 'common.filters.legacy_backends',
-                'oauth_backends': 'common.filters.oauth_backends',
-                'filter_backends': 'common.filters.filter_backends',
-                'slice_by': 'common.filters.slice_by',
-                'order_backends': 'common.filters.order_backends'
+                'backend_name': 'apps.cooggerapp.common.filters.backend_name',
+                'backend_class': 'apps.cooggerapp.common.filters.backend_class',
+                'icon_name': 'apps.cooggerapp.common.filters.icon_name',
+                'social_backends': 'apps.cooggerapp.common.filters.social_backends',
+                'legacy_backends': 'apps.cooggerapp.common.filters.legacy_backends',
+                'oauth_backends': 'apps.cooggerapp.common.filters.oauth_backends',
+                'filter_backends': 'apps.cooggerapp.common.filters.filter_backends',
+                'slice_by': 'apps.cooggerapp.common.filters.slice_by',
+                'order_backends': 'apps.cooggerapp.common.filters.order_backends'
             },
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -84,12 +83,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'coogger/db/cooggerapp_db'),
     },
-    # 'steemit': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'coogger/db/steemitapp_db'),
-    # },
+    'steemit': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'coogger/db/steemitapp_db'),
+    },
 }
-# DATABASE_ROUTERS = ["routing.GeneralRouter"]
+DATABASE_ROUTERS = ["routing.GeneralRouter"]
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -104,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-LANGUAGE_CODE = 'tr'
+LANGUAGE_CODE = 'en'
 TIME_ZONE = 'Europe/Istanbul'
 USE_I18N = True
 USE_L10N = True

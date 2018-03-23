@@ -13,8 +13,7 @@ class ContentAdmin(ModelAdmin):
     list_display_links = list_
     list_filter = ["time","confirmation"]
     search_fields = list_
-    prepopulated_fields = {"url":("title",)}
-    fields = ("user","confirmation",("content_list"),("title","url"),"content","show","tag",("views","hmanycomment","dor"))
+    fields = ("user",("content_list"),("title"),"content","show","tag",("views","hmanycomment","dor"),("confirmation","draft"))
 
     def save_model(self, request, obj, form, change):
         # admin panelde her düzenleme yapıldıgında 1 artmasın istiyorsan
@@ -84,4 +83,4 @@ site.register(SearchedWords,SearchedWordsAdmin)
 
 site.register(Notification,NotificationAdmin)
 
-site.register(Report)
+site.register(ReportModel)

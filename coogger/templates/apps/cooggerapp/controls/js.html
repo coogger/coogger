@@ -20,8 +20,9 @@ function editor_change(){
     var str = "";
     str += $(this).val();
     str = new String(str);
-    str = str.split(",");
+    str = str.split(" ");
     var tag = "";
+    tag += ""
     for (i=0; i < str.length; i++) {
       if (str[i] != ""){
         tag += '<li style="padding:3px 6px;margin:0px 6px;" class="tag" hvr="c-success" flx="" gnrl="c-muted bg-dark br-3"><i class="fa fa-hashtag" aria-hidden="true"></i>'+str[i]+'</li>'

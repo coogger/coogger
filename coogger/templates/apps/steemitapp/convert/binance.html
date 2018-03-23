@@ -1,19 +1,22 @@
-<div flx="jc-c" gnrl="txt-m">These tools for binance and koinim</div>
-<cards>
-  <card gnrl="c-white bg-primary" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
-    Convert > SBD > STEEM > binance > koinim.com > TRY
-    <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-binance-sbd-try' %}">
-      <input type="text" placeholder='Enter the amount of sbd ..' name="get_binance_sbd" value="{{ request.GET.get_binance_sbd }}" gnrl="br-2"/>
-      <input type="submit" value="Calculate"/>
-    </form>
+  <span flx="jc-c" gnrl="txt-m bg-dark c-white">These tools for binance and koinim</span>
+<cards flx="jc-c">
+
+  <div flx="fd-c"><span gnrl="bg-primary c-white br-2" style="padding:2px">Convert > SBD > STEEM > binance > koinim.com > TRY</span>
+    <card flx="as-c" gnrl="c-white bg-primary wmax" style="padding:3px;cursor:pointer;">
+      <form default="form" flx="jc-c as-c" action="{% url 'steemitapp-convert-binance-sbd-try' %}">
+        <input type="text" placeholder='Enter the amount of sbd ..' name="get_binance_sbd" value="{{ request.GET.get_binance_sbd }}" gnrl="br-2"/>
+        <input type="submit" value="Calculate"/>
+      </form>
   </card>
-  <card gnrl="c-white bg-secondary" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
-    Convert > STEEM > binance > koinim.com > TRY
+</div>
+<div flx="fd-c"><span gnrl="bg-secondary c-white br-2" style="padding:2px">Convert > STEEM > binance > koinim.com > TRY</span>
+  <card flx="as-c" gnrl="c-white bg-secondary wmax" style="padding:3px;cursor:pointer;">
     <form default="form" flx="jc-c" action="{% url 'steemitapp-convert-binance-steem-try' %}">
       <input type="text" placeholder='Enter the amount of steem ..' name="get_binance_steem" value="{{ request.GET.get_binance_steem }}" gnrl="br-2"/>
       <input type="submit" value="Calculate"/>
     </form>
   </card>
+</div>
 </cards>
 <cards flx="fd-c jc-c" gnrl="wmax" style="margin: auto;">
   <div flx="jc-c" gnrl="txt-m">Result ;</div>

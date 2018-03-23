@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.db.models import F
 from django.db.models import Q
 from django.contrib import messages as ms
+from django.contrib.auth.models import User
 
 #django class based
 from django.views.generic.base import TemplateView
@@ -17,11 +18,11 @@ from django.utils.decorators import method_decorator
 from apps.cooggerapp.forms import ReportsForm
 
 #models
-from apps.cooggerapp.models import Content, OtherInformationOfUsers, Notification, SearchedWords, Report, Following
+from apps.cooggerapp.models import Content, OtherInformationOfUsers, Notification, SearchedWords, ReportModel, Following
 
 #views
 from apps.cooggerapp.views.tools import paginator,hmanynotifications
-from apps.cooggerapp.oogg import Oogg
+from lib.oogg import Oogg
 
 class Home(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
@@ -29,6 +30,12 @@ class Home(TemplateView):
     queryset = Content.objects.filter(confirmation = True)
 
     def get_context_data(self, **kwargs):
+        try:
+            # OtherInformationOfUsers kayıt l ıdeğil ise kayıt ediyoruzself.
+            user = User.objects.filter(username = self.request.user)[0]
+            OtherInformationOfUsers(user = user).save()
+        except:
+            pass
         context = super(Home, self).get_context_data(**kwargs)
         context["content"] = paginator(self.request,self.queryset,self.pagi)
         context["hmanynotifications"] = hmanynotifications(self.request)
@@ -88,26 +95,29 @@ class Notification(View):
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        queryset = Notification.objects.filter(user = self.request.user).order_by("-time")
+        try:
+            queryset = Notification.objects.filter(user = self.request.user).order_by("-time")
+            queryset.update(show = True)
+        except:
+            queryset = ""
         context = dict(
         notifications = paginator(request,queryset,self.pagi),
-        hmanynotifications = queryset.filter(show=False).count(),
+        hmanynotifications = hmanynotifications(self.request),
         )
-        queryset.update(show = True)
         return render(request, self.template_name, context)
 
 
 class Report(View):
     form_class = ReportsForm
-    initial = {'key': 'value'}
+
     template_name = "apps/cooggerapp/home/report.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        report_form = self.form_class(initial = self.initial)
+        report_form = self.form_class()
         context = dict(
         report_form = report_form,
-        content_id = hmanynotifications(request),
+        content_id = request.GET["content_id"],
         )
         return render(request, self.template_name, context)
 
@@ -116,7 +126,7 @@ class Report(View):
         report_form = self.form_class(request.POST)
         if report_form.is_valid():
             content = Content.objects.filter(id = request.POST["content_id"])[0]
-            if Report.objects.filter(user = request_user,content = content).exists():
+            if ReportModel.objects.filter(user = request.user,content = content).exists():
                 ms.error(request,"Şikayetiniz değerlendirme sürecinde.")
                 return HttpResponseRedirect("/")
             report_form  = report_form.save(commit=False)

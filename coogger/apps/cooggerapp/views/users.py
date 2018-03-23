@@ -13,19 +13,21 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #models
-from apps.cooggerapp.models import OtherInformationOfUsers,Content,UserFollow
+from apps.cooggerapp.models import OtherInformationOfUsers,Content,UserFollow,Following
+from social_django.models import UserSocialAuth
 
 #forms
-from apps.cooggerapp.forms import UserFollowForm,AboutForm
+from apps.cooggerapp.forms import AboutForm
 
 #views
 from apps.cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,paginator
-from apps.cooggerapp.oogg import Oogg
+from lib.oogg import Oogg
 
 #python
 from PIL import Image
 import os
 import json
+import requests
 
 class UserClassBased(TemplateView):
     "herhangi kullanıcının anasayfası"
@@ -38,6 +40,10 @@ class UserClassBased(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         user = User.objects.filter(username = username)[0]
+        try:
+            OtherInformationOfUsers(user = user).save()
+        except:
+            pass
         if username == self.request.user.username: # kendisi ise
             queryset = self.ctof(user = user)
         else:
@@ -49,22 +55,23 @@ class UserClassBased(TemplateView):
             c_list = i.content_list
             if c_list not in nav_category:
                 nav_category.append(c_list)
+        context["content"] = info_of_cards
+        context["content_user"] = User.objects.filter(username = username)[0]
+        context["user_follow"] = users_web(user)
+        context["nav_category"] = nav_category
+        context["head"] = self.html_head(username,user)
+        context["hmanynotifications"] = hmanynotifications(self.request)
+        context["is_follow"] = is_follow(self.request,user)
+        return context
+
+    def html_head(self, username,user):
         html_head = dict(
          title = self.title.format(username),
          keywords = self.keywords.format(username,user.first_name,user.last_name),
          description = self.description.format(user.first_name,user.last_name,username),
          author = get_facebook(user),
         )
-        context["content"] = info_of_cards
-        context["content_user"] = user
-        context["user_follow"] = users_web(user)
-        context["nav_category"] = nav_category
-        context["head"] = html_head
-        context["hmanynotifications"] = hmanynotifications(self.request)
-        context["is_follow"] = is_follow(self.request,user)
-        context["account"] = Oogg.get_account_info(username)
-        context["follow_count"] = Oogg.follow_count(username)
-        return context
+
 
 class UserTopic(UserClassBased):
     "kullanıcıların konu adresleri"
@@ -155,15 +162,15 @@ class FollowBaseClass(View):
             request_user = request.user
             if user != request_user: # takip isteği ve kişisi aynı değil ise
                 is_follow = Following.objects.filter(user = request_user,which_user = user)
-                followers_num = self.oiouof(user = user)[0].followers
+                followers_num = self.oiouof(user = user)[0].follower_count
                 if is_follow.exists():
                     is_follow.delete()
-                    self.oiouof(user = request_user).update(following = F("following")-1)
-                    self.oiouof(user = user).update(followers = F("followers")-1)
+                    self.oiouof(user = request_user).update(following_count = F("following_count")-1)
+                    self.oiouof(user = user).update(follower_count = F("follower_count")-1)
                     return HttpResponse(json.dumps({"ms":"Takip et","num":followers_num-1}))
                 Following(user = request_user,which_user = user).save()
-                self.oiouof(user = request_user).update(following = F("following")+1)
-                self.oiouof(user = user).update(followers = F("followers")+1)
+                self.oiouof(user = request_user).update(following_count = F("following_count")+1)
+                self.oiouof(user = user).update(follower_count = F("follower_count")+1)
                 return HttpResponse(json.dumps({"ms":"Takibi bırak","num":followers_num+1}))
 
 

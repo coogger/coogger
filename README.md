@@ -1,20 +1,16 @@
-[![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/hakancelik96/coogger/blob/master/LICENSE.txt)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/coogger/blob/master/LICENSE.txt)
+[![Coogger channel on Discord](https://img.shields.io/badge/chat-discord-738bd7.svg)](https://discord.gg/kJMbsdT)
+[instagram page](https://www.instagram.com/coogger.v1/)
+[Facebook page](https://www.facebook.com/coogger)
 
-coogger is an information sharing network that works with multiple applications
-[apps](http://www.coogger.com/apps)
+Coogger is an Open Source social information sharing network that works with [multiple applications](http://www.coogger.com/apps)
+and coogger rewards these information shares.
+
 ====================
 
-+ coogger.com, the information sharing platform, is currently available only in Turkish
-+ follow us or join us
-  - [instagram page](https://www.instagram.com/coogger.v1/)
-  - [Facebook page](https://www.facebook.com/coogger)
+### Usage
 
-before
--
 - pip install -r requirements.txt
-
-Use as follows
--------
 
 ```python
 python manage.py migrate --database=steemit

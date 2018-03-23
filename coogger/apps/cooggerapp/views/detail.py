@@ -8,6 +8,7 @@ from django.db.models import F
 from django.contrib import messages as ms
 from django.utils.text import slugify
 from django.utils import timezone
+from social_django.models import UserSocialAuth
 
 #django class based
 from django.views.generic.base import TemplateView
@@ -21,7 +22,7 @@ from apps.cooggerapp.models import Content,UserFollow,Comment,Notification,Conte
 # cooggerapp views
 from apps.cooggerapp.views.tools import (paginator,html_head,hmanynotifications,users_web)
 from apps.cooggerapp.views.users import is_follow
-from apps.cooggerapp.oogg import Oogg
+from lib.oogg import Oogg
 
 #python
 import json
@@ -53,7 +54,7 @@ class Detail(TemplateView):
         context["nameoflist"] = utopic
         context["content"] = info_of_cards
         context["detail"] = queryset
-        context["global_hashtag"] = [i for i in queryset.tag.split(",") if i != ""]
+        context["global_hashtag"] = [i for i in queryset.tag.split(" ") if i != ""]
         context["comment_form"] = Comment.objects.filter(content=queryset)
         context["hmanynotifications"] = hmanynotifications(self.request)
         context["user_follow"] = users_web(content_user)

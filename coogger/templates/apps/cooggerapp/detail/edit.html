@@ -1,28 +1,21 @@
 {% if request.user.is_authenticated %}
 <div flx="as-c jc-c">
   <div gnrl="bg-info br-2" flx style="margin: 12px 0px;">
-    {% if detail.user == request.user or request.user.is_superuser %}
+    {% if detail.user == request.user %}
     <div>
       <a gnrl="br-2" hvr-a="bg-primary" href="{% url 'cooggerapp-change' detail.id  %}" flx="ai-c"
       style="padding: 6px 12px;">
         <i gnrl="c-white" class="fa fa-edit" aria-hidden="true"></i>
-        <div gnrl="txt-s">Düzenle</div>
+        <div gnrl="txt-s">Edit</div>
       </a>
     </div>
-    <div >
-     <div gnrl="br-2" hvr-a="bg-danger" class="delete"
-      data-post-id="{{detail.id}}" flx="ai-c" style="padding: 6px 12px;cursor:pointer">
-       <i gnrl="c-white" class="fa fa-trash" aria-hidden="true"></i>
-       <div gnrl="txt-s c-white">Sil</div>
-     </div>
-    </div>
     {% endif %}
-    {% if detail.user != request.user and not request.user.is_superuser %}
+    {% if detail.user != request.user %}
     <div>
       <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer"
        gnrl="br-2" hvr-a="bg-private" flx="ai-c">
         <i gnrl="c-white" class="fa fa-flag" aria-hidden="true"></i>
-        <div gnrl="txt-s c-white">Bildir</div>
+        <div gnrl="txt-s c-white">Report</div>
       </div>
     </div>
     {% endif %}

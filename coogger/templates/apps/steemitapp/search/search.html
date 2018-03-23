@@ -3,7 +3,7 @@ Search result
 </div>
 
 <!-- account info -->
-<div default="media" flx="jc-c" style="margin:12px auto;">
+<div default="media" gnrl="bg-white txt-m br-2"  flx="jc-c" style="margin:12px auto;">
   <img flx="jc-c" gnrl="br-circle" src="{{ account.profile_image }}" style="height: 300px;width: 300px;">
 </div>
 <div default="media" flx="ai-c fd-c" style="margin:12px auto;">
@@ -22,9 +22,9 @@ Search result
 </cards>
 {% else %}
 
-<div flx="ai-b jc-c">
+<div flx="jc-c" default="media" gnrl="bg-white txt-m br-2" >
 <!-- transfer -->
-<cards flx="ai-b fd-c">
+<cards flx="fd-c">
   <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
     To learn your money after convert your steem-dollar from blocktrades.us to bitcoin and transferring to koinim.com
   </card>
@@ -42,9 +42,9 @@ Koinim change rate : {{ transfer.change_rate }}
   </card>
 </cards>
 <!-- payout -->
-<cards flx="ai-b fd-c">
+<cards flx="fd-c">
   <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
-  To learn pending payout
+  Account info
   </card>
   <card flx="jc-c" style="padding:3px;">
   {{ payout.sbd_in_account }}
@@ -58,6 +58,9 @@ Koinim change rate : {{ transfer.change_rate }}
   <card flx="jc-c" style="padding:3px;">
 {{ payout.total_usd }}
   </card>
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
+  To learn pending payout
+  </card>
   {% for p in payout.posts %}
     <card flx="jc-c" style="padding:3px;">
     {{ p }}
@@ -65,7 +68,7 @@ Koinim change rate : {{ transfer.change_rate }}
   {% endfor %}
 </cards>
 <!-- price -->
-<cards flx="ai-b fd-c">
+<cards flx="fd-c">
   <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
     To stock market prices
   </card>

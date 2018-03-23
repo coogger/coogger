@@ -1,6 +1,6 @@
-<cards>
+<cards default="media2" flx="jc-c fd-c">
   {% for ct in content %}
-  <card class="data-post-id-{{ct.id}}">
+  <card class="data-post-id-{{ct.id}}" gnrl="bg-white br-2">
     {% include "apps/cooggerapp/card/edit.html" %}
     {% include "apps/cooggerapp/card/userinfo.html" %}
     {% include "apps/cooggerapp/card/contentinfo.html" %}

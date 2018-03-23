@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #models
-from apps.cooggerapp.models import UserFollow,Content,OtherInformationOfUsers
+from apps.cooggerapp.models import UserFollow,Content
 
 #python
 import json
@@ -26,24 +26,3 @@ class Address(View):
             if ubf.user == request.user:
                 ubf.delete()
             return HttpResponse(json.dumps({"status":"ok","ms":"adres silindi"}))
-
-
-class Content(View):
-    success = "Silme işlemi başarılı"
-    error = "hata"
-
-    @method_decorator(login_required)
-    def get(self, request,content_id, *args, **kwargs):
-        if request.is_ajax():
-            queryset = self.really_queryset(request,content_id)
-            queryset.delete()
-            OtherInformationOfUsers.objects.filter(user = request.user).update(hmanycontent = F("hmanycontent") -1)
-            return HttpResponse(self.success)
-
-    @staticmethod
-    def really_queryset(request,content_id):
-        if request.user.is_superuser:
-            queryset = Content.objects.filter(id = content_id)[0]
-        else:
-            queryset = Content.objects.filter(user = request.user,id = content_id)[0]
-        return queryset
