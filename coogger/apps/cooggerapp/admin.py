@@ -2,24 +2,33 @@ from django.contrib.admin import ModelAdmin,StackedInline,site,TabularInline,Adm
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
+
+#models
 from apps.cooggerapp.models import *
 
 # python
 import datetime
 
+# sc2py
+from lib.sc2py import Sc2
+
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","content_list","title","dor","time","lastmod","views"]
+    list_ = ["user","content_list","title","cooggerup"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["time","confirmation"]
+    list_filter = ["time","confirmation","cooggerup"]
     search_fields = list_
-    fields = ("user",("content_list"),("title"),"content","show","tag",("views","hmanycomment","dor"),("confirmation","draft"))
+    fields = ("user",("content_list"),("title"),"content","show","tag",("views","hmanycomment","dor"),("confirmation","draft","cooggerup"))
 
     def save_model(self, request, obj, form, change):
         # admin panelde her düzenleme yapıldıgında 1 artmasın istiyorsan
         # confirmation'ı true yapmadan düzenlemen gerek.
         obj.lastmod = datetime.datetime.now()
         oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
+        if obj.cooggerup == True: # onaylanan içerikler sponsorlar tarafından upvote atılıyor.
+            for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
+                user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
+                Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.get_steemit_permlink(), weight = int(percent))
         if obj.confirmation == True:
             oiouof.update(hmanycontent = F("hmanycontent") + 1)
         elif obj.confirmation == False:
@@ -57,6 +66,13 @@ class ContentviewsAdmin(ModelAdmin):
     list_display_links = list_
     search_fields = list_
 
+class OtherInfoUsersAdmin(ModelAdmin):
+    list_ = ["user","follower_count","following_count","hmanycontent","cooggerup_confirmation","cooggerup_percent"]
+    list_display = list_
+    list_display_links = list_
+    search_fields = list_
+    list_filter = ["cooggerup_confirmation"]
+
 ## users ##
 class OtherInformationOfUsersAdmin(StackedInline):
     model = OtherInformationOfUsers
@@ -84,3 +100,5 @@ site.register(SearchedWords,SearchedWordsAdmin)
 site.register(Notification,NotificationAdmin)
 
 site.register(ReportModel)
+
+site.register(OtherInformationOfUsers,OtherInfoUsersAdmin)

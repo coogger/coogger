@@ -59,6 +59,7 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
     confirmation = models.BooleanField(default = False,verbose_name = "content approval")
     draft = models.BooleanField(default = False,verbose_name = "content draft")
+    cooggerup = models.BooleanField(default = False,verbose_name = "upvote with cooggerup")
 
     class Meta:
         verbose_name = "content"
@@ -73,10 +74,9 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         return str(words_time)[:3]
 
     def content_save(self, *args, **kwargs):
-        self.content = self.content
         self.content_list = slugify(self.content_list.lower())
         tags = ""
-        get_tag = self.tag.replace("ı","i").split(" ")[:5]
+        get_tag = self.tag.split(" ")[:5]
         if get_tag[0] != "coogger":
             get_tag[0] = "coogger"
         for i in get_tag:
@@ -97,19 +97,18 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
             pass
         sum_of_post = """<center><br/><hr/><em> Posted on <a href=http://www.coogger.com/{}>coogger.com - The platform that rewards information sharing</a></em><hr/></center>""".format("@"+self.url)
         self.content += sum_of_post
-        # if self.sc2_post(permlink).status_code == 200:
-        #     self.draft = False
-        # else:
-        #     self.draft = True
+        if self.sc2_post(permlink).status_code == 200:
+            self.draft = False
+        else:
+            self.draft = True
         super(Content, self).save(*args, **kwargs)
 
     def content_update(self,queryset,content):
         self.user = queryset[0].user
         self.show = content.show
-        self.content_list = slugify(content.content_list.lower(), allow_unicode=True)
+        self.content_list = slugify(content.content_list.lower())
         self.content = content.content
         self.title = content.title
-        title_slug = slugify(self.title.lower(), allow_unicode=True)
         self.tag = content.tag
         self.draft = queryset[0].draft
         tags = ""
@@ -118,23 +117,41 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
             get_tag[0] = "coogger"
         for i in get_tag:
             if i == get_tag[-1]:
-                tags += slugify(i.lower(), allow_unicode=True)
+                tags += slugify(i.lower())
             else:
-                tags += slugify(i.lower(), allow_unicode=True)+" "
+                tags += slugify(i.lower())+" "
         self.tag = tags
         self.dor = self.durationofread(self.content+self.title)
         if queryset[0].confirmation == True: # bu sayede her düzenleme yapıldıgında 1 azalmayacaktır.
             OtherInformationOfUsers.objects.filter(user = self.user).update(hmanycontent = F("hmanycontent") -1)
+        if self.draft:
+            self.url = str(self.user)+"/"+str(self.content_list)+"/"+str(slugify(self.title.lower()))
+            permlink = slugify(self.title.lower())
+            try:
+                Post(post = self.get_steemit_url()).url
+                rand = str(random.randrange(9999))
+                self.url += "-"+rand
+                permlink += "-"+rand
+            except:
+                pass
+            if self.sc2_post(permlink).status_code == 200:
+                self.draft = False
+            else:
+                self.draft = True
+                self.url = queryset[0]
+        else:
+            self.url = queryset[0]
         queryset.update(show = self.show,
         content_list = self.content_list,
         content = self.content,
         title = self.title,
         tag = self.tag,
+        url = self.url,
         draft = self.draft,
         dor = self.dor,
         lastmod = datetime.datetime.now(),
         confirmation = False)
-        return queryset[0].url
+        return self.url
 
     def sc2_post(self,permlink):
         access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
@@ -143,6 +160,10 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     def get_steemit_url(self):
         s_url = self.url.split("/")
         return "@"+s_url[0]+"/"+s_url[2]
+
+    def get_steemit_permlink(self):
+        s_url = self.url.split("/")
+        return s_url[2]
 
     def post_reward(self):
         try:

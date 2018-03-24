@@ -59,8 +59,6 @@ class Detail(TemplateView):
         context["hmanynotifications"] = hmanynotifications(self.request)
         context["user_follow"] = users_web(content_user)
         context["is_follow"] = is_follow(self.request,content_user)
-        context["account"] = Oogg.get_account_info(username)
-        context["follow_count"] = Oogg.follow_count(username)
         return context
 
     def up_content_view(self,queryset):

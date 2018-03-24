@@ -1,12 +1,12 @@
 class GeneralRouter(object):
     def db_for_read(self, model, **hints):
-        if model._meta.app_label not in ["steemitapp"]:
+        if model._meta.app_label in ["admin", "auth", "contenttypes", "cooggerapp", "sessions","social_django"]:
             return "default"
         elif model._meta.app_label == "steemitapp":
             return "steemit"
 
     def db_for_write(self, model, **hints):
-        if model._meta.app_label not in ["steemitapp"]:
+        if model._meta.app_label in ["admin", "auth", "contenttypes", "cooggerapp", "sessions","social_django"]:
             return "default"
         elif model._meta.app_label == "steemitapp":
             return "steemit"
@@ -20,6 +20,6 @@ class GeneralRouter(object):
                 return True
             return False
         if db == "default":
-            if app_label not in ["steemit"]:
+            if app_label in ["admin", "auth", "contenttypes", "cooggerapp", "sessions","social_django"]:
                 return True
             return False

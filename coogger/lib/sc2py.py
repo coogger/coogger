@@ -7,7 +7,7 @@ class Sc2:
         self.access_token = access_token
         self.sc2_broadcast = "https://v2.steemconnect.com/api/broadcast"
 
-    def vote(self, voter, author, permlink, weight = 10000):
+    def vote(self, voter, author, permlink, weight):
         payload = """{
         "operations":
             [
@@ -20,7 +20,7 @@ class Sc2:
                     }
                 ]
             ]
-        }"""%(voter,author,permlink,weight)
+        }"""%(voter,author,permlink,weight * 100)
         return self.run(payload)
 
     def follow(follower,following):

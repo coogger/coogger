@@ -19,4 +19,4 @@ class Logout(View):
         if request.user.is_authenticated:
             ms.success(request,self.success.format(request.user))
             logout(request)
-            return HttpResponseRedirect("/")
+        return HttpResponseRedirect("/")
