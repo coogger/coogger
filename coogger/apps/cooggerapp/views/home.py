@@ -18,10 +18,10 @@ from django.utils.decorators import method_decorator
 from apps.cooggerapp.forms import ReportsForm
 
 #models
-from apps.cooggerapp.models import Content, OtherInformationOfUsers, Notification, SearchedWords, ReportModel, Following
+from apps.cooggerapp.models import Content, OtherInformationOfUsers, SearchedWords, ReportModel, Following
 
 #views
-from apps.cooggerapp.views.tools import paginator,hmanynotifications
+from apps.cooggerapp.views.tools import paginator
 from lib.oogg import Oogg
 
 class Home(TemplateView):
@@ -38,7 +38,6 @@ class Home(TemplateView):
             pass
         context = super(Home, self).get_context_data(**kwargs)
         context["content"] = paginator(self.request,self.queryset,self.pagi)
-        context["hmanynotifications"] = hmanynotifications(self.request)
         return context
 
 
@@ -59,7 +58,6 @@ class FollowingContent(View):
         info_of_cards = paginator(request,queryset,self.pagi)
         context = dict(
         content = info_of_cards,
-        hmanynotifications = hmanynotifications(request),
         )
         return render(request, self.template_name, context)
 
@@ -87,24 +85,6 @@ class Search(TemplateView):
     def get_queryset(self):
         queryset = self.search_algorithm()
         return queryset
-
-
-class Notification(View):
-    template_name = "apps/cooggerapp/home/notifications.html"
-    pagi = 10
-
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        try:
-            queryset = Notification.objects.filter(user = self.request.user).order_by("-time")
-            queryset.update(show = True)
-        except:
-            queryset = ""
-        context = dict(
-        notifications = paginator(request,queryset,self.pagi),
-        hmanynotifications = hmanynotifications(self.request),
-        )
-        return render(request, self.template_name, context)
 
 
 class Report(View):

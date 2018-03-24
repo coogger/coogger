@@ -20,7 +20,7 @@ from social_django.models import UserSocialAuth
 from apps.cooggerapp.forms import AboutForm
 
 #views
-from apps.cooggerapp.views.tools import hmanynotifications,get_facebook,users_web,paginator
+from apps.cooggerapp.views.tools import get_facebook,users_web,paginator
 from lib.oogg import Oogg
 
 #python
@@ -60,7 +60,6 @@ class UserClassBased(TemplateView):
         context["user_follow"] = users_web(user)
         context["nav_category"] = nav_category
         context["head"] = self.html_head(username,user)
-        context["hmanynotifications"] = hmanynotifications(self.request)
         context["is_follow"] = is_follow(self.request,user)
         return context
 
@@ -134,7 +133,6 @@ class UserAboutBaseClass(View):
         context["user_follow"] = users_web(user)
         context["nav_category"] = nav_category
         context["head"] = html_head
-        context["hmanynotifications"] = hmanynotifications(request)
         context["is_follow"] = is_follow(request,user)
         context["account"] = Oogg.get_account_info(username)
         context["follow_count"] = Oogg.follow_count(username)

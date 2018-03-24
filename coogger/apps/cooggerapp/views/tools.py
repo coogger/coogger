@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
 #models
-from apps.cooggerapp.models import OtherInformationOfUsers,Notification,Content,UserFollow
+from apps.cooggerapp.models import OtherInformationOfUsers,Content,UserFollow
 
 #choices seçimler
 from apps.cooggerapp.choices import *
@@ -29,14 +29,6 @@ def paginator(request,queryset,hmany=20):
     except EmptyPage:
         contacts = paginator.page(paginator.num_pages)
     return contacts
-
-def hmanynotifications(request):
-    try:
-        queryset = Notification.objects.filter(user = request.user)
-    except:
-        return False
-      # görmediği kaç bildirim olduğu sayısı
-    return queryset.filter(show = False).count()
 
 def users_web(user):
     try:

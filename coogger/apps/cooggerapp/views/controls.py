@@ -13,9 +13,6 @@ from django.utils.decorators import method_decorator
 #models
 from apps.cooggerapp.models import Content,OtherInformationOfUsers
 
-#views
-from apps.cooggerapp.views.tools import hmanynotifications
-
 #form
 from apps.cooggerapp.forms import ContentForm
 
@@ -31,7 +28,6 @@ class Create(View):
     def get(self, request, *args, **kwargs):
         context = dict(
         create_form = self.form_class(),
-        hmanynotifications = hmanynotifications(request),
         )
         return render(request, self.template_name, context)
 
@@ -62,7 +58,6 @@ class Change(View):
             change = queryset,
             content_id = content_id,
             change_form = content_form,
-            hmanynotifications = hmanynotifications(request),
         )
         return render(request, self.template_name, context)
 

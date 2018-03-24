@@ -35,23 +35,11 @@ class ContentAdmin(ModelAdmin):
             oiouof.update(hmanycontent = F("hmanycontent") - 1)
         super(ContentAdmin, self).save_model(request, obj, form, change)
 
-class NotificationAdmin(ModelAdmin):
-    list_ = ["user","even","content","show","address","time"]
-    list_display = list_
-    list_display_links = list_
-    search_fields = list_
-
 class UserFollowAdmin(ModelAdmin):
     list_ = ["user","choices","adress"]
     list_display = list_
     list_display_links = list_
     list_filter = ["choices"]
-    search_fields = list_
-
-class CommentAdmin(ModelAdmin):
-    list_ = ["user","content_id","comment"]
-    list_display = list_
-    list_display_links = list_
     search_fields = list_
 
 class SearchedWordsAdmin(ModelAdmin):
@@ -89,15 +77,11 @@ site.register(User, UserAdmin)
 
 site.register(Content,ContentAdmin)
 
-site.register(Comment,CommentAdmin)
-
 site.register(Contentviews,ContentviewsAdmin)
 
 site.register(UserFollow,UserFollowAdmin)
 
 site.register(SearchedWords,SearchedWordsAdmin)
-
-site.register(Notification,NotificationAdmin)
 
 site.register(ReportModel)
 

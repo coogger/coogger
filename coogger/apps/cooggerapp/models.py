@@ -36,7 +36,7 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     following_count = models.IntegerField(default = 0)
     hmanycontent = models.IntegerField(default = 0)
     cooggerup_confirmation = models.BooleanField(default = False, verbose_name = "Do you want to join in curation trails of the cooggerup bot with your account?")
-    percents = [i for i in range(101)]
+    percents = [i for i in range(100,0,-1)]
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices(percents),default = 0)
 
     def s_info(self):
@@ -177,9 +177,9 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
             )
         except:
             return dict(
-            total = "draft",
-            sbd = "draft",
-            sp = "draft",
+            total = " draft ",
+            sbd = " draft ",
+            sp = " draft ",
             )
 
 
@@ -206,39 +206,6 @@ class UserFollow(models.Model):
 class Following(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name='%(class)s_requests_created')
-
-
-class Comment(models.Model):
-    user = models.ForeignKey("auth.user", on_delete=models.CASCADE ,verbose_name="yorum yapan kişi")
-    content = models.ForeignKey("content" ,on_delete=models.CASCADE)
-    date = models.DateTimeField(default = timezone.now,verbose_name="tarih")
-    comment = models.CharField(max_length=310,verbose_name="Soru sor veya teşekkür et, yorum yap")
-
-    # def steemit_post(self, title, body, author, tags, reply_identifier = None):
-    #     user_posting_key = OtherInformationOfUsers.objects.filter(user = author)[0].posting_key
-    #     STEEM = Steem(keys = [str(user_posting_key)])
-    #     Commit(steem = STEEM).post(
-    #     title = title,
-    #     body = body,
-    #     author = str(author),
-    #     permlink = None,
-    #     reply_identifier = reply_identifier,
-    #     json_metadata = None,
-    #     comment_options = None,
-    #     community = None,
-    #     tags = tags,
-    #     beneficiaries = None,
-    #     self_vote = False
-    #     )
-
-
-class Notification(models.Model):
-    user = models.ForeignKey("auth.user", on_delete=models.CASCADE, verbose_name="bildirimin gittiği kişi")
-    even = models.IntegerField(verbose_name="bildirime sebeb olan olay numarası")
-    content = models.CharField(max_length=310,verbose_name="bildirim mesajı")
-    show = models.BooleanField(default=False,verbose_name="gördü/görmedi")
-    address = models.SlugField(verbose_name="bildirimin gerçekleştiği adres")
-    time = models.DateTimeField(default = timezone.now,verbose_name="tarih")
 
 
 class SearchedWords(models.Model):

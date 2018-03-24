@@ -14,7 +14,7 @@ from django.views.generic.base import TemplateView
 from apps.cooggerapp.models import Content
 
 #views
-from apps.cooggerapp.views.tools import paginator,hmanynotifications
+from apps.cooggerapp.views.tools import paginator
 
 class Hashtag(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
@@ -35,7 +35,6 @@ class Hashtag(TemplateView):
             context["content"] = info_of_cards
             context["nameofhashtag"] = hashtag
             context["head"] = html_head
-            context["hmanynotifications"] = hmanynotifications(self.request)
             return context
 
 class Userlist(Hashtag):

@@ -15,7 +15,7 @@ from django.views.generic.base import TemplateView
 from apps.cooggerapp.models import UserFollow, OtherInformationOfUsers, Content
 
 #views
-from apps.cooggerapp.views.tools import hmanynotifications,paginator
+from apps.cooggerapp.views.tools import paginator
 
 #forms
 from apps.cooggerapp.forms import CSettingsUserForm,UserFollowForm,CooggerupForm
@@ -32,7 +32,6 @@ class Cooggerup(View):
         queryset = OtherInformationOfUsers.objects.filter(user = request.user)[0]
         context = dict(
         form = self.form_class(request.GET or None,instance = queryset),
-        hmanynotifications = hmanynotifications(request),
         )
         return render(request, self.template_name, context)
 
@@ -63,7 +62,6 @@ class Draft(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Draft, self).get_context_data(**kwargs)
         context["content"] = paginator(self.request,self.queryset,self.pagi)
-        context["hmanynotifications"] = hmanynotifications(self.request)
         return context
 
 
@@ -79,7 +77,6 @@ class Addaddess(View):
         context = dict(
         UserForm = user_form,
         instance_ = instance_,
-        hmanynotifications = hmanynotifications(request),
         )
         return render(request,self.template_name,context)
 
@@ -90,5 +87,5 @@ class Addaddess(View):
             form = user_form.save(commit=False)
             form.user = request.user
             form.save()
-            ms.error(request,"Web siteniz eklendi")
+            ms.error(request,"Your website has added")
             return HttpResponseRedirect(request.META["PATH_INFO"])
