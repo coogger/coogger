@@ -9,9 +9,6 @@ from django.urls import reverse
 from social_django.models import UserSocialAuth
 from social_django.models import AbstractUserSocialAuth, DjangoStorage, USER_MODEL
 
-#django 3.
-from ckeditor.fields import RichTextField
-
 #choices
 from apps.cooggerapp.choices import *
 
@@ -26,12 +23,13 @@ from steem.post import Post
 from steem.amount import Amount
 from steem import Steem
 
-# sc2py
+# 3.
 from lib.sc2py import Sc2
+import mistune
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = RichTextField(null = True, blank = True,verbose_name = "About of user")
+    about = models.TextField(null = True, blank = True,verbose_name = "About of user")
     follower_count = models.IntegerField(default = 0)
     following_count = models.IntegerField(default = 0)
     hmanycontent = models.IntegerField(default = 0)
@@ -48,7 +46,7 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     content_list = models.CharField(default = "coogger",max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     url = models.CharField(unique = True, max_length=200, verbose_name = "web address") # blogun url adresi
-    content = RichTextField(verbose_name = "Write your content")  # yazılan yazılar burda
+    content = models.TextField(verbose_name = "Write your content")  # yazılan yazılar burda
     show = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
@@ -65,6 +63,9 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         verbose_name = "content"
         ordering = ['-lastmod']
 
+    def show_content(self):
+        return mistune.markdown(self.content)
+
     @staticmethod
     def durationofread(text):
         reading_speed = 20 # 1 saniyede 20 harf okunursa
@@ -76,11 +77,13 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     def content_save(self, *args, **kwargs):
         self.content_list = slugify(self.content_list.lower())
         tags = ""
-        get_tag = self.tag.split(" ")[:5]
+        get_tag = self.tag.split(" ")[:4]
         if get_tag[0] != "coogger":
-            get_tag[0] = "coogger"
-        for i in get_tag:
-            if i == get_tag[-1]:
+            get_tag.insert(0,"coogger")
+        clearly_tags = get_tag
+        clearly_tags = [clearly_tags.append(i) for i in get_tag if i not in clearly_tags]
+        for i in clearly_tags:
+            if i == clearly_tags[-1]:
                 tags += slugify(i.lower())
             else:
                 tags += slugify(i.lower())+" "
@@ -95,8 +98,6 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
             permlink += "-"+rand
         except:
             pass
-        sum_of_post = """<center><br/><hr/><em> Posted on <a href=http://www.coogger.com/{}>coogger.com - The platform that rewards information sharing</a></em><hr/></center>""".format("@"+self.url)
-        self.content += sum_of_post
         if self.sc2_post(permlink).status_code == 200:
             self.draft = False
         else:
@@ -114,9 +115,11 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         tags = ""
         get_tag = self.tag.split(" ")[:4]
         if get_tag[0] != "coogger":
-            get_tag[0] = "coogger"
-        for i in get_tag:
-            if i == get_tag[-1]:
+            get_tag.insert(0,"coogger")
+        clearly_tags = get_tag
+        clearly_tags = [clearly_tags.append(i) for i in get_tag if i not in clearly_tags]
+        for i in clearly_tags:
+            if i == clearly_tags[-1]:
                 tags += slugify(i.lower())
             else:
                 tags += slugify(i.lower())+" "
@@ -138,9 +141,9 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
                 self.draft = False
             else:
                 self.draft = True
-                self.url = queryset[0]
+                self.url = queryset[0].url
         else:
-            self.url = queryset[0]
+            self.url = queryset[0].url
         queryset.update(show = self.show,
         content_list = self.content_list,
         content = self.content,
@@ -155,7 +158,13 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
 
     def sc2_post(self,permlink):
         access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
-        return Sc2(str(access_token)).post(str(self.user.username),str(self.title),str(self.content),self.tag,permlink)
+        content = mistune.markdown(self.content)
+        sum_of_post = """<center><br/><hr/>
+        <em> Posted on <a href="http://www.coogger.com/{}">coogger.com -
+        The platform that rewards information sharing</a></em>
+        <hr/></center>""".format("@"+self.url)
+        content += sum_of_post
+        return Sc2(str(access_token)).post(str(self.user.username),str(self.title),str(content),self.tag,permlink)
 
     def get_steemit_url(self):
         s_url = self.url.split("/")

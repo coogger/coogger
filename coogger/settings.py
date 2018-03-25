@@ -10,12 +10,11 @@ SOCIAL_AUTH_STEEMCONNECT_DEFAULT_SCOPE = ["login","vote", "comment","comment_opt
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = True
-ALLOWED_HOSTS = [".coogger.com"]
+ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "apps.cooggerapp",
     "social_django",
     "apps.steemitapp",
-    "ckeditor",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -113,36 +112,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_CONFIGS = {
-    'default': {
-        "toolbar":"full",
-        "width":"100%",
-        "extraPlugins":'codesnippet',
-        "codeSnippet_theme": 'github',
-        'toolbar_YourCustomToolbarConfig': [
-            {'name': 'basicstyles',
-             'items': ['Bold', 'Italic', 'Underline', '-', 'Strike', '-','Subscript', 'Superscript', '-', 'RemoveFormat']},
-            {'name': 'paragraph',
-             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
-                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl']},
-            '/',
-            {'name': 'links', 'items': ['Link', 'Unlink',]},
-
-            {'name': 'insert',
-             'items': ['Image', 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe']},
-            {'name': 'styles', 'items': ['Format','FontSize']},
-            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-            {'name': 'yourcustomtools', 'items': [
-                'Preview',
-                'Maximize',
-                "CodeSnippet",
-
-            ]},
-        ],
-        'toolbar': 'YourCustomToolbarConfig',
-        'tabSpaces': 4,
-
-    }
-}

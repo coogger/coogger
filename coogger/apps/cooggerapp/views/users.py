@@ -134,8 +134,6 @@ class UserAboutBaseClass(View):
         context["nav_category"] = nav_category
         context["head"] = html_head
         context["is_follow"] = is_follow(request,user)
-        context["account"] = Oogg.get_account_info(username)
-        context["follow_count"] = Oogg.follow_count(username)
         return render(request,self.template_name,context)
 
     def post(self, request, username, *args, **kwargs):
@@ -147,6 +145,7 @@ class UserAboutBaseClass(View):
                     about_form = about_form.save(commit = False)
                     about_form.user = request.user
                     about_form.save()
+                    return HttpResponseRedirect("/web/about/@{}".format(request.user.username))
 
 
 class FollowBaseClass(View):

@@ -56,6 +56,15 @@ class Sc2:
         return self.run(payload)
 
     def post(self,author,title,body,tags,permlink):
+        last_body= ""
+        for i in [b for b in body]:
+            if i == "\n":
+                last_body += r"\n"
+            elif i == "\t":
+                last_body += r"\t"
+            else:
+                last_body += i
+        last_body = last_body.replace('"',"'").replace('"""',"'")
         a = ""
         tag_split = tags.split()
         for i in tag_split:
@@ -79,7 +88,7 @@ class Sc2:
                             }
                       ]
                   ]
-        }"""%(tag_split[0],author,permlink,title,body,tag_string)
+        }"""%(tag_split[0],author,permlink,title,last_body,tag_string)
         return self.run(payload)
 
     def run(self, payload):

@@ -63,10 +63,6 @@ a {
   text-decoration: none;
   color: #fff; }
 
-ul {
-  margin: 0px;
-  padding: 0px; }
-
 input[type="submit"] {
   cursor: pointer; }
 
@@ -88,7 +84,7 @@ input[type="submit"] {
   margin: 3px 0px; }
 
 /* di─şer default ├Âzellikler bunlar tam isimleri ile yaz─▒lacakt─▒r */
-[default~="media"], [default~="paragraph"] {
+[default~="media"], [default~="paragraph"]{
   overflow-x: auto;
   width: 50%;
   margin: auto;

@@ -57,6 +57,6 @@
   </div>
 </header>
 <form default="form media" flx="jc-c" action="{% url 'cooggerapp-search' %}">
-  <input type="text" placeholder='Ara ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2"/>
-  <input type="submit" value="Ara"/>
+  <input type="text" placeholder='Search ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2"/>
+  <input type="submit" value="Search"/>
 </form>

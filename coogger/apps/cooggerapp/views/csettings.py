@@ -46,11 +46,12 @@ class Cooggerup(View):
             percent = request.POST["cooggerup_percent"]
             if confirmation == "on":
                 otherinfo_filter = OtherInformationOfUsers.objects.filter(user = request.user)
-                print(otherinfo_filter,otherinfo_filter[0])
                 otherinfo_filter.update(cooggerup_confirmation = True,cooggerup_percent = int(percent))
-                ms.error(request,"You joined in curation trails of the cooggerup bot ")
-            else:
-                ms.error(request,f"make sure that you fill in two options {confirmation} ,{percent}")
+                ms.error(request,"You joined in curation trails of the cooggerup bot")
+            elif confirmation == "of":
+                otherinfo_filter = OtherInformationOfUsers.objects.filter(user = request.user)
+                otherinfo_filter.update(cooggerup_confirmation = False,cooggerup_percent = 0)
+                ms.error(request,"You have been removed from the curation trails of cooggerup bot.")
             return HttpResponseRedirect(request.META["PATH_INFO"])
 
 
