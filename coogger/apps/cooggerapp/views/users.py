@@ -24,7 +24,6 @@ from apps.cooggerapp.views.tools import get_facebook,users_web,paginator
 from lib.oogg import Oogg
 
 #python
-from PIL import Image
 import os
 import json
 import requests

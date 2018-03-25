@@ -77,11 +77,13 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     def content_save(self, *args, **kwargs):
         self.content_list = slugify(self.content_list.lower())
         tags = ""
+        clearly_tags = []
         get_tag = self.tag.split(" ")[:4]
         if get_tag[0] != "coogger":
             get_tag.insert(0,"coogger")
-        clearly_tags = get_tag
-        clearly_tags = [clearly_tags.append(i) for i in get_tag if i not in clearly_tags]
+        for i in get_tag:
+            if i not in clearly_tags:
+                clearly_tags.append(i)
         for i in clearly_tags:
             if i == clearly_tags[-1]:
                 tags += slugify(i.lower())
@@ -113,11 +115,13 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         self.tag = content.tag
         self.draft = queryset[0].draft
         tags = ""
+        clearly_tags = []
         get_tag = self.tag.split(" ")[:4]
         if get_tag[0] != "coogger":
             get_tag.insert(0,"coogger")
-        clearly_tags = get_tag
-        clearly_tags = [clearly_tags.append(i) for i in get_tag if i not in clearly_tags]
+        for i in get_tag:
+            if i not in clearly_tags:
+                clearly_tags.append(i)
         for i in clearly_tags:
             if i == clearly_tags[-1]:
                 tags += slugify(i.lower())
