@@ -22,7 +22,7 @@ from apps.cooggerapp.models import Content,UserFollow,Contentviews
 # cooggerapp views
 from apps.cooggerapp.views.tools import paginator,html_head,users_web
 from apps.cooggerapp.views.users import is_follow
-from lib.oogg import Oogg
+from easysteem.easysteem import Oogg
 
 #python
 import json
@@ -44,7 +44,6 @@ class Detail(TemplateView):
         queryset = self.ctof(url = content_path)[0]
         content_id = queryset.id
         nav_category = self.ctof(user = content_user,content_list = utopic)
-        info_of_cards = paginator(self.request,nav_category,self.pagi)
         self.up_content_view(queryset) # ip aldık ve okuma sayısını 1 arttırdık
         context = super(Detail, self).get_context_data(**kwargs)
         context["head"] = html_head(queryset)
@@ -52,7 +51,6 @@ class Detail(TemplateView):
         context["nav_category"] = nav_category
         context["urloftopic"] = queryset.url
         context["nameoflist"] = utopic
-        context["content"] = info_of_cards
         context["detail"] = queryset
         context["global_hashtag"] = [i for i in queryset.tag.split(" ") if i != ""]
         context["user_follow"] = users_web(content_user)

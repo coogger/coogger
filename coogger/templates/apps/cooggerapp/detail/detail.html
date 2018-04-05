@@ -5,24 +5,21 @@
   </div>
   {% endif %}
 <div class="data-post-id-{{detail.id}}">
-{% include "apps/cooggerapp/detail/edit.html" %}
-{% include "apps/cooggerapp/detail/userinfo.html" %}
-{% include "apps/cooggerapp/detail/contentinfo.html" %}
-<div default="paragraph">
-    <div style="overflow-x: auto;">{{ detail.show_content|safe }}</div>
-</div>
-<div flx="jc-c" default="media pm">
+  <div default="paragraph" class="martor-preview">
+    {% load martortags %}
+    <div style="overflow-x: auto;">{{ detail.content|safe_markdown }}</div>
+  </div>
+  <div flx="jc-c" default="media pm">
     <div flx>
-        {% for i in global_hashtag %}
-        <div gnrl="bg-dark br-2" style="padding: 3px 6px;margin: 3px 6px;">
-          <a gnrl="c-white" hvr-a="c-success" href="{% url 'cooggerapp-hashtag' i  %}">
-            <i class="fa fa-hashtag" aria-hidden="true"></i>
-            <span>{{ i }}</span>
-          </a>
-        </div>
-        {% endfor %}
+      {% for i in global_hashtag %}
+      <div gnrl="bg-dark br-2" style="padding: 3px 6px;margin: 3px 6px;">
+        <a gnrl="c-white" hvr-a="c-success" href="{% url 'cooggerapp-hashtag' i  %}">
+          <i class="fa fa-hashtag" aria-hidden="true"></i>
+          <span>{{ i }}</span>
+        </a>
+      </div>
+      {% endfor %}
     </div>
-</div>
- {% include 'apps/cooggerapp/card/blog-cards.html' %}
+  </div>
 </div>
 </div>

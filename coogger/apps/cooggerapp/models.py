@@ -8,6 +8,7 @@ from django.urls import reverse
 
 from social_django.models import UserSocialAuth
 from social_django.models import AbstractUserSocialAuth, DjangoStorage, USER_MODEL
+from martor.models import MartorField
 
 #choices
 from apps.cooggerapp.choices import *
@@ -24,12 +25,11 @@ from steem.amount import Amount
 from steem import Steem
 
 # 3.
-from lib.sc2py import Sc2
-import mistune
+from sc2py.sc2py import Sc2
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = models.TextField(null = True, blank = True,verbose_name = "About of user")
+    about = MartorField()
     follower_count = models.IntegerField(default = 0)
     following_count = models.IntegerField(default = 0)
     hmanycontent = models.IntegerField(default = 0)
@@ -46,7 +46,7 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     content_list = models.CharField(default = "coogger",max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     url = models.CharField(unique = True, max_length=200, verbose_name = "web address") # blogun url adresi
-    content = models.TextField(verbose_name = "Write your content")  # yazılan yazılar burda
+    content = MartorField()  # yazılan yazılar burda
     show = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
@@ -62,9 +62,6 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     class Meta:
         verbose_name = "content"
         ordering = ['-lastmod']
-
-    def show_content(self):
-        return mistune.markdown(self.content)
 
     @staticmethod
     def durationofread(text):
@@ -162,12 +159,10 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
 
     def sc2_post(self,permlink):
         access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
-        content = mistune.markdown(self.content)
-        sum_of_post = """<center><br/><hr/>
-        <em> Posted on <a href="http://www.coogger.com/{}">coogger.com -
-        The platform that rewards information sharing</a></em>
-        <hr/></center>""".format("@"+self.url)
-        content += sum_of_post
+        sum_of_post = """\n----------
+        \nPosted on  [coogger.com](http://www.coogger.com/@{})  - The platform that rewards information sharing
+        \n\n ----------""".format("@"+self.url)
+        content = self.content + sum_of_post
         return Sc2(str(access_token)).post(str(self.user.username),str(self.title),str(content),self.tag,permlink)
 
     def get_steemit_url(self):
@@ -190,9 +185,9 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
             )
         except:
             return dict(
-            total = " draft ",
-            sbd = " draft ",
-            sp = " draft ",
+            total = None,
+            sbd = None,
+            sp = None,
             )
 
 

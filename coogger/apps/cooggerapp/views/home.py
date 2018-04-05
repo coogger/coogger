@@ -22,7 +22,7 @@ from apps.cooggerapp.models import Content, OtherInformationOfUsers, SearchedWor
 
 #views
 from apps.cooggerapp.views.tools import paginator
-from lib.oogg import Oogg
+from easysteem.easysteem import Oogg
 
 class Home(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"

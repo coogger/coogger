@@ -3,6 +3,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from django.urls import path
+
 #views
 from apps.views import AppsHome
 from apps.views import AppsSitemap
@@ -10,7 +12,8 @@ from django.contrib.sitemaps.views import sitemap
 
 # common addresses
 urlpatterns = [
-    url(r'^web/admin/', admin.site.urls), # admin panel
+    url(r'^martor/', include('martor.urls')),
+    url(r'^web/admin/', admin.site.urls), # admin panel    
 ]
 
 # main project = coogger

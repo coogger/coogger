@@ -11,10 +11,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
-INSTALLED_APPS = [
+INSTALLED_APPS = [ # coogger's app
     "apps.cooggerapp",
-    "social_django",
     "apps.steemitapp",
+    ]
+INSTALLED_APPS += [# 3. apps
+    "martor",
+    "social_django",
+    ]
+INSTALLED_APPS += [# django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,3 +117,12 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+MARTOR_ENABLE_CONFIGS = {
+    'imgur': 'false',
+    'mention': 'true',
+    'jquery': 'true',
+}
+
+MARTOR_MARKDOWN_BASE_MENTION_URL = 'http://coogger.com/@'

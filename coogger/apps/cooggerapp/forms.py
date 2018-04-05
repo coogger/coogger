@@ -7,7 +7,6 @@ from apps.cooggerapp.models import Content,UserFollow,OtherInformationOfUsers,Re
 # user model
 from django.contrib.auth.models import User
 
-
 class ContentForm(ModelForm):
     class Meta:
         model = Content

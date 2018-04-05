@@ -4,13 +4,37 @@
     {% include "apps/cooggerapp/card/edit.html" %}
     {% include "apps/cooggerapp/card/userinfo.html" %}
     {% include "apps/cooggerapp/card/contentinfo.html" %}
-    <div gnrl="unselectable txt-m" flx="jc-c ai-c" class="upshow">
-      <div flx="ai-c">
-        {{ ct.show }}
+    <a href="/@{{ ct.url }}" gnrl="c-dark">
+      <div gnrl="unselectable txt-m" flx="jc-fs ai-c" class="upshow">
+        <div flx="ai-c" style="margin: 12px 12px;">
+          {% load martortags %}
+          {{ ct.show|safe_markdown }}
+        </div>
       </div>
-      {% include "apps/cooggerapp/card/duread.html" %}
+    </a>
+    <div gnrl="br-2 c-secondary" style="padding: 2px 4px;" flx="ai-c">
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">min read {{ ct.dor }}</div>
+      </div>
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">reply {{ ct.hmanycomment }}</div>
+      </div>
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">views {{ ct.views }}</div>
+      </div>
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">pageviews {{ ct.read }}</div>
+      </div>
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">${{ ct.post_reward.total }}</div>
+      </div>
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">sbd ${{ ct.post_reward.sbd }}</div>
+      </div>
+      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">sp ${{ ct.post_reward.sp }}</div>
+      </div>
     </div>
-    <cardtime>{{ ct.time|timesince }} | önce paylaşıldı.</cardtime>
   </card>
   {% endfor %}
 </cards>

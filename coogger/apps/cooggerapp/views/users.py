@@ -21,7 +21,7 @@ from apps.cooggerapp.forms import AboutForm
 
 #views
 from apps.cooggerapp.views.tools import get_facebook,users_web,paginator
-from lib.oogg import Oogg
+from easysteem.easysteem import Oogg
 
 #python
 import os

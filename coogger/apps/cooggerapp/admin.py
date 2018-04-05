@@ -10,7 +10,7 @@ from apps.cooggerapp.models import *
 import datetime
 
 # sc2py
-from lib.sc2py import Sc2
+from sc2py.sc2py import Sc2
 
 class ContentAdmin(ModelAdmin):
     list_ = ["user","content_list","title","cooggerup"]
