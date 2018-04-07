@@ -17,7 +17,7 @@ class ContentlistSitemap(Sitemap):
         return Content.objects.filter(content_list = obj.content_list,confirmation = True)[0].lastmod
 
     def location(self,obj):
-        return "/@"+str(obj.user)+"/"+str(obj.content_list)
+        return "/"+obj.get_absolute_url
 
 
 class ContentSitemap(Sitemap):

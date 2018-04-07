@@ -40,14 +40,13 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     def s_info(self):
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
 
-
 class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     content_list = models.CharField(default = "coogger",max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
+    permlink = models.CharField(unique = True, max_length=200, verbose_name = "permlink") # blogun url adresi
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
-    url = models.CharField(unique = True, max_length=200, verbose_name = "web address") # blogun url adresi
-    content = MartorField()  # yazılan yazılar burda
     show = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
+    content = MartorField()  # yazılan yazılar burda
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
@@ -58,10 +57,14 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
     confirmation = models.BooleanField(default = False,verbose_name = "content approval")
     draft = models.BooleanField(default = False,verbose_name = "content draft")
     cooggerup = models.BooleanField(default = False,verbose_name = "upvote with cooggerup")
+    upvote = models.BooleanField(default = False,verbose_name = "was voting done")
 
     class Meta:
         verbose_name = "content"
-        ordering = ['-lastmod']
+        ordering = ['-time']
+
+    def get_absolute_url(self):
+        return "@"+self.user.username+"/"+self.content_list+"/"+self.permlink
 
     @staticmethod
     def durationofread(text):
@@ -73,31 +76,16 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
 
     def content_save(self, *args, **kwargs):
         self.content_list = slugify(self.content_list.lower())
-        tags = ""
-        clearly_tags = []
-        get_tag = self.tag.split(" ")[:4]
-        if get_tag[0] != "coogger":
-            get_tag.insert(0,"coogger")
-        for i in get_tag:
-            if i not in clearly_tags:
-                clearly_tags.append(i)
-        for i in clearly_tags:
-            if i == clearly_tags[-1]:
-                tags += slugify(i.lower())
-            else:
-                tags += slugify(i.lower())+" "
-        self.tag = tags
+        self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
-        self.url = str(self.user)+"/"+str(self.content_list)+"/"+str(slugify(self.title.lower()))
-        permlink = slugify(self.title.lower())
+        self.permlink = slugify(self.title.lower())
         try:
             Post(post = self.get_steemit_url()).url
             rand = str(random.randrange(9999))
-            self.url += "-"+rand
-            permlink += "-"+rand
+            self.permlink += "-"+rand
         except:
             pass
-        if self.sc2_post(permlink).status_code == 200:
+        if self.sc2_post(self.permlink).status_code == 200:
             self.draft = False
         else:
             self.draft = True
@@ -108,88 +96,76 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         self.show = content.show
         self.content_list = slugify(content.content_list.lower())
         self.content = content.content
-        self.title = content.title
+        self.title = queryset[0].title # no change
+        self.permlink = slugify(self.title.lower()) # no change
         self.tag = content.tag
         self.draft = queryset[0].draft
-        tags = ""
-        clearly_tags = []
-        get_tag = self.tag.split(" ")[:4]
-        if get_tag[0] != "coogger":
-            get_tag.insert(0,"coogger")
-        for i in get_tag:
-            if i not in clearly_tags:
-                clearly_tags.append(i)
-        for i in clearly_tags:
-            if i == clearly_tags[-1]:
-                tags += slugify(i.lower())
-            else:
-                tags += slugify(i.lower())+" "
-        self.tag = tags
+        self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
-        if queryset[0].confirmation == True: # bu sayede her düzenleme yapıldıgında 1 azalmayacaktır.
-            OtherInformationOfUsers.objects.filter(user = self.user).update(hmanycontent = F("hmanycontent") -1)
         if self.draft:
-            self.url = str(self.user)+"/"+str(self.content_list)+"/"+str(slugify(self.title.lower()))
-            permlink = slugify(self.title.lower())
             try:
                 Post(post = self.get_steemit_url()).url
                 rand = str(random.randrange(9999))
-                self.url += "-"+rand
-                permlink += "-"+rand
+                self.permlink += "-"+rand
             except:
                 pass
-            if self.sc2_post(permlink).status_code == 200:
+            if self.sc2_post(self.permlink).status_code == 200:
                 self.draft = False
             else:
                 self.draft = True
-                self.url = queryset[0].url
-        else:
-            self.url = queryset[0].url
         queryset.update(show = self.show,
         content_list = self.content_list,
-        content = self.content,
+        permlink = self.permlink,
         title = self.title,
+        content = self.content,
         tag = self.tag,
-        url = self.url,
         draft = self.draft,
         dor = self.dor,
         lastmod = datetime.datetime.now(),
         confirmation = False)
-        return self.url
+        return "@"+self.user.username+"/"+self.content_list+"/"+self.permlink
 
     def sc2_post(self,permlink):
         access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
         sum_of_post = """\n----------
-        \nPosted on  [coogger.com](http://www.coogger.com/@{})  - The platform that rewards information sharing
-        \n\n ----------""".format("@"+self.url)
+        \nPosted on  [coogger.com](http://www.coogger.com/{})  - The platform that rewards information sharing
+        \n\n ----------""".format(self.get_absolute_url())
         content = self.content + sum_of_post
-        return Sc2(str(access_token)).post(str(self.user.username),str(self.title),str(content),self.tag,permlink)
+        return Sc2(str(access_token)).post(str(self.user.username),str(self.title),str(content),self.ready_tags()["steemit"],permlink)
+
+    def ready_tags(self):
+        def clearly_tags(get_tag):
+            clearly_tags = []
+            tags = ""
+            for i in get_tag:
+                if i not in clearly_tags:
+                    clearly_tags.append(i)
+            for i in clearly_tags:
+                if i == clearly_tags[-1]:
+                    tags += slugify(i.lower())
+                else:
+                    tags += slugify(i.lower())+" "
+            return tags
+        get_tag = self.tag.split(" ")[:4]
+        if get_tag[0] != "coogger":
+            get_tag.insert(0,"coogger")
+        return {"steemit":clearly_tags(get_tag),"coogger":clearly_tags(self.tag.split(" ")[:5])}
 
     def get_steemit_url(self):
-        s_url = self.url.split("/")
-        return "@"+s_url[0]+"/"+s_url[2]
+        s_url = self.get_absolute_url().split("/")
+        return s_url[0]+"/"+s_url[2]
 
     def get_steemit_permlink(self):
-        s_url = self.url.split("/")
-        return s_url[2]
+        return self.permlink
 
     def post_reward(self):
         try:
             post = Post(post = self.get_steemit_url())
             pp = self.pending_payout(post)
             sbd_sp = self.calculate_sbd_sp(pp)
-            return dict(
-            total = sbd_sp["total"],
-            sbd = sbd_sp["sbd"],
-            sp = sbd_sp["sp"]
-            )
+            return dict(total = sbd_sp["total"])
         except:
-            return dict(
-            total = None,
-            sbd = None,
-            sp = None,
-            )
-
+            return dict(total = None,)
 
     def calculate_sbd_sp(self, payout):
         return dict(
@@ -204,17 +180,14 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
             payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
         return payout
 
-
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    choices = models.CharField(max_length=15, choices = make_choices(follow()),verbose_name="Web sitesi")
-    adress = models.CharField(max_length=150, verbose_name = "Adresi yazın")
-
+    choices = models.CharField(max_length=15, choices = make_choices(follow()),verbose_name="website")
+    adress = models.CharField(max_length=150, verbose_name = "write address / username")
 
 class Following(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name='%(class)s_requests_created')
-
 
 class SearchedWords(models.Model):
     word = models.CharField(unique=True,max_length=310)
@@ -226,24 +199,20 @@ class SearchedWords(models.Model):
         except:
             SearchedWords.objects.filter(word = self.word).update(hmany = F("hmany") + 1)
 
-
 class ReportModel(models.Model):
     choices_reports = make_choices(reports())
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE,verbose_name = "şikayet eden kişi")
     content = models.ForeignKey("content" ,on_delete=models.CASCADE,verbose_name = "şikayet edilen içerik")
-    complaints = models.CharField(choices = choices_reports,max_length=40,verbose_name="şikayet türleri")
-    add = models.CharField(blank = True,null = True, max_length = 600,verbose_name = "Daha fazla bilgi vermek istermisin ?")
+    complaints = models.CharField(choices = choices_reports,max_length=40,verbose_name="type of report")
+    add = models.CharField(blank = True,null = True, max_length = 600,verbose_name = "Can you give more information ?")
     date = models.DateTimeField(default = timezone.now)
-
 
 class Contentviews(models.Model):
     content = models.ForeignKey(Content ,on_delete=models.CASCADE)
     ip = models.GenericIPAddressField()
 
-
 class CustomUserSocialAuth(AbstractUserSocialAuth):
     user = models.ForeignKey(USER_MODEL, related_name='custom_social_auth',on_delete=models.CASCADE)
-
 
 class CustomDjangoStorage(DjangoStorage):
     user = CustomUserSocialAuth

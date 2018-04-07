@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 from apps.cooggerapp.models import Content,OtherInformationOfUsers
 
 #form
-from apps.cooggerapp.forms import ContentForm
+from apps.cooggerapp.forms import ContentForm,UpdateContentForm
 
 #python
 import datetime
@@ -44,7 +44,7 @@ class Create(View):
 
 
 class Change(View):
-    form_class = ContentForm
+    form_class = UpdateContentForm
     template_name = "apps/cooggerapp/controls/change.html"
 
     @method_decorator(login_required)
@@ -68,7 +68,7 @@ class Change(View):
             content = content_form.save(commit=False)
             queryset = self.really_queryset(request,content_id)
             url = content.content_update(queryset,content)
-            return HttpResponseRedirect("/@"+url)
+            return HttpResponseRedirect("/"+url)
 
     @staticmethod
     def really_queryset(request,content_id):

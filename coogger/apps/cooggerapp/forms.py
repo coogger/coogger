@@ -12,6 +12,11 @@ class ContentForm(ModelForm):
         model = Content
         fields = ["content_list","title","content","show","tag"]
 
+class UpdateContentForm(ModelForm):
+    class Meta:
+        model = Content
+        fields = ["content_list","content","show","tag"]
+
 class UserFollowForm(ModelForm):
     class Meta:
         model = UserFollow

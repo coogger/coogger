@@ -126,3 +126,12 @@ MARTOR_ENABLE_CONFIGS = {
 }
 
 MARTOR_MARKDOWN_BASE_MENTION_URL = 'http://coogger.com/@'
+
+# cooggerup
+from steem import Steem
+STEEM = Steem(nodes=['https://api.steemit.com'],keys = [""])
+
+COOGGERUP_REPLY = """
+#### Congratulations, your contribution has been approved.
+- You can contact us on [discord](https://discord.gg/q2rRY8Q).
+"""

@@ -9,7 +9,7 @@
       {% url 'cooggerapp-list' ct.content_list  %}
     </a>
   </div>
-  <a href='/@{{ ct.url }}'>
+  <a href='/{{ ct.get_absolute_url }}'>
     <div flx="jc-fs" gnrl="txt-l c-dark" style="margin: 12px 12px;">
       <strong>{{ ct.title|title }}</strong>
     </div>

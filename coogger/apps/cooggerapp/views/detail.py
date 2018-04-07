@@ -35,21 +35,16 @@ class Detail(TemplateView):
     pagi = 6
 
     def get_context_data(self,username,utopic,path, **kwargs):
-        content_path = username+"/"+utopic+"/"+path
-        if username == self.request.user.username:
-            queryset = self.ctof(url = content_path)[0]
-        else:
-            queryset = self.ctof(url = content_path, confirmation = True)[0]
+        user = User.objects.filter(username = username)[0]
+        queryset = self.ctof(user = user, content_list = utopic, permlink = path)[0]
         content_user = queryset.user
-        queryset = self.ctof(url = content_path)[0]
-        content_id = queryset.id
         nav_category = self.ctof(user = content_user,content_list = utopic)
         self.up_content_view(queryset) # ip aldık ve okuma sayısını 1 arttırdık
         context = super(Detail, self).get_context_data(**kwargs)
         context["head"] = html_head(queryset)
         context["content_user"] = content_user
         context["nav_category"] = nav_category
-        context["urloftopic"] = queryset.url
+        context["urloftopic"] = queryset.permlink
         context["nameoflist"] = utopic
         context["detail"] = queryset
         context["global_hashtag"] = [i for i in queryset.tag.split(" ") if i != ""]

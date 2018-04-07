@@ -1,9 +1,8 @@
 {% include 'apps/cooggerapp/home/head.html' %}
 {% include 'apps/cooggerapp/home/logo.html' %}
 {% include 'apps/cooggerapp/home/header.html' %}
-<div>
-<div gnrl="bg-white br-2" default="media" flx="jc-c ai-c fd-c">
-  <form flx="fd-c" default="form" method="post" class="c-create-form" action="{% url 'cooggerapp-create' %}" style="padding: 12px 6px;">
+<div flx="jc-c ai-c fd-c">
+  <form flx="fd-c" default="form media" method="post" class="c-create-form" action="{% url 'cooggerapp-create' %}" style="padding: 12px 6px;">
       {% csrf_token %}
       {{ create_form.as_ul }}
       {{ create_form.media }}
@@ -11,8 +10,6 @@
       <input flx="as-c" type="submit" value="Share" >
     </form>
 </div>
-</div>
 {% include 'apps/cooggerapp/home/footer.html' %}
 </body>
-{% include 'apps/cooggerapp/controls/js.html' %}
 </html>

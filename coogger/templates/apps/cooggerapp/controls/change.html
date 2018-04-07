@@ -1,8 +1,8 @@
 {% include 'apps/cooggerapp/home/head.html' %}
 {% include 'apps/cooggerapp/home/logo.html' %}
 {% include 'apps/cooggerapp/home/header.html' %}
-<div gnrl="bg-white br-2" default="media" flx="jc-c ai-c fd-c">
-  <form  flx="fd-c" default="form" method="post" class="c-create-form"  style="padding: 12px 6px;" action="{% url 'cooggerapp-change' content_id %}">
+<div flx="jc-c ai-c fd-c">
+  <form  flx="fd-c" default="form media" method="post" class="c-create-form"  style="padding: 12px 6px;" action="{% url 'cooggerapp-change' content_id %}">
     {% csrf_token %}
     {{ change_form.as_p }}
     {{ change_form.media }}
@@ -12,5 +12,4 @@
 </div>
 {% include 'apps/cooggerapp/home/footer.html' %}
 </body>
- {% include 'apps/cooggerapp/controls/js.html' %}
 </html>

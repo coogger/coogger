@@ -107,12 +107,12 @@ class Report(View):
         if report_form.is_valid():
             content = Content.objects.filter(id = request.POST["content_id"])[0]
             if ReportModel.objects.filter(user = request.user,content = content).exists():
-                ms.error(request,"Şikayetiniz değerlendirme sürecinde.")
+                ms.error(request,"Your complaint is in the evaluation process.")
                 return HttpResponseRedirect("/")
             report_form  = report_form.save(commit=False)
             report_form.user = request.user
             report_form.content = content
             report_form.save()
-            ms.error(request,"Şikayetiniz alınmıştır.")
+            ms.error(request,"Your complaint has been received.")
             return HttpResponseRedirect("/")
         return HttpResponse(self.get(request, *args, **kwargs))
