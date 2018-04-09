@@ -1,38 +1,20 @@
 #django
-from django.http import *
-from django.shortcuts import render
-from django.contrib.auth import *
-from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import F
-from django.contrib import messages as ms
-from django.utils.text import slugify
-from django.utils import timezone
-from social_django.models import UserSocialAuth
 
 #django class based
 from django.views.generic.base import TemplateView
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views import View
 
 # cooggerapp models
-from apps.cooggerapp.models import Content,UserFollow,Contentviews
+from apps.cooggerapp.models import Content,Contentviews
 
 # cooggerapp views
-from apps.cooggerapp.views.tools import paginator,html_head,users_web
+from apps.cooggerapp.views.tools import html_head
 from apps.cooggerapp.views.users import is_follow
-from easysteem.easysteem import Oogg
-
-#python
-import json
-import os
-from bs4 import BeautifulSoup
 
 class Detail(TemplateView):
     template_name = "apps/cooggerapp/detail/main_detail.html"
     ctof = Content.objects.filter
-    pagi = 6
 
     def get_context_data(self,username,utopic,path, **kwargs):
         user = User.objects.filter(username = username)[0]
@@ -46,10 +28,9 @@ class Detail(TemplateView):
         context["nav_category"] = nav_category
         context["urloftopic"] = queryset.permlink
         context["nameoflist"] = utopic
+        context["is_follow"] = is_follow(self.request,user)
         context["detail"] = queryset
         context["global_hashtag"] = [i for i in queryset.tag.split(" ") if i != ""]
-        context["user_follow"] = users_web(content_user)
-        context["is_follow"] = is_follow(self.request,content_user)
         return context
 
     def up_content_view(self,queryset):

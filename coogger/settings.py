@@ -132,6 +132,6 @@ from steem import Steem
 STEEM = Steem(nodes=['https://api.steemit.com'],keys = [""])
 
 COOGGERUP_REPLY = """
-#### Congratulations, your contribution has been approved.
+Congratulations, your contribution has been approved.
 - You can contact us on [discord](https://discord.gg/q2rRY8Q).
 """

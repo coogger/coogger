@@ -4,22 +4,27 @@
    A moderator will review this information share within 1 and 2 days, and will require changes if necessary.
   </div>
   {% endif %}
-<div class="data-post-id-{{detail.id}}">
-  <div default="paragraph" class="martor-preview">
-    {% load martortags %}
-    <div style="overflow-x: auto;">{{ detail.content|safe_markdown }}</div>
-  </div>
-  <div flx="jc-c" default="media pm">
-    <div flx>
-      {% for i in global_hashtag %}
-      <div gnrl="bg-dark br-2" style="padding: 3px 6px;margin: 3px 6px;">
-        <a gnrl="c-white" hvr-a="c-success" href="{% url 'cooggerapp-hashtag' i  %}">
-          <i class="fa fa-hashtag" aria-hidden="true"></i>
-          <span>{{ i }}</span>
+<div class="data-post-id-{{detail.id}}" default="bg">
+  <div default="media paragraph" class="martor-preview" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
+    <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
+        <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href='/@{{ detail.user }}/{{ detail.content_list }}' style="padding: 3px 6px;">
+          coogger.com/@{{ detail.user }}/{{ detail.content_list }}
         </a>
-      </div>
-      {% endfor %}
+        <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'cooggerapp-list' detail.content_list  %}" style="padding: 3px 6px;">
+            coogger.com{% url 'cooggerapp-list' detail.content_list  %}
+          </a>
     </div>
+    {% include 'apps/cooggerapp/detail/contentinfo.html' %}
+    {% include 'apps/cooggerapp/detail/userinfo.html' %}
+    {% load martortags %}
+    <div style="overflow-x: auto;">
+      <h1 gnrl="center">
+        {{ detail.title|title }}
+      </h1>
+      {{ detail.content|safe_markdown }}
+    </div>
+    {% include 'apps/cooggerapp/detail/edit.html' %}
   </div>
+{% include 'apps/cooggerapp/detail/tags.html' %}
 </div>
 </div>

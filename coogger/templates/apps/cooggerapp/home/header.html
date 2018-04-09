@@ -1,5 +1,5 @@
-<header gnrl="bg-private" flx="jc-c">
-  <div flx="fw-nw ai-c" style="overflow: auto;">
+<header flx="jc-c">
+  <div flx="fw-nw ai-c" style="overflow: auto;" gnrl="bg-secondary br-1">
     {% if not request.user.is_authenticated %}
     <div style="padding:  3px 12px;">
       <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2"
@@ -49,9 +49,10 @@
         <span>Apps</span><i flx="as-c" class="fa fa-adn" style="margin: 0px 12px;"></i>
       </a>
     </div>
+    <form flx gnrl="center" action="{% url 'cooggerapp-search' %}">
+      <input gnrl="bg-white c-dark b-1 br-2 brc-muted" type="text" style="padding:  6px;margin-right:4px" placeholder='Search ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2"/>
+      <input type="submit" value="Search" style="display:  none;"/>
+    </form>
   </div>
 </header>
-<form default="form media" flx="jc-c" action="{% url 'cooggerapp-search' %}">
-  <input type="text" placeholder='Search ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2"/>
-  <input type="submit" value="Search"/>
-</form>
+{% include 'apps/cooggerapp/home/community.html' %}

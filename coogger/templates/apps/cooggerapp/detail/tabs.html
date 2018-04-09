@@ -1,0 +1,17 @@
+<div flx="jc-c" gnrl="bg-white wmax center" style="margin: 4px auto;padding: 6px 6px;">
+  <div flx="fd-c">
+    <a href="/@{{ content_user }}/" flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">CONTENTS</a>
+  </div>
+  {% if nav_category %}
+  <div flx="fd-c" class="lists" style="cursor:pointer;">
+    {% if nav_category and not detail %}
+    <div flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">TOPICS</div>
+    {% else %}
+    <div flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">{{ detail.content_list|upper }}</div>
+    {% endif %}
+  </div>
+  {% endif %}
+  <div flx="fd-c">
+    <a href="{% url 'cooggerapp-userabout' content_user %}" flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">ABOUT</a>
+  </div>
+</div>

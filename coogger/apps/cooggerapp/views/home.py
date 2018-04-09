@@ -26,7 +26,7 @@ from easysteem.easysteem import Oogg
 
 class Home(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
-    pagi = 20
+    pagi = 6
     queryset = Content.objects.filter(confirmation = True)
 
     def get_context_data(self, **kwargs):
@@ -43,7 +43,7 @@ class Home(TemplateView):
 
 class FollowingContent(View):
     template_name = "apps/cooggerapp/card/blogs.html"
-    pagi = 16
+    pagi = 6
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -64,7 +64,7 @@ class FollowingContent(View):
 
 class Search(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
-    pagi = 20
+    pagi = 6
 
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)

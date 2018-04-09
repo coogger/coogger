@@ -19,7 +19,7 @@ from apps.cooggerapp.views.tools import paginator
 class Hashtag(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
     ctof = Content.objects.filter
-    pagi = 10
+    pagi = 6
     info = "konu etiketi"
 
     def get_context_data(self, hashtag, **kwargs):

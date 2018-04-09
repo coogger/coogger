@@ -1,0 +1,80 @@
+header{
+  padding: 6px 0px;
+  margin: 6px 0px;
+  div div{
+    padding: 3px 6px;
+    span{
+      padding: 3px 6px;
+    }
+  }
+}
+.upshow{
+  cursor: pointer;
+  margin: auto;
+}
+.lasmod{
+  position: absolute;
+  bottom: 6px;
+  width: 96%;
+}
+.content_list{
+  padding: 1px 6px;
+}
+.content_list a{
+  padding: 2px 4px;
+}
+.b-edit-point{
+  width: 18px;
+  position: absolute;
+  z-index: 4;
+  padding: 6px;
+  cursor: pointer;
+  right: 0px;
+}
+  .bebordert{
+  border-top: 1px solid #fff;
+  height: 4px;
+}
+.beborder{
+  border: 1px solid #fff;
+  height: 4px;
+}
+.beborderb{
+  border-bottom: 1px solid #fff;
+  height: 4px;
+}
+.b-edit{
+  position: relative;
+  top: -2px;
+}
+.b-edit-panel{
+  display: none;
+  height: 30px;
+  background-color: #248644;
+}
+.carduserimg{
+  width: 40px;
+  height: 40px;
+}
+.carduser{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 132px;
+}
+.useruserimg{
+  max-width: 120px;
+  max-height: 120px;
+}
+.comment{
+  word-break: break-all;
+}
+.headeruserimg{
+  height: 30px;
+  width: 30px;
+}
+.logoimg{
+  width:80px;
+  border-radius: 50%;
+  height: 80px;
+}

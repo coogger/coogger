@@ -13,6 +13,7 @@ import datetime
 # sc2py
 from sc2py.sc2py import Sc2
 from easysteem.easysteem import Oogg
+Oogg = Oogg(settings.STEEM)
 
 #steem
 from steem.post import Post
@@ -34,7 +35,7 @@ class ContentAdmin(ModelAdmin):
                 Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.get_steemit_permlink(), weight = int(percent))
             post = Post(post = obj.get_steemit_url())
             if "coogger" not in Oogg.get_replies_list(post):
-                Oogg(settings.STEEM).reply(title = "coogger | your contribution has been approved",body = settings.COOGGERUP_REPLY, author = "coogger", identifier = post.identifier)
+                Oogg.reply(title = "coogger | your contribution has been approved",body = settings.COOGGERUP_REPLY, author = "coogger", identifier = post.identifier)
             obj.upvote = True
         content_count = Content.objects.filter(user = obj.user).count()
         oiouof.update(hmanycontent = content_count)

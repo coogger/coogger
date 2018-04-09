@@ -31,7 +31,7 @@ import requests
 class UserClassBased(TemplateView):
     "herhangi kullanıcının anasayfası"
     template_name = "apps/cooggerapp/users/user.html"
-    pagi = 16
+    pagi = 6
     ctof = Content.objects.filter
     title = "{} | coogger"
     keywords = "{},{} {}"

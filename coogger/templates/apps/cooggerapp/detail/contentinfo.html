@@ -1,41 +1,20 @@
-<div class="b-content-info">
-  <h1 flx="jc-c ai-c" gnrl="txt-xl c-private" style="text-align: center;">
-      {{ detail.title|title }}
-  </h1>
-</div>
-<div flx="jc-c" style="margin-bottom: 12px;">
-  <div flx="fd-c" gnrl="brc-muted txt-s">
-    <div flx="ai-c" >
-      <span style="margin-left: 6px;">Last update | {{ detail.lastmod|timesince }} ago</span>
-    </div>
-    <div flx="ai-c" >
-      <span style="margin-left: 6px;">  {{ detail.time }} | {{ detail.time|timesince }} ago</span>
-    </div>
-    <div flx="ai-c" >
-      <span style="margin-left: 6px;">min read {{ detail.dor }}</span>
-    </div>
-    <div flx="ai-c" >
-      <span style="margin-left: 6px;">views {{ detail.views }} </span>
-    </div>
-    <div flx="ai-c" >
-      <span style="margin-left: 6px;">pageviews {{ detail.read }}</span>
-    </div>
-    <div flx="ai-c" >
-      <span style="margin-left: 6px;">reply {{ detail.hmanycomment }}</span>
-    </div>
-    <div gnrl="bg-muted br-2 c-primary" style="padding: 2px 4px;">
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-        $
-        <div style="margin-left: 12px;">${{ detail.post_reward.total }}</div>
-      </div>
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-        $
-        <div style="margin-left: 12px;">steem dollar ${{ detail.post_reward.sbd }}</div>
-      </div>
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-        $
-        <div style="margin-left: 12px;">steem power ${{ detail.post_reward.sp }}</div>
-      </div>
-    </div>
+<div gnrl="br-2 c-secondary br-2 b-1 brc-muted" style="padding: 2px 4px;" flx="ai-c">
+  <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div style="margin-left: 12px;">Last update {{ detail.lastmod|timesince }} ago</div>
+  </div>
+  <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div style="margin-left: 12px;">min read {{ detail.dor }}</div>
+  </div>
+  <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div style="margin-left: 12px;">reply {{ detail.hmanycomment }}</div>
+  </div>
+  <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div style="margin-left: 12px;">views {{ detail.views }}</div>
+  </div>
+  <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div style="margin-left: 12px;">pageviews {{ detail.read }}</div>
+  </div>
+  <div gnrl="txt-s" flx="ai-c" class="duread-li" style="margin-left: auto;">
+    <div gnrl="bg-dark c-white br-2" style="margin:0px 12px;padding: 2px 6px;">${{ detail.post_reward.total }}</div>
   </div>
 </div>

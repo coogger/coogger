@@ -57,7 +57,7 @@ class Cooggerup(View):
 
 class Draft(TemplateView):
     template_name = "apps/cooggerapp/settings/draft.html"
-    pagi = 20
+    pagi = 6
     queryset = Content.objects.filter(draft = True)
 
     def get_context_data(self, **kwargs):

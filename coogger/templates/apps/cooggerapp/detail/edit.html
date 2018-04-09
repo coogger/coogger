@@ -1,24 +1,16 @@
 {% if request.user.is_authenticated %}
-<div flx="as-c jc-c">
-  <div gnrl="bg-info br-2" flx style="margin: 12px 0px;">
+  <div gnrl="wmax left" style="margin-top:  12px;">
     {% if detail.user == request.user %}
-    <div>
-      <a gnrl="br-2" hvr-a="bg-primary" href="{% url 'cooggerapp-change' detail.id  %}" flx="ai-c"
-      style="padding: 6px 12px;">
+      <a gnrl="brc-muted b-1 bg-muted br-1" hvr-a="bg-secondary" href="{% url 'cooggerapp-change' detail.id  %}" flx="ai-c" style="padding: 6px 24px;">
         <i gnrl="c-white" class="fa fa-edit" aria-hidden="true"></i>
-        <div gnrl="txt-s">Edit</div>
+        <div gnrl="txt-s c-white">Edit</div>
       </a>
-    </div>
     {% endif %}
     {% if detail.user != request.user %}
-    <div>
-      <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer"
-       gnrl="br-2" hvr-a="bg-private" flx="ai-c">
+      <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer" gnrl="brc-muted b-1 bg-muted br-1" hvr-a="bg-danger" flx="ai-c">
         <i gnrl="c-white" class="fa fa-flag" aria-hidden="true"></i>
         <div gnrl="txt-s c-white">Report</div>
       </div>
-    </div>
     {% endif %}
   </div>
-</div>
 {% endif %}

@@ -40,13 +40,13 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     def s_info(self):
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
 
-class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
+class Content(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     content_list = models.CharField(default = "coogger",max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
     permlink = models.CharField(unique = True, max_length=200, verbose_name = "permlink") # blogun url adresi
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     show = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
-    content = MartorField()  # yazılan yazılar burda
+    content = MartorField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
@@ -96,8 +96,8 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
         self.show = content.show
         self.content_list = slugify(content.content_list.lower())
         self.content = content.content
-        self.title = queryset[0].title # no change
-        self.permlink = slugify(self.title.lower()) # no change
+        self.title = content.title # no change
+        self.permlink = slugify(queryset[0].title.lower()) # no change
         self.tag = content.tag
         self.draft = queryset[0].draft
         self.tag = self.ready_tags()["coogger"]
@@ -127,9 +127,9 @@ class Content(models.Model): # blog için yazdığım yazıların tüm bilgisi
 
     def sc2_post(self,permlink):
         access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
-        sum_of_post = """\n----------
+        sum_of_post = """\n\n----------
         \nPosted on  [coogger.com](http://www.coogger.com/{})  - The platform that rewards information sharing
-        \n\n ----------""".format(self.get_absolute_url())
+        \n ----------""".format(self.get_absolute_url())
         content = self.content + sum_of_post
         return Sc2(str(access_token)).post(str(self.user.username),str(self.title),str(content),self.ready_tags()["steemit"],permlink)
 
