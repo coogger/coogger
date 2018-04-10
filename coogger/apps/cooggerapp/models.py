@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.db.models import F
-from django.urls import reverse
 
 from social_django.models import UserSocialAuth
 from social_django.models import AbstractUserSocialAuth, DjangoStorage, USER_MODEL
@@ -19,10 +18,8 @@ import random
 import datetime
 
 #steem
-from steem.steem import Commit
 from steem.post import Post
 from steem.amount import Amount
-from steem import Steem
 
 # 3.
 from sc2py.sc2py import Sc2
@@ -45,7 +42,7 @@ class Content(models.Model):
     content_list = models.CharField(default = "coogger",max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
     permlink = models.CharField(unique = True, max_length=200, verbose_name = "permlink") # blogun url adresi
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
-    show = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
+    definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     content = MartorField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
@@ -54,9 +51,10 @@ class Content(models.Model):
     read = models.IntegerField(default = 0, verbose_name = "pageviews")
     hmanycomment=models.IntegerField(default = 0, verbose_name = "comments count")
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
-    confirmation = models.BooleanField(default = False,verbose_name = "content approval")
     draft = models.BooleanField(default = False,verbose_name = "content draft")
-    cooggerup = models.BooleanField(default = False,verbose_name = "upvote with cooggerup")
+    # ------------ #
+    cantapproved = models.CharField(max_length=40,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
+    cooggerup = models.BooleanField(default = False,verbose_name = "upvote with cooggerup bot")
     upvote = models.BooleanField(default = False,verbose_name = "was voting done")
 
     class Meta:
@@ -179,6 +177,7 @@ class Content(models.Model):
         if payout == 0:
             payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
         return payout
+
 
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)

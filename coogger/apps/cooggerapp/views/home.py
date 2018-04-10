@@ -27,7 +27,7 @@ from easysteem.easysteem import Oogg
 class Home(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
     pagi = 6
-    queryset = Content.objects.filter(confirmation = True)
+    queryset = Content.objects.filter()
 
     def get_context_data(self, **kwargs):
         try:

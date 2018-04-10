@@ -10,7 +10,7 @@ SOCIAL_AUTH_STEEMCONNECT_DEFAULT_SCOPE = ["login","vote", "comment","comment_opt
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = True
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".coogger.com","127.0.0.1"]
 INSTALLED_APPS = [ # coogger's app
     "apps.cooggerapp",
     "apps.steemitapp",
@@ -131,7 +131,12 @@ MARTOR_MARKDOWN_BASE_MENTION_URL = 'http://coogger.com/@'
 from steem import Steem
 STEEM = Steem(nodes=['https://api.steemit.com'],keys = [""])
 
-COOGGERUP_REPLY = """
+APPROVED = """
 Congratulations, your contribution has been approved.
+- You can contact us on [discord](https://discord.gg/q2rRY8Q).
+"""
+
+CAN_NOT_BE_APPROVED = """
+Your contribution cannot be approved, because {}
 - You can contact us on [discord](https://discord.gg/q2rRY8Q).
 """

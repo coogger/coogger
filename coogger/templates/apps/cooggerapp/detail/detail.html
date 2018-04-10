@@ -1,17 +1,23 @@
-<div gnrl="bg-white" style="margin: 6px 0px;" animation="fadeIn">
-  {% if not detail.confirmation %}
+<div style="margin: 6px 0px;" animation="fadeIn">
+  {% if not detail.cantapproved %}
   <div gnrl="bg-danger c-white b-2 brc-danger br-2" flx="jc-c" default="pm media">
    A moderator will review this information share within 1 and 2 days, and will require changes if necessary.
   </div>
   {% endif %}
+  {% if detail.cantapproved and detail.cantapproved != "approved" %}
+  <div gnrl="bg-danger c-white b-2 brc-danger br-2" flx="jc-c" default="pm media">
+   Rejected by @hakancelik because of {{ detail.cantapproved }}
+  </div>
+{% endif %}
+
 <div class="data-post-id-{{detail.id}}" default="bg">
   <div default="media paragraph" class="martor-preview" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
     <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
         <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href='/@{{ detail.user }}/{{ detail.content_list }}' style="padding: 3px 6px;">
-          coogger.com/@{{ detail.user }}/{{ detail.content_list }}
+          /@{{ detail.user }}/{{ detail.content_list }}
         </a>
         <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'cooggerapp-list' detail.content_list  %}" style="padding: 3px 6px;">
-            coogger.com{% url 'cooggerapp-list' detail.content_list  %}
+            {% url 'cooggerapp-list' detail.content_list  %}
           </a>
     </div>
     {% include 'apps/cooggerapp/detail/contentinfo.html' %}

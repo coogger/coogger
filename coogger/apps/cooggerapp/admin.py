@@ -19,24 +19,40 @@ Oogg = Oogg(settings.STEEM)
 from steem.post import Post
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","content_list","title","upvote"]
+    list_ = ["user","content_list","title"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["time","confirmation","upvote"]
+    list_filter = ["time","cantapproved","upvote"]
     search_fields = list_
-    fields = ("user","permlink",("content_list"),("title"),"content","show","tag",("views","hmanycomment","dor"),("confirmation","draft","cooggerup","upvote"))
+    fields = ("user","content_list","permlink","title","content","definition","tag",("views","hmanycomment","dor","draft"),"cantapproved","cooggerup")
 
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()
         oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
-        if obj.cooggerup == True and obj.upvote == False:
-            for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
-                user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
-                Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.get_steemit_permlink(), weight = int(percent))
-            post = Post(post = obj.get_steemit_url())
-            if "coogger" not in Oogg.get_replies_list(post):
-                Oogg.reply(title = "coogger | your contribution has been approved",body = settings.COOGGERUP_REPLY, author = "coogger", identifier = post.identifier)
-            obj.upvote = True
+        post = Post(post = obj.get_steemit_url())
+        if obj.cantapproved == "approved":
+            if obj.cooggerup == True and obj.upvote == False: # upvote with cooggerup
+                for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
+                    user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
+                    Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.get_steemit_permlink(), weight = int(percent))
+                obj.upvote = True
+            if "coogger" not in Oogg.get_replies_list(post): # onaylanmış ise
+                Oogg.reply(
+                title = "coogger | your contribution has been approved",
+                body = settings.APPROVED,
+                author = "coogger",
+                identifier = post.identifier
+                )
+        else: # onaylanmamış ise
+            if obj.cantapproved is not None and \
+                "coogger" not in Oogg.get_replies_list(post):
+                pass
+                Oogg.reply(
+                title = "coogger | your contribution cannot be approved",
+                body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," ")),
+                author = "coogger",
+                identifier = post.identifier
+                )
         content_count = Content.objects.filter(user = obj.user).count()
         oiouof.update(hmanycontent = content_count)
         super(ContentAdmin, self).save_model(request, obj, form, change)
