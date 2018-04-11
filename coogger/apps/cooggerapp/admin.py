@@ -22,15 +22,16 @@ class ContentAdmin(ModelAdmin):
     list_ = ["user","content_list","title"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["time","cantapproved","upvote"]
+    list_filter = ["time","approved","cantapproved","upvote"]
     search_fields = list_
-    fields = ("user","content_list","permlink","title","content","definition","tag",("views","hmanycomment","dor","draft"),"cantapproved","cooggerup")
+    fields = ("user","content_list","permlink","title","content","definition","tag",("views","hmanycomment","dor","draft"),"approved","cantapproved","cooggerup")
 
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()
-        oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
+        post_user = request.POST["user"]
+        oiouof = OtherInformationOfUsers.objects.filter(user = post_user)
         post = Post(post = obj.get_steemit_url())
-        if obj.cantapproved == "approved":
+        if obj.approved is not None and obj.cantapproved is None : #onaylandı ise
             if obj.cooggerup == True and obj.upvote == False: # upvote with cooggerup
                 for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
                     user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
@@ -39,18 +40,18 @@ class ContentAdmin(ModelAdmin):
             if "coogger" not in Oogg.get_replies_list(post): # onaylanmış ise
                 Oogg.reply(
                 title = "coogger | your contribution has been approved",
-                body = settings.APPROVED,
-                author = "coogger",
+                body = settings.APPROVED.format(obj.approve.replace("-"," "),post_user),
+                author = post_user,
                 identifier = post.identifier
                 )
-        else: # onaylanmamış ise
+        if obj.cantapproved is not None and obj.approved is None: # onaylanmamış ise
             if obj.cantapproved is not None and \
                 "coogger" not in Oogg.get_replies_list(post):
-                pass
+
                 Oogg.reply(
                 title = "coogger | your contribution cannot be approved",
-                body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," ")),
-                author = "coogger",
+                body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," "),post_user),
+                author = post_user,
                 identifier = post.identifier
                 )
         content_count = Content.objects.filter(user = obj.user).count()

@@ -53,7 +53,8 @@ class Content(models.Model):
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
     draft = models.BooleanField(default = False,verbose_name = "content draft")
     # ------------ #
-    cantapproved = models.CharField(max_length=40,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
+    approved = models.CharField(blank = True,null = True,max_length=40,choices = make_choices(approved_choices()) ,verbose_name = "Why approved")
+    cantapproved = models.CharField(blank = True,null = True,max_length=40,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
     cooggerup = models.BooleanField(default = False,verbose_name = "upvote with cooggerup bot")
     upvote = models.BooleanField(default = False,verbose_name = "was voting done")
 

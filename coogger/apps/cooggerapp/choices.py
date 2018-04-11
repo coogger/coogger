@@ -20,12 +20,22 @@ def reports():
 
 def cantapproved_choices():
     return [
-    "approved",
-    "It is tutorial content but too short.",
-    "It does not have a tutorial content.",
-    "Fraud or Plagiarism",
-    "Hate Speech or Internet Trolling",
-    "Intentional miss-categorized content or Spam",
+    "It is not information sharing.",
+    "It is not tutorial content.",
+    "It is not translation"
+    "It is tutorial content but not enough, please edit and reshare",
+    "It is information sharing but not enough, please edit and reshare",
+    "It is translation contribution but not enough, please edit and reshare",
+    "Fraud or Plagiarism.",
+    "Hate Speech or Internet Trolling.",
+    "Intentional miss-categorized content or Spam.",
+    ]
+
+def approved_choices():
+    return [
+    "information sharing",
+    "tutorial content",
+    "translation", # çok lu dil özelliği gelince olacak.
     ]
 
 def make_choices(choice):
