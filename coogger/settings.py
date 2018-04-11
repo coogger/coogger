@@ -1,5 +1,35 @@
-import os
+# cooggerup
 
+MODS = [
+    "hakancelik",
+    "coogger",
+    "pars11",
+    ]
+
+from steem import Steem
+KEYS = [
+
+    ]
+STEEM = Steem(nodes=['https://api.steemit.com'],keys = KEYS)
+
+APPROVED = """
+Congratulations, your contribution has been approved.
+- Your contribution type {}
+------
+You can contact us on [discord](https://discord.gg/q2rRY8Q).
+[coogger-moderator](https://steemit.com/@{})
+"""
+
+CAN_NOT_BE_APPROVED = """
+Your contribution cannot be approved.
+- Because {}
+-----
+You can contact us on [discord](https://discord.gg/q2rRY8Q).
+[coogger-moderator](https://steemit.com/@{})
+"""
+
+
+import os
 AUTHENTICATION_BACKENDS = (
      'steemconnect.backends.SteemConnectOAuth2',
      'django.contrib.auth.backends.ModelBackend',
@@ -126,26 +156,3 @@ MARTOR_ENABLE_CONFIGS = {
 }
 
 MARTOR_MARKDOWN_BASE_MENTION_URL = 'http://coogger.com/@'
-
-# cooggerup
-from steem import Steem
-KEYS = [
-    
-    ]
-STEEM = Steem(nodes=['https://api.steemit.com'],keys = KEYS)
-
-APPROVED = """
-Congratulations, your contribution has been approved.
-- Your contribution type {}
-------
-You can contact us on [discord](https://discord.gg/q2rRY8Q).
-[coogger-moderator](https://steemit.com/@{})
-"""
-
-CAN_NOT_BE_APPROVED = """
-Your contribution cannot be approved.
-- Because {}
------
-You can contact us on [discord](https://discord.gg/q2rRY8Q).
-[coogger-moderator](https://steemit.com/@{})
-"""

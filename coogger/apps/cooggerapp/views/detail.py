@@ -17,24 +17,33 @@ class Detail(TemplateView):
     ctof = Content.objects.filter
 
     def get_context_data(self,username,path, **kwargs):
-        user = User.objects.filter(username = username)[0]
-        utopic = self.ctof(user = user, permlink = path)[0].content_list
-        queryset = self.ctof(user = user, content_list = utopic, permlink = path)[0]
-        content_user = queryset.user
-        nav_category = self.ctof(user = content_user,content_list = utopic)
-        self.up_content_view(queryset) # ip aldık ve okuma sayısını 1 arttırdık
+        self.user = User.objects.filter(username = username)[0]
+        self.path = path
+        self.up_content_view() # ip aldık ve okuma sayısını 1 arttırdık
+        queryset = self.permlinks_of_user()[0]
         context = super(Detail, self).get_context_data(**kwargs)
         context["head"] = html_head(queryset)
-        context["content_user"] = content_user
-        context["nav_category"] = nav_category
+        context["content_user"] = queryset.user
+        context["nav_category"] = self.lists_of_user()
         context["urloftopic"] = queryset.permlink
-        context["nameoflist"] = utopic
-        context["is_follow"] = is_follow(self.request,user)
+        context["nameoflist"] = queryset.content_list
+        context["is_follow"] = is_follow(self.request,self.user)
         context["detail"] = queryset
         context["global_hashtag"] = [i for i in queryset.tag.split(" ") if i != ""]
         return context
 
-    def up_content_view(self,queryset):
+    def contents_of_user(self):
+        return self.ctof(user = self.user)
+
+    def permlinks_of_user(self):
+        return self.contents_of_user().filter(permlink = self.path)
+
+    def lists_of_user(self):
+        permlinks = self.permlinks_of_user()[0]
+        return self.contents_of_user().filter(content_list = permlinks.content_list)
+
+    def up_content_view(self):
+        queryset = self.permlinks_of_user()[0]
         Content.objects.filter(id = queryset.id).update(read = F("read")+1)
         try:
             ip = self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()

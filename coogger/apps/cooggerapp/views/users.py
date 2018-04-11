@@ -13,15 +13,13 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #models
-from apps.cooggerapp.models import OtherInformationOfUsers,Content,UserFollow,Following
-from social_django.models import UserSocialAuth
+from apps.cooggerapp.models import OtherInformationOfUsers,Content,Following
 
 #forms
 from apps.cooggerapp.forms import AboutForm
 
 #views
 from apps.cooggerapp.views.tools import get_facebook,users_web,paginator
-from easysteem.easysteem import Oogg
 
 #python
 import os

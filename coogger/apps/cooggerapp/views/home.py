@@ -16,7 +16,7 @@ from django.utils.decorators import method_decorator
 from apps.cooggerapp.forms import ReportsForm
 
 #models
-from apps.cooggerapp.models import Content, OtherInformationOfUsers, SearchedWords, ReportModel, Following
+from apps.cooggerapp.models import Content, SearchedWords, ReportModel, Following
 
 #views
 from apps.cooggerapp.views.tools import paginator
@@ -27,12 +27,6 @@ class Home(TemplateView):
     queryset = Content.objects.filter(status = "approved")
 
     def get_context_data(self, **kwargs):
-        try:
-            # OtherInformationOfUsers kayıt l ıdeğil ise kayıt ediyoruzself.
-            user = User.objects.filter(username = self.request.user)[0]
-            OtherInformationOfUsers(user = user).save()
-        except:
-            pass
         context = super(Home, self).get_context_data(**kwargs)
         context["content"] = paginator(self.request,self.queryset,self.pagi)
         return context
@@ -43,7 +37,7 @@ class FollowingContent(View):
     pagi = 6
 
     @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         oof = []
         queryset = []
         for i in Following.objects.filter(user = request.user):

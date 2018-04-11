@@ -32,25 +32,41 @@ class ContentAdmin(ModelAdmin):
         oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
         post = Post(post = obj.get_absolute_url())
         if not obj.upvote: # bot oy atmadı ise daha aşağıdakilerin çalışmasına gerek yok,bu son işlem çünkü
-            if obj.cooggerup == True: # upvote with cooggerup
+            if obj.cooggerup == True and obj.status == "approved": # upvote with cooggerup
                 for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
                     user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
                     Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent))
                 obj.upvote = True
-            elif obj.status == "approved": #onaylandı ise:
-                Oogg.reply(
-                title = "coogger | your contribution has been approved",
-                body = settings.APPROVED.format(obj.approved.replace("-"," "),request_user),
-                author = request_user,
-                identifier = post.identifier
-                )
-            elif obj.status == "rejected": # onaylanmamış ise
-                Oogg.reply(
-                title = "coogger | your contribution cannot be approved",
-                body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," "),request_user),
-                author = request_user,
-                identifier = post.identifier
-                )
+            if obj.status == "approved":
+                pass_ = None
+                for reply in Oogg.get_replies_list(post):
+                    if reply in settings.MODS:
+                        pass_ = True
+                        break
+                    else:
+                        pass_ = False
+                if pass_ == False:
+                    Oogg.reply(
+                    title = "coogger | your contribution has been approved",
+                    body = settings.APPROVED.format(obj.approved.replace("-"," "),request_user),
+                    author = request_user,
+                    identifier = post.identifier
+                    )
+            elif obj.status == "rejected":
+                pass_ = None
+                for reply in Oogg.get_replies_list(post):
+                    if reply in settings.MODS:
+                        pass_ = True
+                        break
+                    else:
+                        pass_ = False
+                if pass_ == False:
+                    Oogg.reply(
+                    title = "coogger | your contribution cannot be approved",
+                    body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," "),request_user),
+                    author = request_user,
+                    identifier = post.identifier
+                    )
         content_count = Content.objects.filter(user = obj.user).count()
         oiouof.update(hmanycontent = content_count)
         super(ContentAdmin, self).save_model(request, obj, form, change)

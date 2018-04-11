@@ -2,10 +2,9 @@
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
 
 #models
-from apps.cooggerapp.models import OtherInformationOfUsers,Content,UserFollow
+from apps.cooggerapp.models import UserFollow
 
 #choices seçimler
 from apps.cooggerapp.choices import *

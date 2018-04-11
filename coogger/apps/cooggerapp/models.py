@@ -40,7 +40,10 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
 class Content(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     content_list = models.CharField(default = "coogger",max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
+    # TODO:  SlugField yap list'i ve permlink'i
     permlink = models.CharField(unique = True, max_length=200, verbose_name = "permlink") # blogun url adresi
+    # TODO: permlink unique true olamaz çünkü aynı başlığı başka bir kullanıcı atabilir
+    # save yapılmadan önce denetelemek lazım
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     content = MartorField()
@@ -53,15 +56,14 @@ class Content(models.Model):
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
     draft = models.BooleanField(default = False,verbose_name = "content draft") # TODO:  status'e eklenebilir
     # ------------ #
+    # TODO:  mod = models.ForeignKey("auth.user") # inceleyen mod bilgisi
     status = models.CharField(default = "shared", max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
-    # ------------ #
     approved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(approved_choices()) ,verbose_name = "Why approved")
     cantapproved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
     cooggerup = models.BooleanField(default = False,verbose_name = "upvote with cooggerup bot")
     upvote = models.BooleanField(default = False,verbose_name = "was voting done")
 
     class Meta:
-        verbose_name = "content"
         ordering = ['-time']
 
     def get_absolute_url(self):
@@ -86,7 +88,7 @@ class Content(models.Model):
             self.permlink += "-"+rand
         except:
             pass
-        if self.sc2_post(self.permlink).status_code == 200:
+        if self.sc2_post(self.permlink).status_code == 200:  # steemit'de paylaşıyor.
             self.draft = False
         else:
             self.draft = True
@@ -97,8 +99,8 @@ class Content(models.Model):
         self.show = content.show
         self.content_list = slugify(content.content_list.lower())
         self.content = content.content
-        self.title = content.title # no change
-        self.permlink = slugify(queryset[0].title.lower()) # no change
+        self.title = content.title
+        self.permlink = queryset[0].permlink # no change
         self.tag = content.tag
         self.draft = queryset[0].draft
         self.tag = self.ready_tags()["coogger"]
@@ -156,18 +158,10 @@ class Content(models.Model):
     def post_reward(self):
         try:
             post = Post(post = self.get_absolute_url())
-            pp = self.pending_payout(post)
-            sbd_sp = self.calculate_sbd_sp(pp)
-            return dict(total = sbd_sp["total"])
+            payout = round(self.pending_payout(post),4)
+            return dict(total = payout)
         except:
-            return dict(total = None,)
-
-    def calculate_sbd_sp(self, payout):
-        return dict(
-        total = round(payout,4),
-        sp = round(payout * 0.15,4),
-        sbd = round(payout * 0.75/2,4),
-        )
+            return dict(total = None)
 
     def pending_payout(self, post):
         payout = Amount(post.pending_payout_value).amount
