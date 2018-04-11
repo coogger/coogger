@@ -24,7 +24,7 @@ from apps.cooggerapp.views.tools import paginator
 class Home(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
     pagi = 6
-    queryset = Content.objects.filter(cantapproved = "approved")
+    queryset = Content.objects.filter(status = "approved")
 
     def get_context_data(self, **kwargs):
         try:
@@ -49,7 +49,7 @@ class FollowingContent(View):
         for i in Following.objects.filter(user = request.user):
             i_wuser = i.which_user
             oof.append(i.which_user)
-        for q in Content.objects.filter(cantapproved = "approved" ):
+        for q in Content.objects.filter(status = "approved"):
             if q.user in oof:
                 queryset.append(q)
         info_of_cards = paginator(request,queryset,self.pagi)
@@ -76,7 +76,7 @@ class Search(TemplateView):
     def search_algorithm(self):
         searched_data = self.get_form_data()
         q = Q(title__contains = searched_data) | Q(content_list__contains = searched_data) | Q(content__contains = searched_data)
-        queryset = Content.objects.filter(q,cantapproved = "approved").order_by("-views")
+        queryset = Content.objects.filter(q,status = "approved").order_by("-views")
         return queryset
 
     def get_queryset(self):

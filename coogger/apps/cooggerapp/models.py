@@ -51,10 +51,12 @@ class Content(models.Model):
     read = models.IntegerField(default = 0, verbose_name = "pageviews")
     hmanycomment=models.IntegerField(default = 0, verbose_name = "comments count")
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
-    draft = models.BooleanField(default = False,verbose_name = "content draft")
+    draft = models.BooleanField(default = False,verbose_name = "content draft") # TODO:  status'e eklenebilir
     # ------------ #
-    approved = models.CharField(blank = True,null = True,max_length=40,choices = make_choices(approved_choices()) ,verbose_name = "Why approved")
-    cantapproved = models.CharField(blank = True,null = True,max_length=40,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
+    status = models.CharField(default = "shared", max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
+    # ------------ #
+    approved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(approved_choices()) ,verbose_name = "Why approved")
+    cantapproved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
     cooggerup = models.BooleanField(default = False,verbose_name = "upvote with cooggerup bot")
     upvote = models.BooleanField(default = False,verbose_name = "was voting done")
 
@@ -63,7 +65,7 @@ class Content(models.Model):
         ordering = ['-time']
 
     def get_absolute_url(self):
-        return "@"+self.user.username+"/"+self.content_list+"/"+self.permlink
+        return "@"+self.user.username+"/"+self.permlink
 
     @staticmethod
     def durationofread(text):
@@ -79,7 +81,7 @@ class Content(models.Model):
         self.dor = self.durationofread(self.content+self.title)
         self.permlink = slugify(self.title.lower())
         try:
-            Post(post = self.get_steemit_url()).url
+            Post(post = self.get_absolute_url()).url
             rand = str(random.randrange(9999))
             self.permlink += "-"+rand
         except:
@@ -103,7 +105,7 @@ class Content(models.Model):
         self.dor = self.durationofread(self.content+self.title)
         if self.draft:
             try:
-                Post(post = self.get_steemit_url()).url
+                Post(post = self.get_absolute_url()).url
                 rand = str(random.randrange(9999))
                 self.permlink += "-"+rand
             except:
@@ -120,9 +122,10 @@ class Content(models.Model):
         tag = self.tag,
         draft = self.draft,
         dor = self.dor,
+        status = "changed",
         lastmod = datetime.datetime.now(),
         )
-        return "@"+self.user.username+"/"+self.content_list+"/"+self.permlink
+        return "@"+self.user.username+"/"+self.permlink
 
     def sc2_post(self,permlink):
         access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
@@ -150,16 +153,9 @@ class Content(models.Model):
             get_tag.insert(0,"coogger")
         return {"steemit":clearly_tags(get_tag),"coogger":clearly_tags(self.tag.split(" ")[:5])}
 
-    def get_steemit_url(self):
-        s_url = self.get_absolute_url().split("/")
-        return s_url[0]+"/"+s_url[2]
-
-    def get_steemit_permlink(self):
-        return self.permlink
-
     def post_reward(self):
         try:
-            post = Post(post = self.get_steemit_url())
+            post = Post(post = self.get_absolute_url())
             pp = self.pending_payout(post)
             sbd_sp = self.calculate_sbd_sp(pp)
             return dict(total = sbd_sp["total"])

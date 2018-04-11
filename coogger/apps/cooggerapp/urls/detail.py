@@ -4,5 +4,5 @@ from django.conf.urls import url
 from apps.cooggerapp.views import detail
 
 urlpatterns = [
-    url(r'^@(?P<username>.+)/(?P<utopic>.+)/(?P<path>.+)/$', detail.Detail.as_view(),name = "cooggerapp-detail"),
+    url(r'^@(?P<username>.+)/(?P<path>.+)/$', detail.Detail.as_view(),name = "cooggerapp-detail"),
     ]

@@ -43,7 +43,7 @@ class UserClassBased(TemplateView):
             OtherInformationOfUsers(user = user).save()
         except:
             pass
-        queryset = self.ctof(user = user,cantapproved = "approved")
+        queryset = self.ctof(user = user,status = "approved")
         info_of_cards = paginator(self.request,queryset,self.pagi)
         context = super(UserClassBased, self).get_context_data(**kwargs)
         nav_category = []
@@ -77,7 +77,7 @@ class UserTopic(UserClassBased):
         context = super(UserTopic, self).get_context_data(username,**kwargs)
         user = context["content_user"]
         user_queryset = self.ctof(user = user)
-        queryset = user_queryset.filter(content_list = utopic,cantapproved = "approved")
+        queryset = user_queryset.filter(content_list = utopic,status = "approved")
         info_of_cards = paginator(self.request,queryset,self.pagi)
         html_head = dict(
          title = self.title.format(username+" - "+utopic),

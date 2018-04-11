@@ -72,7 +72,7 @@ class Change(View): # TODO: içerik değişince approvedkısını iptal et bişi
     @staticmethod
     def really_queryset(request,content_id):
         if request.user.is_superuser:
-            queryset = Content.objects.filter(id = content_id, cantapproved = "approved")
+            queryset = Content.objects.filter(id = content_id, status = "approved")
         else:
-            queryset = Content.objects.filter(user = request.user,id = content_id, cantapproved = "approved")
+            queryset = Content.objects.filter(user = request.user,id = content_id, status = "approved")
         return queryset

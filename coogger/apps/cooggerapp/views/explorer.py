@@ -24,7 +24,7 @@ class Hashtag(TemplateView):
 
     def get_context_data(self, hashtag, **kwargs):
         if hashtag != "":
-            queryset = self.ctof(tag__contains = hashtag,cantapproved = "approved")
+            queryset = self.ctof(tag__contains = hashtag,status = "approved")
             info_of_cards = paginator(self.request,queryset,self.pagi)
             context = super(Hashtag, self).get_context_data(**kwargs)
             html_head = dict(
@@ -45,7 +45,7 @@ class Userlist(TemplateView):
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
-            queryset = self.ctof(content_list__contains = list_,cantapproved = "approved")
+            queryset = self.ctof(content_list__contains = list_,status = "approved")
             info_of_cards = paginator(self.request,queryset,self.pagi)
             context = super(Userlist, self).get_context_data(**kwargs)
             html_head = dict(

@@ -19,39 +19,36 @@ Oogg = Oogg(settings.STEEM)
 from steem.post import Post
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","content_list","title"]
+    list_ = ["user","content_list","title","approved","cantapproved","upvote","status"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["time","approved","cantapproved","upvote"]
+    list_filter = ["status","time","approved","cantapproved","upvote"]
     search_fields = list_
-    fields = ("user","content_list","permlink","title","content","definition","tag",("views","hmanycomment","dor","draft"),"approved","cantapproved","cooggerup")
+    fields = ("user","content_list","permlink","title","content","definition","tag",("views","hmanycomment","dor","draft"),("approved","cantapproved","cooggerup"),"status")
 
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()
-        post_user = request.POST["user"]
-        oiouof = OtherInformationOfUsers.objects.filter(user = post_user)
-        post = Post(post = obj.get_steemit_url())
-        if obj.approved is not None and obj.cantapproved is None : #onaylandı ise
-            if obj.cooggerup == True and obj.upvote == False: # upvote with cooggerup
+        request_user = str(request.user)
+        oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
+        post = Post(post = obj.get_absolute_url())
+        if not obj.upvote: # bot oy atmadı ise daha aşağıdakilerin çalışmasına gerek yok,bu son işlem çünkü
+            if obj.cooggerup == True: # upvote with cooggerup
                 for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
                     user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
-                    Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.get_steemit_permlink(), weight = int(percent))
+                    Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent))
                 obj.upvote = True
-            if "coogger" not in Oogg.get_replies_list(post): # onaylanmış ise
+            elif obj.status == "approved": #onaylandı ise:
                 Oogg.reply(
                 title = "coogger | your contribution has been approved",
-                body = settings.APPROVED.format(obj.approve.replace("-"," "),post_user),
-                author = post_user,
+                body = settings.APPROVED.format(obj.approved.replace("-"," "),request_user),
+                author = request_user,
                 identifier = post.identifier
                 )
-        if obj.cantapproved is not None and obj.approved is None: # onaylanmamış ise
-            if obj.cantapproved is not None and \
-                "coogger" not in Oogg.get_replies_list(post):
-
+            elif obj.status == "rejected": # onaylanmamış ise
                 Oogg.reply(
                 title = "coogger | your contribution cannot be approved",
-                body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," "),post_user),
-                author = post_user,
+                body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," "),request_user),
+                author = request_user,
                 identifier = post.identifier
                 )
         content_count = Content.objects.filter(user = obj.user).count()

@@ -38,6 +38,14 @@ def approved_choices():
     "translation", # çok lu dil özelliği gelince olacak.
     ]
 
+def status_choices():
+    return [
+    "shared",
+    "changed",
+    "rejected",
+    "approved",
+    ]
+
 def make_choices(choice):
     from django.utils.text import slugify
     slugs = []

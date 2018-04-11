@@ -16,8 +16,9 @@ class Detail(TemplateView):
     template_name = "apps/cooggerapp/detail/main_detail.html"
     ctof = Content.objects.filter
 
-    def get_context_data(self,username,utopic,path, **kwargs):
+    def get_context_data(self,username,path, **kwargs):
         user = User.objects.filter(username = username)[0]
+        utopic = self.ctof(user = user, permlink = path)[0].content_list
         queryset = self.ctof(user = user, content_list = utopic, permlink = path)[0]
         content_user = queryset.user
         nav_category = self.ctof(user = content_user,content_list = utopic)
