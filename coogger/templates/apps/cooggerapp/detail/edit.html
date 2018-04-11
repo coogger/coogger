@@ -6,7 +6,7 @@
         <div gnrl="txt-s c-white">Edit</div>
       </a>
     {% endif %}
-    {% if detail.user != request.user %}
+    {% if detail.user != request.user and detail.cantapproved == "approved"%}
       <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer" gnrl="brc-muted b-1 bg-muted br-1" hvr-a="bg-danger" flx="ai-c">
         <i gnrl="c-white" class="fa fa-flag" aria-hidden="true"></i>
         <div gnrl="txt-s c-white">Report</div>

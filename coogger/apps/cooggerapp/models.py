@@ -120,7 +120,7 @@ class Content(models.Model):
         draft = self.draft,
         dor = self.dor,
         lastmod = datetime.datetime.now(),
-        confirmation = False)
+        )
         return "@"+self.user.username+"/"+self.content_list+"/"+self.permlink
 
     def sc2_post(self,permlink):

@@ -1,15 +1,16 @@
 {% with s_account_info=content_user.otherinformationofusers.s_info %}
-<div flx="jc-c fd-c ac-c" gnrl="bg-white" style="margin-top: 6px;">
+<div flx="jc-c fd-c ac-c" gnrl="bg-white" class="cover_image"
+style="margin-top: 6px;background-image:url({{ s_account_info.account.json_metadata.profile.cover_image }});margin-top: 6px;background-attachment:fixed;background-repeat:no-repeat;background-position:center;padding: 12px 0px;">
   <div flx="jc-c" style="margin-top: 12px;">
-    <div flx="fd-c">
-      <img flx="jc-c" gnrl="br-circle" src="{{ s_account_info.account.json_metadata.profile.profile_image }}" class="useruserimg"></a>
+    <div flx="fd-c" gnrl="bg-white br-circle">
+      <img flx="jc-c" gnrl="br-circle" src="{{ s_account_info.account.json_metadata.profile.profile_image }}" class="useruserimg" style="padding: 2px;"></a>
     </div>
   </div>
   <h1 flx="jc-c as-c" gnrl="bg-white br-2 brc-white b-1" hvr-a="brc-private" hvr="c-private">
     <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}"
     style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">@{{ content_user }}
   </h1>
-  <div default="media" flx="ai-c fd-c" style="margin:12px auto;">
+  <div default="media pm" flx="ai-c fd-c" gnrl="bg-white br-2" style="margin:12px auto;">
       <div flx="fd-c" gnrl="txt-m">{{ s_account_info.account.json_metadata.profile.about }}</div>
       <div flx="fd-c" gnrl="txt-m">{{s_account_info.account.json_metadata.profile.location }}</div>
       <a flx="fd-c" gnrl="c-primary" href="{{ account.website }}">{{ s_account_info.account.json_metadata.profile.website }}</a>
@@ -18,16 +19,15 @@
       {% endwith %}
   </div>
   <div flx="jc-c">
-    <div flx="fd-c" style="margin: 6px;">
-      {{ content_user.otherinformationofusers.pp }}
+    <div flx="fd-c" style="margin: 6px;" gnrl="bg-white br-2">
       <div flx="as-c">{{ content_user.otherinformationofusers.hmanycontent }}</div>
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Contents</div>
     </div>
-    <div flx="fd-c" style="margin: 6px;">
+    <div flx="fd-c" style="margin: 6px;" gnrl="bg-white br-2">
       <div class="follownum" flx="as-c">{{ content_user.otherinformationofusers.follower_count }}</div>
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Follower</div>
     </div>
-    <div flx="fd-c" style="margin: 6px;">
+    <div flx="fd-c" style="margin: 6px;" gnrl="bg-white br-2">
       <div flx="as-c">{{ content_user.otherinformationofusers.following_count }}</div>
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Following</div>
     </div>

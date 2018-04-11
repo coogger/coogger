@@ -2,8 +2,6 @@
 from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
-from django.contrib import messages
-from django.db.models import F
 from django.db.models import Q
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
@@ -22,12 +20,11 @@ from apps.cooggerapp.models import Content, OtherInformationOfUsers, SearchedWor
 
 #views
 from apps.cooggerapp.views.tools import paginator
-from easysteem.easysteem import Oogg
 
 class Home(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
     pagi = 6
-    queryset = Content.objects.filter()
+    queryset = Content.objects.filter(cantapproved = "approved")
 
     def get_context_data(self, **kwargs):
         try:
@@ -52,7 +49,7 @@ class FollowingContent(View):
         for i in Following.objects.filter(user = request.user):
             i_wuser = i.which_user
             oof.append(i.which_user)
-        for q in Content.objects.filter(confirmation = True):
+        for q in Content.objects.filter(cantapproved = "approved" ):
             if q.user in oof:
                 queryset.append(q)
         info_of_cards = paginator(request,queryset,self.pagi)
@@ -79,7 +76,7 @@ class Search(TemplateView):
     def search_algorithm(self):
         searched_data = self.get_form_data()
         q = Q(title__contains = searched_data) | Q(content_list__contains = searched_data) | Q(content__contains = searched_data)
-        queryset = Content.objects.filter(q,confirmation = True).order_by("-views")
+        queryset = Content.objects.filter(q,cantapproved = "approved").order_by("-views")
         return queryset
 
     def get_queryset(self):

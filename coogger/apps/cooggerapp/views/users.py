@@ -43,10 +43,7 @@ class UserClassBased(TemplateView):
             OtherInformationOfUsers(user = user).save()
         except:
             pass
-        if username == self.request.user.username: # kendisi ise
-            queryset = self.ctof(user = user)
-        else:
-            queryset = self.ctof(user = user,confirmation = True)
+        queryset = self.ctof(user = user,cantapproved = "approved")
         info_of_cards = paginator(self.request,queryset,self.pagi)
         context = super(UserClassBased, self).get_context_data(**kwargs)
         nav_category = []
@@ -80,10 +77,7 @@ class UserTopic(UserClassBased):
         context = super(UserTopic, self).get_context_data(username,**kwargs)
         user = context["content_user"]
         user_queryset = self.ctof(user = user)
-        if username == self.request.user.username:
-            queryset = user_queryset.filter(content_list = utopic)
-        else:
-            queryset = user_queryset.filter(content_list = utopic,confirmation = True)
+        queryset = user_queryset.filter(content_list = utopic,cantapproved = "approved")
         info_of_cards = paginator(self.request,queryset,self.pagi)
         html_head = dict(
          title = self.title.format(username+" - "+utopic),
@@ -113,7 +107,7 @@ class UserAboutBaseClass(View):
             about_form = self.form_class(request.GET or None,instance=query)
         else:
             about_form = query.about
-        queryset = Content.objects.filter(user = user,confirmation = True)
+        queryset = Content.objects.filter(user = user)
         nav_category = []
         for i in queryset:
             c_list = i.content_list
@@ -163,18 +157,17 @@ class FollowBaseClass(View):
                     is_follow.delete()
                     self.oiouof(user = request_user).update(following_count = F("following_count")-1)
                     self.oiouof(user = user).update(follower_count = F("follower_count")-1)
-                    return HttpResponse(json.dumps({"ms":"Takip et","num":followers_num-1}))
+                    return HttpResponse(json.dumps({"ms":"Follow","num":followers_num-1}))
                 Following(user = request_user,which_user = user).save()
                 self.oiouof(user = request_user).update(following_count = F("following_count")+1)
                 self.oiouof(user = user).update(follower_count = F("follower_count")+1)
-                return HttpResponse(json.dumps({"ms":"Takibi bırak","num":followers_num+1}))
-
+                return HttpResponse(json.dumps({"ms":"Following","num":followers_num+1}))
 
 def is_follow(request,user):
     try:
         is_follow = Following.objects.filter(user = request.user,which_user = user)
         if is_follow.exists():
-            return "Takibi bırak"
-        return "Takip et"
+            return "Following"
+        return "Follow"
     except:
         pass

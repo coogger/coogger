@@ -24,7 +24,7 @@ class Hashtag(TemplateView):
 
     def get_context_data(self, hashtag, **kwargs):
         if hashtag != "":
-            queryset = self.ctof(tag__contains = hashtag, confirmation = True)
+            queryset = self.ctof(tag__contains = hashtag,cantapproved = "approved")
             info_of_cards = paginator(self.request,queryset,self.pagi)
             context = super(Hashtag, self).get_context_data(**kwargs)
             html_head = dict(
@@ -37,11 +37,23 @@ class Hashtag(TemplateView):
             context["head"] = html_head
             return context
 
-class Userlist(Hashtag):
-    template = "apps/cooggerapp/card/blogs.html"
+class Userlist(TemplateView):
+    template_name = "apps/cooggerapp/card/blogs.html"
     info = "liste"
+    ctof = Content.objects.filter
+    pagi = 6
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
-            queryset = self.ctof(content_list = list_, confirmation = True)
-            return super(Userlist, self).get_context_data(list_,**kwargs)
+            queryset = self.ctof(content_list__contains = list_,cantapproved = "approved")
+            info_of_cards = paginator(self.request,queryset,self.pagi)
+            context = super(Userlist, self).get_context_data(**kwargs)
+            html_head = dict(
+             title = list_+" | coogger",
+             keywords = list_,
+             description = list_ +" {} altında ki bütün coogger bilgileri".format(self.info),
+            )
+            context["content"] = info_of_cards
+            context["nameofhashtag"] = list_
+            context["head"] = html_head
+            return context
