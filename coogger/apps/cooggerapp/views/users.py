@@ -66,7 +66,7 @@ class UserClassBased(TemplateView):
         )
 
 
-class UserTopic(UserClassBased):
+class UserTopic(UserClassBased): # TODO: görüntülenemiyor url adresinden dolayı hallet
     "kullanıcıların konu adresleri"
     keywords = "{} {},{}"
     description = "{} kullanıcımızın {} adlı içerik listesi"

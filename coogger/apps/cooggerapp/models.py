@@ -38,14 +38,13 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
 
 class Content(models.Model):
+    # TODO: on_delete=models.CASCADE bunu bir araştır iyice ve ne yapman gerektiğine karar ver
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    content_list = models.CharField(default = "coogger",max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
-    # TODO:  SlugField yap list'i ve permlink'i
-    permlink = models.CharField(unique = True, max_length=200, verbose_name = "permlink") # blogun url adresi
-    # TODO: permlink unique true olamaz çünkü aynı başlığı başka bir kullanıcı atabilir
-    # save yapılmadan önce denetelemek lazım
+    content_list = models.SlugField(max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
+    permlink = models.SlugField(max_length=200)
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
+    # TODO:  definition kısmını oto yaptırt
     content = MartorField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
@@ -56,7 +55,7 @@ class Content(models.Model):
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
     draft = models.BooleanField(default = False,verbose_name = "content draft") # TODO:  status'e eklenebilir
     # ------------ #
-    # TODO:  mod = models.ForeignKey("auth.user") # inceleyen mod bilgisi
+    mod = models.ForeignKey("auth.user",on_delete=models.CASCADE,blank = True,null = True, related_name="moderator") # inceleyen mod bilgisi
     status = models.CharField(default = "shared", max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
     approved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(approved_choices()) ,verbose_name = "Why approved")
     cantapproved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
@@ -78,16 +77,25 @@ class Content(models.Model):
         return str(words_time)[:3]
 
     def content_save(self, *args, **kwargs):
-        self.content_list = slugify(self.content_list.lower())
+        self.content_list = self.content_list.lower()
         self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
-        self.permlink = slugify(self.title.lower())
-        try:
-            Post(post = self.get_absolute_url()).url
-            rand = str(random.randrange(9999))
-            self.permlink += "-"+rand
-        except:
-            pass
+        self.permlink = self.title.lower()
+        while  True: # hem coogger'da hemde steemit'de olmaması gerek ki kayıt sırasında sorun çıkmasın.
+            try:
+                Content.objects.filter(user = self.user,permlink = self.permlink)[0] # db de varsa
+                try:
+                    Post(post = self.get_absolute_url()).url # steemit'de varsa
+                    self.new_permlink() # change to self.permlink / link değişir
+                except:
+                    pass
+
+            except:
+                try:
+                    Post(post = self.get_absolute_url()).url # steemit'de varsa
+                    self.new_permlink() # change to self.permlink / link değişir
+                except:
+                    break
         if self.sc2_post(self.permlink).status_code == 200:  # steemit'de paylaşıyor.
             self.draft = False
         else:
@@ -97,7 +105,7 @@ class Content(models.Model):
     def content_update(self,queryset,content):
         self.user = queryset[0].user
         self.show = content.show
-        self.content_list = slugify(content.content_list.lower())
+        self.content_list = content.content_list.lower()
         self.content = content.content
         self.title = content.title
         self.permlink = queryset[0].permlink # no change
@@ -105,7 +113,7 @@ class Content(models.Model):
         self.draft = queryset[0].draft
         self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
-        if self.draft:
+        if self.draft: # TODO: draft kısmını kişi yazı yazarken kayıt ettirsin.
             try:
                 Post(post = self.get_absolute_url()).url
                 rand = str(random.randrange(9999))
@@ -169,6 +177,9 @@ class Content(models.Model):
             payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
         return payout
 
+    def new_permlink(self):
+        rand = str(random.randrange(9999))
+        self.permlink += "-"+rand
 
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
@@ -177,7 +188,7 @@ class UserFollow(models.Model):
 
 class Following(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name='%(class)s_requests_created')
+    which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name="which_user")
 
 class SearchedWords(models.Model):
     word = models.CharField(unique=True,max_length=310)

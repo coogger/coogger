@@ -19,11 +19,11 @@ Oogg = Oogg(settings.STEEM)
 from steem.post import Post
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","content_list","title","approved","cantapproved","upvote","status"]
+    list_ = ["user","content_list","title","permlink","tag","upvote","status","time","mod"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["status","time","approved","cantapproved","upvote"]
-    search_fields = list_
+    list_filter = ["status","time","upvote","approved","cantapproved"]
+    search_fields = ["definition","content_list","title","permlink","tag"]
     fields = ("user","content_list","permlink","title","content","definition","tag",("views","hmanycomment","dor","draft"),("approved","cantapproved","cooggerup"),"status")
 
     def save_model(self, request, obj, form, change):
@@ -31,6 +31,7 @@ class ContentAdmin(ModelAdmin):
         request_user = str(request.user)
         oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
         post = Post(post = obj.get_absolute_url())
+        obj.mod = request.POST["user"] #içerik ile ilgilenen mod
         if not obj.upvote: # bot oy atmadı ise daha aşağıdakilerin çalışmasına gerek yok,bu son işlem çünkü
             if obj.cooggerup == True and obj.status == "approved": # upvote with cooggerup
                 for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
@@ -38,7 +39,7 @@ class ContentAdmin(ModelAdmin):
                     Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent))
                 obj.upvote = True
             if obj.status == "approved":
-                pass_ = None
+                pass_ = False
                 for reply in Oogg.get_replies_list(post):
                     if reply in settings.MODS:
                         pass_ = True
@@ -53,7 +54,7 @@ class ContentAdmin(ModelAdmin):
                     identifier = post.identifier
                     )
             elif obj.status == "rejected":
-                pass_ = None
+                pass_ = False
                 for reply in Oogg.get_replies_list(post):
                     if reply in settings.MODS:
                         pass_ = True
