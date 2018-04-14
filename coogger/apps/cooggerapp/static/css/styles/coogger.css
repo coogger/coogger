@@ -27,6 +27,7 @@
 [font~="quicksand"]{
   font-family: 'Quicksand', sans-serif;
 }
+
 h1 {
   font-size: 1.5em;
   color: #000; }
@@ -132,9 +133,9 @@ img {
     max-width: 100%; }
 
 [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select {
-  width: 66%;
+  width: 96%;
   min-width: 200px;
-  min-height: 16px;
+  min-height: 24px;
   padding: 4px 12px; }
   [default~="forminput"] input:hover, [default~="form"] input:hover, [default~="forminput"] input:focus, [default~="form"] input:focus, [default~="forminput"] input:active, [default~="form"] input:active, [default~="forminput"] select:hover, [default~="form"] select:hover, [default~="forminput"] select:focus, [default~="form"] select:focus, [default~="forminput"] select:active, [default~="form"] select:active {
     border-color: #99a3a4; }
@@ -163,7 +164,10 @@ title {
   word-break: break-all;
   padding: 3px 6px; }
 
-[flx], [default~="forminput"] li label, [default~="form"] li label, [default~="form"] p input, [default~="form"] li input, title, .helptext, [gnrl~="center"], [default~="paragraph"] img, [gnrl~="ewcenter"], [gnrl~="right"], [gnrl~="left"], cardtime {
+.helptext {
+  padding: 4px 12px; }
+
+[flx], [default~="forminput"] li label, [default~="form"] li label, [default~="form"] p input, [default~="form"] li input, title, .helptext, [gnrl~="center"], card img, [gnrl~="ewcenter"], [gnrl~="right"], [gnrl~="left"], cardtime {
   /* default flex */
   -webkit-display: flex;
   -moz-display: flex;
@@ -266,7 +270,7 @@ title {
   justify-content: flex-start;
   /* justify-content: flex-start | flex-end  |  center |  space-around | space-between;  */ }
 
-[flx~="jc-c"], [default~="form"] p input, [default~="form"] li input, title, [gnrl~="center"], [default~="paragraph"] img, [gnrl~="ewcenter"], cardtime {
+[flx~="jc-c"], [default~="form"] p input, [default~="form"] li input, title, [gnrl~="center"], card img, [gnrl~="ewcenter"], cardtime {
   -webkit-justify-content: center;
   -moz-justify-content: center;
   -ms-justify-content: center;
@@ -3809,16 +3813,16 @@ title {
 [gnrl~="bg-success"] {
   background-color: #1abc9c; }
 
-[gnrl~="bg-danger"], .helptext {
+[gnrl~="bg-danger"] {
   background-color: #e74c3c; }
 
-[gnrl~="bg-warning"] {
+[gnrl~="bg-warning"], .helptext {
   background-color: #f1c40f; }
 
 [gnrl~="bg-info"] {
   background-color: #85c1e9; }
 
-[gnrl~="bg-white"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"] {
+[gnrl~="bg-white"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select {
   background-color: #fff; }
 
 [gnrl~="bg-dark"] {
@@ -3828,7 +3832,7 @@ title {
   background-color: #eaecee; }
 
 /* border */
-[gnrl~="b-1"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], title, cardtime {
+[gnrl~="b-1"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, title, cardtime {
   -webkit-border: 1px solid;
   -moz-border: 1px solid;
   -ms-border: 1px solid;
@@ -3906,7 +3910,7 @@ title {
   -o-border-radius: 2px;
   border-radius: 2px; }
 
-[gnrl~="br-2"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], .helptext {
+[gnrl~="br-2"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, .helptext {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
@@ -4012,7 +4016,7 @@ title {
   -o-border-color: #17202a;
   border-color: #17202a; }
 
-[gnrl~="brc-muted"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, [default~="form"], title, cardtime {
+[gnrl~="brc-muted"], [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select, title, cardtime {
   -webkit-border-color: #eaecee;
   -moz-border-color: #eaecee;
   -ms-border-color: #eaecee;
@@ -4058,7 +4062,7 @@ title {
   user-select: none; }
 
 /* general operations */
-[gnrl~="center"], [default~="paragraph"] img {
+[gnrl~="center"], card img {
   margin: auto; }
 
 [gnrl~="ewcenter"] {

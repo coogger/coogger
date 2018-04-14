@@ -42,7 +42,7 @@ class Create(View):
             return HttpResponseRedirect("/"+content_form.get_absolute_url())
 
 
-class Change(View): # TODO: içerik değişince approvedkısını iptal et bişi yap
+class Change(View):
     form_class = ContentForm
     template_name = "apps/cooggerapp/controls/change.html"
 
@@ -72,7 +72,7 @@ class Change(View): # TODO: içerik değişince approvedkısını iptal et bişi
     @staticmethod
     def really_queryset(request,content_id):
         if request.user.is_superuser:
-            queryset = Content.objects.filter(id = content_id, status = "approved")
+            queryset = Content.objects.filter(id = content_id)
         else:
-            queryset = Content.objects.filter(user = request.user,id = content_id, status = "approved")
+            queryset = Content.objects.filter(user = request.user,id = content_id)
         return queryset

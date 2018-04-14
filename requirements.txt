@@ -8,6 +8,6 @@ social-auth-steemconnect
 social-auth-app-django
 whitenoise
 django_jinja
-martor
 sc2py
 easysteem
+mistune

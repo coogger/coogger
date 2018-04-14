@@ -12,8 +12,7 @@ from django.contrib.sitemaps.views import sitemap
 
 # common addresses
 urlpatterns = [
-    url(r'^martor/', include('martor.urls')),
-    url(r'^web/admin/', admin.site.urls), # admin panel    
+    url(r'^web/admin/', admin.site.urls), # admin panel
 ]
 
 # main project = coogger

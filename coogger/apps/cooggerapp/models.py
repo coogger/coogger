@@ -7,7 +7,6 @@ from django.db.models import F
 
 from social_django.models import UserSocialAuth
 from social_django.models import AbstractUserSocialAuth, DjangoStorage, USER_MODEL
-from martor.models import MartorField
 
 #choices
 from apps.cooggerapp.choices import *
@@ -23,10 +22,14 @@ from steem.amount import Amount
 
 # 3.
 from sc2py.sc2py import Sc2
+from bs4 import BeautifulSoup
+import mistune
+
+# TODO: editor.md için modelfield yap
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = MartorField()
+    about = models.TextField()
     follower_count = models.IntegerField(default = 0)
     following_count = models.IntegerField(default = 0)
     hmanycontent = models.IntegerField(default = 0)
@@ -40,12 +43,11 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
 class Content(models.Model):
     # TODO: on_delete=models.CASCADE bunu bir araştır iyice ve ne yapman gerektiğine karar ver
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    content_list = models.SlugField(max_length=30,verbose_name ="title of list",help_text = "If your contents will continue around a particular topic, write your topic it down.")
+    content_list = models.SlugField(max_length=30,verbose_name ="title of list",help_text = "Please, write your topic about your contents.")
     permlink = models.SlugField(max_length=200)
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
-    # TODO:  definition kısmını oto yaptırt
-    content = MartorField()
+    content = models.TextField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
@@ -65,6 +67,24 @@ class Content(models.Model):
     class Meta:
         ordering = ['-time']
 
+    def misdef(self):
+        renderer = mistune.Renderer(escape=False)
+        markdown = mistune.Markdown(renderer=renderer)
+        return markdown(self.definition)
+
+    @staticmethod
+    def prepare_definition(text):
+        renderer = mistune.Renderer(escape=False)
+        markdown = mistune.Markdown(renderer=renderer)
+        beautifultext = BeautifulSoup(markdown(text),"html.parser")
+        try:
+            src = beautifultext.find("img").get("src")
+            alt = beautifultext.find("img").get("alt")
+            image_markdown = "![{}]({})".format(alt,src)
+            return beautifultext.text[0:400-len(image_markdown)-4]+"..."+image_markdown
+        except:
+            return  beautifultext.text[0:400-4]+"..."
+
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
 
@@ -76,11 +96,17 @@ class Content(models.Model):
         words_time = float((how_much_words/reading_speed)/60)
         return str(words_time)[:3]
 
-    def content_save(self, *args, **kwargs):
-        self.content_list = self.content_list.lower()
+    def save(self, *args, **kwargs): # for admin.py
+        self.definition = self.prepare_definition(self.content)
+        super(Content, self).save(*args, **kwargs)
+
+    def content_save(self, *args, **kwargs): # for me
+        self.content = "\n" + self.content
+        self.content_list = slugify(self.content_list.lower())
         self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
-        self.permlink = self.title.lower()
+        self.permlink = slugify(self.title.lower())
+        self.definition = self.prepare_definition(self.content)
         while  True: # hem coogger'da hemde steemit'de olmaması gerek ki kayıt sırasında sorun çıkmasın.
             try:
                 Content.objects.filter(user = self.user,permlink = self.permlink)[0] # db de varsa
@@ -89,7 +115,6 @@ class Content(models.Model):
                     self.new_permlink() # change to self.permlink / link değişir
                 except:
                     pass
-
             except:
                 try:
                     Post(post = self.get_absolute_url()).url # steemit'de varsa
@@ -104,15 +129,12 @@ class Content(models.Model):
 
     def content_update(self,queryset,content):
         self.user = queryset[0].user
-        self.show = content.show
-        self.content_list = content.content_list.lower()
-        self.content = content.content
+        self.content = "\n" + content.content #editör hatasından dolayı
         self.title = content.title
         self.permlink = queryset[0].permlink # no change
         self.tag = content.tag
         self.draft = queryset[0].draft
         self.tag = self.ready_tags()["coogger"]
-        self.dor = self.durationofread(self.content+self.title)
         if self.draft: # TODO: draft kısmını kişi yazı yazarken kayıt ettirsin.
             try:
                 Post(post = self.get_absolute_url()).url
@@ -124,14 +146,14 @@ class Content(models.Model):
                 self.draft = False
             else:
                 self.draft = True
-        queryset.update(show = self.show,
-        content_list = self.content_list,
+        queryset.update(definition = self.prepare_definition(content.content),
+        content_list = slugify(content.content_list.lower()),
         permlink = self.permlink,
         title = self.title,
         content = self.content,
         tag = self.tag,
         draft = self.draft,
-        dor = self.dor,
+        dor = self.durationofread(self.content+self.title),
         status = "changed",
         lastmod = datetime.datetime.now(),
         )

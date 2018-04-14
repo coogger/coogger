@@ -1,3 +1,9 @@
+<script type="text/javascript">$(function() {
+  var Editor = editormd.markdownToHTML("content", {
+      htmlDecode : "style,iframe",
+  });
+});
+</script>
 <div style="margin: 6px 0px;" animation="fadeIn">
   {% if detail.status == "shared" or detail.status == "changed" %}
   <div gnrl="bg-danger c-white b-2 brc-danger br-2" flx="jc-c" default="pm media">
@@ -11,7 +17,7 @@
   {% endif %}
 
 <div class="data-post-id-{{detail.id}}" default="bg">
-  <div default="media paragraph" class="martor-preview" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
+  <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
     <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
         <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href='/@{{ detail.user }}/{{ detail.content_list }}' style="padding: 3px 6px;">
           /@{{ detail.user }}/{{ detail.content_list }}
@@ -22,15 +28,18 @@
     </div>
     {% include 'apps/cooggerapp/detail/contentinfo.html' %}
     {% include 'apps/cooggerapp/detail/userinfo.html' %}
-    {% load martortags %}
     <div style="overflow-x: auto;">
       <h1 gnrl="center">
         {{ detail.title|title }}
       </h1>
-      {{ detail.content|safe_markdown }}
+      <div id="content" style="padding: inherit;">
+        <textarea style="display:none;">
+          {{ detail.content }}
+        </textarea>
+      </div>
     </div>
     {% include 'apps/cooggerapp/detail/edit.html' %}
   </div>
-{% include 'apps/cooggerapp/detail/tags.html' %}
+  {% include 'apps/cooggerapp/detail/tags.html' %}
 </div>
 </div>

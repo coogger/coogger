@@ -31,7 +31,7 @@ class ContentAdmin(ModelAdmin):
         request_user = str(request.user)
         oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
         post = Post(post = obj.get_absolute_url())
-        obj.mod = request.POST["user"] #içerik ile ilgilenen mod
+        obj.mod = request.user #içerik ile ilgilenen mod
         if not obj.upvote: # bot oy atmadı ise daha aşağıdakilerin çalışmasına gerek yok,bu son işlem çünkü
             if obj.cooggerup == True and obj.status == "approved": # upvote with cooggerup
                 for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):

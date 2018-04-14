@@ -135,6 +135,7 @@ class UserAboutBaseClass(View):
                 if about_form.is_valid(): # ve post isteği ise
                     about_form = about_form.save(commit = False)
                     about_form.user = request.user
+                    about_form.about = "\n" + about_form.about
                     about_form.save()
                     return HttpResponseRedirect("/web/about/@{}".format(request.user.username))
 

@@ -8,7 +8,7 @@ MODS = [
 
 from steem import Steem
 KEYS = [
-
+    
     ]
 STEEM = Steem(nodes=['https://api.steemit.com'],keys = KEYS)
 
@@ -46,7 +46,6 @@ INSTALLED_APPS = [ # coogger's app
     "apps.steemitapp",
     ]
 INSTALLED_APPS += [# 3. apps
-    "martor",
     "social_django",
     ]
 INSTALLED_APPS += [# django apps
@@ -147,12 +146,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-MARTOR_ENABLE_CONFIGS = {
-    'imgur': 'false',
-    'mention': 'true',
-    'jquery': 'true',
-}
-
-MARTOR_MARKDOWN_BASE_MENTION_URL = 'http://coogger.com/@'

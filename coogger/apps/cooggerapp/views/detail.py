@@ -12,6 +12,8 @@ from apps.cooggerapp.models import Content,Contentviews
 from apps.cooggerapp.views.tools import html_head
 from apps.cooggerapp.views.users import is_follow
 
+from apps.cooggerapp.forms import ContentForm
+
 class Detail(TemplateView):
     template_name = "apps/cooggerapp/detail/main_detail.html"
     ctof = Content.objects.filter
