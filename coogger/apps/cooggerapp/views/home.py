@@ -52,7 +52,7 @@ class Feed(View):
         )
         return render(request, self.template_name, context)
 
-class Preview(View):
+class Review(View):
     template_name = "apps/cooggerapp/card/blogs.html"
     pagi = 6
 

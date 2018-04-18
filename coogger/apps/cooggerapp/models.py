@@ -86,9 +86,6 @@ class Content(models.Model):
             return  beautifultext.text[0:400-4]+"..."
 
     def get_absolute_url(self):
-        return "@"+self.user.username+"/"+self.content_list+"/"+self.permlink
-
-    def get_steem_url(self):
         return "@"+self.user.username+"/"+self.permlink
 
     @staticmethod
@@ -109,7 +106,6 @@ class Content(models.Model):
         "app":"coogger/1.3.0",
         "community":"coogger",
         "content":{
-            "get_absolute_url":self.get_absolute_url(),
             "status":self.status,
             "dor":self.dor,
             "content_list":self.content_list},
@@ -227,7 +223,7 @@ class Content(models.Model):
 
     def post_reward(self):
         try:
-            post = Post(post = self.get_steem_url())
+            post = Post(post = self.get_absolute_url())
             payout = round(self.pending_payout(post),4)
             return dict(total = payout)
         except:

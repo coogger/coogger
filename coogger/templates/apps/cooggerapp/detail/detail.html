@@ -1,6 +1,11 @@
 <script type="text/javascript">$(function() {
+  editormd.urls.atLinkBase = "http://www.coogger.com/@";
   var Editor = editormd.markdownToHTML("content", {
-      htmlDecode : "style,iframe",
+    width : "100%",
+    height: 670,
+    path : "/static/js/lib/",
+    htmlDecode: "html,iframe",
+    emoji : true,
   });
 });
 </script>

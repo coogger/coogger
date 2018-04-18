@@ -71,7 +71,7 @@ class UserTopic(UserClassBased): # TODO: görüntülenemiyor url adresinden dola
     keywords = "{} {},{}"
     description = "{} kullanıcımızın {} adlı içerik listesi"
 
-    def get_context_data(self, username, utopic, **kwargs):
+    def get_context_data(self, utopic, username, **kwargs):
         context = super(UserTopic, self).get_context_data(username,**kwargs)
         user = context["content_user"]
         user_queryset = self.ctof(user = user)

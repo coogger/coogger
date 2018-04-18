@@ -5,7 +5,8 @@
     width : "100%",
     height: 670,
     path : "/static/js/lib/",
-    htmlDecode : "style,iframe",
+    htmlDecode: "html,iframe",
+    emoji : true,
   });
   var lang = "en";
   var path  = "/static/js/languages/en";
@@ -15,12 +16,7 @@
     });
 });
 </script>
-<script type="text/javascript">$(function() {
-  var Editor = editormd.markdownToHTML("about_show", {
-      htmlDecode : "style,iframe",
-  });
-});
-</script>
+
 {% if about %}
 <div flx="jc-c">
   {% if content_user == request.user %}
