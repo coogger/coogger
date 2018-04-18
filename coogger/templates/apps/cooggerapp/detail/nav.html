@@ -5,13 +5,13 @@
         <div hvr-a="bg-white" gnrl="br-2 bg-primary">
           <a flx="jc-c" gnrl="b-1 br-2 brc-muted c-white txt-m"
           hvr-a="c-primary" hvr="brc-primary" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
-           {{ list.title }}</a>
+           {{ list.title|title }}</a>
       </div>
      {% else%}
        <div hvr-a="bg-primary" gnrl="br-2" >
          <a flx="jc-c" gnrl="b-1 br-2 brc-muted c-primary txt-m"
           hvr-a="c-white" hvr="brc-primary" href="/{{list.get_absolute_url}}" style="padding: 3px 6px;">
-         {{ list.title }}</a>
+         {{ list.title|title }}</a>
     </div>
     {% endif %}
      {% endfor %}

@@ -3,7 +3,7 @@
     {% if messages %}
     <div gnrl="txt-m" flx=jc-c>
       {% for message in messages %}
-      <div>{{ message }}</div>
+      <div>{{ message|safe }}</div>
       {% endfor %}
     </div>
     {% endif %}

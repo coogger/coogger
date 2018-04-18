@@ -1,0 +1,9 @@
+{% with s_account_info=content_user.otherinformationofusers.s_info %}
+<div default="media pm" flx="ai-c fd-c" style="margin:12px auto;">
+    <div flx="fd-c" gnrl="txt-m">{{ s_account_info.account.json_metadata.profile.about }}</div>
+    <div flx="fd-c" gnrl="txt-m">{{s_account_info.account.json_metadata.profile.location }}</div>
+    <a flx="fd-c" gnrl="c-primary" href="{{ account.website }}">{{ s_account_info.account.json_metadata.profile.website }}</a>
+    <div flx="fd-c" gnrl="txt-m">Join : {{ content_user.date_joined|timesince }} ago</div>
+    <!-- <div flx="fd-c" gnrl="txt-m">SBD balance : {{ s_account_info.account.sbd_balance }}</div> -->
+</div>
+{% endwith %}

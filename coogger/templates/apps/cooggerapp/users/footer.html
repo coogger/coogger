@@ -1,10 +1,10 @@
 {% if user_follow %}
-<div flx gnrl="bg-white">
-  <div flx="jc-c" default="media" gnrl="txt-m b-4 brc-white bg-m">
+<div flx>
+  <div flx="jc-c" default="media" gnrl="txt-m">
     My other web addresses
   </div>
 </div>
-<footer flx="jc-c" gnrl="bg-white br-2 txt-s b-1 brc-white" hvr="c-private" style="padding: 6px 0px;">
+<footer flx="jc-c" gnrl="txt-s" hvr="c-private" style="padding: 6px 0px;">
   <div flx="fw-nw" style="overflow: auto;">
     {% for follow in user_follow %}
     {% if follow.choices == "web-site" %}
@@ -21,7 +21,7 @@
         <a hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white"
         target="_blank" href="https://www.{{follow.choices}}.com/{{follow.adress}}" style="padding: 3px 6px;">
           <i class="fa fa-{{follow.choices}}" aria-hidden="true">
-            <span>{{follow.choices}}</span>
+            <span>{{follow.choices|title}}</span>
           </i>
         </a>
       </div>

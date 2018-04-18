@@ -1,11 +1,4 @@
 # cooggerup
-
-MODS = [
-    "hakancelik",
-    "coogger",
-    "pars11",
-    ]
-
 from steem import Steem
 KEYS = [
     

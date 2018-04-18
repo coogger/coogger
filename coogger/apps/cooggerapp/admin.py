@@ -19,55 +19,44 @@ Oogg = Oogg(settings.STEEM)
 from steem.post import Post
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","content_list","title","permlink","tag","upvote","status","time","mod"]
+    list_ = ["user","content_list","title","permlink","tag","cooggerup","status","time","mod","modcomment"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["status","time","upvote","approved","cantapproved"]
-    search_fields = ["definition","content_list","title","permlink","tag"]
-    fields = ("user","content_list","permlink","title","content","definition","tag",("views","hmanycomment","dor","draft"),("approved","cantapproved","cooggerup"),"status")
+    list_filter = ["status","time","cooggerup","approved","cantapproved","draft"]
+    search_fields = ["content_list","title","permlink","tag"]
+    fields = ("content_list","title","content","tag",("approved","cantapproved","upvote"),"status")
 
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()
         request_user = str(request.user)
         oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
         post = Post(post = obj.get_absolute_url())
-        obj.mod = request.user #içerik ile ilgilenen mod
-        if not obj.upvote: # bot oy atmadı ise daha aşağıdakilerin çalışmasına gerek yok,bu son işlem çünkü
-            if obj.cooggerup == True and obj.status == "approved": # upvote with cooggerup
+        if not obj.cooggerup: # bot oy atmadı ise daha aşağıdakilerin çalışmasına gerek yok,bu son işlem çünkü
+            if obj.upvote == True and obj.status == "approved": # upvote with cooggerup
                 for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
                     user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
                     Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent))
-                obj.upvote = True
+                obj.cooggerup = True
             if obj.status == "approved":
-                pass_ = False
-                for reply in Oogg.get_replies_list(post):
-                    if reply in settings.MODS:
-                        pass_ = True
-                        break
-                    else:
-                        pass_ = False
-                if pass_ == False:
+                obj.mod = request.user #içerik ile ilgilenen mod
+                if obj.modcomment == False:
                     Oogg.reply(
                     title = "coogger | your contribution has been approved",
                     body = settings.APPROVED.format(obj.approved.replace("-"," "),request_user),
                     author = request_user,
                     identifier = post.identifier
                     )
+                    obj.modcomment = True
             elif obj.status == "rejected":
-                pass_ = False
-                for reply in Oogg.get_replies_list(post):
-                    if reply in settings.MODS:
-                        pass_ = True
-                        break
-                    else:
-                        pass_ = False
-                if pass_ == False:
+                obj.mod = request.user #içerik ile ilgilenen mod
+                if obj.modcomment == False:
                     Oogg.reply(
                     title = "coogger | your contribution cannot be approved",
                     body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," "),request_user),
                     author = request_user,
                     identifier = post.identifier
                     )
+                    obj.modcomment = True
         content_count = Content.objects.filter(user = obj.user).count()
         oiouof.update(hmanycontent = content_count)
         super(ContentAdmin, self).save_model(request, obj, form, change)

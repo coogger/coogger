@@ -1,6 +1,5 @@
 {% with s_account_info=content_user.otherinformationofusers.s_info %}
-<div flx="jc-c fd-c ac-c" gnrl="bg-white" class="cover_image"
-style="margin-top: 6px;background-image:url({{ s_account_info.account.json_metadata.profile.cover_image }});margin-top: 6px;background-attachment:fixed;background-repeat:no-repeat;background-position:center;padding: 12px 0px;">
+<div flx="jc-c fd-c ac-c" gnrl="bg-white" class="cover_image" style="margin-top: 6px;background-image:url({{ s_account_info.account.json_metadata.profile.cover_image }});margin-top: 6px;background-repeat:no-repeat;background-position:center;padding: 12px 0px;">
   <div flx="jc-c" style="margin-top: 12px;">
     <div flx="fd-c" gnrl="bg-white br-circle">
       <img flx="jc-c" gnrl="br-circle" src="{{ s_account_info.account.json_metadata.profile.profile_image }}" class="useruserimg" style="padding: 2px;"></a>
@@ -9,13 +8,6 @@ style="margin-top: 6px;background-image:url({{ s_account_info.account.json_metad
   <h1 flx="jc-c as-c" gnrl="bg-white br-2 brc-white b-1" hvr-a="brc-private" hvr="c-private">
     <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">@{{ content_user }}</a>
   </h1>
-  <div default="media pm" flx="ai-c fd-c" gnrl="bg-white br-2" style="margin:12px auto;">
-      <div flx="fd-c" gnrl="txt-m">{{ s_account_info.account.json_metadata.profile.about }}</div>
-      <div flx="fd-c" gnrl="txt-m">{{s_account_info.account.json_metadata.profile.location }}</div>
-      <a flx="fd-c" gnrl="c-primary" href="{{ account.website }}">{{ s_account_info.account.json_metadata.profile.website }}</a>
-      <div flx="fd-c" gnrl="txt-m">Join : {{ content_user.date_joined|timesince }} ago</div>
-      <div flx="fd-c" gnrl="txt-m">SBD balance : {{ s_account_info.account.sbd_balance }}</div>
-  </div>
 {% endwith %}
   <div flx="jc-c">
     <div flx="fd-c" style="margin: 6px;" gnrl="bg-white br-2">

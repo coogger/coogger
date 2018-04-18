@@ -32,7 +32,7 @@ class Home(TemplateView):
         return context
 
 
-class FollowingContent(View):
+class Feed(View):
     template_name = "apps/cooggerapp/card/blogs.html"
     pagi = 6
 
@@ -52,6 +52,26 @@ class FollowingContent(View):
         )
         return render(request, self.template_name, context)
 
+class Preview(View):
+    template_name = "apps/cooggerapp/card/blogs.html"
+    pagi = 6
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
+        oof = []
+        queryset = []
+        for i in Following.objects.filter(user = request.user):
+            i_wuser = i.which_user
+            oof.append(i.which_user)
+        for status in ["changed","shared"]:
+            for q in Content.objects.filter(status = status):
+                if q.user in oof:
+                    queryset.append(q)
+        info_of_cards = paginator(request,queryset,self.pagi)
+        context = dict(
+        content = info_of_cards,
+        )
+        return render(request, self.template_name, context)
 
 class Search(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"

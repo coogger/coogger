@@ -18,9 +18,10 @@ class Detail(TemplateView):
     template_name = "apps/cooggerapp/detail/main_detail.html"
     ctof = Content.objects.filter
 
-    def get_context_data(self,username,path, **kwargs):
+    def get_context_data(self,username,content_list,path, **kwargs):
         self.user = User.objects.filter(username = username)[0]
         self.path = path
+        self.content_list = content_list
         self.up_content_view() # ip aldık ve okuma sayısını 1 arttırdık
         queryset = self.permlinks_of_user()[0]
         context = super(Detail, self).get_context_data(**kwargs)
@@ -37,12 +38,11 @@ class Detail(TemplateView):
     def contents_of_user(self):
         return self.ctof(user = self.user)
 
-    def permlinks_of_user(self):
-        return self.contents_of_user().filter(permlink = self.path)
-
     def lists_of_user(self):
-        permlinks = self.permlinks_of_user()[0]
-        return self.contents_of_user().filter(content_list = permlinks.content_list)
+        return self.contents_of_user().filter(content_list = self.content_list)
+
+    def permlinks_of_lists(self):
+        return self.lists_of_user().filter(permlink = self.path)
 
     def up_content_view(self):
         queryset = self.permlinks_of_user()[0]

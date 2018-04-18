@@ -40,6 +40,13 @@ class Create(View):
             content_form.user = request_user
             content_form.content_save()
             return HttpResponseRedirect("/"+content_form.get_absolute_url())
+        else:
+            context = dict(
+            create_form = content_form,
+            )
+            ms.error(request, "unexpected error, check your content please or contact us on discord; <a gnrl='c-primary' href='https://discord.gg/q2rRY8Q'>https://discord.gg/q2rRY8Q</a>")
+            return render(request, self.template_name, context)
+
 
 
 class Change(View):

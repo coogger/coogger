@@ -36,6 +36,7 @@ def approved_choices():
     "information sharing",
     "tutorial content",
     "translation", # çok lu dil özelliği gelince olacak.
+    #"discussion", # bilgi içeren bir tartışma başlatma olayı
     ]
 
 def status_choices():
