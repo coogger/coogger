@@ -1,11 +1,13 @@
 <div flx="fd-c" gnrl="txt-s">
   <div flx="jc-fe" class="content_list">
-    <a gnrl="br-2 b bg-secondary c-white" hvr-a="bg-primary" href="{% url 'cooggerapp-utopic' ct.content_list ct.user %}" style="padding:  2px 4px;">
+    <a gnrl="br-2 b bg-secondary c-white" hvr-a="bg-primary"
+    href="{% url 'cooggerapp-utopic' ct.content_list ct.user %}" style="padding:  2px 4px;">
      {{ ct.content_list }}
     </a>
   </div>
   <div flx="jc-fe" gnrl="br-circle" class="content_list">
-    <a gnrl="br-2 b bg-secondary c-white" hvr-a="bg-primary" href="{% url 'cooggerapp-list' ct.content_list  %}" style="padding:  2px 4px;">
+    <a gnrl="br-2 b bg-secondary c-white" hvr-a="bg-primary"
+    href="{% url 'cooggerapp-list' ct.content_list  %}" style="padding:  2px 4px;">
       {% url 'cooggerapp-list' ct.content_list  %}
     </a>
   </div>

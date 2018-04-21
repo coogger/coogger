@@ -58,11 +58,11 @@ class Cooggerup(View):
 class Draft(TemplateView):
     template_name = "apps/cooggerapp/settings/draft.html"
     pagi = 6
-    queryset = Content.objects.filter(draft = True)
 
     def get_context_data(self, **kwargs):
         context = super(Draft, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request,self.queryset,self.pagi)
+        queryset = Content.objects.filter(user = self.request.user,draft = True)
+        context["content"] = paginator(self.request,queryset,self.pagi)
         return context
 
 

@@ -156,6 +156,8 @@ class Content(models.Model):
         self.title = content.title
         self.permlink = queryset[0].permlink # no change
         self.tag = content.tag
+        self.status = queryset[0].status # düzenlemeni onay almaya ihtiyacı varmı diye
+        # daha sonradan değiştirilebilir.
         self.draft = queryset[0].draft
         self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
@@ -171,10 +173,9 @@ class Content(models.Model):
         tag = self.tag,
         draft = self.draft,
         dor = self.dor,
-        status = "changed",
+        status = self.status,
         lastmod = datetime.datetime.now(),
         )
-        return "@"+self.user.username+"/"+self.permlink
 
     def sc2_post(self,permlink, json_metadata):
         if json_metadata == "update_or_save":
@@ -183,10 +184,9 @@ class Content(models.Model):
             "tags":self.ready_tags()["other"].split(),
             "app":"coogger/1.3.0",
             "community":"coogger",
-            "absolute_url":self.get_absolute_url(),
             "status":self.status,
             "dor":self.dor,
-            "content_list":self.content_list,
+            "list_name":self.content_list,
             }
         access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
         sc2 = Sc2(str(access_token))

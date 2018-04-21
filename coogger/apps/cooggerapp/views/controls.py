@@ -73,8 +73,8 @@ class Change(View):
         if content_form.is_valid():
             content = content_form.save(commit=False)
             queryset = self.really_queryset(request,content_id)
-            url = content.content_update(queryset,content)
-            return HttpResponseRedirect("/"+url)
+            content.content_update(queryset,content)
+            return HttpResponseRedirect("/"+content.get_absolute_url())
 
     @staticmethod
     def really_queryset(request,content_id):
