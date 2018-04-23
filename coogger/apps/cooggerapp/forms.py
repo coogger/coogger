@@ -42,6 +42,11 @@ class CooggerupForm(ModelForm):
         model = OtherInformationOfUsers
         fields = ["cooggerup_confirmation","cooggerup_percent"]
 
+class VotepercentForm(ModelForm):
+    class Meta:
+        model = OtherInformationOfUsers
+        fields = ["vote_percent"]
+
 class ReportsForm(ModelForm):
     class Meta:
         model = ReportModel

@@ -154,12 +154,9 @@ class FollowBaseClass(View):
                 followers_num = self.oiouof(user = user)[0].follower_count
                 if is_follow.exists():
                     is_follow.delete()
-                    self.oiouof(user = request_user).update(following_count = F("following_count")-1)
-                    self.oiouof(user = user).update(follower_count = F("follower_count")-1)
+                    Following(user = request_user,which_user = user).unfollow()
                     return HttpResponse(json.dumps({"ms":"Follow","num":followers_num-1}))
-                Following(user = request_user,which_user = user).save()
-                self.oiouof(user = request_user).update(following_count = F("following_count")+1)
-                self.oiouof(user = user).update(follower_count = F("follower_count")+1)
+                Following(user = request_user,which_user = user).follow()
                 return HttpResponse(json.dumps({"ms":"Following","num":followers_num+1}))
 
 def is_follow(request,user):

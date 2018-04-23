@@ -18,7 +18,7 @@ from apps.cooggerapp.models import UserFollow, OtherInformationOfUsers, Content
 from apps.cooggerapp.views.tools import paginator
 
 #forms
-from apps.cooggerapp.forms import CSettingsUserForm,UserFollowForm,CooggerupForm
+from apps.cooggerapp.forms import CSettingsUserForm,UserFollowForm,CooggerupForm,VotepercentForm
 
 #python
 import os
@@ -54,6 +54,18 @@ class Cooggerup(View):
                 ms.error(request,"You have been removed from the curation trails of cooggerup bot.")
             return HttpResponseRedirect(request.META["PATH_INFO"])
 
+class Vote(Cooggerup):
+    template_name = "apps/cooggerapp/settings/vote.html"
+    form_class = VotepercentForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            percent = request.POST["vote_percent"]
+            otherinfo_filter = OtherInformationOfUsers.objects.filter(user = request.user)
+            otherinfo_filter.update(vote_percent = int(percent))
+            ms.error(request,"Your voting percentage is set")
+            return HttpResponseRedirect(request.META["PATH_INFO"])
 
 class Draft(TemplateView):
     template_name = "apps/cooggerapp/settings/draft.html"

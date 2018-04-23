@@ -22,6 +22,7 @@ from steem.amount import Amount
 
 # 3.
 from sc2py.sc2py import Sc2
+from easysteem.easysteem import EasyFollow
 from bs4 import BeautifulSoup
 import mistune
 
@@ -30,12 +31,21 @@ import mistune
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField()
-    follower_count = models.IntegerField(default = 0)
-    following_count = models.IntegerField(default = 0)
     hmanycontent = models.IntegerField(default = 0)
     cooggerup_confirmation = models.BooleanField(default = False, verbose_name = "Do you want to join in curation trails of the cooggerup bot with your account?")
     percents = [i for i in range(100,0,-1)]
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices(percents),default = 0)
+    vote_percent = models.CharField(max_length = 3,choices = make_choices(percents),default = 100)
+
+    @property
+    def follower_count(self):
+        ef = EasyFollow(username = self.user.username,node = None)
+        return ef.get_follower_count()
+
+    @property
+    def following_count(self):
+        ef = EasyFollow(username = self.user.username,node = None)
+        return ef.get_following_count()
 
     def s_info(self):
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
@@ -248,6 +258,18 @@ class Following(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name="which_user")
 
+    def get_sc2(self):
+        access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
+        return Sc2(str(access_token))
+
+    def follow(self,*args, **kwargs):
+        self.get_sc2().follow(str(self.user.username),str(self.which_user.username))
+        super(Following, self).save(*args, **kwargs)
+
+    def unfollow(self,*args, **kwargs):
+        self.get_sc2().unfollow(str(self.user.username),str(self.which_user.username))
+        super(Following, self).save(*args, **kwargs)
+
 class SearchedWords(models.Model):
     word = models.CharField(unique=True,max_length=310)
     hmany = models.IntegerField(default = 1)
@@ -275,3 +297,9 @@ class CustomUserSocialAuth(AbstractUserSocialAuth):
 
 class CustomDjangoStorage(DjangoStorage):
     user = CustomUserSocialAuth
+
+# class Comment(models.Model):
+#     content = models.ForeignKey(Content, related_name="content",on_delete = models.CASCADE)
+#     parent = models.ForeignKey("self", null=True, blank=True, related_name="children",db_index=True, on_delete=models.CASCADE)
+#     comment = models.CharField(max_length=500, unique=True)
+#     date = models.DateTimeField(default = timezone.now, verbose_name="date")
