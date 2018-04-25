@@ -21,6 +21,9 @@ from apps.cooggerapp.forms import AboutForm
 #views
 from apps.cooggerapp.views.tools import get_facebook,users_web,paginator
 
+# easysteem
+from easysteem.easysteem import EasyFollow
+
 #python
 import os
 import json
@@ -29,7 +32,6 @@ import requests
 class UserClassBased(TemplateView):
     "herhangi kullanıcının anasayfası"
     template_name = "apps/cooggerapp/users/user.html"
-    pagi = 6
     ctof = Content.objects.filter
     title = "{} | coogger"
     keywords = "{},{} {}"
@@ -42,7 +44,7 @@ class UserClassBased(TemplateView):
         except:
             pass
         queryset = self.ctof(user = user,status = "approved")
-        info_of_cards = paginator(self.request,queryset,self.pagi)
+        info_of_cards = paginator(self.request,queryset)
         context = super(UserClassBased, self).get_context_data(**kwargs)
         nav_category = []
         for i in queryset:
@@ -160,10 +162,11 @@ class FollowBaseClass(View):
                 return HttpResponse(json.dumps({"ms":"Following","num":followers_num+1}))
 
 def is_follow(request,user):
-    try:
-        is_follow = Following.objects.filter(user = request.user,which_user = user)
-        if is_follow.exists():
-            return "Following"
-        return "Follow"
-    except:
-        pass
+    request_user = str(request.user)
+    ef = EasyFollow(username = request_user,node = None)
+    if user.username in ef.followers():
+        is_follow = Following.objects.filter(user = request.user,which_user = user) # TODO:  bu bilgileri veri tabanına kayıt etmeye gerek varmı ?
+        if not is_follow.exists():
+            Following(user = request.user,which_user = user).save()
+        return "Following"
+    return "Follow"

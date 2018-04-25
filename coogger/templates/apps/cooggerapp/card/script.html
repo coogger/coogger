@@ -1,0 +1,18 @@
+<script>
+$(document).ready(function() {
+  $(".upvote").click(function(event){
+    $.ajax({
+      url: "{% url 'cooggerapp-upvote' %}",
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        user:this.getAttribute("data-user"),
+        permlink:this.getAttribute("data-permlink"),
+      }
+    }).done(function (response) {
+      $(".ctpayout").html(response.payout);
+    });
+  });
+});
+</script>

@@ -50,9 +50,7 @@ class Detail(TemplateView):
         try:
             ip = self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
         except:
-            ip = None
-        if ip is None:
-            return False
+            return False    
         if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
             Contentviews(content = queryset,ip = ip).save()
             queryset.views = F("views") + 1

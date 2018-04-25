@@ -22,7 +22,7 @@ from steem.amount import Amount
 
 # 3.
 from sc2py.sc2py import Sc2
-from easysteem.easysteem import EasyFollow
+from easysteem.easysteem import EasyFollow,Oogg
 from bs4 import BeautifulSoup
 import mistune
 
@@ -248,6 +248,12 @@ class Content(models.Model):
     def new_permlink(self):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
+
+    def upvote(self,user): # kullanıcı upvote atmış mı atmamışmı
+        voters = Oogg(node = None).voters(self.user.username,self.permlink)
+        if user in voters:
+            return True
+        return False
 
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)

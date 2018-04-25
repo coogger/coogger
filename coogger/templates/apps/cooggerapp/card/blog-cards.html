@@ -11,25 +11,9 @@
         </div>
       </div>
     </a>
-    <div gnrl="br-2 c-secondary" style="padding: 2px 4px;" flx="ai-c">
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-        <div style="margin-left: 12px;">min read {{ ct.dor }}</div>
-      </div>
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-        <div style="margin-left: 12px;">reply {{ ct.hmanycomment }}</div>
-      </div>
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-        <div style="margin-left: 12px;">views {{ ct.views }}</div>
-      </div>
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-        <div style="margin-left: 12px;">pageviews {{ ct.read }}</div>
-      </div>
-      <div gnrl="txt-s" flx="ai-c" class="duread-li" style="margin-left: auto;">
-        <div gnrl="bg-dark c-white br-2" style="margin:0px 12px;padding: 2px 6px;">${{ ct.post_reward.total }}</div>
-      </div>
-    </div>
     {% include 'apps/cooggerapp/card/vote.html' %}
   </card>
   {% endfor %}
 </cards>
 {% include "apps/cooggerapp/card/paginator.html" %}
+{% include "apps/cooggerapp/card/script.html" %}

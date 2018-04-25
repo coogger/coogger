@@ -1,4 +1,10 @@
-<!-- <div flx="jc-fs" style="padding: 0px 12px;">
-<div flx gnrl="bg-secondary c-white br-2 txt-s" style="padding: 4px 4px;">
-  <i class="fas fa-thumbs-up"></i>upvote</div>
-</div> -->
+{% load coogger_tags %}
+<div flx="jc-fe" style="padding: 6px 12px;">
+  <div class="upvote" data-user="{{ct.user}}" data-permlink="{{ct.permlink}}" flx gnrl="bg-secondary c-white br-2 txt-s" style="padding: 4px 4px;cursor:pointer;">
+    {% if ct|upvote:request.user.username %}
+    <i gnrl="c-primary" class="fa fa-thumbs-up"></i>
+    {% else %}
+    <i hvr="c-primary brc-primary br-2 b-1" gnr="c-white" class="fa fa-thumbs-up"></i>
+    {% endif %}
+  </div>
+</div>

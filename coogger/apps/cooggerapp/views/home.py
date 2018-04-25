@@ -16,25 +16,59 @@ from django.utils.decorators import method_decorator
 from apps.cooggerapp.forms import ReportsForm
 
 #models
-from apps.cooggerapp.models import Content, SearchedWords, ReportModel, Following
+from apps.cooggerapp.models import Content, SearchedWords, ReportModel, Following, OtherInformationOfUsers
+from social_django.models import UserSocialAuth
 
 #views
 from apps.cooggerapp.views.tools import paginator
 
+import json
+from sc2py.sc2py import Sc2
+
+#steem
+from steem.post import Post
+from steem.amount import Amount
+
 class Home(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
-    pagi = 6
     queryset = Content.objects.filter(status = "approved")
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request,self.queryset,self.pagi)
+        context["content"] = paginator(self.request,self.queryset)
         return context
 
+class Upvote(View):
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        user = request.POST["user"]
+        permlink = request.POST["permlink"]
+        weight = OtherInformationOfUsers.objects.filter(user = request.user)[0].vote_percent
+        try:
+            self.get_sc2(request).vote(voter = request.user.username, author = user, permlink = permlink, weight = int(weight))
+            return HttpResponse(json.dumps({"upvote":True,"payout":self.get_payout(user,permlink)}))
+        except Exception as e :
+            return HttpResponse(json.dumps({"upvote":False,"error":str(e)}))
+
+    def get_sc2(self, request):
+        access_token = UserSocialAuth.objects.filter(uid = request.user)[0].extra_data["access_token"]
+        return Sc2(str(access_token))
+
+    @staticmethod
+    def get_payout(user,permlink):
+        def pending_payout(post):
+            payout = Amount(post.pending_payout_value).amount
+            if payout == 0:
+                payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
+            return payout
+        get_absolute_url = "@"+user+"/"+permlink
+        post = Post(post = get_absolute_url)
+        payout = round(pending_payout(post),4)
+        return payout
 
 class Feed(View):
     template_name = "apps/cooggerapp/card/blogs.html"
-    pagi = 6
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
@@ -46,7 +80,7 @@ class Feed(View):
         for q in Content.objects.filter(status = "approved"):
             if q.user in oof:
                 queryset.append(q)
-        info_of_cards = paginator(request,queryset,self.pagi)
+        info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,
         )
@@ -54,7 +88,6 @@ class Feed(View):
 
 class Review(View):
     template_name = "apps/cooggerapp/card/blogs.html"
-    pagi = 6
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
@@ -67,7 +100,7 @@ class Review(View):
             for q in Content.objects.filter(status = status):
                 if q.user in oof:
                     queryset.append(q)
-        info_of_cards = paginator(request,queryset,self.pagi)
+        info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,
         )
@@ -75,11 +108,10 @@ class Review(View):
 
 class Search(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
-    pagi = 6
 
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request,self.get_queryset(),self.pagi)
+        context["content"] = paginator(self.request,self.get_queryset())
         return context
 
     def get_form_data(self,name = "query"):
@@ -96,7 +128,6 @@ class Search(TemplateView):
     def get_queryset(self):
         queryset = self.search_algorithm()
         return queryset
-
 
 class Report(View):
     form_class = ReportsForm

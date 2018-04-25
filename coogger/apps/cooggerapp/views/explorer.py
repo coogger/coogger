@@ -19,13 +19,12 @@ from apps.cooggerapp.views.tools import paginator
 class Hashtag(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
     ctof = Content.objects.filter
-    pagi = 6
     info = "konu etiketi"
 
     def get_context_data(self, hashtag, **kwargs):
         if hashtag != "":
             queryset = self.ctof(tag__contains = hashtag,status = "approved")
-            info_of_cards = paginator(self.request,queryset,self.pagi)
+            info_of_cards = paginator(self.request,queryset)
             context = super(Hashtag, self).get_context_data(**kwargs)
             html_head = dict(
              title = hashtag+" | coogger",
@@ -41,12 +40,11 @@ class Userlist(TemplateView):
     template_name = "apps/cooggerapp/card/blogs.html"
     info = "liste"
     ctof = Content.objects.filter
-    pagi = 6
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
             queryset = self.ctof(content_list__contains = list_,status = "approved")
-            info_of_cards = paginator(self.request,queryset,self.pagi)
+            info_of_cards = paginator(self.request,queryset)
             context = super(Userlist, self).get_context_data(**kwargs)
             html_head = dict(
              title = list_+" | coogger",
