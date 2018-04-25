@@ -89,17 +89,8 @@ class Feed(View):
 class Review(View):
     template_name = "apps/cooggerapp/card/blogs.html"
 
-    @method_decorator(login_required)
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
-        oof = []
-        queryset = []
-        for i in Following.objects.filter(user = request.user):
-            i_wuser = i.which_user
-            oof.append(i.which_user)
-        for status in ["changed","shared"]:
-            for q in Content.objects.filter(status = status):
-                if q.user in oof:
-                    queryset.append(q)
+        queryset = Content.objects.filter(status = "shared")
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,

@@ -45,13 +45,12 @@ class Detail(TemplateView):
         return self.contents_of_user().filter(content_list = permlinks.content_list,status="approved")
 
     def up_content_view(self):
-        queryset = self.permlinks_of_user()[0]
-        Content.objects.filter(id = queryset.id).update(read = F("read")+1)
+        queryset = self.permlinks_of_user()
+        Content.objects.filter(id = queryset[0].id).update(read = F("read")+1)
         try:
             ip = self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
         except:
-            return False    
-        if not Contentviews.objects.filter(content = queryset,ip = ip).exists():
-            Contentviews(content = queryset,ip = ip).save()
-            queryset.views = F("views") + 1
-            queryset.save()
+            return False
+        if not Contentviews.objects.filter(content = queryset[0],ip = ip).exists():
+            Contentviews(content = queryset[0],ip = ip).save()
+            queryset.update(views = F("views") + 1)

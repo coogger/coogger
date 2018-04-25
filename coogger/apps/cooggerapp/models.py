@@ -249,12 +249,6 @@ class Content(models.Model):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
 
-    def upvote(self,user): # kullanıcı upvote atmış mı atmamışmı
-        voters = Oogg(node = None).voters(self.user.username,self.permlink)
-        if user in voters:
-            return True
-        return False
-
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     choices = models.CharField(max_length=15, choices = make_choices(follow()),verbose_name="website")

@@ -78,7 +78,7 @@ class UserTopic(UserClassBased): # TODO: görüntülenemiyor url adresinden dola
         user = context["content_user"]
         user_queryset = self.ctof(user = user)
         queryset = user_queryset.filter(content_list = utopic,status = "approved")
-        info_of_cards = paginator(self.request,queryset,self.pagi)
+        info_of_cards = paginator(self.request,queryset)
         html_head = dict(
          title = self.title.format(username+" - "+utopic),
          keywords = self.keywords.format(username,utopic,utopic),
