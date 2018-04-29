@@ -38,7 +38,9 @@ class Create(View):
         if content_form.is_valid():
             content_form = content_form.save(commit = False)
             content_form.user = request_user
-            content_form.content_save()
+            save = content_form.content_save() # save with sc2py and get ms
+            if save.status_code != 200: # if any error show the error
+                ms.error(request,save.text)
             return HttpResponseRedirect("/"+content_form.get_absolute_url())
         else:
             context = dict(
@@ -73,7 +75,9 @@ class Change(View):
         if content_form.is_valid():
             content = content_form.save(commit=False)
             queryset = self.really_queryset(request,content_id)
-            content.content_update(queryset,content)
+            save = content.content_update(queryset,content) # save with sc2py and get ms
+            if save.status_code != 200:
+                ms.error(request,save.text)
             return HttpResponseRedirect("/"+content.get_absolute_url())
 
     @staticmethod

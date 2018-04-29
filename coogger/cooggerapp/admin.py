@@ -1,5 +1,6 @@
 from django.contrib.admin import ModelAdmin,StackedInline,site,TabularInline,AdminSite
 from django.utils import timezone
+from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.conf import settings
@@ -10,8 +11,11 @@ from cooggerapp.models import *
 # python
 import datetime
 
-# sc2py
+# sc2py.
 from sc2py.sc2py import Sc2
+from sc2py.operations import Operations
+from sc2py.operations import Vote
+
 from easysteem.easysteem import Oogg
 Oogg = Oogg(settings.STEEM)
 
@@ -31,30 +35,32 @@ class ContentAdmin(ModelAdmin):
         request_user = str(request.user)
         oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
         post = Post(post = obj.get_absolute_url())
+        obj.mod = request.user #içerik ile ilgilenen mod
         if not obj.cooggerup: # bot oy atmadı ise daha aşağıdakilerin çalışmasına gerek yok,bu son işlem çünkü
             if obj.upvote == True and obj.status == "approved": # upvote with cooggerup
                 for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
                     user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
-                    Sc2(access_token).vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent))
+                    vote = Vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent))
+                    jsons = vote.json
+                    data = Operations(jsons).json
+                    Sc2(token = access_token,data = data).run
                 obj.cooggerup = True
             if obj.status == "approved":
-                obj.mod = request.user #içerik ile ilgilenen mod
                 if obj.modcomment == False:
                     Oogg.reply(
                     title = "coogger | your contribution has been approved",
                     body = settings.APPROVED.format(obj.approved.replace("-"," "),request_user),
                     author = request_user,
-                    identifier = post.identifier
+                    identifier = str(post.identifier)
                     )
                     obj.modcomment = True
             elif obj.status == "rejected":
-                obj.mod = request.user #içerik ile ilgilenen mod
                 if obj.modcomment == False:
                     Oogg.reply(
                     title = "coogger | your contribution cannot be approved",
                     body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," "),request_user),
                     author = request_user,
-                    identifier = post.identifier
+                    identifier = str(post.identifier)
                     )
                     obj.modcomment = True
         content_count = Content.objects.filter(user = obj.user).count()

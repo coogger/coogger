@@ -55,7 +55,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
         'APP_DIRS': False,
-        'DIRS': [os.path.join(BASE_DIR, "coogger","templates","apps","cooggerapp","jinja")],
+        'DIRS': [os.path.join(BASE_DIR, "coogger","cooggerapp","template","jinja")],
         'OPTIONS': {
             'match_extension': '.html',
             'match_regex': r'^(?!admin/).*',

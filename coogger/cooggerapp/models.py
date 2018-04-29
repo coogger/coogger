@@ -20,8 +20,15 @@ import datetime
 from steem.post import Post
 from steem.amount import Amount
 
-# 3.
+# sc2py.
 from sc2py.sc2py import Sc2
+from sc2py.operations import Operations
+from sc2py.operations import Comment_options
+from sc2py.operations import Comment
+from sc2py.operations import Follow
+from sc2py.operations import Unfollow
+
+# 3. other
 from easysteem.easysteem import EasyFollow,Oogg
 from bs4 import BeautifulSoup
 import mistune
@@ -83,7 +90,7 @@ class Content(models.Model):
         return markdown(self.definition)
 
     @staticmethod
-    def prepare_definition(text):
+    def prepare_definition(text): # TODO:  zaten alınan ilk 400 karakterde resim varsa ikinci bir resmi almaması gerek
         renderer = mistune.Renderer(escape=False)
         markdown = mistune.Markdown(renderer=renderer)
         beautifultext = BeautifulSoup(markdown(text),"html.parser")
@@ -125,11 +132,8 @@ class Content(models.Model):
             "cantapproved":self.cantapproved,
             "cooggerup":self.cooggerup},
         }
-        if self.sc2_post(self.permlink, json_metadata).status_code == 200:
-            self.draft = False
-        else:
-            self.draft = True
         super(Content, self).save(*args, **kwargs)
+        self.sc2_post(self.permlink, json_metadata)
 
     def content_save(self, *args, **kwargs): # for me
         if self.content[0] != "\n":
@@ -153,11 +157,8 @@ class Content(models.Model):
                     self.new_permlink() # change to self.permlink / link değişir
                 except:
                     break
-        if self.sc2_post(self.permlink, "update_or_save").status_code == 200:  # sistem'de paylaşıyor.
-            self.draft = False
-        else:
-            self.draft = True
         super(Content, self).save(*args, **kwargs)
+        return self.sc2_post(self.permlink, "save")
 
     def content_update(self,queryset,content):
         self.user = queryset[0].user
@@ -171,10 +172,6 @@ class Content(models.Model):
         self.draft = queryset[0].draft
         self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
-        if self.sc2_post(self.permlink, "update_or_save").status_code == 200:
-            self.draft = False
-        else:
-            self.draft = True
         queryset.update(definition = self.prepare_definition(content.content),
         content_list = slugify(content.content_list.lower()),
         permlink = self.permlink,
@@ -186,32 +183,47 @@ class Content(models.Model):
         status = self.status,
         lastmod = datetime.datetime.now(),
         )
+        return self.sc2_post(self.permlink, "update")
 
-    def sc2_post(self,permlink, json_metadata):
-        if json_metadata == "update_or_save":
+    def sc2_post(self,permlink,json_metadata):
+        def_name = json_metadata
+        def get_access_token(self):
+            access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
+            return str(access_token)
+
+        if json_metadata == "update" or json_metadata == "save":
             json_metadata = {
             "format":"markdown",
             "tags":self.ready_tags()["other"].split(),
             "app":"coogger/1.3.0",
             "community":"coogger",
-            "status":self.status,
-            "dor":self.dor,
-            "list_name":self.content_list,
+            "content":{"status":self.status,"dor":self.dor,"content_list":self.content_list},
             }
-        access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
-        sc2 = Sc2(str(access_token))
-        sum_of_post = """\n\n----------
-        \nPosted on  [coogger.com](http://www.coogger.com/{})  - The platform that rewards information sharing
-        \n ----------""".format(self.get_absolute_url())
-        content = self.content + sum_of_post
-        return sc2.post(
+        ms = """\n\n----------
+        \nPosted on [coogger.com](http://www.coogger.com)  - The platform that rewards information sharing
+        \n- Read this content on [coogger](http://www.coogger.com/{})
+        \n- Discover the {}'s [{}](http://www.coogger.com/{}/@{}) content list
+        \n- Discover all coogger information about the [{}](http://www.coogger.com/explorer/list/{})
+        \n----------""".format(self.get_absolute_url(),self.user.username,self.content_list,self.content_list,self.user.username,self.content_list,self.content_list)
+        comment = Comment(
         parent_permlink = "coogger",
         author = str(self.user.username),
         permlink = permlink,
         title = self.title,
-        body = content,
+        body = self.content + ms,
         json_metadata = json_metadata,
         )
+        if def_name == "save":
+            comment_options = Comment_options(
+            author = str(self.user.username),
+            permlink = permlink,
+            beneficiaries = {"account":"coogger","weight":100}
+            )
+            jsons = comment.json+comment_options.json
+        else:
+            jsons = comment.json
+        op = Operations(json = jsons).json
+        return Sc2(token = get_access_token(self),data = op).run
 
     def ready_tags(self):
         def clearly_tags(get_tag):
@@ -258,16 +270,21 @@ class Following(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name="which_user")
 
-    def get_sc2(self):
+    @property
+    def get_token(self):
         access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
-        return Sc2(str(access_token))
+        return str(access_token)
 
     def follow(self,*args, **kwargs):
-        self.get_sc2().follow(str(self.user.username),str(self.which_user.username))
+        followjson = Follow(str(self.user.username),str(self.which_user.username)).json
+        data = Operations(json = followjson).json
+        Sc2(token = self.get_token,data = data).run
         super(Following, self).save(*args, **kwargs)
 
     def unfollow(self,*args, **kwargs):
-        self.get_sc2().unfollow(str(self.user.username),str(self.which_user.username))
+        unjson = Unfollow(str(self.user.username),str(self.which_user.username)).json
+        data = Operations(json = unjson).json
+        Sc2(token = self.get_token,data = data).run
         super(Following, self).save(*args, **kwargs)
 
 class SearchedWords(models.Model):
