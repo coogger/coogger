@@ -1,0 +1,19 @@
+<cards default="media2" flx="jc-c fd-c">
+  {% for ct in content %}
+  <card class="data-post-id-{{ct.id}}" gnrl="bg-white br-2">
+    {% include "card/edit.html" %}
+    {% include "card/userinfo.html" %}
+    {% include "card/contentinfo.html" %}
+    <a href="/{{ ct.get_absolute_url }}" gnrl="c-dark">
+      <div gnrl="unselectable txt-m" flx="jc-fs ai-c" class="upshow">
+        <div flx="ai-c" style="margin: 12px 12px;">
+          {{ ct.misdef|safe }}
+        </div>
+      </div>
+    </a>
+    {% include 'card/vote.html' %}
+  </card>
+  {% endfor %}
+</cards>
+{% include "card/paginator.html" %}
+{% include "card/script.html" %}

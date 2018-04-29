@@ -1,0 +1,52 @@
+<script type="text/javascript">$(function() {
+  // editormd.urls.atLinkBase = "http://www.coogger.com/@";
+  var Editor = editormd.markdownToHTML("content", {
+    width : "100%",
+    height: 670,
+    path : "/static/js/lib/",
+    htmlDecode: "html,iframe",
+    emoji : true,
+  });
+});
+</script>
+<div style="margin: 6px 0px;" animation="fadeIn">
+  {% if detail.status == "shared" or detail.status == "changed" %}
+  <div gnrl="bg-danger c-white b-2 brc-danger br-2" flx="jc-c" default="pm media">
+   A moderator will review this content within 1 and 2 days, and will require changes if necessary, status : {{ detail.status }}
+  </div>
+  {% endif %}
+  {% if detail.status == "rejected" %}
+  <div gnrl="bg-danger c-white b-2 brc-danger br-2" flx="jc-c" default="pm media">
+   Rejected by @{{ detail.mod }} because of {{ detail.cantapproved }}
+  </div>
+  {% endif %}
+
+<div class="data-post-id-{{detail.id}}" default="bg">
+  <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
+    <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
+        <a flx="jc-fs" gnrl="wmax" hvr="bg-white"
+        href="{% url 'cooggerapp-utopic' detail.content_list detail.user %}" style="padding: 3px 6px;">
+        {% url 'cooggerapp-utopic' detail.content_list detail.user %}
+        </a>
+        <a flx="jc-fe" gnrl="wmax right" hvr="bg-white"
+        href="{% url 'cooggerapp-list' detail.content_list  %}" style="padding: 3px 6px;">
+            {% url 'cooggerapp-list' detail.content_list  %}
+          </a>
+    </div>
+    {% include 'detail/contentinfo.html' %}
+    {% include 'detail/userinfo.html' %}
+    <div style="overflow-x: auto;">
+      <h1 gnrl="center">
+        {{ detail.title|title }}
+      </h1>
+      <div id="content" style="padding: inherit;">
+        <textarea style="display:none;">
+          {{ detail.content }}
+        </textarea>
+      </div>
+    </div>
+    {% include 'detail/edit.html' %}
+  </div>
+  {% include 'detail/tags.html' %}
+</div>
+</div>

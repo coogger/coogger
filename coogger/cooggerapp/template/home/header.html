@@ -1,0 +1,68 @@
+<header flx="jc-c">
+  <div flx="ai-c" gnrl="bg-secondary br-1">
+    <div style="padding:  3px 12px;">
+      <a flx="jc-c ai-c" href="/">
+        <img src="/static/logo/v2/48-px.png">
+      </a>
+    </div>
+    {% if not request.user.is_authenticated %}
+    <div style="padding:  3px 12px;">
+      <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2"
+       gnrl="wmax txt-m c-white" href="{% url 'cooggerapp-signup' %}">Sign up</a>
+    </div>
+    <div style="padding:  3px 12px;">
+      <a style="padding: 6px;" hvr-animation="c-2 fadeIn"
+       flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="{% url 'cooggerapp-login' %}">Sign in</a>
+    </div>
+    {% else%}
+    <div style="padding:  3px 12px;">
+      <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx=""
+      hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="/@{{ request.user }}">
+        <span flx="ai-c">@{{ request.user }}</span>
+      </a>
+    </div>
+    <div style="padding:  3px 12px;">
+      <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="{% url 'cooggerapp-followingcontent' %}">
+        <span>Feed</span><i flx="as-c" class="fa fa-users" aria-hidden="true" style="margin: 0px 12px;"></i>
+      </a>
+    </div>
+    <div style="padding:  3px 12px;">
+      <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="{% url 'cooggerapp-review' %}">
+        <span>Review</span><i flx="as-c" class="fa fa-eye-slash" aria-hidden="true" style="margin: 0px 12px;"></i>
+      </a>
+    </div>
+    <div style="padding:  3px 12px;">
+      <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="{% url 'cooggerapp-create' %}">
+        <span>New information</span><i flx="as-c" class="fa fa-plus-circle" aria-hidden="true" style="margin: 0px 12px;"></i>
+      </a>
+    </div>
+    <div style="padding:  3px 12px;">
+      <a  style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="{% url 'cooggerapp-settings' %}">
+        <span>Settings</span><i flx="as-c" class="fa fa-cog" aria-hidden="true" style="margin: 0px 12px;"></i>
+      </a>
+    </div>
+    <div style="padding:  3px 12px;" hvr-animation="i tada">
+      <a style="padding: 6px;" hvr="c-danger bg-white br-2" flx="" gnrl="wmax txt-m c-white"  href="{% url 'cooggerapp-logout' %}">
+        <span>Sign out</span><i flx="as-c" class="fa fa-sign-out" aria-hidden="true" style="margin: 0px 12px;"></i>
+      </a>
+    </div>
+    {% endif %}
+    <form flx gnrl="center" action="{% url 'cooggerapp-search' %}">
+      <input gnrl="bg-white c-dark b-1 br-2 brc-muted" type="text" style="padding:  6px;margin-right:4px" placeholder='Search ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2"/>
+      <input type="submit" value="Search" style="display:  none;"/>
+    </form>
+    <div style="padding:  3px 12px;">
+      <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="{% url 'apps-home' %}">
+        <span>Apps</span><i flx="as-c" class="fa fa-adn" style="margin: 0px 12px;"></i>
+      </a>
+    </div>
+    {% if request.user.is_staff %}
+    <div style="padding:  3px 12px;">
+      <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white"  href="/web/admin/">
+        <span>Admin</span>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</header>
+{% include 'home/community.html' %}

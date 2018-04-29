@@ -1,0 +1,32 @@
+  <span flx="jc-c" gnrl="txt-m bg-dark c-white">These tools for binance and koinim</span>
+<cards flx="jc-c">
+
+  <div flx="fd-c"><span gnrl="bg-primary c-white br-2" style="padding:2px">Convert > SBD > STEEM > binance > koinim.com > TRY</span>
+    <card flx="as-c" gnrl="c-white bg-primary wmax" style="padding:3px;cursor:pointer;">
+      <form default="form" flx="jc-c as-c" action="{% url 'cooggerup-convert-binance-sbd-try' %}">
+        <input type="text" placeholder='Enter the amount of sbd ..' name="get_binance_sbd" value="{{ request.GET.get_binance_sbd }}" gnrl="br-2"/>
+        <input type="submit" value="Calculate"/>
+      </form>
+  </card>
+</div>
+<div flx="fd-c"><span gnrl="bg-secondary c-white br-2" style="padding:2px">Convert > STEEM > binance > koinim.com > TRY</span>
+  <card flx="as-c" gnrl="c-white bg-secondary wmax" style="padding:3px;cursor:pointer;">
+    <form default="form" flx="jc-c" action="{% url 'cooggerup-convert-binance-steem-try' %}">
+      <input type="text" placeholder='Enter the amount of steem ..' name="get_binance_steem" value="{{ request.GET.get_binance_steem }}" gnrl="br-2"/>
+      <input type="submit" value="Calculate"/>
+    </form>
+  </card>
+</div>
+</cards>
+<cards flx="fd-c jc-c" gnrl="wmax" style="margin: auto;">
+  <div flx="jc-c" gnrl="txt-m">Result ;</div>
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
+    BTC : {{ BTC }}
+  </card>
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
+    TRY : {{ TRY }}
+  </card>
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;cursor:pointer;" hvr-animation="pulse">
+    koinim change rate : {{ change_rate }}
+  </card>
+</cards>

@@ -1,5 +1,4 @@
 *.pyc
-cooggerapp_db
-steemitapp_db
+db
 *.scssc
 *.map

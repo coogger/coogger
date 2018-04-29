@@ -1,0 +1,93 @@
+<div default="media" gnrl="bg-white txt-xl br-2" flx="jc-c" style="margin:6px auto;">
+Search result
+</div>
+
+<!-- account info -->
+<div default="media" gnrl="txt-m br-2"  flx="jc-c" style="margin:12px auto;">
+  <img flx="jc-c" gnrl="br-circle" src="{{ account.get_account_info.profile_image }}" style="height: 300px;width: 300px;">
+</div>
+<div default="media" flx="ai-c fd-c" style="margin:12px auto;">
+    <div flx="fd-c" gnrl="txt-xl">{{ account.get_account_info.name }}</div>
+    <div flx="fd-c" gnrl="txt-m">{{ account.get_account_info.about }}</div>
+    <div flx="fd-c" gnrl="txt-m">{{ account.get_account_info.location }}</div>
+    <a flx="fd-c" gnrl="c-primary" href="{{ account.get_account_info.website }}">{{ account.get_account_info.website }}</a>
+</div>
+
+<div flx="jc-c" default="media" gnrl="txt-m br-2" >
+<!-- transfer -->
+<cards flx="fd-c">
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
+    To learn your money after convert your steem-dollar from blocktrades.us to bitcoin and transferring to koinim.com
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+Total value of BTC in your account : {{ transfer.hmuch_btc_in_account }} BTC
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+Total value of pending payout post in your account : {{ transfer.total }} ₺
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+Koinim change rate : {{ transfer.change_rate }}
+  </card>
+</cards>
+<!-- payout -->
+<cards flx="fd-c">
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
+  Account info
+  </card>
+
+<card flx="jc-c" style="padding:3px;">
+  usd_in_account : {{ account.usd_in_account }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+    total_sbd : {{ account.total_sbd }}
+    </card>
+    <card flx="jc-c" style="padding:3px;">
+      account_rep : {{ account.account_rep }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+  account_sp : {{ account.account_sp }}
+  </card>
+  <card flx="jc-c" gnrl="bg-warning" style="padding:3px;width:{{ account.account_voting_power }}%">
+    account_voting_power : {{ account.account_voting_power }}%
+    </card>
+  <card flx="jc-c" style="padding:3px;">
+      account_balance : {{ account.account_balance }}
+    </card>
+
+
+
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
+  To learn pending payout
+  </card>
+  {% for p in payout %}
+    <card flx="jc-c" style="padding:3px;">
+    Title : {{ p.title }} / payout : {{ p.payout }}$ / sbd : {{ p.sbd }}$ / sp : {{ p.sp }}$
+    </card>
+  {% endfor %}
+</cards>
+<!-- price -->
+<cards flx="fd-c">
+  <card gnrl="c-white bg-primary" flx="jc-c" style="padding:3px;">
+    To stock market prices
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+  STEEM : {{ price.STEEM }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+  SBD : {{ price.SBD }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+  LTC : {{ price.LTC }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+  SBDSTEEM : {{ price.SBDSTEEM }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+  ETC : {{ price.ETH }}
+  </card>
+  <card flx="jc-c" style="padding:3px;">
+  BTC : {{ price.BTC }}
+  </card>
+</cards>
+{% include 'search/follow.html' %}
+</div>

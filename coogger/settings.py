@@ -4,7 +4,6 @@ KEYS = [
     
     ]
 STEEM = Steem(nodes=['https://api.steemit.com'],keys = KEYS)
-
 APPROVED = """
 Congratulations, your contribution has been approved.
 - Your contribution type {}
@@ -20,8 +19,6 @@ Your contribution cannot be approved.
 You can contact us on [discord](https://discord.gg/q2rRY8Q).
 [coogger-moderator](https://steemit.com/@{})
 """
-
-
 import os
 AUTHENTICATION_BACKENDS = (
      'steemconnect.backends.SteemConnectOAuth2',
@@ -29,19 +26,14 @@ AUTHENTICATION_BACKENDS = (
 )
 SOCIAL_AUTH_STEEMCONNECT_KEY = "coogger.app"
 SOCIAL_AUTH_STEEMCONNECT_DEFAULT_SCOPE = ["login","vote", "comment","comment_options","custom_json","claim_reward_balance",]
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = True
 ALLOWED_HOSTS = [".coogger.com","127.0.0.1"]
-INSTALLED_APPS = [ # coogger's app
-    "apps.cooggerapp",
-    "apps.steemitapp",
-    ]
-INSTALLED_APPS += [# 3. apps
+INSTALLED_APPS = [
+    "cooggerup",
+    "cooggerapp",
     "social_django",
-    ]
-INSTALLED_APPS += [# django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,15 +60,15 @@ TEMPLATES = [
             'match_extension': '.html',
             'match_regex': r'^(?!admin/).*',
             'filters': {
-                'backend_name': 'apps.cooggerapp.common.filters.backend_name',
-                'backend_class': 'apps.cooggerapp.common.filters.backend_class',
-                'icon_name': 'apps.cooggerapp.common.filters.icon_name',
-                'social_backends': 'apps.cooggerapp.common.filters.social_backends',
-                'legacy_backends': 'apps.cooggerapp.common.filters.legacy_backends',
-                'oauth_backends': 'apps.cooggerapp.common.filters.oauth_backends',
-                'filter_backends': 'apps.cooggerapp.common.filters.filter_backends',
-                'slice_by': 'apps.cooggerapp.common.filters.slice_by',
-                'order_backends': 'apps.cooggerapp.common.filters.order_backends'
+                'backend_name': 'cooggerapp.common.filters.backend_name',
+                'backend_class': 'cooggerapp.common.filters.backend_class',
+                'icon_name': 'cooggerapp.common.filters.icon_name',
+                'social_backends': 'cooggerapp.common.filters.social_backends',
+                'legacy_backends': 'cooggerapp.common.filters.legacy_backends',
+                'oauth_backends': 'cooggerapp.common.filters.oauth_backends',
+                'filter_backends': 'cooggerapp.common.filters.filter_backends',
+                'slice_by': 'cooggerapp.common.filters.slice_by',
+                'order_backends': 'cooggerapp.common.filters.order_backends'
             },
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -90,7 +82,10 @@ TEMPLATES = [
     },
     {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [os.path.join(BASE_DIR, "coogger","templates")],
+    'DIRS': [
+    os.path.join(BASE_DIR, "coogger","cooggerapp","template"),
+    os.path.join(BASE_DIR, "coogger","cooggerup","template")
+    ],
     'APP_DIRS': True,
     'OPTIONS': {
         'context_processors': [
@@ -107,14 +102,9 @@ WSGI_APPLICATION = 'wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'coogger/db/cooggerapp_db'),
-    },
-    'steemit': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'coogger/db/steemitapp_db'),
+        'NAME': os.path.join(BASE_DIR, 'coogger/cooggerapp/db/db'),
     },
 }
-DATABASE_ROUTERS = ["routing.GeneralRouter"]
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -134,7 +124,6 @@ TIME_ZONE = 'Europe/Istanbul'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = "/media/"

@@ -1,0 +1,49 @@
+{% include 'home/head.html' %}
+{% include 'home/header.html' %}
+<script type="text/javascript">$(function() {
+  editormd.urls.atLinkBase = "http://www.coogger.com/@";
+  var Editor = editormd("change", {
+    width : "100%",
+    height: 670,
+    path : "/static/js/lib/",
+    htmlDecode: "html,iframe",
+    emoji : true,
+  });
+  var lang = "en";
+  var path  = "/static/js/languages/en";
+  editormd.loadScript(path, function() {
+    Editor.lang = editormd.defaults.lang;
+    Editor.recreate();
+    });
+});
+</script>
+<div flx="jc-c ai-c fd-c">
+  <form  flx="fd-c" default="form media" method="post" class="c-create-form"  style="padding: 12px 6px;" action="{% url 'cooggerapp-change' content_id %}">
+    {% csrf_token %}
+    <li>
+      <label for="id_{{ change_form.content_list.name }}">{{ change_form.content_list.name }}</label>
+      {{ change_form.content_list }}
+      <span class="helptext">{{ change_form.content_list.help_text }}</span>
+    </li>
+    <li>
+      <label for="id_{{ change_form.title.name }}">{{ change_form.title.name }}</label>
+      {{ change_form.title }}
+      <span class="helptext">{{ change_form.title.help_text }}</span>
+    </li>
+    <li>
+      <label for="id_{{ change_form.content.name }}">{{ change_form.content.name }}</label>
+      <div id="change">
+          {{ change_form.content }}
+      </div>
+    </li>
+    <li>
+      <label for="id_{{ change_form.tag.name }}">{{ change_form.tag.name }}</label>
+      {{ change_form.tag }}
+      <span class="helptext">{{ change_form.tag.help_text }}</span>
+    </li>
+    <ul flx class="tags"></ul>
+    <input flx="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
+  </form>
+</div>
+</body>
+</html>

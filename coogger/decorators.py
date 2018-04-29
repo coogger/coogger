@@ -1,12 +1,12 @@
 from functools import wraps
 from django.conf import settings
 from django.shortcuts import render
-from apps.cooggerapp.common.utils import common_context
+from cooggerapp.common.utils import common_context
 from social_django.utils import load_strategy
 from django.contrib.auth.models import User
 
 # models
-from apps.cooggerapp.models import OtherInformationOfUsers
+from cooggerapp.models import OtherInformationOfUsers
 
 def render_to(template):
     def decorator(func):
