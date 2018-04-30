@@ -19,17 +19,17 @@ If you have any complains or suggestions please.
  
 #### Platforms
 
-- Cooggger : http://www.coogger.com/@hakancelik
+- Cooggger : www.coogger.com/@hakancelik
 
-- Cooggger : http://www.coogger.com/@coogger
+- Cooggger : www.coogger.com/@coogger
 
-- Steemit : Steemit.com/@hakancelik
+- Steemit : www.steemit.com/@hakancelik
 
-- Steemit : Steemit.com/@coogger
+- Steemit : www.steemit.com/@coogger
 
-- Utopian : utopian.io/@hakancelik
+- Utopian : www.utopian.io/@hakancelik
 
-- Utopian : utopian.io/@coogger
+- Utopian : www.utopian.io/@coogger
 
 - Discord : hakancelik#9189
 
