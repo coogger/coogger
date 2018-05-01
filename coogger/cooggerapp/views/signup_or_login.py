@@ -12,8 +12,8 @@ from cooggerapp.models import OtherInformationOfUsers
 
 
 class Logout(View):
-    error = "Çıkış yapılırken beklenmedik hata oluştur"
-    success = "Tekrar görüşmek üzere {}"
+    error = "There was an unexpected error while exiting"
+    success = "See you again {}"
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:

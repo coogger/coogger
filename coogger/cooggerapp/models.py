@@ -263,8 +263,8 @@ class Content(models.Model):
 
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    choices = models.CharField(max_length=15, choices = make_choices(follow()),verbose_name="website")
-    adress = models.CharField(max_length=150, verbose_name = "write address / username")
+    choices = models.CharField(blank = True,null = True,max_length=15, choices = make_choices(follow()),verbose_name="website")
+    adress = models.CharField(blank = True,null = True,max_length=150, verbose_name = "write address / username")
 
 class Following(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)

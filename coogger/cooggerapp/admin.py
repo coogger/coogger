@@ -49,7 +49,7 @@ class ContentAdmin(ModelAdmin):
                 if obj.modcomment == False:
                     Oogg.reply(
                     title = "coogger | your contribution has been approved",
-                    body = settings.APPROVED.format(obj.approved.replace("-"," "),request_user),
+                    body = settings.APPROVED.format(obj.approved.replace("-"," ")),
                     author = request_user,
                     identifier = str(post.identifier)
                     )
@@ -58,7 +58,7 @@ class ContentAdmin(ModelAdmin):
                 if obj.modcomment == False:
                     Oogg.reply(
                     title = "coogger | your contribution cannot be approved",
-                    body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," "),request_user),
+                    body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," ")),
                     author = request_user,
                     identifier = str(post.identifier)
                     )

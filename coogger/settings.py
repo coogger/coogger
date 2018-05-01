@@ -9,7 +9,7 @@ Congratulations, your contribution has been approved.
 - Your contribution type {}
 ------
 You can contact us on [discord](https://discord.gg/q2rRY8Q).
-[coogger-moderator](https://steemit.com/@{})
+[coogger-moderator]
 """
 
 CAN_NOT_BE_APPROVED = """
@@ -17,7 +17,7 @@ Your contribution cannot be approved.
 - Because {}
 -----
 You can contact us on [discord](https://discord.gg/q2rRY8Q).
-[coogger-moderator](https://steemit.com/@{})
+[coogger-moderator]
 """
 import os
 AUTHENTICATION_BACKENDS = (

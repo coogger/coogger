@@ -23,22 +23,49 @@ from cooggerapp.forms import CSettingsUserForm,UserFollowForm,CooggerupForm,Vote
 #python
 import os
 
-class Cooggerup(View):
-    template_name = "settings/cooggerup.html"
-    form_class = CooggerupForm
+class Settings(View):
+    template_name = "settings/settings.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        queryset = OtherInformationOfUsers.objects.filter(user = request.user)[0]
+        address = self.address(request)
         context = dict(
-        form = self.form_class(request.GET or None,instance = queryset),
+        address_form = address[1],
+        address_instance = address[0],
+        cooggerup_form = self.cooggerup(request),
+        vote_percent_form = self.vote_percent(request),
         )
-        return render(request, self.template_name, context)
+        return render(request,self.template_name,context)
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        bot_form = self.form_class(request.POST)
-        if bot_form.is_valid():
+        self.post_coogger_up(request)
+        self.post_address(request)
+        self.post_vote_percent(request)
+        return HttpResponseRedirect(request.META["PATH_INFO"])
+
+    def address(self,request):
+        address_instance = UserFollow.objects.filter(user = request.user)
+        address_form = UserFollowForm(request.GET or None)
+        return address_instance,address_form
+
+    def post_address(self,request):
+        form = UserFollowForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            if form.choices != None and form.adress != None:
+                form.user = request.user
+                form.save()
+                ms.error(request,"Your website has added")
+
+    def cooggerup(self,request):
+        cooggerup_instance = OtherInformationOfUsers.objects.filter(user = request.user)[0]
+        cooggerup_form = CooggerupForm(request.GET or None,instance = cooggerup_instance)
+        return cooggerup_form
+
+    def post_coogger_up(self, request):
+        form = CooggerupForm(request.POST)
+        if form.is_valid():
             try:
                 confirmation = request.POST["cooggerup_confirmation"]
             except:
@@ -52,52 +79,16 @@ class Cooggerup(View):
                 otherinfo_filter = OtherInformationOfUsers.objects.filter(user = request.user)
                 otherinfo_filter.update(cooggerup_confirmation = False,cooggerup_percent = 0)
                 ms.error(request,"You have been removed from the curation trails of cooggerup bot.")
-            return HttpResponseRedirect(request.META["PATH_INFO"])
 
-class Vote(Cooggerup):
-    template_name = "settings/vote.html"
-    form_class = VotepercentForm
+    def vote_percent(self,request):
+        vote_percent_instance = OtherInformationOfUsers.objects.filter(user = request.user)[0]
+        vote_percent_form = VotepercentForm(request.GET or None,instance = vote_percent_instance)
+        return vote_percent_form
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+    def post_vote_percent(self,request):
+        form = VotepercentForm(request.POST)
         if form.is_valid():
             percent = request.POST["vote_percent"]
             otherinfo_filter = OtherInformationOfUsers.objects.filter(user = request.user)
             otherinfo_filter.update(vote_percent = int(percent))
             ms.error(request,"Your voting percentage is set")
-            return HttpResponseRedirect(request.META["PATH_INFO"])
-
-class Draft(TemplateView):
-    template_name = "settings/draft.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(Draft, self).get_context_data(**kwargs)
-        queryset = Content.objects.filter(user = self.request.user,draft = True)
-        context["content"] = paginator(self.request,queryset)
-        return context
-
-
-class Addaddess(View):
-    form_class = UserFollowForm
-    model = UserFollow
-    template_name = "settings/add-address.html"
-
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        instance_ = self.model.objects.filter(user = request.user)
-        user_form = self.form_class(request.GET or None)
-        context = dict(
-        UserForm = user_form,
-        instance_ = instance_,
-        )
-        return render(request,self.template_name,context)
-
-    @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-        user_form = self.form_class(request.POST)
-        if user_form.is_valid():
-            form = user_form.save(commit=False)
-            form.user = request.user
-            form.save()
-            ms.error(request,"Your website has added")
-            return HttpResponseRedirect(request.META["PATH_INFO"])
