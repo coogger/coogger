@@ -26,7 +26,7 @@ class ContentAdmin(ModelAdmin):
     list_ = ["user","content_list","title","permlink","tag","cooggerup","status","time","mod","modcomment"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["status","time","cooggerup","approved","cantapproved","draft"]
+    list_filter = ["status","time","cooggerup","approved","cantapproved"]
     search_fields = ["content_list","title","permlink","tag"]
     fields = ("user","content_list","title","content","tag",("approved","cantapproved","upvote"),"status")
 

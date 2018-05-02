@@ -3,7 +3,7 @@
   <img gnrl="br-circle left" src="{{ s_account_info.account.json_metadata.profile.profile_image }}" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
   <div gnrl="txt-s" flx="fd-c" class="duread-li">
     <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-      @{{ content_user }}
+      @{{ content_user }} - ( {{ content_user.otherinformationofusers.get_steem_account.account_rep }} )
     </a>
     <div style="margin-left: 8px;" gnrl="c-secondary">{{ detail.time|timesince }} ago</div>
   </div>

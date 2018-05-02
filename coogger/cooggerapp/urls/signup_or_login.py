@@ -16,7 +16,7 @@ def redirect_home(request):
         OtherInformationOfUsers(user = request.user).save()
         # steemconnect ile giriş yapıldıgı için
         # OtherInformationOfUsers kayıtlı olmuyor, değil ise kayıt ediyoruz.
-    return HttpResponseRedirect("/@dangerux/nedir-uln-bu-coogger/")
+    return HttpResponseRedirect("/web/feed/")
 
 from decorators import render_to
 @render_to('login.html')

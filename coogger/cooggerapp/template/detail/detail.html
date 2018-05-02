@@ -1,11 +1,12 @@
 <script type="text/javascript">$(function() {
-  // editormd.urls.atLinkBase = "http://www.coogger.com/@";
+  editormd.urls.atLinkBase = "http://www.coogger.com/@";
   var Editor = editormd.markdownToHTML("content", {
     width : "100%",
     height: 670,
     path : "/static/js/lib/",
     htmlDecode: "html,iframe",
-    emoji : true,
+    atLink: false,
+    emailLink : false
   });
 });
 </script>
@@ -20,7 +21,6 @@
    Rejected by @{{ detail.mod }} because of {{ detail.cantapproved }}
   </div>
   {% endif %}
-
 <div class="data-post-id-{{detail.id}}" default="bg">
   <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
     <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
@@ -37,11 +37,11 @@
     {% include 'detail/userinfo.html' %}
     <div style="overflow-x: auto;">
       <h1 gnrl="center">
-        {{ detail.title|title }}
+        {{ detail.get_post_from_steem.title|title }}
       </h1>
       <div id="content" style="padding: inherit;">
         <textarea style="display:none;">
-          {{ detail.content }}
+          {{ detail.get_post_from_steem.body }}
         </textarea>
       </div>
     </div>

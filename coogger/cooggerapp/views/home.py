@@ -16,18 +16,24 @@ from django.utils.decorators import method_decorator
 from cooggerapp.forms import ReportsForm
 
 #models
-from cooggerapp.models import Content, SearchedWords, ReportModel, Following, OtherInformationOfUsers
+from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers
 from social_django.models import UserSocialAuth
 
 #views
 from cooggerapp.views.tools import paginator
 
 import json
+# sc2py.
 from sc2py.sc2py import Sc2
+from sc2py.operations import Operations
+from sc2py.operations import Vote
 
 #steem
 from steem.post import Post
 from steem.amount import Amount
+
+# easysteem
+from easysteem.easysteem import EasyFollow
 
 class Home(TemplateView):
     template_name = "card/blogs.html"
@@ -46,14 +52,16 @@ class Upvote(View):
         permlink = request.POST["permlink"]
         weight = OtherInformationOfUsers.objects.filter(user = request.user)[0].vote_percent
         try:
-            self.get_sc2(request).vote(voter = request.user.username, author = user, permlink = permlink, weight = int(weight))
+            vote_json = Vote(voter = request.user.username, author = user, permlink = permlink, weight = int(weight)).json
+            op = Operations(json = vote_json).json
+            Sc2(token = self.get_access_token(request),data = op).run
             return HttpResponse(json.dumps({"upvote":True,"payout":self.get_payout(user,permlink)}))
         except Exception as e :
             return HttpResponse(json.dumps({"upvote":False,"error":str(e)}))
 
-    def get_sc2(self, request):
+    def get_access_token(self, request):
         access_token = UserSocialAuth.objects.filter(uid = request.user)[0].extra_data["access_token"]
-        return Sc2(str(access_token))
+        return str(access_token)
 
     @staticmethod
     def get_payout(user,permlink):
@@ -74,16 +82,18 @@ class Feed(View):
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         oof = []
         queryset = []
-        for i in Following.objects.filter(user = request.user):
-            i_wuser = i.which_user
-            oof.append(i.which_user)
+        ef = EasyFollow(username = request.user.username,node = None)
+        for which_user in ef.following():
+            oof.append(which_user)
         for q in Content.objects.filter(status = "approved"):
-            if q.user in oof:
+            if q.user.username in oof:
                 queryset.append(q)
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,
         )
+        if queryset == []:
+            ms.error(request,"You do not follow anyone yet.")
         return render(request, self.template_name, context)
 
 class Review(View):

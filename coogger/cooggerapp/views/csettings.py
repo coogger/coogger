@@ -18,7 +18,7 @@ from cooggerapp.models import UserFollow, OtherInformationOfUsers, Content
 from cooggerapp.views.tools import paginator
 
 #forms
-from cooggerapp.forms import CSettingsUserForm,UserFollowForm,CooggerupForm,VotepercentForm
+from cooggerapp.forms import CSettingsUserForm,UserFollowForm,CooggerupForm,VotepercentForm,BeneficiariesForm
 
 #python
 import os
@@ -34,6 +34,7 @@ class Settings(View):
         address_instance = address[0],
         cooggerup_form = self.cooggerup(request),
         vote_percent_form = self.vote_percent(request),
+        beneficiaries_percent_form = self.beneficiaries(request),
         )
         return render(request,self.template_name,context)
 
@@ -42,6 +43,7 @@ class Settings(View):
         self.post_coogger_up(request)
         self.post_address(request)
         self.post_vote_percent(request)
+        self.post_beneficiaries(request)
         return HttpResponseRedirect(request.META["PATH_INFO"])
 
     def address(self,request):
@@ -92,3 +94,16 @@ class Settings(View):
             otherinfo_filter = OtherInformationOfUsers.objects.filter(user = request.user)
             otherinfo_filter.update(vote_percent = int(percent))
             ms.error(request,"Your voting percentage is set")
+
+    def beneficiaries(self,request):
+        beneficiaries_percent_instance = OtherInformationOfUsers.objects.filter(user = request.user)[0]
+        beneficiaries_percent_form = BeneficiariesForm(request.GET or None,instance = beneficiaries_percent_instance)
+        return beneficiaries_percent_form
+
+    def post_beneficiaries(self,request):
+        form = BeneficiariesForm(request.POST)
+        if form.is_valid():
+            percent = request.POST["beneficiaries"]
+            OtherInformationOfUsers.objects.filter(user = request.user).update(beneficiaries = int(percent))
+            if percent != "0":
+                ms.error(request,"Thank you for supporting Coogger")

@@ -1,16 +1,25 @@
-{% if request.user.is_authenticated %}
+{% load coogger_tags %}
   <div gnrl="wmax left" style="margin-top:  12px;">
+  {% if request.user.is_authenticated %}
     {% if detail.user == request.user %}
-      <a gnrl="brc-muted b-1 bg-muted br-1" hvr-a="bg-secondary" href="{% url 'cooggerapp-change' detail.id  %}" flx="ai-c" style="padding: 6px 24px;">
+      <a gnrl="brc-muted b-1 bg-warning br-1" hvr-a="bg-secondary" href="{% url 'cooggerapp-change' detail.id  %}" flx="ai-c" style="padding: 6px 24px;">
         <i gnrl="c-white" class="fa fa-edit" aria-hidden="true"></i>
         <div gnrl="txt-s c-white">Edit</div>
       </a>
     {% endif %}
     {% if detail.user != request.user and detail.cantapproved == "approved"%}
-      <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer" gnrl="brc-muted b-1 bg-muted br-1" hvr-a="bg-danger" flx="ai-c">
+      <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer" gnrl="brc-muted b-1 bg-warning br-1" hvr-a="bg-danger" flx="ai-c">
         <i gnrl="c-white" class="fa fa-flag" aria-hidden="true"></i>
         <div gnrl="txt-s c-white">Report</div>
       </div>
     {% endif %}
+  {% endif %}
+  {% if detail.get_post_from_steem.beneficiaries %}
+  <div style="padding: 6px 12px;cursor:pointer" gnrl="brc-muted b-1 bg-info br-1" flx="ai-c">
+    <div gnrl="txt-s c-white">Beneficiaries :</div>
+    {% for ben in detail.get_post_from_steem.beneficiaries %}
+        <div gnrl="txt-s c-white">@{{ ben.account }} = {{ ben.weight|percent:"" }}%</div>
+    {% endfor %}
   </div>
-{% endif %}
+  {% endif %}
+</div>

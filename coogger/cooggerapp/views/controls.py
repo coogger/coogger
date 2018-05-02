@@ -21,34 +21,36 @@ import datetime
 
 
 class Create(View):
-    form_class = ContentForm
     template_name = "controls/create.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         context = dict(
-        create_form = self.form_class(),
+        create_form = ContentForm(),
         )
         return render(request, self.template_name, context)
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         request_user = request.user
-        content_form = self.form_class(request.POST)
+        content_form = ContentForm(request.POST)
         if content_form.is_valid():
             content_form = content_form.save(commit = False)
             content_form.user = request_user
             save = content_form.content_save() # save with sc2py and get ms
             if save.status_code != 200: # if any error show the error
                 ms.error(request,save.text)
+                return self.create_error(request)
             return HttpResponseRedirect("/"+content_form.get_absolute_url())
         else:
-            context = dict(
-            create_form = content_form,
-            )
-            ms.error(request, "unexpected error, check your content please or contact us on discord; <a gnrl='c-primary' href='https://discord.gg/q2rRY8Q'>https://discord.gg/q2rRY8Q</a>")
-            return render(request, self.template_name, context)
+            return self.create_error(request)
 
+    def create_error(self,request):
+        context = dict(
+        create_form = ContentForm(request.POST),
+        )
+        ms.error(request, "unexpected error, check your content please or contact us on discord; <a gnrl='c-primary' href='https://discord.gg/q2rRY8Q'>https://discord.gg/q2rRY8Q</a>")
+        return render(request, self.template_name, context)
 
 
 class Change(View):

@@ -29,20 +29,21 @@ from sc2py.operations import Follow
 from sc2py.operations import Unfollow
 
 # 3. other
-from easysteem.easysteem import EasyFollow,Oogg
+from easysteem.easysteem import EasyFollow,Oogg,EasyAccount
 from bs4 import BeautifulSoup
 import mistune
 
 # TODO: editor.md için modelfield yap
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
+    percents = [i for i in range(100,-1,-1)]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField()
     hmanycontent = models.IntegerField(default = 0)
     cooggerup_confirmation = models.BooleanField(default = False, verbose_name = "Do you want to join in curation trails of the cooggerup bot with your account?")
-    percents = [i for i in range(100,0,-1)]
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices(percents),default = 0)
     vote_percent = models.CharField(max_length = 3,choices = make_choices(percents),default = 100)
+    beneficiaries = models.CharField(max_length = 3,choices = make_choices(percents),default = 0)
 
     @property
     def follower_count(self):
@@ -53,6 +54,10 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     def following_count(self):
         ef = EasyFollow(username = self.user.username,node = None)
         return ef.get_following_count()
+
+    @property
+    def get_steem_account(self):
+        return EasyAccount(username = self.user.username)
 
     def s_info(self):
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
@@ -66,14 +71,13 @@ class Content(models.Model):
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     content = models.TextField()
     status = models.CharField(default = "shared", max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
-    tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:9 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
     views = models.IntegerField(default = 0, verbose_name = "views")
     read = models.IntegerField(default = 0, verbose_name = "pageviews")
     hmanycomment=models.IntegerField(default = 0, verbose_name = "comments count")
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
-    draft = models.BooleanField(default = False,verbose_name = "content draft") # TODO:  status'e eklenebilir
     mod = models.ForeignKey("auth.user",on_delete=models.CASCADE,blank = True,null = True, related_name="moderator") # inceleyen mod bilgisi
     modcomment = models.BooleanField(default = False,verbose_name = "was it comment by mod")
     approved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(approved_choices()) ,verbose_name = "Why approved")
@@ -94,13 +98,19 @@ class Content(models.Model):
         renderer = mistune.Renderer(escape=False)
         markdown = mistune.Markdown(renderer=renderer)
         beautifultext = BeautifulSoup(markdown(text),"html.parser")
-        try:
-            src = beautifultext.find("img").get("src")
-            alt = beautifultext.find("img").get("alt")
+        try:# if the first 400 characters are in the image
+            src = beautifultext[0:400].find("img").get("src")
+            alt = beautifultext[0:400].find("img").get("alt")
             image_markdown = "![{}]({})".format(alt,src)
-            return beautifultext.text[0:400-len(image_markdown)-4]+"..."+image_markdown
-        except:
-            return  beautifultext.text[0:400-4]+"..."
+            return beautifultext.text[0:400-len(image_markdown)-4]+"..."
+        except: # if the first 400 characters are not in the image
+            try:
+                src = beautifultext.find("img").get("src")
+                alt = beautifultext.find("img").get("alt")
+                image_markdown = "![{}]({})".format(alt,src)
+                return beautifultext.text[0:400-len(image_markdown)-4]+"..."+image_markdown
+            except: # if there isn't image in content
+                return  beautifultext.text[0:400-4]+"..."
 
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
@@ -157,8 +167,11 @@ class Content(models.Model):
                     self.new_permlink() # change to self.permlink / link değişir
                 except:
                     break
-        super(Content, self).save(*args, **kwargs)
-        return self.sc2_post(self.permlink, "save")
+        steem_save = self.sc2_post(self.permlink, "save")
+        if steem_save.status_code == 200:
+            super(Content, self).save(*args, **kwargs)
+            return steem_save
+        return steem_save
 
     def content_update(self,queryset,content):
         self.user = queryset[0].user
@@ -169,7 +182,6 @@ class Content(models.Model):
         self.tag = content.tag
         self.status = queryset[0].status # düzenlemeni onay almaya ihtiyacı varmı diye
         # daha sonradan değiştirilebilir.
-        self.draft = queryset[0].draft
         self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
         queryset.update(definition = self.prepare_definition(content.content),
@@ -178,7 +190,6 @@ class Content(models.Model):
         title = self.title,
         content = self.content,
         tag = self.tag,
-        draft = self.draft,
         dor = self.dor,
         status = self.status,
         lastmod = datetime.datetime.now(),
@@ -214,12 +225,16 @@ class Content(models.Model):
         json_metadata = json_metadata,
         )
         if def_name == "save":
-            comment_options = Comment_options(
-            author = str(self.user.username),
-            permlink = permlink,
-            beneficiaries = {"account":"coogger","weight":100}
-            )
-            jsons = comment.json+comment_options.json
+            beneficiaries_weight = OtherInformationOfUsers.objects.filter(user = self.user)[0].beneficiaries
+            if int(beneficiaries_weight) != 0:
+                comment_options = Comment_options(
+                author = str(self.user.username),
+                permlink = permlink,
+                beneficiaries = {"account":"coogger","weight":int(beneficiaries_weight) * 100}
+                )
+                jsons = comment.json+comment_options.json
+            else:
+                jsons = comment.json
         else:
             jsons = comment.json
         op = Operations(json = jsons).json
@@ -238,54 +253,36 @@ class Content(models.Model):
                 else:
                     tags += slugify(i.lower())+" "
             return tags
-        get_tag = self.tag.split(" ")[:4]
+        get_tag = self.tag.split(" ")[:9]
         if get_tag[0] != "coogger":
             get_tag.insert(0,"coogger")
-        return {"other":clearly_tags(get_tag),"coogger":clearly_tags(self.tag.split(" ")[:5])}
+        return {"other":clearly_tags(get_tag),"coogger":clearly_tags(self.tag.split(" ")[:9])}
 
     def post_reward(self):
         try:
             post = Post(post = self.get_absolute_url())
-            payout = round(self.pending_payout(post),4)
-            return dict(total = payout)
+            payout = Amount(post.pending_payout_value).amount
+            if payout == 0:
+                payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
+            return dict(total = round(payout,3))
         except:
             return dict(total = None)
-
-    def pending_payout(self, post):
-        payout = Amount(post.pending_payout_value).amount
-        if payout == 0:
-            payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
-        return payout
 
     def new_permlink(self):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
 
+    def get_post_from_steem(self):
+        try:
+            post = Post(post = self.get_absolute_url())
+            return post
+        except:
+            return {"body":self.content}
+
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     choices = models.CharField(blank = True,null = True,max_length=15, choices = make_choices(follow()),verbose_name="website")
     adress = models.CharField(blank = True,null = True,max_length=150, verbose_name = "write address / username")
-
-class Following(models.Model):
-    user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    which_user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE, related_name="which_user")
-
-    @property
-    def get_token(self):
-        access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
-        return str(access_token)
-
-    def follow(self,*args, **kwargs):
-        followjson = Follow(str(self.user.username),str(self.which_user.username)).json
-        data = Operations(json = followjson).json
-        Sc2(token = self.get_token,data = data).run
-        super(Following, self).save(*args, **kwargs)
-
-    def unfollow(self,*args, **kwargs):
-        unjson = Unfollow(str(self.user.username),str(self.which_user.username)).json
-        data = Operations(json = unjson).json
-        Sc2(token = self.get_token,data = data).run
-        super(Following, self).save(*args, **kwargs)
 
 class SearchedWords(models.Model):
     word = models.CharField(unique=True,max_length=310)
@@ -309,7 +306,7 @@ class Contentviews(models.Model):
     content = models.ForeignKey(Content ,on_delete=models.CASCADE)
     ip = models.GenericIPAddressField()
 
-class CustomUserSocialAuth(AbstractUserSocialAuth):
+class CustomUserSocialAuth(AbstractUserSocialAuth): # bu kısmı kendine göre ayarla.
     user = models.ForeignKey(USER_MODEL, related_name='custom_social_auth',on_delete=models.CASCADE)
 
 class CustomDjangoStorage(DjangoStorage):

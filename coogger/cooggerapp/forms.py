@@ -47,6 +47,11 @@ class VotepercentForm(ModelForm):
         model = OtherInformationOfUsers
         fields = ["vote_percent"]
 
+class BeneficiariesForm(ModelForm):
+    class Meta:
+        model = OtherInformationOfUsers
+        fields = ["beneficiaries"]
+
 class ReportsForm(ModelForm):
     class Meta:
         model = ReportModel

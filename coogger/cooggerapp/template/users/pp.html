@@ -1,17 +1,13 @@
 {% with s_account_info=content_user.otherinformationofusers.s_info %}
-<div flx="jc-c fd-c ac-c" class="cover_image"
-style="background-image:url({{ s_account_info.account.json_metadata.profile.cover_image }});
-background-repeat: no-repeat;
-background-position: center;
-height: 300px;
-background-size: contain;">
+<div flx="jc-c fd-c ac-c" class="cover_image" style="background-image:url({{ s_account_info.account.json_metadata.profile.cover_image }}); background-repeat: no-repeat; background-position: center; height: 300px; background-size: contain;">
   <div flx="jc-c" style="margin-top: 12px;">
     <div flx="fd-c" gnrl="bg-white br-circle">
       <img flx="jc-c" gnrl="br-circle" src="{{ s_account_info.account.json_metadata.profile.profile_image }}" class="useruserimg" style="padding: 2px;"></a>
     </div>
   </div>
   <h1 flx="jc-c as-c" gnrl="bg-white br-2 brc-white b-1">
-    <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">@{{ content_user }}</a>
+    <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+      @{{ content_user }}  - ( {{ content_user.otherinformationofusers.get_steem_account.account_rep }} )</a>
   </h1>
 {% endwith %}
   <div flx="jc-c">

@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #models
-from cooggerapp.models import OtherInformationOfUsers,Content,Following
+from cooggerapp.models import OtherInformationOfUsers,Content,UserSocialAuth
 
 #forms
 from cooggerapp.forms import AboutForm
@@ -29,6 +29,10 @@ import os
 import json
 import requests
 
+# sc2py.
+from sc2py.sc2py import Sc2
+from sc2py import operations
+
 class UserClassBased(TemplateView):
     "herhangi kullanıcının anasayfası"
     template_name = "users/user.html"
@@ -39,10 +43,6 @@ class UserClassBased(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         user = User.objects.filter(username = username)[0]
-        try:
-            OtherInformationOfUsers(user = user).save()
-        except:
-            pass
         queryset = self.ctof(user = user,status = "approved")
         info_of_cards = paginator(self.request,queryset)
         context = super(UserClassBased, self).get_context_data(**kwargs)
@@ -68,7 +68,7 @@ class UserClassBased(TemplateView):
         )
 
 
-class UserTopic(UserClassBased): # TODO: görüntülenemiyor url adresinden dolayı hallet
+class UserTopic(UserClassBased):
     "kullanıcıların konu adresleri"
     keywords = "{} {},{}"
     description = "{} kullanıcımızın {} adlı içerik listesi"
@@ -143,30 +143,39 @@ class UserAboutBaseClass(View):
 
 
 class FollowBaseClass(View):
-    oiouof = OtherInformationOfUsers.objects.filter
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
             which_user = request.POST["which_user"]
-            user = User.objects.filter(username = which_user)[0]
-            request_user = request.user
-            if user != request_user: # takip isteği ve kişisi aynı değil ise
-                is_follow = Following.objects.filter(user = request_user,which_user = user)
-                followers_num = self.oiouof(user = user)[0].follower_count
-                if is_follow.exists():
-                    is_follow.delete()
-                    Following(user = request_user,which_user = user).unfollow()
-                    return HttpResponse(json.dumps({"ms":"Follow","num":followers_num-1}))
-                Following(user = request_user,which_user = user).follow()
-                return HttpResponse(json.dumps({"ms":"Following","num":followers_num+1}))
+            user_obj = User.objects.filter(username = which_user)[0]
+            if user_obj != request.user:
+                followers_num = OtherInformationOfUsers(user = user_obj).following_count
+                ef = EasyFollow(username = request.user.username,node = None)
+                if user_obj.username in ef.following():
+                    self.unfollow(request,request.user.username,user_obj.username)
+                    return HttpResponse(json.dumps({"ms":"Follow","num":followers_num -1 }))
+                self.follow(request,request.user.username,user_obj.username)
+                return HttpResponse(json.dumps({"ms":"Following","num":followers_num + 1 }))
+
+    @staticmethod
+    def get_token(request):
+        access_token = UserSocialAuth.objects.filter(uid = request.user.username)[0].extra_data["access_token"]
+        return str(access_token)
+
+    def follow(self,request,user,which_user):
+        followjson = operations.Follow(user,which_user).json
+        data = operations.Operations(json = followjson).json
+        Sc2(token = self.get_token(request),data = data).run
+
+    def unfollow(self,request,user,which_user):
+        unjson = operations.Unfollow(user,which_user).json
+        data = operations.Operations(json = unjson).json
+        Sc2(token = self.get_token(request),data = data).run
+
 
 def is_follow(request,user):
-    request_user = str(request.user)
-    ef = EasyFollow(username = request_user,node = None)
-    if user.username in ef.followers():
-        is_follow = Following.objects.filter(user = request.user,which_user = user) # TODO:  bu bilgileri veri tabanına kayıt etmeye gerek varmı ?
-        if not is_follow.exists():
-            Following(user = request.user,which_user = user).save()
+    ef = EasyFollow(username = request.user.username,node = None)
+    if user.username in ef.following():
         return "Following"
     return "Follow"

@@ -4,7 +4,7 @@
     <a gnrl="c-dark txt-m" href="/@{{ ct.user }}" flx="ai-c" hvr-a="c-private">
       <img class="carduserimg" gnrl="br-circle" alt='{{ct.user}}' width="60px" height="60px" src="{{ s_account_info.account.json_metadata.profile.profile_image }}">
        <div flx="fd-c">
-         <span class="carduser" style="margin-left:6px;">@{{ ct.user }}</span>
+         <span class="carduser" style="margin-left:6px;">@{{ ct.user }} - ( {{ ct.user.otherinformationofusers.get_steem_account.account_rep }} )</span>
          <span gnrl="txt-xs c-dark" style="margin-left:6px;">{{ ct.time|timesince }} | ago</span>
        </div>
     </a>

@@ -1,4 +1,5 @@
-{% include 'settings/home.html' %}
+{% include 'home/head.html' %}
+{% include 'home/header.html' %}
 <div flx="jc-c" default="media" gnrl="bg-white br-2">
   <form flx="fd-c" default="form media" method="post" action="{% url 'cooggerapp-settings' %}" style="padding: 3px 6px;">
     {% csrf_token %}
@@ -6,8 +7,10 @@
     {{ vote_percent_form }}
     <div gnrl="bg-primary c-white center br-2" default="media pm">Set cooggerup</div>
     {{ cooggerup_form }}
+    <div gnrl="bg-primary c-white center br-2" default="media pm">Set beneficiaries for coogger</div>
+    {{ beneficiaries_percent_form }}
     <div gnrl="bg-primary c-white center br-2" default="media pm">Set address</div>
-    {{ address_form.as_p }}
+    {{ address_form }}
     <input flx="as-c" type="submit" value="Save">
   </form>
   {% if address_instance %}
