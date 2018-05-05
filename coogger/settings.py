@@ -1,8 +1,8 @@
 # cooggerup
 from steem import Steem
 KEYS = [
-    
-    ]
+
+]
 STEEM = Steem(nodes=['https://api.steemit.com'],keys = KEYS)
 APPROVED = """
 Congratulations, your contribution has been approved.
@@ -28,8 +28,8 @@ SOCIAL_AUTH_STEEMCONNECT_KEY = "coogger.app"
 SOCIAL_AUTH_STEEMCONNECT_DEFAULT_SCOPE = ["login","vote", "comment","comment_options","custom_json","claim_reward_balance",]
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
-DEBUG = True
-ALLOWED_HOSTS = [".coogger.com","127.0.0.1"]
+DEBUG = False
+ALLOWED_HOSTS = [".coogger.com"]
 INSTALLED_APPS = [
     "cooggerup",
     "cooggerapp",

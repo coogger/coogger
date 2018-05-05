@@ -40,9 +40,8 @@ class ContentAdmin(ModelAdmin):
             if obj.upvote == True and obj.status == "approved": # upvote with cooggerup
                 for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
                     user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
-                    vote = Vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent))
-                    jsons = vote.json
-                    data = Operations(jsons).json
+                    vote_json = Vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent)).json
+                    data = Operations(vote_json).json
                     Sc2(token = access_token,data = data).run
                 obj.cooggerup = True
             if obj.status == "approved":

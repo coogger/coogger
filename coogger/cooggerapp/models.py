@@ -36,14 +36,13 @@ import mistune
 # TODO: editor.md için modelfield yap
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
-    percents = [i for i in range(100,-1,-1)]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField()
     hmanycontent = models.IntegerField(default = 0)
     cooggerup_confirmation = models.BooleanField(default = False, verbose_name = "Do you want to join in curation trails of the cooggerup bot with your account?")
-    cooggerup_percent = models.CharField(max_length = 3,choices = make_choices(percents),default = 0)
-    vote_percent = models.CharField(max_length = 3,choices = make_choices(percents),default = 100)
-    beneficiaries = models.CharField(max_length = 3,choices = make_choices(percents),default = 0)
+    cooggerup_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
+    vote_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,0,-1)]),default = 100)
+    beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,4,-1)]),default = 5)
 
     @property
     def follower_count(self):
