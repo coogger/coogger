@@ -37,20 +37,13 @@
   {% if content_user == request.user %}
   <form default="form media" flx="fd-c" method="post" action="{% url 'cooggerapp-userabout' content_user %}" >
     {% csrf_token %}
-    <div id="about">
-        {{ about }}
-      <textarea style="display:none;">
-        {{ about }}
-      </textarea>
-    </div>
+    <div id="about">{{ about }}</div>
     <input flx="jc-c as-c" default="input" type="submit" value="Share" >
   </form>
   {% else %}
   <div default="paragraph media pm" gnrl="bg-white" style="padding: 4px 12px;">
     <div id="about_show" style="padding: 0px;">
-      <textarea style="display:none;">
-      {{ about }}
-      </textarea>
+      <textarea style="display:none;">{{ about }}</textarea>
     </div>
   </div>
   {% endif %}

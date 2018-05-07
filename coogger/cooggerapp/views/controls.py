@@ -19,6 +19,9 @@ from cooggerapp.forms import ContentForm
 #python
 import datetime
 
+#steem
+from steem.post import Post
+
 
 class Create(View):
     template_name = "controls/create.html"
@@ -59,13 +62,12 @@ class Change(View):
 
     @method_decorator(login_required)
     def get(self, request, content_id, *args, **kwargs):
+        self.content_update(request,content_id)
         request_user = request.user
-        queryset = self.really_queryset(request,content_id)
-        queryset = queryset[0]
+        queryset = Content.objects.filter(user = request.user,id = content_id)[0]
         old_content_list = queryset.content_list
         content_form = self.form_class(instance=queryset)
         context = dict(
-            change = queryset,
             content_id = content_id,
             change_form = content_form,
         )
@@ -76,16 +78,14 @@ class Change(View):
         content_form = self.form_class(request.POST)
         if content_form.is_valid():
             content = content_form.save(commit=False)
-            queryset = self.really_queryset(request,content_id)
+            queryset = Content.objects.filter(user = request.user,id = content_id)
             save = content.content_update(queryset,content) # save with sc2py and get ms
             if save.status_code != 200:
                 ms.error(request,save.text)
             return HttpResponseRedirect("/"+content.get_absolute_url())
 
     @staticmethod
-    def really_queryset(request,content_id):
-        if request.user.is_superuser:
-            queryset = Content.objects.filter(id = content_id)
-        else:
-            queryset = Content.objects.filter(user = request.user,id = content_id)
-        return queryset
+    def content_update(request,content_id):
+        ct = Content.objects.filter(user = request.user,id = content_id)
+        steem_body = Post(post = ct[0].get_absolute_url()).body
+        ct.update(content = steem_body)

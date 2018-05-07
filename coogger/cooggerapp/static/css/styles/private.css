@@ -10,7 +10,12 @@ header{
 }
 .upshow{
   cursor: pointer;
-  margin: auto;
+  margin: 0px 12px;
+}
+.upshow img{
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 4px;
 }
 .lasmod{
   position: absolute;

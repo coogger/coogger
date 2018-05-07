@@ -1,9 +1,25 @@
-{% with s_account_info=content_user.otherinformationofusers.s_info %}
-<div default="media pm" flx="ai-c fd-c" style="margin:12px auto;">
-    <div flx="fd-c" gnrl="txt-m">{{ s_account_info.account.json_metadata.profile.about }}</div>
-    <div flx="fd-c" gnrl="txt-m">{{s_account_info.account.json_metadata.profile.location }}</div>
-    <a flx="fd-c" gnrl="c-primary" href="{{ account.website }}">{{ s_account_info.account.json_metadata.profile.website }}</a>
-    <div flx="fd-c" gnrl="txt-m">Join : {{ content_user.date_joined|timesince }} ago</div>
-    <!-- <div flx="fd-c" gnrl="txt-m">SBD balance : {{ s_account_info.account.sbd_balance }}</div> -->
+{% load coogger_tags %}
+<div default="media2" gnrl="b-1 brc-success br-2" style="margin: 6px auto;">
+  <div gnrl="bg-success c-white br-2"  flx="jc-c" style="width:{{ request.user|account:"voting_power" }}%">
+  account voting power : {{ request.user|account:"voting_power" }}%
+  </div>
 </div>
-{% endwith %}
+<div flx="jc-c">
+  <div flx="fd-c" style="padding: 4px;margin:2px" gnrl="bg-success c-white br-2 ">
+    <div flx="as-c">{{ content_user|account:"balance"|json:"STEEM" }}</div>
+    <div gnrl="b-1 br-2 brc-muted txt-s" flx="jc-c" style="padding: 3px 6px;">STEEM</div>
+  </div>
+  <div flx="fd-c" style="padding: 4px;margin:2px" gnrl="bg-primary c-white br-2">
+    <div class="follownum" flx="as-c">{{ content_user|account:"balance"|json:"SBD" }} + {{ content_user|post:"pending_payout"|json:"sbd" }}</div>
+    <div gnrl="b-1 br-2 brc-muted txt-s" flx="jc-c" style="padding: 3px 6px;">SBD</div>
+  </div>
+  <div flx="fd-c" style="padding: 4px;margin:2px" gnrl="bg-private c-white br-2">
+    <div flx="as-c">{{ content_user|account:"sp" }} + {{ content_user|post:"pending_payout"|json:"sp" }}</div>
+    <div gnrl="b-1 br-2 brc-muted txt-s" flx="jc-c" style="padding: 3px 6px;">SP</div>
+  </div>
+</div>
+<div default="media pm" flx="ai-c fd-c" style="margin:12px auto;">
+    <div flx="fd-c" gnrl="txt-m">{{ content_user|account:"about" }}</div>
+    <div flx="fd-c" gnrl="txt-m">{{content_user|account:"location" }}</div>
+    <div flx="fd-c" gnrl="txt-m">Join : {{ content_user.date_joined|timesince }} ago</div>
+</div>

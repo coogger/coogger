@@ -62,7 +62,7 @@ class ContentAdmin(ModelAdmin):
                     identifier = str(post.identifier)
                     )
                     obj.modcomment = True
-        content_count = Content.objects.filter(user = obj.user).count()
+        content_count = Content.objects.filter(user = obj.user,status = "approved").count()
         oiouof.update(hmanycontent = content_count)
         super(ContentAdmin, self).save_model(request, obj, form, change)
 

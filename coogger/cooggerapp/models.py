@@ -123,8 +123,6 @@ class Content(models.Model):
         return str(words_time)[:3]
 
     def save(self, *args, **kwargs): # for admin.py
-        if self.content[0] != "\n":
-            self.content = "\n" + self.content
         self.definition = self.prepare_definition(self.content)
         json_metadata = {
         "format":"markdown",
@@ -145,8 +143,6 @@ class Content(models.Model):
         self.sc2_post(self.permlink, json_metadata)
 
     def content_save(self, *args, **kwargs): # for me
-        if self.content[0] != "\n":
-            self.content = "\n" + self.content
         self.content_list = slugify(self.content_list.lower())
         self.tag = self.ready_tags()["coogger"]
         self.dor = self.durationofread(self.content+self.title)
@@ -174,8 +170,6 @@ class Content(models.Model):
 
     def content_update(self,queryset,content):
         self.user = queryset[0].user
-        if self.content[0] != "\n":
-            self.content = "\n" + self.content
         self.title = content.title
         self.permlink = queryset[0].permlink # no change
         self.tag = content.tag
@@ -258,14 +252,19 @@ class Content(models.Model):
         return {"other":clearly_tags(get_tag),"coogger":clearly_tags(self.tag.split(" ")[:9])}
 
     def post_reward(self):
+        steem_median = float(Oogg.price()["STEEM"])
         try:
             post = Post(post = self.get_absolute_url())
             payout = Amount(post.pending_payout_value).amount
             if payout == 0:
                 payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
-            return dict(total = round(payout,3))
+            return dict(
+            total = round(payout,3),
+            sp = round((payout * 0.75/2)/steem_median,4),
+            sbd = round(payout * 0.75/2,4),
+            )
         except:
-            return dict(total = None)
+            return dict(total = None,sp = None,sbd = None)
 
     def new_permlink(self):
         rand = str(random.randrange(9999))

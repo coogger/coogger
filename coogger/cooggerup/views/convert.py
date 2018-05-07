@@ -6,6 +6,7 @@ from django.contrib import messages as ms
 from django.views.generic.base import TemplateView
 
 from easysteem.easysteem import Blocktrades
+from easysteem.easysteem import Binance as easybinance
 from easysteem.easysteem import EasyPost
 from easysteem.easysteem import Oogg
 price = Oogg.price()
@@ -13,9 +14,6 @@ price = Oogg.price()
 # python
 import requests
 import json
-
-# binance api
-from binance.client import Client
 
 class Koinim(TemplateView):
     template_name = "home/home.html"
@@ -94,17 +92,8 @@ class Binance(Koinim):
             return self.request.GET["get_binance_sbd"],"sbd"
 
     def calculate_btc(self):
-        # This function calculates value of how many btc from sbd or steem on Blocktrades
         name = self.get_name()
-        binance_client = Client("Id2J31MWY7Sb0dsqzFbp8k0f2RnJa58Pwt2Qdy1VFUe96mfc9bG9F8PfmE0fQAYW", "6o4GNYxwCjDepuipegYwgMhQJISZ3QMzZTaDdE8pZ3GedH0yqzmIebAc7qJp7OsQ")
-        binance_client = binance_client.get_all_tickers()
-        for i in binance_client:
-            if i["symbol"] == "STEEMBTC":
-                val_price = i["price"] # kaç btc
-                break
         if name[1] == "steem":
-            return float(val_price) * float(name[0]) - 0.001
-        elif name[1] == "sbd": # TODO: bu bölüm yanlış hesaplanıyor market den hesaplamak lazım
-            sbd_steem = price["SBDSTEEM"]
-            steem = float(sbd_steem) * float(name[0])
-            return float(val_price) * float(steem)
+            return easybinance().steem_to_btc(name[0])
+        elif name[1] == "sbd":
+            return easybinance().sbd_to_steem_to_btc(name[0])

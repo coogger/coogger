@@ -1,14 +1,13 @@
-{% with s_account_info=content_user.otherinformationofusers.s_info %}
+{% load coogger_tags %}
 <div flx="ai-fs" gnrl="bg-white" style="margin-top: 6px;">
-  <img gnrl="br-circle left" src="{{ s_account_info.account.json_metadata.profile.profile_image }}" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
+  <img gnrl="br-circle left" src="{{ content_user|account:"pp" }}" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
   <div gnrl="txt-s" flx="fd-c" class="duread-li">
     <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-      @{{ content_user }} - ( {{ content_user.otherinformationofusers.get_steem_account.account_rep }} )
+      @{{ content_user }} - ( {{ content_user|account:"rep" }} )
     </a>
     <div style="margin-left: 8px;" gnrl="c-secondary">{{ detail.time|timesince }} ago</div>
   </div>
 </div>
-{% endwith %}
 <div flx="fd-s">
   {% if request.user != content_user and request.user.is_authenticated %}
   <div class="follow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;">

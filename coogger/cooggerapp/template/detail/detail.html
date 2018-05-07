@@ -40,9 +40,7 @@
         {{ detail.get_post_from_steem.title|title }}
       </h1>
       <div id="content" style="padding: inherit;">
-        <textarea style="display:none;">
-          {{ detail.get_post_from_steem.body }}
-        </textarea>
+        <textarea style="display:none;">{{ detail.get_post_from_steem.body }}</textarea>
       </div>
     </div>
     {% include 'detail/edit.html' %}
