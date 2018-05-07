@@ -1,4 +1,4 @@
-hat is coogger ?
+What is coogger ?
 
 Coogger is an information sharing network that works with multiple applications the network web front-end to the Steem Blockchain. A kind of social media, but the main goal is any information sharing. Because of the new feature named apps after this, does not just articles, will serve in different applications like cooggerup. Address where all applications will show [apps](http://www.coogger.com/apps/)
 
