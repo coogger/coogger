@@ -1,7 +1,7 @@
 {% load coogger_tags %}
 <div default="media2" gnrl="b-1 brc-success br-2" style="margin: 6px auto;">
-  <div gnrl="bg-success c-white br-2"  flx="jc-c" style="width:{{ request.user|account:"voting_power" }}%">
-  account voting power : {{ request.user|account:"voting_power" }}%
+  <div gnrl="bg-success c-white br-2"  flx="jc-c" style="width:{{ content_user|account:"voting_power" }}%">
+  account voting power : {{ content_user|account:"voting_power" }}%
   </div>
 </div>
 <div flx="jc-c">

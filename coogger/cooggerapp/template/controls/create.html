@@ -1,24 +1,5 @@
 {% include 'home/head.html' %}
 {% include 'home/header.html' %}
-<script type="text/javascript">$(function() {
-  editormd.urls.atLinkBase = "http://www.coogger.com/@";
-  var Editor = editormd("create", {
-    width : "100%",
-    height: 670,
-    path : "/static/js/lib/",
-    htmlDecode: "html,iframe",
-    emoji : true,
-    atLink: false,
-    emailLink : false
-  });
-  var lang = "en";
-  var path  = "/static/js/languages/en";
-  editormd.loadScript(path, function() {
-    Editor.lang = editormd.defaults.lang;
-    Editor.recreate();
-    });
-});
-</script>
 <div flx="jc-c ai-c fd-c">
   <form flx="fd-c" default="form media" method="post" class="c-create-form" action="{% url 'cooggerapp-create' %}" style="padding: 12px 6px;">
       {% csrf_token %}
@@ -34,9 +15,7 @@
       </li>
       <li>
         <label for="id_{{ create_form.content.name }}">{{ create_form.content.name }}</label>
-        <div id="create">
-            {{ create_form.content }}
-        </div>
+        {{ create_form.content }}
       </li>
       <li>
         <label for="id_{{ create_form.tag.name }}">{{ create_form.tag.name }}</label>

@@ -1,15 +1,3 @@
-<script type="text/javascript">$(function() {
-  editormd.urls.atLinkBase = "http://www.coogger.com/@";
-  var Editor = editormd.markdownToHTML("content", {
-    width : "100%",
-    height: 670,
-    path : "/static/js/lib/",
-    htmlDecode: "html,iframe",
-    atLink: false,
-    emailLink : false
-  });
-});
-</script>
 <div style="margin: 6px 0px;" animation="fadeIn">
   {% if detail.status == "shared" or detail.status == "changed" %}
   <div gnrl="bg-danger c-white b-2 brc-danger br-2" flx="jc-c" default="pm media">
@@ -24,12 +12,10 @@
 <div class="data-post-id-{{detail.id}}" default="bg">
   <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
     <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
-        <a flx="jc-fs" gnrl="wmax" hvr="bg-white"
-        href="{% url 'cooggerapp-utopic' detail.content_list detail.user %}" style="padding: 3px 6px;">
+        <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'cooggerapp-utopic' detail.content_list detail.user %}" style="padding: 3px 6px;">
         {% url 'cooggerapp-utopic' detail.content_list detail.user %}
         </a>
-        <a flx="jc-fe" gnrl="wmax right" hvr="bg-white"
-        href="{% url 'cooggerapp-list' detail.content_list  %}" style="padding: 3px 6px;">
+        <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'cooggerapp-list' detail.content_list  %}" style="padding: 3px 6px;">
             {% url 'cooggerapp-list' detail.content_list  %}
           </a>
     </div>
@@ -39,8 +25,9 @@
       <h1 gnrl="center">
         {{ detail.get_post_from_steem.title|title }}
       </h1>
-      <div id="content" style="padding: inherit;">
-        <textarea style="display:none;">{{ detail.get_post_from_steem.body }}</textarea>
+      <div style="padding: inherit;">
+        {% load djmd_tags %}
+        {{ detail.get_post_from_steem.body|md_detail:"content"|safe }}
       </div>
     </div>
     {% include 'detail/edit.html' %}

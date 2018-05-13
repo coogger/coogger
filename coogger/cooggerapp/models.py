@@ -33,11 +33,13 @@ from easysteem.easysteem import EasyFollow,Oogg,EasyAccount
 from bs4 import BeautifulSoup
 import mistune
 
-# TODO: editor.md için modelfield yap
+
+from djmd.models import EditorMdField
+# TODO: EditorMdFieldnin ismini değiştir, create ve show için ayrı alanlar ayarla, settings için de ayar gir
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = models.TextField()
+    about = EditorMdField()
     hmanycontent = models.IntegerField(default = 0)
     cooggerup_confirmation = models.BooleanField(default = False, verbose_name = "Do you want to join in curation trails of the cooggerup bot with your account?")
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
@@ -68,7 +70,7 @@ class Content(models.Model):
     permlink = models.SlugField(max_length=200)
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
-    content = models.TextField()
+    content = EditorMdField()
     status = models.CharField(default = "shared", max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:9 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi

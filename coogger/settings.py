@@ -29,8 +29,9 @@ SOCIAL_AUTH_STEEMCONNECT_DEFAULT_SCOPE = ["login","vote", "comment","comment_opt
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = True
-ALLOWED_HOSTS = [".coogger.com","127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
+    "djmd",
     "cooggerup",
     "cooggerapp",
     "social_django",

@@ -24,18 +24,36 @@ def percent(value, arg):
 def account(value, arg):
     ea = EasyAccount(username = str(value))
     if arg == "about":
-        return ea.get_account_info()["about"]
+        try:
+            return ea.get_account_info()["about"]
+        except KeyError:
+            return
     if arg == "location":
-        return ea.get_account_info()["location"]
+        try:
+            return ea.get_account_info()["location"]
+        except KeyError:
+            return
     if arg == "name":
-        return ea.get_account_info()["name"]
+        try:
+            return ea.get_account_info()["name"]
+        except KeyError:
+            return
     if arg == "pp":
-        pp_url = ea.get_account_info()["profile_image"]
-        if requests.get(pp_url).status_code == 200:
-            return pp_url
+        try:
+            steemit_img = "https://steemitimages.com/u/{}/avatar".format(str(value))
+            if requests.get(steemit_img).status_code == 200:
+                return steemit_img
+            pp_url = ea.get_account_info()["profile_image"]
+            if requests.get(pp_url).status_code == 200:
+                return pp_url
+        except:
+            pass
         return "/static/logo/v2/48-px.png"
     if arg == "ci":
-        return ea.get_account_info()["cover_image"]
+        try:
+            return ea.get_account_info()["cover_image"]
+        except KeyError:
+            return
     if arg == "rep":
         return ea.account_rep()
     if arg =="voting_power":
@@ -58,4 +76,4 @@ def post(value,arg):
         for i in ep.pending_payout(username = str(value)):
             sp += i["sp"]
             sbd += i["sbd"]
-            return {"sbd":round(sbd,2),"sp":round(sp,2)}
+        return {"sbd":round(sbd,2),"sp":round(sp,2)}
