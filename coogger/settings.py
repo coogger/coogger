@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "djmd",
     "cooggerup",
+    "api",
+    "rest_framework",
     "cooggerapp",
     "social_django",
     'django.contrib.admin',

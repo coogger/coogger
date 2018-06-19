@@ -1,4 +1,8 @@
 from django import template
+from django.conf import settings
+
+STEEM = settings.STEEM
+
 register = template.Library()
 
 # steem
@@ -9,7 +13,7 @@ import requests
 @register.filter(name="upvote")
 def upvote(value, arg):# kullanıcı upvote atmış mı atmamışmı
     try:
-        voters = Oogg(node = None).voters(value.user.username,value.permlink)
+        voters = Oogg(node = STEEM).voters(value.user.username,value.permlink)
     except:
         return None
     if arg in voters:
@@ -39,16 +43,7 @@ def account(value, arg):
         except KeyError:
             return
     if arg == "pp":
-        try:
-            steemit_img = "https://steemitimages.com/u/{}/avatar".format(str(value))
-            if requests.get(steemit_img).status_code == 200:
-                return steemit_img
-            pp_url = ea.get_account_info()["profile_image"]
-            if requests.get(pp_url).status_code == 200:
-                return pp_url
-        except:
-            pass
-        return "/static/logo/v2/48-px.png"
+        return "https://steemitimages.com/u/{}/avatar".format(str(value))
     if arg == "ci":
         try:
             return ea.get_account_info()["cover_image"]

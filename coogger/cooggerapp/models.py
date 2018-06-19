@@ -86,6 +86,14 @@ class Content(models.Model):
     cooggerup = models.BooleanField(default = False,verbose_name = "was voting done")
     upvote = models.BooleanField(default = False,verbose_name = "upvote with cooggerup")
 
+    @property
+    def username(self):
+        return self.user.username
+
+    @property
+    def modusername(self):
+        return self.mod.username
+
     class Meta:
         ordering = ['-time']
 
@@ -311,9 +319,3 @@ class CustomUserSocialAuth(AbstractUserSocialAuth): # bu kısmı kendine göre a
 
 class CustomDjangoStorage(DjangoStorage):
     user = CustomUserSocialAuth
-
-# class Comment(models.Model):
-#     content = models.ForeignKey(Content, related_name="content",on_delete = models.CASCADE)
-#     parent = models.ForeignKey("self", null=True, blank=True, related_name="children",db_index=True, on_delete=models.CASCADE)
-#     comment = models.CharField(max_length=500, unique=True)
-#     date = models.DateTimeField(default = timezone.now, verbose_name="date")

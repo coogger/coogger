@@ -12,19 +12,12 @@ from django.contrib.sitemaps.views import sitemap
 
 # common addresses
 urlpatterns = [
+    url(r"^",include("cooggerapp.main_urls")), # home
+    url(r'', include('social_django.urls')),
     url(r'^web/admin/', admin.site.urls), # admin panel
     url(r"^apps/cooggerup/",include("cooggerup.urls")),
-]
-
-# main project = coogger
-urlpatterns += [
-    url(r"^",include("cooggerapp.main_urls")), # home
-    url(r'', include('social_django.urls'))
-]
-
-# apps mainpage
-urlpatterns += [
     url(r'^apps/$',AppsHome.as_view(),name="apps-home"),
+    url(r"^api/",include("api.urls")),
     # url(r'^sitemap/apps\.xml/$', sitemap, {'sitemaps': {"apps":AppsSitemap()}}),
 ]
 
