@@ -14,12 +14,7 @@
       </div>
     {% endif %}
   {% endif %}
-  {% if detail.get_post_from_steem.beneficiaries %}
-  <div style="padding: 6px 12px;cursor:pointer" gnrl="brc-muted b-1 bg-info br-1" flx="ai-c">
-    <div gnrl="txt-s c-white">Beneficiaries :</div>
-    {% for ben in detail.get_post_from_steem.beneficiaries %}
-        <div gnrl="txt-s c-white">@{{ ben.account }} = {{ ben.weight|percent:"" }}%</div>
-    {% endfor %}
+  <div gnrl="txt-s" flx="ai-c" class="duread-li" style="margin-left: auto;">
+    <div gnrl="bg-dark c-white br-2" style="margin:0px 2px;padding: 2px 6px;">$<span id="post_reward_total"> </span></div>
   </div>
-  {% endif %}
 </div>

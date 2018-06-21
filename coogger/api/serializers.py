@@ -28,8 +28,9 @@ class ContentsSerializer(HyperlinkedModelSerializer):
             "lastmod",
             "modusername",
             "modcomment",
-            "approved",
             "cantapproved",
             "cooggerup",
             "upvote",
+            "type",
+            "source",
             )

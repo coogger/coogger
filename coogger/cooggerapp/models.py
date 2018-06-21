@@ -81,10 +81,11 @@ class Content(models.Model):
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
     mod = models.ForeignKey("auth.user",on_delete=models.CASCADE,blank = True,null = True, related_name="moderator") # inceleyen mod bilgisi
     modcomment = models.BooleanField(default = False,verbose_name = "was it comment by mod")
-    approved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(approved_choices()) ,verbose_name = "Why approved")
     cantapproved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
     cooggerup = models.BooleanField(default = False,verbose_name = "was voting done")
     upvote = models.BooleanField(default = False,verbose_name = "upvote with cooggerup")
+    type = models.CharField(max_length=30,choices = make_choices(type_choices()) ,help_text = "select content type")
+    source = models.CharField(default="",max_length=400,help_text = "web address about this content - source")
 
     @property
     def username(self):
@@ -262,19 +263,19 @@ class Content(models.Model):
         return {"other":clearly_tags(get_tag),"coogger":clearly_tags(self.tag.split(" ")[:9])}
 
     def post_reward(self):
-        steem_median = float(Oogg.price()["STEEM"])
-        try:
-            post = Post(post = self.get_absolute_url())
-            payout = Amount(post.pending_payout_value).amount
-            if payout == 0:
-                payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
-            return dict(
-            total = round(payout,3),
-            sp = round((payout * 0.75/2)/steem_median,4),
-            sbd = round(payout * 0.75/2,4),
-            )
-        except:
-            return dict(total = None,sp = None,sbd = None)
+        # steem_median = float(Oogg.price()["STEEM"])
+        # try:
+        #     post = Post(post = self.get_absolute_url())
+        #     payout = Amount(post.pending_payout_value).amount
+        #     if payout == 0:
+        #         payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
+        #     return dict(
+        #     total = round(payout,3),
+        #     sp = round((payout * 0.75/2)/steem_median,4),
+        #     sbd = round(payout * 0.75/2,4),
+        #     )
+        # except:
+        return dict(total = None,sp = None,sbd = None)
 
     def new_permlink(self):
         rand = str(random.randrange(9999))

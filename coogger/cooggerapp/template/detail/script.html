@@ -1,0 +1,70 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    function write_in_html(id,variable) {
+      document.getElementById(id).innerHTML = variable;
+    }
+    // section content info
+    steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
+      steem.api.getAccounts([author], function(err, result) {  // account
+        var user = result[0];
+        var profile = JSON.parse(user.json_metadata).profile;
+        document.getElementById("profile_image").setAttribute("src",profile.profile_image);
+      });
+      var tags = JSON.parse(content.json_metadata).tags;
+      var tags_template = "\
+      <div gnrl='bg-dark br-2' style='padding: 3px 6px;margin: 3px 6px;'> \
+          <a gnrl='c-white' hvr-a='c-success' href=''> \
+          <i class='fa fa-hashtag' aria-hidden='true'></i> \
+          <span>tags_i</span> \
+        </a> \
+      </div>";
+      var i;
+      var tags_html_template = "";
+      for (i = 0; i < tags.length; i++) {
+        tags_html_template += tags_template.replace("tags_i",tags[i]);
+      }
+      var reputation = steem.formatter.reputation(content.author_reputation);
+      var title = content.root_title;
+      var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
+      var post_reward_total = 0;
+      if (pending_payout_value == 0){
+        var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+        var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+        post_reward_total = total_payout_value+curator_payout_value;
+      }
+      else{
+        post_reward_total = pending_payout_value;
+      }
+      write_in_html("reputation",reputation);
+      write_in_html("username",content.author);
+      write_in_html("post_reward_total",post_reward_total);
+      write_in_html("title",title);
+      write_in_html("tags",tags_html_template);
+      $(function() { // editor md
+        var Editor = editormd.markdownToHTML("id_arg_editormd", {
+          height: 670,
+          path : "/static/lib/",
+          htmlDecode: "html,iframe",
+          atLink: false,
+          emailLink : false,
+          markdown : content.body,
+        });
+      });
+      $(".follow").click(function(event){
+        $.ajax({
+          url: "/web/following/",
+          method: 'POST',
+          dataType: 'json',
+          data: {
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            which_user:"{{ content_user  }}",
+          }
+        }).done(function (response) {
+          $(".follow div" ).html(response.ms);
+          $(".follownum" ).html(response.num);
+        });
+        event.preventDefault();
+      });
+    });
+  });
+</script>

@@ -31,12 +31,16 @@ def cantapproved_choices():
     "Intentional miss-categorized content or Spam.",
     ]
 
-def approved_choices():
+def type_choices():
     return [
+    "development",
+    "design, graphic",
+    "idea",
+    "question ,answer",
     "information sharing",
     "tutorial content",
     "translation", # çok lu dil özelliği gelince olacak.
-    #"discussion", # bilgi içeren bir tartışma başlatma olayı
+    "discussion", # bilgi içeren bir tartışma başlatma olayı
     ]
 
 def status_choices():
