@@ -1,13 +1,12 @@
-{% load coogger_tags %}
-<div flx="jc-c fd-c ac-c" class="cover_image" style="background-image:url({{ content_user|account:"ci" }}); background-repeat: no-repeat; background-position: center; height: 300px; background-size: contain;">
+<div flx="jc-c fd-c ac-c" class="cover_image" style="margin-top: 60px;background-repeat:no-repeat;background-position:center;height:300px;background-size:contain;">
   <div flx="jc-c" style="margin-top: 12px;">
     <div flx="fd-c" gnrl="bg-white br-circle">
-      <img flx="jc-c" gnrl="br-circle" src="{{ content_user|account:"pp" }}" class="useruserimg" style="padding: 2px;"></a>
+      <img flx="jc-c" gnrl="br-circle" src="" class="useruserimg" style="padding: 2px;" id="profile_image"></img>
     </div>
   </div>
   <h1 flx="jc-c as-c" gnrl="bg-white br-2 brc-white b-1">
     <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-      @{{ content_user }}  -  <span gnrl="txt-s bg-secondary br-2 c-white" flx="ai-c" style="padding: 2px">{{ content_user|account:"rep" }}</span> </a>
+      @{{ content_user }}  -  <span gnrl="txt-s bg-secondary br-2 c-white" flx="ai-c" style="padding: 2px" id="reputation"></span> </a>
   </h1>
   <div flx="jc-c">
     <div flx="fd-c" style="margin: 6px;" gnrl="bg-white br-2">
@@ -15,11 +14,11 @@
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Contents</div>
     </div>
     <div flx="fd-c" style="margin: 6px;" gnrl="bg-white br-2">
-      <div class="follownum" flx="as-c">{{ content_user.otherinformationofusers.follower_count }}</div>
+      <div class="follownum" flx="as-c" id="follower_count"></div>
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Follower</div>
     </div>
     <div flx="fd-c" style="margin: 6px;" gnrl="bg-white br-2">
-      <div flx="as-c">{{ content_user.otherinformationofusers.following_count }}</div>
+      <div flx="as-c" id="following_count"></div>
       <div gnrl="b-1 br-2 brc-muted c-secondary txt-s" style="padding: 3px 6px;">Following</div>
     </div>
   </div>

@@ -14,5 +14,43 @@ $(document).ready(function() {
       $(".ctpayout").html(response.payout);
     });
   });
+
+myElements = document.querySelectorAll('card')
+var accounts = [];
+for (var i = 0; i < myElements.length; i++) {
+  const id = myElements.item(i).id;
+  console.log(id);
+  const author = id.split("-")[0];
+  accounts.push(author);
+  const permlink = id.replace(author+"-","");
+  steem.api.getContent(author, permlink, function(err, content) {
+    var reputation = steem.formatter.reputation(content.author_reputation);
+    var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
+    var post_reward_total = 0;
+    if (pending_payout_value == 0){
+      var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+      var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+      post_reward_total = total_payout_value+curator_payout_value;
+    }
+    else{
+      post_reward_total = pending_payout_value;
+    }
+    $("#"+id+" #absolute_url_href").attr("href","/@"+content.author+"/"+content.permlink);
+    $("#"+id+" #title").html(content.title);
+    $("#"+id+" #author_href").attr("href","@"+author);
+    $("#"+id+" #reputation").text(reputation);
+    $("#"+id+" #post_reward_total").text(post_reward_total);
+  });
+}
+
+steem.api.getAccounts(accounts, function(err, result) {  // account
+  for (var i = 0; i < myElements.length; i++) {
+    var id = myElements.item(i).id;
+    var user = result[i];
+    var profile = JSON.parse(user.json_metadata).profile;
+    $("#"+id+" .carduserimg").attr("src",profile.profile_image);
+  }
+});
+
 });
 </script>

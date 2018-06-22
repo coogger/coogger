@@ -46,20 +46,6 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     vote_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,0,-1)]),default = 100)
     beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,4,-1)]),default = 5)
 
-    @property
-    def follower_count(self):
-        ef = EasyFollow(username = self.user.username,node = None)
-        return ef.get_follower_count()
-
-    @property
-    def following_count(self):
-        ef = EasyFollow(username = self.user.username,node = None)
-        return ef.get_following_count()
-
-    @property
-    def get_steem_account(self):
-        return EasyAccount(username = self.user.username)
-
     def s_info(self):
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
 
@@ -262,31 +248,9 @@ class Content(models.Model):
             get_tag.insert(0,"coogger")
         return {"other":clearly_tags(get_tag),"coogger":clearly_tags(self.tag.split(" ")[:9])}
 
-    def post_reward(self):
-        # steem_median = float(Oogg.price()["STEEM"])
-        # try:
-        #     post = Post(post = self.get_absolute_url())
-        #     payout = Amount(post.pending_payout_value).amount
-        #     if payout == 0:
-        #         payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
-        #     return dict(
-        #     total = round(payout,3),
-        #     sp = round((payout * 0.75/2)/steem_median,4),
-        #     sbd = round(payout * 0.75/2,4),
-        #     )
-        # except:
-        return dict(total = None,sp = None,sbd = None)
-
     def new_permlink(self):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
-
-    def get_post_from_steem(self):
-        try:
-            post = Post(post = self.get_absolute_url())
-            return post
-        except:
-            return {"body":self.content}
 
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)

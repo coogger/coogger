@@ -15,4 +15,11 @@ $(document).ready(function() {
     var content_id = this.getAttribute("data-content-id");
     $("body").load("/web/report/?content_id="+content_id);
   });
+
+$( ".fa-arrow-down" ).click(function() {
+  $( ".open_header_menu" ).toggle( "fast", function() {
+
+  });
+});
+
 });

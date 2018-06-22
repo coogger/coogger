@@ -1,5 +1,6 @@
 {% load coogger_tags %}
-  <div gnrl="wmax left" style="margin-top:  12px;">
+<div flx="ai-c">
+  <div gnrl="wmax left">
   {% if request.user.is_authenticated %}
     {% if detail.user == request.user %}
       <a gnrl="brc-muted b-1 bg-warning br-1" hvr-a="bg-secondary" href="{% url 'cooggerapp-change' detail.id  %}" flx="ai-c" style="padding: 6px 24px;">
@@ -14,7 +15,8 @@
       </div>
     {% endif %}
   {% endif %}
-  <div gnrl="txt-s" flx="ai-c" class="duread-li" style="margin-left: auto;">
-    <div gnrl="bg-dark c-white br-2" style="margin:0px 2px;padding: 2px 6px;">$<span id="post_reward_total"> </span></div>
-  </div>
+</div>
+<div gnrl="txt-s right" flx="ai-c" class="duread-li">
+  <div gnrl="bg-dark c-white br-2" style="margin:0px 2px;padding: 2px 6px;">$<span id="post_reward_total"> </span></div>
+</div>
 </div>

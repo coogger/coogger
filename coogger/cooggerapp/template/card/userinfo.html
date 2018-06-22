@@ -1,10 +1,11 @@
-{% load coogger_tags %}
 <div gnrl="b-1 brc-white br-2" style="padding: 6px 12px;">
   <div flx="ai-c">
-    <a gnrl="c-dark txt-m" href="/@{{ ct.user }}" flx="ai-c" hvr-a="c-private">
-      <img class="carduserimg" gnrl="br-circle" alt='{{ct.user}}' width="60px" height="60px" src="{{ ct.user|account:"pp" }}">
+    <a gnrl="c-dark txt-m" href="" id="author_href" flx="ai-c" hvr-a="c-private">
+      <img class="carduserimg" gnrl="br-circle" width="60px" height="60px" src="">
        <div flx="fd-c">
-         <span class="carduser" style="margin-left:6px;">@{{ ct.user }} - <span gnrl="txt-s bg-secondary br-2 c-white" style="padding: 2px">{{ ct.user|account:"rep" }}</span></span>
+         <span class="carduser" style="margin-left:6px;">@{{ ct.user }} -
+           <span gnrl="txt-s bg-secondary br-2 c-white" style="padding: 2px" id="reputation"></span>
+         </span>
          <span gnrl="txt-xs c-dark" style="margin-left:6px;">{{ ct.time|timesince }} | ago</span>
        </div>
     </a>

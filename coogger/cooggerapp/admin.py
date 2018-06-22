@@ -86,7 +86,7 @@ class ContentviewsAdmin(ModelAdmin):
     search_fields = list_
 
 class OtherInfoUsersAdmin(ModelAdmin):
-    list_ = ["user","follower_count","following_count","hmanycontent","cooggerup_confirmation","cooggerup_percent"]
+    list_ = ["user","hmanycontent","cooggerup_confirmation","cooggerup_percent"]
     list_display = list_
     list_display_links = list_
     search_fields = list_

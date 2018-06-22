@@ -11,7 +11,7 @@
       {% url 'cooggerapp-list' ct.content_list  %}
     </a>
   </div>
-  <a href='/{{ ct.get_absolute_url }}'>
+  <a href='' id="absolute_url_href">
     <div gnrl="br-2 c-secondary" flx="ai-fs">
       <div gnrl="txt-s" flx="ai-c" class="duread-li">
         <div style="margin-left: 12px;">min read {{ ct.dor }}</div>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div flx="jc-fs" gnrl="txt-l c-dark" style="margin: 12px 12px;">
-      <strong>{{ ct.title|title }}</strong>
+      <strong id="title"></strong>
     </div>
   </a>
 </div>

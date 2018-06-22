@@ -1,0 +1,33 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    function write_in_html(id,variable) {
+      document.getElementById(id).innerHTML = variable;
+    }
+    steem.api.getAccounts(["{{ content_user }}"], function(err, result) {  // account
+      var user = result[0];
+      steem.api.getDynamicGlobalProperties(function(err, result) {
+        var effective_vesting_shares = parseFloat(user.vesting_shares.replace(" VESTS", ""))
+        + parseFloat(user.received_vesting_shares.replace(" VESTS", ""))
+        - parseFloat(user.delegated_vesting_shares.replace(" VESTS", ""));
+        var total_vesting_shares = parseFloat(result.total_vesting_shares.replace(" VESTS", ""));
+        var total_vesting_fund_steem = parseFloat(result.total_vesting_fund_steem.replace(" VESTS", ""));
+        var sp = steem.formatter.vestToSteem(effective_vesting_shares, total_vesting_shares, total_vesting_fund_steem);
+        write_in_html("sp_balance",Math.round(sp));
+      });
+      var profile = JSON.parse(user.json_metadata).profile;
+      document.getElementById("profile_image").setAttribute("src",profile.profile_image);
+      write_in_html("steem_power",user.voting_power/100);
+      $("#steem_power_bar").css({"width":user.voting_power/100+"%"});
+      write_in_html("sbd_balance",user.sbd_balance.replace(" SBD",""));
+      write_in_html("steem_balance",user.balance.replace(" STEEM",""));
+      write_in_html("reputation",steem.formatter.reputation(user.reputation));
+      write_in_html("about",profile.about);
+      write_in_html("location",profile.location);
+      steem.api.getFollowCount("{{ request.user }}", function(err, result) {
+        write_in_html("follower_count",result.follower_count);
+        write_in_html("following_count",result.following_count);
+      });
+      $(".cover_image").css({"background-image":"url('"+profile.cover_image+"')"});
+    });
+  });
+</script>

@@ -1,10 +1,10 @@
-<cards default="media2" flx="jc-c fd-c">
+<cards flx="jc-c fd-c">
   {% for ct in content %}
-  <card class="data-post-id-{{ct.id}}" gnrl="bg-white br-2">
+  <card class="data-post-id-{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" gnrl="bg-white br-2">
     {% include "card/edit.html" %}
     {% include "card/userinfo.html" %}
     {% include "card/contentinfo.html" %}
-    <a href="/{{ ct.get_absolute_url }}" gnrl="c-dark">
+    <a href="" id="absolute_url_href" gnrl="c-dark">
       <div gnrl="unselectable txt-m" flx="jc-fs ai-c" class="upshow">
         <div flx="ai-c">
           {{ ct.misdef|safe }}
