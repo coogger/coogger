@@ -5,6 +5,7 @@ from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib import messages as ms
 from django.db.models import F
+from django.conf import settings
 
 # class
 from django.views.generic.base import TemplateView
@@ -13,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #models
-from cooggerapp.models import OtherInformationOfUsers,Content,UserSocialAuth
+from cooggerapp.models import OtherInformationOfUsers,Content
 
 #forms
 from cooggerapp.forms import AboutForm
@@ -33,7 +34,7 @@ import requests
 from sc2py.sc2py import Sc2
 from sc2py import operations
 
-class UserClassBased(TemplateView):
+class UserClassBased(TemplateView): # TODO: users who are not signed in can not be displayed
     "herhangi kullanıcının anasayfası"
     template_name = "users/user.html"
     ctof = Content.objects.filter
@@ -160,7 +161,7 @@ class FollowBaseClass(View):
 
     @staticmethod
     def get_token(request):
-        access_token = UserSocialAuth.objects.filter(uid = request.user.username)[0].extra_data["access_token"]
+        access_token = OtherInformationOfUsers(user = request.user).get_access_token()
         return str(access_token)
 
     def follow(self,request,user,which_user):
@@ -175,7 +176,7 @@ class FollowBaseClass(View):
 
 
 def is_follow(request,user):
-    ef = EasyFollow(username = request.user.username,node = None)
+    ef = EasyFollow(username = request.user.username,node = settings.STEEM)
     if user.username in ef.following():
         return "Following"
     return "Follow"

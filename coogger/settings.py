@@ -1,15 +1,14 @@
-# cooggerup
 from steem import Steem
 KEYS = [
 
 ]
+
 STEEM = Steem(nodes=['https://api.steemit.com'],keys = KEYS)
 APPROVED = """
 Congratulations, your contribution has been approved.
-- Your contribution type {}
+
 ------
 You can contact us on [discord](https://discord.gg/q2rRY8Q).
-[coogger-moderator]
 """
 
 CAN_NOT_BE_APPROVED = """
@@ -17,8 +16,8 @@ Your contribution cannot be approved.
 - Because {}
 -----
 You can contact us on [discord](https://discord.gg/q2rRY8Q).
-[coogger-moderator]
 """
+
 import os
 AUTHENTICATION_BACKENDS = (
      'steemconnect.backends.SteemConnectOAuth2',
@@ -32,7 +31,6 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "djmd",
-    "cooggerup",
     "api",
     "rest_framework",
     "cooggerapp",
@@ -87,7 +85,6 @@ TEMPLATES = [
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [
     os.path.join(BASE_DIR, "coogger","cooggerapp","template"),
-    os.path.join(BASE_DIR, "coogger","cooggerup","template")
     ],
     'APP_DIRS': True,
     'OPTIONS': {

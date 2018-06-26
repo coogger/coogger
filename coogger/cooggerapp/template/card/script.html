@@ -16,13 +16,13 @@ $(document).ready(function() {
   });
 
 myElements = document.querySelectorAll('card')
+
 var accounts = [];
 for (var i = 0; i < myElements.length; i++) {
   const id = myElements.item(i).id;
-  console.log(id);
   const author = id.split("-")[0];
-  accounts.push(author);
   const permlink = id.replace(author+"-","");
+  accounts.push(author);
   steem.api.getContent(author, permlink, function(err, content) {
     var reputation = steem.formatter.reputation(content.author_reputation);
     var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
@@ -35,11 +35,12 @@ for (var i = 0; i < myElements.length; i++) {
     else{
       post_reward_total = pending_payout_value;
     }
+    $("#"+id+" #reply").html(content.children);
     $("#"+id+" #absolute_url_href").attr("href","/@"+content.author+"/"+content.permlink);
     $("#"+id+" #title").html(content.title);
     $("#"+id+" #author_href").attr("href","@"+author);
     $("#"+id+" #reputation").text(reputation);
-    $("#"+id+" #post_reward_total").text(post_reward_total);
+    $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
   });
 }
 

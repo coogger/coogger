@@ -3,7 +3,6 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from django.db.models import F
 
 from social_django.models import UserSocialAuth
 from social_django.models import AbstractUserSocialAuth, DjangoStorage, USER_MODEL
@@ -12,13 +11,11 @@ from social_django.models import AbstractUserSocialAuth, DjangoStorage, USER_MOD
 from cooggerapp.choices import *
 
 #python
-from bs4 import BeautifulSoup
 import random
 import datetime
 
 #steem
 from steem.post import Post
-from steem.amount import Amount
 
 # sc2py.
 from sc2py.sc2py import Sc2
@@ -29,13 +26,11 @@ from sc2py.operations import Follow
 from sc2py.operations import Unfollow
 
 # 3. other
-from easysteem.easysteem import EasyFollow,Oogg,EasyAccount
 from bs4 import BeautifulSoup
 import mistune
 
 
 from djmd.models import EditorMdField
-# TODO: EditorMdFieldnin ismini değiştir, create ve show için ayrı alanlar ayarla, settings için de ayar gir
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -44,26 +39,28 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     cooggerup_confirmation = models.BooleanField(default = False, verbose_name = "Do you want to join in curation trails of the cooggerup bot with your account?")
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
     vote_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,0,-1)]),default = 100)
-    beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,4,-1)]),default = 5)
+    beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,4,-1)]),default = 0)
 
     def s_info(self):
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
 
+    def get_access_token(self):
+        return self.s_info()["access_token"]
+
 class Content(models.Model):
-    # TODO: on_delete=models.CASCADE bunu bir araştır iyice ve ne yapman gerektiğine karar ver
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-    content_list = models.CharField(max_length=30,verbose_name ="title of list",help_text = "Please, write your topic about your contents.")
-    permlink = models.SlugField(max_length=200)
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
-    definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
+    permlink = models.SlugField(max_length=200)
     content = EditorMdField()
-    status = models.CharField(default = "shared", max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:9 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    language = models.CharField(max_length=30,choices = make_choices(lang_choices()) ,help_text = "The language of your content")
+    definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
+    content_list = models.CharField(max_length=30,verbose_name ="title of list",help_text = "Please, write your topic about your contents.")
+    status = models.CharField(default = "shared", max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
     views = models.IntegerField(default = 0, verbose_name = "views")
     read = models.IntegerField(default = 0, verbose_name = "pageviews")
-    hmanycomment=models.IntegerField(default = 0, verbose_name = "comments count")
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
     mod = models.ForeignKey("auth.user",on_delete=models.CASCADE,blank = True,null = True, related_name="moderator") # inceleyen mod bilgisi
     modcomment = models.BooleanField(default = False,verbose_name = "was it comment by mod")
@@ -252,6 +249,7 @@ class Content(models.Model):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
 
+
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     choices = models.CharField(blank = True,null = True,max_length=15, choices = make_choices(follow()),verbose_name="website")
@@ -265,7 +263,7 @@ class SearchedWords(models.Model):
         try:
             super(SearchedWords, self).save(*args, **kwargs)
         except:
-            SearchedWords.objects.filter(word = self.word).update(hmany = F("hmany") + 1)
+            SearchedWords.objects.filter(word = self.word).update(hmany = models.F("hmany") + 1)
 
 class ReportModel(models.Model):
     choices_reports = make_choices(reports())

@@ -37,7 +37,7 @@
       }
       write_in_html("reputation",reputation);
       write_in_html("username",content.author);
-      write_in_html("post_reward_total",post_reward_total);
+      write_in_html("post_reward_total",post_reward_total.toFixed(2));
       write_in_html("title",title);
       write_in_html("tags",tags_html_template);
       $(function() { // editor md

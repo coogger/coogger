@@ -6,9 +6,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #models
 from cooggerapp.models import UserFollow
 
-#choices seçimler
-from cooggerapp.choices import *
-
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
     slugs = []
@@ -18,7 +15,7 @@ def make_choices_slug(choice):
         slugs.append((cho,cho))
     return slugs
 
-def paginator(request,queryset,hmany = 6):
+def paginator(request,queryset,hmany = 3):
     paginator = Paginator(queryset, hmany)
     page = request.GET.get('page')
     try:

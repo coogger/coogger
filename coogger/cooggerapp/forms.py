@@ -10,17 +10,12 @@ from django.contrib.auth.models import User
 class ContentForm(ModelForm):
     class Meta:
         model = Content
-        fields = ["content_list","title","content","tag","type","source"]
+        fields = ["content_list","title","language","content","tag","type","source"]
 
 class UserFollowForm(ModelForm):
     class Meta:
         model = UserFollow
         fields = ["choices","adress"]
-
-class UserSingupForm(ModelForm):
-    class Meta:
-        model = User
-        fields = ["first_name","last_name","username","email","password"]
 
 class CSettingsUserForm(ModelForm):
     class Meta:

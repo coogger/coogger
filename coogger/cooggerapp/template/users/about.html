@@ -15,11 +15,13 @@
   {% endif %}
 </div>
 {% else %}
-<div gnrl="bg-white" flx="jc-c">
-  <div default="paragraph media" style="height:20vh;" gnrl="txt-m">
-    <span gnrl="bg-dark b-1 br-2 brc-muted c-white" default="pm">{{ content_user }}</span>
+<div gnrl="bg-white txt-m" flx="jc-c ai-c" default="media" style="height:20vh;">
+  <span gnrl="bg-dark b-1 br-2 brc-muted c-white" style="padding:2px 6px;">
+    {{ content_user }}
+  </span>
+  <div>
    Our user has not written an article about himself yet.
-  </div>
+   </div>
 </div>
 {% endif %}
 {% endif %}

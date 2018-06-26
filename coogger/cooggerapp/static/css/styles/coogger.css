@@ -126,8 +126,7 @@ img {
   word-wrap: break-word; }
   [default~="paragraph"] a:hover, [default~="paragraph"] a:focus, [default~="paragraph"] a:active {
     color: #1abc9c; }
-  [default~="paragraph"] li {
-    list-style: unset; }
+    
   [default~="paragraph"] img {
     max-height: 100%;
     max-width: 100%; }
@@ -154,9 +153,6 @@ img {
   [default~="forminput"] input[type="submit"]:active, [default~="form"] input[type="submit"]:active {
     border-color: #3498db;
     background-color: #3498db; }
-
-[default~="form"] li {
-  list-style: none; }
 
 /* another default settings */
 title {

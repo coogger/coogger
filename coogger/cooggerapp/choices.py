@@ -8,6 +8,25 @@ def follow():
         "web site",
     )
 
+def lang_choices():
+    return (
+        "turkish",
+        "english",
+        "korean",
+        "spanish",
+        "arabic",
+        "french",
+        "portuguese",
+        "german",
+        "italian",
+        "japanese",
+        "romanian",
+        "russian",
+        "vietnamese ",
+        "arabic",
+        "azerbaijani",
+    )
+
 def reports():
     return [
     "Fraud or Plagiarism",
@@ -34,11 +53,11 @@ def cantapproved_choices():
 def type_choices():
     return [
     "development",
-    "design, graphic",
+    "design-graphic",
     "idea",
-    "question ,answer",
-    "information sharing",
-    "tutorial content",
+    "question-answer",
+    "information-sharing",
+    "tutorial-content",
     "translation", # çok lu dil özelliği gelince olacak.
     "discussion", # bilgi içeren bir tartışma başlatma olayı
     ]

@@ -22,39 +22,26 @@
 <div flx="jc-c ai-c fd-c" style="margin-top: 60px;">
   <form  flx="fd-c" default="form media" method="post" class="c-create-form"  style="padding: 12px 6px;" action="{% url 'cooggerapp-change' content_id %}">
     {% csrf_token %}
-    <li>
       <label for="id_{{ change_form.content_list.name }}">{{ change_form.content_list.name }}</label>
       {{ change_form.content_list }}
       <span class="helptext">{{ change_form.content_list.help_text }}</span>
       <div flx>Bir alt sayfa ekle</div>
-    </li>
-    <li>
       <label for="id_{{ change_form.type.name }}">{{ change_form.type.name }}</label>
       {{ change_form.type }}
       <span class="helptext">{{ change_form.type.help_text }}</span>
-    </li>
-    <li>
       <label for="id_{{ create_form.source.name }}">{{ create_form.source.name }}</label>
       {{ create_form.source }}
       <span class="helptext">{{ create_form.source.help_text }}</span>
-    </li>
-    <li>
       <label for="id_{{ change_form.title.name }}">{{ change_form.title.name }}</label>
       {{ change_form.title }}
       <span class="helptext">{{ change_form.title.help_text }}</span>
-    </li>
-    <li>
       <label for="id_{{ change_form.content.name }}">{{ change_form.content.name }}</label>
       <div id="change">
           {{ change_form.content }}
       </div>
-    </li>
-    <li>
       <label for="id_{{ change_form.tag.name }}">{{ change_form.tag.name }}</label>
       {{ change_form.tag }}
       <span class="helptext">{{ change_form.tag.help_text }}</span>
-    </li>
-    <ul flx class="tags"></ul>
     <input flx="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
   </form>
 </div>

@@ -17,7 +17,6 @@ from cooggerapp.forms import ReportsForm
 
 #models
 from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers
-from social_django.models import UserSocialAuth
 
 #views
 from cooggerapp.views.tools import paginator
@@ -60,7 +59,7 @@ class Upvote(View):
             return HttpResponse(json.dumps({"upvote":False,"error":str(e)}))
 
     def get_access_token(self, request):
-        access_token = UserSocialAuth.objects.filter(uid = request.user)[0].extra_data["access_token"]
+        access_token = OtherInformationOfUsers(user = request.user).get_access_token()
         return str(access_token)
 
     @staticmethod

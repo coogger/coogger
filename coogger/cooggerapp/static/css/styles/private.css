@@ -1,5 +1,5 @@
 header{
-  position: fixed;
+  position: sticky;
   z-index: 1;
   width: 100%;
   top: 0px;
@@ -10,9 +10,9 @@ header{
     }
   }
 }
-cards{
-  top: 54px;
-  width: 24%;
+section{
+  position: relative;
+  top: 16px;
 }
 .upshow{
   cursor: pointer;
@@ -29,10 +29,7 @@ cards{
   width: 96%;
 }
 .content_list{
-  padding: 1px 6px;
-}
-.content_list a{
-  padding: 2px 4px;
+  padding: 2px 6px;
 }
 .b-edit-point{
   width: 18px;
@@ -87,4 +84,10 @@ cards{
   width:80px;
   border-radius: 50%;
   height: 80px;
+}
+
+@media only screen and (max-width: 800px) {
+    .sectionclosedmobile {
+        display: none;
+    }
 }

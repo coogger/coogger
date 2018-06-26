@@ -1,0 +1,20 @@
+{% load coogger_tags %}
+<section gnrl="center" style="width:70%;">
+  <div flx="fd-c" class="sectionclosedmobile">
+    {% for i in "lang"|languages %}
+    <div gnrl="bg-secondary br-2" flx="ai-c jc-c" hvr-a="bg-primary" default="pm">
+      <a href="{% url 'cooggerapp-language' i %}">
+        {{ i }}
+      </a>
+    </div>
+    {%  endfor %}
+  </div>
+  {% include 'card/blog-cards.html' %}
+  <div flx="fd-c" class="sectionclosedmobile">
+    {% for i in "cat"|category %}
+    <div gnrl="bg-secondary br-2" flx="ai-c jc-c" hvr-a="bg-primary" default="pm">
+      <a href="{% url 'cooggerapp-category' i %}">{{ i }}</a>
+    </div>
+    {%  endfor %}
+  </div>
+</section>
