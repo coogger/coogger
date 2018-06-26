@@ -50,7 +50,7 @@ def cantapproved_choices():
     "Intentional miss-categorized content or Spam.",
     ]
 
-def type_choices():
+def category_choices():
     return [
     "development",
     "design-graphic",
@@ -64,8 +64,6 @@ def type_choices():
 
 def status_choices():
     return [
-    "shared",
-    "changed",
     "rejected",
     "approved",
     ]

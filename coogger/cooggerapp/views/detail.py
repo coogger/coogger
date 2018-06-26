@@ -28,7 +28,7 @@ class Detail(TemplateView):
         context["content_user"] = queryset.user
         context["nav_category"] = self.lists_of_user()
         context["urloftopic"] = queryset.permlink
-        context["nameoflist"] = queryset.content_list
+        context["nameoflist"] = queryset.topic
         context["is_follow"] = is_follow(self.request,self.user)
         context["detail"] = queryset
         context["global_hashtag"] = [i for i in queryset.tag.split(" ") if i != ""]
@@ -42,7 +42,7 @@ class Detail(TemplateView):
 
     def lists_of_user(self):
         permlinks = self.permlinks_of_user()[0]
-        return self.contents_of_user().filter(content_list = permlinks.content_list,status="approved")
+        return self.contents_of_user().filter(topic = permlinks.topic,status="approved")
 
     def up_content_view(self):
         queryset = self.permlinks_of_user()

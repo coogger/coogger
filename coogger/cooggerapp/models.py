@@ -39,7 +39,7 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     cooggerup_confirmation = models.BooleanField(default = False, verbose_name = "Do you want to join in curation trails of the cooggerup bot with your account?")
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
     vote_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,0,-1)]),default = 100)
-    beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,4,-1)]),default = 0)
+    beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
 
     def s_info(self):
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
@@ -52,23 +52,21 @@ class Content(models.Model):
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
-    tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your keywords using spaces max:9 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your tags using spaces,the first tag is your topic max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
+    category = models.CharField(max_length=30,choices = make_choices(category_choices()) ,help_text = "select content category")
     language = models.CharField(max_length=30,choices = make_choices(lang_choices()) ,help_text = "The language of your content")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
-    content_list = models.CharField(max_length=30,verbose_name ="title of list",help_text = "Please, write your topic about your contents.")
-    status = models.CharField(default = "shared", max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
+    topic = models.CharField(max_length=30,verbose_name ="content topic",help_text = "Please, write your topic about your contents.")
+
+    status = models.CharField(max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
     views = models.IntegerField(default = 0, verbose_name = "views")
     read = models.IntegerField(default = 0, verbose_name = "pageviews")
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
+
     mod = models.ForeignKey("auth.user",on_delete=models.CASCADE,blank = True,null = True, related_name="moderator") # inceleyen mod bilgisi
-    modcomment = models.BooleanField(default = False,verbose_name = "was it comment by mod")
-    cantapproved = models.CharField(blank = True,null = True,max_length=70,choices = make_choices(cantapproved_choices()) ,verbose_name = "Why can not approved")
     cooggerup = models.BooleanField(default = False,verbose_name = "was voting done")
-    upvote = models.BooleanField(default = False,verbose_name = "upvote with cooggerup")
-    type = models.CharField(max_length=30,choices = make_choices(type_choices()) ,help_text = "select content type")
-    source = models.CharField(default="",max_length=400,help_text = "web address about this content - source")
 
     @property
     def username(self):
@@ -118,27 +116,11 @@ class Content(models.Model):
 
     def save(self, *args, **kwargs): # for admin.py
         self.definition = self.prepare_definition(self.content)
-        json_metadata = {
-        "format":"markdown",
-        "tags":self.ready_tags()["other"].split(),
-        "app":"coogger/1.3.0",
-        "community":"coogger",
-        "content":{
-            "status":self.status,
-            "dor":self.dor,
-            "content_list":self.content_list},
-        "mod":{
-            "user":self.mod.username,
-            "approved":self.approved,
-            "cantapproved":self.cantapproved,
-            "cooggerup":self.cooggerup},
-        }
         super(Content, self).save(*args, **kwargs)
-        self.sc2_post(self.permlink, json_metadata)
 
     def content_save(self, *args, **kwargs): # for me
-        self.content_list = slugify(self.content_list.lower())
-        self.tag = self.ready_tags()["coogger"]
+        self.tag = self.ready_tags()
+        self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
@@ -166,13 +148,13 @@ class Content(models.Model):
         self.user = queryset[0].user
         self.title = content.title
         self.permlink = queryset[0].permlink # no change
-        self.tag = content.tag
         self.status = queryset[0].status # düzenlemeni onay almaya ihtiyacı varmı diye
         # daha sonradan değiştirilebilir.
-        self.tag = self.ready_tags()["coogger"]
+        self.tag = self.ready_tags()
+        self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)
         queryset.update(definition = self.prepare_definition(content.content),
-        content_list = slugify(content.content_list.lower()),
+        topic = self.topic,
         permlink = self.permlink,
         title = self.title,
         content = self.content,
@@ -185,24 +167,17 @@ class Content(models.Model):
 
     def sc2_post(self,permlink,json_metadata):
         def_name = json_metadata
-        def get_access_token(self):
-            access_token = UserSocialAuth.objects.filter(uid = self.user)[0].extra_data["access_token"]
-            return str(access_token)
-
         if json_metadata == "update" or json_metadata == "save":
             json_metadata = {
             "format":"markdown",
-            "tags":self.ready_tags()["other"].split(),
+            "tags":self.ready_tags().split(),
             "app":"coogger/1.3.0",
             "community":"coogger",
-            "content":{"status":self.status,"dor":self.dor,"content_list":self.content_list},
+            "content":{"status":self.status,"dor":self.dor,"topic":self.topic},
             }
         ms = """\n\n----------
-        \nPosted on [coogger.com](http://www.coogger.com)  - The platform that rewards information sharing
-        \n- Read this content on [coogger](http://www.coogger.com/{})
-        \n- Discover the {}'s [{}](http://www.coogger.com/{}/@{}) content list
-        \n- Discover all coogger information about the [{}](http://www.coogger.com/explorer/list/{})
-        \n----------""".format(self.get_absolute_url(),self.user.username,self.content_list,self.content_list,self.user.username,self.content_list,self.content_list)
+        \nPosted on [coogger.com](http://www.coogger.com/{}) - The first platform to reward information sharing
+        \n----------""".format(self.get_absolute_url())
         comment = Comment(
         parent_permlink = "coogger",
         author = str(self.user.username),
@@ -225,7 +200,8 @@ class Content(models.Model):
         else:
             jsons = comment.json
         op = Operations(json = jsons).json
-        return Sc2(token = get_access_token(self),data = op).run
+        access_token = OtherInformationOfUsers(user = self.user).get_access_token()
+        return Sc2(token = access_token,data = op).run
 
     def ready_tags(self):
         def clearly_tags(get_tag):
@@ -240,10 +216,10 @@ class Content(models.Model):
                 else:
                     tags += slugify(i.lower())+" "
             return tags
-        get_tag = self.tag.split(" ")[:9]
+        get_tag = self.tag.split(" ")[:4]
         if get_tag[0] != "coogger":
             get_tag.insert(0,"coogger")
-        return {"other":clearly_tags(get_tag),"coogger":clearly_tags(self.tag.split(" ")[:9])}
+        return clearly_tags(get_tag)
 
     def new_permlink(self):
         rand = str(random.randrange(9999))

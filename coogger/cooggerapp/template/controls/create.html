@@ -1,31 +1,27 @@
 {% include 'home/head.html' %}
 {% include 'home/header.html' %}
-<div flx="jc-c ai-c fd-c" style="margin-top: 60px;">
+<div flx="jc-c ai-c fd-c" style="margin-top: 12px;">
   <form flx="fd-c" default="form media" method="post" class="c-create-form" action="{% url 'cooggerapp-create' %}" style="padding: 12px 6px;">
       {% csrf_token %}
-        <label for="id_{{ create_form.language.name }}">{{ create_form.language.name }}</label>
-        {{ create_form.language }}
-        <span class="helptext">{{ create_form.language.help_text }}</span>
         <label for="id_{{ create_form.title.name }}">{{ create_form.title.name }}</label>
         {{ create_form.title }}
         <span class="helptext">{{ create_form.title.help_text }}</span>
+
         <label for="id_{{ create_form.content.name }}">{{ create_form.content.name }}</label>
         {{ create_form.content }}
+
         <label for="id_{{ create_form.tag.name }}">{{ create_form.tag.name }}</label>
         {{ create_form.tag }}
         <span class="helptext">{{ create_form.tag.help_text }}</span>
-        <label for="id_{{ create_form.type.name }}">{{ create_form.type.name }}</label>
-        {{ create_form.type }}
-        <span class="helptext">{{ create_form.type.help_text }}</span>
-      <!-- <li>
-        <label for="id_{{ create_form.content_list.name }}">Name</label>
-        {{ create_form.content_list }}
-        <div flx="jc-fe ai-c" style="padding:3px" gnrl="br-circle" default="pm" class="addlist">
-          <i flx gnrl="br-circle c-danger brc-danger b-1" style="padding:3px" class="fa fa-plus"></i>
-          Add page
-        </div>
-        <span class="helptext">{{ create_form.content_list.help_text }}</span>
-      </li> -->
+
+        <label for="id_{{ create_form.language.name }}">{{ create_form.language.name }}</label>
+        {{ create_form.language }}
+        <span class="helptext">{{ create_form.language.help_text }}</span>
+
+        <label for="id_{{ create_form.category.name }}">{{ create_form.category.name }}</label>
+        {{ create_form.category }}
+        <span class="helptext">{{ create_form.category.help_text }}</span>
+
       <input flx="as-c" type="submit" value="Share" style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
     </form>
 </div>

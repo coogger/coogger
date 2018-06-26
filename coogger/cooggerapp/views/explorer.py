@@ -43,7 +43,7 @@ class Userlist(TemplateView):
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
-            queryset = self.ctof(content_list__contains = list_,status = "approved")
+            queryset = self.ctof(topic__contains = list_,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Userlist, self).get_context_data(**kwargs)
             html_head = dict(
@@ -83,7 +83,7 @@ class Category(TemplateView): # TODO:  do Category check,  is it necessary ?
 
     def get_context_data(self, cat, **kwargs):
         if cat != "":
-            queryset = self.ctof(type = cat,status = "approved")
+            queryset = self.ctof(category = cat,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Category, self).get_context_data(**kwargs)
             html_head = dict(

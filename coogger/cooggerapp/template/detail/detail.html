@@ -13,11 +13,11 @@
 <div class="data-post-id-{{detail.id}}" default="bg">
   <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
     <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
-        <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'cooggerapp-utopic' detail.content_list detail.user %}" style="padding: 3px 6px;">
-        {% url 'cooggerapp-utopic' detail.content_list detail.user %}
+        <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'cooggerapp-utopic' detail.topic detail.user %}" style="padding: 3px 6px;">
+        {% url 'cooggerapp-utopic' detail.topic detail.user %}
         </a>
-        <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'cooggerapp-list' detail.content_list  %}" style="padding: 3px 6px;">
-            {% url 'cooggerapp-list' detail.content_list  %}
+        <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'cooggerapp-list' detail.topic  %}" style="padding: 3px 6px;">
+            {% url 'cooggerapp-list' detail.topic  %}
           </a>
     </div>
     {% include 'detail/contentinfo.html' %}

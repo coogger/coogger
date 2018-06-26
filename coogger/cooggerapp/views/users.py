@@ -49,7 +49,7 @@ class UserClassBased(TemplateView): # TODO: users who are not signed in can not 
         context = super(UserClassBased, self).get_context_data(**kwargs)
         nav_category = []
         for i in queryset:
-            c_list = i.content_list
+            c_list = i.topic
             if c_list not in nav_category:
                 nav_category.append(c_list)
         context["content"] = info_of_cards
@@ -78,7 +78,7 @@ class UserTopic(UserClassBased):
         context = super(UserTopic, self).get_context_data(username,**kwargs)
         user = context["content_user"]
         user_queryset = self.ctof(user = user)
-        queryset = user_queryset.filter(content_list = utopic,status = "approved")
+        queryset = user_queryset.filter(topic = utopic,status = "approved")
         info_of_cards = paginator(self.request,queryset)
         html_head = dict(
          title = self.title.format(username+" - "+utopic),
@@ -111,7 +111,7 @@ class UserAboutBaseClass(View):
         queryset = Content.objects.filter(user = user)
         nav_category = []
         for i in queryset:
-            c_list = i.content_list
+            c_list = i.topic
             if c_list not in nav_category:
                 nav_category.append(c_list)
         html_head = dict(

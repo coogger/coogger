@@ -65,7 +65,7 @@ class Change(View):
         self.content_update(request,content_id)
         request_user = request.user
         queryset = Content.objects.filter(user = request.user,id = content_id)[0]
-        old_content_list = queryset.content_list
+        old_topic = queryset.topic
         content_form = self.form_class(instance=queryset)
         context = dict(
             content_id = content_id,

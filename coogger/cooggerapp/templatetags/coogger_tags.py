@@ -1,4 +1,4 @@
-from cooggerapp.choices import lang_choices,type_choices
+from cooggerapp.choices import lang_choices,category_choices
 
 from django import template
 from django.conf import settings
@@ -34,4 +34,4 @@ def languages(value):
 
 @register.filter(name="category")
 def category(value):
-    return type_choices()
+    return category_choices()

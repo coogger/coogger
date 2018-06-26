@@ -92,7 +92,7 @@ class Feed(View):
         content = info_of_cards,
         )
         if queryset == []:
-            ms.error(request,"You do not follow anyone yet.")
+            ms.error(request,"You do not follow anyone yet on coogger.")
         return render(request, self.template_name, context)
 
 class Review(View):
@@ -121,7 +121,7 @@ class Search(TemplateView):
 
     def search_algorithm(self):
         searched_data = self.get_form_data()
-        q = Q(title__contains = searched_data) | Q(content_list__contains = searched_data) | Q(content__contains = searched_data)
+        q = Q(title__contains = searched_data) | Q(topic__contains = searched_data) | Q(content__contains = searched_data)
         queryset = Content.objects.filter(q,status = "approved").order_by("-views")
         return queryset
 

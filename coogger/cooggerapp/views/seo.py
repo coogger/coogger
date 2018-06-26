@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 #models
 from cooggerapp.models import Content
 
-class ContentlistSitemap(Sitemap):
+class TopicSitemap(Sitemap):
     changefreq = "daily"
     priority = 1.0
 
@@ -14,7 +14,7 @@ class ContentlistSitemap(Sitemap):
         return [i for i in Content.objects.filter(status = "approved")]
 
     def lastmod(self,obj):
-        return Content.objects.filter(content_list = obj.content_list,status = "approved")[0].lastmod
+        return Content.objects.filter(topic = obj.topic,status = "approved")[0].lastmod
 
     def location(self,obj):
         return "/"+obj.get_absolute_url

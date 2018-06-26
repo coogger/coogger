@@ -23,45 +23,17 @@ Oogg = Oogg(settings.STEEM)
 from steem.post import Post
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","content_list","title","permlink","tag","cooggerup","status","time","mod","modcomment"]
+    list_ = ["user","topic","permlink","mod","cooggerup","status","time"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["status","time","cooggerup","cantapproved"]
-    search_fields = ["content_list","title","permlink","tag"]
-    fields = ("user","content_list","title","content","tag",("cantapproved","upvote"),"status")
+    list_filter = ["status","time","cooggerup"]
+    search_fields = ["topic","title"]
+    fields = ("user","title","content","tag",("category","language","topic"),("status"))
 
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()
-        request_user = str(request.user)
+        obj.mod = request.user
         oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
-        post = Post(post = obj.get_absolute_url())
-        obj.mod = request.user #içerik ile ilgilenen mod
-        if not obj.cooggerup: # bot oy atmadı ise daha aşağıdakilerin çalışmasına gerek yok,bu son işlem çünkü
-            if obj.upvote == True and obj.status == "approved": # upvote with cooggerup
-                for up in OtherInformationOfUsers.objects.filter(cooggerup_confirmation = True):
-                    user, access_token, percent = up.user, up.s_info()["access_token"], up.cooggerup_percent
-                    vote_json = Vote(voter = user, author = obj.user, permlink = obj.permlink, weight = int(percent)).json
-                    data = Operations(vote_json).json
-                    Sc2(token = access_token,data = data).run
-                obj.cooggerup = True
-            if obj.status == "approved":
-                if obj.modcomment == False:
-                    Oogg.reply(
-                    title = "coogger | your contribution has been approved",
-                    body = settings.APPROVED.format(obj.approved.replace("-"," ")),
-                    author = request_user,
-                    identifier = str(post.identifier)
-                    )
-                    obj.modcomment = True
-            elif obj.status == "rejected":
-                if obj.modcomment == False:
-                    Oogg.reply(
-                    title = "coogger | your contribution cannot be approved",
-                    body = settings.CAN_NOT_BE_APPROVED.format(obj.cantapproved.replace("-"," ")),
-                    author = request_user,
-                    identifier = str(post.identifier)
-                    )
-                    obj.modcomment = True
         content_count = Content.objects.filter(user = obj.user,status = "approved").count()
         oiouof.update(hmanycontent = content_count)
         super(ContentAdmin, self).save_model(request, obj, form, change)
