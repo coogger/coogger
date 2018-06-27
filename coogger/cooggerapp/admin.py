@@ -3,24 +3,12 @@ from django.utils import timezone
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-from django.conf import settings
 
 #models
 from cooggerapp.models import *
 
 # python
 import datetime
-
-# sc2py.
-from sc2py.sc2py import Sc2
-from sc2py.operations import Operations
-from sc2py.operations import Vote
-
-from easysteem.easysteem import Oogg
-Oogg = Oogg(settings.STEEM)
-
-#steem
-from steem.post import Post
 
 class ContentAdmin(ModelAdmin):
     list_ = ["user","topic","permlink","mod","cooggerup","status","time"]

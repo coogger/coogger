@@ -5,7 +5,6 @@ from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib import messages as ms
 from django.db.models import F
-from django.conf import settings
 
 # class
 from django.views.generic.base import TemplateView
@@ -161,7 +160,7 @@ class FollowBaseClass(View):
 
     @staticmethod
     def get_token(request):
-        access_token = OtherInformationOfUsers(user = request.user).get_access_token()
+        access_token = OtherInformationOfUsers(user = request.user).get_access_token
         return str(access_token)
 
     def follow(self,request,user,which_user):
@@ -174,9 +173,8 @@ class FollowBaseClass(View):
         data = operations.Operations(json = unjson).json
         Sc2(token = self.get_token(request),data = data).run
 
-
 def is_follow(request,user):
-    ef = EasyFollow(username = request.user.username,node = settings.STEEM)
+    ef = EasyFollow(username = request.user.username,node = None)
     if user.username in ef.following():
         return "Following"
     return "Follow"

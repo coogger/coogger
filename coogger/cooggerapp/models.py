@@ -41,11 +41,17 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     vote_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,0,-1)]),default = 100)
     beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
 
-    def s_info(self):
-        return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
+    @property
+    def username(self):
+        return self.user.username
 
+    @property
     def get_access_token(self):
         return self.s_info()["access_token"]
+
+    def s_info(self):
+        return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
+            
 
 class Content(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
@@ -200,7 +206,7 @@ class Content(models.Model):
         else:
             jsons = comment.json
         op = Operations(json = jsons).json
-        access_token = OtherInformationOfUsers(user = self.user).get_access_token()
+        access_token = OtherInformationOfUsers(user = self.user).get_access_token
         return Sc2(token = access_token,data = op).run
 
     def ready_tags(self):

@@ -1,8 +1,6 @@
 from cooggerapp.choices import lang_choices,category_choices
 
 from django import template
-from django.conf import settings
-STEEM = settings.STEEM
 register = template.Library()
 
 # steem
@@ -13,7 +11,7 @@ import requests
 @register.filter(name="upvote")
 def upvote(value, arg):# kullanıcı upvote atmış mı atmamışmı
     try:
-        voters = Oogg(node = STEEM).voters(value.user.username,value.permlink)
+        voters = Oogg().voters(value.user.username,value.permlink)
     except:
         return None
     if arg in voters:

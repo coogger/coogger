@@ -1,36 +1,55 @@
-from django.contrib.auth.models import User, Group
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework import serializers
 
 # models
-from cooggerapp.models import Content
+from cooggerapp.models import Content,OtherInformationOfUsers
 
-class UserSerializer(HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = User
-        fields = ('username',)
+        model = OtherInformationOfUsers
+        fields = (
+            'username',
+            "about",
+            "hmanycontent",
+            "cooggerup_confirmation",
+            "cooggerup_percent",
+            "vote_percent",
+            "beneficiaries",
+            )
 
-class ContentsSerializer(HyperlinkedModelSerializer):
+class SuperUserSerializer(serializers.ModelSerializer): # permission
+
+    class Meta:
+        model = OtherInformationOfUsers
+        fields = (
+            'username',
+            "about",
+            "hmanycontent",
+            "cooggerup_confirmation",
+            "cooggerup_percent",
+            "vote_percent",
+            "beneficiaries",
+            "get_access_token",
+            )
+
+class ContentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
         fields = (
             'username',
-            'content_list',
-            'permlink',
             'title',
-            "definition",
-            "content",
-            "status",
+            'permlink',
+            'content',
             "tag",
+            "category",
+            "language",
+            "definition",
+            "topic",
+            "status",
             "time",
             "dor",
             "views",
             "read",
             "lastmod",
             "modusername",
-            "modcomment",
-            "cantapproved",
-            "cooggerup",
-            "upvote",
-            "type",
-            "source",
             )

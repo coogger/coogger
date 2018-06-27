@@ -1,23 +1,3 @@
-from steem import Steem
-KEYS = [
-
-]
-
-STEEM = Steem(nodes=['https://api.steemit.com'],keys = KEYS)
-APPROVED = """
-Congratulations, your contribution has been approved.
-
-------
-You can contact us on [discord](https://discord.gg/q2rRY8Q).
-"""
-
-CAN_NOT_BE_APPROVED = """
-Your contribution cannot be approved.
-- Because {}
------
-You can contact us on [discord](https://discord.gg/q2rRY8Q).
-"""
-
 import os
 AUTHENTICATION_BACKENDS = (
      'steemconnect.backends.SteemConnectOAuth2',

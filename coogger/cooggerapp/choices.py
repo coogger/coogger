@@ -52,12 +52,11 @@ def cantapproved_choices():
 
 def category_choices():
     return [
-    "development",
-    "design-graphic",
+    "tutorial",
     "idea",
+    "design-graphic",
+    "development",
     "question-answer",
-    "information-sharing",
-    "tutorial-content",
     "translation", # çok lu dil özelliği gelince olacak.
     "discussion", # bilgi içeren bir tartışma başlatma olayı
     ]
