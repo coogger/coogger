@@ -1,10 +1,4 @@
-<script>
-steem.api.getAccounts(["{{ request.user }}"], function(err, result) {  // account
-  var profile = JSON.parse(result[0].json_metadata).profile;
-  document.getElementById("header_pi").setAttribute("src",profile.profile_image);
-});
-</script>
-
+{% include 'home/script.html' %}
 <header flx="jc-c ai-c" gnrl="br-1">
   <div style="padding:  3px 12px;">
     <a flx="jc-c ai-c" href="/">

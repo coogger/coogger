@@ -1,0 +1,8 @@
+{% if request.user.is_authenticated %}
+  <script>
+    steem.api.getAccounts(["{{ request.user }}"], function(err, result) {  // account
+      var profile = JSON.parse(result[0].json_metadata).profile;
+      document.getElementById("header_pi").setAttribute("src",profile.profile_image);
+    });
+  </script>
+{% endif %}
