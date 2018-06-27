@@ -51,7 +51,7 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
 
     def s_info(self):
         return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
-            
+
 
 class Content(models.Model):
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
@@ -59,7 +59,7 @@ class Content(models.Model):
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your tags using spaces,the first tag is your topic max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
-    category = models.CharField(max_length=30,choices = make_choices(category_choices()) ,help_text = "select content category")
+    category = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(category_choices()) ,help_text = "select content category")
     language = models.CharField(max_length=30,choices = make_choices(lang_choices()) ,help_text = "The language of your content")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30,verbose_name ="content topic",help_text = "Please, write your topic about your contents.")
