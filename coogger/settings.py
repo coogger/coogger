@@ -34,34 +34,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'urls'
 TEMPLATES = [
     {
-        'BACKEND': 'django_jinja.backend.Jinja2',
-        'APP_DIRS': False,
-        'DIRS': [os.path.join(BASE_DIR, "coogger","cooggerapp","template","jinja")],
-        'OPTIONS': {
-            'match_extension': '.html',
-            'match_regex': r'^(?!admin/).*',
-            'filters': {
-                'backend_name': 'cooggerapp.common.filters.backend_name',
-                'backend_class': 'cooggerapp.common.filters.backend_class',
-                'icon_name': 'cooggerapp.common.filters.icon_name',
-                'social_backends': 'cooggerapp.common.filters.social_backends',
-                'legacy_backends': 'cooggerapp.common.filters.legacy_backends',
-                'oauth_backends': 'cooggerapp.common.filters.oauth_backends',
-                'filter_backends': 'cooggerapp.common.filters.filter_backends',
-                'slice_by': 'cooggerapp.common.filters.slice_by',
-                'order_backends': 'cooggerapp.common.filters.order_backends'
-            },
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'django.template.context_processors.static',
-            ],
-        }
-    },
-    {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [
     os.path.join(BASE_DIR, "coogger","cooggerapp","template"),

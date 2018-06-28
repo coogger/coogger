@@ -29,7 +29,7 @@ for (var i = 0; i < myElements.length; i++) {
     {% if request.user.is_authenticated %}
       for (var vot = 0; vot < active_votes.length; vot++) {
         if ("{{request.user}}" == active_votes[vot].voter){
-          $("#"+id+" #upvote").html("<i gnrl='c-primary' class='fa fa-thumbs-up'></i>");
+          $("#"+id+" #upvote").html("<i gnrl='c-primary' hvr-animation='i blink' class='fa fa-thumbs-up'></i>");
           upvoted = true;
           break;
         }

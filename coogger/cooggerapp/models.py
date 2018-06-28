@@ -64,7 +64,7 @@ class Content(models.Model):
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30,verbose_name ="content topic",help_text = "Please, write your topic about your contents.")
 
-    status = models.CharField(max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
+    status = models.CharField(default = "shared",max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
     views = models.IntegerField(default = 0, verbose_name = "views")
@@ -147,49 +147,50 @@ class Content(models.Model):
         steem_save = self.sc2_post(self.permlink, "save")
         if steem_save.status_code == 200:
             super(Content, self).save(*args, **kwargs)
-            return steem_save
         return steem_save
 
     def content_update(self,queryset,content):
         self.user = queryset[0].user
         self.title = content.title
-        self.permlink = queryset[0].permlink # no change
-        self.status = queryset[0].status # düzenlemeni onay almaya ihtiyacı varmı diye
-        # daha sonradan değiştirilebilir.
         self.tag = self.ready_tags()
         self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)
-        queryset.update(definition = self.prepare_definition(content.content),
-        topic = self.topic,
-        permlink = self.permlink,
-        title = self.title,
-        content = self.content,
-        tag = self.tag,
-        dor = self.dor,
-        status = self.status,
-        lastmod = datetime.datetime.now(),
-        )
-        return self.sc2_post(self.permlink, "update")
+        steem_post = self.sc2_post(queryset[0].permlink, "update")
+        if steem_post.status_code == 200:
+            queryset.update(
+            definition = self.prepare_definition(content.content),
+            topic = self.topic,
+            title = self.title,
+            content = self.content,
+            category = content.category,
+            language = content.language,
+            tag = self.tag,
+            status = "changed",
+            dor = self.dor,
+            lastmod = datetime.datetime.now(),
+            )
+        return steem_post
 
     def sc2_post(self,permlink,json_metadata):
         def_name = json_metadata
-        if json_metadata == "update" or json_metadata == "save":
-            json_metadata = {
+        if json_metadata == "save":
+            ms = """\n\n----------
+            \nPosted on [coogger.com](http://www.coogger.com/{}) - The first platform to reward information sharing
+            \n----------""".format(self.get_absolute_url())
+            self.content += ms
+        json_metadata = {
             "format":"markdown",
             "tags":self.ready_tags().split(),
-            "app":"coogger/1.3.0",
+            "app":"coogger/1.3.9",
             "community":"coogger",
-            "content":{"status":self.status,"dor":self.dor,"topic":self.topic},
-            }
-        ms = """\n\n----------
-        \nPosted on [coogger.com](http://www.coogger.com/{}) - The first platform to reward information sharing
-        \n----------""".format(self.get_absolute_url())
+            "content":{"topic":self.topic,"category":self.category,"language":self.language,"dor":self.dor},
+        }
         comment = Comment(
         parent_permlink = "coogger",
         author = str(self.user.username),
         permlink = permlink,
         title = self.title,
-        body = self.content + ms,
+        body = self.content,
         json_metadata = json_metadata,
         )
         if def_name == "save":

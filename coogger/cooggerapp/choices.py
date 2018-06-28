@@ -63,6 +63,8 @@ def category_choices():
 
 def status_choices():
     return [
+    "shared",
+    "changed",
     "rejected",
     "approved",
     ]

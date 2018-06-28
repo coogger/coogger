@@ -1,0 +1,19 @@
+{% csrf_token %}
+  <label for="id_{{ form.title.name }}">{{ form.title.name }}</label>
+  {{ form.title }}
+  <span class="helptext">{{ form.title.help_text }}</span>
+
+  <label for="id_{{ create_form.content.name }}">{{ form.content.name }}</label>
+  {{ form.content }}
+
+  <label for="id_{{ form.tag.name }}">{{ form.tag.name }}</label>
+  {{ form.tag }}
+  <span class="helptext">{{ form.tag.help_text }}</span>
+
+  <label for="id_{{ form.language.name }}">{{ form.language.name }}</label>
+  {{ form.language }}
+  <span class="helptext">{{ form.language.help_text }}</span>
+
+  <label for="id_{{ form.category.name }}">{{ form.category.name }}</label>
+  {{ form.category }}
+  <span class="helptext">{{ form.category.help_text }}</span>

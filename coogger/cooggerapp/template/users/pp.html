@@ -25,7 +25,7 @@
   {% if request.user != content_user and request.user.is_authenticated %}
   <div class="follow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 3px 30px;">
     <div gnrl="c-white txt-m">
-      {{ is_follow }}
+      {{ is_follow }} <!-- TODO: use steem js  -->
     </div>
   </div>
   {% endif %}

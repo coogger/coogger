@@ -99,7 +99,8 @@ class Review(View):
     template_name = "card/blogs.html"
 
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
-        queryset = Content.objects.filter(status = "shared")
+        q = Q(status = "shared") | Q(status = "changed")
+        queryset = Content.objects.filter(q)
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,

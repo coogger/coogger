@@ -2,7 +2,7 @@
 <header flx="jc-c ai-c" gnrl="br-1">
   <div style="padding:  3px 12px;">
     <a flx="jc-c ai-c" href="/">
-      <img src="/static/logo/v2/48-px.png">
+      <img src="/static/logos/png/48.png">
     </a>
   </div>
   <div style="padding:  3px 12px;">
@@ -24,11 +24,11 @@
   {% if not request.user.is_authenticated %}
   <div style="padding:  3px 12px;">
     <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2"
-    gnrl="wmax txt-m c-white" href="{% url 'cooggerapp-signup' %}">Sign up</a>
+    gnrl="wmax txt-m c-white" href="https://signup.steemit.com/">Sign up</a>
   </div>
   <div style="padding:  3px 12px;">
     <a style="padding: 6px;" hvr-animation="c-2 fadeIn"
-    flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="{% url 'cooggerapp-login' %}">Sign in</a>
+    flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="/login/steemconnect/">Sign in</a>
   </div>
   {% else%}
   <div style="padding:  3px 12px;" flx="ai-c">
