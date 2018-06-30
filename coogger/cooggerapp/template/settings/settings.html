@@ -1,7 +1,7 @@
 {% include 'home/head.html' %}
 {% include 'home/header.html' %}
 <div flx="jc-c" default="media" gnrl="bg-white br-2">
-  <form flx="fd-c" default="form media" method="post" action="{% url 'cooggerapp-settings' %}" style="padding: 3px 6px;">
+  <form flx="fd-c" default="form media" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
     {% csrf_token %}
     <div gnrl="bg-primary c-white center br-2" default="media pm">Set vote percent</div>
     {{ vote_percent_form }}
@@ -40,7 +40,7 @@ $(document).ready(function() {
   $(".deladdress").click(function(event){
     var address_id = this.getAttribute("data-deladdress");
     $.ajax({
-      url: "{% url 'cooggerapp-address_del' %}",
+      url: "{% url 'address_del' %}",
       method: 'POST',
       dataType: 'json',
       data: {

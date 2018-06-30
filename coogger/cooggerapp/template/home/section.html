@@ -1,20 +1,24 @@
 {% load coogger_tags %}
-<section gnrl="center" style="width:70%;">
-  <div flx="fd-c" class="sectionclosedmobile">
-    {% for i in "lang"|languages %}
-    <div gnrl="bg-secondary br-2" flx="ai-c jc-c" hvr-a="bg-primary" style="padding: 2px 12px;margin: 2px 0px;">
-      <a href="{% url 'cooggerapp-language' i %}">
-        {{ i }}
-      </a>
-    </div>
-    {%  endfor %}
+<section gnrl="center">
+  <div flx="fd-c" gnrl="right b-1 brc-muted br-2" class="sectionclosedmobile" style="height: max-content;padding: 10px;">
+
+      {% for i in "lang"|languages %}
+      <div gnrl="bg-secondary br-2" flx="ai-c jc-fs" hvr-a="bg-primary" style="padding: 2px 12px;margin: 2px 0px;">
+        <a href="{% url 'language' i %}">
+          {{ i }}
+        </a>
+      </div>
+      {%  endfor %}
+
   </div>
   {% include 'card/blog-cards.html' %}
-  <div flx="fd-c" class="sectionclosedmobile">
-    {% for i in "cat"|category %}
-    <div gnrl="bg-secondary br-2" flx="ai-c jc-c" hvr-a="bg-primary" style="padding: 2px 12px;margin: 2px 0px;">
-      <a href="{% url 'cooggerapp-category' i %}">{{ i }}</a>
-    </div>
-    {%  endfor %}
+  <div flx="fd-c" gnrl="left b-1 brc-muted br-2" class="sectionclosedmobile" style="height: max-content;padding: 10px;">
+
+      {% for i in "cat"|category %}
+      <div gnrl="bg-secondary br-2" flx="ai-c jc-fs" hvr-a="bg-primary" style="padding: 2px 12px;margin: 2px 0px;">
+        <a href="{% url 'category' i %}">{{ i }}</a>
+      </div>
+      {%  endfor %}
+
   </div>
 </section>

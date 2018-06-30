@@ -3,7 +3,7 @@
   <div gnrl="wmax left">
   {% if request.user.is_authenticated %}
     {% if detail.user == request.user %}
-      <a gnrl="brc-muted b-1 bg-warning br-1" hvr-a="bg-secondary" href="{% url 'cooggerapp-change' detail.id  %}" flx="ai-c" style="padding: 6px 24px;">
+      <a gnrl="brc-muted b-1 bg-warning br-1" hvr-a="bg-secondary" href="{% url 'change' detail.id  %}" flx="ai-c" style="padding: 6px 24px;">
         <i gnrl="c-white" class="fa fa-edit" aria-hidden="true"></i>
         <div gnrl="txt-s c-white">Edit</div>
       </a>

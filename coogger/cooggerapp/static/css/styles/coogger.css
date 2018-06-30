@@ -111,7 +111,7 @@ img {
       width: 98%; } }
 
 [default~="media2"] {
-  width: 30%; }
+  width: 22.33%; }
   @media screen and (max-width: 900px) {
     [default~="media2"] {
       width: 40%; } }
@@ -126,7 +126,7 @@ img {
   word-wrap: break-word; }
   [default~="paragraph"] a:hover, [default~="paragraph"] a:focus, [default~="paragraph"] a:active {
     color: #1abc9c; }
-    
+
   [default~="paragraph"] img {
     max-height: 100%;
     max-width: 100%; }

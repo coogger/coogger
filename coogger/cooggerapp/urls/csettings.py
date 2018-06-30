@@ -4,5 +4,5 @@ from django.conf.urls import url
 from cooggerapp.views import csettings
 
 urlpatterns = [
-    url(r"^/",csettings.Settings.as_view(),name  ="cooggerapp-settings"),
+    url(r"^/",csettings.Settings.as_view(),name  ="settings"),
     ]

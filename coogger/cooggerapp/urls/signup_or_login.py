@@ -19,7 +19,7 @@ def login(request):
     return HttpResponseRedirect("/login/steemconnect/")
 
 urlpatterns = [
-    url(r"^/logout/",signup_or_login.Logout.as_view(),name = "cooggerapp-logout"),
+    url(r"^/logout/",signup_or_login.Logout.as_view(),name = "logout"),
     url(r"^/profile/",redirect_home),
     url(r"^/login/",login),
     ]

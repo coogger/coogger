@@ -52,13 +52,30 @@ def cantapproved_choices():
 
 def category_choices():
     return [
+    "science",
     "tutorial",
     "idea",
+    "project",
+    "computer",
+    "language",
+    "art",
+    "technology",
+    "biography",
+    "books",
+    "business",
+    "media",
+    "travel",
+    "health",
+    "music",
+    "food",
+    "history",
+    "finance",
+    "exchange",
     "design-graphic",
     "development",
     "question-answer",
-    "translation", # çok lu dil özelliği gelince olacak.
-    "discussion", # bilgi içeren bir tartışma başlatma olayı
+    "translation",
+    "discussion",
     ]
 
 def status_choices():

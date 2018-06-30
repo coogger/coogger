@@ -3,6 +3,7 @@ from django.http import *
 from django.shortcuts import render
 from django.contrib.auth import *
 from django.contrib import messages as ms
+from django.contrib.auth.models import User
 
 #django class based
 from django.contrib.auth.decorators import login_required
@@ -95,3 +96,38 @@ class Category(TemplateView): # TODO:  do Category check,  is it necessary ?
             context["category"] = cat
             context["head"] = html_head
             return context
+
+class Filter(TemplateView):
+    template_name = "card/blogs.html"
+    info = "Filter"
+    queryset = Content.objects
+
+    def get_context_data(self, **kwargs):
+        for key,value in self.request.GET.items():
+            if key == "topic":
+                self.queryset = self.queryset.filter(topic = value)
+            if key == "category":
+                self.queryset = self.queryset.filter(category = value)
+            if key == "username":
+                user = User.objects.filter(username = value)[0]
+                print(user)
+                self.queryset = self.queryset.filter(user = user)
+            if key == "mod":
+                user = User.objects.filter(username = value)[0]
+                self.queryset = self.queryset.filter(mod = user)
+            if key == "language":
+                self.queryset = self.queryset.filter(language = value)
+            if key == "permlink":
+                self.queryset = self.queryset.filter(permlink = value)
+            if key == "status":
+                self.queryset = self.queryset.filter(status = value)
+        info_of_cards = paginator(self.request,self.queryset)
+        context = super(Filter, self).get_context_data(**kwargs)
+        html_head = dict(
+         title = "filter | coogger",
+         description = " {} altında ki bütün coogger bilgileri".format(self.info),
+        )
+        context["content"] = info_of_cards
+        context["filter"] = True
+        context["head"] = html_head
+        return context

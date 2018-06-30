@@ -21,7 +21,7 @@ class UserViewSet(ModelViewSet):
         return self.queryset
 
 class ContentsViewSet(ModelViewSet):
-    queryset = Content.objects.filter(status = "approved").order_by("-time")
+    queryset = Content.objects.all().order_by("-time")
     serializer_class = ContentsSerializer
 
     def get_queryset(self):
@@ -30,4 +30,21 @@ class ContentsViewSet(ModelViewSet):
             self.queryset = self.queryset.filter(user = get_user)
         if "permlink" in self.request.GET:
             self.queryset = self.queryset.filter(permlink = self.request.GET["permlink"])
+        if "status" in self.request.GET:
+            self.queryset = self.queryset.filter(status = self.request.GET["status"])
+        if "mod" in self.request.GET:
+            get_mod = User.objects.filter(username = self.request.GET["mod"])[0]
+            self.queryset = self.queryset.filter(mod = get_mod)
+        if "category" in self.request.GET:
+            self.queryset = self.queryset.filter(category = self.request.GET["category"])
+        if "language" in self.request.GET:
+            self.queryset = self.queryset.filter(language = self.request.GET["language"])
+        if "topic" in self.request.GET:
+            self.queryset = self.queryset.filter(topic = self.request.GET["topic"])
+        if "dor" in self.request.GET:
+            self.queryset = self.queryset.filter(dor = self.request.GET["dor"])
+        if "views" in self.request.GET:
+            self.queryset = self.queryset.filter(views = self.request.GET["views"])
+        if "read" in self.request.GET:
+            self.queryset = self.queryset.filter(read = self.request.GET["read"])
         return self.queryset

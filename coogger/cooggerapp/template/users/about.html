@@ -2,7 +2,7 @@
 {% if about %}
 <div flx="jc-c">
   {% if content_user == request.user %}
-  <form default="form media" flx="fd-c" method="post" action="{% url 'cooggerapp-userabout' content_user %}" >
+  <form default="form media" flx="fd-c" method="post" action="{% url 'userabout' content_user %}" >
     {% csrf_token %}
     {{ about }}
     <input flx="jc-c as-c" default="input" type="submit" value="Share" >

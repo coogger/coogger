@@ -4,6 +4,6 @@ from django.conf.urls import url
 from cooggerapp.views import controls
 
 urlpatterns = [
-    url(r'^/create/',controls.Create.as_view(),name="cooggerapp-create"),
-    url(r'^/change/(?P<content_id>.+)/',controls.Change.as_view(),name="cooggerapp-change"),
+    url(r'^/create/',controls.Create.as_view(),name="create"),
+    url(r'^/change/(?P<content_id>.+)/',controls.Change.as_view(),name="change"),
     ]

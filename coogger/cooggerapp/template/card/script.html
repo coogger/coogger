@@ -2,7 +2,7 @@
 $(document).ready(function() {
   $(".upvote").click(function(event){
     $.ajax({
-      url: "{% url 'cooggerapp-upvote' %}",
+      url: "{% url 'upvote' %}",
       method: 'POST',
       dataType: 'json',
       data: {
@@ -52,7 +52,7 @@ for (var i = 0; i < myElements.length; i++) {
     $("#"+id+" #reply").html(content.children);
     $("#"+id+" #absolute_url_href").attr("href","/@"+content.author+"/"+content.permlink);
     $("#"+id+" #title").html(content.title);
-    $("#"+id+" #author_href").attr("href","@"+author);
+    $("#"+id+" #author_href").attr("href","/@"+author);
     $("#"+id+" #reputation").text(reputation);
     $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
   });

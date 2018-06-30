@@ -3,11 +3,10 @@ django-js-asset==0.1.1
 djangorestframework==3.7.3
 beautifulsoup4==4.6.0
 steem
-python-binance
 social-auth-steemconnect
 social-auth-app-django
 whitenoise
-django_jinja
 sc2py
-easysteem
 mistune
+easysteem
+djmd

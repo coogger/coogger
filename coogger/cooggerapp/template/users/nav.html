@@ -6,13 +6,13 @@
         <div hvr-a="bg-white" gnrl="br-2 bg-primary">
           <a flx="jc-c" gnrl="b-1 br-2 brc-muted c-white txt-m"
           hvr-a="c-white" hvr="brc-primary"
-          href="{% url 'cooggerapp-utopic' list content_user %}" style="padding: 3px 6px;">{{ list|title }}</a>
+          href="{% url 'utopic' list content_user %}" style="padding: 3px 6px;">{{ list|title }}</a>
       </div>
       {% else%}
       <div hvr-a="bg-primary" gnrl="br-2 bg-white">
         <a flx="jc-c" gnrl="b-1 br-2 brc-muted c-primary txt-m"
          hvr-a="c-white" hvr="brc-primary"
-         href="{% url 'cooggerapp-utopic' list content_user %}" style="padding: 3px 6px;">{{ list|title }}</a>
+         href="{% url 'utopic' list content_user %}" style="padding: 3px 6px;">{{ list|title }}</a>
     </div>
         {% endif %}
      {% endfor %}
