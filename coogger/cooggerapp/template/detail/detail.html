@@ -1,7 +1,7 @@
 {% include 'detail/script.html' %}
 <div style="margin: 12px 0px;" animation="fadeIn">
   {% if detail.status == "shared" or detail.status == "changed" %}
-  <div gnrl="bg-warning c-white b-2 brc-warning br-2" flx="jc-c ai-c" default="media" style="height: 20vh;margin-bottom: 2px;">
+  <div gnrl="bg-warning c-white b-2 brc-warning br-2 center" flx="ai-c" default="media" style="height: 20vh;margin-bottom: 2px;">
    A moderator will review this content within 1 and 2 days, status : {{ detail.status }}
   </div>
   {% endif %}
@@ -10,8 +10,8 @@
    Rejected by @{{ detail.mod }} because of {{ detail.cantapproved }}
   </div>
   {% endif %}
-<div class="data-post-id-{{detail.id}}" default="bg">
-  <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;">
+<div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
+  <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;margin-right: 2%;">
     <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
         <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}" style="padding: 3px 6px;">
         {% url 'utopic' detail.topic detail.user %}
@@ -29,7 +29,26 @@
       </div>
     </div>
     {% include 'detail/edit.html' %}
+      {% include 'detail/tags.html' %}
   </div>
-  {% include 'detail/tags.html' %}
+<!-- other contents of content -->
+  <nav class="just-pc" flx="fw-nw" gnrl="b-1 brc-muted">
+    <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m">
+      {% for list in nav_category %}
+        {% if list.permlink == urloftopic %}
+          <div gnrl="bg-dark b-1 brc-dark">
+            <a flx gnrl="c-white txt-m" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
+             {{ list.title|title|truncatechars:50 }}</a>
+        </div>
+       {% else%}
+         <div hvr-a="bg-dark" gnrl="br-2" >
+           <a flx gnrl="b-1 brc-muted c-dark txt-m" hvr="c-white brc-dark" href="/{{list.get_absolute_url}}" style="padding: 3px 6px;">
+           {{ list.title|title|truncatechars:50 }}</a>
+      </div>
+      {% endif %}
+       {% endfor %}
+    </div>
+  </nav>
+<!--  -->
 </div>
 </div>

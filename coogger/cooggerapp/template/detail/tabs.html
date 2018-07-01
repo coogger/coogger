@@ -1,7 +1,4 @@
-<div flx="jc-c" gnrl="bg-white wmax center" style="padding: 6px 6px;margin-top: 12px;">
-  <div flx="fd-c">
-    <a href="/@{{ content_user }}/" flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">CONTENTS</a>
-  </div>
+<div flx="jc-c" gnrl="bg-white wmax center" class="just-mobile" style="padding: 6px 6px;margin-top: 12px;">
   {% if nav_category %}
   <div flx="fd-c" class="lists" style="cursor:pointer;">
     {% if nav_category and not detail %}
@@ -11,7 +8,4 @@
     {% endif %}
   </div>
   {% endif %}
-  <div flx="fd-c">
-    <a href="{% url 'userabout' content_user %}" flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">ABOUT</a>
-  </div>
 </div>

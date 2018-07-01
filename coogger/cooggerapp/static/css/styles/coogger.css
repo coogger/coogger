@@ -94,9 +94,7 @@ img {
 
 /* di─şer default ├Âzellikler bunlar tam isimleri ile yaz─▒lacakt─▒r */
 [default~="media"] {
-  overflow-x: auto;
-  width: 50%;
-  margin: auto; }
+  width: 50%;}
   @media screen and (max-width: 900px) {
     [default~="media"] {
       width: 80%; } }

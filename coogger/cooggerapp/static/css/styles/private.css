@@ -85,8 +85,21 @@ section{
   height: 80px;
 }
 
+.just-mobile{
+  display: None;
+}
+.just-pc{
+  display: block;
+}
+
 @media only screen and (max-width: 800px) {
     .sectionclosedmobile {
+        display: none;
+    }
+    .just-mobile{
+      display: block;
+    }
+    .just-pc {
         display: none;
     }
 }

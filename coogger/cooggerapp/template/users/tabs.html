@@ -1,17 +1,24 @@
-<div flx="jc-c" style="padding: 6px 0px;">
-  <div flx="fd-c">
-    <a href="/@{{ content_user }}/" flx="as-fs" gnrl="c-private txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">CONTENTS</a>
-  </div>
-  {% if nav_category %}
-  <div flx="fd-c" class="lists" style="cursor:pointer;">
-    {% if nav_category and not detail %}
-    <div flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">TOPICS</div>
-    {% else %}
-    <div flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">{{ detail.topic|upper }}</div>
+<div gnrl="center">
+  <div flx="fw-nw" gnrl="b-1 brc-muted" style="padding: 6px 0px;overflow: auto;">
+    {% if nav_category %}
+    <div flx="fd-c" class="lists" style="cursor:pointer;">
+      {% if nav_category and not detail %}
+      <div flx="as-fs" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">TOPICS</div>
+      {% else %}
+      <div flx="as-fs" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">{{ detail.topic|upper }}</div>
+      {% endif %}
+    </div>
     {% endif %}
-  </div>
-  {% endif %}
-  <div flx="fd-c">
-    <a href="{% url 'userabout' content_user %}" flx="as-fs" gnrl="c-private b-1 brc-muted txt-m c-secondary" hvr="c-dark" style="padding: 3px 6px;">ABOUT</a>
+    <div flx="fd-c">
+      <a href="{% url 'userabout' content_user %}" flx="as-fs" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">ABOUT</a>
+    </div>
+
+    <div flx="fd-c">
+      <a href="#" flx="as-fs" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">WALLET- beta</a>
+    </div>
+
+    <div flx="fd-c">
+      <a href="#" flx="as-fs" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">HİSTORY-beta</a>
+    </div>
   </div>
 </div>

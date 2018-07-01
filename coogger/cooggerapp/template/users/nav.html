@@ -1,16 +1,17 @@
+<div gnrl="center">
 {% if nav_category and not detail%}
-<nav style="display:none;" flx="fw-nw jc-c" gnrl="txt-m">
-  <div flx="fd-c">
+<nav style="display: none;overflow: auto;margin: 12px 0px;">
+  <div flx="fw-nw jc-c" gnrl="txt-m wmax">
     {% for list in nav_category %}
     {% if list == nameoftopic %}
         <div hvr-a="bg-white" gnrl="br-2 bg-primary">
-          <a flx="jc-c" gnrl="b-1 br-2 brc-muted c-white txt-m"
+          <a flx="jc-c" gnrl="c-white txt-m"
           hvr-a="c-white" hvr="brc-primary"
           href="{% url 'utopic' list content_user %}" style="padding: 3px 6px;">{{ list|title }}</a>
       </div>
       {% else%}
       <div hvr-a="bg-primary" gnrl="br-2 bg-white">
-        <a flx="jc-c" gnrl="b-1 br-2 brc-muted c-primary txt-m"
+        <a flx="jc-c" gnrl="c-primary txt-m"
          hvr-a="c-white" hvr="brc-primary"
          href="{% url 'utopic' list content_user %}" style="padding: 3px 6px;">{{ list|title }}</a>
     </div>
@@ -39,3 +40,4 @@
   </div>
 </nav>
 {% endif %}
+  </div>
