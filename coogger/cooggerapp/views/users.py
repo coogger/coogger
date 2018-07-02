@@ -160,7 +160,7 @@ class FollowBaseClass(View):
 
     @staticmethod
     def get_token(request):
-        access_token = OtherInformationOfUsers(user = request.user).get_access_token
+        access_token = OtherInformationOfUsers(user = request.user).access_token
         return str(access_token)
 
     def follow(self,request,user,which_user):

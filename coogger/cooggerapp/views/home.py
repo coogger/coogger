@@ -59,7 +59,7 @@ class Upvote(View):
             return HttpResponse(json.dumps({"upvote":False,"error":str(e)}))
 
     def get_access_token(self, request):
-        access_token = OtherInformationOfUsers(user = request.user).get_access_token
+        access_token = OtherInformationOfUsers(user = request.user).access_token
         return str(access_token)
 
     @staticmethod

@@ -3,8 +3,6 @@ django-js-asset==0.1.1
 djangorestframework==3.7.3
 beautifulsoup4==4.6.0
 steem
-social-auth-steemconnect
-social-auth-app-django
 whitenoise
 sc2py
 mistune

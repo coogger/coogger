@@ -4,9 +4,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
-from social_django.models import UserSocialAuth
-from social_django.models import AbstractUserSocialAuth, DjangoStorage, USER_MODEL
-
 #choices
 from cooggerapp.choices import *
 
@@ -40,17 +37,13 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
     vote_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,0,-1)]),default = 100)
     beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
+    refresh_token = models.CharField(max_length = 500,help_text = "steemconnect user code / to get get_refresh_token")
+    code = models.CharField(max_length = 500,help_text = "steemconnect user code / to get get_refresh_token")
+    access_token = models.CharField(max_length = 500,help_text = "steemconnect user access_token to any operations")
 
     @property
     def username(self):
         return self.user.username
-
-    @property
-    def get_access_token(self):
-        return self.s_info()["access_token"]
-
-    def s_info(self):
-        return UserSocialAuth.objects.filter(uid = self.user)[0].extra_data
 
 
 class Content(models.Model):
@@ -207,7 +200,7 @@ class Content(models.Model):
         else:
             jsons = comment.json
         op = Operations(json = jsons).json
-        access_token = OtherInformationOfUsers(user = self.user).get_access_token
+        access_token = OtherInformationOfUsers(user = self.user).access_token
         return Sc2(token = access_token,data = op).run
 
     def ready_tags(self):
@@ -259,9 +252,3 @@ class ReportModel(models.Model):
 class Contentviews(models.Model):
     content = models.ForeignKey(Content ,on_delete=models.CASCADE)
     ip = models.GenericIPAddressField()
-
-class CustomUserSocialAuth(AbstractUserSocialAuth): # bu kısmı kendine göre ayarla.
-    user = models.ForeignKey(USER_MODEL, related_name='custom_social_auth',on_delete=models.CASCADE)
-
-class CustomDjangoStorage(DjangoStorage):
-    user = CustomUserSocialAuth

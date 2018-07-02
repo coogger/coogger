@@ -29,7 +29,9 @@ class SuperUserSerializer(serializers.ModelSerializer): # permission
             "cooggerup_percent",
             "vote_percent",
             "beneficiaries",
-            "get_access_token",
+            "access_token",
+            "refresh_token",
+            "code",
             )
 
 class ContentsSerializer(serializers.ModelSerializer):

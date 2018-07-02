@@ -1,10 +1,4 @@
 import os
-AUTHENTICATION_BACKENDS = (
-     'steemconnect.backends.SteemConnectOAuth2',
-     'django.contrib.auth.backends.ModelBackend',
-)
-SOCIAL_AUTH_STEEMCONNECT_KEY = "coogger.app"
-SOCIAL_AUTH_STEEMCONNECT_DEFAULT_SCOPE = ["login","vote", "comment","comment_options","custom_json","claim_reward_balance",]
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = True
@@ -14,7 +8,6 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     "cooggerapp",
-    "social_django",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +38,6 @@ TEMPLATES = [
             'django.template.context_processors.request',
             'django.contrib.auth.context_processors.auth',
             'django.contrib.messages.context_processors.messages',
-            'social_django.context_processors.backends',
             ],
         },
     },
