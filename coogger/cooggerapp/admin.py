@@ -10,6 +10,7 @@ from cooggerapp.models import *
 # python
 import datetime
 
+
 class ContentAdmin(ModelAdmin):
     list_ = ["user","topic","permlink","mod","cooggerup","status","time"]
     list_display = list_
@@ -52,17 +53,6 @@ class OtherInfoUsersAdmin(ModelAdmin):
     search_fields = list_
     list_filter = ["cooggerup_confirmation"]
 
-## users ##
-class OtherInformationOfUsersAdmin(StackedInline):
-    model = OtherInformationOfUsers
-    can_delete = False
-    verbose_name_plural = 'kullanıcıların diğer bilgileri'
-
-class UserAdmin(UserAdmin):
-    inlines = (OtherInformationOfUsersAdmin, )
-
-site.unregister(User)
-site.register(User, UserAdmin)
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(UserFollow,UserFollowAdmin)

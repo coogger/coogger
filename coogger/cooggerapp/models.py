@@ -37,9 +37,6 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
     vote_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,0,-1)]),default = 100)
     beneficiaries = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
-    refresh_token = models.CharField(max_length = 500,help_text = "steemconnect user code / to get get_refresh_token")
-    code = models.CharField(max_length = 500,help_text = "steemconnect user code / to get get_refresh_token")
-    access_token = models.CharField(max_length = 500,help_text = "steemconnect user access_token to any operations")
 
     @property
     def username(self):
@@ -102,7 +99,7 @@ class Content(models.Model):
             except: # if there isn't image in content
                 return  beautifultext.text[0:400-4]+"..."
 
-    def get_absolute_url(self):
+    def get_absolute_url(self): # TODO: make staticmethod
         return "@"+self.user.username+"/"+self.permlink
 
     @staticmethod
@@ -200,7 +197,7 @@ class Content(models.Model):
         else:
             jsons = comment.json
         op = Operations(json = jsons).json
-        access_token = OtherInformationOfUsers(user = self.user).access_token
+        access_token = OtherInformationOfUsers.objects.filter(user = self.user)[0].access_token
         return Sc2(token = access_token,data = op).run
 
     def ready_tags(self):

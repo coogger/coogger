@@ -24,29 +24,8 @@
   </div>
   {% if request.user != content_user and request.user.is_authenticated %}
   <div class="follow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 3px 30px;">
-    <div gnrl="c-white txt-m">
-      {{ is_follow }} <!-- TODO: use steem js  -->
-    </div>
+    <div gnrl="c-white txt-m" id="is_follow">Follow</div>
   </div>
   {% endif %}
   </div>
-
-  <script>
-  $(document).ready(function() {
-    $(".follow").click(function(event){
-      $.ajax({
-        url: "/web/following/",
-        method: 'POST',
-        dataType: 'json',
-        data: {
-          csrfmiddlewaretoken: "{{ csrf_token }}",
-          which_user:"{{ content_user  }}",
-        }
-      }).done(function (response) {
-        $(".follow div" ).html(response.ms);
-        $(".follownum" ).html(response.num);
-      });
-      event.preventDefault();
-    });
-  });
 </script>

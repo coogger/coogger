@@ -10,7 +10,6 @@ from cooggerapp.models import Content,Contentviews
 
 # cooggerapp views
 from cooggerapp.views.tools import html_head
-from cooggerapp.views.users import is_follow
 
 from cooggerapp.forms import ContentForm
 
@@ -29,9 +28,7 @@ class Detail(TemplateView):
         context["nav_category"] = self.lists_of_user()
         context["urloftopic"] = queryset.permlink
         context["nameoflist"] = queryset.topic
-        context["is_follow"] = is_follow(self.request,self.user)
         context["detail"] = queryset
-        context["global_hashtag"] = [i for i in queryset.tag.split(" ") if i != ""]
         return context
 
     def contents_of_user(self):

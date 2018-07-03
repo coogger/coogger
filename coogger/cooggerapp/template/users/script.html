@@ -1,5 +1,21 @@
 <script type="text/javascript">
   $(document).ready(function() {
+    $(".follow").click(function(event){
+      $.ajax({
+        url: "/web/following/",
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          which_user:"{{ content_user  }}",
+        }
+      }).done(function (response) {
+        $(".follow div" ).html(response.ms);
+        $(".follownum" ).html(response.num);
+      });
+      event.preventDefault();
+    });
+
     function write_in_html(id,variable) {
       document.getElementById(id).innerHTML = variable;
     }
@@ -23,9 +39,17 @@
       write_in_html("reputation",steem.formatter.reputation(user.reputation));
       write_in_html("about",profile.about);
       write_in_html("location",profile.location);
-      steem.api.getFollowCount("{{ request.user }}", function(err, result) {
-        write_in_html("follower_count",result.follower_count);
-        write_in_html("following_count",result.following_count);
+      steem.api.getFollowCount("{{ request.user }}", function(err, followcount) {
+        write_in_html("follower_count",followcount.follower_count);
+        write_in_html("following_count",followcount.following_count);
+        steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
+          for (var i = 0; i < followers.length; i++) {
+            if ("{{ request.user }}" == followers[i].follower){
+              write_in_html("is_follow","Following");
+              break;
+            }
+          }
+        });
       });
       $(".cover_image").css({"background-image":"url('"+profile.cover_image+"')"});
     });

@@ -4,6 +4,16 @@
       document.getElementById(id).innerHTML = variable;
     }
     // section content info
+    steem.api.getFollowCount("{{ request.user }}", function(err, followcount) {
+      steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
+        for (var i = 0; i < followers.length; i++) {
+          if ("{{ request.user }}" == followers[i].follower){
+            write_in_html("is_follow","Following");
+            break;
+          }
+        }
+      });
+    });
     steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
       steem.api.getAccounts([author], function(err, result) {  // account
         var user = result[0];
@@ -50,21 +60,21 @@
           markdown : content.body,
         });
       });
-      $(".follow").click(function(event){
-        $.ajax({
-          url: "/web/following/",
-          method: 'POST',
-          dataType: 'json',
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            which_user:"{{ content_user  }}",
-          }
-        }).done(function (response) {
-          $(".follow div" ).html(response.ms);
-          $(".follownum" ).html(response.num);
-        });
-        event.preventDefault();
+    });
+    $(".follow").click(function(event){
+      $.ajax({
+        url: "/web/following/",
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          which_user:"{{ content_user  }}",
+        }
+      }).done(function (response) {
+        $(".follow div" ).html(response.ms);
+        $(".follownum" ).html(response.num);
       });
+      event.preventDefault();
     });
   });
 </script>

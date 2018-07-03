@@ -56,7 +56,6 @@ class UserClassBased(TemplateView): # TODO: users who are not signed in can not 
         context["user_follow"] = users_web(user)
         context["nav_category"] = nav_category
         context["head"] = self.html_head(username,user)
-        context["is_follow"] = is_follow(self.request,user)
         return context
 
     def html_head(self, username,user):
@@ -126,7 +125,6 @@ class UserAboutBaseClass(View):
         context["user_follow"] = users_web(user)
         context["nav_category"] = nav_category
         context["head"] = html_head
-        context["is_follow"] = is_follow(request,user)
         return render(request,self.template_name,context)
 
     def post(self, request, username, *args, **kwargs):
@@ -142,7 +140,7 @@ class UserAboutBaseClass(View):
                     return HttpResponseRedirect("/web/about/@{}".format(request.user.username))
 
 
-class FollowBaseClass(View):
+class FollowBaseClass(View): # TODO: in here do steemconnect js 
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -150,8 +148,8 @@ class FollowBaseClass(View):
             which_user = request.POST["which_user"]
             user_obj = User.objects.filter(username = which_user)[0]
             if user_obj != request.user:
-                followers_num = OtherInformationOfUsers(user = user_obj).following_count
-                ef = EasyFollow(username = request.user.username,node = None)
+                followers_num = 0# OtherInformationOfUsers(user = user_obj).following_count
+                ef = EasyFollow(username = request.user.username)
                 if user_obj.username in ef.following():
                     self.unfollow(request,request.user.username,user_obj.username)
                     return HttpResponse(json.dumps({"ms":"Follow","num":followers_num -1 }))
@@ -160,7 +158,7 @@ class FollowBaseClass(View):
 
     @staticmethod
     def get_token(request):
-        access_token = OtherInformationOfUsers(user = request.user).access_token
+        access_token = OtherInformationOfUsers.objects.filter(user = request.user)[0].access_token
         return str(access_token)
 
     def follow(self,request,user,which_user):
@@ -172,9 +170,3 @@ class FollowBaseClass(View):
         unjson = operations.Unfollow(user,which_user).json
         data = operations.Operations(json = unjson).json
         Sc2(token = self.get_token(request),data = data).run
-
-def is_follow(request,user):
-    ef = EasyFollow(username = request.user.username,node = None)
-    if user.username in ef.following():
-        return "Following"
-    return "Follow"

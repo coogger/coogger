@@ -1,6 +1,5 @@
 User-agent: *
 Disallow: /media/
-Sitemap: http://www.coogger.com/sitemap/cooggerapp/contentlist.xml
-Sitemap: http://www.coogger.com/sitemap/cooggerapp/content.xml
-Sitemap: http://www.coogger.com/sitemap/cooggerapp/users.xml
-Sitemap: http://www.coogger.com/sitemap/apps.xml/
+Sitemap: http://www.coogger.com/sitemap/contentlist.xml
+Sitemap: http://www.coogger.com/sitemap/content.xml
+Sitemap: http://www.coogger.com/sitemap/users.xml

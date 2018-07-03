@@ -59,7 +59,7 @@ class Upvote(View):
             return HttpResponse(json.dumps({"upvote":False,"error":str(e)}))
 
     def get_access_token(self, request):
-        access_token = OtherInformationOfUsers(user = request.user).access_token
+        access_token = OtherInformationOfUsers.objects.filter(user = request.user)[0].access_token
         return str(access_token)
 
     @staticmethod
@@ -81,7 +81,7 @@ class Feed(View):
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         oof = []
         queryset = []
-        ef = EasyFollow(username = request.user.username,node = None)
+        ef = EasyFollow(username = request.user.username)
         for which_user in ef.following():
             oof.append(which_user)
         for q in Content.objects.filter(status = "approved"):

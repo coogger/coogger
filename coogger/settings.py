@@ -1,4 +1,14 @@
 import os
+
+##steemconnect settings
+REDIRECT_URL = "http://127.0.0.1:8000/accounts/steemconnect/"
+CLIENT_ID = "coogger.app"
+APP_SECRET = ""
+SCOPE = None
+CODE = True
+LOGIN_REDIRECT = "/web/feed/"
+##steemconnect settings
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = True
@@ -8,6 +18,7 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     "cooggerapp",
+    "django_steemconnect",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
