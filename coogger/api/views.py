@@ -6,7 +6,7 @@ from api.serializers import UserSerializer, ContentsSerializer,SuperUserSerializ
 
 # models
 from cooggerapp.models import Content,OtherInformationOfUsers
-from django_steemconnect.models import Steemconnect_model
+from django_steemconnect.models import SteemConnectUser
 from django.contrib.auth.models import User
 
 class UserViewSet(ModelViewSet):
@@ -19,7 +19,7 @@ class UserViewSet(ModelViewSet):
             self.queryset = self.queryset.filter(user = get_user)
         if self.request.user.is_superuser:
             self.serializer_class = SuperUserSerializer
-            self.queryset = Steemconnect_model.objects.all()
+            self.queryset = SteemConnectUser.objects.all()
         return self.queryset
 
 class ContentsViewSet(ModelViewSet):

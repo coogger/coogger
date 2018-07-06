@@ -47,14 +47,13 @@ class Create(View):
 
 
 class Change(View):
-    form_class = ContentForm
     template_name = "controls/change.html"
 
     @method_decorator(login_required)
     def get(self, request, content_id, *args, **kwargs):
         self.content_update(request,content_id)
         queryset = Content.objects.filter(user = request.user,id = content_id)[0]
-        content_form = self.form_class(instance=queryset)
+        content_form = ContentForm(instance=queryset)
         context = dict(
             content_id = content_id,
             form = content_form,
@@ -63,15 +62,15 @@ class Change(View):
 
     @method_decorator(login_required)
     def post(self, request, content_id, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = ContentForm(request.POST)
         if form.is_valid():
-            content = form.save(commit=False)
+            form = form.save(commit=False)
             queryset = Content.objects.filter(user = request.user,id = content_id)
-            save = content.content_update(queryset,content) # save with sc2py and get ms
+            save = form.content_update(queryset,form) # save with sc2py and get ms
             if save.status_code != 200:
                 ms.error(request,save.text)
                 return self.create_error(request)
-            return HttpResponseRedirect("/"+content.get_absolute_url())
+            return HttpResponseRedirect("/"+queryset[0].get_absolute_url())
 
     @staticmethod
     def content_update(request,content_id):

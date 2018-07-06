@@ -140,7 +140,7 @@ class UserAboutBaseClass(View):
                     return HttpResponseRedirect("/web/about/@{}".format(request.user.username))
 
 
-class FollowBaseClass(View): # TODO: in here do steemconnect js 
+class FollowBaseClass(View): # TODO: in here do steemconnect js
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -158,7 +158,7 @@ class FollowBaseClass(View): # TODO: in here do steemconnect js
 
     @staticmethod
     def get_token(request):
-        access_token = OtherInformationOfUsers.objects.filter(user = request.user)[0].access_token
+        access_token = SteemConnectUser.objects.filter(user = request.user)[0].access_token
         return str(access_token)
 
     def follow(self,request,user,which_user):

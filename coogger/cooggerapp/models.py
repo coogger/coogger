@@ -28,6 +28,7 @@ import mistune
 
 
 from djmd.models import EditorMdField
+from django_steemconnect.models import SteemConnectUser
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -157,7 +158,7 @@ class Content(models.Model):
             tag = self.tag,
             status = "changed",
             dor = self.dor,
-            lastmod = datetime.datetime.now(),
+            lastmod = timezone.now(),
             )
         return steem_post
 
@@ -197,7 +198,7 @@ class Content(models.Model):
         else:
             jsons = comment.json
         op = Operations(json = jsons).json
-        access_token = OtherInformationOfUsers.objects.filter(user = self.user)[0].access_token
+        access_token = SteemConnectUser.objects.filter(user = self.user)[0].access_token
         return Sc2(token = access_token,data = op).run
 
     def ready_tags(self):

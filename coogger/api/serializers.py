@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 # models
 from cooggerapp.models import Content,OtherInformationOfUsers
-from django_steemconnect.models import Steemconnect_model
+from django_steemconnect.models import SteemConnectUser
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 class SuperUserSerializer(serializers.ModelSerializer): # permission
 
     class Meta:
-        model = Steemconnect_model
+        model = SteemConnectUser
         fields = (
             'username',
             "access_token",

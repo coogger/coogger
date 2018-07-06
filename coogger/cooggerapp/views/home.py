@@ -59,7 +59,7 @@ class Upvote(View):
             return HttpResponse(json.dumps({"upvote":False,"error":str(e)}))
 
     def get_access_token(self, request):
-        access_token = OtherInformationOfUsers.objects.filter(user = request.user)[0].access_token
+        access_token = SteemConnectUser.objects.filter(user = request.user)[0].access_token
         return str(access_token)
 
     @staticmethod

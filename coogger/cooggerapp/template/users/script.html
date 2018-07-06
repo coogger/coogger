@@ -39,9 +39,10 @@
       write_in_html("reputation",steem.formatter.reputation(user.reputation));
       write_in_html("about",profile.about);
       write_in_html("location",profile.location);
-      steem.api.getFollowCount("{{ request.user }}", function(err, followcount) {
+      steem.api.getFollowCount("{{ content_user }}", function(err, followcount) {
         write_in_html("follower_count",followcount.follower_count);
         write_in_html("following_count",followcount.following_count);
+        {% if request.user.is_authenticated %} // if user is not authenticated, it should not check follow or following
         steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
           for (var i = 0; i < followers.length; i++) {
             if ("{{ request.user }}" == followers[i].follower){
@@ -50,6 +51,7 @@
             }
           }
         });
+        {% endif %}
       });
       $(".cover_image").css({"background-image":"url('"+profile.cover_image+"')"});
     });
