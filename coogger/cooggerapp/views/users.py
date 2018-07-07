@@ -19,7 +19,7 @@ from cooggerapp.models import OtherInformationOfUsers,Content
 from cooggerapp.forms import AboutForm
 
 #views
-from cooggerapp.views.tools import get_facebook,users_web,paginator
+from cooggerapp.views.tools import get_facebook,users_web,paginator,get_community_model
 
 # easysteem
 from easysteem.easysteem import EasyFollow
@@ -43,7 +43,8 @@ class UserClassBased(TemplateView): # TODO: users who are not signed in can not 
 
     def get_context_data(self, username, **kwargs):
         user = User.objects.filter(username = username)[0]
-        queryset = self.ctof(user = user,status = "approved")
+        community_model = get_community_model(self.request)
+        queryset = self.ctof(community = community_model,user = user,status = "approved")
         info_of_cards = paginator(self.request,queryset)
         context = super(UserClassBased, self).get_context_data(**kwargs)
         nav_category = []
@@ -56,6 +57,7 @@ class UserClassBased(TemplateView): # TODO: users who are not signed in can not 
         context["user_follow"] = users_web(user)
         context["nav_category"] = nav_category
         context["head"] = self.html_head(username,user)
+        context["community"] = community_model
         return context
 
     def html_head(self, username,user):
@@ -75,8 +77,8 @@ class UserTopic(UserClassBased):
     def get_context_data(self, utopic, username, **kwargs):
         context = super(UserTopic, self).get_context_data(username,**kwargs)
         user = context["content_user"]
-        user_queryset = self.ctof(user = user)
-        queryset = user_queryset.filter(topic = utopic,status = "approved")
+        community_model = get_community_model(self.request)
+        queryset = self.ctof(community = community_model,user = user,topic = utopic,status = "approved")
         info_of_cards = paginator(self.request,queryset)
         html_head = dict(
          title = self.title.format(username+" - "+utopic),
@@ -88,6 +90,7 @@ class UserTopic(UserClassBased):
         context["head"] = html_head
         context["nameoftopic"] = utopic
         context["content"] = info_of_cards
+        context["community"] = community_model
         return context
 
 

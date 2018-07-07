@@ -16,10 +16,10 @@ from django.utils.decorators import method_decorator
 from cooggerapp.forms import ReportsForm
 
 #models
-from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers
+from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers,Community
 
 #views
-from cooggerapp.views.tools import paginator
+from cooggerapp.views.tools import paginator,get_community_model
 
 import json
 # sc2py.
@@ -36,11 +36,13 @@ from easysteem.easysteem import EasyFollow
 
 class Home(TemplateView):
     template_name = "card/blogs.html"
-    queryset = Content.objects.filter(status = "approved")
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request,self.queryset)
+        community_model = get_community_model(self.request)
+        context["community"] = community_model
+        queryset = Content.objects.filter(community = community_model,status = "approved")
+        context["content"] = paginator(self.request,queryset)
         return context
 
 class Upvote(View):
@@ -84,12 +86,14 @@ class Feed(View):
         ef = EasyFollow(username = request.user.username)
         for which_user in ef.following():
             oof.append(which_user)
-        for q in Content.objects.filter(status = "approved"):
+        community_model = get_community_model(request)
+        for q in Content.objects.filter(community = community_model,status = "approved"):
             if q.user.username in oof:
                 queryset.append(q)
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,
+        community = community_model,
         )
         if queryset == []:
             ms.error(request,"You do not follow anyone yet on coogger.")
@@ -99,11 +103,13 @@ class Review(View):
     template_name = "card/blogs.html"
 
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
-        q = Q(status = "shared") | Q(status = "changed")
+        community_model = get_community_model(request)
+        q = Q(status = "shared") | Q(status = "changed") | Q(community = community_model)
         queryset = Content.objects.filter(q)
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,
+        community = community_model,
         )
         return render(request, self.template_name, context)
 
@@ -113,6 +119,7 @@ class Search(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
         context["content"] = paginator(self.request,self.get_queryset())
+        context["community"] = self.community_model
         return context
 
     def get_form_data(self,name = "query"):
@@ -122,7 +129,8 @@ class Search(TemplateView):
 
     def search_algorithm(self):
         searched_data = self.get_form_data()
-        q = Q(title__contains = searched_data) | Q(topic__contains = searched_data) | Q(content__contains = searched_data)
+        self.community_model = get_community_model(self.request)
+        q = Q(community = self.community_model) | Q(title__contains = searched_data) | Q(topic__contains = searched_data) | Q(content__contains = searched_data)
         queryset = Content.objects.filter(q,status = "approved").order_by("-views")
         return queryset
 

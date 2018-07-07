@@ -17,7 +17,6 @@ from steem.post import Post
 # sc2py.
 from sc2py.sc2py import Sc2
 from sc2py.operations import Operations
-from sc2py.operations import Comment_options
 from sc2py.operations import Comment
 from sc2py.operations import Follow
 from sc2py.operations import Unfollow
@@ -26,9 +25,13 @@ from sc2py.operations import Unfollow
 from bs4 import BeautifulSoup
 import mistune
 
-
 from djmd.models import EditorMdField
 from django_steemconnect.models import SteemConnectUser
+
+class Community(models.Model):
+    name = models.CharField(max_length = 20)
+    icon_address = models.CharField(max_length = 400)
+    ms = models.CharField(max_length = 500)
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -43,15 +46,15 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     def username(self):
         return self.user.username
 
-
 class Content(models.Model):
+    community = models.ForeignKey(Community ,on_delete=models.CASCADE)
     user = models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
     title = models.CharField(max_length=100, verbose_name = "Title", help_text = "Be sure to choose the best title related to your content.")
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your tags using spaces,the first tag is your topic max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
-    category = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(category_choices()) ,help_text = "select content category")
-    language = models.CharField(max_length=30,choices = make_choices(lang_choices()) ,help_text = "The language of your content")
+    left_side = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(eval("coogger_community_right()")) ,help_text = "select content category")
+    right_side = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(eval("coogger_community_left()")) ,help_text = "The language of your content")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30,verbose_name ="content topic",help_text = "Please, write your topic about your contents.")
 
@@ -115,7 +118,8 @@ class Content(models.Model):
         self.definition = self.prepare_definition(self.content)
         super(Content, self).save(*args, **kwargs)
 
-    def content_save(self, *args, **kwargs): # for me
+    def content_save(self, request): # for me
+        self.community = self.get_community_model(request)
         self.tag = self.ready_tags()
         self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)
@@ -141,6 +145,7 @@ class Content(models.Model):
         return steem_save
 
     def content_update(self,queryset,content):
+        self.community = queryset[0].community
         self.user = queryset[0].user
         self.title = content.title
         self.tag = self.ready_tags()
@@ -153,8 +158,8 @@ class Content(models.Model):
             topic = self.topic,
             title = self.title,
             content = self.content,
-            category = content.category,
-            language = content.language,
+            right_side = content.right_side,
+            left_side = content.left_side,
             tag = self.tag,
             status = "changed",
             dor = self.dor,
@@ -165,19 +170,16 @@ class Content(models.Model):
     def sc2_post(self,permlink,json_metadata):
         def_name = json_metadata
         if json_metadata == "save":
-            ms = """\n\n----------
-            \nPosted on [coogger.com](http://www.coogger.com/{}) - The first platform to reward information sharing
-            \n----------""".format(self.get_absolute_url())
-            self.content += ms
+            self.content += self.community.ms.format(self.get_absolute_url())
         json_metadata = {
             "format":"markdown",
             "tags":self.ready_tags().split(),
             "app":"coogger/1.3.9",
-            "community":"coogger",
-            "content":{"topic":self.topic,"category":self.category,"language":self.language,"dor":self.dor},
+            "community":self.community.name,
+            "content":{"topic":self.topic,"right_side":self.right_side,"left_side":self.left_side,"dor":self.dor},
         }
         comment = Comment(
-        parent_permlink = "coogger",
+        parent_permlink = self.community.name,
         author = str(self.user.username),
         permlink = permlink,
         title = self.title,
@@ -187,12 +189,9 @@ class Content(models.Model):
         if def_name == "save":
             beneficiaries_weight = OtherInformationOfUsers.objects.filter(user = self.user)[0].beneficiaries
             if int(beneficiaries_weight) != 0:
-                comment_options = Comment_options(
-                author = str(self.user.username),
-                permlink = permlink,
-                beneficiaries = {"account":"coogger","weight":int(beneficiaries_weight) * 100}
-                )
-                jsons = comment.json+comment_options.json
+                beneficiaries = [{"account":"hakancelik","weight":int(beneficiaries_weight)*100}]
+                comment_options = comment.comment_options(beneficiaries = beneficiaries)
+                jsons = comment_options
             else:
                 jsons = comment.json
         else:
@@ -215,13 +214,16 @@ class Content(models.Model):
                     tags += slugify(i.lower())+" "
             return tags
         get_tag = self.tag.split(" ")[:4]
-        if get_tag[0] != "coogger":
-            get_tag.insert(0,"coogger")
+        if get_tag[0] != self.community.name:
+            get_tag.insert(0,self.community.name)
         return clearly_tags(get_tag)
 
     def new_permlink(self):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
+
+    def get_community_model(request):
+        return Community.objects.filter(name = request.META["HTTP_HOST"])[0]
 
 
 class UserFollow(models.Model):

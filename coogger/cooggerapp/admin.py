@@ -17,7 +17,7 @@ class ContentAdmin(ModelAdmin):
     list_display_links = list_
     list_filter = ["status","time","cooggerup"]
     search_fields = ["topic","title"]
-    fields = ("user","title","content","tag",("category","language","topic"),("status"))
+    fields = ("user","title","content","tag",("right_side","left_side","topic"),("status"))
 
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()

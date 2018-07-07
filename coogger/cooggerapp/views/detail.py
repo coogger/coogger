@@ -9,7 +9,7 @@ from django.views.generic.base import TemplateView
 from cooggerapp.models import Content,Contentviews
 
 # cooggerapp views
-from cooggerapp.views.tools import html_head
+from cooggerapp.views.tools import html_head,get_community_model
 
 from cooggerapp.forms import ContentForm
 
@@ -32,7 +32,8 @@ class Detail(TemplateView):
         return context
 
     def contents_of_user(self):
-        return self.ctof(user = self.user)
+        community_model = get_community_model(self.request)
+        return self.ctof(user = self.user,community = community_model)
 
     def permlinks_of_user(self):
         return self.contents_of_user().filter(permlink = self.path)

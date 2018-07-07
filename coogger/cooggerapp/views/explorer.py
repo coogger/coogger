@@ -15,16 +15,16 @@ from django.views.generic.base import TemplateView
 from cooggerapp.models import Content
 
 #views
-from cooggerapp.views.tools import paginator
+from cooggerapp.views.tools import paginator,get_community_model
 
 class Hashtag(TemplateView):
     template_name = "card/blogs.html"
-    ctof = Content.objects.filter
     info = "Hashtag"
 
     def get_context_data(self, hashtag, **kwargs):
         if hashtag != "":
-            queryset = self.ctof(tag__contains = hashtag,status = "approved")
+            community_model = get_community_model(self.request)
+            queryset = Content.objects.filter(community = community_model,tag__contains = hashtag,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Hashtag, self).get_context_data(**kwargs)
             html_head = dict(
@@ -35,16 +35,17 @@ class Hashtag(TemplateView):
             context["content"] = info_of_cards
             context["nameofhashtag"] = hashtag
             context["head"] = html_head
+            context["community"] = community_model
             return context
 
 class Userlist(TemplateView):
     template_name = "card/blogs.html"
     info = "List"
-    ctof = Content.objects.filter
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
-            queryset = self.ctof(topic__contains = list_,status = "approved")
+            community_model = get_community_model(self.request)
+            queryset = Content.objects.filter(community = community_model,topic__contains = list_,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Userlist, self).get_context_data(**kwargs)
             html_head = dict(
@@ -55,16 +56,17 @@ class Userlist(TemplateView):
             context["content"] = info_of_cards
             context["nameofhashtag"] = list_
             context["head"] = html_head
+            context["community"] = community_model
             return context
 
 class Language(TemplateView): # TODO:  do language check,  is it necessary ?
     template_name = "card/blogs.html"
     info = "Language"
-    ctof = Content.objects.filter
 
     def get_context_data(self, lang, **kwargs):
         if lang != "":
-            queryset = self.ctof(language = lang,status = "approved")
+            community_model = get_community_model(self.request)
+            queryset = Content.objects.filter(community = community_model,language = lang,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Language, self).get_context_data(**kwargs)
             html_head = dict(
@@ -75,6 +77,7 @@ class Language(TemplateView): # TODO:  do language check,  is it necessary ?
             context["content"] = info_of_cards
             context["language"] = lang
             context["head"] = html_head
+            context["community"] = community_model
             return context
 
 class Category(TemplateView): # TODO:  do Category check,  is it necessary ?
@@ -84,7 +87,8 @@ class Category(TemplateView): # TODO:  do Category check,  is it necessary ?
 
     def get_context_data(self, cat, **kwargs):
         if cat != "":
-            queryset = self.ctof(category = cat,status = "approved")
+            community_model = get_community_model(self.request)
+            queryset = self.ctof(community = community_model,category = cat,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Category, self).get_context_data(**kwargs)
             html_head = dict(
@@ -95,6 +99,7 @@ class Category(TemplateView): # TODO:  do Category check,  is it necessary ?
             context["content"] = info_of_cards
             context["category"] = cat
             context["head"] = html_head
+            context["community"] = community_model
             return context
 
 class Filter(TemplateView):
@@ -104,6 +109,9 @@ class Filter(TemplateView):
 
     def get_context_data(self, **kwargs):
         for key,value in self.request.GET.items():
+            if key == "community":
+                community = Community.objects.filter(name = value)[0]
+                self.queryset = self.queryset.filter(community = community)
             if key == "topic":
                 self.queryset = self.queryset.filter(topic = value)
             if key == "category":
@@ -130,9 +138,10 @@ class Filter(TemplateView):
         context["content"] = info_of_cards
         context["filter"] = True
         context["head"] = html_head
+        context["community"] = community_model
         return context
 
-# 
+#
 # defaults = {'first_name': 'Bob'}
 # try:
 #     obj = Person.objects.get(first_name='John', last_name='Lennon')

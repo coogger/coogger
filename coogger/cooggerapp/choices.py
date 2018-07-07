@@ -1,3 +1,32 @@
+def coogger_community_right():
+    return [
+    "science",
+    "tutorial",
+    "idea",
+    "project",
+    "computer",
+    "language",
+    "art",
+    "technology",
+    "biography",
+    "books",
+    "business",
+    "media",
+    "travel",
+    "health",
+    "music",
+    "food",
+    "history",
+    "finance",
+    "exchange",
+    "design-graphic",
+    "development",
+    "question-answer",
+    "translation",
+    "discussion",
+    ]
+
+
 def follow():
     return (
         "facebook",
@@ -8,7 +37,7 @@ def follow():
         "web site",
     )
 
-def lang_choices():
+def coogger_community_left():
     return (
         "turkish",
         "english",
@@ -50,33 +79,6 @@ def cantapproved_choices():
     "Intentional miss-categorized content or Spam.",
     ]
 
-def category_choices():
-    return [
-    "science",
-    "tutorial",
-    "idea",
-    "project",
-    "computer",
-    "language",
-    "art",
-    "technology",
-    "biography",
-    "books",
-    "business",
-    "media",
-    "travel",
-    "health",
-    "music",
-    "food",
-    "history",
-    "finance",
-    "exchange",
-    "design-graphic",
-    "development",
-    "question-answer",
-    "translation",
-    "discussion",
-    ]
 
 def status_choices():
     return [

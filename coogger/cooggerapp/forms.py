@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 class ContentForm(ModelForm):
     class Meta:
         model = Content
-        fields = ["title","content","tag","language","category"]
+        fields = ["title","content","tag","left_side","right_side"]
 
 class UserFollowForm(ModelForm):
     class Meta:

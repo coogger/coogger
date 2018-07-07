@@ -1,4 +1,4 @@
-from cooggerapp.choices import lang_choices,category_choices
+from cooggerapp.choices import *
 
 from django import template
 register = template.Library()
@@ -15,8 +15,8 @@ def json(value, arg):
 
 @register.filter(name="languages")
 def languages(value):
-    return lang_choices()
+    return eval("coogger_community_left()")
 
 @register.filter(name="category")
 def category(value):
-    return category_choices()
+    return eval("coogger_community_right()")

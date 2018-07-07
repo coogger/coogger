@@ -16,6 +16,9 @@ from cooggerapp.models import Content
 #form
 from cooggerapp.forms import ContentForm
 
+# view
+from cooggerapp.views.tools import get_community_model
+
 #steem
 from steem.post import Post
 
@@ -25,7 +28,8 @@ class Create(View):
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {"form":ContentForm()})
+        community_model = get_community_model(request)
+        return render(request, self.template_name, {"form":ContentForm(),"community":community_model})
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -33,7 +37,7 @@ class Create(View):
         if form.is_valid():
             form = form.save(commit = False)
             form.user = request.user
-            save = form.content_save() # save with sc2py and get ms
+            save = form.content_save(request) # save with sc2py and get ms
             if save.status_code != 200: # if any error show the error
                 ms.error(request,save.text)
                 return self.create_error(request)
@@ -52,9 +56,11 @@ class Change(View):
     @method_decorator(login_required)
     def get(self, request, content_id, *args, **kwargs):
         self.content_update(request,content_id)
-        queryset = Content.objects.filter(user = request.user,id = content_id)[0]
+        community_model = get_community_model(request)
+        queryset = Content.objects.filter(community = community_model,user = request.user,id = content_id)[0]
         content_form = ContentForm(instance=queryset)
         context = dict(
+            community = community_model,
             content_id = content_id,
             form = content_form,
         )
@@ -66,7 +72,7 @@ class Change(View):
         if form.is_valid():
             form = form.save(commit=False)
             queryset = Content.objects.filter(user = request.user,id = content_id)
-            save = form.content_update(queryset,form) # save with sc2py and get ms
+            save = form.content_update(request,queryset,form) # save with sc2py and get ms
             if save.status_code != 200:
                 ms.error(request,save.text)
                 return self.create_error(request)
