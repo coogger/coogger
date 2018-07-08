@@ -33,26 +33,27 @@ class Create(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         community_model = get_community_model(request)
-        form = ContentForm(community_model)
+        form = ContentForm(community_model = community_model)
         return render(request, self.template_name, {"form":form,"community":community_model})
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = ContentForm(request.POST)
+        community_model = get_community_model(request)
+        form = ContentForm(data = request.POST,community_model = community_model)
         if form.is_valid():
             form = form.save(commit = False)
             form.user = request.user
             save = form.content_save(request) # save with sc2py and get ms
             if save.status_code != 200: # if any error show the error
                 ms.error(request,save.text)
-                return self.create_error(request)
+                return self.create_error(request,form,community_model)
             return HttpResponseRedirect("/"+form.get_absolute_url())
         else:
-            return self.create_error(request)
+            return self.create_error(request,form,community_model)
 
-    def create_error(self,request):
+    def create_error(self,request,form,community_model):
         ms.error(request, "unexpected error, check your content please or contact us on discord; <a gnrl='c-primary' href=''></a>")
-        return render(request, self.template_name, {"form":ContentForm(request.POST)})
+        return render(request, self.template_name, {"form":form,"community":community_model})
 
 
 class Change(View):
@@ -63,7 +64,7 @@ class Change(View):
         self.content_update(request,content_id)
         community_model = get_community_model(request)
         queryset = Content.objects.filter(community = community_model,user = request.user,id = content_id)[0]
-        content_form = ContentForm(instance=queryset)
+        content_form = ContentForm(instance=queryset,community_model = community_model)
         context = dict(
             community = community_model,
             content_id = content_id,
@@ -73,14 +74,15 @@ class Change(View):
 
     @method_decorator(login_required)
     def post(self, request, content_id, *args, **kwargs):
-        form = ContentForm(request.POST)
+        community_model = get_community_model(request)
+        form = ContentForm(data = request.POST,community_model = community_model)
         if form.is_valid():
             form = form.save(commit=False)
             queryset = Content.objects.filter(user = request.user,id = content_id)
             save = form.content_update(request,queryset,form) # save with sc2py and get ms
             if save.status_code != 200:
                 ms.error(request,save.text)
-                return self.create_error(request)
+                return self.create_error(request,form)
             return HttpResponseRedirect("/"+queryset[0].get_absolute_url())
 
     @staticmethod
@@ -89,6 +91,6 @@ class Change(View):
         steem = Post(post = ct[0].get_absolute_url())
         ct.update(content = steem.body,title = steem.title)
 
-    def create_error(self,request):
+    def create_error(self,request,form):
         ms.error(request, "unexpected error, check your content please or contact us on discord; <a gnrl='c-primary' href='https://discord.gg/q2rRY8Q'>https://discord.gg/q2rRY8Q</a>")
-        return render(request, self.template_name, {"form":ContentForm(request.POST)})
+        return render(request, self.template_name, {"form":form})

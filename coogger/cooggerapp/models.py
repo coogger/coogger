@@ -58,8 +58,8 @@ class Content(models.Model):
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your tags using spaces,the first tag is your topic max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
-    left_side = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(eval("coogger_right()")) ,help_text = "select content category")
-    right_side = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(eval("coogger_left()")) ,help_text = "The language of your content")
+    left_side = models.CharField(max_length=30,choices = make_choices(coogger_left()) ,help_text = "select content category")
+    right_side = models.CharField(max_length=30,choices = make_choices(coogger_right()+steemkitchen_right()) ,help_text = "The language of your content")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30,verbose_name ="content topic",help_text = "Please, write your topic about your contents.")
     status = models.CharField(default = "shared",max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")

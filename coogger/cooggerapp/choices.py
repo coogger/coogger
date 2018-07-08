@@ -1,3 +1,16 @@
+def steemkitchen_right():
+    return [
+    "dish",
+    "cuisine",
+    "main-ingredient",
+    "main",
+    "breakfast",
+    "lunch",
+    "dinner",
+    "dessert",
+    "snacks",
+    ]
+
 def coogger_right():
     return [
     "science",
@@ -44,19 +57,6 @@ def coogger_left():
         "arabic",
         "azerbaijani",
     )
-
-def steemkitchen_right():
-    return [
-    "dish",
-    "cuisine",
-    "main ingredient",
-    "main",
-    "breakfast",
-    "lunch",
-    "dinner",
-    "dessert",
-    "snacks",
-    ]
 
 def steemkitchen_left():
     return coogger_left()

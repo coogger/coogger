@@ -65,14 +65,14 @@ class LeftSide(TemplateView): # TODO:  do language check,  is it necessary ?
             community_model = get_community_model(self.request)
             queryset = Content.objects.filter(community = community_model,left_side = left,status = "approved")
             info_of_cards = paginator(self.request,queryset)
-            context = super(Language, self).get_context_data(**kwargs)
+            context = super(LeftSide, self).get_context_data(**kwargs)
             html_head = dict(
              title = left,
              keywords = left,
              description = left,
             )
             context["content"] = info_of_cards
-            context["language"] = lang
+            context["language"] = left
             context["head"] = html_head
             context["community"] = community_model
             return context
@@ -86,7 +86,7 @@ class RightSide(TemplateView):
             community_model = get_community_model(self.request)
             queryset = self.ctof(community = community_model,right_side = right,status = "approved")
             info_of_cards = paginator(self.request,queryset)
-            context = super(Category, self).get_context_data(**kwargs)
+            context = super(RightSide, self).get_context_data(**kwargs)
             html_head = dict(
              title = right,
              keywords = right,
@@ -105,7 +105,7 @@ class Filter(TemplateView):
     def get_context_data(self, **kwargs):
         for key,value in self.request.GET.items():
             if key == "community":
-                community = Community.objects.filter(name = value)[0]
+                community_model = Community.objects.filter(name = value)[0]
                 self.queryset = self.queryset.filter(community = community)
             if key == "topic":
                 self.queryset = self.queryset.filter(topic = value)
@@ -132,7 +132,7 @@ class Filter(TemplateView):
         context["content"] = info_of_cards
         context["filter"] = True
         context["head"] = html_head
-        context["community"] = community_model
+        context["community"] = get_community_model(self.request)
         return context
 
 #

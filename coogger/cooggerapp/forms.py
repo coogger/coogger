@@ -10,18 +10,18 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class ContentForm(forms.ModelForm,forms.Form):
+class ContentForm(forms.ModelForm):
 
-    def __init__(self,community_model, *args, **kwargs):
+    def __init__(self,community_model = None,*args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
-        left_side = forms.ChoiceField(choices = make_choices(eval(str(community_model.name)+"_left()")))
-        right_side = forms.ChoiceField(choices = make_choices(eval(str(community_model.name)+"_right()")))
-        self.fields["left_side"] = left_side
-        self.fields["right_side"] = right_side
+        if community_model is not None:
+            self.fields["left_side"].choices = make_choices(eval(str(community_model.name)+"_left()"))
+            self.fields["right_side"].choices = make_choices(eval(str(community_model.name)+"_right()"))
 
     class Meta:
         model = Content
         fields = ["title","content","tag","left_side","right_side"]
+
 
 class UserFollowForm(forms.ModelForm):
     class Meta:
