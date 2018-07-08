@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from cooggerapp.models import UserFollow,Community,Content
 
 def get_community_model(request):
-    return Community.objects.filter(name = request.META["HTTP_HOST"])[0]
+    return Community.objects.filter(host_name = request.META["HTTP_HOST"])[0]
 
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"

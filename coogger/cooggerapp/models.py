@@ -30,13 +30,18 @@ from django_steemconnect.models import SteemConnectUser
 
 class Community(models.Model):
     name = models.CharField(max_length = 20)
+    host_name = models.CharField(max_length = 30)
+    redirect_url = models.CharField(max_length = 400)
+    client_id = models.CharField(max_length = 200)
+    app_secret = models.CharField(max_length = 400)
+    login_redirect = models.CharField(max_length = 50)
+    scope = models.CharField(default = "vote,comment_options,comment,offline",max_length = 200)
     icon_address = models.CharField(max_length = 400)
     ms = models.CharField(max_length = 500)
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = EditorMdField()
-    hmanycontent = models.IntegerField(default = 0)
     cooggerup_confirmation = models.BooleanField(default = False, verbose_name = "Do you want to join in curation trails of the cooggerup bot with your account?")
     cooggerup_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,-1,-1)]),default = 0)
     vote_percent = models.CharField(max_length = 3,choices = make_choices([i for i in range(100,0,-1)]),default = 100)

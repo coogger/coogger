@@ -1,4 +1,5 @@
 from cooggerapp.choices import *
+from cooggerapp.models import Community,Content
 
 from django import template
 register = template.Library()
@@ -20,3 +21,9 @@ def languages(value):
 @register.filter(name="category")
 def category(value):
     return eval("coogger_community_right()")
+
+@register.filter(name="hmanycontent")
+def hmanycontent(value, arg):
+    community_model = Community.objects.filter(host_name = arg)[0]
+    hmanycontent = len(Content.objects.filter(community = community_model,user = value))
+    return hmanycontent

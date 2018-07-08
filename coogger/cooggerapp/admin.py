@@ -10,6 +10,13 @@ from cooggerapp.models import *
 # python
 import datetime
 
+class CommunityAdmin(ModelAdmin):
+    list_ = ["name","host_name","redirect_url","client_id","app_secret","login_redirect","scope","icon_address","ms"]
+    list_display = list_
+    list_display_links = list_
+    list_filter = list_
+    search_fields = list_
+    fields = list_
 
 class ContentAdmin(ModelAdmin):
     list_ = ["user","topic","permlink","mod","cooggerup","status","time"]
@@ -47,12 +54,14 @@ class ContentviewsAdmin(ModelAdmin):
     search_fields = list_
 
 class OtherInfoUsersAdmin(ModelAdmin):
-    list_ = ["user","hmanycontent","cooggerup_confirmation","cooggerup_percent"]
+    list_ = ["user","cooggerup_confirmation","cooggerup_percent"]
     list_display = list_
     list_display_links = list_
     search_fields = list_
     list_filter = ["cooggerup_confirmation"]
 
+
+site.register(Community,CommunityAdmin)
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(UserFollow,UserFollowAdmin)
