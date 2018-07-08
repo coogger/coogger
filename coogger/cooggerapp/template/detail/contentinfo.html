@@ -1,12 +1,12 @@
 <div flx style="margin: 12px 12px;">
   <div flx="ai-c" gnrl="br-2 b bg-secondary c-white txt-s left" hvr-a="bg-primary" class="content_list">
-    <a href="{% url 'language' detail.language %}" style="color: white;">
-     {{ detail.language }}
+    <a href="{% url 'language' detail.left_side %}" style="color: white;">
+     {{ detail.left_side }}
     </a>
   </div>
   <div flx="ai-c" class="content_list" gnrl="br-2 b bg-secondary c-white txt-s right" hvr-a="bg-primary" class="content_list">
-    <a href="{% url 'category' detail.category %}" style="color: white;">
-     {{ detail.category }}
+    <a href="{% url 'category' detail.right_side %}" style="color: white;">
+     {{ detail.right_side }}
     </a>
   </div>
 </div>

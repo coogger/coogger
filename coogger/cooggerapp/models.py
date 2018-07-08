@@ -123,7 +123,7 @@ class Content(models.Model):
         self.definition = self.prepare_definition(self.content)
         super(Content, self).save(*args, **kwargs)
 
-    def content_save(self, request): # for me
+    def content_save(self, request,*args, **kwargs): # for me
         self.community = self.get_community_model(request)
         self.tag = self.ready_tags()
         self.topic = self.tag.split()[1]
@@ -227,8 +227,8 @@ class Content(models.Model):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
 
-    def get_community_model(request):
-        return Community.objects.filter(name = request.META["HTTP_HOST"])[0]
+    def get_community_model(self,request):
+        return Community.objects.filter(host_name = request.META["HTTP_HOST"])[0]
 
 
 class UserFollow(models.Model):

@@ -29,11 +29,12 @@ class Detail(TemplateView):
         context["urloftopic"] = queryset.permlink
         context["nameoflist"] = queryset.topic
         context["detail"] = queryset
+        context["community"] = self.community_model
         return context
 
     def contents_of_user(self):
-        community_model = get_community_model(self.request)
-        return self.ctof(user = self.user,community = community_model)
+        self.community_model = get_community_model(self.request)
+        return self.ctof(user = self.user,community = self.community_model)
 
     def permlinks_of_user(self):
         return self.contents_of_user().filter(permlink = self.path)

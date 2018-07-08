@@ -29,9 +29,6 @@ class ContentAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()
         obj.mod = request.user
-        oiouof = OtherInformationOfUsers.objects.filter(user = request.POST["user"])
-        content_count = Content.objects.filter(user = obj.user,status = "approved").count()
-        oiouof.update(hmanycontent = content_count)
         super(ContentAdmin, self).save_model(request, obj, form, change)
 
 class UserFollowAdmin(ModelAdmin):
