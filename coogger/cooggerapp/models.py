@@ -58,18 +58,16 @@ class Content(models.Model):
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your tags using spaces,the first tag is your topic max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
-    left_side = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(eval("coogger_community_right()")) ,help_text = "select content category")
-    right_side = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(eval("coogger_community_left()")) ,help_text = "The language of your content")
+    left_side = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(eval("coogger_right()")) ,help_text = "select content category")
+    right_side = models.CharField(blank = True,null = True,max_length=30,choices = make_choices(eval("coogger_left()")) ,help_text = "The language of your content")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30,verbose_name ="content topic",help_text = "Please, write your topic about your contents.")
-
     status = models.CharField(default = "shared",max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
     time = models.DateTimeField(default = timezone.now, verbose_name="date") # tarih bilgisi
     dor = models.CharField(default = 0, max_length=10)
     views = models.IntegerField(default = 0, verbose_name = "views")
     read = models.IntegerField(default = 0, verbose_name = "pageviews")
     lastmod = models.DateTimeField(default = timezone.now, verbose_name="last modified date")
-
     mod = models.ForeignKey("auth.user",on_delete=models.CASCADE,blank = True,null = True, related_name="moderator") # inceleyen mod bilgisi
     cooggerup = models.BooleanField(default = False,verbose_name = "was voting done")
 
@@ -80,6 +78,10 @@ class Content(models.Model):
     @property
     def modusername(self):
         return self.mod.username
+
+    @property
+    def community_name(self):
+        return self.community.name
 
     class Meta:
         ordering = ['-time']
@@ -180,7 +182,7 @@ class Content(models.Model):
             "format":"markdown",
             "tags":self.ready_tags().split(),
             "app":"coogger/1.3.9",
-            "community":self.community.name,
+            "community":"coogger/"+self.community.name,
             "content":{"topic":self.topic,"right_side":self.right_side,"left_side":self.left_side,"dor":self.dor},
         }
         comment = Comment(

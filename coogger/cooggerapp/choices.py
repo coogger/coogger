@@ -1,4 +1,4 @@
-def coogger_community_right():
+def coogger_right():
     return [
     "science",
     "tutorial",
@@ -26,18 +26,7 @@ def coogger_community_right():
     "discussion",
     ]
 
-
-def follow():
-    return (
-        "facebook",
-        "instagram",
-        "youtube",
-        "github",
-        "linkedin",
-        "web site",
-    )
-
-def coogger_community_left():
+def coogger_left():
     return (
         "turkish",
         "english",
@@ -54,6 +43,32 @@ def coogger_community_left():
         "vietnamese ",
         "arabic",
         "azerbaijani",
+    )
+
+def steemkitchen_right():
+    return [
+    "dish",
+    "cuisine",
+    "main ingredient",
+    "main",
+    "breakfast",
+    "lunch",
+    "dinner",
+    "dessert",
+    "snacks",
+    ]
+
+def steemkitchen_left():
+    return coogger_left()
+
+def follow():
+    return (
+        "facebook",
+        "instagram",
+        "youtube",
+        "github",
+        "linkedin",
+        "web site",
     )
 
 def reports():

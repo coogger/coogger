@@ -14,13 +14,15 @@ def percent(value, arg):
 def json(value, arg):
     return value[arg]
 
-@register.filter(name="languages")
-def languages(value):
-    return eval("coogger_community_left()")
+@register.filter(name="right_side")
+def right_side(value, arg):
+    community_model = Community.objects.filter(host_name = arg)[0]
+    return eval(str(community_model.name)+"_right()")
 
-@register.filter(name="category")
-def category(value):
-    return eval("coogger_community_right()")
+@register.filter(name="left_side")
+def left_side(value, arg):
+    community_model = Community.objects.filter(host_name = arg)[0]
+    return eval(str(community_model.name)+"_left()")
 
 @register.filter(name="hmanycontent")
 def hmanycontent(value, arg):

@@ -19,7 +19,6 @@ from cooggerapp.views.tools import paginator,get_community_model
 
 class Hashtag(TemplateView):
     template_name = "card/blogs.html"
-    info = "Hashtag"
 
     def get_context_data(self, hashtag, **kwargs):
         if hashtag != "":
@@ -28,9 +27,9 @@ class Hashtag(TemplateView):
             info_of_cards = paginator(self.request,queryset)
             context = super(Hashtag, self).get_context_data(**kwargs)
             html_head = dict(
-             title = hashtag+" | coogger",
+             title = hashtag,
              keywords = hashtag,
-             description = hashtag +" {} altında ki bütün coogger bilgileri".format(self.info),
+             description = hashtag,
             )
             context["content"] = info_of_cards
             context["nameofhashtag"] = hashtag
@@ -40,7 +39,6 @@ class Hashtag(TemplateView):
 
 class Userlist(TemplateView):
     template_name = "card/blogs.html"
-    info = "List"
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
@@ -49,9 +47,9 @@ class Userlist(TemplateView):
             info_of_cards = paginator(self.request,queryset)
             context = super(Userlist, self).get_context_data(**kwargs)
             html_head = dict(
-             title = list_+" | coogger",
+             title = list_,
              keywords = list_,
-             description = list_ +" {} altında ki bütün coogger bilgileri".format(self.info),
+             description = list_,
             )
             context["content"] = info_of_cards
             context["nameofhashtag"] = list_
@@ -59,20 +57,19 @@ class Userlist(TemplateView):
             context["community"] = community_model
             return context
 
-class Language(TemplateView): # TODO:  do language check,  is it necessary ?
+class LeftSide(TemplateView): # TODO:  do language check,  is it necessary ?
     template_name = "card/blogs.html"
-    info = "Language"
 
-    def get_context_data(self, lang, **kwargs):
-        if lang != "":
+    def get_context_data(self, left, **kwargs):
+        if left != "":
             community_model = get_community_model(self.request)
-            queryset = Content.objects.filter(community = community_model,language = lang,status = "approved")
+            queryset = Content.objects.filter(community = community_model,left_side = left,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Language, self).get_context_data(**kwargs)
             html_head = dict(
-             title = lang+" | coogger",
-             keywords = lang,
-             description = lang +" {} altında ki bütün coogger bilgileri".format(self.info),
+             title = left,
+             keywords = left,
+             description = left,
             )
             context["content"] = info_of_cards
             context["language"] = lang
@@ -80,31 +77,29 @@ class Language(TemplateView): # TODO:  do language check,  is it necessary ?
             context["community"] = community_model
             return context
 
-class Category(TemplateView): # TODO:  do Category check,  is it necessary ?
+class RightSide(TemplateView):
     template_name = "card/blogs.html"
-    info = "Category"
     ctof = Content.objects.filter
 
-    def get_context_data(self, cat, **kwargs):
-        if cat != "":
+    def get_context_data(self, right, **kwargs):
+        if right != "":
             community_model = get_community_model(self.request)
-            queryset = self.ctof(community = community_model,category = cat,status = "approved")
+            queryset = self.ctof(community = community_model,right_side = right,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Category, self).get_context_data(**kwargs)
             html_head = dict(
-             title = cat+" | coogger",
-             keywords = cat,
-             description = cat +" {} altında ki bütün coogger bilgileri".format(self.info),
+             title = right,
+             keywords = right,
+             description = right,
             )
             context["content"] = info_of_cards
-            context["category"] = cat
+            context["category"] = right
             context["head"] = html_head
             context["community"] = community_model
             return context
 
 class Filter(TemplateView):
     template_name = "card/blogs.html"
-    info = "Filter"
     queryset = Content.objects
 
     def get_context_data(self, **kwargs):
@@ -114,17 +109,16 @@ class Filter(TemplateView):
                 self.queryset = self.queryset.filter(community = community)
             if key == "topic":
                 self.queryset = self.queryset.filter(topic = value)
-            if key == "category":
-                self.queryset = self.queryset.filter(category = value)
+            if key == "right_side":
+                self.queryset = self.queryset.filter(right_side = value)
             if key == "username":
                 user = User.objects.filter(username = value)[0]
-                print(user)
                 self.queryset = self.queryset.filter(user = user)
             if key == "mod":
                 user = User.objects.filter(username = value)[0]
                 self.queryset = self.queryset.filter(mod = user)
-            if key == "language":
-                self.queryset = self.queryset.filter(language = value)
+            if key == "left_side":
+                self.queryset = self.queryset.filter(left_side = value)
             if key == "permlink":
                 self.queryset = self.queryset.filter(permlink = value)
             if key == "status":
@@ -132,8 +126,8 @@ class Filter(TemplateView):
         info_of_cards = paginator(self.request,self.queryset)
         context = super(Filter, self).get_context_data(**kwargs)
         html_head = dict(
-         title = "filter | coogger",
-         description = " {} altında ki bütün coogger bilgileri".format(self.info),
+         title = "filter",
+         description = "",
         )
         context["content"] = info_of_cards
         context["filter"] = True

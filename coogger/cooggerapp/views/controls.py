@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 #models
+from django.db import models
 from cooggerapp.models import Content
 
 #form
@@ -18,6 +19,9 @@ from cooggerapp.forms import ContentForm
 
 # view
 from cooggerapp.views.tools import get_community_model
+
+#choices
+from cooggerapp.choices import *
 
 #steem
 from steem.post import Post
@@ -29,7 +33,8 @@ class Create(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         community_model = get_community_model(request)
-        return render(request, self.template_name, {"form":ContentForm(),"community":community_model})
+        form = ContentForm(community_model)
+        return render(request, self.template_name, {"form":form,"community":community_model})
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -46,7 +51,7 @@ class Create(View):
             return self.create_error(request)
 
     def create_error(self,request):
-        ms.error(request, "unexpected error, check your content please or contact us on discord; <a gnrl='c-primary' href='https://discord.gg/q2rRY8Q'>https://discord.gg/q2rRY8Q</a>")
+        ms.error(request, "unexpected error, check your content please or contact us on discord; <a gnrl='c-primary' href=''></a>")
         return render(request, self.template_name, {"form":ContentForm(request.POST)})
 
 

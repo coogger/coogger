@@ -19,12 +19,12 @@ class CommunityAdmin(ModelAdmin):
     fields = list_
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","topic","permlink","mod","cooggerup","status","time"]
+    list_ = ["community_name","user","topic","permlink","mod","cooggerup","status","time"]
     list_display = list_
     list_display_links = list_
     list_filter = ["status","time","cooggerup"]
     search_fields = ["topic","title"]
-    fields = ("user","title","content","tag",("right_side","left_side","topic"),("status"))
+    fields = (("user","title"),"content","tag",("right_side","left_side","topic"),("status"))
 
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()

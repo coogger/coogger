@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from api.serializers import UserSerializer, ContentsSerializer,SuperUserSerializer
 
 # models
-from cooggerapp.models import Content,OtherInformationOfUsers
+from cooggerapp.models import Content,OtherInformationOfUsers,Community
 from django_steemconnect.models import SteemConnectUser
 from django.contrib.auth.models import User
 
@@ -27,6 +27,9 @@ class ContentsViewSet(ModelViewSet):
     serializer_class = ContentsSerializer
 
     def get_queryset(self):
+        if "community_name" in self.request.GET:
+            community_name = Community.objects.filter(name = self.request.GET["username"])[0]
+            self.queryset = self.queryset.filter(community = community_name,user = get_user)
         if "username" in self.request.GET:
             get_user = User.objects.filter(username = self.request.GET["username"])[0]
             self.queryset = self.queryset.filter(user = get_user)

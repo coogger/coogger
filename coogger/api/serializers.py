@@ -11,7 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             'username',
             "about",
-            "hmanycontent",
             "cooggerup_confirmation",
             "cooggerup_percent",
             "vote_percent",
@@ -33,13 +32,14 @@ class ContentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
         fields = (
+            "community_name",
             'username',
             'title',
             'permlink',
             'content',
             "tag",
-            "category",
-            "language",
+            "right_side",
+            "left_side",
             "definition",
             "topic",
             "status",
