@@ -9,7 +9,6 @@ from cooggerapp.models import Content,UserFollow,OtherInformationOfUsers,ReportM
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class ContentForm(forms.ModelForm):
 
     def __init__(self,community_model = None,*args, **kwargs):

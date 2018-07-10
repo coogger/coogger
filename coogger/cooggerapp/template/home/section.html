@@ -1,24 +1,22 @@
 {% load coogger_tags %}
 <section gnrl="center">
-  <div flx="fd-c" gnrl="right b-1 brc-muted br-2" class="sectionclosedmobile" style="height: max-content;padding: 10px;">
-
-      {% for i in "lang"|left_side:request.META.HTTP_HOST %}
-      <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary" style="padding: 2px 12px;margin: 2px 0px;">
-        <a href="{% url 'left_side' i %}" gnrl="c-dark" hvr="c-white">
-          {{ i }}
-        </a>
-      </div>
-      {%  endfor %}
-
+  <div flx="fd-c ac-c ai-fs" gnrl="right b-1 brc-muted br-2" class="sectionclosedmobile" style="height: max-content;padding: 10px;">
+    <span gnrl="center txt-l c-secondary">Categories </span>
+    {% for link,name in "lang"|right_side:request.META.HTTP_HOST %}
+    <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary">
+      <a href="{% url 'right_side' link %}"  gnrl="c-dark" hvr="c-white" style="padding: 4px 12px;">{{ name }}</a>
+    </div>
+    {% endfor %}
   </div>
+
   {% include 'card/blog-cards.html' %}
-  <div flx="fd-c" gnrl="left b-1 brc-muted br-2" class="sectionclosedmobile" style="height: max-content;padding: 10px;">
 
-      {% for i in "cat"|right_side:request.META.HTTP_HOST %}
-      <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary" style="padding: 2px 12px;margin: 2px 0px;">
-        <a href="{% url 'right_side' i %}"  gnrl="c-dark" hvr="c-white">{{ i }}</a>
-      </div>
-      {%  endfor %}
-
+  <div flx="fd-c ac-c ai-fs" gnrl="left b-1 brc-muted br-2" class="sectionclosedmobile" style="height: max-content;padding: 10px;">
+    <span gnrl="center txt-l c-secondary">Languages </span>
+    {% for link,name in "cat"|left_side:request.META.HTTP_HOST %}
+    <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary">
+      <a href="{% url 'right_side' link %}"  gnrl="c-dark" hvr="c-white" style="padding: 4px 12px;">{{ name }}</a>
+    </div>
+    {% endfor %}
   </div>
 </section>

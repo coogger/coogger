@@ -15,7 +15,6 @@
       });
       event.preventDefault();
     });
-
     function write_in_html(id,variable) {
       document.getElementById(id).innerHTML = variable;
     }
@@ -32,8 +31,6 @@
       });
       var profile = JSON.parse(user.json_metadata).profile;
       document.getElementById("profile_image").setAttribute("src",profile.profile_image);
-      write_in_html("steem_power",user.voting_power/100);
-      $("#steem_power_bar").css({"width":user.voting_power/100+"%"});
       write_in_html("sbd_balance",user.sbd_balance.replace(" SBD",""));
       write_in_html("steem_balance",user.balance.replace(" STEEM",""));
       write_in_html("reputation",steem.formatter.reputation(user.reputation));

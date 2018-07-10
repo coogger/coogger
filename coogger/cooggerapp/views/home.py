@@ -104,8 +104,8 @@ class Review(View):
 
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         community_model = get_community_model(request)
-        q = Q(status = "shared") | Q(status = "changed") | Q(community = community_model)
-        queryset = Content.objects.filter(q)
+        q = Q(status = "shared") | Q(status = "changed")
+        queryset = Content.objects.filter(q).filter(community = community_model)
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,

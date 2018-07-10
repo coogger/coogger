@@ -26,8 +26,9 @@
   </div>
   {% else%}
   <div style="padding:  3px 12px;" flx="ai-c">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-white" href="/@{{ request.user }}">
-      <img id="header_pi" src="" gnrl="br-circle" style="max-width: 100%;max-height: 36px;"></img>
+    <a style="padding: 6px;" flx="ai-c" gnrl="wmax txt-m c-secondary" href="/@{{ request.user }}">
+      <img id="profile_image" src="" gnrl="br-circle c-muted" style="max-width: 100%;max-height: 36px;">
+        <span id="steem_power"></span>%</img>
     </a>
     <i gnrl="c-dark" hvr="c-warning" style="cursor:pointer;" class="fa fa-arrow-down"></i>
     <div class="open_header_menu" gnrl="bg-white br-2 brc-muted b-1" style="position:  absolute;top: 55px;display: none;z-index: 1;">
@@ -64,3 +65,4 @@
   </div>
   {% endif %}
 </header>
+<div gnrl="bg-success c-white br-2"  flx="jc-c" style="height: 4px;" id="steem_power_bar"></div>

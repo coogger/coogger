@@ -9,6 +9,14 @@ header{
     }
   }
 }
+
+.categories_a{
+  padding: 6px 6px;
+  width:  150px;
+  overflow: hidden;
+   white-space: nowrap;
+  text-overflow: ellipsis;
+}
 section{
   position: relative;
   top: 16px;

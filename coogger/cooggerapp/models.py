@@ -39,6 +39,19 @@ class Community(models.Model):
     icon_address = models.CharField(max_length = 400)
     ms = models.CharField(max_length = 500)
 
+class Mods(models.Model):
+    community = models.ForeignKey(Community ,on_delete=models.CASCADE)
+    user =  models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
+
+    @property
+    def community_name(self):
+        return self.community.name
+
+    @property
+    def username(self):
+        return self.user.username
+
+
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = EditorMdField()

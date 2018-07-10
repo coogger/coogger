@@ -5,10 +5,23 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
 #models
-from cooggerapp.models import *
+from cooggerapp.models import Mods,Community,Content,Contentviews,UserFollow,SearchedWords,ReportModel,OtherInformationOfUsers
+
+# forms
+from cooggerapp.forms import ContentForm
+
+#choices
+from cooggerapp.choices import *
 
 # python
 import datetime
+
+class ModsAdmin(ModelAdmin):
+    list_ = ["community","user"]
+    list_display = ["community_name","user"]
+    list_display_links = ["community_name","user"]
+    list_filter = ["community"]
+    search_fields = list_
 
 class CommunityAdmin(ModelAdmin):
     list_ = ["name","host_name","redirect_url","client_id","app_secret","login_redirect","scope","icon_address","ms"]
@@ -16,15 +29,33 @@ class CommunityAdmin(ModelAdmin):
     list_display_links = list_
     list_filter = list_
     search_fields = list_
-    fields = list_
 
 class ContentAdmin(ModelAdmin):
     list_ = ["community_name","user","topic","permlink","mod","cooggerup","status","time"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["status","time","cooggerup"]
+    list_filter = ["community","status","time","cooggerup"]
     search_fields = ["topic","title"]
     fields = (("user","title"),"content","tag",("right_side","left_side","topic"),("status"))
+
+    class Media:
+        css = {
+        'coogger.css': ('css/styles/coogger.css',),
+        }
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.username in ["hakancelik"]:
+            return qs
+        community = Mods.objects.filter(user = request.user)[0].community
+        return qs.filter(community = community)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        community = Mods.objects.filter(user = request.user)[0].community
+        form.base_fields["right_side"].choices = make_choices(eval(str(community.name)+"_right()"))
+        form.base_fields["left_side"].choices = make_choices(eval(str(community.name)+"_left()"))
+        return form
 
     def save_model(self, request, obj, form, change):
         obj.lastmod = datetime.datetime.now()
@@ -58,6 +89,7 @@ class OtherInfoUsersAdmin(ModelAdmin):
     list_filter = ["cooggerup_confirmation"]
 
 
+site.register(Mods,ModsAdmin)
 site.register(Community,CommunityAdmin)
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)

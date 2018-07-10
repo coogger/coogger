@@ -1,14 +1,11 @@
 def steemkitchen_right():
     return [
-    "dish",
-    "cuisine",
-    "main-ingredient",
-    "main",
-    "breakfast",
-    "lunch",
-    "dinner",
-    "dessert",
-    "snacks",
+    "Recipe",
+    "Food-Blog",
+    "Steemkitchen Contest Entry",
+    "Steemit Iron Chef",
+    "Cook With Us",
+    "Food Photography",
     ]
 
 def coogger_right():
@@ -32,9 +29,9 @@ def coogger_right():
     "history",
     "finance",
     "exchange",
-    "design-graphic",
+    "design graphic",
     "development",
-    "question-answer",
+    "question answer",
     "translation",
     "discussion",
     ]
@@ -93,7 +90,6 @@ def cantapproved_choices():
     "Hate Speech or Internet Trolling.",
     "Intentional miss-categorized content or Spam.",
     ]
-
 
 def status_choices():
     return [
