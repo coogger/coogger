@@ -18,7 +18,7 @@
       steem.api.getAccounts([author], function(err, result) {  // account
         var user = result[0];
         var profile = JSON.parse(user.json_metadata).profile;
-        document.getElementById("profile_image").setAttribute("src",profile.profile_image);
+        document.getElementById("detail_profile_image").setAttribute("src",profile.profile_image);
       });
       var tags = JSON.parse(content.json_metadata).tags;
       var tags_template = "\
@@ -63,7 +63,7 @@
     });
     $(".follow").click(function(event){
       $.ajax({
-        url: "/web/following/",
+        url: "/following/",
         method: 'POST',
         dataType: 'json',
         data: {

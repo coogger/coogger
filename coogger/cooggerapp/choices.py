@@ -1,14 +1,14 @@
-def steemkitchen_right():
+def steemkitchen_categories():
     return [
     "Recipe",
-    "Food-Blog",
-    "Steemkitchen Contest Entry",
+    "Food Blog",
+    "Contest Entry",
     "Steemit Iron Chef",
     "Cook With Us",
     "Food Photography",
     ]
 
-def coogger_right():
+def coogger_categories():
     return [
     "science",
     "tutorial",
@@ -36,7 +36,7 @@ def coogger_right():
     "discussion",
     ]
 
-def coogger_left():
+def coogger_languages():
     return (
         "turkish",
         "english",
@@ -54,9 +54,6 @@ def coogger_left():
         "arabic",
         "azerbaijani",
     )
-
-def steemkitchen_left():
-    return coogger_left()
 
 def follow():
     return (

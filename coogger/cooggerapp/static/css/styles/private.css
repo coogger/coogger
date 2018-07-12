@@ -10,6 +10,10 @@ header{
   }
 }
 
+.definition-img{
+  max-width: 100%;
+  max-height: 400px;
+}
 .categories_a{
   padding: 6px 6px;
   width:  150px;
@@ -24,11 +28,6 @@ section{
 .upshow{
   cursor: pointer;
   margin: 0px 12px;
-}
-.upshow img{
-  max-width: 100%;
-  max-height: 400px;
-  border-radius: 4px;
 }
 .lasmod{
   position: absolute;

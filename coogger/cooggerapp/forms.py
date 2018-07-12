@@ -14,12 +14,12 @@ class ContentForm(forms.ModelForm):
     def __init__(self,community_model = None,*args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
         if community_model is not None:
-            self.fields["left_side"].choices = make_choices(eval(str(community_model.name)+"_left()"))
-            self.fields["right_side"].choices = make_choices(eval(str(community_model.name)+"_right()"))
+            self.fields["language"].choices = make_choices(coogger_languages())
+            self.fields["category"].choices = make_choices(eval(str(community_model.name)+"_categories()"))
 
     class Meta:
         model = Content
-        fields = ["title","content","tag","left_side","right_side"]
+        fields = ["title","content","tag","language","category"]
 
 
 class UserFollowForm(forms.ModelForm):

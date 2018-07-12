@@ -36,7 +36,7 @@ class ContentAdmin(ModelAdmin):
     list_display_links = list_
     list_filter = ["community","status","time","cooggerup"]
     search_fields = ["topic","title"]
-    fields = (("user","title"),"content","tag",("right_side","left_side","topic"),("status"))
+    fields = (("user","title"),"content","tag",("category","language","topic"),("status"))
 
     class Media:
         css = {
@@ -45,16 +45,14 @@ class ContentAdmin(ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        if request.user.username in ["hakancelik"]:
+        if request.user.is_superuser:
             return qs
         community = Mods.objects.filter(user = request.user)[0].community
         return qs.filter(community = community)
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        community = Mods.objects.filter(user = request.user)[0].community
-        form.base_fields["right_side"].choices = make_choices(eval(str(community.name)+"_right()"))
-        form.base_fields["left_side"].choices = make_choices(eval(str(community.name)+"_left()"))
+        form.base_fields["category"].choices = make_choices(eval(str(obj.community.name)+"_categories()"))
         return form
 
     def save_model(self, request, obj, form, change):

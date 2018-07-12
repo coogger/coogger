@@ -109,16 +109,31 @@ img {
       width: 98%; } }
 
 [default~="media2"] {
-  width: 22.33%; }
-  @media screen and (max-width: 900px) {
-    [default~="media2"] {
-      width: 40%; } }
-  @media screen and (max-width: 700px) {
-    [default~="media2"] {
-      width: 50%; } }
-  @media screen and (max-width: 500px) {
-    [default~="media2"] {
-      width: 98%; } }
+  width: 25%; }
+
+@media screen and (max-width: 1024px) {
+  [default~="media2"] {
+    width: 40%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+  [default~="media2"] {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  [default~="media2"] {
+    width: 80%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+  [default~="media2"] {
+    width: 98%;
+  }
+}
 
 [default~="paragraph"] {
   word-wrap: break-word; }
@@ -4072,7 +4087,7 @@ cards {
   position: relative;
   margin: 12px auto;
   z-index: 0;
-  min-width: 320px; }
+}
 
 card {
   margin: 3px 0px;

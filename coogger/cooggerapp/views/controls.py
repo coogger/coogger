@@ -79,7 +79,7 @@ class Change(View):
         if form.is_valid():
             form = form.save(commit=False)
             queryset = Content.objects.filter(user = request.user,id = content_id)
-            save = form.content_update(request,queryset,form) # save with sc2py and get ms
+            save = form.content_update(queryset,form) # save with sc2py and get ms
             if save.status_code != 200:
                 ms.error(request,save.text)
                 return self.create_error(request,form)

@@ -96,7 +96,7 @@ class Feed(View):
         community = community_model,
         )
         if queryset == []:
-            ms.error(request,"You do not follow anyone yet on coogger.")
+            ms.error(request,"You do not follow anyone yet on {}.".format(community_model.name))
         return render(request, self.template_name, context)
 
 class Review(View):
@@ -130,8 +130,8 @@ class Search(TemplateView):
     def search_algorithm(self):
         searched_data = self.get_form_data()
         self.community_model = get_community_model(self.request)
-        q = Q(community = self.community_model) | Q(title__contains = searched_data) | Q(topic__contains = searched_data) | Q(content__contains = searched_data)
-        queryset = Content.objects.filter(q,status = "approved").order_by("-views")
+        q = Q(title__contains = searched_data) | Q(topic__contains = searched_data) | Q(content__contains = searched_data)
+        queryset = Content.objects.filter(q,community = self.community_model,status = "approved").order_by("-views")
         return queryset
 
     def get_queryset(self):

@@ -28,7 +28,7 @@ import mistune
 from djmd.models import EditorMdField
 from django_steemconnect.models import SteemConnectUser
 
-class Community(models.Model):
+class Community(models.Model): # TODO: must be a new column to community management as user
     name = models.CharField(max_length = 20)
     host_name = models.CharField(max_length = 30)
     redirect_url = models.CharField(max_length = 400)
@@ -71,8 +71,8 @@ class Content(models.Model):
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name = "keyword",help_text = "Write your tags using spaces,the first tag is your topic max:4 .") # taglar konuyu ilgilendiren içeriği anlatan kısa isimler google aramalarında çıkması için
-    left_side = models.CharField(max_length=30,choices = make_choices(coogger_left()) ,help_text = "select content category")
-    right_side = models.CharField(max_length=30,choices = make_choices(coogger_right()+steemkitchen_right()) ,help_text = "The language of your content")
+    language = models.CharField(max_length=30,choices = make_choices(coogger_languages()) ,help_text = " The language of your content")
+    category = models.CharField(max_length=30,choices = make_choices(coogger_categories()+steemkitchen_categories()) ,help_text = "select content category")
     definition = models.CharField(max_length=400, verbose_name = "definition of content",help_text = "Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30,verbose_name ="content topic",help_text = "Please, write your topic about your contents.")
     status = models.CharField(default = "shared",max_length=30,choices = make_choices(status_choices()) ,verbose_name = "content's status")
@@ -99,29 +99,21 @@ class Content(models.Model):
     class Meta:
         ordering = ['-time']
 
-    def misdef(self):
-        renderer = mistune.Renderer(escape=False)
-        markdown = mistune.Markdown(renderer=renderer)
-        return markdown(self.definition)
-
     @staticmethod
     def prepare_definition(text): # TODO:  zaten alınan ilk 400 karakterde resim varsa ikinci bir resmi almaması gerek
         renderer = mistune.Renderer(escape=False)
         markdown = mistune.Markdown(renderer=renderer)
         beautifultext = BeautifulSoup(markdown(text),"html.parser")
-        try:# if the first 400 characters are in the image
-            src = beautifultext[0:400].find("img").get("src")
-            alt = beautifultext[0:400].find("img").get("alt")
-            image_markdown = "![{}]({})".format(alt,src)
-            return beautifultext.text[0:400-len(image_markdown)-4]+"..."
-        except: # if the first 400 characters are not in the image
-            try:
-                src = beautifultext.find("img").get("src")
-                alt = beautifultext.find("img").get("alt")
-                image_markdown = "![{}]({})".format(alt,src)
-                return beautifultext.text[0:400-len(image_markdown)-4]+"..."+image_markdown
-            except: # if there isn't image in content
-                return  beautifultext.text[0:400-4]+"..."
+        try:
+            img = beautifultext.find("img")
+        except:
+            return "<p>{}</p>".format(beautifultext.text[0:200]+"...")
+        src = img.get("src")
+        try:
+            alt = img.get("alt")
+        except:
+            alt = ""
+        return "<img class='definition-img' src='{}' alt='{}'></img><p>{}</p>".format(src,alt,beautifultext.text[0:200]+"...")
 
     def get_absolute_url(self): # TODO: make staticmethod
         return "@"+self.user.username+"/"+self.permlink
@@ -178,8 +170,8 @@ class Content(models.Model):
             topic = self.topic,
             title = self.title,
             content = self.content,
-            right_side = content.right_side,
-            left_side = content.left_side,
+            category = content.category,
+            language = content.language,
             tag = self.tag,
             status = "changed",
             dor = self.dor,
@@ -193,10 +185,10 @@ class Content(models.Model):
             self.content += self.community.ms.format(self.get_absolute_url())
         json_metadata = {
             "format":"markdown",
-            "tags":self.ready_tags().split(),
+            "tags":self.tag.split(),
             "app":"coogger/1.3.9",
             "community":"coogger/"+self.community.name,
-            "content":{"topic":self.topic,"right_side":self.right_side,"left_side":self.left_side,"dor":self.dor},
+            "content":{"topic":self.topic,"category":self.category,"language":self.language,"dor":self.dor},
         }
         comment = Comment(
         parent_permlink = self.community.name,
@@ -233,7 +225,7 @@ class Content(models.Model):
                 else:
                     tags += slugify(i.lower())+" "
             return tags
-        get_tag = self.tag.split(" ")[:4]
+        get_tag = self.tag.split(" ")[:5]
         if get_tag[0] != self.community.name:
             get_tag.insert(0,self.community.name)
         return clearly_tags(get_tag)

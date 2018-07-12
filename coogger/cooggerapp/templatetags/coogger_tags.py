@@ -15,15 +15,15 @@ def percent(value, arg):
 def json(value, arg):
     return value[arg]
 
-@register.filter(name="right_side")
-def right_side(value, arg):
+@register.filter(name="categories")
+def categories(value, arg):
     community_model = Community.objects.filter(host_name = arg)[0]
-    return make_choices(eval(str(community_model.name)+"_right()"))
+    return make_choices(eval(str(community_model.name)+"_categories()"))
 
-@register.filter(name="left_side")
-def left_side(value, arg):
+@register.filter(name="languages")
+def languages(value, arg):
     community_model = Community.objects.filter(host_name = arg)[0]
-    return make_choices(eval(str(community_model.name)+"_left()"))
+    return make_choices(eval(str(community_model.name)+"_languages()"))
 
 @register.filter(name="hmanycontent")
 def hmanycontent(value, arg):

@@ -32,23 +32,23 @@
       {% include 'detail/tags.html' %}
   </div>
 <!-- other contents of content -->
-  <nav class="just-pc" flx="fw-nw" gnrl="b-1 brc-muted">
+  <div class="just-pc" flx="fw-nw" gnrl="b-1 brc-muted">
     <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m">
       {% for list in nav_category %}
         {% if list.permlink == urloftopic %}
           <div gnrl="bg-dark b-1 brc-dark">
             <a flx gnrl="c-white txt-m" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
-             {{ list.title|title|truncatechars:50 }}</a>
+             {{ list.title|title|truncatechars:46 }}</a>
         </div>
        {% else%}
          <div hvr-a="bg-dark" gnrl="br-2" >
            <a flx gnrl="b-1 brc-muted c-dark txt-m" hvr="c-white brc-dark" href="/{{list.get_absolute_url}}" style="padding: 3px 6px;">
-           {{ list.title|title|truncatechars:50 }}</a>
+           {{ list.title|title|truncatechars:46 }}</a>
       </div>
       {% endif %}
        {% endfor %}
     </div>
-  </nav>
+  </div>
 <!--  -->
 </div>
 </div>

@@ -57,43 +57,43 @@ class Userlist(TemplateView):
             context["community"] = community_model
             return context
 
-class LeftSide(TemplateView): # TODO:  do language check,  is it necessary ?
+class Languages(TemplateView): # TODO:  do language check,  is it necessary ?
     template_name = "card/blogs.html"
 
-    def get_context_data(self, left, **kwargs):
-        if left != "":
+    def get_context_data(self, lang_name, **kwargs):
+        if lang_name != "":
             community_model = get_community_model(self.request)
-            queryset = Content.objects.filter(community = community_model,left_side = left,status = "approved")
+            queryset = Content.objects.filter(community = community_model,language = lang_name,status = "approved")
             info_of_cards = paginator(self.request,queryset)
-            context = super(LeftSide, self).get_context_data(**kwargs)
+            context = super(Languages, self).get_context_data(**kwargs)
             html_head = dict(
-             title = left,
-             keywords = left,
-             description = left,
+             title = lang_name,
+             keywords = lang_name,
+             description = lang_name,
             )
             context["content"] = info_of_cards
-            context["language"] = left
+            context["language"] = lang_name
             context["head"] = html_head
             context["community"] = community_model
             return context
 
-class RightSide(TemplateView):
+class Categories(TemplateView):
     template_name = "card/blogs.html"
     ctof = Content.objects.filter
 
-    def get_context_data(self, right, **kwargs):
-        if right != "":
+    def get_context_data(self, cat_name, **kwargs):
+        if cat_name != "":
             community_model = get_community_model(self.request)
-            queryset = self.ctof(community = community_model,right_side = right,status = "approved")
+            queryset = self.ctof(community = community_model,category = cat_name,status = "approved")
             info_of_cards = paginator(self.request,queryset)
-            context = super(RightSide, self).get_context_data(**kwargs)
+            context = super(Categories, self).get_context_data(**kwargs)
             html_head = dict(
-             title = right,
-             keywords = right,
-             description = right,
+             title = cat_name,
+             keywords = cat_name,
+             description = cat_name,
             )
             context["content"] = info_of_cards
-            context["category"] = right
+            context["category"] = cat_name
             context["head"] = html_head
             context["community"] = community_model
             return context
@@ -109,16 +109,16 @@ class Filter(TemplateView):
                 self.queryset = self.queryset.filter(community = community)
             if key == "topic":
                 self.queryset = self.queryset.filter(topic = value)
-            if key == "right_side":
-                self.queryset = self.queryset.filter(right_side = value)
+            if key == "category":
+                self.queryset = self.queryset.filter(category = value)
             if key == "username":
                 user = User.objects.filter(username = value)[0]
                 self.queryset = self.queryset.filter(user = user)
             if key == "mod":
                 user = User.objects.filter(username = value)[0]
                 self.queryset = self.queryset.filter(mod = user)
-            if key == "left_side":
-                self.queryset = self.queryset.filter(left_side = value)
+            if key == "language":
+                self.queryset = self.queryset.filter(language = value)
             if key == "permlink":
                 self.queryset = self.queryset.filter(permlink = value)
             if key == "status":
