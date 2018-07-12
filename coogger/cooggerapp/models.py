@@ -101,12 +101,11 @@ class Content(models.Model):
 
     @staticmethod
     def prepare_definition(text): # TODO:  zaten alınan ilk 400 karakterde resim varsa ikinci bir resmi almaması gerek
-        renderer = mistune.Renderer(escape=False)
+        renderer = mistune.Renderer(escape=False,parse_block_html=True)
         markdown = mistune.Markdown(renderer=renderer)
         beautifultext = BeautifulSoup(markdown(text),"html.parser")
-        try:
-            img = beautifultext.find("img")
-        except:
+        img = beautifultext.find("img")
+        if img is None:
             return "<p>{}</p>".format(beautifultext.text[0:200]+"...")
         src = img.get("src")
         try:

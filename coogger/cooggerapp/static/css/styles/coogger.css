@@ -109,7 +109,7 @@ img {
       width: 98%; } }
 
 [default~="media2"] {
-  width: 25%; }
+  width: 22.33%; }
 
 @media screen and (max-width: 1024px) {
   [default~="media2"] {
@@ -4071,8 +4071,6 @@ title {
   user-select: none; }
 
 /* general operations */
-[gnrl~="center"], card img {
-  margin: auto; }
 
 [gnrl~="ewcenter"] {
   margin: auto; }

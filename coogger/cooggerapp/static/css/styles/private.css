@@ -9,10 +9,14 @@ header{
     }
   }
 }
-
+card{
+  width: 100%;
+}
 .definition-img{
   max-width: 100%;
   max-height: 400px;
+  margin: 4px auto;
+  border-radius: 4px;
 }
 .categories_a{
   padding: 6px 6px;
