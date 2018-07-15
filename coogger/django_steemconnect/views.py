@@ -32,13 +32,15 @@ class LoginSignup(View):
             SteemConnectUser.objects.filter(user = user).update(
                 code = code,
                 access_token = access_token,
-                refresh_token = refresh_token
+                refresh_token = refresh_token,
+                community_name = community_model.name,
                 )
         else:
             SteemConnectUser(
                 user = user,code = code,
                 access_token = access_token,
-                refresh_token = refresh_token
+                refresh_token = refresh_token,
+                community_name = community_model.name,
                 ).save()
         login(request,user)
         return HttpResponseRedirect(community_model.login_redirect)

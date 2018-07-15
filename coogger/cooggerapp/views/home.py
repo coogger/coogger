@@ -43,6 +43,38 @@ class Home(TemplateView):
         context["community"] = community_model
         queryset = Content.objects.filter(community = community_model,status = "approved")
         context["content"] = paginator(self.request,queryset)
+
+        # from coogger.user import User as coogger_user
+        # from steem.steem import Steem
+        # from steem.blog import Blog
+        # from cooggerapp.models import Community
+        # from django.utils.dateparse import parse_datetime
+        #
+        # mod = User.objects.filter(username = "hakancelik")[0]
+        # for user in coogger_user().user():
+        #     username = user["username"]
+        #     if username in ["steemkitchen","gilabola.mania","albertocotua","bahagia-arbi","mrchef111","dragraff","mrscwin","lizelle"]:
+        #         for blog in Blog(account_name = username):
+        #             if blog.is_main_post():
+        #                 print(blog.author,blog.permlink)
+        #                 if "steemkitchen" in blog.tags:
+        #                     community = Community.objects.filter(name = "steemkitchen")[0]
+        #                     user = User.objects.filter(username = blog.author)[0]
+        #                     title = blog.title
+        #                     permlink = blog.permlink
+        #                     content = blog.body
+        #                     tag = [ tag for tag in blog.tags]
+        #                     time = blog.created
+        #                     if not Content.objects.filter(user = user,permlink = permlink).exists():
+        #                         print(user,permlink,"saved")
+        #                         Content(community = community ,user = user,
+        #                         title = title,permlink = permlink,content = content,tag = tag,
+        #                         language = "english",category = "food-blog",
+        #                         topic = "before-steemkitchen.com",status = "approved",
+        #                         views = 0,read = 0,time = time,lastmod = time,
+        #                         mod = mod,
+        #                         cooggerup = True).save()
+
         return context
 
 class Upvote(View):

@@ -26,6 +26,7 @@ class SuperUserSerializer(serializers.ModelSerializer): # permission
             "access_token",
             "refresh_token",
             "code",
+            "community_name",
             )
 
 class ContentsSerializer(serializers.ModelSerializer):
@@ -49,4 +50,5 @@ class ContentsSerializer(serializers.ModelSerializer):
             "read",
             "lastmod",
             "modusername",
+            "cooggerup",
             )

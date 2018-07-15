@@ -13,7 +13,7 @@ from cooggerapp.views.tools import html_head,get_community_model
 
 from cooggerapp.forms import ContentForm
 
-class Detail(TemplateView):
+class Detail(TemplateView): # TODO: if content doesnt have on steem, it have to delete on coogger.
     template_name = "detail/main_detail.html"
     ctof = Content.objects.filter
 

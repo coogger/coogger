@@ -23,7 +23,7 @@ def categories(value, arg):
 @register.filter(name="languages")
 def languages(value, arg):
     community_model = Community.objects.filter(host_name = arg)[0]
-    return make_choices(eval(str(community_model.name)+"_languages()"))
+    return make_choices(coogger_languages())
 
 @register.filter(name="hmanycontent")
 def hmanycontent(value, arg):

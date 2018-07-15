@@ -127,6 +127,7 @@ class Content(models.Model):
 
     def save(self, *args, **kwargs): # for admin.py
         self.definition = self.prepare_definition(self.content)
+        # self.dor = self.durationofread(self.content+self.title) # TODO: burayı silmeyi unutma
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request,*args, **kwargs): # for me
@@ -199,11 +200,23 @@ class Content(models.Model):
         )
         if def_name == "save":
             beneficiaries_weight = OtherInformationOfUsers.objects.filter(user = self.user)[0].beneficiaries
-            if int(beneficiaries_weight) != 0:
-                beneficiaries = [{"account":"hakancelik","weight":int(beneficiaries_weight)*100}]
+            if int(beneficiaries_weight) >= 15:
+                ben_weight = int(beneficiaries_weight)*100 - 1000
+                if self.community.name == "coogger":
+                    beneficiaries = [{"account":"coogger.wallet","weight":ben_weight+500},{"account":"coogger.pay","weight":500}]
+                else:
+                    beneficiaries = [{"account":"coogger.wallet","weight":ben_weight},{"account":"coogger.pay","weight":500},{"account":self.community.name,"weight":500}]
                 comment_options = comment.comment_options(beneficiaries = beneficiaries)
                 jsons = comment_options
-            else:
+            elif int(beneficiaries_weight) < 15 and int(beneficiaries_weight) > 0:
+                ben_weight = int(int(beneficiaries_weight)*100/3)
+                if self.community.name == "coogger":
+                    beneficiaries = [{"account":"coogger.wallet","weight":2*ben_weight},{"account":"coogger.pay","weight":ben_weight}]
+                else:
+                    beneficiaries = [{"account":"coogger.wallet","weight":ben_weight},{"account":"coogger.pay","weight":ben_weight},{"account":self.community.name,"weight":ben_weight}]
+                comment_options = comment.comment_options(beneficiaries = beneficiaries)
+                jsons = comment_options
+            elif int(beneficiaries_weight) == 0:
                 jsons = comment.json
         else:
             jsons = comment.json
