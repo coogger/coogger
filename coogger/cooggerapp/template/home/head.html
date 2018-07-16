@@ -6,40 +6,53 @@
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
   <meta charset="utf-8">
-  <link rel="shortcut icon" href="/static/logos/png/48.png" type="image/x-icon" /> {% if head.title %}
-  <title>{{ head.title|truncatechars:55 }}</title>
-  <meta property="og:title" content="{{ head.title }}" />
-  <meta property="og:site_name" content="{{ head.title }}" />
-  <meta name="twitter:title" content="{{ head.title }}" />
-  <meta itemprop="name" content="{{ head.title }}" /> {% else %}
+  <link rel="shortcut icon" href="/static/logos/png/48.png" type="image/x-icon" />
+  
+  {% if community.name %}
+  <title>{{ community.name|truncatechars:55 }}</title>
+  <meta property="og:title" content="{{ community.name }}" />
+  <meta property="og:site_name" content="{{ community.name }}" />
+  <meta name="twitter:title" content="{{ community.name }}" />
+  <meta itemprop="name" content="{{ community.name }}" /> {% else %}
   <title>coogger</title>
   <meta property="og:title" content="coogger" />
   <meta property="og:site_name" content="coogger" />
   <meta name="twitter:title" content="coogger" />
-  <meta itemprop="name" content="coogger" /> {% endif %} {% if head.keywords %}
-  <meta name="keywords" content="{{ head.keywords }}" /> {% else %}
-  <meta name="keywords" content="coogger" /> {% endif %} {% if head.description %}
+  <meta itemprop="name" content="coogger" />
+  {% endif %}
+
+  {% if head.keywords %}
+  <meta name="keywords" content="{{ head.keywords }}" />
+  {% else %}
+  <meta name="keywords" content="coogger" />
+  {% endif %}
+
+  {% if head.description %}
   <meta name="description" content="{{head.description}}" />
   <meta name="twitter:description" content="{{head.description|truncatechars:150}}" />
   <meta property="og:description" content="{{head.description|truncatechars:150}}" />
-  <meta itemprop="description" content="{{head.description|truncatechars:150}}" /> {% else %}
-  <meta name="description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
-  <meta name="twitter:description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
-  <meta property="og:description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" />
-  <meta itemprop="description" content="coogger bilgi paylaşım platformuna hoşgeldin, bildiklerini paylaş sende ışık ol" /> {% endif %}
-  <meta property="og:locale" content="tr_TR" />
+  <meta itemprop="description" content="{{head.description|truncatechars:150}}" />
+  {% else %}
+  <meta name="description" content="A place where can become a web platform for any community and you can earn STEEM." />
+  <meta name="twitter:description" content="A place where can become a web platform for any community and you can earn STEEM." />
+  <meta property="og:description" content="A place where can become a web platform for any community and you can earn STEEM." />
+  <meta itemprop="description" content="A place where can become a web platform for any community and you can earn STEEM." />
+  {% endif %}
+
   <meta name="robots" content="index, follow" />
   <meta name="revisit-after" content="2" />
   <meta name="revisit-after" content="2 days" />
   <meta name="twitter:card" content="summary">
     <!-- <meta name="twitter:creator" content="hakancelik96" /> -->
   <meta property="og:type" content="website" />
+
   {% if head.author %}
   <meta name="author" content="https://{{ head.author }}" />
   <meta property="article:author" content="https://{{ head.author }}" />
   <meta property="article:publisher" content="https://{{ head.author }}" />
   {% endif %}
-  {% if content_user.otherinformationofusers.pp %}
+
+  <!-- {% if content_user.otherinformationofusers.pp %}
   <meta property="og:image" content="/media/users/pp/pp-{{ content_user }}.jpg" />
   <meta itemprop="image" content="/media/users/pp/pp-{{ content_user }}.jpg" />
   <meta name="twitter:image:src" content="/media/users/pp/pp-{{ content_user }}.jpg" />
@@ -47,7 +60,8 @@
   <meta property="og:image" content="/static/media/favicon.png" />
   <meta itemprop="image" content="/static/media/favicon.png" />
   <meta name="twitter:image:src" content="/static/media/favicon.png" />
-  {% endif %}
+  {% endif %} -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}" />
   <meta name="yandex-verification" content="d8be2feff15c1e50" />

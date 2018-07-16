@@ -1,7 +1,7 @@
 {% include 'detail/script.html' %}
 <div style="margin: 12px 0px;" animation="fadeIn">
   {% if detail.status == "shared" or detail.status == "changed" %}
-  <div gnrl="bg-warning c-white b-2 brc-warning br-2 center" flx="ai-c" default="media" style="height: 20vh;margin-bottom: 2px;">
+  <div class="review-mod" gnrl="bg-warning c-white b-2 brc-warning br-2 center" flx="ai-c" default="media">
    A moderator will review this content within 1 and 2 days, status : {{ detail.status }}
   </div>
   {% endif %}
