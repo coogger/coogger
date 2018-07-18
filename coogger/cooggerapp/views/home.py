@@ -19,7 +19,7 @@ from cooggerapp.forms import ReportsForm
 from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers,Community
 
 #views
-from cooggerapp.views.tools import paginator,get_community_model
+from cooggerapp.views.tools import paginator
 
 import json
 # sc2py.
@@ -39,38 +39,8 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        community_model = get_community_model(self.request)
-        context["community"] = community_model
-        queryset = Content.objects.filter(community = community_model,status = "approved")
+        queryset = Content.objects.filter(community = self.request.community_model,status = "approved")
         context["content"] = paginator(self.request,queryset)
-
-        # from coogger.user import User as coogger_user
-        # from steem.steem import Steem
-        # from steem.blog import Blog
-        # from cooggerapp.models import Community
-        # from django.utils.dateparse import parse_datetime
-        #
-        # mod = User.objects.filter(username = "hakancelik")[0]
-        # for username in ["greatwarrior79","ngocbich","princessmewmew"]:
-        #     for blog in Blog(account_name = username):
-        #         if blog.is_main_post():
-        #             if "steemkitchen" in blog.tags:
-        #                 community = Community.objects.filter(name = "steemkitchen")[0]
-        #                 user = User.objects.filter(username = blog.author)[0]
-        #                 title = blog.title
-        #                 permlink = blog.permlink
-        #                 content = blog.body
-        #                 tag = [ tag for tag in blog.tags]
-        #                 time = blog.created
-        #                 if not Content.objects.filter(user = user,permlink = permlink).exists():
-        #                     Content(community = community ,user = user,
-        #                     title = title,permlink = permlink,content = content,tag = tag,
-        #                     language = "english",category = "food-blog",
-        #                     topic = "before-steemkitchen.com",status = "approved",
-        #                     views = 0,read = 0,time = time,lastmod = time,
-        #                     mod = mod,
-        #                     cooggerup = True).save()
-
         return context
 
 class Upvote(View):
@@ -114,14 +84,13 @@ class Feed(View):
         ef = EasyFollow(username = request.user.username)
         for which_user in ef.following():
             oof.append(which_user)
-        community_model = get_community_model(request)
+        community_model = request.community_model
         for q in Content.objects.filter(community = community_model,status = "approved"):
             if q.user.username in oof:
                 queryset.append(q)
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,
-        community = community_model,
         )
         if queryset == []:
             ms.error(request,"You do not follow anyone yet on {}.".format(community_model.name))
@@ -131,13 +100,11 @@ class Review(View):
     template_name = "card/blogs.html"
 
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
-        community_model = get_community_model(request)
         q = Q(status = "shared") | Q(status = "changed")
-        queryset = Content.objects.filter(q).filter(community = community_model)
+        queryset = Content.objects.filter(q).filter(community = request.community_model)
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,
-        community = community_model,
         )
         return render(request, self.template_name, context)
 
@@ -147,7 +114,6 @@ class Search(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
         context["content"] = paginator(self.request,self.get_queryset())
-        context["community"] = self.community_model
         return context
 
     def get_form_data(self,name = "query"):
@@ -157,9 +123,8 @@ class Search(TemplateView):
 
     def search_algorithm(self):
         searched_data = self.get_form_data()
-        self.community_model = get_community_model(self.request)
         q = Q(title__contains = searched_data) | Q(topic__contains = searched_data) | Q(content__contains = searched_data)
-        queryset = Content.objects.filter(q,community = self.community_model,status = "approved").order_by("-views")
+        queryset = Content.objects.filter(q,community = self.request.community_model,status = "approved").order_by("-views")
         return queryset
 
     def get_queryset(self):

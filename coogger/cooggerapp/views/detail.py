@@ -9,7 +9,7 @@ from django.views.generic.base import TemplateView
 from cooggerapp.models import Content,Contentviews
 
 # cooggerapp views
-from cooggerapp.views.tools import html_head,get_community_model
+from cooggerapp.views.tools import html_head
 
 from cooggerapp.forms import ContentForm
 
@@ -29,12 +29,10 @@ class Detail(TemplateView): # TODO: if content doesnt have on steem, it have to 
         context["urloftopic"] = queryset.permlink
         context["nameoflist"] = queryset.topic
         context["detail"] = queryset
-        context["community"] = self.community_model
         return context
 
     def contents_of_user(self):
-        self.community_model = get_community_model(self.request)
-        return self.ctof(user = self.user,community = self.community_model)
+        return self.ctof(user = self.user,community = self.request.community_model)
 
     def permlinks_of_user(self):
         return self.contents_of_user().filter(permlink = self.path)

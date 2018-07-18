@@ -15,7 +15,7 @@ from django.views.generic.base import TemplateView
 from cooggerapp.models import UserFollow, OtherInformationOfUsers, Content
 
 #views
-from cooggerapp.views.tools import paginator,get_community_model
+from cooggerapp.views.tools import paginator
 
 #forms
 from cooggerapp.forms import CSettingsUserForm,UserFollowForm,CooggerupForm,VotepercentForm,BeneficiariesForm
@@ -29,9 +29,7 @@ class Settings(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         address = self.address(request)
-        community_model = get_community_model(request)
         context = dict(
-        community = community_model,
         address_form = address[1],
         address_instance = address[0],
         cooggerup_form = self.cooggerup(request),
@@ -108,4 +106,4 @@ class Settings(View):
             percent = request.POST["beneficiaries"]
             OtherInformationOfUsers.objects.filter(user = request.user).update(beneficiaries = int(percent))
             if percent != "0":
-                ms.error(request,"Thank you for supporting Coogger")
+                ms.error(request,"Thank you for supporting Coogger ecosystem")

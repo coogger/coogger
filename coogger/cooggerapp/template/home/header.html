@@ -1,8 +1,8 @@
 {% include 'home/script.html' %}
 <header flx="jc-c ai-c" gnrl="br-1 bg-white" style="min-height: 56px;border-bottom:  1px solid #f1f1f1;padding: 4px 0px;">
   <a flx="jc-c ai-c" href="/" gnrl="c-dark">
-    <img src="{{ community.icon_address }}" gnrl="br-circle" style="width:  48px;height:  48px;padding: 0px 6px;">
-    {{ community.name }} - <span gnrl="txt-xs">Beta</span></img>
+    <img src="{{ request.community_model.icon_address }}" gnrl="br-circle" style="width:  48px;height:  48px;padding: 0px 6px;">
+    {{ request.community_model.name }} - <span gnrl="txt-xs">Beta</span></img>
   </a>
   <div class="search" style="padding:  3px 12px;">
     <form action="{% url 'search' %}">

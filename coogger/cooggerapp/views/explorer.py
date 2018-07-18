@@ -1,3 +1,5 @@
+# TODO:  burayı bir güzelliştir
+
 #django
 from django.http import *
 from django.shortcuts import render
@@ -15,15 +17,14 @@ from django.views.generic.base import TemplateView
 from cooggerapp.models import Content
 
 #views
-from cooggerapp.views.tools import paginator,get_community_model
+from cooggerapp.views.tools import paginator
 
 class Hashtag(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, hashtag, **kwargs):
         if hashtag != "":
-            community_model = get_community_model(self.request)
-            queryset = Content.objects.filter(community = community_model,tag__contains = hashtag,status = "approved")
+            queryset = Content.objects.filter(community = self.request.community_model,tag__contains = hashtag,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Hashtag, self).get_context_data(**kwargs)
             html_head = dict(
@@ -34,7 +35,6 @@ class Hashtag(TemplateView):
             context["content"] = info_of_cards
             context["nameofhashtag"] = hashtag
             context["head"] = html_head
-            context["community"] = community_model
             return context
 
 class Userlist(TemplateView):
@@ -42,8 +42,7 @@ class Userlist(TemplateView):
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
-            community_model = get_community_model(self.request)
-            queryset = Content.objects.filter(community = community_model,topic__contains = list_,status = "approved")
+            queryset = Content.objects.filter(community = self.request.community_model,topic__contains = list_,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Userlist, self).get_context_data(**kwargs)
             html_head = dict(
@@ -54,7 +53,6 @@ class Userlist(TemplateView):
             context["content"] = info_of_cards
             context["nameofhashtag"] = list_
             context["head"] = html_head
-            context["community"] = community_model
             return context
 
 class Languages(TemplateView): # TODO:  do language check,  is it necessary ?
@@ -62,8 +60,7 @@ class Languages(TemplateView): # TODO:  do language check,  is it necessary ?
 
     def get_context_data(self, lang_name, **kwargs):
         if lang_name != "":
-            community_model = get_community_model(self.request)
-            queryset = Content.objects.filter(community = community_model,language = lang_name,status = "approved")
+            queryset = Content.objects.filter(community = self.request.community_model,language = lang_name,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Languages, self).get_context_data(**kwargs)
             html_head = dict(
@@ -74,7 +71,6 @@ class Languages(TemplateView): # TODO:  do language check,  is it necessary ?
             context["content"] = info_of_cards
             context["language"] = lang_name
             context["head"] = html_head
-            context["community"] = community_model
             return context
 
 class Categories(TemplateView):
@@ -83,8 +79,7 @@ class Categories(TemplateView):
 
     def get_context_data(self, cat_name, **kwargs):
         if cat_name != "":
-            community_model = get_community_model(self.request)
-            queryset = self.ctof(community = community_model,category = cat_name,status = "approved")
+            queryset = self.ctof(community = self.request.community_model,category = cat_name,status = "approved")
             info_of_cards = paginator(self.request,queryset)
             context = super(Categories, self).get_context_data(**kwargs)
             html_head = dict(
@@ -95,7 +90,6 @@ class Categories(TemplateView):
             context["content"] = info_of_cards
             context["category"] = cat_name
             context["head"] = html_head
-            context["community"] = community_model
             return context
 
 class Filter(TemplateView):
@@ -132,7 +126,6 @@ class Filter(TemplateView):
         context["content"] = info_of_cards
         context["filter"] = True
         context["head"] = html_head
-        context["community"] = get_community_model(self.request)
         return context
 
 #

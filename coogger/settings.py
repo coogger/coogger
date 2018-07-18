@@ -30,6 +30,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "cooggerapp.middleware.communities.CommunitiesMiddleware",
+    "cooggerapp.middleware.head.HeadMiddleware",
 ]
 ROOT_URLCONF = 'urls'
 TEMPLATES = [

@@ -8,7 +8,6 @@ from django.conf import settings
 
 # models
 from django_steemconnect.models import SteemConnectUser
-from cooggerapp.views.tools import get_community_model
 
 # python steemconnect-client
 from sc2py.client import Client
@@ -19,7 +18,7 @@ class LoginSignup(View):
 
     def get(self, request, *args, **kwargs):
         code = request.GET["code"]
-        community_model = get_community_model(request)
+        community_model = request.community_model
         tokens = get_client(request).get_refresh_token(code,community_model.app_secret)
         username = tokens["username"]
         access_token = tokens["access_token"]
@@ -47,7 +46,7 @@ class LoginSignup(View):
 
 
 def get_client(request):
-    community_model = get_community_model(request)
+    community_model = request.community_model
     return Client(client_id = community_model.client_id,
         redirect_url = community_model.redirect_url,
         code = True,

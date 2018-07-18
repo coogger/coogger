@@ -25,4 +25,4 @@ class Address(View):
             ubf = self.model.objects.filter(id = address_id)[0]
             if ubf.user == request.user:
                 ubf.delete()
-            return HttpResponse(json.dumps({"status":"ok","ms":"adres silindi"}))
+            return HttpResponse(json.dumps({"status":"ok","ms":"Deleted address"}))
