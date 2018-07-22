@@ -68,7 +68,10 @@ class Head(object):
             user = User.objects.filter(username = start_path.replace("@",""))[0]
             queryset = Content.objects.filter(user = user,permlink = last_path)[0]
             beautifultext = BeautifulSoup(queryset.definition,"html.parser")
-            image = beautifultext.find("img").get("src")
+            try:
+               image = beautifultext.find("img").get("src")
+            except:
+                image = ""
             description = beautifultext.text[0:200]
             setattr(self, "title", queryset.title)
             setattr(self, "keywords", queryset.tag)
@@ -85,7 +88,10 @@ class Head(object):
             renderer = mistune.Renderer(escape=False,parse_block_html=True)
             markdown = mistune.Markdown(renderer=renderer)
             beautifultext = BeautifulSoup(markdown(request.community_model.ms),"html.parser")
-            image = beautifultext.find("img").get("src")
+            try:
+               image = beautifultext.find("img").get("src")
+            except:
+                image = ""
             description = beautifultext.text[0:200]
             setattr(self, "title", "{} | coogger".format(community_name))
             setattr(self, "keywords", "coogger {}, coogger ecosystem,coogger/{}".format(community_name,community_name))
