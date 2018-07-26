@@ -14,7 +14,7 @@ python manage.py runserver
 ------------------
 ## About coogger project
 
-<center>![](https://steemitimages.com/256x512/https://i.imgur.com/VoxUZQb.png)</center>
+![](https://steemitimages.com/256x512/https://i.imgur.com/VoxUZQb.png)
 
 ## Who am I?
 I am an electrical engineering student, I learned software from the internet and I try to make new projects or products constantly to improve myself, I think I learned the software in a shorter time by do like that.
@@ -42,10 +42,10 @@ Communities which works with coogger are connected to the same server and databa
 If you have a community but you do not have a steem blockchain-based web platform, you can contact me, We can be a great ecosystem by combining all communities in one place.
 
 #### Coogger
-<center>![](https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmQ1Grrua2RVHY1tiRGXJcjq7yLMQzhbgq1B8QBGTRre7M/1.JPG)</center>
+![](https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmQ1Grrua2RVHY1tiRGXJcjq7yLMQzhbgq1B8QBGTRre7M/1.JPG)
 
 #### Steemkitchen
-<center>![](https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmTYpAgNLQz7gJbWAevjTxXeqhMgfchZyZ3KUjaLLaUBDB/2.JPG)</center>
+![](https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmTYpAgNLQz7gJbWAevjTxXeqhMgfchZyZ3KUjaLLaUBDB/2.JPG)
 
 ## Features
 ### Contents can be shared any communities on coogger.
@@ -69,7 +69,7 @@ some information is available on content cards, this information :
 - date of sharing,
 - upvoted button,
 
-<center>![kart.JPG](https://cdn.steemitimages.com/DQmdQEzEqVLaNd9W5g6G4feakJxi8VLB1nwj9fa8uH5nUZj/kart.JPG)</center>
+![kart.JPG](https://cdn.steemitimages.com/DQmdQEzEqVLaNd9W5g6G4feakJxi8VLB1nwj9fa8uH5nUZj/kart.JPG)
 
 ### The same topics can be listed in the same place and all can be seen on the same page.
 Ex: my sass topic address: http://www.coogger.com/sass/@hakancelik/
@@ -107,7 +107,7 @@ When shared any content any communities on coogger and if it gets approved from 
 sponsors must directly support coogger ( steem account and upvote bot) , it must support all shared content on coogger and 5% of incoming prise ( beneficiaries ) to coogger.pay account, distribute steem in this account to awarded to sponsors, 5% of community leaders and 5% of me ( so coogger ) total 15%.
 
 #### Settings
-<center>![1.JPG](https://cdn.steemitimages.com/DQmbboDDbekfFoxEbFPk8rgmhAMzrqYPgB8tAFJN4Ktge1G/1.JPG)</center>
+![1.JPG](https://cdn.steemitimages.com/DQmbboDDbekfFoxEbFPk8rgmhAMzrqYPgB8tAFJN4Ktge1G/1.JPG)
 
 --------
 
@@ -133,4 +133,4 @@ This project will continue until I die.
 
 #### let's examine the following template to better understanding.
 
-<center>![Untitled design.jpg](https://cdn.steemitimages.com/DQmafJ8B2vSAttSp9JybnrFvoEJRnPY4kZq98U8gnJ9fKCa/Untitled%20design.jpg)</center>
+![Untitled design.jpg](https://cdn.steemitimages.com/DQmafJ8B2vSAttSp9JybnrFvoEJRnPY4kZq98U8gnJ9fKCa/Untitled%20design.jpg)
