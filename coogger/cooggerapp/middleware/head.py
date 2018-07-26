@@ -99,7 +99,6 @@ class Head(object):
             # setattr(self, "face_author", "coogger {} category".format(last_path))
             setattr(self, "image", image)
 
-
 class HeadMiddleware(MiddlewareMixin):
 
     def process_request(self, request):

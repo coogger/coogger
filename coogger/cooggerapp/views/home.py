@@ -160,3 +160,13 @@ class Report(View):
             ms.error(request,"Your complaint has been received.")
             return HttpResponseRedirect("/")
         return HttpResponse(self.get(request, *args, **kwargs))
+
+
+class Communities(TemplateView):
+    template_name = "home/communities.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(Communities, self).get_context_data(**kwargs)
+        queryset = Community.objects.all()
+        context["communities"] = queryset
+        return context
