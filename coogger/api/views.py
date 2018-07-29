@@ -18,22 +18,34 @@ class UserViewSet(ModelViewSet):
         if self.request.user.is_superuser:
             self.serializer_class = SuperUserSerializer
             self.queryset = SteemConnectUser.objects.all()
-            username = self.request.GET.get("username",None)
-            if username is not None:
-                get_user = User.objects.filter(username = username)[0]
-                self.queryset = self.queryset.filter(user = get_user)
-
+            self.username = self.request.GET.get("username",None)
+            if self.username is not None:
+                self.get_user = User.objects.filter(username = self.username)[0]
+                self.queryset = self.queryset.filter(user = self.get_user)
             default = self.request.GET.get("default",None)
             if default is not None:
-                self.queryset = self.main_queryset
-                self.serializer_class = self.main_serializer_class
-                if username is not None:
-                    get_user = User.objects.filter(username = username)[0]
-                    self.queryset = self.main_queryset.filter(user = get_user)
-                cooggerup_confirmation = self.request.GET.get("cooggerup_confirmation",None)
-                if cooggerup_confirmation is not None:
-                    self.queryset = self.main_queryset.filter(cooggerup_confirmation = cooggerup_confirmation)
+                return self.default()
+            new_access_token = bool(self.request.GET.get("new_access_token",None))
+            if new_access_token == True:
+                return self.update_access_token()
         return self.queryset
+
+    def default(self):
+        self.queryset = self.main_queryset
+        self.serializer_class = self.main_serializer_class
+        if self.username is not None:
+            self.queryset = self.main_queryset.filter(user = self.get_user)
+        cooggerup_confirmation = self.request.GET.get("cooggerup_confirmation",None)
+        if cooggerup_confirmation is not None:
+            self.queryset = self.main_queryset.filter(cooggerup_confirmation = cooggerup_confirmation)
+            return self.queryset
+
+    def update_access_token(self):
+        access_token = self.request.GET.get("access_token")
+        # refresh_token = self.request.GET.get("refresh_token")
+        # code = self.request.GET.get("code")
+        SteemConnectUser.objects.filter(user = self.get_user).update(access_token=access_token) # ,refresh_token=refresh_token,code=code
+        return True
 
 class ContentsViewSet(ModelViewSet):
     queryset = Content.objects.all().order_by("-time")

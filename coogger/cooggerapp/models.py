@@ -221,8 +221,15 @@ class Content(models.Model):
         else:
             jsons = comment.json
         op = Operations(json = jsons).json
-        access_token = SteemConnectUser.objects.filter(user = self.user)[0].access_token
-        return Sc2(token = access_token,data = op).run
+        steem_connect_user = SteemConnectUser.objects.filter(user = self.user)
+        try:
+            access_token = steem_connect_user[0].access_token
+            return Sc2(token = access_token,data = op).run
+        except:
+            sc_community_name = steem_connect_user[0].community_name
+            secret = Community.objects.filter(name=sc_community_name)[0].app_secret
+            access_token = steem_connect_user.set_new_access_token(secret)
+            return Sc2(token = access_token,data = op).run
 
     def ready_tags(self):
         def clearly_tags(get_tag):
