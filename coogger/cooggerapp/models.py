@@ -109,7 +109,7 @@ class Content(models.Model):
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request,*args, **kwargs): # for me
-        self.community = self.request.community_model
+        self.community = request.community_model
         self.tag = self.ready_tags()
         self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)

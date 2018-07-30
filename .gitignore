@@ -1,5 +1,5 @@
 *.pyc
-db
+coogger_db
 *.scssc
 *.map
 settings.py

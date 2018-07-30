@@ -169,6 +169,6 @@ class FollowBaseClass(View): # TODO: in here do steemconnect js
         data = operations.Operations(json = unjson).json
         Sc2(token = self.get_token(request),data = data).run
 
-    def steem_following(username): # TODO: fixed this section,limit = 100 ?
+    def steem_following(self,username): # TODO: fixed this section,limit = 100 ?
         STEEM = Steem(nodes=['https://api.steemit.com'])
         return [i["following"] for i in STEEM.get_following(username, 'abit', 'blog',limit = 100)]

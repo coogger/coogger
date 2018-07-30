@@ -76,28 +76,24 @@ class Upvote(View):
         return payout
 
 
-class Feed(View):
+class Feed(View): # TODO:  sorunlu
     template_name = "card/blogs.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
-        oof = []
         queryset = []
-        for which_user in self.steem_following(username = request.user.username):
-            oof.append(which_user)
-        community_model = request.community_model
-        for q in Content.objects.filter(community = community_model,status = "approved"):
-            if q.user.username in oof:
+        for q in Content.objects.filter(community = request.community_model,status = "approved"):
+            if q.user.username in self.steem_following(username=request.user.username):
                 queryset.append(q)
         info_of_cards = paginator(request,queryset)
         context = dict(
         content = info_of_cards,
         )
         if queryset == []:
-            ms.error(request,"You do not follow anyone yet on {}.".format(community_model.name))
+            ms.error(request,"You do not follow anyone yet on {}.".format(request.community_model.name))
         return render(request, self.template_name, context)
 
-    def steem_following(username): # TODO: fixed this section,limit = 100 ?
+    def steem_following(self,username): # TODO: fixed this section,limit = 100 ?
         STEEM = Steem(nodes=['https://api.steemit.com'])
         return [i["following"] for i in STEEM.get_following(username, 'abit', 'blog',limit = 100)]
 
@@ -112,6 +108,7 @@ class Review(View):
         content = info_of_cards,
         )
         return render(request, self.template_name, context)
+
 
 class Search(TemplateView):
     template_name = "card/blogs.html"
@@ -135,6 +132,7 @@ class Search(TemplateView):
     def get_queryset(self):
         queryset = self.search_algorithm()
         return queryset
+
 
 class Report(View):
     form_class = ReportsForm

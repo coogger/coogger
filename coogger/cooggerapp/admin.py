@@ -6,6 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 
 #models
 from cooggerapp.models import Content,Contentviews,UserFollow,SearchedWords,ReportModel,OtherInformationOfUsers
+from django_steemconnect.models import Mods
 
 # forms
 from cooggerapp.forms import ContentForm

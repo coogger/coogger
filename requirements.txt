@@ -6,5 +6,4 @@ steem
 whitenoise
 sc2py
 mistune
-easysteem
 django-md-editor
