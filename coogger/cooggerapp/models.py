@@ -26,30 +26,7 @@ from bs4 import BeautifulSoup
 import mistune
 
 from djmd.models import EditorMdField
-from django_steemconnect.models import SteemConnectUser
-
-class Community(models.Model): # TODO: must be a new column to community management as user
-    name = models.CharField(max_length = 20)
-    host_name = models.CharField(max_length = 30)
-    redirect_url = models.CharField(max_length = 400)
-    client_id = models.CharField(max_length = 200)
-    app_secret = models.CharField(max_length = 400)
-    login_redirect = models.CharField(max_length = 50)
-    scope = models.CharField(default = "vote,comment_options,comment,offline",max_length = 200)
-    icon_address = models.CharField(max_length = 400)
-    ms = models.CharField(max_length = 500)
-
-class Mods(models.Model):
-    community = models.ForeignKey(Community ,on_delete=models.CASCADE)
-    user =  models.ForeignKey("auth.user" ,on_delete=models.CASCADE)
-
-    @property
-    def community_name(self):
-        return self.community.name
-
-    @property
-    def username(self):
-        return self.user.username
+from django_steemconnect.models import SteemConnectUser,Community
 
 
 class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgileri
@@ -63,6 +40,7 @@ class OtherInformationOfUsers(models.Model): # kullanıcıların diğer bilgiler
     @property
     def username(self):
         return self.user.username
+
 
 class Content(models.Model):
     community = models.ForeignKey(Community ,on_delete=models.CASCADE)
@@ -84,6 +62,10 @@ class Content(models.Model):
     mod = models.ForeignKey("auth.user",on_delete=models.CASCADE,blank = True,null = True, related_name="moderator") # inceleyen mod bilgisi
     cooggerup = models.BooleanField(default = False,verbose_name = "was voting done")
 
+
+    class Meta:
+        ordering = ['-time']
+
     @property
     def username(self):
         return self.user.username
@@ -95,9 +77,6 @@ class Content(models.Model):
     @property
     def community_name(self):
         return self.community.name
-
-    class Meta:
-        ordering = ['-time']
 
     @staticmethod
     def prepare_definition(text): # TODO:  zaten alınan ilk 400 karakterde resim varsa ikinci bir resmi almaması gerek
@@ -127,11 +106,10 @@ class Content(models.Model):
 
     def save(self, *args, **kwargs): # for admin.py
         self.definition = self.prepare_definition(self.content)
-        # self.dor = self.durationofread(self.content+self.title) # TODO: burayı silmeyi unutma
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request,*args, **kwargs): # for me
-        self.community = self.get_community_model(request)
+        self.community = self.request.community_model
         self.tag = self.ready_tags()
         self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)
@@ -252,9 +230,6 @@ class Content(models.Model):
     def new_permlink(self):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
-
-    def get_community_model(self,request):
-        return Community.objects.filter(host_name = request.META["HTTP_HOST"])[0]
 
 
 class UserFollow(models.Model):

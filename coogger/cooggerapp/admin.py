@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
 #models
-from cooggerapp.models import Mods,Community,Content,Contentviews,UserFollow,SearchedWords,ReportModel,OtherInformationOfUsers
+from cooggerapp.models import Content,Contentviews,UserFollow,SearchedWords,ReportModel,OtherInformationOfUsers
 
 # forms
 from cooggerapp.forms import ContentForm
@@ -16,12 +16,6 @@ from cooggerapp.choices import *
 # python
 import datetime
 
-class ModsAdmin(ModelAdmin):
-    list_ = ["community","user"]
-    list_display = ["community_name","user"]
-    list_display_links = ["community_name","user"]
-    list_filter = ["community"]
-    search_fields = list_
 
 class CommunityAdmin(ModelAdmin):
     list_ = ["name","host_name","redirect_url","client_id","app_secret","login_redirect","scope","icon_address","ms"]
@@ -29,6 +23,7 @@ class CommunityAdmin(ModelAdmin):
     list_display_links = list_
     list_filter = list_
     search_fields = list_
+
 
 class ContentAdmin(ModelAdmin):
     list_ = ["community_name","user","topic","permlink","mod","cooggerup","status","time"]
@@ -60,6 +55,7 @@ class ContentAdmin(ModelAdmin):
         obj.mod = request.user
         super(ContentAdmin, self).save_model(request, obj, form, change)
 
+
 class UserFollowAdmin(ModelAdmin):
     list_ = ["user","choices","adress"]
     list_display = list_
@@ -67,17 +63,20 @@ class UserFollowAdmin(ModelAdmin):
     list_filter = ["choices"]
     search_fields = list_
 
+
 class SearchedWordsAdmin(ModelAdmin):
     list_ = ["word","hmany"]
     list_display = list_
     list_display_links = list_
     search_fields = list_
 
+
 class ContentviewsAdmin(ModelAdmin):
     list_ = ["content_id","ip"]
     list_display = list_
     list_display_links = list_
     search_fields = list_
+
 
 class OtherInfoUsersAdmin(ModelAdmin):
     list_ = ["user","cooggerup_confirmation","cooggerup_percent"]
@@ -87,8 +86,6 @@ class OtherInfoUsersAdmin(ModelAdmin):
     list_filter = ["cooggerup_confirmation"]
 
 
-site.register(Mods,ModsAdmin)
-site.register(Community,CommunityAdmin)
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(UserFollow,UserFollowAdmin)

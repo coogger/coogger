@@ -21,8 +21,8 @@ from cooggerapp.forms import AboutForm
 #views
 from cooggerapp.views.tools import get_facebook,users_web,paginator
 
-# easysteem
-from easysteem.easysteem import EasyFollow
+# steem
+from steem import Steem
 
 #python
 import os
@@ -148,8 +148,7 @@ class FollowBaseClass(View): # TODO: in here do steemconnect js
             user_obj = User.objects.filter(username = which_user)[0]
             if user_obj != request.user:
                 followers_num = 0# OtherInformationOfUsers(user = user_obj).following_count
-                ef = EasyFollow(username = request.user.username)
-                if user_obj.username in ef.following():
+                if user_obj.username in self.steem_following(username = request.user.username):
                     self.unfollow(request,request.user.username,user_obj.username)
                     return HttpResponse(json.dumps({"ms":"Follow","num":followers_num -1 }))
                 self.follow(request,request.user.username,user_obj.username)
@@ -169,3 +168,7 @@ class FollowBaseClass(View): # TODO: in here do steemconnect js
         unjson = operations.Unfollow(user,which_user).json
         data = operations.Operations(json = unjson).json
         Sc2(token = self.get_token(request),data = data).run
+
+    def steem_following(username): # TODO: fixed this section,limit = 100 ?
+        STEEM = Steem(nodes=['https://api.steemit.com'])
+        return [i["following"] for i in STEEM.get_following(username, 'abit', 'blog',limit = 100)]

@@ -16,7 +16,8 @@ from django.utils.decorators import method_decorator
 from cooggerapp.forms import ReportsForm
 
 #models
-from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers,Community
+from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers
+from django_steemconnect.models import Community
 
 #views
 from cooggerapp.views.tools import paginator
@@ -28,11 +29,10 @@ from sc2py.operations import Operations
 from sc2py.operations import Vote
 
 #steem
+from steem import Steem
 from steem.post import Post
 from steem.amount import Amount
 
-# easysteem
-from easysteem.easysteem import EasyFollow
 
 class Home(TemplateView):
     template_name = "card/blogs.html"
@@ -42,6 +42,7 @@ class Home(TemplateView):
         queryset = Content.objects.filter(community = self.request.community_model,status = "approved")
         context["content"] = paginator(self.request,queryset)
         return context
+
 
 class Upvote(View):
 
@@ -74,6 +75,7 @@ class Upvote(View):
         payout = round(pending_payout(post),4)
         return payout
 
+
 class Feed(View):
     template_name = "card/blogs.html"
 
@@ -81,8 +83,7 @@ class Feed(View):
     def get(self, request, *args, **kwargs): # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         oof = []
         queryset = []
-        ef = EasyFollow(username = request.user.username)
-        for which_user in ef.following():
+        for which_user in self.steem_following(username = request.user.username):
             oof.append(which_user)
         community_model = request.community_model
         for q in Content.objects.filter(community = community_model,status = "approved"):
@@ -95,6 +96,10 @@ class Feed(View):
         if queryset == []:
             ms.error(request,"You do not follow anyone yet on {}.".format(community_model.name))
         return render(request, self.template_name, context)
+
+    def steem_following(username): # TODO: fixed this section,limit = 100 ?
+        STEEM = Steem(nodes=['https://api.steemit.com'])
+        return [i["following"] for i in STEEM.get_following(username, 'abit', 'blog',limit = 100)]
 
 class Review(View):
     template_name = "card/blogs.html"

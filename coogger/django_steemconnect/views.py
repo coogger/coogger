@@ -7,12 +7,24 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 # models
-from django_steemconnect.models import SteemConnectUser
+from django_steemconnect.models import SteemConnectUser,Community
 
 # python steemconnect-client
 from sc2py.client import Client
 
 import random
+
+def get_client(request):
+    community_model = request.community_model
+    return Client(client_id = community_model.client_id,
+        redirect_url = community_model.redirect_url,
+        code = True,
+        scope = community_model.scope
+    )
+
+def login_redirect(request):
+    return HttpResponseRedirect(get_client(request).get_authorize_url())
+
 
 class LoginSignup(View):
 
@@ -32,30 +44,18 @@ class LoginSignup(View):
                 code = code,
                 access_token = access_token,
                 refresh_token = refresh_token,
-                community_name = community_model.name,
+                community = community_model,
                 )
         else:
             SteemConnectUser(
                 user = user,code = code,
                 access_token = access_token,
                 refresh_token = refresh_token,
-                community_name = community_model.name,
+                community = community_model,
                 ).save()
         login(request,user)
         return HttpResponseRedirect(community_model.login_redirect)
 
-
-def get_client(request):
-    community_model = request.community_model
-    return Client(client_id = community_model.client_id,
-        redirect_url = community_model.redirect_url,
-        code = True,
-        scope = community_model.scope
-    )
-
-
-def login_redirect(request):
-    return HttpResponseRedirect(get_client(request).get_authorize_url())
 
 class Logout(View):
     error = "There was an unexpected error while exiting"

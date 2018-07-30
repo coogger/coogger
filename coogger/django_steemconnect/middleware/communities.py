@@ -1,7 +1,7 @@
 from django.utils.deprecation import MiddlewareMixin
 
 #models
-from cooggerapp.models import Community
+from django_steemconnect.models import Community
 
 class CommunitiesMiddleware(MiddlewareMixin):
 
