@@ -1,11 +1,11 @@
-from django.contrib.admin import ModelAdmin,StackedInline,site,TabularInline,AdminSite
+from django.contrib.admin import ModelAdmin, StackedInline, site, TabularInline, AdminSite
 from django.utils import timezone
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
 #models
-from cooggerapp.models import Content,Contentviews,UserFollow,SearchedWords,ReportModel,OtherInformationOfUsers
+from cooggerapp.models import Content, Contentviews, UserFollow, SearchedWords, ReportModel, OtherInformationOfUsers
 from django_steemconnect.models import Mods
 
 # forms
@@ -19,7 +19,9 @@ import datetime
 
 
 class CommunityAdmin(ModelAdmin):
-    list_ = ["name","host_name","redirect_url","client_id","app_secret","login_redirect","scope","icon_address","ms"]
+    list_ = ["name","host_name","redirect_url",
+            "client_id","app_secret","login_redirect",
+            "scope","icon_address","ms"]
     list_display = list_
     list_display_links = list_
     list_filter = list_
@@ -27,7 +29,8 @@ class CommunityAdmin(ModelAdmin):
 
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["community_name","user","topic","permlink","mod","cooggerup","status","time"]
+    list_ = ["community_name","user","topic","permlink",
+            "mod","cooggerup","status","time"]
     list_display = list_
     list_display_links = list_
     list_filter = ["community","status","time","cooggerup"]

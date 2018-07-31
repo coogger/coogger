@@ -1,17 +1,18 @@
 # form
 from django import forms
 
-#choices
+# choices
 from cooggerapp.choices import *
 
 # models
-from cooggerapp.models import Content,UserFollow,OtherInformationOfUsers,ReportModel
+from cooggerapp.models import Content, UserFollow, OtherInformationOfUsers, ReportModel
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class ContentForm(forms.ModelForm):
 
-    def __init__(self,community_model = None,*args, **kwargs):
+    def __init__(self, community_model=None, *args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
         if community_model is not None:
             self.fields["language"].choices = make_choices(coogger_languages())
@@ -19,45 +20,52 @@ class ContentForm(forms.ModelForm):
 
     class Meta:
         model = Content
-        fields = ["title","content","tag","language","category"]
+        fields = ["title", "content", "tag", "language", "category"]
 
 
 class UserFollowForm(forms.ModelForm):
     class Meta:
         model = UserFollow
-        fields = ["choices","adress"]
+        fields = ["choices", "adress"]
+
 
 class CSettingsUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["first_name","last_name","username","email"]
+        fields = ["first_name", "last_name", "username", "email"]
+
 
 class UserFollowForm(forms.ModelForm):
     class Meta:
         model = UserFollow
-        fields = ["choices","adress"]
+        fields = ["choices", "adress"]
+
 
 class AboutForm(forms.ModelForm):
     class Meta:
         model = OtherInformationOfUsers
         fields = ["about"]
 
+
 class CooggerupForm(forms.ModelForm):
     class Meta:
         model = OtherInformationOfUsers
-        fields = ["cooggerup_confirmation","cooggerup_percent"]
+        fields = ["cooggerup_confirmation", "cooggerup_percent"]
+
 
 class VotepercentForm(forms.ModelForm):
     class Meta:
         model = OtherInformationOfUsers
         fields = ["vote_percent"]
 
+
 class BeneficiariesForm(forms.ModelForm):
     class Meta:
         model = OtherInformationOfUsers
         fields = ["beneficiaries"]
 
+
 class ReportsForm(forms.ModelForm):
     class Meta:
         model = ReportModel
-        fields = ["complaints","add"]
+        fields = ["complaints", "add"]

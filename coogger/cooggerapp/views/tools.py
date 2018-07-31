@@ -1,10 +1,11 @@
-#django
+# django
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-#models
-from cooggerapp.models import UserFollow,Content
+# models
+from cooggerapp.models import UserFollow, Content
+
 
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
@@ -12,10 +13,11 @@ def make_choices_slug(choice):
     for cho in choice:
         cho = cho.lower()
         cho = slugify(cho)
-        slugs.append((cho,cho))
+        slugs.append((cho, cho))
     return slugs
 
-def paginator(request,queryset,hmany = 6):
+
+def paginator(request, queryset, hmany=6):
     paginator = Paginator(queryset, hmany)
     page = request.GET.get('page')
     try:
@@ -26,28 +28,31 @@ def paginator(request,queryset,hmany = 6):
         contacts = paginator.page(paginator.num_pages)
     return contacts
 
+
 def users_web(user):
     try:
-        user_follow = UserFollow.objects.filter(user = user)
+        user_follow = UserFollow.objects.filter(user=user)
     except:
         user_follow = []
     return user_follow
+
 
 def get_facebook(user):
     facebook = None
     try:
         for f in users_web(user):
-            if f.choices  == "facebook":
+            if f.choices == "facebook":
                 facebook = f.adress
     except:
         pass
     return facebook
 
+
 def html_head(queryset):
     head = dict(
-    title = queryset.title + " | coogger",
-    keywords = queryset.tag,
-    description = queryset.definition,
-    author = get_facebook(queryset.user),
+        title=queryset.title + " | coogger",
+        keywords=queryset.tag,
+        description=queryset.definition,
+        author=get_facebook(queryset.user),
     )
     return head

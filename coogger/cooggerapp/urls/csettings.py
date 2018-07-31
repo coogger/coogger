@@ -1,8 +1,8 @@
 from django.conf.urls import url
 
-#views
+# views
 from cooggerapp.views import csettings
 
 urlpatterns = [
-    url(r"^/",csettings.Settings.as_view(),name  ="settings"),
+    url(r"^/", csettings.Settings.as_view(), name="settings"),
     ]

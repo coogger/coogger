@@ -1,17 +1,9 @@
 <script>
 $(document).ready(function() {
   $(".upvote").click(function(event){
-    $.ajax({
-      url: "{% url 'upvote' %}",
-      method: 'POST',
-      dataType: 'json',
-      data: {
-        csrfmiddlewaretoken: "{{ csrf_token }}",
-        user:this.getAttribute("data-user"),
-        permlink:this.getAttribute("data-permlink"),
-      }
-    }).done(function (response) {
-      $(".ctpayout").html(response.payout);
+    api.vote(voter="{{ request.user }}", author=this.getAttribute("data-user"),
+      permlink=this.getAttribute("data-permlink"), weight={{ request.user.otherinformationofusers.vote_percent }}*100, function (err, res) {
+      console.log(err, res)
     });
   });
 
