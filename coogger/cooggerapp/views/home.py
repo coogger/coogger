@@ -45,38 +45,6 @@ class Home(TemplateView):
         return context
 
 
-# class Upvote(View):
-#
-#     @method_decorator(login_required)
-#     def post(self, request, *args, **kwargs):
-#         user = request.POST["user"]
-#         permlink = request.POST["permlink"]
-#         weight = OtherInformationOfUsers.objects.filter(user = request.user)[0].vote_percent
-#         try:
-#             vote_json = Vote(voter = request.user.username, author = user, permlink = permlink, weight = int(weight)).json
-#             op = Operations(json = vote_json).json
-#             Sc2(token = self.get_access_token(request),data = op).run
-#             return HttpResponse(json.dumps({"upvote":True,"payout":self.get_payout(user,permlink)}))
-#         except Exception as e :
-#             return HttpResponse(json.dumps({"upvote":False,"error":str(e)}))
-#
-#     def get_access_token(self, request):
-#         access_token = SteemConnectUser.objects.filter(user = request.user)[0].access_token
-#         return str(access_token)
-#
-#     @staticmethod
-#     def get_payout(user,permlink):
-#         def pending_payout(post):
-#             payout = Amount(post.pending_payout_value).amount
-#             if payout == 0:
-#                 payout = (Amount(post.total_payout_value).amount + Amount(post.curator_payout_value).amount)
-#             return payout
-#         get_absolute_url = "@"+user+"/"+permlink
-#         post = Post(post = get_absolute_url)
-#         payout = round(pending_payout(post),4)
-#         return payout
-
-
 class Feed(View):  # TODO:  sorunlu
     template_name = "card/blogs.html"
 

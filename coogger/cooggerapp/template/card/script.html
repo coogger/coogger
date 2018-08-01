@@ -1,9 +1,32 @@
 <script>
 $(document).ready(function() {
+
+  $(".report").click(function(event){
+    var content_id = this.getAttribute("data-content-id");
+    $("body").load("{% url 'report' %}?content_id="+content_id);
+  });
+
   $(".upvote").click(function(event){
-    api.vote(voter="{{ request.user }}", author=this.getAttribute("data-user"),
-      permlink=this.getAttribute("data-permlink"), weight={{ request.user.otherinformationofusers.vote_percent }}*100, function (err, res) {
-      console.log(err, res)
+    const voter = "{{ request.user }}";
+    const author = this.getAttribute("data-user");
+    const permlink = this.getAttribute("data-permlink");
+    const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
+    const id = this.getAttribute("data-id");
+    api.vote(voter, author, permlink, weight, function (err, res) {
+        console.log(res,"voted"); // is it necessary to below codes 
+        steem.api.getContent(author, permlink, function(err, content) {
+          var post_reward_total = 0;
+          if (pending_payout_value == 0){
+            var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+            var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+            post_reward_total = total_payout_value+curator_payout_value;
+          }
+          else{
+            post_reward_total = pending_payout_value;
+          }
+          $(this).html("<i gnrl='c-primary' hvr-animation='i blink' class='fa fa-thumbs-up'></i>");
+          $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
+        });
     });
   });
 

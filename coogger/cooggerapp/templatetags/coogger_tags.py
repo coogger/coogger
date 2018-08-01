@@ -11,6 +11,10 @@ import requests
 def percent(value, arg):
     return int(value/100)
 
+@register.filter(name="split")
+def split(value, arg):
+    return value.split(arg)
+
 @register.filter(name="json")
 def json(value, arg):
     return value[arg]

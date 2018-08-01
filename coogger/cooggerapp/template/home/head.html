@@ -1,4 +1,5 @@
 {% load static from staticfiles %}
+{% load coogger_tags %}
 <!-- Doctype HTML5 -->
 <!doctype html>
 <html lang="en">
@@ -49,11 +50,15 @@
   <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
   <script>
+    const scope_list = [];
+    {% for scope in request.user.steemconnectuser.community.scope|split:"," %}
+      scope_list.push("{{ scope }}")
+    {% endfor %}
     var api = sc2.Initialize({
       app: "{{ request.user.steemconnectuser.community.name  }}.app",
       callbackURL: "{{ request.user.steemconnectuser.community.redirect_url }}",
       accessToken: "{{ request.user.steemconnectuser.access_token }}",
-      scope: [{{ request.user.steemconnectuser.community.scope|safe }}]
+      scope: scope_list,
     });
   </script>
   </head>

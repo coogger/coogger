@@ -139,39 +139,3 @@ class UserAboutBaseClass(View):
                     about_form.about = "\n" + about_form.about
                     about_form.save()
                     return HttpResponseRedirect("/web/about/@{}".format(request.user.username))
-
-
-class FollowBaseClass(View):  # TODO: in here do steemconnect js
-
-    @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            which_user = request.POST["which_user"]
-            user_obj = User.objects.filter(username=which_user)[0]
-            if user_obj != request.user:
-                followers_num = 0  # OtherInformationOfUsers(user = user_obj).following_count
-                if user_obj.username in self.steem_following(username=request.user.username):
-                    self.unfollow(request, request.user.username, user_obj.username)
-                    return HttpResponse(json.dumps({"ms": "Follow", "num": followers_num -1}))
-                self.follow(request, request.user.username, user_obj.username)
-                return HttpResponse(json.dumps({"ms": "Following", "num": followers_num + 1}))
-
-    @staticmethod
-    def get_token(request):
-        access_token = SteemConnectUser.objects.filter(user=request.user)[0].access_token
-        return str(access_token)
-
-    def follow(self, request, user, which_user):
-        followjson = operations.Follow(user, which_user).json
-        data = operations.Operations(json=followjson).json
-        Sc2(token=self.get_token(request), data=data).run
-
-    def unfollow(self, request, user, which_user):
-        unjson = operations.Unfollow(user, which_user).json
-        data = operations.Operations(json=unjson).json
-        Sc2(token=self.get_token(request), data=data).run
-
-    def steem_following(self, username):
-        # TODO: fixed this section,limit = 100 ?
-        STEEM = Steem(nodes=['https://api.steemit.com'])
-        return [i["following"] for i in STEEM.get_following(username, 'abit', 'blog', limit=100)]

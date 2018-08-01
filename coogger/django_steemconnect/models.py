@@ -12,7 +12,7 @@ class Community(models.Model):
     default_scope = "vote,comment_options,comment,offline"
     scope = models.CharField(default=default_scope, max_length=200)
     icon_address = models.CharField(max_length=400)
-    ms = models.CharField(max_lengt=500)
+    ms = models.CharField(max_length=500)
     management = models.ForeignKey(User, on_delete=models.CASCADE)  # admin for community
 
 

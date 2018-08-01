@@ -185,17 +185,31 @@ class Content(models.Model):
             if int(beneficiaries_weight) >= 15:
                 ben_weight = int(beneficiaries_weight)*100 - 1000
                 if self.community.name == "coogger":
-                    beneficiaries = [{"account": "coogger.wallet", "weight": ben_weight+500}, {"account": "coogger.pay", "weight": 500}]
+                    beneficiaries = [
+                                        {"account": "coogger.wallet", "weight": ben_weight+500},
+                                        {"account": "coogger.pay", "weight": 500}
+                                    ]
                 else:
-                    beneficiaries = [{"account": "coogger.wallet", "weight": ben_weight}, {"account": "coogger.pay", "weight": 500}, {"account": self.community.name, "weight": 500}]
+                    beneficiaries = [
+                                        {"account": "coogger.wallet", "weight": ben_weight},
+                                        {"account": "coogger.pay", "weight": 500},
+                                        {"account": self.community.name, "weight": 500}
+                                    ]
                 comment_options = comment.comment_options(beneficiaries=beneficiaries)
                 jsons = comment_options
             elif int(beneficiaries_weight) < 15 and int(beneficiaries_weight) > 0:
                 ben_weight = int(int(beneficiaries_weight)*100/3)
                 if self.community.name == "coogger":
-                    beneficiaries = [{"account": "coogger.wallet", "weight": 2*ben_weight}, {"account": "coogger.pay", "weight": ben_weight}]
+                    beneficiaries = [
+                                        {"account": "coogger.wallet", "weight": 2*ben_weight},
+                                        {"account": "coogger.pay", "weight": ben_weight}
+                                    ]
                 else:
-                    beneficiaries = [{"account": "coogger.wallet", "weight": ben_weight}, {"account": "coogger.pay", "weight": ben_weight}, {"account": self.community.name, "weight": ben_weight}]
+                    beneficiaries = [
+                                        {"account": "coogger.wallet", "weight": ben_weight},
+                                        {"account": "coogger.pay", "weight": ben_weight},
+                                        {"account": self.community.name, "weight": ben_weight}
+                                    ]
                 comment_options = comment.comment_options(beneficiaries=beneficiaries)
                 jsons = comment_options
             elif int(beneficiaries_weight) == 0:
