@@ -8,7 +8,9 @@
       steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
         for (var i = 0; i < followers.length; i++) {
           if ("{{ request.user }}" == followers[i].follower){
-            write_in_html("is_follow","Following");
+            write_in_html("is_follow","Unfollow");
+            $("#follow").css({'display':"none"});
+            $("#unfollow").css({'display':"flex"});
             break;
           }
         }
@@ -61,20 +63,25 @@
         });
       });
     });
+
     $(".follow").click(function(event){
-      $.ajax({
-        url: "/following/",
-        method: 'POST',
-        dataType: 'json',
-        data: {
-          csrfmiddlewaretoken: "{{ csrf_token }}",
-          which_user:"{{ content_user  }}",
-        }
-      }).done(function (response) {
-        $(".follow div" ).html(response.ms);
-        $(".follownum" ).html(response.num);
+      $(".follow_img").css({'display':"flex"});
+      api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
+        $("#is_follow" ).html("Unfollow");
+        $("#follow").css({'display':"none"});
+        $("#unfollow").css({'display':"flex"});
+        $(".follow_img").css({'display':"none"});
       });
-      event.preventDefault();
     });
+    $(".unfollow").click(function(event){
+      $(".unfollow_img").css({'display':"flex"});
+      api.unfollow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
+        $("#is_follow").html("Follow");
+        $("#follow").css({'display':"flex"});
+        $("#unfollow").css({'display':"none"});
+        $(".unfollow_img").css({'display':"none"});
+      });
+    });
+
   });
 </script>

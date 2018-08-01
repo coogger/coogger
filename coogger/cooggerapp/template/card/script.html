@@ -6,6 +6,7 @@ $(document).ready(function() {
     $("body").load("{% url 'report' %}?content_id="+content_id);
   });
 
+{% if request.user.is_authenticated %}
   $(".upvote").click(function(event){
     const voter = "{{ request.user }}";
     const author = this.getAttribute("data-user");
@@ -13,7 +14,7 @@ $(document).ready(function() {
     const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
     const id = this.getAttribute("data-id");
     api.vote(voter, author, permlink, weight, function (err, res) {
-        console.log(res,"voted"); // is it necessary to below codes 
+        console.log(res,"voted"); // is it necessary to below codes
         steem.api.getContent(author, permlink, function(err, content) {
           var post_reward_total = 0;
           if (pending_payout_value == 0){
@@ -29,6 +30,7 @@ $(document).ready(function() {
         });
     });
   });
+{% endif %}
 
 myElements = document.querySelectorAll('card')
 

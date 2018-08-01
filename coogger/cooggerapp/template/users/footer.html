@@ -5,7 +5,7 @@
 <footer flx="jc-c" gnrl="txt-s" hvr="c-private" style="padding: 6px 0px;">
   <div flx="fw-nw" style="overflow: auto;">
     {% for follow in user_follow %}
-    {% if follow.choices == "web-site" %}
+    {% if follow.choices == "web-site"%}
     <div flx>
       <a hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white"
       target="_blank" href="{{follow.adress}}" style="padding: 3px 6px;">
@@ -25,6 +25,13 @@
       </div>
       {% endif %}
       {% endfor %}
+      <div flx>
+        <a flx="ai-c" hvr-a="bg-primary" gnrl="bg-2 c-dark br-2" hvr="c-white bg-white" target="_blank" href="https://www.steemit.com/@{{ content_user }}" style="padding: 3px 6px;">
+          <img flx="ai-c" src="/static/media/steemit.png" style="width: 12px;height: 12px;">
+            <span>steemit</span>
+          </i>
+        </a>
+      </div>
     </div>
   </div>
 </footer>

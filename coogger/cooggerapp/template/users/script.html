@@ -39,6 +39,7 @@
       });
       $(".cover_image").css({"background-image":"url('"+profile.cover_image+"')"});
     });
+    {% if request.user.is_authenticated %}
     $(".follow").click(function(event){
       $(".follow_img").css({'display':"flex"});
       api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
@@ -61,6 +62,7 @@
         $(".unfollow_img").css({'display':"none"});
       });
     });
+    {% endif %}
 
   });
 </script>

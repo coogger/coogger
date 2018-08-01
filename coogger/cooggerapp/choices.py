@@ -57,11 +57,11 @@ def coogger_languages():
 
 def follow():
     return (
-        "facebook",
-        "instagram",
-        "youtube",
         "github",
         "linkedin",
+        "instagram",
+        "facebook",
+        "youtube",
         "web site",
     )
 
