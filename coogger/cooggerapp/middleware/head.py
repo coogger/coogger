@@ -95,7 +95,7 @@ class Head(object):
                 image = ""
             description = beautifultext.text[0:200]
             setattr(self, "title", "{} | coogger".format(community_name))
-            setattr(self, "keywords", "coogger {}, coogger ecosystem,coogger/{}".format(community_name, community_name))
+            setattr(self, "keywords", "{}, coogger ecosystem,coogger/{}".format(community_name, community_name))
             setattr(self, "description", description)
             # setattr(self, "face_author", "coogger {} category".format(last_path))
             setattr(self, "image", image)

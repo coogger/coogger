@@ -26,21 +26,22 @@ class UserViewSet(ModelViewSet):
                 self.queryset = self.queryset.filter(user=self.get_user)
             default = self.request.GET.get("default", None)
             if default is not None:
-                return self.default()
+
+                self.queryset = self.main_queryset
+                self.serializer_class = self.main_serializer_class
+                if self.username is not None:
+                    self.queryset = self.main_queryset.filter(user=self.get_user)
+                cooggerup_confirmation = self.request.GET.get("cooggerup_confirmation", None)
+                if cooggerup_confirmation is not None:
+                    self.queryset = self.main_queryset.filter(cooggerup_confirmation=cooggerup_confirmation)
+                    return self.queryset
+
             new_access_token = self.request.GET.get("new_access_token", None)
             if bool(new_access_token) == True:
                 return self.update_access_token()
         return self.queryset
 
-    def default(self):
-        self.queryset = self.main_queryset
-        self.serializer_class = self.main_serializer_class
-        if self.username is not None:
-            self.queryset = self.main_queryset.filter(user=self.get_user)
-        cooggerup_confirmation = self.request.GET.get("cooggerup_confirmation", None)
-        if cooggerup_confirmation is not None:
-            self.queryset = self.main_queryset.filter(cooggerup_confirmation=cooggerup_confirmation)
-            return self.queryset
+
 
     def update_access_token(self):
         access_token = self.request.GET.get("access_token")

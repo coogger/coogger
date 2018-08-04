@@ -1,8 +1,9 @@
-{% load coogger_tags %}
 <div flx="ai-fs" gnrl="bg-white" style="margin-top: 6px;">
-  <img gnrl="br-circle left" id="detail_profile_image" src="" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
+  <img gnrl="br-circle left" id="detail_profile_image" src="" class="useruserimg"
+   style="height:  40px;width:  40px;margin:  initial;"></a>
   <div gnrl="txt-s" flx="fd-c" class="duread-li">
-    <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+    <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}"
+     style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
       @<span id="username"></span> - (<span id="reputation"></span>)
     </a>
     <div style="margin-left: 8px;" gnrl="c-secondary">{{ detail.time|timesince }} ago</div>
@@ -11,19 +12,22 @@
 <div flx="fd-s">
   {% if request.user != content_user and request.user.is_authenticated %}
   <div gnrl="bg-secondary br-2 b-1 brc-muted" class="follow" id="follow"
-      flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;">
-    <img flx="ai-c" class="follow_img" src="/static/media/follow_load.svg" style="width: 20px;height: 20px;display:none;"></img>
+      flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted"
+       style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;">
+    <img flx="ai-c" class="follow_img" src="/static/media/follow_load.svg"
+     style="width: 20px;height: 20px;display:none;"></img>
     <div gnrl="c-white txt-s" id="is_follow">
       Follow
     </div>
   </div>
   <div gnrl="bg-secondary br-2 b-1 brc-muted" class="unfollow" id="unfollow"
-      flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;display:none">
-    <img flx="ai-c" class="unfollow_img" src="/static/media/follow_load.svg" style="width: 20px;height: 20px;display:none;"></img>
+      flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted"
+       style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;display:none">
+    <img flx="ai-c" class="unfollow_img" src="/static/media/follow_load.svg"
+     style="width: 20px;height: 20px;display:none;"></img>
     <div gnrl="c-white txt-s" id="is_follow">
       Unfollow
     </div>
   </div>
-
   {% endif %}
 </div>

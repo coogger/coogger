@@ -7,7 +7,7 @@
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
   <meta charset="utf-8">
-  <link rel="shortcut icon" href="/static/logos/png/48.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="{{ request.community_model.icon_address }}" type="image/x-icon" />
   <title>{{ request.head.title|truncatechars:55 }}</title>
   <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}" />
   <meta property="og:site_name" content="{{ request.head.title|truncatechars:55 }}" />
