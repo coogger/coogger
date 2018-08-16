@@ -1,0 +1,194 @@
+{% include 'home/head.html' %}
+{% include 'home/header.html' %}
+{% include 'users/pp.html' %}
+{% include 'users/user-info.html' %}
+{% include 'users/footer.html' %}
+{% include 'users/tabs.html' %}
+{% include 'users/nav.html' %}
+{% include 'users/script.html' %}
+<script>
+function curation_reward(json, type){
+  var comment_author = json.comment_author;
+  var comment_permlink = json.comment_permlink;
+  var curator = json.curator;
+  var reward = json.reward;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type' gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' flx='fd-c' gnrl='bg-muted br-2'>\
+      <div class='"+type+"' gnrl='b-1 brc-muted br-2' flx='fd-c'>\
+        <div class='comment_author'> comment author : <a gnrl='c-primary' href='https://www.steemit.com/@"+comment_author+"'>@"+comment_author+"</a></div>\
+        <div class='curator'> curator : "+curator+"</div> \
+        <div class='reward'> reward : "+reward+"</div>\
+        <div class='permlink'> comment permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+comment_author+"/"+comment_permlink+"'>"+comment_permlink+"</a></div>\
+      </div>\
+    </div>\
+  </div>");
+}
+function claim_reward_balance(json, type){
+  var account = json.account;
+  var reward_sbd = json.reward_sbd;
+  var reward_steem = json.reward_steem;
+  var reward_vests = json.reward_vests;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type' gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' flx='fd-c' gnrl='bg-muted br-2'>\
+      <div class='"+type+"' gnrl='b-1 brc-muted br-2' flx='fd-c'>\
+        <div class='account'> account : <a gnrl='c-primary' href='https://www.steemit.com/@"+account+"'>@"+account+"</a></div>\
+        <div class='reward_sbd'> reward_sbd : "+reward_sbd+"</div>\
+        <div class='reward_steem'> reward_steem : "+reward_steem+"</div>\
+        <div class='reward_vests'> reward vests : "+reward_vests+"</div>\
+      </div>\
+    </div>\
+  </div>");
+}
+function vote(json, type){
+  var author = json.author;
+  var permlink = json.permlink;
+  var voter = json.voter;
+  var weight = json.weight;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type' gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' gnrl='bg-muted br-2'>\
+      <div class='history-vote' gnrl='b-1 brc-muted br-2'>\
+        <div class='author'> author : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>@"+author+"</a></div>\
+        <div class='voter'> voter : "+voter+"</div>\
+        <div class='weight'> weight : "+weight/100+"</div>\
+        <div class='permlink'> comment permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+permlink+"'> "+permlink+"</a></div>\
+      </div>\
+    </div>\
+  </div>");
+}
+function comment(json, type){
+  var author = json.author;
+  var parent_author = json.parent_author;
+  var parent_permlink = json.parent_permlink;
+  var permlink = json.permlink;
+  var title = json.title;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type' gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' flx='fd-c' gnrl='bg-muted br-2'>\
+      <div class='"+type+"' gnrl='b-1 brc-muted br-2' flx='fd-c'>\
+        <div class='author'> author : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>@"+author+"</a></div>\
+        <div class='parent_permlink'> parent_permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+parent_permlink+"'>"+parent_permlink+"</a></div>\
+        <div class='title'> title : "+title+"</div>\
+        <div class='permlink'> permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+permlink+"'>"+permlink+"</a>\
+      </div>\
+    </div>\
+  </div>");
+}
+function comment_options(json, type){ // not necessary
+  return "";
+}
+function comment_benefactor_reward(json, type){
+  var author = json.author;
+  var benefactor = json.benefactor;
+  var permlink = json.permlink;
+  var reward = json.reward;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type'  gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' flx='fd-c' gnrl='bg-muted br-2'>\
+      <div class='"+type+"' gnrl='b-1 brc-muted br-2' flx='fd-c'>\
+        <div class='author'> author : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>@"+author+"</a></div>\
+        <div class='benefactor'> benefactor : "+benefactor+"</div>\
+        <div class='reward'> reward : "+reward+"</div>\
+        <div class='permlink'> permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+permlink+"'>"+permlink+"</a>\
+      </div>\
+    </div>\
+  </div>");
+}
+function transfer(json, type){
+  var amount = json.amount;
+  var from = json.from;
+  var memo = json.memo;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type'  gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' flx='fd-c' gnrl='bg-muted br-2'>\
+      <div class='"+type+"' gnrl='b-1 brc-muted br-2' flx='fd-c'>\
+        <div class='trans-from'> from : <a gnrl='c-primary' href='https://www.steemit.com/@"+from+"'>@"+from+"</a></div>\
+        <div class='trans-amount'> amount : "+amount+"</div>\
+        <div class='trans-memo'> memo : "+memo+"</div>\
+      </div>\
+    </div>\
+  </div>");
+}
+function fill_vesting_withdraw(json, type){ // not necessary
+  return "";
+}
+function limit_order_create(json, type){ // not necessary
+  return "";
+}
+function fill_order(json, type){ // not necessary
+  return "";
+}
+function author_reward(json, type){
+  var author = json.author;
+  var permlink = json.permlink;
+  var sbd_payout = json.sbd_payout;
+  var steem_payout = json.steem_payout;
+  var vesting_payout = json.vesting_payout;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type'  gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' flx='fd-c' gnrl='bg-muted br-2'>\
+      <div class='"+type+"' gnrl='b-1 brc-muted br-2' flx='fd-c'>\
+        <div class='author'> author : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>@"+author+"</a></div>\
+        <div class='sbd_payout'> sbd_payout : "+sbd_payout+"</div>\
+        <div class='steem_payout'> steem_payout : "+steem_payout+"</div>\
+        <div class='vesting_payout'> vesting_payout : "+vesting_payout+"</div>\
+        <div class='permlink'> permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+permlink+"'>"+permlink+"</a></div>\
+      </div>\
+    </div>\
+  </div>");
+}
+function custom_json(json, type){
+  var id = json.id;
+  var json = json.json
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type'  gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' flx='fd-c' gnrl='bg-muted br-2'>\
+      <div class='"+type+"' gnrl='b-1 brc-muted br-2' flx='fd-c'>\
+        <div class='custom_json_id'> id : "+id+"</div>\
+        <div class='json'> json : "+json+"</div>\
+      </div>\
+    </div>\
+  </div>");
+}
+function account_update (json, type){
+  var account = json.account;
+  var json_metadata = json.json_metadata;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-type' gnrl='center txt-l'>"+type+"</div>\
+    <div class='his-json' flx='fd-c' gnrl='bg-muted br-2'>\
+      <div class='"+type+"' gnrl='b-1 brc-muted br-2' flx='fd-c'>\
+        <div class='account'> account : <a gnrl='c-primary' href='https://www.steemit.com/@"+account+"'>@"+account+"</a></div>\
+        <div class='json_metadata'> json_metadata : "+json_metadata+"</div>\
+      </div>\
+    </div>\
+  </div>");
+}
+
+steem.api.getAccountHistory("{{content_user}}", -1, 100, function(err, result) {
+  var template = "";
+  for (i in result){
+    const data = result[i][1].op;
+    const type = result[i][1].op[0];
+    const json = result[i][1].op[1];
+    console.log(type, json);
+    template += eval(type+"(json, type)");
+  }
+$("#history").html(template);
+});
+</script>
+
+<div flx="jc-c fd-c" gnrl="bg-white center" default="media" id="history" style="padding-bottom: 120px;padding-top: 60px;"></div>
+
+</body>
+</html>

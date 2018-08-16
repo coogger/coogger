@@ -9,6 +9,9 @@ header{
     }
   }
 }
+.his-json{
+  padding: 6px;
+}
 card{
   width: 100%;
 }

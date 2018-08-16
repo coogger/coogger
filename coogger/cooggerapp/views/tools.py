@@ -46,13 +46,3 @@ def get_facebook(user):
     except:
         pass
     return facebook
-
-
-def html_head(queryset):
-    head = dict(
-        title=queryset.title + " | coogger",
-        keywords=queryset.tag,
-        description=queryset.definition,
-        author=get_facebook(queryset.user),
-    )
-    return head

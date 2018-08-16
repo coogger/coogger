@@ -1,4 +1,11 @@
-{% if true_about %}
+{% include 'home/head.html' %}
+{% include 'home/header.html' %}
+{% include 'users/pp.html' %}
+{% include 'users/user-info.html' %}
+{% include 'users/footer.html' %}
+{% include 'users/tabs.html' %}
+{% include 'users/nav.html' %}
+{% include 'users/script.html' %}
 {% if about %}
 <div flx="jc-c">
   {% if content_user == request.user %}
@@ -19,9 +26,10 @@
   <span gnrl="bg-dark b-1 br-2 brc-muted c-white" style="padding:2px 6px;">
     {{ content_user }}
   </span>
-  <div>
+  <div gnrl="center">
    Our user has not written an article about himself yet.
    </div>
 </div>
 {% endif %}
-{% endif %}
+</body>
+</html>

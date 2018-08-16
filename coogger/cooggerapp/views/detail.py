@@ -8,9 +8,6 @@ from django.views.generic.base import TemplateView
 # cooggerapp models
 from cooggerapp.models import Content, Contentviews
 
-# cooggerapp views
-from cooggerapp.views.tools import html_head
-
 from cooggerapp.forms import ContentForm
 
 
@@ -26,7 +23,6 @@ class Detail(TemplateView):
         # ip aldık ve okuma sayısını 1 arttırdık
         queryset = self.permlinks_of_user()[0]
         context = super(Detail, self).get_context_data(**kwargs)
-        context["head"] = html_head(queryset)
         context["content_user"] = queryset.user
         context["nav_category"] = self.lists_of_user()
         context["urloftopic"] = queryset.permlink

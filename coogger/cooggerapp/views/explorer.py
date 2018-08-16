@@ -28,14 +28,8 @@ class Hashtag(TemplateView):
             queryset = Content.objects.filter(community=self.request.community_model, tag__contains=hashtag, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Hashtag, self).get_context_data(**kwargs)
-            html_head = dict(
-                title=hashtag,
-                keywords=hashtag,
-                description=hashtag,
-            )
             context["content"] = info_of_cards
             context["nameofhashtag"] = hashtag
-            context["head"] = html_head
             return context
 
 
@@ -47,14 +41,8 @@ class Userlist(TemplateView):
             queryset = Content.objects.filter(community=self.request.community_model, topic__contains=list_, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Userlist, self).get_context_data(**kwargs)
-            html_head = dict(
-                title=list_,
-                keywords=list_,
-                description=list_,
-            )
             context["content"] = info_of_cards
             context["nameofhashtag"] = list_
-            context["head"] = html_head
             return context
 
 
@@ -67,14 +55,8 @@ class Languages(TemplateView):
             queryset = Content.objects.filter(community=self.request.community_model, language=lang_name, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Languages, self).get_context_data(**kwargs)
-            html_head = dict(
-                title=lang_name,
-                keywords=lang_name,
-                description=lang_name,
-            )
             context["content"] = info_of_cards
             context["language"] = lang_name
-            context["head"] = html_head
             return context
 
 
@@ -87,14 +69,8 @@ class Categories(TemplateView):
             queryset = self.ctof(community=self.request.community_model, category=cat_name, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Categories, self).get_context_data(**kwargs)
-            html_head = dict(
-                title=cat_name,
-                keywords=cat_name,
-                description=cat_name,
-            )
             context["content"] = info_of_cards
             context["category"] = cat_name
-            context["head"] = html_head
             return context
 
 
@@ -125,13 +101,8 @@ class Filter(TemplateView):
                 self.queryset = self.queryset.filter(status=value)
         info_of_cards = paginator(self.request, self.queryset)
         context = super(Filter, self).get_context_data(**kwargs)
-        html_head = dict(
-            title="filter",
-            description="",
-        )
         context["content"] = info_of_cards
         context["filter"] = True
-        context["head"] = html_head
         return context
 
 #

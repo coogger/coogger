@@ -24,9 +24,9 @@
       });
       // upvoted ?
       var upvoted = false;
-      {% if request.user.is_authenticated %}
       var active_votes = content.active_votes;
       write_in_html("count",active_votes.length);
+      {% if request.user.is_authenticated %}
         for (var vot = 0; vot < active_votes.length; vot++) {
           if ("{{request.user}}" == active_votes[vot].voter){
             $(".up").css({"opacity":1});
@@ -89,10 +89,10 @@
     // vote.js
     $(function(){
       $(".increment").click(function(){
-        const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
         var count = parseInt($("#count", this).text());
         if($(this).hasClass("up")) {
           {% if request.user.is_authenticated %}
+              const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
               api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", weight, function (err, res) {
                   console.log(err,res,"voted"); // is it necessary to below codes
                   steem.api.getContent(author, permlink, function(err, content) {
@@ -113,6 +113,7 @@
           $("#count", this).text(count);
         } else {
           {% if request.user.is_authenticated %}
+              const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
               api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", -weight, function (err, res) {
                   console.log(err,res,"unvoted"); // is it necessary to below codes
                   steem.api.getContent(author, permlink, function(err, content) {

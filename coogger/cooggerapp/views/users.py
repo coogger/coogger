@@ -39,9 +39,6 @@ class UserClassBased(TemplateView):
     "herhangi kullanıcının anasayfası"
     template_name = "users/user.html"
     ctof = Content.objects.filter
-    title = "{} | coogger"
-    keywords = "{},{} {}"
-    description = "{} {},{} adı ile coogger'da"
 
     def get_context_data(self, username, **kwargs):
         user = User.objects.filter(username=username)[0]
@@ -57,48 +54,27 @@ class UserClassBased(TemplateView):
         context["content_user"] = User.objects.filter(username=username)[0]
         context["user_follow"] = users_web(user)
         context["nav_category"] = nav_category
-        context["head"] = self.html_head(username, user)
         return context
-
-    def html_head(self, username, user):
-        html_head = dict(
-            title=self.title.format(username),
-            keywords=self.keywords.format(username, user.first_name, user.last_name),
-            description=self.description.format(user.first_name, user.last_name, username),
-            author=get_facebook(user),
-        )
 
 
 class UserTopic(UserClassBased):
     "kullanıcıların konu adresleri"
-    keywords = "{} {},{}"
-    description = "{} kullanıcımızın {} adlı içerik listesi"
 
     def get_context_data(self, utopic, username, **kwargs):
         context = super(UserTopic, self).get_context_data(username, **kwargs)
         user = context["content_user"]
         queryset = self.ctof(community=self.request.community_model, user=user, topic=utopic, status="approved")
         info_of_cards = paginator(self.request, queryset)
-        html_head = dict(
-            title=self.title.format(username+" - "+utopic),
-            keywords=self.keywords.format(username, utopic, utopic),
-            description=self.description.format(username, utopic),
-            author=get_facebook(user),
-        )
         context["user_follow"] = users_web(user)
-        context["head"] = html_head
         context["nameoftopic"] = utopic
         context["content"] = info_of_cards
         return context
 
 
 class UserAboutBaseClass(View):
-    template_name = "users/user.html"
+    template_name = "users/about.html"
     form_class = AboutForm
     oiouof = OtherInformationOfUsers.objects.filter
-    title = "{} hakkında | coogger"
-    keywords = "{} hakkında"
-    description = "{} hakkında | coogger"
 
     def get(self, request, username, *args, **kwargs):
         user = User.objects.filter(username=username)[0]
@@ -107,25 +83,17 @@ class UserAboutBaseClass(View):
             about_form = self.form_class(request.GET or None, instance=query)
         else:
             about_form = query.about
-        queryset = Content.objects.filter(user=user)
+        queryset = Content.objects.filter(user=user, status="approved", community=request.community_model)
         nav_category = []
         for i in queryset:
             c_list = i.topic
             if c_list not in nav_category:
                 nav_category.append(c_list)
-        html_head = dict(
-         title=self.title.format(username),
-         keywords=self.keywords.format(username),
-         description=self.description.format(username),
-         author=get_facebook(user),
-        )
         context = {}
         context["about"] = about_form
-        context["true_about"] = True
         context["content_user"] = user
         context["user_follow"] = users_web(user)
         context["nav_category"] = nav_category
-        context["head"] = html_head
         return render(request, self.template_name, context)
 
     def post(self, request, username, *args, **kwargs):
@@ -139,3 +107,23 @@ class UserAboutBaseClass(View):
                     about_form.about = "\n" + about_form.about
                     about_form.save()
                     return HttpResponseRedirect("/web/about/@{}".format(request.user.username))
+
+
+class UserHistory(TemplateView):
+    "History of users"
+    template_name = "users/history.html"
+
+    def get_context_data(self, username, **kwargs):
+        context = super(UserHistory, self).get_context_data(**kwargs)
+        user = User.objects.filter(username=username)[0]
+        queryset = Content.objects.filter(user=user, status="approved", community=self.request.community_model)
+        nav_category = []
+        for i in queryset:
+            c_list = i.topic
+            if c_list not in nav_category:
+                nav_category.append(c_list)
+        context["user_follow"] = users_web(user)
+        context["history"] = "history"
+        context["content_user"] = user
+        context["nav_category"] = nav_category
+        return context
