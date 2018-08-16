@@ -35,7 +35,7 @@ class ContentAdmin(ModelAdmin):
     list_display_links = list_
     list_filter = ["community","status","time","cooggerup"]
     search_fields = ["topic","title"]
-    fields = (("user","title"),"content","tag",("category","language","topic"),("status"))
+    fields = (("user","title"),"content","tag",("category","language","topic"),("status","cooggerup"))
 
     class Media:
         css = {

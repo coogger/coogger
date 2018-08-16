@@ -26,13 +26,11 @@
   </div>
   {% if request.user != content_user and request.user.is_authenticated %}
   <div class="follow" id="follow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 3px 30px;">
-    <img flx="ai-c" class="follow_img" src="/static/media/follow_load.svg" style="width: 20px;height: 20px;display:none;"></img>
     <div gnrl="c-white txt-m" id="is_follow">
       Follow
     </div>
   </div>
   <div class="unfollow" id="unfollow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 3px 30px;display:none">
-    <img flx="ai-c" class="unfollow_img" src="/static/media/follow_load.svg" style="width: 20px;height: 20px;display:none;"></img>
     <div gnrl="c-white txt-m" id="is_follow">
       Unfollow
     </div>

@@ -39,6 +39,7 @@ for (var i = 0; i < myElements.length; i++) {
   const id = myElements.item(i).id;
   const author = id.split("-")[0];
   const permlink = id.replace(author+"-","");
+  $("#"+id+" .carduserimg").attr("src","https://steemitimages.com/u/"+author+"/avatar");
   accounts.push(author);
   steem.api.getContent(author, permlink, function(err, content) {
     var active_votes = content.active_votes;
@@ -74,19 +75,5 @@ for (var i = 0; i < myElements.length; i++) {
     $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
   });
 }
-
-// <i gnrl="c-primary" class="fa fa-thumbs-up"></i>
-//
-// <i hvr="c-primary brc-primary br-2 b-1" gnr="c-white" class="fa fa-thumbs-up"></i>
-
-steem.api.getAccounts(accounts, function(err, result) {  // account
-  for (var i = 0; i < myElements.length; i++) {
-    var id = myElements.item(i).id;
-    var user = result[i];
-    var profile = JSON.parse(user.json_metadata).profile;
-    $("#"+id+" .carduserimg").attr("src",profile.profile_image);
-  }
-});
-
 });
 </script>

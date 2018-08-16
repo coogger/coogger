@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  // her zaman çalışacak kodlar
   $(".close-ms").click(function() {
     $(".main-messages").remove();
   })
@@ -10,11 +9,7 @@ $(document).ready(function() {
   $(".lists").click(function(){
     $("nav").toggle("fast");
   });
-
-$( ".fa-arrow-down" ).click(function() {
-  $( ".open_header_menu" ).toggle( "fast", function() {
-
+  $( ".fa-arrow-down" ).click(function() {
+    $( ".open_header_menu" ).toggle( "fast", function() {});
   });
-});
-
 });

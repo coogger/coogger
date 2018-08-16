@@ -41,25 +41,25 @@
     });
     {% if request.user.is_authenticated %}
     $(".follow").click(function(event){
-      $(".follow_img").css({'display':"flex"});
+      $("#follow #is_follow").attr({'animation':"blink i"});
       api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
         $("#is_follow" ).html("Unfollow");
         var follower_count = parseInt(document.getElementById("follower_count").innerHTML);
         $("#follower_count" ).html(follower_count+1);
         $("#follow").css({'display':"none"});
         $("#unfollow").css({'display':"flex"});
-        $(".follow_img").css({'display':"none"});
+        $("#follow #is_follow").attr({'animation':""});
       });
     });
     $(".unfollow").click(function(event){
-      $(".unfollow_img").css({'display':"flex"});
+      $("#unfollow #is_follow").attr({'animation':"blink i"});
       api.unfollow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
         $("#is_follow").html("Follow");
         var follower_count = parseInt(document.getElementById("follower_count").innerHTML);
         $("#follower_count").html(follower_count-1);
         $("#follow").css({'display':"flex"});
         $("#unfollow").css({'display':"none"});
-        $(".unfollow_img").css({'display':"none"});
+        $("#unfollow #is_follow").attr({'animation':""});
       });
     });
     {% endif %}

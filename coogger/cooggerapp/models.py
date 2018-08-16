@@ -48,7 +48,7 @@ class Content(models.Model):
     title = models.CharField(max_length=100, verbose_name="Title", help_text="Be sure to choose the best title related to your content.")
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
-    tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces,the first tag is your topic max:4 .")
+    tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces,the first tag is your topic max:6 .")
     language = models.CharField(max_length=30, choices=make_choices(coogger_languages()), help_text=" The language of your content")
     category = models.CharField(max_length=30, choices=make_choices(coogger_categories()+steemkitchen_categories()), help_text="select content category")
     definition = models.CharField(max_length=400, verbose_name="definition of content", help_text="Briefly tell your readers about your content.")
@@ -79,7 +79,6 @@ class Content(models.Model):
 
     @staticmethod
     def prepare_definition(text):
-        # TODO:  zaten alınan ilk 400 karakterde resim varsa ikinci bir resmi almaması gerek
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
         markdown = mistune.Markdown(renderer=renderer)
         beautifultext = BeautifulSoup(markdown(text), "html.parser")
@@ -93,7 +92,7 @@ class Content(models.Model):
             alt = ""
         return "<img class='definition-img' src='{}' alt='{}'></img><p>{}</p>".format(src, alt, beautifultext.text[0:200]+"...")
 
-    def get_absolute_url(self):  # TODO: make property
+    def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
 
     @staticmethod
@@ -111,7 +110,7 @@ class Content(models.Model):
     def content_save(self, request, *args, **kwargs):  # for me
         self.community = request.community_model
         self.tag = self.ready_tags()
-        self.topic = self.tag.split()[1]
+        self.topic = self.tag.split()[3]
         self.dor = self.durationofread(self.content+self.title)
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
@@ -139,7 +138,7 @@ class Content(models.Model):
         self.user = queryset[0].user
         self.title = content.title
         self.tag = self.ready_tags()
-        self.topic = self.tag.split()[1]
+        self.topic = self.tag.split()[3]
         self.dor = self.durationofread(self.content+self.title)
         steem_post = self.sc2_post(queryset[0].permlink, "update")
         if steem_post.status_code == 200:
@@ -160,7 +159,7 @@ class Content(models.Model):
     def sc2_post(self, permlink, json_metadata):
         def_name = json_metadata
         if json_metadata == "save":
-            self.content += self.community.ms.format(self.get_absolute_url())
+            self.content += "\n"+self.community.ms.format(self.get_absolute_url())
         json_metadata = {
             "format": "markdown",
             "tags": self.tag.split(),
@@ -186,13 +185,11 @@ class Content(models.Model):
                 ben_weight = int(beneficiaries_weight)*100 - 1000
                 if self.community.name == "coogger":
                     beneficiaries = [
-                                        {"account": "coogger.wallet", "weight": ben_weight+500},
-                                        {"account": "coogger.pay", "weight": 500}
+                                        {"account": "hakancelik", "weight": ben_weight+1000},
                                     ]
                 else:
                     beneficiaries = [
-                                        {"account": "coogger.wallet", "weight": ben_weight},
-                                        {"account": "coogger.pay", "weight": 500},
+                                        {"account": "hakancelik", "weight": ben_weight+500},
                                         {"account": self.community.name, "weight": 500}
                                     ]
                 comment_options = comment.comment_options(beneficiaries=beneficiaries)
@@ -201,13 +198,11 @@ class Content(models.Model):
                 ben_weight = int(int(beneficiaries_weight)*100/3)
                 if self.community.name == "coogger":
                     beneficiaries = [
-                                        {"account": "coogger.wallet", "weight": 2*ben_weight},
-                                        {"account": "coogger.pay", "weight": ben_weight}
+                                        {"account": "hakancelik", "weight": 3*ben_weight},
                                     ]
                 else:
                     beneficiaries = [
-                                        {"account": "coogger.wallet", "weight": ben_weight},
-                                        {"account": "coogger.pay", "weight": ben_weight},
+                                        {"account": "hakancelik", "weight": 2*ben_weight},
                                         {"account": self.community.name, "weight": ben_weight}
                                     ]
                 comment_options = comment.comment_options(beneficiaries=beneficiaries)
@@ -240,9 +235,11 @@ class Content(models.Model):
                 else:
                     tags += slugify(i.lower())+" "
             return tags
-        get_tag = self.tag.split(" ")[:5]
+        get_tag = self.tag.split(" ")[:6]
         if get_tag[0] != self.community.name:
             get_tag.insert(0, self.community.name)
+            get_tag.insert(1, self.category)
+            get_tag.insert(2, self.language)
         return clearly_tags(get_tag)
 
     def new_permlink(self):

@@ -37,7 +37,7 @@ class UserViewSet(ModelViewSet):
                     return self.queryset
 
             new_access_token = self.request.GET.get("new_access_token", None)
-            if bool(new_access_token) == True:
+            if new_access_token == True:
                 return self.update_access_token()
         return self.queryset
 
