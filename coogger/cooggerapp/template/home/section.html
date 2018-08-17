@@ -1,7 +1,7 @@
 {% load coogger_tags %}
 <section gnrl="center" flx="fw-nw">
   <div flx="fd-c ac-c ai-fs" gnrl="right b-1 brc-muted br-2" class="sectionclosedmobile" style="height: max-content;padding: 10px;">
-    <span gnrl="center txt-l c-secondary">Languages </span>
+    <span gnrl="center txt-l c-secondary" flx="ai-c">Languages <i class="fas fa-language"></i></span>
     {% for link,name in "lang_name"|languages:request.META.HTTP_HOST %}
     <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary">
       <a href="{% url 'language' link %}"  gnrl="c-dark" hvr="c-white" style="padding: 4px 12px;">{{ name|truncatechars:20 }}</a>

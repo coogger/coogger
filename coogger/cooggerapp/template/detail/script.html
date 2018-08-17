@@ -89,13 +89,14 @@
     // vote.js
     $(function(){
       $(".increment").click(function(){
-        var count = parseInt($("#count", this).text());
+        var count = parseInt($("#count").text());
         if($(this).hasClass("up")) {
           {% if request.user.is_authenticated %}
               const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
               api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", weight, function (err, res) {
                   console.log(err,res,"voted"); // is it necessary to below codes
                   steem.api.getContent(author, permlink, function(err, content) {
+                    var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
                     var post_reward_total = 0;
                     if (pending_payout_value == 0){
                       var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
@@ -106,11 +107,11 @@
                       post_reward_total = pending_payout_value;
                     }
                     $("#post_reward_total").text(post_reward_total.toFixed(2));
+                    $(".up").css({"opacity":1});
+                    $("#count").text(count + 1);
                   });
               });
           {% endif %}
-          var count = count + 1;
-          $("#count", this).text(count);
         } else {
           {% if request.user.is_authenticated %}
               const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
@@ -127,11 +128,11 @@
                       post_reward_total = pending_payout_value;
                     }
                     $("#post_reward_total").text(post_reward_total.toFixed(2));
+                    $(".down").css({"opacity":1});
+                    $("#count").text(count + 1);
                   });
               });
           {% endif %}
-          var count = count + 1;
-          $("#count", this).text(count);
         }
         $(this).parent().addClass("bump");
         setTimeout(function(){

@@ -9,6 +9,9 @@ header{
     }
   }
 }
+.fa, .fas {
+    padding: 0px 6px;
+}
 .his-json{
   padding: 6px;
 }

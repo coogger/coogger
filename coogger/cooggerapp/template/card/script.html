@@ -13,6 +13,7 @@ $(document).ready(function() {
     const permlink = this.getAttribute("data-permlink");
     const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
     const id = this.getAttribute("data-id");
+    $(this).attr({'animation':"blink i"});
     api.vote(voter, author, permlink, weight, function (err, res) {
         console.log(res,"voted"); // is it necessary to below codes
         steem.api.getContent(author, permlink, function(err, content) {
@@ -25,8 +26,9 @@ $(document).ready(function() {
           else{
             post_reward_total = pending_payout_value;
           }
-          $(this).html("<i gnrl='c-primary' hvr-animation='i blink' class='fa fa-thumbs-up'></i>");
+          $(this).html("<i gnrl='c-primary brc-primary br-2 b-1' class='fa fa-thumbs-up'></i>");
           $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
+          $(this).attr({'animation':""});
         });
     });
   });
