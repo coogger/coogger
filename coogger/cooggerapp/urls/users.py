@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^(?P<utopic>.+)/@(?P<username>.+)/$', users.UserTopic.as_view(), name="utopic"),
     url(r'^@(?P<username>.+)/$', users.UserClassBased.as_view(), name="user"),
     url(r'^history/@(?P<username>.+)$', users.UserHistory.as_view(), name="history"),
+    url(r'^wallet/@(?P<username>.+)$', users.UserWallet.as_view(), name="wallet"),
     ]

@@ -10,17 +10,20 @@
 function curation_reward(json, type){
   var comment_author = json.comment_author;
   var comment_permlink = json.comment_permlink;
-  var curator = json.curator;
   var reward = json.reward;
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' flx='fd-c' gnrl='bg-muted'>\
-      <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-award'></i></div>\
-      <div gnrl='b-1 brc-muted br-2' flx='fd-c'>\
-        <div class='comment_author'> comment author : <a gnrl='c-primary' href='https://www.steemit.com/@"+comment_author+"'>@"+comment_author+"</a></div>\
-        <div class='curator'> curator : "+curator+"</div> \
-        <div class='reward'> reward : "+reward+"</div>\
-        <div class='permlink'> comment permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+comment_author+"/"+comment_permlink+"'>"+comment_permlink+"</a></div>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-award'></i></div>\
+      <div class='his-data' gnrl='b-1 brc-muted br-2' flx='ai-c'>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+comment_author+"'>\
+          <div class='account' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+comment_author+"/avatar)';></div>\
+          <div>@"+comment_author+"</div>\
+        </a>\
+        <div gnrl='center' flx='fd-c'>\
+          <div class='reward'> reward : "+reward+"</div>\
+          <div class='permlink'> permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+comment_author+"/"+comment_permlink+"'>"+comment_permlink+"</a></div>\
+        </div>\
       </div>\
     </div>\
   </div>");
@@ -32,13 +35,18 @@ function claim_reward_balance(json, type){
   var reward_vests = json.reward_vests;
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' flx='fd-c' gnrl='bg-muted'>\
-      <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-award'></i></div>\
-      <div gnrl='b-1 brc-muted br-2' flx='fd-c'>\
-        <div class='account'> account : <a gnrl='c-primary' href='https://www.steemit.com/@"+account+"'>@"+account+"</a></div>\
-        <div class='reward_sbd'> reward_sbd : "+reward_sbd+"</div>\
-        <div class='reward_steem'> reward_steem : "+reward_steem+"</div>\
-        <div class='reward_vests'> reward vests : "+reward_vests+"</div>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-award'></i></div>\
+      <div class='his-data' gnrl='b-1 brc-muted br-2' flx='ai-c'>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+account+"'>\
+          <div class='account' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+account+"/avatar)';></div>\
+          <div>@"+account+"</div>\
+        </a>\
+        <div gnrl='center' flx='fd-c'>\
+          <div class='reward_sbd'> sbd : "+reward_sbd+"</div>\
+          <div class='reward_steem'> steem : "+reward_steem+"</div>\
+          <div class='reward_vests'> vests : "+reward_vests+"</div>\
+        </div>\
       </div>\
     </div>\
   </div>");
@@ -50,13 +58,15 @@ function vote(json, type){
   var weight = json.weight;
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' gnrl='bg-muted'>\
-    <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c'>"+type+"<i class='fas fa-chevron-circle-up'></i></div>\
-      <div gnrl='b-1 brc-muted br-2'>\
-        <div class='author'> author : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>@"+author+"</a></div>\
-        <div class='voter'> voter : <a gnrl='c-primary' href='https://www.steemit.com/@"+voter+"'>@"+voter+"</a></div>\
-        <div class='weight'> weight : "+weight/100+"%</div>\
-        <div class='permlink'> comment permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+permlink+"'> "+permlink+"</a></div>\
+    <div class='his-json' gnrl=''>\
+    <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>"+type+"<i class='fas fa-chevron-circle-up'></i></div>\
+      <div class='his-data' gnrl='b-1 brc-muted br-2' flx='ai-c'>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+voter+"'>\
+          <div class='voter' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+voter+"/avatar)';></div>\
+          <div class='permlink'>@"+voter+"</div>\
+        </a>\
+        <a gnrl='c-success center' href='https://www.steemit.com/@"+author+"/"+permlink+"'>"+permlink+"</a>\
+          <div class='weight' gnrl='right'>( "+weight/100+"% )</div>\
       </div>\
     </div>\
   </div>");
@@ -64,18 +74,21 @@ function vote(json, type){
 function comment(json, type){
   var author = json.author;
   var parent_author = json.parent_author;
-  var parent_permlink = json.parent_permlink;
   var permlink = json.permlink;
   var title = json.title;
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' gnrl='bg-muted'>\
-    <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c'>"+type+"<i class='fas fa-comments'></i></div>\
-      <div gnrl='b-1 brc-muted br-2' flx='fd-c'>\
-        <div class='author'> author : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>@"+author+"</a></div>\
-        <div class='parent_permlink'> parent_permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+parent_permlink+"'>"+parent_permlink+"</a></div>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-award'></i></div>\
+      <div class='his-data' gnrl='b-1 brc-muted br-2' flx='ai-c'>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>\
+          <div class='account' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+author+"/avatar)';></div>\
+          <div>@"+author+"</div>\
+        </a>\
+        <div gnrl='center' flx='fd-c'>\
         <div class='title'> title : "+title+"</div>\
         <div class='permlink'> permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+permlink+"'>"+permlink+"</a></div>\
+        </div>\
       </div>\
     </div>\
   </div>");
@@ -90,8 +103,8 @@ function comment_benefactor_reward(json, type){
   var reward = json.reward;
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' flx='fd-c' gnrl='bg-muted'>\
-    <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c'>"+type+"<i class='fas fa-trophy'></i></div>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+    <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>"+type+"<i class='fas fa-trophy'></i></div>\
       <div gnrl='b-1 brc-muted br-2' flx='fd-c'>\
         <div class='author'> author : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>@"+author+"</a></div>\
         <div class='benefactor'> benefactor : "+benefactor+"</div>\
@@ -107,12 +120,17 @@ function transfer(json, type){
   var memo = json.memo;
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' flx='fd-c' gnrl='bg-muted'>\
-      <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-exchange-alt'></i></div>\
-      <div gnrl='b-1 brc-muted br-2' flx='fd-c'>\
-        <div class='trans-from'> from : <a gnrl='c-primary' href='https://www.steemit.com/@"+from+"'>@"+from+"</a></div>\
-        <div class='trans-amount'> amount : "+amount+"</div>\
-        <div class='trans-memo'> memo : "+memo+"</div>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-award'></i></div>\
+      <div class='his-data' gnrl='b-1 brc-muted br-2' flx='ai-c'>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+from+"'>\
+          <div class='account' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+from+"/avatar)';></div>\
+          <div>@"+from+"</div>\
+        </a>\
+        <div gnrl='center' flx='fd-c'>\
+          <div class='trans-amount'> amount : "+amount+"</div>\
+          <div class='trans-memo'> memo : <span gnrl='b-1 brc-muted br-2 bg-warning c-white'>"+memo+"</span></div>\
+        </div>\
       </div>\
     </div>\
   </div>");
@@ -134,14 +152,19 @@ function author_reward(json, type){
   var vesting_payout = json.vesting_payout;
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' flx='fd-c' gnrl='bg-muted'>\
-      <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-user-plus'></i></div>\
-      <div gnrl='b-1 brc-muted br-2' flx='fd-c'>\
-        <div class='author'> author : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>@"+author+"</a></div>\
-        <div class='sbd_payout'> sbd_payout : "+sbd_payout+"</div>\
-        <div class='steem_payout'> steem_payout : "+steem_payout+"</div>\
-        <div class='vesting_payout'> vesting_payout : "+vesting_payout+"</div>\
-        <div class='permlink'> permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+permlink+"'>"+permlink+"</a></div>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-user-plus'></i></div>\
+      <div class='his-data' gnrl='b-1 brc-muted br-2' flx='ai-c'>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"'>\
+          <div class='account' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+author+"/avatar)';></div>\
+          <div>@"+author+"</div>\
+        </a>\
+        <div gnrl='center' flx='fd-c'>\
+          <div class='sbd_payout'> sbd_payout : "+sbd_payout+"</div>\
+          <div class='steem_payout'> steem_payout : "+steem_payout+"</div>\
+          <div class='vesting_payout'> vesting_payout : "+vesting_payout+"</div>\
+          <div class='permlink'> permlink : <a gnrl='c-primary' href='https://www.steemit.com/@"+author+"/"+permlink+"'>"+permlink+"</a></div>\
+        </div>\
       </div>\
     </div>\
   </div>");
@@ -151,8 +174,8 @@ function custom_json(json, type){
   var json = json.json
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' flx='fd-c' gnrl='bg-muted'>\
-      <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-certificate'></i></div>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-certificate'></i></div>\
       <div gnrl='b-1 brc-muted br-2' flx='fd-c'>\
         <div class='custom_json_id'> id : "+id+"</div>\
         <div class='json'> json : "+json+"</div>\
@@ -165,11 +188,58 @@ function account_update(json, type){
   var json_metadata = json.json_metadata;
   return ("\
   <div class='history-op' flx='fd-c'>\
-    <div class='his-json' flx='fd-c' gnrl='bg-muted'>\
-      <div class='his-type' gnrl='right txt-l bg-success br-2 c-white' flx='ai-c'>"+type+"<i class='fas fa-user-edit'></i></div>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>"+type+"<i class='fas fa-user-edit'></i></div>\
       <div gnrl='b-1 brc-muted br-2' flx='fd-c'>\
         <div class='account'> account : <a gnrl='c-primary' href='https://www.steemit.com/@"+account+"'>@"+account+"</a></div>\
         <div class='json_metadata'> json_metadata : "+json_metadata+"</div>\
+      </div>\
+    </div>\
+  </div>");
+}
+
+function delegate_vesting_shares(json, type){
+  var delegatee = json.delegatee;
+  var delegator = json.delegator;
+  var vesting_shares = json.vesting_shares;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-share'></i></div>\
+      <div class='his-data' gnrl='b-1 brc-muted br-2' flx='ai-c'>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+delegatee+"'>\
+          <div class='account' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+delegatee+"/avatar)';></div>\
+          <div>@"+delegatee+"</div>\
+        </a>\
+        <div gnrl='center' flx='fd-c'>\
+          <div class='delegator'> delegator : "+delegator+"</div>\
+          <div class='vesting_shares'> vesting_shares : "+vesting_shares+"</div>\
+        </div>\
+      </div>\
+    </div>\
+  </div>");
+}
+
+function transfer_to_vesting(json, type){
+  var amount = json.amount;
+  var from = json.from;
+  var to = json.to;
+  return ("\
+  <div class='history-op' flx='fd-c'>\
+    <div class='his-json' flx='fd-c' gnrl=''>\
+      <div class='his-type' gnrl='right txt-l br-2' flx='ai-c' style='width:  100%;'>"+type+"<i class='fas fa-share'></i></div>\
+      <div class='his-data' gnrl='b-1 brc-muted br-2' flx='ai-c'>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+from+"'>\
+          <div class='account' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+from+"/avatar)';></div>\
+          <div>@"+from+"</div>\
+        </a>\
+        <div gnrl='center' flx='fd-c'>\
+          <div class='amount'> amount : "+amount+"</div>\
+        </div>\
+        <a gnrl='c-primary' href='https://www.steemit.com/@"+to+"'>\
+          <div class='account' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+to+"/avatar)';></div>\
+          <div>@"+to+"</div>\
+        </a>\
       </div>\
     </div>\
   </div>");
@@ -181,15 +251,14 @@ steem.api.getAccountHistory("{{content_user}}", -1, 100, function(err, result) {
     const data = result[i][1].op;
     const type = result[i][1].op[0];
     const json = result[i][1].op[1];
-    console.log(type, json);
     template += eval(type+"(json, type)");
   }
 $("#history").html(template);
 });
 </script>
 
-<div flx="jc-c fd-c" gnrl="bg-white center" default="media" style="padding-bottom: 120px;padding-top: 60px;word-wrap: break-word;">
-  <div id="history">
+<div flx="jc-c" gnrl="bg-white center" default="media">
+  <div id="history" class="history">
 
   </div>
 </div>

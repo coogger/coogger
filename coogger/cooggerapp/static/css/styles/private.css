@@ -9,6 +9,28 @@ header{
     }
   }
 }
+.voter,.account{
+  background-repeat: no-repeat;
+  background-position: left;
+  width: 46px;
+  height: 46px;
+  background-size: contain;
+  border-radius: 100%;
+}
+.history{
+  padding-bottom: 120px;
+  padding-top: 60px;
+  word-wrap: break-word;
+}
+.his-data{
+  padding: 12px;
+}
+.reward_sbd,.reward_steem,.reward_vests{
+    padding-top: 6px;
+    border-top: 1px solid #cecece;
+    padding-bottom: 6px;
+}
+
 .fa, .fas {
     padding: 0px 6px;
 }

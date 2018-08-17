@@ -123,7 +123,15 @@ class UserHistory(TemplateView):
             if c_list not in nav_category:
                 nav_category.append(c_list)
         context["user_follow"] = users_web(user)
-        context["history"] = "history"
         context["content_user"] = user
         context["nav_category"] = nav_category
+        return context
+
+
+class UserWallet(UserHistory):
+    "History of users"
+    template_name = "users/wallet.html"
+
+    def get_context_data(self, username, **kwargs):
+        context = super(UserWallet, self).get_context_data(username, **kwargs)
         return context
