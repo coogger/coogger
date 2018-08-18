@@ -9,7 +9,14 @@ header{
     }
   }
 }
-.voter,.account{
+.history-op{
+  padding: 6px 12px;
+  margin: 2px 16px;
+}
+.history-vote-weight{
+  margin-left: 12px;
+}
+.his-avatar{
   background-repeat: no-repeat;
   background-position: left;
   width: 46px;
@@ -21,6 +28,7 @@ header{
   padding-bottom: 120px;
   padding-top: 60px;
   word-wrap: break-word;
+  word-break: break-word;
 }
 .his-data{
   padding: 12px;
