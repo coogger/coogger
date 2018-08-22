@@ -66,3 +66,25 @@ class ContentApi(SteemConnectUserApi):
         for attr, value in request.POST.items():
             setattr(obj, attr, value)
         obj.save()
+
+
+class UserFilter(ModelViewSet):
+    model = OtherInformationOfUsers
+    queryset = model.objects.all()
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        for attr, value in self.request.GET.items():
+            self.queryset = self.queryset.filter(**{attr: value})
+        return self.queryset
+
+
+class ContentFilter(ModelViewSet):
+    model = Content
+    queryset = model.objects.all()
+    serializer_class = ContentsSerializer
+
+    def get_queryset(self):
+        for attr, value in self.request.GET.items():
+            self.queryset = self.queryset.filter(**{attr: value})
+        return self.queryset
