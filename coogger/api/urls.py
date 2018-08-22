@@ -4,8 +4,8 @@ from django.conf.urls import url, include
 from api.views import SteemConnectUserApi, UserApi, ContentApi, UserFilter, ContentFilter
 
 router = routers.DefaultRouter()
-router.register(r'user', UserFilter)
-router.register(r'content', ContentFilter)
+router.register(r'filter-user', UserFilter)
+router.register(r'filter-content', ContentFilter)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

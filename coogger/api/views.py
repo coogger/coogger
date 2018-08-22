@@ -3,6 +3,9 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+# permissions
+from api.permissions import ApiPermission
+
 # django
 from django.http import Http404
 from django.contrib.auth.models import User
@@ -19,6 +22,7 @@ from django_steemconnect.models import SteemConnectUser
 class SteemConnectUserApi(APIView):
     model = SteemConnectUser
     serialize = SteemConnectUserSerializer
+    permission_classes = [ApiPermission]
 
     def get(self, request, username):
         user = self.model.objects.get(user=self.get_user(username))
@@ -26,7 +30,10 @@ class SteemConnectUserApi(APIView):
         return Response(serialized_user.data)
 
     def post(self, request, username):
-        self.update(request, username)
+        obj = self.model.objects.get(user=self.get_user(username))
+        for attr, value in request.POST.items():
+            setattr(obj, attr, value)
+        obj.save()
         return self.get(request, username)
 
     def get_user(self, username):
@@ -34,12 +41,6 @@ class SteemConnectUserApi(APIView):
             return User.objects.filter(username=username)[0]
         except User.DoesNotExist:
             raise Http404
-
-    def update(self, request, username):
-        obj = self.model.objects.get(user=self.get_user(username))
-        for attr, value in request.POST.items():
-            setattr(obj, attr, value)
-        obj.save()
 
 
 class UserApi(SteemConnectUserApi):
@@ -58,20 +59,18 @@ class ContentApi(SteemConnectUserApi):
         return Response(serialized_user.data)
 
     def post(self, request, username, permlink):
-        self.update(request, username, permlink)
-        return self.get(request, username, permlink)
-
-    def update(self, request, username, permlink):
         obj = self.model.objects.get(user=self.get_user(username), permlink=permlink)
         for attr, value in request.POST.items():
             setattr(obj, attr, value)
         obj.save()
+        return self.get(request, username, permlink)
 
 
 class UserFilter(ModelViewSet):
     model = OtherInformationOfUsers
     queryset = model.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [ApiPermission]
 
     def get_queryset(self):
         for attr, value in self.request.GET.items():
@@ -83,6 +82,7 @@ class ContentFilter(ModelViewSet):
     model = Content
     queryset = model.objects.all()
     serializer_class = ContentsSerializer
+    permission_classes = [ApiPermission]
 
     def get_queryset(self):
         for attr, value in self.request.GET.items():
