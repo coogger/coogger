@@ -5,7 +5,11 @@ from django import forms
 from cooggerapp.choices import *
 
 # models
-from cooggerapp.models import Content, UserFollow, OtherInformationOfUsers, ReportModel
+from cooggerapp.models import (
+    Content,
+    UserFollow,
+    OtherInformationOfUsers,
+    ReportModel)
 from django.db import models
 from django.contrib.auth.models import User
 

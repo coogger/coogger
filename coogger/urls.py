@@ -8,10 +8,10 @@ import django_steemconnect
 
 # common addresses
 urlpatterns = [
-    url(r"^",include("cooggerapp.main_urls")), # home
     url(r"^accounts/", include('django_steemconnect.urls')), # signup, login or create new user
-    url(r'^web/admin/', admin.site.urls), # admin panel
+    url(r'^admin/', admin.site.urls), # admin panel
     url(r"^api/",include("api.urls")),
+    url(r"^",include("cooggerapp.main_urls")), # home
 ]
 
 if settings.DEBUG:

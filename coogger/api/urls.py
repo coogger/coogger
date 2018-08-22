@@ -1,11 +1,8 @@
-from django.conf.urls import url, include
-from rest_framework import routers
-from api.views import UserViewSet, ContentsViewSet
-
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'contents', ContentsViewSet)
+from django.conf.urls import url
+from api.views import SteemConnectUserApi, UserApi, ContentApi
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^content/@(?P<username>.*)/(?P<permlink>.*)/$', ContentApi.as_view()),
+    url(r'^user/@(?P<username>.*)/$', UserApi.as_view()),
+    url(r'^steemconnectuser/@(?P<username>.*)/$', SteemConnectUserApi.as_view()),
 ]

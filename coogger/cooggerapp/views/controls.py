@@ -60,6 +60,7 @@ class Change(View):
         if queryset.exists():
             queryset = queryset[0]
             self.content_update(request, content_id)
+            # TODO: content_update buraya bak sayfa iki defa güncellenince içerik güncelleniyor
             content_form = ContentForm(instance=queryset, community_model=community_model)
             context = dict(
                 content_id=content_id,
@@ -72,13 +73,14 @@ class Change(View):
         community_model = request.community_model
         if Content.objects.filter(community=community_model, user=request.user, id=content_id).exists():
             form = ContentForm(data=request.POST, community_model=community_model)
+            maybe_error_form = form
             if form.is_valid():
                 form = form.save(commit=False)
                 queryset = Content.objects.filter(user=request.user, id=content_id)
                 save = form.content_update(queryset, form)  # save with sc2py and get ms
                 if save.status_code != 200:
                     ms.error(request, save.text)
-                    return self.create_error(request, form)
+                    return self.create_error(request, maybe_error_form)
                 return HttpResponseRedirect("/"+queryset[0].get_absolute_url())
 
     @staticmethod
@@ -88,7 +90,7 @@ class Change(View):
         ct.update(content=steem.body, title=steem.title)
 
     def create_error(self, request, form):
-        ms = """unexpected error, check your content please or contact us on discord;
+        warning_ms = """unexpected error, check your content please or contact us on discord;
         <a gnrl='c-primary' href='https://discord.gg/q2rRY8Q'>https://discord.gg/q2rRY8Q</a>"""
-        ms.error(request, ms)
+        ms.error(request, warning_ms)
         return render(request, self.template_name, {"form": form})

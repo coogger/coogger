@@ -1,8 +1,23 @@
 from rest_framework import serializers
 
+from rest_framework import serializers
+
 # models
 from cooggerapp.models import Content, OtherInformationOfUsers
 from django_steemconnect.models import SteemConnectUser
+
+
+class SteemConnectUserSerializer(serializers.ModelSerializer):  # permission
+
+    class Meta:
+        model = SteemConnectUser
+        fields = (
+            'username',
+            "access_token",
+            "refresh_token",
+            "code",
+            "community",
+            )
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,19 +31,6 @@ class UserSerializer(serializers.ModelSerializer):
             "cooggerup_percent",
             "vote_percent",
             "beneficiaries",
-            )
-
-
-class SuperUserSerializer(serializers.ModelSerializer):  # permission
-
-    class Meta:
-        model = SteemConnectUser
-        fields = (
-            'username',
-            "access_token",
-            "refresh_token",
-            "code",
-            "community",
             )
 
 

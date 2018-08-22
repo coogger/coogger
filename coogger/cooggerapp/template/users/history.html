@@ -206,7 +206,6 @@ function account_update(json, type){
     </div>\
   </div>");
 }
-
 function delegate_vesting_shares(json, type){
   var delegatee = json.delegatee;
   var delegator = json.delegator;
@@ -228,7 +227,6 @@ function delegate_vesting_shares(json, type){
     </div>\
   </div>");
 }
-
 function transfer_to_vesting(json, type){
   var amount = json.amount;
   var from = json.from;
@@ -253,16 +251,12 @@ function transfer_to_vesting(json, type){
     </div>\
   </div>");
 }
-
 function account_create_with_delegation(json, type){
     return json
 }
-
 function account_witness_vote(json, type){
     return json
 }
-
-
 
 steem.api.getAccountHistory("{{content_user}}", -1, 100, function(err, result) {
   let template = "";

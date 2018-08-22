@@ -1,118 +1,68 @@
+# rest
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+# django
+from django.http import Http404
+from django.contrib.auth.models import User
 
 # api serializers
 from api.serializers import (
-    UserSerializer, ContentsSerializer, SuperUserSerializer)
+    UserSerializer, ContentsSerializer, SteemConnectUserSerializer)
 
 # models
 from cooggerapp.models import Content, OtherInformationOfUsers, Community
 from django_steemconnect.models import SteemConnectUser
-from django.contrib.auth.models import User
 
 
-class UserViewSet(ModelViewSet):
-    queryset = OtherInformationOfUsers.objects.all()
-    main_queryset = queryset
-    serializer_class = UserSerializer
-    main_serializer_class = serializer_class
+class SteemConnectUserApi(APIView):
+    model = SteemConnectUser
+    serialize = SteemConnectUserSerializer
 
-    def get_queryset(self):
-        if self.request.user.is_superuser:
-            self.serializer_class = SuperUserSerializer
-            self.queryset = SteemConnectUser.objects.all()
-            self.username = self.request.GET.get("username", None)
-            if self.username is not None:
-                self.get_user = User.objects.filter(username=self.username)[0]
-                self.queryset = self.queryset.filter(user=self.get_user)
-            default = self.request.GET.get("default", None)
-            if default is not None:
+    def get(self, request, username):
+        user = self.model.objects.get(user=self.get_user(username))
+        serialized_user = self.serialize(user)
+        return Response(serialized_user.data)
 
-                self.queryset = self.main_queryset
-                self.serializer_class = self.main_serializer_class
-                if self.username is not None:
-                    self.queryset = self.main_queryset.filter(user=self.get_user)
-                cooggerup_confirmation = self.request.GET.get("cooggerup_confirmation", None)
-                if cooggerup_confirmation is not None:
-                    self.queryset = self.main_queryset.filter(cooggerup_confirmation=cooggerup_confirmation)
-                    return self.queryset
+    def post(self, request, username):
+        self.update(request, username)
+        return self.get(request, username)
 
-            new_access_token = self.request.GET.get("new_access_token", None)
-            if new_access_token == True:
-                return self.update_access_token()
-        return self.queryset
+    def get_user(self, username):
+        try:
+            return User.objects.filter(username=username)[0]
+        except User.DoesNotExist:
+            raise Http404
+
+    def update(self, request, username):
+        obj = self.model.objects.get(user=self.get_user(username))
+        for attr, value in request.POST.items():
+            setattr(obj, attr, value)
+        obj.save()
 
 
-
-    def update_access_token(self):
-        access_token = self.request.GET.get("access_token")
-        # refresh_token = self.request.GET.get("refresh_token")
-        # code = self.request.GET.get("code")
-        model = SteemConnectUser
-        model_filter = model.objects.filter(user=self.get_user)
-        # refresh_token=refresh_token,code=code
-        model_filter.update(access_token=access_token)
-        return True
+class UserApi(SteemConnectUserApi):
+    model = OtherInformationOfUsers
+    serialize = UserSerializer
 
 
-class ContentsViewSet(ModelViewSet):
-    queryset = Content.objects.all().order_by("-time")
-    serializer_class = ContentsSerializer
+class ContentApi(SteemConnectUserApi):
+    model = Content
+    serialize = ContentsSerializer
 
-    def get_queryset(self):
-        username = self.request.GET.get("username", None)
-        permlink = self.request.GET.get("permlink", None)
-        community_name = self.request.GET.get("community_name", None)
-        status = self.request.GET.get("status", None)
-        mod = self.request.GET.get("mod", None)
-        category = self.request.GET.get("category", None)
-        language = self.request.GET.get("language", None)
-        topic = self.request.GET.get("topic", None)
-        dor = self.request.GET.get("dor", None)
-        views = self.request.GET.get("views", None)
-        read = self.request.GET.get("read", None)
-        cooggerup = self.request.GET.get("cooggerup", None)
-        was_voting_done = self.request.GET.get("was_voting_done", None)
 
-        if username is not None:
-            get_user = User.objects.filter(username=self.request.GET["username"])[0]
-            self.queryset = self.queryset.filter(user=get_user)
+    def get(self, request, username, permlink):
+        content = self.model.objects.get(user=self.get_user(username), permlink=permlink)
+        serialized_user = self.serialize(content)
+        return Response(serialized_user.data)
 
-        if permlink is not None:
-            self.queryset = self.queryset.filter(permlink=self.request.GET["permlink"])
+    def post(self, request, username, permlink):
+        self.update(request, username, permlink)
+        return self.get(request, username, permlink)
 
-        if was_voting_done is not None:
-            Content.objects.filter(user=get_user, permlink=permlink).update(cooggerup=self.request.GET["was_voting_done"])
-
-        if community_name is not None:
-            community_name = Community.objects.filter(name=self.request.GET["username"])[0]
-            self.queryset = self.queryset.filter(community=community_name, user=get_user)
-
-        if status is not None:
-            self.queryset = self.queryset.filter(status=self.request.GET["status"])
-
-        if mod is not None:
-            get_mod = User.objects.filter(username=self.request.GET["mod"])[0]
-            self.queryset = self.queryset.filter(mod=get_mod)
-
-        if category is not None:
-            self.queryset = self.queryset.filter(category=self.request.GET["category"])
-
-        if language is not None:
-            self.queryset = self.queryset.filter(language=self.request.GET["language"])
-
-        if topic is not None:
-            self.queryset = self.queryset.filter(topic=self.request.GET["topic"])
-
-        if dor is not None:
-            self.queryset = self.queryset.filter(dor=self.request.GET["dor"])
-
-        if views is not None:
-            self.queryset = self.queryset.filter(views=self.request.GET["views"])
-
-        if read is not None:
-            self.queryset = self.queryset.filter(read=self.request.GET["read"])
-
-        if cooggerup is not None:
-            self.queryset = self.queryset.filter(cooggerup=self.request.GET["cooggerup"])
-
-        return self.queryset
+    def update(self, request, username, permlink):
+        obj = self.model.objects.get(user=self.get_user(username), permlink=permlink)
+        for attr, value in request.POST.items():
+            setattr(obj, attr, value)
+        obj.save()
