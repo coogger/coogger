@@ -1,18 +1,16 @@
 <cards flx default="media2">
-  {% for ct in content %}
-  <card class="data-post-id-{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" gnrl="bg-white br-2">
-    {% include "card/edit.html" %}
-    {% include "card/userinfo.html" %}
-    {% include "card/contentinfo.html" %}
-    <a href="" id="absolute_url_href" gnrl="c-dark">
-      <div gnrl="txt-m" class="upshow">
-        <div flx="ai-c">
-          {{ ct.definition|safe }}
-        </div>
-      </div>
-    </a>
-    {% include 'card/vote.html' %}
-  </card>
-  {% endfor %}
+    {% for ct in content %}
+    <card class="data-post-id-{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" gnrl="bg-white br-2">
+        {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
+        <a href="" id="absolute_url_href" gnrl="c-dark">
+            <div gnrl="txt-m" class="upshow">
+                <div flx="ai-c">
+                    {{ ct.definition|safe }}
+                </div>
+            </div>
+        </a>
+        {% include 'card/vote.html' %}
+    </card>
+    {% endfor %}
 </cards>
 {% include "card/script.html" %}

@@ -25,7 +25,7 @@ from sc2py.operations import Unfollow
 from bs4 import BeautifulSoup
 import mistune
 
-from djmd.models import EditorMdField
+from django_md_editor.models import EditorMdField
 from django_steemconnect.models import SteemConnectUser, Community
 
 

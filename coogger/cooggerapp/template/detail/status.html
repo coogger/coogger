@@ -1,0 +1,11 @@
+<div default="media">
+    {% if detail.status == "shared" or detail.status == "changed" %}
+    <div class="review-mod" gnrl="bg-warning c-white b-2 brc-warning br-2 center" flx="ai-c">
+        A moderator will review this content within 1 and 2 days, status : {{ detail.status }}
+    </div>
+    {% endif %} {% if detail.status == "rejected" %}
+    <div gnrl="bg-warning c-white b-2 brc-warning br-2 center" flx="jc-c ai-c" style="height: 20vh;margin-bottom: 2px;">
+        Rejected by @{{ detail.mod }}
+    </div>
+    {% endif %}
+</div>

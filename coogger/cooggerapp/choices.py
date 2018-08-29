@@ -11,6 +11,7 @@ def steemkitchen_categories():
 def coogger_categories():
     return [
     "science",
+    "development",
     "tutorial",
     "idea",
     "project",

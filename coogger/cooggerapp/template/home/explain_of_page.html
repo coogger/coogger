@@ -1,41 +1,34 @@
 {% if nameoflist_ex or nameofhashtag %}
 <div flx="jc-c" style="margin-top: 60px;">
-  <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;"/>
-  <img flx="as-fe" src="/static/media/icons/list.svg" style="width: 60px;height: 60px;" />
+    <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;" />
+    <img flx="as-fe" src="/static/media/icons/list.svg" style="width: 60px;height: 60px;" />
 </div>
 <div flx="jc-c">
-  <h1>{{ nameoflist_ex }}</h1>
-  {% if nameofhashtag %}
-  <h1>{{ nameofhashtag }}</h1>
-  {% endif %}
+    <h1>{{ nameoflist_ex }}</h1>
+    {% if nameofhashtag %}
+    <h1>{{ nameofhashtag }}</h1>
+    {% endif %}
 </div>
-{% endif %}
-
-
-{% if language %}
+{% endif %} {% if language %}
 <div flx="jc-c" style="margin-top: 60px;">
-  <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;"/>
-  <img flx="as-fe" src="/static/media/topics/language.svg" style="width: 60px;height: 60px;" />
+    <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;" />
+    <img flx="as-fe" src="/static/media/topics/language.svg" style="width: 60px;height: 60px;" />
 </div>
 <div flx="jc-c">
-  <h1>{{ language }}</h1>
+    <h1>{{ language }}</h1>
 </div>
-{% endif %}
-
-{% if category %}
+{% endif %} {% if category %}
 <div flx="jc-c" style="margin-top: 60px;">
-  <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;"/>
-  <img flx="as-fe" src="/static/media/topics/category.svg" style="width: 60px;height: 60px;" />
+    <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;" />
+    <img flx="as-fe" src="/static/media/topics/category.svg" style="width: 60px;height: 60px;" />
 </div>
 <div flx="jc-c">
-  <h1>{{ category }}</h1>
+    <h1>{{ category }}</h1>
 </div>
-{% endif %}
-
-{% if filter %}
+{% endif %} {% if filter %}
 <div flx="jc-c" style="margin-top: 60px;">
-  <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;"/>
-  <img flx="as-fe" src="/static/media/topics/filter.svg" style="width: 60px;height: 60px;" />
+    <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;" />
+    <img flx="as-fe" src="/static/media/topics/filter.svg" style="width: 60px;height: 60px;" />
 </div>
 
 {% endif %}

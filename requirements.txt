@@ -1,9 +1,9 @@
+mistune
 Django==2.0
 django-js-asset==0.1.1
 djangorestframework==3.7.3
 beautifulsoup4==4.6.0
-steem
 whitenoise
+steem
 sc2py
-mistune
-django-md-editor
+django_md_editor

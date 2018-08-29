@@ -2,4 +2,4 @@
 coogger.db
 *.scssc
 *.map
-settings.py
+coogger/settings.py

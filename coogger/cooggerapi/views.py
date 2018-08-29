@@ -4,14 +4,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # permissions
-from api.permissions import ApiPermission
+from cooggerapi.permissions import ApiPermission
 
 # django
 from django.http import Http404
 from django.contrib.auth.models import User
 
 # api serializers
-from api.serializers import (
+from cooggerapi.serializers import (
     UserSerializer, ContentsSerializer, SteemConnectUserSerializer)
 
 # models
@@ -70,7 +70,6 @@ class UserFilter(ModelViewSet):
     model = OtherInformationOfUsers
     queryset = model.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [ApiPermission]
 
     def get_queryset(self):
         for attr, value in self.request.GET.items():
@@ -82,7 +81,6 @@ class ContentFilter(ModelViewSet):
     model = Content
     queryset = model.objects.all()
     serializer_class = ContentsSerializer
-    permission_classes = [ApiPermission]
 
     def get_queryset(self):
         for attr, value in self.request.GET.items():

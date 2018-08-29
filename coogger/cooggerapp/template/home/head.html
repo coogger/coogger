@@ -1,78 +1,77 @@
-{% load static from staticfiles %}
-{% load coogger_tags %}
+{% load static from staticfiles %} {% load coogger_tags %}
 <!-- Doctype HTML5 -->
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
-  <meta charset="utf-8">
-  <link rel="shortcut icon" href="{{ request.community_model.icon_address }}" type="image/x-icon" />
-  <title>{{ request.head.title|truncatechars:55 }}</title>
-  <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}" />
-  <meta property="og:site_name" content="{{ request.head.title|truncatechars:55 }}" />
-  <meta name="twitter:title" content="{{ request.head.title|truncatechars:55 }}" />
-  <meta itemprop="name" content="{{ request.head.title|truncatechars:55 }}" />
-  <meta name="keywords" content="{{ request.head.keywords }}" />
-  <meta name="description" content="{{ request.head.description|truncatechars:150 }}" />
-  <meta name="twitter:description" content="{{ request.head.description|truncatechars:150 }}" />
-  <meta property="og:description" content="{{ request.head.description|truncatechars:150 }}" />
-  <meta itemprop="description" content="{{ request.head.description|truncatechars:150 }}" />
-  <meta property="og:image" content="{{ request.head.image }}" />
-  <meta itemprop="image" content="{{ request.head.image }}" />
-  <meta name="twitter:image:src" content="{{ request.head.image }}" />
-  <meta name="author" content="{{ request.head.author }}" />
-  <meta property="article:author" content="{{ request.head.author }}" />
-  <meta property="article:publisher" content="{{ request.head.author }}" />
-  <meta name="robots" content="index, follow" />
-  <meta name="revisit-after" content="2" />
-  <meta name="revisit-after" content="2 days" />
-  <meta name="twitter:card" content="summary">
-  <meta property="og:type" content="website" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}" />
-  <meta name="yandex-verification" content="d8be2feff15c1e50" />
-   {% if not request.user.is_superuser %}
-   <!-- Global site tag (gtag.js) - Google Analytics -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
-   <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-107674954-1');
-   </script>
-  {% endif %}
-  <script src="{% static 'jquery.min.js' %}"></script>
-  <script src="{% static 'js/general.js' %}"></script>
-  <script src="{% static 'js/sc2.min.js' %}"></script>
-  <script src="{% static 'js/steem.min.js' %}"></script>
-  <link href="https://cdn.rawgit.com/hakancelik96/63242e5ebb5f64bea570d8c1b476004c/raw/f640a21a48429c2e2e32478853469a517906e7b7/coogger.css" rel="stylesheet">
-  <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
-  <link href="{% static 'css/styles/vote.css' %}" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-  {% if request.user.is_authenticated %}
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="{{ request.community_model.icon_address }}" type="image/x-icon" />
+    <title>{{ request.head.title|truncatechars:55 }}</title>
+    <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}" />
+    <meta property="og:site_name" content="{{ request.head.title|truncatechars:55 }}" />
+    <meta name="twitter:title" content="{{ request.head.title|truncatechars:55 }}" />
+    <meta itemprop="name" content="{{ request.head.title|truncatechars:55 }}" />
+    <meta name="keywords" content="{{ request.head.keywords }}" />
+    <meta name="description" content="{{ request.head.description|truncatechars:150 }}" />
+    <meta name="twitter:description" content="{{ request.head.description|truncatechars:150 }}" />
+    <meta property="og:description" content="{{ request.head.description|truncatechars:150 }}" />
+    <meta itemprop="description" content="{{ request.head.description|truncatechars:150 }}" />
+    <meta property="og:image" content="{{ request.head.image }}" />
+    <meta itemprop="image" content="{{ request.head.image }}" />
+    <meta name="twitter:image:src" content="{{ request.head.image }}" />
+    <meta name="author" content="{{ request.head.author }}" />
+    <meta property="article:author" content="{{ request.head.author }}" />
+    <meta property="article:publisher" content="{{ request.head.author }}" />
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="2" />
+    <meta name="revisit-after" content="2 days" />
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}" />
+    <meta name="yandex-verification" content="d8be2feff15c1e50" /> {% if not request.user.is_superuser %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
     <script>
-      const scope_list = [];
-      {% for scope in request.user.steemconnectuser.community.scope|split:"," %}
-        scope_list.push("{{ scope }}")
-        {% endfor %}
-        var api = sc2.Initialize({
-          app: "{{ request.user.steemconnectuser.community.name  }}.app",
-          callbackURL: "{{ request.user.steemconnectuser.community.redirect_url }}",
-          accessToken: "{{ request.user.steemconnectuser.access_token }}",
-          scope: scope_list,
-        });
+        window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-107674954-1');
     </script>
-  {% endif %}
-  </head>
+    {% endif %}
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'js/general.js' %}"></script>
+    <script src="{% static 'js/sc2.min.js' %}"></script>
+    <script src="{% static 'js/steem.min.js' %}"></script>
+    <link href="https://cdn.rawgit.com/hakancelik96/63242e5ebb5f64bea570d8c1b476004c/raw/f640a21a48429c2e2e32478853469a517906e7b7/coogger.css" rel="stylesheet">
+    <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles/vote.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous"> {% if request.user.is_authenticated %}
+    <script>
+        const scope_list = [];
+          {% for scope in request.user.steemconnectuser.community.scope|split:"," %}
+            scope_list.push("{{ scope }}")
+            {% endfor %}
+            var api = sc2.Initialize({
+              app: "{{ request.user.steemconnectuser.community.name  }}.app",
+              callbackURL: "{{ request.user.steemconnectuser.community.redirect_url }}",
+              accessToken: "{{ request.user.steemconnectuser.access_token }}",
+              scope: scope_list,
+            });
+    </script>
+    {% endif %}
+</head>
+
 <body font="quicksand" animation="fadeIn">
     {% if messages %} {% include 'home/ms.html' %} {% endif %}
-    <div class="main-messages" style="display:none" gnrl="bg-danger c-white" >
-      <div flx="ai-c jc-c">
-        <div gnrl="bg-dark c-white br-2" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
-        <div gnrl="txt-m" flx="jc-c fd-c">
-          <div class="wms"></div>
+    <div class="main-messages" style="display:none" gnrl="bg-danger c-white">
+        <div flx="ai-c jc-c">
+            <div gnrl="bg-dark c-white br-2" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
+            <div gnrl="txt-m" flx="jc-c fd-c">
+                <div class="wms"></div>
+            </div>
+            <div gnrl="bg-dark c-white br-2" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
         </div>
-        <div gnrl="bg-dark c-white br-2" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
-      </div>
     </div>

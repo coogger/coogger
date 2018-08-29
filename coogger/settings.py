@@ -5,11 +5,12 @@ SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = False
 ALLOWED_HOSTS = ["www.coogger.com","www.steemkitchen.com"]
 INSTALLED_APPS = [
-    "djmd",
-    "api",
-    "rest_framework",
     "cooggerapp",
+    "cooggerapi",
     "django_steemconnect",
+    "django_md_editor",
+    "rest_framework",
+    #######################
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -18,7 +19,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20
 }
@@ -38,7 +38,7 @@ TEMPLATES = [
     {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [
-    os.path.join(BASE_DIR, "coogger","cooggerapp","template"),
+        os.path.join(BASE_DIR, "coogger","cooggerapp","template"),
     ],
     'APP_DIRS': True,
     'OPTIONS': {
@@ -55,7 +55,7 @@ WSGI_APPLICATION = 'wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'coogger/coogger_db'),
+        'NAME': os.path.join(BASE_DIR, 'coogger/coogger.db'),
     },
 }
 AUTH_PASSWORD_VALIDATORS = [
@@ -79,7 +79,7 @@ USE_L10N = True
 USE_TZ = True
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "coogger/static")
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "coogger/media")

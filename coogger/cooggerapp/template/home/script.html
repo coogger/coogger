@@ -1,13 +1,13 @@
 <script>
-{% if request.user.is_authenticated %}
-function write_in_html(id,variable) {
-  document.getElementById(id).innerHTML = variable;
-}
-steem.api.getAccounts(["{{ request.user }}"], function(err, result) {  // account
-  var user = result[0];
-  var profile = JSON.parse(user.json_metadata).profile;
-  write_in_html("steem_power",user.voting_power/100);
-  $("#steem_power_bar").css({"width":user.voting_power/100+"%"});
-});
-{% endif %}
+    {% if request.user.is_authenticated %}
+    function write_in_html(id,variable) {
+      document.getElementById(id).innerHTML = variable;
+    }
+    steem.api.getAccounts(["{{ request.user }}"], function(err, result) {  // account
+      var user = result[0];
+      var profile = JSON.parse(user.json_metadata).profile;
+      write_in_html("steem_power",user.voting_power/100);
+      $("#steem_power_bar").css({"width":user.voting_power/100+"%"});
+    });
+    {% endif %}
 </script>

@@ -1,57 +1,57 @@
 <script type="text/javascript">
-  $(document).ready(function() {
-    function write_in_html(id,variable) {
-      document.getElementById(id).innerHTML = variable;
-    }
-    steem.api.getAccounts(["{{ content_user }}"], function(err, result) {  // account
-      var user = result[0];
-      var profile = JSON.parse(user.json_metadata).profile;
-      document.getElementById("useruserimg").setAttribute("src","https://steemitimages.com/u/{{ content_user }}/avatar");
-      write_in_html("reputation",steem.formatter.reputation(user.reputation));
-      write_in_html("about",profile.about);
-      write_in_html("location",profile.location);
-      steem.api.getFollowCount("{{ content_user }}", function(err, followcount) {
-        write_in_html("follower_count",followcount.follower_count);
-        write_in_html("following_count",followcount.following_count);
-        {% if request.user.is_authenticated %} // if user is not authenticated, it should not check follow or following
-        steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
-          for (var i = 0; i < followers.length; i++) {
-            if ("{{ request.user }}" == followers[i].follower){
-              write_in_html("is_follow","Unfollow");
-              $("#follow").css({'display':"none"});
-              $("#unfollow").css({'display':"flex"});
-              break;
-            }
-          }
+    $(document).ready(function() {
+        function write_in_html(id,variable) {
+          document.getElementById(id).innerHTML = variable;
+        }
+        steem.api.getAccounts(["{{ content_user }}"], function(err, result) {  // account
+          var user = result[0];
+          var profile = JSON.parse(user.json_metadata).profile;
+          document.getElementById("useruserimg").setAttribute("src","https://steemitimages.com/u/{{ content_user }}/avatar");
+          write_in_html("reputation",steem.formatter.reputation(user.reputation));
+          write_in_html("about",profile.about);
+          write_in_html("location",profile.location);
+          steem.api.getFollowCount("{{ content_user }}", function(err, followcount) {
+            write_in_html("follower_count",followcount.follower_count);
+            write_in_html("following_count",followcount.following_count);
+            {% if request.user.is_authenticated %} // if user is not authenticated, it should not check follow or following
+            steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
+              for (var i = 0; i < followers.length; i++) {
+                if ("{{ request.user }}" == followers[i].follower){
+                  write_in_html("is_follow","Unfollow");
+                  $("#follow").css({'display':"none"});
+                  $("#unfollow").css({'display':"flex"});
+                  break;
+                }
+              }
+            });
+            {% endif %}
+          });
+          $(".cover_image").css({"background-image":"url('"+profile.cover_image+"')"});
+        });
+        {% if request.user.is_authenticated %}
+        $(".follow").click(function(event){
+          $("#follow #is_follow").attr({'animation':"blink i"});
+          api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
+            $("#is_follow" ).html("Unfollow");
+            var follower_count = parseInt(document.getElementById("follower_count").innerHTML);
+            $("#follower_count" ).html(follower_count+1);
+            $("#follow").css({'display':"none"});
+            $("#unfollow").css({'display':"flex"});
+            $("#follow #is_follow").attr({'animation':""});
+          });
+        });
+        $(".unfollow").click(function(event){
+          $("#unfollow #is_follow").attr({'animation':"blink i"});
+          api.unfollow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
+            $("#is_follow").html("Follow");
+            var follower_count = parseInt(document.getElementById("follower_count").innerHTML);
+            $("#follower_count").html(follower_count-1);
+            $("#follow").css({'display':"flex"});
+            $("#unfollow").css({'display':"none"});
+            $("#unfollow #is_follow").attr({'animation':""});
+          });
         });
         {% endif %}
-      });
-      $(".cover_image").css({"background-image":"url('"+profile.cover_image+"')"});
-    });
-    {% if request.user.is_authenticated %}
-    $(".follow").click(function(event){
-      $("#follow #is_follow").attr({'animation':"blink i"});
-      api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
-        $("#is_follow" ).html("Unfollow");
-        var follower_count = parseInt(document.getElementById("follower_count").innerHTML);
-        $("#follower_count" ).html(follower_count+1);
-        $("#follow").css({'display':"none"});
-        $("#unfollow").css({'display':"flex"});
-        $("#follow #is_follow").attr({'animation':""});
-      });
-    });
-    $(".unfollow").click(function(event){
-      $("#unfollow #is_follow").attr({'animation':"blink i"});
-      api.unfollow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
-        $("#is_follow").html("Follow");
-        var follower_count = parseInt(document.getElementById("follower_count").innerHTML);
-        $("#follower_count").html(follower_count-1);
-        $("#follow").css({'display':"flex"});
-        $("#unfollow").css({'display':"none"});
-        $("#unfollow #is_follow").attr({'animation':""});
-      });
-    });
-    {% endif %}
 
-  });
+      });
 </script>

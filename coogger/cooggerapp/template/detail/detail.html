@@ -1,62 +1,35 @@
 {% include 'detail/script.html' %}
 <div style="margin: 12px 0px;" animation="fadeIn">
-  {% if detail.status == "shared" or detail.status == "changed" %}
-  <div class="review-mod" gnrl="bg-warning c-white b-2 brc-warning br-2 center" flx="ai-c" default="media">
-   A moderator will review this content within 1 and 2 days, status : {{ detail.status }}
-  </div>
-  {% endif %}
-  {% if detail.status == "rejected" %}
-  <div gnrl="bg-warning c-white b-2 brc-warning br-2 center" flx="jc-c ai-c" default="media" style="height: 20vh;margin-bottom: 2px;">
-   Rejected by @{{ detail.mod }}
-  </div>
-  {% endif %}
+{% include 'detail/status.html' %}
 <div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
   <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;margin-right: 2%;">
     <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
         <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}" style="padding: 3px 6px;">
-        {% url 'utopic' detail.topic detail.user %}
+            {% url 'utopic' detail.topic detail.user %}
         </a>
         <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'list' detail.topic  %}" style="padding: 3px 6px;">
             {% url 'list' detail.topic  %}
-          </a>
+        </a>
     </div>
     {% include 'detail/contentinfo.html' %}
     {% include 'detail/userinfo.html' %}
-    <div style="overflow-x: auto;">
+    <div>
       <h1 gnrl="center" id="title"></h1>
       <div style="padding: inherit;">
         {% include "detail/md.html" %}
       </div>
-    </div>
-    {% include 'detail/edit.html' %}
-    <!-- vote button  -->
-    <div gnrl="center">
-      <div class="vote circle">
-        <div class="increment up" gnrl="bg-success"></div>
-        <div class="increment down" gnrl="bg-danger"></div>
-        <div class="count" id="post_reward_total" gnrl="txt-l bg-white"></div>
-      </div>
-    </div>
-  </div>
-  <!-- vote button  -->
-<!-- other contents of content -->
-  <div class="just-pc" flx="fw-nw" gnrl="b-1 brc-muted">
-    <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m">
-      {% for list in nav_category %}
-        {% if list.permlink == urloftopic %}
-          <div gnrl="bg-dark b-1 brc-dark">
-            <a flx gnrl="c-white txt-m" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
-             {{ list.title|title|truncatechars:46 }}</a>
+      {% include 'detail/edit.html' %}
+      <!-- vote button  -->
+      <div gnrl="center">
+        <div class="vote circle">
+          <div class="increment up" gnrl="bg-success"></div>
+          <div class="increment down" gnrl="bg-danger"></div>
+          <div class="count" id="post_reward_total" gnrl="txt-l bg-white"></div>
         </div>
-       {% else%}
-         <div hvr-a="bg-dark" gnrl="br-2" >
-           <a flx gnrl="b-1 brc-muted c-dark txt-m" hvr="c-white brc-dark" href="/{{list.get_absolute_url}}" style="padding: 3px 6px;">
-           {{ list.title|title|truncatechars:46 }}</a>
       </div>
-      {% endif %}
-       {% endfor %}
+      <!-- vote button  -->
     </div>
   </div>
-<!--  -->
+{% include 'detail/other_contents.html' %}
 </div>
 </div>

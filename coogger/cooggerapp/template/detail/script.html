@@ -1,144 +1,144 @@
 <script type="text/javascript">
-  $(document).ready(function() {
-    function write_in_html(id,variable) {
-      document.getElementById(id).innerHTML = variable;
-    }
-    // section content info
-    steem.api.getFollowCount("{{ request.user }}", function(err, followcount) {
-      steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
-        for (var i = 0; i < followers.length; i++) {
-          if ("{{ request.user }}" == followers[i].follower){
-            write_in_html("is_follow","Unfollow");
+    $(document).ready(function() {
+        function write_in_html(id,variable) {
+          document.getElementById(id).innerHTML = variable;
+        }
+        // section content info
+        steem.api.getFollowCount("{{ request.user }}", function(err, followcount) {
+          steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
+            for (var i = 0; i < followers.length; i++) {
+              if ("{{ request.user }}" == followers[i].follower){
+                write_in_html("is_follow","Unfollow");
+                $("#follow").css({'display':"none"});
+                $("#unfollow").css({'display':"flex"});
+                break;
+              }
+            }
+          });
+        });
+        steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
+          steem.api.getAccounts([author], function(err, result) {  // account
+            var user = result[0];
+            var profile = JSON.parse(user.json_metadata).profile;
+            document.getElementById("detail_profile_image").setAttribute("src",profile.profile_image);
+          });
+          // upvoted ?
+          var upvoted = false;
+          var active_votes = content.active_votes;
+          write_in_html("count",active_votes.length);
+          {% if request.user.is_authenticated %}
+            for (var vot = 0; vot < active_votes.length; vot++) {
+              if ("{{request.user}}" == active_votes[vot].voter){
+                $(".up").css({"opacity":1});
+                upvoted = true;
+                break;
+              }
+            }
+          {% endif %}
+          // if(upvoted == false){
+          //   $(".down").css({"opacity":0.5});
+          //   $(".up").css({"opacity":0.5});
+          // }
+          // upvoted ?
+          var reputation = steem.formatter.reputation(content.author_reputation);
+          var title = content.root_title;
+          var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
+          var post_reward_total = 0;
+          if (pending_payout_value == 0){
+            var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+            var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+            post_reward_total = total_payout_value+curator_payout_value;
+          }
+          else{
+            post_reward_total = pending_payout_value;
+          }
+          // write_in_html("net_votes",content.net_votes);
+          write_in_html("reputation",reputation);
+          write_in_html("username",content.author);
+          write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
+          write_in_html("title",title);
+          $(function() { // editor md
+            var Editor = editormd.markdownToHTML("id_arg_editormd", {
+              height: 670,
+              path : "/static/lib/",
+              htmlDecode: "html,iframe",
+              atLink: false,
+              emailLink : false,
+              markdown : content.body,
+            });
+          });
+        });
+        $(".follow").click(function(event){
+          $("#is_follow").attr({'animation':"blink i"});
+          api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
+            $("#is_follow" ).html("Unfollow");
             $("#follow").css({'display':"none"});
             $("#unfollow").css({'display':"flex"});
-            break;
-          }
-        }
-      });
-    });
-    steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
-      steem.api.getAccounts([author], function(err, result) {  // account
-        var user = result[0];
-        var profile = JSON.parse(user.json_metadata).profile;
-        document.getElementById("detail_profile_image").setAttribute("src",profile.profile_image);
-      });
-      // upvoted ?
-      var upvoted = false;
-      var active_votes = content.active_votes;
-      write_in_html("count",active_votes.length);
-      {% if request.user.is_authenticated %}
-        for (var vot = 0; vot < active_votes.length; vot++) {
-          if ("{{request.user}}" == active_votes[vot].voter){
-            $(".up").css({"opacity":1});
-            upvoted = true;
-            break;
-          }
-        }
-      {% endif %}
-      // if(upvoted == false){
-      //   $(".down").css({"opacity":0.5});
-      //   $(".up").css({"opacity":0.5});
-      // }
-      // upvoted ?
-      var reputation = steem.formatter.reputation(content.author_reputation);
-      var title = content.root_title;
-      var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
-      var post_reward_total = 0;
-      if (pending_payout_value == 0){
-        var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
-        var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
-        post_reward_total = total_payout_value+curator_payout_value;
-      }
-      else{
-        post_reward_total = pending_payout_value;
-      }
-      // write_in_html("net_votes",content.net_votes);
-      write_in_html("reputation",reputation);
-      write_in_html("username",content.author);
-      write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
-      write_in_html("title",title);
-      $(function() { // editor md
-        var Editor = editormd.markdownToHTML("id_arg_editormd", {
-          height: 670,
-          path : "/static/lib/",
-          htmlDecode: "html,iframe",
-          atLink: false,
-          emailLink : false,
-          markdown : content.body,
+            $("#is_follow").attr({'animation':""});
+          });
+        });
+        $(".unfollow").click(function(event){
+            $("#is_follow").attr({'animation':"blink i"});
+          api.unfollow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
+            $("#is_follow").html("Follow");
+            $("#follow").css({'display':"flex"});
+            $("#unfollow").css({'display':"none"});
+            $("#is_follow").attr({'animation':""});
+          });
+        });
+        // vote.js
+        $(function(){
+          $(".increment").click(function(){
+            var count = parseInt($("#count").text());
+            if($(this).hasClass("up")) {
+              {% if request.user.is_authenticated %}
+                  const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
+                  api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", weight, function (err, res) {
+                      console.log(err,res,"voted"); // is it necessary to below codes
+                      steem.api.getContent(author, permlink, function(err, content) {
+                        var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
+                        var post_reward_total = 0;
+                        if (pending_payout_value == 0){
+                          var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+                          var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+                          post_reward_total = total_payout_value+curator_payout_value;
+                        }
+                        else{
+                          post_reward_total = pending_payout_value;
+                        }
+                        $("#post_reward_total").text(post_reward_total.toFixed(2));
+                        $(".up").css({"opacity":1});
+                        $("#count").text(count + 1);
+                      });
+                  });
+              {% endif %}
+            } else {
+              {% if request.user.is_authenticated %}
+                  const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
+                  api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", -weight, function (err, res) {
+                      console.log(err,res,"unvoted"); // is it necessary to below codes
+                      steem.api.getContent(author, permlink, function(err, content) {
+                        var post_reward_total = 0;
+                        if (pending_payout_value == 0){
+                          var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+                          var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+                          post_reward_total = total_payout_value+curator_payout_value;
+                        }
+                        else{
+                          post_reward_total = pending_payout_value;
+                        }
+                        $("#post_reward_total").text(post_reward_total.toFixed(2));
+                        $(".down").css({"opacity":1});
+                        $("#count").text(count + 1);
+                      });
+                  });
+              {% endif %}
+            }
+            $(this).parent().addClass("bump");
+            setTimeout(function(){
+              $(this).parent().removeClass("bump");
+            }, 400);
+          });
         });
       });
-    });
-    $(".follow").click(function(event){
-      $("#is_follow").attr({'animation':"blink i"});
-      api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
-        $("#is_follow" ).html("Unfollow");
-        $("#follow").css({'display':"none"});
-        $("#unfollow").css({'display':"flex"});
-        $("#is_follow").attr({'animation':""});
-      });
-    });
-    $(".unfollow").click(function(event){
-        $("#is_follow").attr({'animation':"blink i"});
-      api.unfollow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
-        $("#is_follow").html("Follow");
-        $("#follow").css({'display':"flex"});
-        $("#unfollow").css({'display':"none"});
-        $("#is_follow").attr({'animation':""});
-      });
-    });
-    // vote.js
-    $(function(){
-      $(".increment").click(function(){
-        var count = parseInt($("#count").text());
-        if($(this).hasClass("up")) {
-          {% if request.user.is_authenticated %}
-              const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
-              api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", weight, function (err, res) {
-                  console.log(err,res,"voted"); // is it necessary to below codes
-                  steem.api.getContent(author, permlink, function(err, content) {
-                    var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
-                    var post_reward_total = 0;
-                    if (pending_payout_value == 0){
-                      var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
-                      var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
-                      post_reward_total = total_payout_value+curator_payout_value;
-                    }
-                    else{
-                      post_reward_total = pending_payout_value;
-                    }
-                    $("#post_reward_total").text(post_reward_total.toFixed(2));
-                    $(".up").css({"opacity":1});
-                    $("#count").text(count + 1);
-                  });
-              });
-          {% endif %}
-        } else {
-          {% if request.user.is_authenticated %}
-              const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
-              api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", -weight, function (err, res) {
-                  console.log(err,res,"unvoted"); // is it necessary to below codes
-                  steem.api.getContent(author, permlink, function(err, content) {
-                    var post_reward_total = 0;
-                    if (pending_payout_value == 0){
-                      var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
-                      var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
-                      post_reward_total = total_payout_value+curator_payout_value;
-                    }
-                    else{
-                      post_reward_total = pending_payout_value;
-                    }
-                    $("#post_reward_total").text(post_reward_total.toFixed(2));
-                    $(".down").css({"opacity":1});
-                    $("#count").text(count + 1);
-                  });
-              });
-          {% endif %}
-        }
-        $(this).parent().addClass("bump");
-        setTimeout(function(){
-          $(this).parent().removeClass("bump");
-        }, 400);
-      });
-    });
-  });
 </script>
