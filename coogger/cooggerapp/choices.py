@@ -31,7 +31,6 @@ def coogger_categories():
     "finance",
     "exchange",
     "design graphic",
-    "development",
     "question answer",
     "translation",
     "discussion",
@@ -39,12 +38,16 @@ def coogger_categories():
 
 def coogger_languages():
     return (
-        "turkish",
         "english",
         "korean",
         "spanish",
+        "turkish",
+        "chinese",
         "arabic",
         "french",
+        "indonesian",
+        "korean",
+        "polish",
         "portuguese",
         "german",
         "italian",
