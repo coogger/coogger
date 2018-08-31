@@ -1,6 +1,11 @@
 header{
-  background-color: #1d482b;
-  z-index: 11;
+  height: 64px;
+  padding: 6px;
+  border-bottom:  1px solid #f1f1f1;
+  position:  fixed;
+  width: 100%;
+  overflow: auto;
+  z-index: 2;
   top: 0px;
   div div{
     padding: 3px 6px;
@@ -8,6 +13,41 @@ header{
       padding: 3px 6px;
     }
   }
+}
+.section-right{
+  padding: 10px;
+  position:  fixed;
+  left:  10%;
+  max-height: 80%;
+}
+.section-left{
+  padding: 10px;
+  position:  fixed;
+  right:  10%;
+  max-height: 80%;
+}
+#steem_power_bar{
+  height: 4px;
+  width: 100%;
+  position:fixed;
+  z-index: 1;
+  top: 74px;
+}
+.header_menu{
+  display: none;
+  position: fixed;
+  top: 0px;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+.closed_header_menu{
+  display: none;
+  right: 5%;
+  z-index: 2;
+  position: fixed;
+  padding: 6px 14px;
+  cursor:  pointer;
 }
 .history-op{
   padding: 6px 12px;
@@ -38,7 +78,6 @@ header{
     border-top: 1px solid #cecece;
     padding-bottom: 6px;
 }
-
 .fa, .fas {
     padding: 0px 6px;
 }
@@ -93,7 +132,7 @@ section{
   cursor: pointer;
   right: 0px;
 }
-  .bebordert{
+.bebordert{
   border-top: 1px solid #fff;
   height: 4px;
 }
@@ -139,7 +178,6 @@ section{
   border-radius: 50%;
   height: 80px;
 }
-
 .just-mobile{
   display: None;
 }
@@ -147,7 +185,7 @@ section{
   display: block;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
     .sectionclosedmobile {
         display: none;
     }
