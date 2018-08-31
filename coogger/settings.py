@@ -2,8 +2,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
-DEBUG = False
-ALLOWED_HOSTS = ["www.coogger.com","www.steemkitchen.com"]
+DEBUG = True
+ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "cooggerapp",
     "cooggerapi",
@@ -77,8 +77,8 @@ TIME_ZONE = 'Europe/Istanbul'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "coogger/static")
 MEDIA_URL = "/media/"

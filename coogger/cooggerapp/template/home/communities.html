@@ -1,16 +1,17 @@
-{% load djmd_tags %} {% include 'home/head.html' %} {% include 'home/header.html' %}
+{% load django_md_editor_tags %} {% include 'home/head.html' %} {% include 'home/header.html' %}
 
-<div flx="fw-w" gnrl="center txt-s" style="margin: 14px auto;">
-    {% for com in communities %} {% if not com.host_name == "127.0.0.1:8000" %}
-    <div flx style="height: auto;padding: 14px" default="media2">
+<div gnrl="txt-xl center b-1 br-2 wmax bg-private c-white" style="margin: 16px auto;padding: 4px 12px;">Other communities working with Coogger Ecosystem</div>
+<div flx="fw-w" gnrl="center txt-m" style="margin: 14px auto;">
+    {% for com in communities %}
+    <div flx style="height: auto;word-break: break-word;padding: 14px;" default="media2">
         <div style="padding: 6px">
             <div>name : {{ com.name }}</div>
             <div>host_name : <a gnrl="c-primary" href="//{{ com.host_name }}">{{ com.host_name }}</a></div>
             <div>redirect_url : <a gnrl="c-primary" href="//{{ com.redirect_url }}">{{ com.redirect_url }}</a> </div>
             <div>login_redirect : <a gnrl="c-primary" href="//{{ com.host_name }}{{com.login_redirect}}">{{ com.login_redirect }}</a></div>
             <div>scope : {{ com.scope }}</div>
-            {{ com.ms|md_detail:com.name|safe }}
+            {{ com.ms|detail_load:com.name|safe }}
         </div>
     </div>
-    {% endif %} {% endfor %}
+    {% endfor %}
 </div>
