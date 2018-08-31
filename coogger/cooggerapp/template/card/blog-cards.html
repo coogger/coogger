@@ -1,4 +1,5 @@
-<cards flx default="media2" style="margin:  0px;">
+<cards flx default="media2">
+    {% include 'home/explain_of_page.html' %}
     {% for ct in content %}
     <card class="data-post-id-{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" gnrl="bg-white br-2">
         {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}

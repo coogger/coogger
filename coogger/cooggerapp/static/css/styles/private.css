@@ -14,6 +14,9 @@ header{
     }
   }
 }
+.header-bottom{
+  margin-top:90px;
+}
 .section-right{
   padding: 10px;
   position:  fixed;
