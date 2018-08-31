@@ -1,11 +1,16 @@
 from rest_framework import routers
 
 from django.conf.urls import url, include
-from cooggerapi.views import SteemConnectUserApi, UserApi, ContentApi, UserFilter, ContentFilter
+from cooggerapi.views import (SteemConnectUserApi, UserApi,
+    ContentApi, UserFilter, ContentFilter,
+    SearchedWordsFilter, UserFollowFilter, CommunityFilter)
 
 router = routers.DefaultRouter()
 router.register(r'filter-user', UserFilter)
 router.register(r'filter-content', ContentFilter)
+router.register(r'filter-searched', SearchedWordsFilter)
+router.register(r'filter-useraddresses', UserFollowFilter)
+router.register(r'filter-community', CommunityFilter)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

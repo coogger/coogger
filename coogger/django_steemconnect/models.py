@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Community(models.Model):
+class Community(models.Model): # TODO: create a colomn community definition for SEO
     name = models.CharField(max_length=20, unique=True)
     host_name = models.CharField(max_length=30, unique=True)
     redirect_url = models.CharField(max_length=400, unique=True)
@@ -14,6 +14,10 @@ class Community(models.Model):
     icon_address = models.CharField(max_length=400)
     ms = models.CharField(max_length=1000)
     management = models.ForeignKey(User, on_delete=models.CASCADE)  # admin for community
+
+    @property
+    def management_user(self):
+        return self.management.username
 
 
 class Mods(models.Model):

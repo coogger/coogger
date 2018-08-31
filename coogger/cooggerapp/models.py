@@ -253,8 +253,13 @@ class UserFollow(models.Model):
     choices = models.CharField(blank=True, null=True, max_length=15, choices=make_choices(follow()), verbose_name="website")
     adress = models.CharField(blank=True, null=True, max_length=150, verbose_name="write address / username")
 
+    @property
+    def username(self):
+        return self.user.username
+
 
 class SearchedWords(models.Model):
+    # TODO:  add new column named user, as user or None
     word = models.CharField(unique=True, max_length=310)
     hmany = models.IntegerField(default=1)
 

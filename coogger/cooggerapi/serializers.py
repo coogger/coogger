@@ -1,13 +1,34 @@
 from rest_framework import serializers
 
-from rest_framework import serializers
-
 # models
-from cooggerapp.models import Content, OtherInformationOfUsers
-from django_steemconnect.models import SteemConnectUser
+from cooggerapp.models import Content, OtherInformationOfUsers, SearchedWords, UserFollow
+from django_steemconnect.models import SteemConnectUser, Community
 
 
-class SteemConnectUserSerializer(serializers.ModelSerializer):  # permission
+class SearchedWordsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SearchedWords
+        fields = ("word", "hmany")
+
+
+class UserFollowSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserFollow
+        fields = ("username", "choices", "adress")
+
+
+class CommunitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Community
+        fields = ("name", "host_name", "redirect_url",
+                  "client_id", "app_secret", "login_redirect",
+                  "scope", "icon_address", "ms", "management_user")
+
+
+class SteemConnectUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SteemConnectUser
