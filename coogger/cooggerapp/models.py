@@ -237,8 +237,8 @@ class Content(models.Model):
             return tags
         get_tag = self.tag.split(" ")[:5]
         if get_tag[0] != self.community.name:
-            get_tag.insert(0, "coogger")
-            get_tag.insert(1, self.community.name)
+            get_tag.insert(0, self.community.name)
+            get_tag.insert(1, "coogger")
             get_tag.insert(2, self.category)
             get_tag.insert(3, self.language)
         return clearly_tags(get_tag)
