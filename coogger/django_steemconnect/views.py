@@ -9,8 +9,8 @@ from django.conf import settings
 # models
 from django_steemconnect.models import SteemConnectUser, Community
 
-# python steemconnect-client
-from sc2py.client import Client
+# python steemconnect
+from steemconnect.client import Client
 
 import random
 

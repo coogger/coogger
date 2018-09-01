@@ -37,7 +37,7 @@ class Create(View):
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
-            save = form.content_save(request)  # save with sc2py and get ms
+            save = form.content_save(request)  # save with steemconnect and get ms
             if save.status_code != 200:  # if any error show the error
                 ms.error(request, save.text)
                 return self.create_error(request, form)
@@ -46,7 +46,6 @@ class Create(View):
             return self.create_error(request, form)
 
     def create_error(self, request, form):
-        ms.error(request, "unexpected error, check your content please or contact us on discord; <a gnrl='c-primary' href=''></a>")
         return render(request, self.template_name, {"form": form})
 
 

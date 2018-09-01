@@ -14,12 +14,12 @@ import datetime
 # steem
 from steem.post import Post
 
-# sc2py.
-from sc2py.sc2py import Sc2
-from sc2py.operations import Operations
-from sc2py.operations import Comment
-from sc2py.operations import Follow
-from sc2py.operations import Unfollow
+# steemconnect
+from steemconnect.steemconnect import SteemConnect
+from steemconnect.operations import (
+    Unfollow, Comment,
+    Follow, Unfollow, CommentOptions
+)
 
 # 3. other
 from bs4 import BeautifulSoup
@@ -110,7 +110,7 @@ class Content(models.Model):
     def content_save(self, request, *args, **kwargs):  # for me
         self.community = request.community_model
         self.tag = self.ready_tags()
-        self.topic = self.tag.split()[4]
+        self.topic = self.tag.split()[3]
         self.dor = self.durationofread(self.content+self.title)
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
@@ -128,7 +128,7 @@ class Content(models.Model):
                     self.new_permlink()  # change to self.permlink / link değişir
                 except:
                     break
-        steem_save = self.sc2_post(self.permlink, "save")
+        steem_save = self.steemconnect_post(self.permlink, "save")
         if steem_save.status_code == 200:
             super(Content, self).save(*args, **kwargs)
         return steem_save
@@ -138,9 +138,9 @@ class Content(models.Model):
         self.user = queryset[0].user
         self.title = content.title
         self.tag = self.ready_tags()
-        self.topic = self.tag.split()[4]
+        self.topic = self.tag.split()[3]
         self.dor = self.durationofread(self.content+self.title)
-        steem_post = self.sc2_post(queryset[0].permlink, "update")
+        steem_post = self.steemconnect_post(queryset[0].permlink, "update")
         if steem_post.status_code == 200:
             queryset.update(
                 definition=self.prepare_definition(content.content),
@@ -156,7 +156,7 @@ class Content(models.Model):
             )
         return steem_post
 
-    def sc2_post(self, permlink, json_metadata):
+    def steemconnect_post(self, permlink, json_metadata):
         def_name = json_metadata
         if json_metadata == "save":
             self.content += "\n"+self.community.ms.format(self.get_absolute_url())
@@ -192,8 +192,8 @@ class Content(models.Model):
                                         {"account": "hakancelik", "weight": ben_weight+500},
                                         {"account": self.community.name, "weight": 500}
                                     ]
-                comment_options = comment.comment_options(beneficiaries=beneficiaries)
-                jsons = comment_options
+                comment_options = CommentOptions(comment_class=comment, beneficiaries=beneficiaries)
+                operation = comment_options.operation
             elif int(beneficiaries_weight) < 15 and int(beneficiaries_weight) > 0:
                 ben_weight = int(int(beneficiaries_weight)*100/3)
                 if self.community.name == "coogger":
@@ -205,22 +205,21 @@ class Content(models.Model):
                                         {"account": "hakancelik", "weight": 2*ben_weight},
                                         {"account": self.community.name, "weight": ben_weight}
                                     ]
-                comment_options = comment.comment_options(beneficiaries=beneficiaries)
-                jsons = comment_options
+                comment_options = CommentOptions(comment_class=comment, beneficiaries=beneficiaries)
+                operation = comment_options.operation
             elif int(beneficiaries_weight) == 0:
-                jsons = comment.json
+                operation = comment.operation
         else:
-            jsons = comment.json
-        op = Operations(json=jsons).json
+            operation = comment.operation
         steem_connect_user = SteemConnectUser.objects.filter(user=self.user)
         try:
             access_token = steem_connect_user[0].access_token
-            return Sc2(token=access_token, data=op).run
+            return SteemConnect(token=access_token, data=operation).run
         except:
             sc_community_name = steem_connect_user[0].community_name
             secret = Community.objects.filter(name=sc_community_name)[0].app_secret
             access_token = steem_connect_user.set_new_access_token(secret)
-            return Sc2(token=access_token, data=op).run
+            return SteemConnect(token=access_token, data=operation).run
 
     def ready_tags(self):
         def clearly_tags(get_tag):
@@ -236,11 +235,11 @@ class Content(models.Model):
                     tags += slugify(i.lower())+" "
             return tags
         get_tag = self.tag.split(" ")[:5]
-        if get_tag[0] != self.community.name:
-            get_tag.insert(0, self.community.name)
-            get_tag.insert(1, "coogger")
-            get_tag.insert(2, self.category)
-            get_tag.insert(3, self.language)
+        get_tag.insert(0, self.community.name)
+        get_tag.insert(1, self.category)
+        get_tag.insert(2, self.language)
+        if self.community.name != "coogger":
+            get_tag.insert(4, "coogger")
         return clearly_tags(get_tag)
 
     def new_permlink(self):

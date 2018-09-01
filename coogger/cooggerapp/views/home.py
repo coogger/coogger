@@ -24,11 +24,6 @@ from cooggerapp.views.tools import paginator
 
 import json
 
-# sc2py.
-from sc2py.sc2py import Sc2
-from sc2py.operations import Operations
-from sc2py.operations import Vote
-
 # steem
 from steem import Steem
 from steem.post import Post

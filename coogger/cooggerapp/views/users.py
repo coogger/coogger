@@ -29,10 +29,6 @@ import os
 import json
 import requests
 
-# sc2py.
-from sc2py.sc2py import Sc2
-from sc2py import operations
-
 
 class UserClassBased(TemplateView):
     # TODO: users who are not signed in can not be displayed

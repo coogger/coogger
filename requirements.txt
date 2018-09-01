@@ -5,5 +5,5 @@ djangorestframework==3.7.3
 beautifulsoup4==4.6.0
 whitenoise
 steem
-sc2py
+steem-connect
 django_md_editor
