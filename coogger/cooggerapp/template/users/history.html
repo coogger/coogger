@@ -257,6 +257,12 @@
     function account_witness_vote(json, type){
         return json
     }
+    function account_witness_proxy(json, type){
+        return json
+    }
+    function delete_comment(json, type){
+        return json
+    }
 
     steem.api.getAccountHistory("{{content_user}}", -1, 100, function(err, result) {
       let template = "";
