@@ -25,7 +25,7 @@ class CommunitySerializer(serializers.ModelSerializer):
         model = Community
         fields = ("name", "host_name", "redirect_url",
                   "client_id", "app_secret", "login_redirect",
-                  "scope", "icon_address", "ms", "management_user")
+                  "scope", "icon_address", "ms", "management_user", "management")
 
 
 class SteemConnectUserSerializer(serializers.ModelSerializer):
@@ -33,11 +33,13 @@ class SteemConnectUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = SteemConnectUser
         fields = (
-            'username',
+            'user',
+            "username",
             "access_token",
             "refresh_token",
             "code",
             "community",
+            "community_name"
             )
 
 
@@ -46,6 +48,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = OtherInformationOfUsers
         fields = (
+            "user",
             'username',
             "about",
             "cooggerup_confirmation",
@@ -59,7 +62,9 @@ class ContentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
         fields = (
+            "community",
             "community_name",
+            "user",
             'username',
             'title',
             'permlink',
@@ -75,6 +80,7 @@ class ContentsSerializer(serializers.ModelSerializer):
             "views",
             "read",
             "lastmod",
+            "mod",
             "modusername",
             "cooggerup",
             )

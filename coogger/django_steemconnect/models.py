@@ -49,3 +49,7 @@ class SteemConnectUser(models.Model):
     @property
     def username(self):
         return self.user.username
+
+    @property
+    def community_name(self):
+        return self.community.name
