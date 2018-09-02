@@ -1,8 +1,8 @@
 <!-- other contents of topic  -->
 
-<div class="just-pc" flx="fw-nw">
-  <div gnrl="center" style="padding: 6px;margin-bottom: 24px;">Other contents of the {{detail.topic}} topic of the @{{content_user}} user.</div>
-    <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m" style="margin: 20px;">
+<div class="just-pc" flx="fw-nw" style="position:  relative;top: 0px;">
+  <div gnrl="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">Other contents of the {{detail.topic}} topic of the @{{content_user}} user.</div>
+    <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m" style="margin: 20px;position: sticky;top: 146px;">
         {% for list in nav_category %}
         {% if list.permlink == urloftopic %}
         <div gnrl="bg-success b-1 brc-success br-2">
