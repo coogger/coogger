@@ -1,5 +1,5 @@
 header{
-  height: 64px;
+  height: 48px;
   padding: 6px;
   border-bottom:  1px solid #f1f1f1;
   position:  fixed;
@@ -9,7 +9,7 @@ header{
   top: 0px;
   div div{
     padding: 3px 6px;
-    span{
+  span{
       padding: 3px 6px;
     }
   }
@@ -38,7 +38,7 @@ header{
   width: 100%;
   position:fixed;
   z-index: 1;
-  top: 74px;
+  top: 58px;
 }
 .header_menu{
   display: none;

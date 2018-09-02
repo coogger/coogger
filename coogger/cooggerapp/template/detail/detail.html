@@ -2,8 +2,8 @@
 <div animation="fadeIn" class="header-bottom">
 {% include 'detail/status.html' %}
 <div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
-  <div default="media paragraph" gnrl="bg-white br-2 b-1 brc-muted" style="padding: 6px 4px;margin-right: 2%;">
-    <div gnrl="bg-muted br-2 b-1 brc-muted" flx="">
+  <div default="media paragraph" gnrl="bg-white" style="padding: 6px 4px;margin-right: 2%;">
+    <div flx="">
         <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}" style="padding: 3px 6px;">
             {% url 'utopic' detail.topic detail.user %}
         </a>
@@ -14,7 +14,7 @@
     {% include 'detail/contentinfo.html' %}
     {% include 'detail/userinfo.html' %}
     <div>
-      <h1 gnrl="center" id="title"></h1>
+      <h1 gnrl="center txt-xl" id="title" style="width: 96%;margin: 12px auto;"></h1>
       <div style="padding: inherit;">
         {% include "detail/md.html" %}
       </div>

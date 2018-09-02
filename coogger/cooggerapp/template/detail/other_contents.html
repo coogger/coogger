@@ -1,15 +1,19 @@
 <!-- other contents of topic  -->
-<div class="just-pc" flx="fw-nw" gnrl="b-1 brc-muted">
-    <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m">
-        {% for list in nav_category %} {% if list.permlink == urloftopic %}
-        <div gnrl="bg-dark b-1 brc-dark">
-            <a flx gnrl="c-white txt-m" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
-             {{ list.title|title|truncatechars:46 }}</a>
+
+<div class="just-pc" flx="fw-nw">
+  <div gnrl="center" style="padding: 6px;margin-bottom: 24px;">Other contents of the {{detail.topic}} topic of the @{{content_user}} user.</div>
+    <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m" style="margin: 20px;">
+        {% for list in nav_category %}
+        {% if list.permlink == urloftopic %}
+        <div gnrl="bg-success b-1 brc-success br-2">
+            <a flx gnrl="c-white txt-s br-2" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
+             {{ list.title|title }}</a>
         </div>
         {% else%}
-        <div hvr-a="bg-dark" gnrl="br-2">
-            <a flx gnrl="b-1 brc-muted c-dark txt-m" hvr="c-white brc-dark" href="/{{list.get_absolute_url}}" style="padding: 3px 6px;">
-           {{ list.title|title|truncatechars:46 }}</a>
+        <div hvr-a="bg-success" gnrl="br-2 br-2">
+            <a flx gnrl="b-1 brc-muted c-dark txt-s br-2" hvr="c-white brc-dark" href="/{{list.get_absolute_url}}"
+            style="padding: 3px 6px;">
+           {{ list.title|title }}</a>
         </div>
         {% endif %} {% endfor %}
     </div>
