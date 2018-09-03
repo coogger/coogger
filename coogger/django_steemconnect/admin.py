@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.contrib.admin import site, ModelAdmin
+from django.contrib.auth.models import User
 
 # models
 from django_steemconnect.models import SteemConnectUser, Community, Mods
@@ -33,7 +34,12 @@ class ModsAdmin(ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser or self.get_comminity_model(request) == obj.community:
+            User.objects.filter(username=object.user.username).update(is_staff=True)
             super(ModsAdmin, self).save_model(request, obj, form, change)
+
+    def delete_model(self, request, object):
+        User.objects.filter(username=object.user.username).update(is_staff=False)
+        object.delete()
 
     def get_comminity_model(self, request):
         return Mods.objects.filter(user = request.user)[0].community
@@ -41,7 +47,7 @@ class ModsAdmin(ModelAdmin):
 
 class CommunityAdmin(ModelAdmin):
     list_display = ["name", "management"]
-    list_filter = ["name", "management"]
+    list_filter = ["name"]
     list_display_links = ["name", "management"]
     search_fields = [
                         "name", "host_name", "redirect_url", "client_id",

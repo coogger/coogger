@@ -19,19 +19,9 @@ from cooggerapp.choices import *
 import datetime
 
 
-class CommunityAdmin(ModelAdmin):
-    list_ = ["name","host_name","redirect_url",
-            "client_id","app_secret","login_redirect",
-            "scope","icon_address","ms"]
-    list_display = list_
-    list_display_links = list_
-    list_filter = list_
-    search_fields = list_
-
-
 class ContentAdmin(ModelAdmin):
-    list_ = ["community_name","user","topic","permlink",
-            "mod","cooggerup","status","time"]
+    list_ = ["community_name","user","permlink",
+            "mod","cooggerup","status"]
     list_display = list_
     list_display_links = list_
     list_filter = ["status","time","cooggerup"]
@@ -47,7 +37,7 @@ class ContentAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        community = Mods.objects.filter(user = request.user)[0].community
+        community = self.get_comminity_model(request)
         return qs.filter(community = community)
 
     def get_form(self, request, obj=None, **kwargs):
@@ -59,6 +49,9 @@ class ContentAdmin(ModelAdmin):
         obj.lastmod = datetime.datetime.now()
         obj.mod = request.user
         super(ContentAdmin, self).save_model(request, obj, form, change)
+
+    def get_comminity_model(self, request):
+        return Mods.objects.filter(user = request.user)[0].community
 
 
 class UserFollowAdmin(ModelAdmin):
@@ -79,6 +72,11 @@ class SearchedWordsAdmin(ModelAdmin):
     list_display = list_
     list_display_links = list_
     search_fields = list_
+
+    def save_model(self, request, obj, form, change):
+        if request.user.is_superuser:
+            super(SearchedWordsAdmin, self).save_model(request, obj, form, change)
+        raise Http404
 
 
 class ContentviewsAdmin(ModelAdmin):
