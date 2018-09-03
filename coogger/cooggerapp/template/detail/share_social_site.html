@@ -1,0 +1,15 @@
+{% load coogger_tags %}
+<div class="just-pc" style="position:  relative;top: 300px;">
+  <div style="position:  sticky;top: 100px;">
+    <div class="share-on-facebook" style="margin-bottom:  24px;">
+      <a target="blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.community_model.host_name }}/@{{ detail.user }}/{{ detail.permlink }}">
+        <i class="fab fa-facebook fa-2x" style="color:#3b5998;"></i>
+      </a>
+    </div>
+    <div class="share-on-twitter">
+      <a target="blank" href="https://twitter.com/home?status='{{ detail.title|twitter:'' }}'%20by%20@{{ detail.user }}%20{{ request.community_model.host_name }}/@{{ detail.user }}/{{ detail.permlink }}">
+        <i class="fab fa-twitter fa-2x" style="color:#1da1f2;"></i>
+      </a>
+    </div>
+  </div>
+</div>

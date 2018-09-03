@@ -2,6 +2,7 @@
 <div animation="fadeIn" class="header-bottom">
 {% include 'detail/status.html' %}
 <div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
+  {% include 'detail/share_social_site.html' %}
   <div default="media paragraph" gnrl="bg-white" style="padding: 6px 4px;margin-right: 2%;">
     <div flx="">
         <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}" style="padding: 3px 6px;">

@@ -1,3 +1,7 @@
+# python
+from urllib.parse import quote_plus
+
+# cooggerapp
 from cooggerapp.choices import *
 from cooggerapp.models import Community,Content
 from cooggerapp.choices import make_choices
@@ -34,3 +38,7 @@ def hmanycontent(value, arg):
     community_model = Community.objects.filter(host_name = arg)[0]
     hmanycontent = len(Content.objects.filter(community = community_model,user = value,status = "approved"))
     return hmanycontent
+
+@register.filter(name="twitter")
+def twitter(value, arg):
+    return quote_plus(value)
