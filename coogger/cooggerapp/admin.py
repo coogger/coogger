@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
+from django.http import Http404
 
 #models
 from cooggerapp.models import Content, Contentviews, UserFollow, SearchedWords, ReportModel, OtherInformationOfUsers
@@ -33,13 +34,13 @@ class ContentAdmin(ModelAdmin):
             "mod","cooggerup","status","time"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["community","status","time","cooggerup"]
+    list_filter = ["status","time","cooggerup"]
     search_fields = ["topic","title"]
     fields = (("user","title"),"content","tag",("category","language","topic"),("status","cooggerup"))
 
     class Media:
         css = {
-        'coogger.css': ('css/styles/coogger.css',),
+        'coogger.css': ('https://cdn.rawgit.com/hakancelik96/63242e5ebb5f64bea570d8c1b476004c/raw/f640a21a48429c2e2e32478853469a517906e7b7/coogger.css',),
         }
 
     def get_queryset(self, request):
@@ -67,6 +68,11 @@ class UserFollowAdmin(ModelAdmin):
     list_filter = ["choices"]
     search_fields = list_
 
+    def save_model(self, request, obj, form, change):
+        if request.user.is_superuser:
+            super(UserFollowAdmin, self).save_model(request, obj, form, change)
+        raise Http404
+
 
 class SearchedWordsAdmin(ModelAdmin):
     list_ = ["word","hmany"]
@@ -88,6 +94,11 @@ class OtherInfoUsersAdmin(ModelAdmin):
     list_display_links = list_
     search_fields = list_
     list_filter = ["cooggerup_confirmation"]
+
+    def save_model(self, request, obj, form, change):
+        if request.user.is_superuser:
+            super(OtherInfoUsersAdmin, self).save_model(request, obj, form, change)
+        raise Http404
 
 
 site.register(Content,ContentAdmin)
