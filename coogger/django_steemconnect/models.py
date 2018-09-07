@@ -14,6 +14,7 @@ class Community(models.Model): # TODO: create a colomn community definition for 
     icon_address = models.CharField(max_length=400)
     ms = models.CharField(max_length=1000)
     management = models.ForeignKey(User, on_delete=models.CASCADE)  # admin for community
+    active = models.BooleanField(default=True)
 
     @property
     def management_user(self):
