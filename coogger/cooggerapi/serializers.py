@@ -1,7 +1,9 @@
 from rest_framework import serializers
 
 # models
-from cooggerapp.models import Content, OtherInformationOfUsers, SearchedWords, UserFollow
+from cooggerapp.models import (
+    Content, OtherInformationOfUsers,
+    SearchedWords, UserFollow)
 from django_steemconnect.models import SteemConnectUser, Community
 
 
@@ -55,6 +57,9 @@ class UserSerializer(serializers.ModelSerializer):
             "cooggerup_percent",
             "vote_percent",
             "beneficiaries",
+            "sponsor",
+            "total_votes",
+            "total_vote_value",
             )
 
 

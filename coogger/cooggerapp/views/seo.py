@@ -14,14 +14,14 @@ class TopicSitemap(Sitemap):
     def items(self):
         topics = []
         items_list = []
-        for i in Content.objects.all():
+        for i in Content.objects.filter(status="approved"):
             if i.topic not in topics:
                 topics.append(i.topic)
                 items_list.append(i)
         return items_list
 
     def lastmod(self, obj):
-        return Content.objects.filter(topic=obj.topic)[0].lastmod
+        return Content.objects.filter(topic=obj.topic, status="approved")[0].lastmod
 
     def location(self, obj):
         return "/"+obj.topic+"/@"+obj.user.username
@@ -32,7 +32,7 @@ class ContentSitemap(Sitemap):
     priority = 1.0
 
     def items(self):
-        return Content.objects.all()
+        return Content.objects.filter(status="approved")
 
     def lastmod(self, obj):
         return obj.lastmod

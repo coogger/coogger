@@ -1,13 +1,3 @@
-def steemkitchen_categories():
-    return [
-    "Recipe",
-    "Food Blog",
-    "Contest Entry",
-    "Steemit Iron Chef",
-    "Cook With Us",
-    "Food Photography",
-    ]
-
 def coogger_categories():
     return [
     "science",
@@ -79,19 +69,6 @@ def reports():
     "I think this content should not be at coogger",
     ]
 
-def cantapproved_choices():
-    return [
-    "It is not information sharing.",
-    "It is not tutorial content.",
-    "It is not translation"
-    "It is tutorial content but not enough, please edit and reshare",
-    "It is information sharing but not enough, please edit and reshare",
-    "It is translation contribution but not enough, please edit and reshare",
-    "Fraud or Plagiarism.",
-    "Hate Speech or Internet Trolling.",
-    "Intentional miss-categorized content or Spam.",
-    ]
-
 def status_choices():
     return [
     "shared",
@@ -99,6 +76,7 @@ def status_choices():
     "rejected",
     "approved",
     ]
+
 
 def make_choices(choice):
     from django.utils.text import slugify

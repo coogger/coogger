@@ -33,9 +33,13 @@ class OtherInformationOfUsers(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = EditorMdField()
     cooggerup_confirmation = models.BooleanField(default=False, verbose_name="Do you want to join in curation trails of the cooggerup bot with your account?")
+    sponsor = models.BooleanField(default=False)
     cooggerup_percent = models.CharField(max_length=3, choices=make_choices([i for i in range(100, -1, -1)]), default=0)
     vote_percent = models.CharField(max_length=3, choices=make_choices([i for i in range(100, 0, -1)]), default=100)
-    beneficiaries = models.CharField(max_length=3, choices=make_choices([i for i in range(100, -1, -1)]), default=0)
+    beneficiaries = models.CharField(max_length=3, choices=make_choices([i for i in range(25, -1, -1)]), default=0)
+    # reward db of coogger.up curation trail, reset per week
+    total_votes = models.IntegerField(default=0, verbose_name="How many votes")
+    total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
 
     @property
     def username(self):
@@ -50,7 +54,7 @@ class Content(models.Model):
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces,the first tag is your topic max:5 .")
     language = models.CharField(max_length=30, choices=make_choices(coogger_languages()), help_text=" The language of your content")
-    category = models.CharField(max_length=30, choices=make_choices(coogger_categories()+steemkitchen_categories()), help_text="select content category")
+    category = models.CharField(max_length=30, choices=make_choices(coogger_categories()), help_text="select content category")
     definition = models.CharField(max_length=400, verbose_name="definition of content", help_text="Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30, verbose_name="content topic", help_text="Please, write your topic about your contents.")
     status = models.CharField(default="shared", max_length=30, choices=make_choices(status_choices()), verbose_name="content's status")

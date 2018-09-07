@@ -35,7 +35,10 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        queryset = Content.objects.filter(community=self.request.community_model, status="approved")
+        if self.request.community_model.name == "coogger":
+            queryset = Content.objects.filter(status="approved")
+        else:
+            queryset = Content.objects.filter(community=self.request.community_model, status="approved")
         context["content"] = paginator(self.request, queryset)
         return context
 
@@ -68,7 +71,10 @@ class Review(View):
     def get(self, request, *args, **kwargs):
         # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         q = Q(status="shared") | Q(status="changed")
-        queryset = Content.objects.filter(q).filter(community=request.community_model)
+        if self.request.community_model.name == "coogger":
+            queryset = Content.objects.filter(q)
+        else:
+            queryset = Content.objects.filter(q).filter(community=request.community_model)
         info_of_cards = paginator(request, queryset)
         context = dict(
             content=info_of_cards,
@@ -92,7 +98,10 @@ class Search(TemplateView):
     def search_algorithm(self):
         searched_data = self.get_form_data()
         q = Q(title__contains=searched_data) | Q(topic__contains=searched_data) | Q(content__contains=searched_data)
-        queryset = Content.objects.filter(q, community=self.request.community_model, status="approved").order_by("-views")
+        if self.request.community_model.name == "coogger":
+            queryset = Content.objects.filter(q, status="approved").order_by("-views")
+        else:
+            queryset = Content.objects.filter(q, community=self.request.community_model, status="approved").order_by("-views")
         return queryset
 
     def get_queryset(self):

@@ -36,7 +36,10 @@ def languages(value, arg):
 @register.filter(name="hmanycontent")
 def hmanycontent(value, arg):
     community_model = Community.objects.filter(host_name = arg)[0]
-    hmanycontent = len(Content.objects.filter(community = community_model,user = value,status = "approved"))
+    if community_model.name == "coogger":
+        hmanycontent = len(Content.objects.filter(user = value,status = "approved"))
+    else:
+        hmanycontent = len(Content.objects.filter(community = community_model,user = value,status = "approved"))
     return hmanycontent
 
 @register.filter(name="twitter")

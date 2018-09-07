@@ -3,3 +3,4 @@ coogger.db
 *.scssc
 *.map
 coogger/settings.py
+migrations

@@ -38,7 +38,10 @@ class UserClassBased(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         user = User.objects.filter(username=username)[0]
-        queryset = self.ctof(community=self.request.community_model, user=user, status="approved")
+        if self.request.community_model.name == "coogger":
+            queryset = self.ctof(user=user, status="approved")
+        else:
+            queryset = self.ctof(community=self.request.community_model, user=user, status="approved")
         info_of_cards = paginator(self.request, queryset)
         context = super(UserClassBased, self).get_context_data(**kwargs)
         nav_category = []
@@ -59,7 +62,10 @@ class UserTopic(UserClassBased):
     def get_context_data(self, utopic, username, **kwargs):
         context = super(UserTopic, self).get_context_data(username, **kwargs)
         user = context["content_user"]
-        queryset = self.ctof(community=self.request.community_model, user=user, topic=utopic, status="approved")
+        if self.request.community_model.name == "coogger":
+            queryset = self.ctof(user=user, topic=utopic, status="approved")
+        else:
+            queryset = self.ctof(community=self.request.community_model, user=user, topic=utopic, status="approved")
         info_of_cards = paginator(self.request, queryset)
         context["user_follow"] = users_web(user)
         context["nameoftopic"] = utopic
@@ -79,7 +85,10 @@ class UserAboutBaseClass(View):
             about_form = self.form_class(request.GET or None, instance=query)
         else:
             about_form = query.about
-        queryset = Content.objects.filter(user=user, status="approved", community=request.community_model)
+        if self.request.community_model.name == "coogger":
+            queryset = Content.objects.filter(user=user, status="approved")
+        else:
+            queryset = Content.objects.filter(user=user, status="approved", community=request.community_model)
         nav_category = []
         for i in queryset:
             c_list = i.topic
@@ -112,7 +121,10 @@ class UserHistory(TemplateView):
     def get_context_data(self, username, **kwargs):
         context = super(UserHistory, self).get_context_data(**kwargs)
         user = User.objects.filter(username=username)[0]
-        queryset = Content.objects.filter(user=user, status="approved", community=self.request.community_model)
+        if self.request.community_model.name == "coogger":
+            queryset = Content.objects.filter(user=user, status="approved")
+        else:
+            queryset = Content.objects.filter(user=user, status="approved", community=self.request.community_model)
         nav_category = []
         for i in queryset:
             c_list = i.topic

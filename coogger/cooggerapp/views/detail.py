@@ -31,7 +31,7 @@ class Detail(TemplateView):
         return context
 
     def contents_of_user(self):
-        return self.ctof(user=self.user, community=self.request.community_model)
+        return self.ctof(user=self.user)
 
     def permlinks_of_user(self):
         return self.contents_of_user().filter(permlink=self.path)
