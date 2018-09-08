@@ -4,7 +4,6 @@ from urllib.parse import quote_plus
 # cooggerapp
 from cooggerapp.choices import *
 from cooggerapp.models import Community,Content
-from cooggerapp.choices import make_choices
 
 from django import template
 register = template.Library()
@@ -45,3 +44,8 @@ def hmanycontent(value, arg):
 @register.filter(name="twitter")
 def twitter(value, arg):
     return quote_plus(value)
+
+@register.filter(name="topic")
+def topic(value, arg):
+    if arg == "count":
+        return f"{value} - {Content.objects.filter(topic = value).count()}"

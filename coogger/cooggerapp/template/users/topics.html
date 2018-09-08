@@ -1,3 +1,4 @@
+{% load coogger_tags %}
 <div class="just-pc" flx="fw-nw" style="position:  relative;top: 0px;margin-left: 5%;">
   <div gnrl="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">
     Other topics of contents of the @{{content_user}} user.</div>
@@ -6,13 +7,13 @@
         {% if list == nameoftopic %}
         <div gnrl="bg-success b-1 brc-success br-2">
             <a flx gnrl="c-white txt-s br-2" href="/{{ list }}/@{{content_user}}" style="padding: 3px 6px;">
-             {{ list|title }}</a>
+             {{ list|topic:"count"|title }}</a>
         </div>
         {% else%}
         <div hvr-a="bg-success" gnrl="br-2 br-2">
             <a flx gnrl="b-1 brc-muted c-dark txt-s br-2" hvr="c-white brc-dark" href="/{{list}}/@{{content_user}}"
             style="padding: 3px 6px;">
-           {{ list|title }}</a>
+           {{ list|topic:"count"|title }}</a>
         </div>
         {% endif %} {% endfor %}
     </div>
