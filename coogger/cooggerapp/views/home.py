@@ -145,6 +145,6 @@ class Communities(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Communities, self).get_context_data(**kwargs)
-        queryset = Community.objects.filter(active=True)
+        queryset = Community.objects.all()
         context["communities"] = queryset
         return context

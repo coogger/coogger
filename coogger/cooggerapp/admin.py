@@ -21,7 +21,7 @@ import datetime
 
 class ContentAdmin(ModelAdmin):
     list_ = ["community_name","user","permlink",
-            "mod","cooggerup","status"]
+            "topic", "mod","cooggerup","status"]
     list_display = list_
     list_display_links = list_
     list_filter = ["status","time","cooggerup"]

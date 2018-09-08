@@ -19,7 +19,7 @@ from cooggerapp.models import OtherInformationOfUsers, Content
 from cooggerapp.forms import AboutForm
 
 # views
-from cooggerapp.views.tools import get_facebook, users_web, paginator
+from cooggerapp.views.tools import get_facebook, users_web, paginator, user_topics
 
 # steem
 from steem import Steem
@@ -44,15 +44,10 @@ class UserClassBased(TemplateView):
             queryset = self.ctof(community=self.request.community_model, user=user, status="approved")
         info_of_cards = paginator(self.request, queryset)
         context = super(UserClassBased, self).get_context_data(**kwargs)
-        nav_category = []
-        for i in queryset:
-            c_list = i.topic
-            if c_list not in nav_category:
-                nav_category.append(c_list)
         context["content"] = info_of_cards
         context["content_user"] = User.objects.filter(username=username)[0]
         context["user_follow"] = users_web(user)
-        context["nav_category"] = nav_category
+        context["topics"] = user_topics(queryset)
         return context
 
 
@@ -89,16 +84,11 @@ class UserAboutBaseClass(View):
             queryset = Content.objects.filter(user=user, status="approved")
         else:
             queryset = Content.objects.filter(user=user, status="approved", community=request.community_model)
-        nav_category = []
-        for i in queryset:
-            c_list = i.topic
-            if c_list not in nav_category:
-                nav_category.append(c_list)
         context = {}
         context["about"] = about_form
         context["content_user"] = user
         context["user_follow"] = users_web(user)
-        context["nav_category"] = nav_category
+        context["topics"] = user_topics(queryset)
         return render(request, self.template_name, context)
 
     def post(self, request, username, *args, **kwargs):
@@ -125,14 +115,9 @@ class UserHistory(TemplateView):
             queryset = Content.objects.filter(user=user, status="approved")
         else:
             queryset = Content.objects.filter(user=user, status="approved", community=self.request.community_model)
-        nav_category = []
-        for i in queryset:
-            c_list = i.topic
-            if c_list not in nav_category:
-                nav_category.append(c_list)
         context["user_follow"] = users_web(user)
         context["content_user"] = user
-        context["nav_category"] = nav_category
+        context["topics"] = user_topics(queryset)
         return context
 
 

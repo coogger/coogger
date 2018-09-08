@@ -13,7 +13,9 @@ class Community(models.Model): # TODO: create a colomn community definition for 
     scope = models.CharField(default=default_scope, max_length=200)
     icon_address = models.CharField(max_length=400)
     ms = models.CharField(max_length=1000)
-    management = models.ForeignKey(User, on_delete=models.CASCADE)  # admin for community
+    management = models.ForeignKey(User, on_delete=models.CASCADE)
+    definition = models.CharField(max_length=900)
+    image = models.CharField(max_length=400)
     active = models.BooleanField(default=True)
 
     @property

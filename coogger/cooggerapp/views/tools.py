@@ -6,6 +6,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # models
 from cooggerapp.models import UserFollow, Content
 
+def user_topics(queryset):
+    topics = []
+    for query in queryset:
+        topic = query.topic
+        if topic not in topics:
+            topics.append(topic)
+    return topics
+
 
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"

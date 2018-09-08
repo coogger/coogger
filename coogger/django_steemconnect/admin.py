@@ -59,7 +59,8 @@ class CommunityAdmin(ModelAdmin):
                 ("name", "host_name"),
                 ("redirect_url", "client_id", "app_secret"),
                 ("login_redirect", "scope"),
-                 "icon_address", "ms","active"
+                ("icon_address", "ms","active"),
+                ("definition", "image"),
              )
 
     def get_queryset(self, request):

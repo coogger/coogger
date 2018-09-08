@@ -6,6 +6,12 @@
 {% include 'users/tabs.html' %}
 {% include 'users/nav.html' %}
 {% include 'users/script.html' %}
-{% if content %}{% include 'card/blog-cards.html' %}{% include "card/paginator.html" %}{% endif %}
+{% if content %}
+  <div gnrl="center" style="margin-top:12px">
+    {% include 'card/blog-cards.html' %}
+    {% include 'users/topics.html' %}
+  </div>
+{% include "card/paginator.html" %}
+{% endif %}
 </body>
 </html>

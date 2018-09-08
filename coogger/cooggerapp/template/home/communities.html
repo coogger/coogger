@@ -1,15 +1,17 @@
 {% load django_md_editor_tags %} {% include 'home/head.html' %} {% include 'home/header.html' %}
 
-<div class="communities-ms header-bottom" gnrl="txt-xl center b-1 br-2 wmax bg-private c-white">Other communities working with Coogger Ecosystem</div>
+<div class="communities-ms header-bottom" gnrl="txt-xl center b-1 br-2 bg-private c-white" flx="fw-w">
+  Other communities working with Coogger Ecosystem</div>
 <div flx="fw-w" gnrl="center txt-m" style="margin: 14px auto;">
     {% for com in communities %}
     <div flx style="height: auto;word-break: break-word;padding: 14px;" default="media2">
         <div style="padding: 6px">
-            <div>name : {{ com.name }}</div>
-            <div>host_name : <a gnrl="c-primary" href="//{{ com.host_name }}">{{ com.host_name }}</a></div>
-            <div>redirect_url : <a gnrl="c-primary" href="//{{ com.redirect_url }}">{{ com.redirect_url }}</a> </div>
-            <div>login_redirect : <a gnrl="c-primary" href="//{{ com.host_name }}{{com.login_redirect}}">{{ com.login_redirect }}</a></div>
-            <div>scope : {{ com.scope }}</div>
+            <div>Name : {{ com.name }}</div>
+            <div>Active : {{ com.active }}</div>
+            <div>Host name : <a gnrl="c-primary" href="//{{ com.host_name }}">{{ com.host_name }}</a></div>
+            <div>Redirect_url : <a gnrl="c-primary" href="//{{ com.redirect_url }}">{{ com.redirect_url }}</a> </div>
+            <div>Login_redirect : <a gnrl="c-primary" href="//{{ com.host_name }}{{com.login_redirect}}">{{ com.login_redirect }}</a></div>
+            <div>Scope : {{ com.scope }}</div>
             {{ com.ms|detail_load:com.name|safe }}
         </div>
     </div>
