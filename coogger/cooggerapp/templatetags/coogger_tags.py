@@ -26,12 +26,12 @@ def json(value, arg):
 @register.filter(name="categories")
 def categories(value, arg):
     community_model = Community.objects.filter(host_name = arg)[0]
-    return make_choices(eval(str(community_model.name)+"_categories()"))
+    return make_choices(eval(str(community_model.name)+"_categories"))
 
 @register.filter(name="languages")
 def languages(value, arg):
     community_model = Community.objects.filter(host_name = arg)[0]
-    return make_choices(coogger_languages())
+    return make_choices(coogger_languages)
 
 @register.filter(name="hmanycontent")
 def hmanycontent(value, arg):

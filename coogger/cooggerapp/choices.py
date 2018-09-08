@@ -1,5 +1,13 @@
-def coogger_categories():
-    return [
+steemkitchen_categories = [
+    "Recipe",
+    "Food Blog",
+    "Contest Entry",
+    "Steemit Iron Chef",
+    "Cook With Us",
+    "Food Photography",
+    ]
+
+coogger_categories = [
     "science",
     "development",
     "tutorial",
@@ -26,8 +34,9 @@ def coogger_categories():
     "discussion",
     ]
 
-def coogger_languages():
-    return (
+all_categories = coogger_categories + steemkitchen_categories
+
+coogger_languages = [
         "english",
         "korean",
         "spanish",
@@ -47,20 +56,18 @@ def coogger_languages():
         "vietnamese ",
         "arabic",
         "azerbaijani",
-    )
+    ]
 
-def follow():
-    return (
+follow = [
         "github",
         "linkedin",
         "instagram",
         "facebook",
         "youtube",
         "web site",
-    )
+    ]
 
-def reports():
-    return [
+reports = [
     "Fraud or Plagiarism",
     "Hate Speech or Internet Trolling",
     "Intentional miss-categorized content or Spam",
@@ -69,8 +76,7 @@ def reports():
     "I think this content should not be at coogger",
     ]
 
-def status_choices():
-    return [
+status_choices = [
     "shared",
     "changed",
     "rejected",

@@ -53,11 +53,11 @@ class Content(models.Model):
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces,the first tag is your topic max:5 .")
-    language = models.CharField(max_length=30, choices=make_choices(coogger_languages()), help_text=" The language of your content")
-    category = models.CharField(max_length=30, choices=make_choices(coogger_categories()), help_text="select content category")
+    language = models.CharField(max_length=30, choices=make_choices(coogger_languages), help_text=" The language of your content")
+    category = models.CharField(max_length=30, choices=make_choices(all_categories), help_text="select content category")
     definition = models.CharField(max_length=400, verbose_name="definition of content", help_text="Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30, verbose_name="content topic", help_text="Please, write your topic about your contents.")
-    status = models.CharField(default="shared", max_length=30, choices=make_choices(status_choices()), verbose_name="content's status")
+    status = models.CharField(default="shared", max_length=30, choices=make_choices(status_choices), verbose_name="content's status")
     time = models.DateTimeField(default=timezone.now, verbose_name="date")
     dor = models.CharField(default=0, max_length=10)
     views = models.IntegerField(default=0, verbose_name="views")
@@ -253,7 +253,7 @@ class Content(models.Model):
 
 class UserFollow(models.Model):
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
-    choices = models.CharField(blank=True, null=True, max_length=15, choices=make_choices(follow()), verbose_name="website")
+    choices = models.CharField(blank=True, null=True, max_length=15, choices=make_choices(follow), verbose_name="website")
     adress = models.CharField(blank=True, null=True, max_length=150, verbose_name="write address / username")
 
     @property
@@ -274,10 +274,9 @@ class SearchedWords(models.Model):
 
 
 class ReportModel(models.Model):
-    choices_reports = make_choices(reports())
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE, verbose_name="şikayet eden kişi")
     content = models.ForeignKey("content", on_delete=models.CASCADE, verbose_name="şikayet edilen içerik")
-    complaints = models.CharField(choices=choices_reports, max_length=40, verbose_name="type of report")
+    complaints = models.CharField(choices=make_choices(reports), max_length=40, verbose_name="type of report")
     add = models.CharField(blank=True, null=True, max_length=600, verbose_name="Can you give more information ?")
     date = models.DateTimeField(default=timezone.now)
 

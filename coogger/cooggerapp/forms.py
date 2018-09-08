@@ -19,8 +19,8 @@ class ContentForm(forms.ModelForm):
     def __init__(self, community_model=None, *args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
         if community_model is not None:
-            self.fields["language"].choices = make_choices(coogger_languages())
-            self.fields["category"].choices = make_choices(eval(str(community_model.name)+"_categories()"))
+            self.fields["language"].choices = make_choices(coogger_languages)
+            self.fields["category"].choices = make_choices(eval(str(community_model.name)+"_categories"))
 
     class Meta:
         model = Content

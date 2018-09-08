@@ -42,7 +42,7 @@ class ContentAdmin(ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        form.base_fields["category"].choices = make_choices(eval(str(obj.community.name)+"_categories()"))
+        form.base_fields["category"].choices = make_choices(eval(str(obj.community.name)+"_categories"))
         return form
 
     def save_model(self, request, obj, form, change):

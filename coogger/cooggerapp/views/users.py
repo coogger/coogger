@@ -111,7 +111,7 @@ class UserAboutBaseClass(View):
                     about_form.user = request.user
                     about_form.about = "\n" + about_form.about
                     about_form.save()
-                    return HttpResponseRedirect("/web/about/@{}".format(request.user.username))
+                    return HttpResponseRedirect("/about/@{}".format(request.user.username))
 
 
 class UserHistory(TemplateView):

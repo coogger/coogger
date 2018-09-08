@@ -55,10 +55,11 @@ class CommunityAdmin(ModelAdmin):
                         "ms", "icon_address"
                     ]
     fields = (
+                ("management"),
                 ("name", "host_name"),
                 ("redirect_url", "client_id", "app_secret"),
                 ("login_redirect", "scope"),
-                "management", "icon_address", "ms"
+                 "icon_address", "ms","active"
              )
 
     def get_queryset(self, request):
@@ -79,7 +80,6 @@ class CommunityAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser or self.get_comminity_model(request) == obj:
             super(CommunityAdmin, self).save_model(request, obj, form, change)
-        raise Http404
 
     def get_comminity_model(self, request):
         return Mods.objects.filter(user = request.user)[0].community

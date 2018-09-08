@@ -27,7 +27,7 @@ class CommunitySerializer(serializers.ModelSerializer):
         model = Community
         fields = ("name", "host_name", "redirect_url",
                   "client_id", "app_secret", "login_redirect",
-                  "scope", "icon_address", "ms", "management_user", "management")
+                  "scope", "icon_address", "ms", "management_user", "management","active")
 
 
 class SteemConnectUserSerializer(serializers.ModelSerializer):
