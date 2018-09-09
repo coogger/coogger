@@ -1,14 +1,11 @@
 {% include 'home/head.html' %} {% include 'home/header.html' %}
-<div class="header-bottom" gnrl="center" default="media" gnrl="bg-white br-2">
-    <form flx="fd-c" default="form media" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
+{% include 'settings/cooggerup_data.html' %}
+<div class="header-bottom" gnrl="center" gnrl="bg-white br-2">
+    <form flx="fd-c" default="form media" gnrl="b-1 brc-white" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
         {% csrf_token %}
-        <div gnrl="bg-primary c-white center br-2" style="padding: 2px 12px;">Set vote percent</div>
         {{ vote_percent_form }}
-        <div gnrl="bg-primary c-white center br-2" style="padding: 2px 12px;">Set cooggerup bot,join curation trail</div>
         {{ cooggerup_form }}
-        <div gnrl="bg-primary c-white center br-2" style="padding: 2px 12px;">Set beneficiaries percent for {{ request.community_model.name }} community that is part of the Coogger Ecosystem.</div>
         {{ beneficiaries_percent_form }}
-        <div gnrl="bg-primary c-white center br-2" style="padding: 2px 12px;">Set address</div>
         {{ address_form }}
         <input flx="as-c" type="submit" value="Save">
     </form>
@@ -31,27 +28,5 @@
         {% endfor %}
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-      $(".deladdress").click(function(event){
-        var address_id = this.getAttribute("data-deladdress");
-        $.ajax({
-          url: "{% url 'address_del' %}",
-          method: 'POST',
-          dataType: 'json',
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            address_id:address_id,
-          }
-        }).done(function (response) {
-          if (response.status == "ok"){
-            alert(response.ms);
-          }
-          else {
-            alert("Unexpected error");
-          }
-        });
-      });
-    });
-</script>
+{% include 'settings/script.html' %}
 {% endif %}

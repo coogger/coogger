@@ -76,7 +76,7 @@ class Settings(View):
             percent = request.POST["cooggerup_percent"]
             if confirmation == "on":
                 otherinfo_filter = OtherInformationOfUsers.objects.filter(user=request.user)
-                otherinfo_filter.update(cooggerup_confirmation=True, cooggerup_percent=int(percent))
+                otherinfo_filter.update(cooggerup_confirmation=True, cooggerup_percent=float(percent))
                 ms.error(request, "You joined in curation trails of the cooggerup bot")
             elif confirmation == "of":
                 otherinfo_filter = OtherInformationOfUsers.objects.filter(user=request.user)
@@ -93,7 +93,7 @@ class Settings(View):
         if form.is_valid():
             percent = request.POST["vote_percent"]
             otherinfo_filter = OtherInformationOfUsers.objects.filter(user=request.user)
-            otherinfo_filter.update(vote_percent=int(percent))
+            otherinfo_filter.update(vote_percent=float(percent))
             ms.error(request, "Your voting percentage is set")
 
     def beneficiaries(self, request):

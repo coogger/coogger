@@ -34,9 +34,9 @@ class OtherInformationOfUsers(models.Model):
     about = EditorMdField()
     cooggerup_confirmation = models.BooleanField(default=False, verbose_name="Do you want to join in curation trails of the cooggerup bot with your account?")
     sponsor = models.BooleanField(default=False)
-    cooggerup_percent = models.CharField(max_length=3, choices=make_choices([i for i in range(100, -1, -1)]), default=0)
-    vote_percent = models.CharField(max_length=3, choices=make_choices([i for i in range(100, 0, -1)]), default=100)
-    beneficiaries = models.CharField(max_length=3, choices=make_choices([i for i in range(25, -1, -1)]), default=0)
+    cooggerup_percent = models.FloatField(default=0, verbose_name="Cooggerup bot upvote percent")
+    vote_percent = models.FloatField(default=100)
+    beneficiaries = models.FloatField(default=0, verbose_name="Support Coogger ecosystem with beneficiaries")
     # reward db of coogger.up curation trail, reset per week
     total_votes = models.IntegerField(default=0, verbose_name="How many votes")
     total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
