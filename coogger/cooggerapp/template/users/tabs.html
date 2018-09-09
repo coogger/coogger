@@ -1,30 +1,29 @@
 <div gnrl="center">
     <div flx="fw-nw" gnrl="b-1 brc-muted" style="padding: 6px 0px;overflow: auto;">
-        {% if nav_category %}
+        {% if topics %}
         <div flx="fd-c" class="lists just-mobile" style="cursor:pointer;">
-            {% if nav_category and not detail %}
             <div flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">TOPICS
                 <i class="fas fa-sitemap"></i>
             </div>
-            {% else %}
-            <div flx="as-fs" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">{{ detail.topic|upper }}</div>
-            {% endif %}
         </div>
         {% endif %}
         <div flx="fd-c">
-            <a href="{% url 'userabout' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">ABOUT
+            <a href="{% url 'userabout' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary"
+            style="padding: 3px 6px;">ABOUT
         <i class="fas fa-info-circle"></i>
     </a>
         </div>
 
         <div flx="fd-c">
-            <a href="{% url 'history' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">HİSTORY
+            <a href="{% url 'history' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary"
+            style="padding: 3px 6px;">HİSTORY
         <i class="fas fa-history"></i>
       </a>
         </div>
 
         <div flx="fd-c">
-            <a href="{% url 'wallet' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">WALLET
+            <a href="{% url 'wallet' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary"
+            style="padding: 3px 6px;">WALLET
         <i class="fas fa-wallet"></i>
       </a>
         </div>
