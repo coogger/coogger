@@ -22,16 +22,6 @@ def split(value, arg):
 def json(value, arg):
     return value[arg]
 
-@register.filter(name="categories")
-def categories(value, arg):
-    community_model = Community.objects.filter(host_name = arg)[0]
-    return make_choices(eval(str(community_model.name)+"_categories"))
-
-@register.filter(name="languages")
-def languages(value, arg):
-    community_model = Community.objects.filter(host_name = arg)[0]
-    return make_choices(coogger_languages)
-
 @register.filter(name="hmanycontent")
 def hmanycontent(value, arg):
     community_model = Community.objects.filter(host_name = arg)[0]
@@ -44,8 +34,3 @@ def hmanycontent(value, arg):
 @register.filter(name="twitter")
 def twitter(value, arg):
     return quote_plus(value)
-
-@register.filter(name="topic")
-def topic(value, arg):
-    if arg == "count":
-        return f"{value} - {Content.objects.filter(topic = value).count()}"

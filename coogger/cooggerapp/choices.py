@@ -29,14 +29,12 @@ coogger_categories = [
     "finance",
     "exchange",
     "design graphic",
-    "question answer",
     "translation",
-    "discussion",
     ]
 
 all_categories = coogger_categories + steemkitchen_categories
 
-coogger_languages = [
+languages = [
         "english",
         "korean",
         "spanish",

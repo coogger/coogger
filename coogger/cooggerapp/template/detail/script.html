@@ -4,18 +4,36 @@
           document.getElementById(id).innerHTML = variable;
         }
         // section content info
-        steem.api.getFollowCount("{{ request.user }}", function(err, followcount) {
-          steem.api.getFollowers("{{ content_user }}", 0, "blog", followcount.follower_count, function(err, followers) {
-            for (var i = 0; i < followers.length; i++) {
-              if ("{{ request.user }}" == followers[i].follower){
-                write_in_html("is_follow","Unfollow");
-                $("#follow").css({'display':"none"});
-                $("#unfollow").css({'display':"flex"});
-                break;
-              }
+        {% if request.user.is_authenticated and request.user != content_user %}
+          steem.api.getFollowCount("{{ content_user }}", function(err, followcount) {
+            // if user is not authenticated, it should not check follow or following
+            var start = 0;
+            var do_while_stop = true;
+            var follower_count = followcount.follower_count;
+            if (follower_count > 1000){
+              var limit = 1000;
             }
+            else{
+              var limit = follower_count;
+              do_while_stop = false;
+            }
+            do {
+              steem.api.getFollowers("{{ content_user }}", start, "blog", 1000, function(err, followers) {
+                console.log("error >>", err);
+                for (var i = 0; i < followers.length; i++) {
+                  if ("{{ request.user }}" == followers[i].follower){
+                    write_in_html("is_follow","Unfollow");
+                    $("#follow").css({'display':"none"});
+                    $("#unfollow").css({'display':"flex"});
+                    do_while_stop = false;
+                    break;
+                  }
+                }
+              });
+              start += 1000;
+            } while (do_while_stop);
           });
-        });
+        {% endif %}
         steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
           steem.api.getAccounts([author], function(err, result) {  // account
             var user = result[0];
@@ -35,11 +53,6 @@
               }
             }
           {% endif %}
-          // if(upvoted == false){
-          //   $(".down").css({"opacity":0.5});
-          //   $(".up").css({"opacity":0.5});
-          // }
-          // upvoted ?
           var reputation = steem.formatter.reputation(content.author_reputation);
           var title = content.root_title;
           var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));

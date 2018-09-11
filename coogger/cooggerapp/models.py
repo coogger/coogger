@@ -53,7 +53,7 @@ class Content(models.Model):
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces,the first tag is your topic max:5 .")
-    language = models.CharField(max_length=30, choices=make_choices(coogger_languages), help_text=" The language of your content")
+    language = models.CharField(max_length=30, choices=make_choices(languages), help_text=" The language of your content")
     category = models.CharField(max_length=30, choices=make_choices(all_categories), help_text="select content category")
     definition = models.CharField(max_length=400, verbose_name="definition of content", help_text="Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30, verbose_name="content topic", help_text="Please, write your topic about your contents.")

@@ -1,17 +1,25 @@
-{% load coogger_tags %}
+{% load coogger_count %}
 <section gnrl="center" flx="fw-nw" class="header-bottom">
     <div flx="fd-c ac-c ai-fs fw-nw" gnrl="right b-1 brc-muted br-2" class="section-right sectionclosedmobile">
-        <span gnrl="center txt-l c-secondary" flx="ai-c">Languages <i class="fas fa-language"></i></span> {% for link,name in "lang_name"|languages:request.META.HTTP_HOST %}
+        <span gnrl="center txt-l c-secondary" flx="ai-c">Languages <i class="fas fa-language"></i></span>
+        {% for link,name in request.languages %}
         <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary">
-            <a href="{% url 'language' link %}" gnrl="c-dark" hvr="c-white" style="padding: 4px 12px;">{{ name|truncatechars:20 }}</a>
+            <a href="{% url 'language' link %}" gnrl="c-dark" hvr="c-white" style="padding: 4px 12px;">
+              {{ name|truncatechars:20 }}
+              <span gnrl="c-secondary txt-s">{{ name|language_count:"" }}</span>
+            </a>
         </div>
         {% endfor %}
     </div>
     {% include 'card/blog-cards.html' %}
     <div flx="fd-c ac-c ai-fs fw-nw" gnrl="left b-1 brc-muted br-2" class="section-left sectionclosedmobile">
-        <span gnrl="center txt-l c-secondary">Categories </span> {% for link,name in "cat_names"|categories:request.META.HTTP_HOST %}
+        <span gnrl="center txt-l c-secondary">Categories </span>
+        {% for link,name in request.categories %}
         <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary">
-            <a href="{% url 'category' link %}" gnrl="c-dark" hvr="c-white" style="padding: 4px 12px;">{{ name|truncatechars:20 }}</a>
+            <a href="{% url 'category' link %}" gnrl="c-dark" hvr="c-white" style="padding: 4px 12px;">
+              {{ name|truncatechars:20 }}
+              <span gnrl="c-secondary txt-s">{{ name|categories_count:"" }}</span>
+            </a>
         </div>
         {% endfor %}
     </div>

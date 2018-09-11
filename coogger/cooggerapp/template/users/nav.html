@@ -1,4 +1,4 @@
-{% load coogger_tags %}
+{% load coogger_count %}
 <div gnrl="center" class="just-mobile">
     <nav style="display: none;overflow: auto;margin: 12px 0px;">
         <div flx="fw-nw jc-c" gnrl="txt-m wmax">
@@ -6,12 +6,16 @@
                 {% if topic == nameoftopic %}
                   <div gnrl="br-2 bg-success">
                       <a flx="jc-c" gnrl="c-white txt-s" href="{% url 'utopic' topic content_user %}"
-                      style="padding: 3px 6px;">{{ topic|topic:"count"|title }}</a>
+                      style="padding: 3px 6px;">{{ topic|title }}
+                      <span gnrl="c-secondary">{{ topic|topic_count:content_user }}</span>
+                    </a>
                   </div>
               {% else%}
                 <div hvr-a="bg-success" gnrl="br-2 bg-white">
                     <a flx="jc-c" gnrl="c-dark txt-s br-2" hvr="c-white brc-dark" href="{% url 'utopic' topic content_user %}"
-                    style="padding: 3px 6px;">{{ topic|topic:"count"|title }}</a>
+                    style="padding: 3px 6px;">{{ topic|title }}
+                  <span gnrl="c-secondary">{{ topic|topic_count:content_user }}</span>
+                </a>
                 </div>
               {% endif %}
             {% endfor %}

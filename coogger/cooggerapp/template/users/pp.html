@@ -7,7 +7,8 @@
         </div>
     </div>
     <h1 flx="jc-c as-c" gnrl="bg-white br-2 brc-white b-1">
-        <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+        <a flx gnrl="c-private" title="{{ content_user  }}" href="/@{{ content_user  }}"
+        style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
       @{{ content_user }}  -  <span gnrl="txt-s bg-secondary br-2 c-white" flx="ai-c" style="padding: 2px" id="reputation"></span> </a>
     </h1>
     <div flx="jc-c">
@@ -25,12 +26,14 @@
         </div>
     </div>
     {% if request.user != content_user and request.user.is_authenticated %}
-    <div class="follow" id="follow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 3px 30px;">
+    <div class="follow" id="follow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted"
+    style="cursor:pointer;padding: 3px 30px;">
         <div gnrl="c-white txt-m" id="is_follow">
             Follow
         </div>
     </div>
-    <div class="unfollow" id="unfollow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 3px 30px;display:none">
+    <div class="unfollow" id="unfollow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted"
+    style="cursor:pointer;padding: 3px 30px;display:none">
         <div gnrl="c-white txt-m" id="is_follow">
             Unfollow
         </div>

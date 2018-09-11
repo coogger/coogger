@@ -263,6 +263,15 @@
     function delete_comment(json, type){
         return json
     }
+    function transfer_to_savings(json, type){
+      return json
+    }
+    function transfer_from_savings(json, type){
+      return json
+    }
+    function fill_transfer_from_savings(json, type){
+      return json
+    }
 
     steem.api.getAccountHistory("{{content_user}}", -1, 100, function(err, result) {
       let template = "";
@@ -270,8 +279,12 @@
         const data = result[i][1].op;
         const type = result[i][1].op[0];
         const json = result[i][1].op[1];
-        console.log(json);
-        template += eval(type+"(json, type)");
+        try {
+          template += eval(type+"(json, type)");
+        }
+        catch(error) {
+          console.error(json,error);
+        }
       }
     $("#history").html(template);
     });
