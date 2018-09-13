@@ -100,10 +100,17 @@ class OtherInfoUsersAdmin(ModelAdmin):
         raise Http404
 
 
+class EditorTemplateAdmin(ModelAdmin):
+    list_ = ["category_name"]
+    list_display = list_
+    list_display_links = list_
+    search_fields = list_
+
+
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(UserFollow,UserFollowAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)
 site.register(ReportModel)
-site.register(EditorTemplate) 
+site.register(EditorTemplate, EditorTemplateAdmin)
 site.register(OtherInformationOfUsers,OtherInfoUsersAdmin)

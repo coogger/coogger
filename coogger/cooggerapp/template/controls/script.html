@@ -1,0 +1,10 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+      $( "#id_category" ).change(function() {
+        var get_category_name = $( "#id_category" ).val();
+        var category_help_address = "?category="+get_category_name;
+        $("#category_help_name").html(get_category_name);
+        $("#category_help_page").attr("href",category_help_address);
+      });
+    });
+</script>
