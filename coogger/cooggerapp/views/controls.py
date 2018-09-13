@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 # models
-from cooggerapp.models import Content
+from cooggerapp.models import Content, EditorTemplate
 
 # form
 from cooggerapp.forms import ContentForm
@@ -28,7 +28,11 @@ class Create(View):
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        form = ContentForm(community_model=request.community_model)
+        category_name = request.GET.get("category", None)
+        category_content = ""
+        if category_name is not None:
+            category_content = EditorTemplate.objects.get(category_name=category_name).template
+        form = ContentForm(community_model=request.community_model, initial={"content": category_content, "category":category_name})
         return render(request, self.template_name, {"form": form})
 
     @method_decorator(login_required)

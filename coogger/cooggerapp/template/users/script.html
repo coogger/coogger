@@ -16,14 +16,14 @@
             {% if request.user.is_authenticated and request.user != content_user %}
             // if user is not authenticated, it should not check follow or following
             var start = 0;
-            var do_while_stop = false;
+            var do_while_stop = true;
             var follower_count = followcount.follower_count;
             if (follower_count > 1000){
               var limit = 1000;
             }
             else{
               var limit = follower_count;
-              do_while_stop = true;
+              do_while_stop = false;
             }
             do {
               steem.api.getFollowers("{{ content_user }}", start, "blog", 1000, function(err, followers) {
@@ -33,11 +33,14 @@
                     write_in_html("is_follow","Unfollow");
                     $("#follow").css({'display':"none"});
                     $("#unfollow").css({'display':"flex"});
-                    do_while_stop = true;
+                    do_while_stop = false;
                     break;
                   }
                 }
               });
+              if (start>follower_count){
+                do_while_stop = false;
+              }
               start += 1000;
             } while (do_while_stop);
             {% endif %}

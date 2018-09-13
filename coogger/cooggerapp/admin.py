@@ -6,7 +6,8 @@ from django.contrib.auth.admin import UserAdmin
 from django.http import Http404
 
 #models
-from cooggerapp.models import Content, Contentviews, UserFollow, SearchedWords, ReportModel, OtherInformationOfUsers
+from cooggerapp.models import (Content, Contentviews, UserFollow, SearchedWords,
+    ReportModel, OtherInformationOfUsers, EditorTemplate)
 from django_steemconnect.models import Mods
 
 # forms
@@ -104,4 +105,5 @@ site.register(Contentviews,ContentviewsAdmin)
 site.register(UserFollow,UserFollowAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)
 site.register(ReportModel)
+site.register(EditorTemplate) 
 site.register(OtherInformationOfUsers,OtherInfoUsersAdmin)

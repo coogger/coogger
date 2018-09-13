@@ -29,6 +29,11 @@ from django_md_editor.models import EditorMdField
 from django_steemconnect.models import SteemConnectUser, Community
 
 
+class EditorTemplate(models.Model):
+    category_name = models.CharField(max_length=100, unique=True, verbose_name="Category name")
+    template = EditorMdField()
+
+
 class OtherInformationOfUsers(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = EditorMdField()
@@ -52,7 +57,7 @@ class Content(models.Model):
     title = models.CharField(max_length=100, verbose_name="Title", help_text="Be sure to choose the best title related to your content.")
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
-    tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces,the first tag is your topic max:5 .")
+    tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces,the first tag is your topic max:4")
     language = models.CharField(max_length=30, choices=make_choices(languages), help_text=" The language of your content")
     category = models.CharField(max_length=30, choices=make_choices(all_categories), help_text="select content category")
     definition = models.CharField(max_length=400, verbose_name="definition of content", help_text="Briefly tell your readers about your content.")
@@ -114,7 +119,7 @@ class Content(models.Model):
     def content_save(self, request, *args, **kwargs):  # for me
         self.community = request.community_model
         self.tag = self.ready_tags()
-        self.topic = self.tag.split()[3]
+        self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
@@ -141,8 +146,8 @@ class Content(models.Model):
         self.community = queryset[0].community
         self.user = queryset[0].user
         self.title = content.title
-        self.tag = self.ready_tags()
-        self.topic = self.tag.split()[3]
+        self.tag = self.ready_tags(limit=5)
+        self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)
         steem_post = self.steemconnect_post(queryset[0].permlink, "update")
         if steem_post.status_code == 200:
@@ -185,8 +190,9 @@ class Content(models.Model):
         )
         if def_name == "save":
             beneficiaries_weight = OtherInformationOfUsers.objects.filter(user=self.user)[0].beneficiaries
-            if int(beneficiaries_weight) >= 15:
-                ben_weight = int(beneficiaries_weight)*100 - 1000
+            beneficiaries_weight = round(float(beneficiaries_weight),3)
+            if beneficiaries_weight >= 15:
+                ben_weight = beneficiaries_weight * 100 - 1000
                 if self.community.name == "coogger":
                     beneficiaries = [
                                         {"account": "hakancelik", "weight": ben_weight+1000},
@@ -198,8 +204,8 @@ class Content(models.Model):
                                     ]
                 comment_options = CommentOptions(comment_class=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
-            elif int(beneficiaries_weight) < 15 and int(beneficiaries_weight) > 0:
-                ben_weight = int(int(beneficiaries_weight)*100/3)
+            elif beneficiaries_weight < 15 and beneficiaries_weight > 0:
+                ben_weight = beneficiaries_weight * 100 / 3
                 if self.community.name == "coogger":
                     beneficiaries = [
                                         {"account": "hakancelik", "weight": 3*ben_weight},
@@ -211,7 +217,7 @@ class Content(models.Model):
                                     ]
                 comment_options = CommentOptions(comment_class=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
-            elif int(beneficiaries_weight) == 0:
+            else:
                 operation = comment.operation
         else:
             operation = comment.operation
@@ -225,7 +231,7 @@ class Content(models.Model):
             access_token = steem_connect_user.set_new_access_token(secret)
             return SteemConnect(token=access_token, data=operation).run
 
-    def ready_tags(self):
+    def ready_tags(self, limit=5):
         def clearly_tags(get_tag):
             clearly_tags = []
             tags = ""
@@ -238,12 +244,8 @@ class Content(models.Model):
                 else:
                     tags += slugify(i.lower())+" "
             return tags
-        get_tag = self.tag.split(" ")[:5]
+        get_tag = self.tag.split(" ")[:limit]
         get_tag.insert(0, self.community.name)
-        get_tag.insert(1, self.category)
-        get_tag.insert(2, self.language)
-        if self.community.name != "coogger":
-            get_tag.insert(4, "coogger")
         return clearly_tags(get_tag)
 
     def new_permlink(self):
