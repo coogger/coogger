@@ -24,7 +24,7 @@ class ContentForm(forms.ModelForm):
 
     class Meta:
         model = Content
-        fields = ["category", "language", "title", "content", "tag"]
+        fields = ["category", "language", "topic", "title", "content", "tag"]
 
 
 class UserFollowForm(forms.ModelForm):

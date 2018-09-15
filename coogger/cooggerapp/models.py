@@ -57,7 +57,7 @@ class Content(models.Model):
     title = models.CharField(max_length=100, verbose_name="Title", help_text="Be sure to choose the best title related to your content.")
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
-    tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces,the first tag is your topic max:4")
+    tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces, max:4")
     language = models.CharField(max_length=30, choices=make_choices(languages), help_text=" The language of your content")
     category = models.CharField(max_length=30, choices=make_choices(all_categories), help_text="select content category")
     definition = models.CharField(max_length=400, verbose_name="definition of content", help_text="Briefly tell your readers about your content.")
@@ -119,7 +119,6 @@ class Content(models.Model):
     def content_save(self, request, *args, **kwargs):  # for me
         self.community = request.community_model
         self.tag = self.ready_tags()
-        self.topic = self.tag.split()[1]
         self.dor = self.durationofread(self.content+self.title)
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
@@ -147,7 +146,7 @@ class Content(models.Model):
         self.user = queryset[0].user
         self.title = content.title
         self.tag = self.ready_tags(limit=5)
-        self.topic = self.tag.split()[1]
+        self.topic = content.topic
         self.dor = self.durationofread(self.content+self.title)
         steem_post = self.steemconnect_post(queryset[0].permlink, "update")
         if steem_post.status_code == 200:
