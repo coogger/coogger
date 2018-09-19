@@ -5,6 +5,7 @@ from django.contrib.auth import *
 from django.contrib.auth.models import User
 from django.contrib import messages as ms
 from django.db.models import F
+from django.contrib.auth import authenticate
 
 # class
 from django.views.generic.base import TemplateView
@@ -31,13 +32,12 @@ import requests
 
 
 class UserClassBased(TemplateView):
-    # TODO: users who are not signed in can not be displayed
-    "herhangi kullanıcının anasayfası"
+    "user's home page"
     template_name = "users/user.html"
     ctof = Content.objects.filter
 
     def get_context_data(self, username, **kwargs):
-        user = User.objects.filter(username=username)[0]
+        user = authenticate(username=username)
         if self.request.community_model.name == "coogger":
             queryset = self.ctof(user=user, status="approved")
         else:
@@ -74,7 +74,7 @@ class UserAboutBaseClass(View):
     oiouof = OtherInformationOfUsers.objects.filter
 
     def get(self, request, username, *args, **kwargs):
-        user = User.objects.filter(username=username)[0]
+        user = authenticate(username=username)
         query = self.oiouof(user=user)[0]
         if user == request.user:
             about_form = self.form_class(request.GET or None, instance=query)
@@ -110,7 +110,7 @@ class UserHistory(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         context = super(UserHistory, self).get_context_data(**kwargs)
-        user = User.objects.filter(username=username)[0]
+        user = authenticate(username=username)
         if self.request.community_model.name == "coogger":
             queryset = Content.objects.filter(user=user, status="approved")
         else:

@@ -18,6 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+AUTHENTICATION_BACKENDS = [
+    "django_steemconnect.auth.steemconnect.SteemConnectBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20
@@ -30,8 +34,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ###
     "django_steemconnect.middleware.communities.CommunitiesMiddleware",
     "cooggerapp.middleware.head.HeadMiddleware",
+    "cooggerapp.middleware.general.GeneralMiddleware",
 ]
 ROOT_URLCONF = 'urls'
 TEMPLATES = [
