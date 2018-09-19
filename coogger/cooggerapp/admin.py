@@ -31,7 +31,7 @@ class ContentAdmin(ModelAdmin):
 
     class Media:
         css = {
-        'coogger.css': ('https://cdn.rawgit.com/hakancelik96/63242e5ebb5f64bea570d8c1b476004c/raw/f640a21a48429c2e2e32478853469a517906e7b7/coogger.css',),
+        'coogger.css': ('https://cdn.rawgit.com/hakancelik96/63242e5ebb5f64bea570d8c1b476004c/raw/e9bc5b34abb95f612372f50d94b9ed209fd0a16b/coogger.css',),
         }
 
     def get_queryset(self, request):
