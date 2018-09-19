@@ -9,3 +9,12 @@
 - If this rule does not fit, the user should be warned.
 - The user edits the content and you approve.
 - Content topic must be English
+
+-------
+
+#### If you accept these rules, you must send a commit to this file as write
+```
+I understand and accept to all the rules <community_name> | < @community_manager_name_steem_account_name >
+```
+
+---------

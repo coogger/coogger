@@ -33,7 +33,22 @@ coogger_categories = [
     "translation",
     ]
 
-all_categories = coogger_categories + steemkitchen_categories
+letsteem_categories = [
+    "car",
+    "estate",
+    "free",
+    "technology",
+    "vehicle",
+    "sports",
+    "home",
+    "fun",
+    "fashion",
+    "kid",
+    "service",
+    "other",
+    ]
+
+all_categories = coogger_categories + steemkitchen_categories + letsteem_categories
 
 languages = [
         "english",
