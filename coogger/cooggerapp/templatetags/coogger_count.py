@@ -16,12 +16,18 @@ def topic_count(value, arg):
 
 @register.filter(name="language_count")
 def language_count(value, arg):
-    queryset = Content.objects.filter(language = value, status="approved", community=arg)
+    if arg.name == "coogger":
+        queryset = Content.objects.filter(language = value, status="approved")
+    else:
+        queryset = Content.objects.filter(language = value, status="approved", community=arg)
     count = queryset.count()
     return count
 
 @register.filter(name="categories_count")
 def categories_count(value, arg):
-    queryset = Content.objects.filter(category = value, status="approved", community=arg)
+    if arg.name == "coogger":
+        queryset = Content.objects.filter(category = value, status="approved")
+    else:
+        queryset = Content.objects.filter(category = value, status="approved", community=arg)
     count = queryset.count()
     return count
