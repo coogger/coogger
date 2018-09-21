@@ -4,14 +4,16 @@
 <div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
   {% include 'detail/share_social_site.html' %}
   <div default="media paragraph" gnrl="bg-white" style="padding: 6px 4px;margin-right: 2%;">
-    <div flx="">
-        <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}" style="padding: 3px 6px;">
-            {% url 'utopic' detail.topic detail.user %}
-        </a>
-        <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'list' detail.topic  %}" style="padding: 3px 6px;">
-            {% url 'list' detail.topic  %}
-        </a>
-    </div>
+    {% if detail.topic %}
+      <div flx="">
+          <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}" style="padding: 3px 6px;">
+              {% url 'utopic' detail.topic detail.user %}
+          </a>
+          <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'list' detail.topic  %}" style="padding: 3px 6px;">
+              {% url 'list' detail.topic  %}
+          </a>
+      </div>
+    {% endif %}
     {% include 'detail/contentinfo.html' %}
     {% include 'detail/userinfo.html' %}
     <div>

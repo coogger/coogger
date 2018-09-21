@@ -1,6 +1,6 @@
-# her sayfa için geçerli bir head sayfası yapman için burayı hallet
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
+from django.contrib.auth import authenticate
 
 # models
 from cooggerapp.models import Content
@@ -9,6 +9,9 @@ from django.contrib.auth.models import User
 
 from bs4 import BeautifulSoup
 import mistune
+
+# steem
+from steem.post import Post
 
 
 class Head(object):
@@ -66,16 +69,22 @@ class Head(object):
             # setattr(self, "author", )
             # setattr(self, "image", "")
         elif url_name == "detail":
-            user = User.objects.filter(username=start_path.replace("@", ""))[0]
-            queryset = Content.objects.filter(user=user, permlink=last_path)[0]
-            beautifultext = BeautifulSoup(queryset.definition, "html.parser")
+            username = start_path.replace("@", "")
+            user = authenticate(username=username)
             try:
-               image = beautifultext.find("img").get("src")
+                queryset = Content.objects.filter(user=user, permlink=last_path)[0]
+                image = self.find_image(queryset.definition)
+                description = beautifultext.text[0:200]
+                title = queryset.title
+                keywords = queryset.tag
             except:
-                image = ""
-            description = beautifultext.text[0:200]
-            setattr(self, "title", queryset.title)
-            setattr(self, "keywords", queryset.tag)
+                POST = Post(post=f"@{username}/{last_path}")
+                title = POST.title
+                keywords = POST.tags
+                description = Content.prepare_definition(POST.body)
+                image = self.find_image(description)
+            setattr(self, "title", title)
+            setattr(self, "keywords", keywords)
             setattr(self, "description", description)
             # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", image)
@@ -92,6 +101,14 @@ class Head(object):
             setattr(self, "description", community.definition)
             setattr(self, "author", f"https://www.facebook.com/{community.name}")
             setattr(self, "image", community.image)
+
+    def find_image(self, definition):
+        beautifultext = BeautifulSoup(definition, "html.parser")
+        try:
+            image = beautifultext.find("img").get("src")
+        except:
+            image = ""
+        return image
 
 
 class HeadMiddleware(MiddlewareMixin):

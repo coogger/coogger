@@ -35,11 +35,7 @@
           });
         {% endif %}
         steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
-          steem.api.getAccounts([author], function(err, result) {  // account
-            var user = result[0];
-            var profile = JSON.parse(user.json_metadata).profile;
-            document.getElementById("detail_profile_image").setAttribute("src",profile.profile_image);
-          });
+          document.getElementById("detail_profile_image").setAttribute("src", "https://steemitimages.com/u/{{ content_user }}/avatar");
           // upvoted ?
           var upvoted = false;
           var active_votes = content.active_votes;
@@ -68,6 +64,9 @@
           // write_in_html("net_votes",content.net_votes);
           write_in_html("reputation",reputation);
           write_in_html("username",content.author);
+          write_in_html("lastmod",content.last_update);
+          write_in_html("reply",content.replies.length);
+          write_in_html("time",content.created);
           write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
           write_in_html("title",title);
           $(function() { // editor md

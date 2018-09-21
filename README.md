@@ -23,6 +23,8 @@
 
 ```python
 python manage.py makemigrations
+python manage.py makemigrations django_steemconnect
+python manage.py makemigrations cooggerapp
 python manage.py migrate
 python manage.py runserver
 
@@ -46,15 +48,14 @@ Then the valerian film went into vision, there was a space station on the first 
 A few friends had shared content after I took to live the project. I was thinking of how they could make money people who share in Coogger, and I wanted to look for alternative ways of advertising. then I met steem and everything about my life changed, and then I had a great excitement because my dream could be real now, it could be a space station where communities come together, categorize their contents could share on any communities and make money for it.
 
 ## What is coogger?
-Coogger is a project which can work with communities, it provides them a steem blockchain-based web platform and management, In addition, users can share content from all coogger communities and earn STEEM, In addition, the project is open source.
-
-> https://github.com/coogger
+Coogger is an ecosystem where is knowledge sharing network with existing languages and categories that works with communities, it provides them a steem blockchain-based web platform and management, In addition, users can share content from all coogger communities and earn STEEM
 
 The Steemkitchen community was the first community to work with coogger.
+> Steemkitchen is now disabled, you can check [communites page](https://www.coogger.com/communities/)
 
 After the community settings were done immediately, and after connecting the domain address to the server, it started working with coogger.
 
-Communities which works with coogger are connected to the same server and database, but they can behave differently according to communities rules. let's Check [coogger.com](http://www.coogger.com) and [steemkitchen.com](http://www.steemkitchen.com)
+Communities which works with coogger are connected to the same server and database, but they can behave differently according to communities rules.
 
 If you have a community but you do not have a steem blockchain-based web platform, you can contact me, We can be a great ecosystem by combining all communities in one place.
 
@@ -121,10 +122,46 @@ you can filter by using this address, example ;
 ### Coogger has a bot named cooggerup.
 When shared any content any communities on coogger and if it gets approved from coogger,steemkitchen ( communites moderators) moderators, users will get upvotes from users that have allowed cooggerup settings in the settings section.
 
-sponsors must directly support coogger ( steem account and upvote bot) , it must support all shared content on coogger and 5% of incoming prise ( beneficiaries ) to coogger.pay account, distribute steem in this account to awarded to sponsors, 5% of community leaders and 5% of me ( so coogger ) total 15%.
+sponsors must directly support coogger ( steem account and upvote bot) , it must support all shared content on coogger and 5% of incoming prise ( beneficiaries ) distribute in these accounts to awarded to sponsors using beneficiaries, 5% of community leaders and 5% of me ( so coogger ) total 15%.
 
 #### Settings
 ![1.JPG](https://cdn.steemitimages.com/DQmbboDDbekfFoxEbFPk8rgmhAMzrqYPgB8tAFJN4Ktge1G/1.JPG)
+
+
+### How can we support this project
+- Join curation trail ( max %10 reward )
+- In settings section with beneficiaries, it looks like below.
+> <center></center>
+>A specific commission from your contents which you will share is got by the coogger ecosystem.
+><center>![Ekran Alıntısı.PNG](https://cdn.steemitimages.com/DQmRXcwtmAk8Tqb4wRUhEDtLrzXgJG5GYLjkny8ArMsdujc/Ekran%20Al%C4%B1nt%C4%B1s%C4%B1.PNG)</center>
+- Delegate SP to @coogger account
+
+### How to reward system
+- For those who joined curation trail
+   ##### Coogger reward bot name coogger.reward
+   ##### Github :
+   - https://github.com/coogger/coogger.reward
+   The coogger.reward bot rewards those who joined in the curation trail of the cooggerup     like [this](https://steemit.com/utopian-io/@utopian.stats/utopian-pay-2018-8-16).
+
+- for those who delegate to sp coogger account
+**Coogger.up** supports all shared content on coogger and 6% of incoming prise ( beneficiaries ) to sponsors accounts, distribute steem-power to awarded to sponsors, 3% of community leaders and 6% of me ( so coogger ) total 15%.
+
+### How to join curation trail of coogger.up bot
+- [Click on coogger ecosystem login address](https://www.coogger.com/account/login)
+
+- [Open settings section with click address](https://www.coogger.com/settings/)
+
+- Check the box and set the percentage, you can see a sample participation below
+
+<center>
+![1.PNG](https://cdn.steemitimages.com/DQmPoXBxHhkgfPgL1JC1bA78EvaRevkLuk8WLQfpDk7Ayk9/1.PNG)</center>
+
+--------
+#### Other Addresses of Coogger Project
+
+- [Github](https://www.github.com/coogger)
+- [Facebook](https://www.facebook.com/coogger)
+- [Instagran](https://www.instagram.com/coogger.app)
 
 --------
 
@@ -140,14 +177,3 @@ Those who want to sponsor my project can support two types of the project.
 - 2) **Send steem/sbd**
 	 The second support is method to send a steem/sbd to the coogger account.
 	 Steem-power will be leased with steems and sponsors will be rewarded throughout the lease period.
-
-### How long the project (pitch) will be open
-This project will continue until I die.
-
-### What will be the rewards of donators/investors
-5% of incoming prise ( beneficiaries ) to coogger.pay account, distribute steem with this account to award to sponsors.
-<br>
-
-#### let's examine the following template to better understanding.
-
-![Untitled design.jpg](https://cdn.steemitimages.com/DQmafJ8B2vSAttSp9JybnrFvoEJRnPY4kZq98U8gnJ9fKCa/Untitled%20design.jpg)

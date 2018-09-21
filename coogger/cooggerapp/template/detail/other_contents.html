@@ -1,21 +1,21 @@
 <!-- other contents of topic  -->
-
-<div class="just-pc" flx="fw-nw" style="position:  relative;top: 0px;">
-  <div gnrl="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">Other contents of the {{detail.topic}} topic of the @{{content_user}} user.</div>
-    <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m" style="margin: 20px;position: sticky;top: 146px;">
-        {% for list in nav_category %}
-        {% if list.permlink == urloftopic %}
-        <div gnrl="bg-success b-1 brc-success br-2">
-            <a flx gnrl="c-white txt-s br-2" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
+{% if nav_category %}
+  <div class="just-pc" flx="fw-nw" style="position:  relative;top: 0px;">
+    <div gnrl="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">Other contents of the {{detail.topic}} topic of the @{{content_user}} user.</div>
+      <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m" style="margin: 20px;position: sticky;top: 146px;">
+          {% for list in nav_category %}
+          {% if list.permlink == urloftopic %}
+          <div gnrl="bg-success b-1 brc-success br-2">
+              <a flx gnrl="c-white txt-s br-2" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
+               {{ list.title|title }}</a>
+        </div>
+          {% else%}
+          <div hvr-a="bg-success" gnrl="br-2 br-2">
+              <a flx gnrl="b-1 brc-muted c-dark txt-s br-2" hvr="c-white brc-dark" href="/{{list.get_absolute_url}}"
+              style="padding: 3px 6px;">
              {{ list.title|title }}</a>
-        </div>
-        {% else%}
-        <div hvr-a="bg-success" gnrl="br-2 br-2">
-            <a flx gnrl="b-1 brc-muted c-dark txt-s br-2" hvr="c-white brc-dark" href="/{{list.get_absolute_url}}"
-            style="padding: 3px 6px;">
-           {{ list.title|title }}</a>
-        </div>
-        {% endif %} {% endfor %}
-    </div>
-</div>
-<!--  -->
+          </div>
+          {% endif %} {% endfor %}
+      </div>
+  </div>
+{% endif %}

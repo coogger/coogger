@@ -90,16 +90,16 @@ class Content(models.Model):
     def prepare_definition(text):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
         markdown = mistune.Markdown(renderer=renderer)
-        beautifultext = BeautifulSoup(markdown(text), "html.parser")
-        img = beautifultext.find("img")
+        soup = BeautifulSoup(markdown(text), "html.parser")
+        img = soup.find("img")
         if img is None:
-            return "<p>{}</p>".format(beautifultext.text[0:200]+"...")
+            return "<p>{}</p>".format(soup.text[0:200]+"...")
         src = img.get("src")
         try:
             alt = img.get("alt")
         except:
             alt = ""
-        return "<img class='definition-img' src='{}' alt='{}'></img><p>{}</p>".format(src, alt, beautifultext.text[0:200]+"...")
+        return "<img class='definition-img' src='{}' alt='{}'></img><p>{}</p>".format(src, alt, soup.text[0:200]+"...")
 
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
@@ -194,26 +194,26 @@ class Content(models.Model):
                 ben_weight = beneficiaries_weight * 100 - 1000
                 if self.community.name == "coogger":
                     beneficiaries = [
-                                        {"account": "hakancelik", "weight": ben_weight+1000},
-                                    ]
+                        {"account": "hakancelik", "weight": ben_weight + 1000},
+                        ]
                 else:
                     beneficiaries = [
-                                        {"account": "hakancelik", "weight": ben_weight+500},
-                                        {"account": self.community.name, "weight": 500}
-                                    ]
+                        {"account": "hakancelik", "weight": ben_weight+500},
+                        {"account": self.community.name, "weight": 500}
+                        ]
                 comment_options = CommentOptions(comment_class=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
             elif beneficiaries_weight < 15 and beneficiaries_weight > 0:
                 ben_weight = beneficiaries_weight * 100 / 3
                 if self.community.name == "coogger":
                     beneficiaries = [
-                                        {"account": "hakancelik", "weight": 3*ben_weight},
-                                    ]
+                        {"account": "hakancelik", "weight": 3 * ben_weight },
+                        ]
                 else:
                     beneficiaries = [
-                                        {"account": "hakancelik", "weight": 2*ben_weight},
-                                        {"account": self.community.name, "weight": ben_weight}
-                                    ]
+                        {"account": "hakancelik", "weight": 2 * ben_weight},
+                        {"account": self.community.name, "weight": ben_weight}
+                        ]
                 comment_options = CommentOptions(comment_class=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
             else:
