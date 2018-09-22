@@ -1,0 +1,26 @@
+<br>
+<div gnrl="c-white center br-2">
+  <div default="form media" id="donation" gnrl="center" flx="fd-c">
+    <span gnrl="txt-l c-dark center">Donate for this great content.</span>
+    <input placeholder="Amount" value="1" type="float" id="amount" >
+    <select name="amout_type" id="amout_type" >
+      <option value="STEEM">STEEM</option>
+      <option value="SBD">SBD</option>
+    </select>
+   <a gnrl="bg-success c-white" flx="jc-c" target="_blank" flx="as-c" id="donation-a" style="padding: 6px 80px;color: white;"
+    href="https://steemconnect.com/sign/transfer?from={{request.user}}&to={{content_user}}&amount=1.000%20STEEM&memo=Donation%20for%20your%20great%20content%20%3D%20'{{detail.permlink}}'">
+     Donate to @{{ content_user }}
+   </a>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  const main_sc_address = "https://steemconnect.com/sign/transfer?from={{request.user}}&to={{content_user}}&amount=";
+  $("#donation").change(function() {
+    let amout = $("#amount").val();
+    let amout_type = $("#amout_type").val();
+    let steemconnect_donation = main_sc_address+amout+"%20"+amout_type+"&memo=Donation%20for%20your%20great%20content%20%3D%20'{{detail.permlink}}'";
+    $("#donation-a").attr("href", steemconnect_donation);
+  });
+});
+</script>
