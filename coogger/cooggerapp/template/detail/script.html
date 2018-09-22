@@ -108,6 +108,7 @@
           write_in_html("reply",content.replies.length);
           write_in_html("time",content.created);
           write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
+          write_in_html("post_reward_total2","$ "+post_reward_total.toFixed(2));
           write_in_html("title",title);
           $(function() { // editor md
             var Editor = editormd.markdownToHTML("id_arg_editormd", {

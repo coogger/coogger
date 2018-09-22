@@ -21,6 +21,7 @@ class SteemPost():
     views = False
     read = False
     dor = False
+    steempost = True
 
 class Detail(TemplateView):
     # TODO: if content doesnt have on steem, it have to delete on coogger.
