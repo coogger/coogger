@@ -38,8 +38,8 @@ class ContentAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        community = self.get_comminity_model(request)
-        return qs.filter(community = community)
+        community_model = request.community_model
+        return qs.filter(community = community_model)
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
@@ -50,9 +50,6 @@ class ContentAdmin(ModelAdmin):
         obj.lastmod = datetime.datetime.now()
         obj.mod = request.user
         super(ContentAdmin, self).save_model(request, obj, form, change)
-
-    def get_comminity_model(self, request):
-        return Mods.objects.filter(user = request.user)[0].community
 
 
 class UserFollowAdmin(ModelAdmin):
@@ -97,7 +94,7 @@ class OtherInfoUsersAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser:
             super(OtherInfoUsersAdmin, self).save_model(request, obj, form, change)
-
+        raise Http404 # mods or community leader cant change
 
 class EditorTemplateAdmin(ModelAdmin):
     list_ = ["category_name"]

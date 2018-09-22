@@ -57,7 +57,7 @@ class LoginSignup(View):
                 refresh_token=refresh_token,
                 community=community_model,
                 ).save()
-        login(request, user)
+        login(request, user, backend="django.contrib.auth.backends.ModelBackend")
         return HttpResponseRedirect(community_model.login_redirect)
 
 

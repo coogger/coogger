@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.contrib.admin import site, ModelAdmin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 # models
 from django_steemconnect.models import SteemConnectUser, Community, Mods
@@ -21,28 +21,31 @@ class ModsAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        community_model = self.get_community_model(request)
+        community_model = request.community_model
         return qs.filter(community = community_model)
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         if request.user.is_superuser:
             return form
-        community_queryset = Community.objects.filter(name=self.get_community_model(request).name)
+        community_queryset = Community.objects.filter(name=request.community_model.name)
         form.base_fields["community"]._queryset = community_queryset
         return form
 
     def save_model(self, request, obj, form, change):
-        if request.user.is_superuser or self.get_community_model(request) == obj.community:
-            User.objects.filter(username=object.user.username).update(is_staff=True)
+        if request.user.is_superuser or request.community_model.management == request.user:
+            if not obj.user.is_staff:
+                management_user = User.objects.filter(username=obj.user).update(is_staff=True)
+            if not obj.user.groups.filter(name="mod").exists():
+                group = Group.objects.get(name="mod")
+                obj.user.groups.add(group)
             super(ModsAdmin, self).save_model(request, obj, form, change)
 
     def delete_model(self, request, object):
         User.objects.filter(username=object.user.username).update(is_staff=False)
         object.delete()
-
-    def get_community_model(self, request):
-        return Mods.objects.filter(user = request.user)[0].community
+        group = Group.objects.get(name="mod")
+        object.user.groups.remove(group)
 
 
 class CommunityAdmin(ModelAdmin):
@@ -67,24 +70,25 @@ class CommunityAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        community_model = self.get_community_model(request)
-        return qs.filter(name = community_model.name)
+        community_model = request.community_model
+        if community_model.management == request.user:
+            return qs.filter(name = community_model.name)
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         if request.user.is_superuser:
             return form
-        if self.get_community_model(request) == obj:
+        if request.community_model == obj:
             return form
-        raise Http404
 
     def save_model(self, request, obj, form, change):
-        if request.user.is_superuser or self.get_community_model(request) == obj:
+        if request.user.is_superuser or request.community_model == obj:
+            if not obj.management.is_staff:
+                management_user = User.objects.filter(username=obj.management).update(is_staff=True)
+            if not obj.management.groups.filter(name="community manager").exists():
+                group = Group.objects.get(name='community manager')
+                obj.management.groups.add(group)
             super(CommunityAdmin, self).save_model(request, obj, form, change)
-
-    def get_community_model(self, request):
-        return Mods.objects.filter(user = request.user)[0].community
-
 
 
 site.register(SteemConnectUser, SteemConnectUserAdmin)
