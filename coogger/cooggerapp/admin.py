@@ -8,7 +8,7 @@ from django.http import Http404
 #models
 from cooggerapp.models import (Content, Contentviews, UserFollow, SearchedWords,
     ReportModel, OtherInformationOfUsers, EditorTemplate)
-from django_steemconnect.models import Mods
+from django_steemconnect.models import Mods, Community
 
 # forms
 from cooggerapp.forms import ContentForm
@@ -38,7 +38,7 @@ class ContentAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        community_model = request.community_model
+        community_model = Community.objects.filter(management=request.user)
         return qs.filter(community = community_model)
 
     def get_form(self, request, obj=None, **kwargs):
@@ -96,11 +96,36 @@ class OtherInfoUsersAdmin(ModelAdmin):
             super(OtherInfoUsersAdmin, self).save_model(request, obj, form, change)
         raise Http404 # mods or community leader cant change
 
+
 class EditorTemplateAdmin(ModelAdmin):
     list_ = ["category_name"]
     list_display = list_
     list_display_links = list_
     search_fields = list_
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        community_model = self.get_management_community(request)
+        categories = eval(community_model.name+"_categories")
+        qs = qs.filter(category_name__in = categories)
+        return qs
+
+
+    def save_model(self, request, obj, form, change):
+        if request.user.is_superuser:
+            super(ContentAdmin, self).save_model(request, obj, form, change)
+        else:
+            community_model = self.get_management_community(request)
+            categories = eval(community_model.name+"_categories")
+            if obj.category_name in categories:
+                super(ContentAdmin, self).save_model(request, obj, form, change)
+            else:
+                raise Http404
+
+    def get_management_community(self, request):
+        return Community.objects.filter(management=request.user)[0]
 
 
 site.register(Content,ContentAdmin)

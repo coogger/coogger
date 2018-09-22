@@ -13,6 +13,8 @@ class SteemConnectUserAdmin(ModelAdmin):
 
 
 class ModsAdmin(ModelAdmin):
+    "Just accept superuser and community manager"
+
     list_display = ["community", "user"]
     list_display_links = ["community", "user"]
     search_fields = ["community", "user"]
@@ -21,19 +23,19 @@ class ModsAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        community_model = request.community_model
+        community_model = self.get_management_community(request)[0]
         return qs.filter(community = community_model)
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         if request.user.is_superuser:
             return form
-        community_queryset = Community.objects.filter(name=request.community_model.name)
+        community_queryset = self.get_management_community(request)
         form.base_fields["community"]._queryset = community_queryset
         return form
 
     def save_model(self, request, obj, form, change):
-        if request.user.is_superuser or request.community_model.management == request.user:
+        if request.user.is_superuser or self.get_management_community(request).exists():
             if not obj.user.is_staff:
                 management_user = User.objects.filter(username=obj.user).update(is_staff=True)
             if not obj.user.groups.filter(name="mod").exists():
@@ -46,6 +48,9 @@ class ModsAdmin(ModelAdmin):
         object.delete()
         group = Group.objects.get(name="mod")
         object.user.groups.remove(group)
+
+    def get_management_community(self, request):
+        return Community.objects.filter(management=request.user)
 
 
 class CommunityAdmin(ModelAdmin):
