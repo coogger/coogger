@@ -3,83 +3,6 @@
         function write_in_html(id,variable) {
           document.getElementById(id).innerHTML = variable;
         }
-        // section content info
-        {% if request.user.is_authenticated and request.user != content_user %}
-          steem.api.getFollowCount("{{ content_user }}", function(err, followcount) {
-            // if user is not authenticated, it should not check follow or following
-            var start = 0;
-            var do_while_stop = true;
-            var follower_count = followcount.follower_count;
-            if (follower_count > 1000){
-              var limit = 1000;
-            }
-            else{
-              var limit = follower_count;
-              do_while_stop = false;
-            }
-            do {
-              steem.api.getFollowers("{{ content_user }}", start, "blog", 1000, function(err, followers) {
-                console.log("error >>", err);
-                for (var i = 0; i < followers.length; i++) {
-                  if ("{{ request.user }}" == followers[i].follower){
-                    write_in_html("is_follow","Unfollow");
-                    $("#follow").css({'display':"none"});
-                    $("#unfollow").css({'display':"flex"});
-                    do_while_stop = false;
-                    break;
-                  }
-                }
-              });
-              start += 1000;
-            } while (do_while_stop);
-          });
-        {% endif %}
-        steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
-          document.getElementById("detail_profile_image").setAttribute("src", "https://steemitimages.com/u/{{ content_user }}/avatar");
-          // upvoted ?
-          var upvoted = false;
-          var active_votes = content.active_votes;
-          write_in_html("count",active_votes.length);
-          {% if request.user.is_authenticated %}
-            for (var vot = 0; vot < active_votes.length; vot++) {
-              if ("{{request.user}}" == active_votes[vot].voter){
-                $(".up").css({"opacity":1});
-                upvoted = true;
-                break;
-              }
-            }
-          {% endif %}
-          var reputation = steem.formatter.reputation(content.author_reputation);
-          var title = content.root_title;
-          var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
-          var post_reward_total = 0;
-          if (pending_payout_value == 0){
-            var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
-            var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
-            post_reward_total = total_payout_value+curator_payout_value;
-          }
-          else{
-            post_reward_total = pending_payout_value;
-          }
-          // write_in_html("net_votes",content.net_votes);
-          write_in_html("reputation",reputation);
-          write_in_html("username",content.author);
-          write_in_html("lastmod",content.last_update);
-          write_in_html("reply",content.replies.length);
-          write_in_html("time",content.created);
-          write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
-          write_in_html("title",title);
-          $(function() { // editor md
-            var Editor = editormd.markdownToHTML("id_arg_editormd", {
-              height: 670,
-              path : "/static/lib/",
-              htmlDecode: "html,iframe",
-              atLink: false,
-              emailLink : false,
-              markdown : content.body,
-            });
-          });
-        });
         $(".follow").click(function(event){
           $("#is_follow").attr({'animation':"blink i"});
           api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
@@ -152,5 +75,81 @@
             }, 400);
           });
         });
+        steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
+          document.getElementById("detail_profile_image").setAttribute("src", "https://steemitimages.com/u/{{ content_user }}/avatar");
+          // upvoted ?
+          var upvoted = false;
+          var active_votes = content.active_votes;
+          write_in_html("count",active_votes.length);
+          {% if request.user.is_authenticated %}
+            for (var vot = 0; vot < active_votes.length; vot++) {
+              if ("{{request.user}}" == active_votes[vot].voter){
+                $(".up").css({"opacity":1});
+                upvoted = true;
+                break;
+              }
+            }
+          {% endif %}
+          var reputation = steem.formatter.reputation(content.author_reputation);
+          var title = content.root_title;
+          var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
+          var post_reward_total = 0;
+          if (pending_payout_value == 0){
+            var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+            var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+            post_reward_total = total_payout_value+curator_payout_value;
+          }
+          else{
+            post_reward_total = pending_payout_value;
+          }
+          write_in_html("reputation",reputation);
+          write_in_html("username",content.author);
+          write_in_html("lastmod",content.last_update);
+          write_in_html("reply",content.replies.length);
+          write_in_html("time",content.created);
+          write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
+          write_in_html("title",title);
+          $(function() { // editor md
+            var Editor = editormd.markdownToHTML("id_arg_editormd", {
+              height: 670,
+              path : "/static/lib/",
+              htmlDecode: "html,iframe",
+              atLink: false,
+              emailLink : false,
+              markdown : content.body,
+            });
+          });
+        });
+        // section content info
+        {% if request.user.is_authenticated and request.user != content_user %}
+          steem.api.getFollowCount("{{ content_user }}", function(err, followcount) {
+            // if user is not authenticated, it should not check follow or following
+            var start = 0;
+            var do_while_stop = true;
+            var follower_count = followcount.follower_count;
+            if (follower_count > 1000){
+              var limit = 1000;
+            }
+            else{
+              var limit = follower_count;
+              do_while_stop = false;
+            }
+            do {
+              steem.api.getFollowers("{{ content_user }}", start, "blog", 1000, function(err, followers) {
+                console.log("error >>", err);
+                for (var i = 0; i < followers.length; i++) {
+                  if ("{{ request.user }}" == followers[i].follower){
+                    write_in_html("is_follow","Unfollow");
+                    $("#follow").css({'display':"none"});
+                    $("#unfollow").css({'display':"flex"});
+                    do_while_stop = false;
+                    break;
+                  }
+                }
+              });
+              start += 1000;
+            } while (do_while_stop);
+          });
+        {% endif %}
       });
 </script>

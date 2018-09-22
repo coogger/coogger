@@ -97,7 +97,6 @@ class OtherInfoUsersAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser:
             super(OtherInfoUsersAdmin, self).save_model(request, obj, form, change)
-        raise Http404
 
 
 class EditorTemplateAdmin(ModelAdmin):
