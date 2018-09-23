@@ -14,7 +14,7 @@
 
 - Community leaders must send $10 dollars per month to the @coogger.wallet account as SBD/STEEM.
 - $10 dollars are used for maintenance, service and server fee.
-
+- Payments must be send on the 10th of every month.
 -------
 
 #### If you accept these rules, you must send a commit to this file as write
