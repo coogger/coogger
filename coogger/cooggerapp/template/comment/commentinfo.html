@@ -1,26 +1,3 @@
-<div flx style="margin: 12px 0px;display:none" gnrl="bg-secondary c-white br-2" class="root_content">
-  <div style="width: 100%;">
-    <li flx="ai-c">
-      <a id="root_content" gnrl="c-secondary txt-s" style="color: white;padding: 8px 0px;width: 100%;">
-      <span style="margin: 0px 6px">This is just comment, view the full context</span>
-      </a>
-    </li>
-  </div>
-</div>
-{% if detail.language and detail.category %}
-  <div flx style="margin: 12px 12px;">
-      <div flx="ai-c" gnrl="br-2 b bg-secondary c-white txt-s left" hvr-a="bg-primary" class="content_list">
-          <a href="{% url 'language' detail.language %}" style="color: white;">
-       {{ detail.language }}
-      </a>
-      </div>
-      <div flx="ai-c" class="content_list" gnrl="br-2 b bg-secondary c-white txt-s right" hvr-a="bg-primary" class="content_list">
-          <a href="{% url 'category' detail.category %}" style="color: white;">
-       {{ detail.category }}
-      </a>
-      </div>
-  </div>
-{% endif %}
 <div gnrl="br-2 c-secondary br-2 b-1 brc-muted" style="padding: 2px 4px;" flx="ai-c">
     <div gnrl="txt-s" flx="ai-c" class="duread-li">
         <div style="margin-left: 12px;">Last update ; <span id="lastmod"></span></div>

@@ -1,11 +1,9 @@
 <script>
     $(document).ready(function() {
-
       $(".report").click(function(event){
         var content_id = this.getAttribute("data-content-id");
         $("body").load("{% url 'report' %}?content_id="+content_id);
       });
-
     {% if request.user.is_authenticated %}
       $(".upvote").click(function(event){
         const voter = "{{ request.user }}";
@@ -33,9 +31,7 @@
         });
       });
     {% endif %}
-
     myElements = document.querySelectorAll('card')
-
     var accounts = [];
     for (var i = 0; i < myElements.length; i++) {
       const id = myElements.item(i).id;

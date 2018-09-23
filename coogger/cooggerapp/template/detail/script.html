@@ -110,12 +110,12 @@
           write_in_html("reputation",reputation);
           write_in_html("username",content.author);
           write_in_html("lastmod",content.last_update);
-          console.log(content);
           write_in_html("reply",content.children);
           write_in_html("time",content.created);
           var root_url = "/@"+content.root_author+"/"+content.root_permlink;
           if (root_url != "/@"+content.author+"/"+content.permlink){
-            $("#root").attr("href", root_url);
+            $("#root_content").attr("href", root_url);
+            $(".root_content").css({"display":"block"});
           }
           write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
           write_in_html("post_reward_total2","$ "+post_reward_total.toFixed(2));

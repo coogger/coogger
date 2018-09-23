@@ -19,7 +19,9 @@
     <div>
       <h1 gnrl="center txt-xl" id="title" style="width: 96%;margin: 12px auto;"></h1>
       <div style="padding: inherit;">
-        {% include "detail/md.html" %}
+        <div style="width: auto;height:  auto;border: none;" class="editormd" id="id_arg_editormd">
+            <textarea style="display:none;" id='editormd_content'></textarea>
+        </div>
       </div>
       {% include 'detail/edit.html' %}
       <!-- vote button  -->
@@ -33,6 +35,7 @@
       <!-- vote button  -->
     </div>
     {% include 'detail/donation.html' %}
+    {% include 'comment/home.html' %}
   </div>
 {% include 'detail/other_contents.html' %}
 </div>

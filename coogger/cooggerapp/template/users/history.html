@@ -110,7 +110,6 @@
           tx[1].op[0] != "transfer_from_savings" &&
           tx[1].op[0] != "fill_transfer_from_savings")
       )
-      //  || "author_reward" || "claim_reward_balance" || "transfer"
       for (i in history){
         const data = history[i][1].op;
         const type = history[i][1].op[0];
