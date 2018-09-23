@@ -10,11 +10,16 @@
 - The user edits the content and you approve.
 - Content topic must be English
 
+### Coogger pricing
+
+- Community leaders must send $10 dollars per month to the @coogger.wallet account as SBD/STEEM.
+- $10 dollars are used for maintenance, service and server fee.
+
 -------
 
 #### If you accept these rules, you must send a commit to this file as write
 ```
-I understand and accept to all the rules <community_name> | < @community_manager_name_steem_account_name >
+I understand and accept to all the rules <community_name> | < @community_manager_username >
 ```
 
 ---------
