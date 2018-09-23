@@ -22,4 +22,12 @@
 I understand and accept to all the rules <community_name> | < @community_manager_username >
 ```
 
+-----------------------
+
+#### Communities that accept and participate all coogger ecosystem rules.
+
+```
+I Understand and accept all the rules <letsteem> | < @letsteem >
+```
+
 ---------
