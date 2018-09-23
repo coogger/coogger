@@ -38,7 +38,7 @@ class ContentAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        community_model = Community.objects.filter(management=request.user)
+        community_model = Community.objects.filter(management=request.user)[0]
         return qs.filter(community = community_model)
 
     def get_form(self, request, obj=None, **kwargs):
@@ -120,7 +120,7 @@ class EditorTemplateAdmin(ModelAdmin):
             community_model = self.get_management_community(request)
             categories = eval(community_model.name+"_categories")
             if obj.category_name in categories:
-                super(ContentAdmin, self).save_model(request, obj, form, change)
+                super(EditorTemplateAdmin, self).save_model(request, obj, form, change)
             else:
                 raise Http404
 
