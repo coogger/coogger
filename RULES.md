@@ -22,8 +22,9 @@
 I understand and accept to all the rules <community_name> | < @community_manager_username >
 ```
 
->Then check [ADMIN_SECTİON_FOR_COMMUNITY_LEADERS.md](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_COMMUNITY_LEADERS.md)
-
+>Then check 
+- [ADMIN_SECTİON_FOR_COMMUNITY_LEADERS.md](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_COMMUNITY_LEADERS.md)
+- [ADMIN_SECTİON_FOR_MODS.md](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_MODS.md)
 -----------------------
 
 #### Communities that accept and participate all coogger ecosystem rules.
