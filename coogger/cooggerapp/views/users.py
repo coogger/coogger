@@ -104,12 +104,12 @@ class UserAboutBaseClass(View):
                     return HttpResponseRedirect("/about/@{}".format(request.user.username))
 
 
-class UserHistory(TemplateView):
+class UserComment(TemplateView):
     "History of users"
-    template_name = "users/history.html"
+    template_name = "users/history/comment.html"
 
     def get_context_data(self, username, **kwargs):
-        context = super(UserHistory, self).get_context_data(**kwargs)
+        context = super(UserComment, self).get_context_data(**kwargs)
         user = authenticate(username=username)
         if self.request.community_model.name == "coogger":
             queryset = Content.objects.filter(user=user, status="approved")
@@ -118,13 +118,23 @@ class UserHistory(TemplateView):
         context["user_follow"] = users_web(user)
         context["content_user"] = user
         context["topics"] = user_topics(queryset)
+        context["django_md_editor"] = True
         return context
 
 
-class UserWallet(UserHistory):
+class UserWallet(UserComment):
     "History of users"
-    template_name = "users/wallet.html"
+    template_name = "users/history/wallet.html"
 
     def get_context_data(self, username, **kwargs):
         context = super(UserWallet, self).get_context_data(username, **kwargs)
+        return context
+
+
+class UserActivity(UserComment):
+    "History of users"
+    template_name = "users/history/activity.html"
+
+    def get_context_data(self, username, **kwargs):
+        context = super(UserActivity, self).get_context_data(username, **kwargs)
         return context

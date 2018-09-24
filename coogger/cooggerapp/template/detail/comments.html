@@ -83,7 +83,6 @@
       steem.api.getContentReplies(parent="{{ content_user }}", parentPermlink="{{ detail.permlink }}", function (err, comments) {
         let comment_template = "";
         var comment_index;
-        console.log(comments);
         for (comment_index = 0; comment_index < comments.length; comment_index++) {
           var comment = comments[comment_index];
           comment_template += comment_info(comment);

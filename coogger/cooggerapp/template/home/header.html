@@ -64,9 +64,16 @@
   </div>
   <div style="padding:  3px 12px;" flx="jc-fe">
     <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
-    href="{% url 'history' request.user %}">
-      <span>History</span>
-      <i flx="as-c" class="fas fa-history" aria-hidden="true" style="margin: 0px 12px;"></i>
+    href="{% url 'activity' request.user %}">
+      <span>Activity</span>
+      <i flx="as-c" class="fas fa-chart-line" aria-hidden="true" style="margin: 0px 12px;"></i>
+    </a>
+  </div>
+  <div style="padding:  3px 12px;" flx="jc-fe">
+    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+    href="{% url 'comment' request.user %}">
+      <span>Comments</span>
+      <i flx="as-c" class="fas fa-comments" style="margin: 0px 12px;"></i>
     </a>
   </div>
   <div style="padding:  3px 12px;" flx="jc-fe">
