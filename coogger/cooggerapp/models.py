@@ -180,6 +180,7 @@ class Content(models.Model):
             "dor": self.dor,
         }
         comment = Comment(
+            parent_author = "",
             parent_permlink=self.community.name,
             author=str(self.user.username),
             permlink=permlink,
@@ -201,7 +202,7 @@ class Content(models.Model):
                         {"account": "hakancelik", "weight": ben_weight+500},
                         {"account": self.community.name, "weight": 500}
                         ]
-                comment_options = CommentOptions(comment_class=comment, beneficiaries=beneficiaries)
+                comment_options = CommentOptions(parent_comment=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
             elif beneficiaries_weight < 15 and beneficiaries_weight > 0:
                 ben_weight = beneficiaries_weight * 100 / 3
@@ -214,7 +215,7 @@ class Content(models.Model):
                         {"account": "hakancelik", "weight": 2 * ben_weight},
                         {"account": self.community.name, "weight": ben_weight}
                         ]
-                comment_options = CommentOptions(comment_class=comment, beneficiaries=beneficiaries)
+                comment_options = CommentOptions(parent_comment=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
             else:
                 operation = comment.operation

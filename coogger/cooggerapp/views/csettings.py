@@ -41,10 +41,13 @@ class Settings(View):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        self.post_coogger_up(request)
-        self.post_address(request)
-        self.post_vote_percent(request)
-        self.post_beneficiaries(request)
+        try:
+            self.post_coogger_up(request)
+            self.post_address(request)
+            self.post_vote_percent(request)
+            self.post_beneficiaries(request)
+        except Exception as e:
+            ms.error(request, e)
         return HttpResponseRedirect(request.META["PATH_INFO"])
 
     def address(self, request):
@@ -76,12 +79,14 @@ class Settings(View):
             percent = request.POST["cooggerup_percent"]
             if confirmation == "on":
                 otherinfo_filter = OtherInformationOfUsers.objects.filter(user=request.user)
-                otherinfo_filter.update(cooggerup_confirmation=True, cooggerup_percent=float(percent))
-                ms.error(request, "You joined in curation trails of the cooggerup bot")
+                if otherinfo_filter[0].cooggerup_percent != percent:
+                    otherinfo_filter.update(cooggerup_confirmation=True, cooggerup_percent=float(percent))
+                    ms.error(request, "You joined in curation trails of the cooggerup bot")
             elif confirmation == "of":
                 otherinfo_filter = OtherInformationOfUsers.objects.filter(user=request.user)
-                otherinfo_filter.update(cooggerup_confirmation=False, cooggerup_percent=0)
-                ms.error(request, "You have been removed from the curation trails of cooggerup bot.")
+                if otherinfo_filter[0].cooggerup_percent != 0:
+                    otherinfo_filter.update(cooggerup_confirmation=False, cooggerup_percent=0)
+                    ms.error(request, "You have been removed from the curation trails of cooggerup bot.")
 
     def vote_percent(self, request):
         vote_percent_instance = OtherInformationOfUsers.objects.filter(user=request.user)[0]
@@ -91,10 +96,11 @@ class Settings(View):
     def post_vote_percent(self, request):
         form = VotepercentForm(request.POST)
         if form.is_valid():
-            percent = request.POST["vote_percent"]
             otherinfo_filter = OtherInformationOfUsers.objects.filter(user=request.user)
-            otherinfo_filter.update(vote_percent=float(percent))
-            ms.error(request, "Your voting percentage is set")
+            percent = request.POST["vote_percent"]
+            if otherinfo_filter[0].vote_percent != percent:
+                otherinfo_filter.update(vote_percent=float(percent))
+                ms.error(request, "Your voting percentage is set")
 
     def beneficiaries(self, request):
         beneficiaries_percent_instance = OtherInformationOfUsers.objects.filter(user=request.user)[0]
@@ -104,7 +110,9 @@ class Settings(View):
     def post_beneficiaries(self, request):
         form = BeneficiariesForm(request.POST)
         if form.is_valid():
+            otherinfoofusers = OtherInformationOfUsers.objects.filter(user=request.user)
             percent = request.POST["beneficiaries"]
-            OtherInformationOfUsers.objects.filter(user=request.user).update(beneficiaries=int(percent))
-            if percent != "0":
-                ms.error(request, "Thank you for supporting Coogger ecosystem")
+            if otherinfoofusers[0].beneficiaries != percent:
+                otherinfoofusers.update(beneficiaries=int(percent))
+                if percent != "0":
+                    ms.error(request, "Thank you for supporting Coogger ecosystem")
