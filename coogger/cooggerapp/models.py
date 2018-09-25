@@ -54,7 +54,7 @@ class OtherInformationOfUsers(models.Model):
 class Content(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
-    title = models.CharField(max_length=100, verbose_name="Title", help_text="Be sure to choose the best title related to your content.")
+    title = models.CharField(max_length=200, verbose_name="Title", help_text="Be sure to choose the best title related to your content.")
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces, max:4")
@@ -113,6 +113,11 @@ class Content(models.Model):
         return str(words_time)[:3]
 
     def save(self, *args, **kwargs):  # for admin.py
+        if self.mod == User.objects.get(username="hakancelik"):
+            try:
+                POST = Post(post=f"@{self.user}/{self.permlink}")
+            except:
+                steem_post = self.steemconnect_post(self.permlink, "save")
         self.definition = self.prepare_definition(self.content)
         super(Content, self).save(*args, **kwargs)
 
