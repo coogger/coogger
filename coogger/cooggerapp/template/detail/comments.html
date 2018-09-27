@@ -1,86 +1,5 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-
-      function comment_info(comment){
-        var last_update = timeSince(comment.last_update);
-        var pending_payout_value = parseFloat(comment.pending_payout_value.replace(" SBD", ""));
-        var post_reward_total = 0;
-        if (pending_payout_value == 0){
-          var total_payout_value = parseFloat(comment.total_payout_value.replace(" SBD", ""))
-          var curator_payout_value = parseFloat(comment.curator_payout_value.replace(" SBD", ""));
-          post_reward_total = total_payout_value+curator_payout_value;
-        }
-        else{
-          post_reward_total = pending_payout_value;
-        }
-        return ("\
-        <div gnrl='br-2 c-secondary br-2 b-1 brc-muted right' style='padding: 2px 4px;' flx='ai-c'>\
-            <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-                <div style='margin-left: 12px;'>"+last_update+"</div>\
-            </div>\
-            <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-                <div style='margin-left: 12px;'> | reply ; "+comment.children+"</div>\
-            </div>\
-            <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-              <div style='margin-left: 12px;'> | votes ; "+comment.active_votes.length+"</div>\
-            </div>\
-            <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-              <div style='margin-left: 12px;'> | $"+post_reward_total+"</div>\
-            </div></div>\
-        <div flx style='margin: 12px 0px' gnrl='bg-muted c-white br-2' class='root_content'>\
-          <div style='width: 100%;'>\
-            <li flx='ai-c'>\
-              <a href='/@"+comment.author+"/"+comment.permlink+"' id='root_content'\
-              target='blank' gnrl='c-secondary txt-s' style='color: black;padding: 8px 0px;width: 100%;'>\
-              <span style='margin: 0px 6px'>Open in new tab to view more detailed</span>\
-              </a>\
-            </li>\
-          </div>\
-        </div>");
-      }
-
-      function userinfo(comment){
-        var reputation = steem.formatter.reputation(comment.author_reputation);
-        return ("\
-          <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>\
-            <div flx='ai-fs' gnrl='bg-white'>\
-              <img gnrl='br-circle left' id='detail_profile_image' src='https://steemitimages.com/u/"+comment.author+"/avatar' class='useruserimg'\
-                style='height:  40px;width:  40px;margin:  initial;'></a>\
-              <div gnrl='txt-s' flx='fd-c' class='duread-li'>\
-                  <a flx title='"+comment.author+"' href='/@"+comment.author+"' style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>\
-              @"+comment.author+"<span id='username'></span> - ("+reputation+")\
-              </a>\
-                  <div style='margin-left: 8px;' gnrl='c-secondary'>"+timeSince(comment.created)+"</div>\
-              </div>\
-            </div>\
-          </div>"
-        );
-      }
-
-      function comment_body(comment){
-        return ("\
-          <h1 gnrl='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'></h1>\
-          <div style='padding: inherit;'>\
-            <div style='width: auto;height:  auto;border: none;' class='editormd' id='"+comment.id+"_arg_editormd'>\
-                <textarea style='display:none;' id='editormd_content'></textarea>\
-            </div>\
-          </div>\
-        ");
-      }
-
-      function comment_body_md(comment){
-        $(function() {
-          var Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
-            height: 670,
-            path : '/static/lib/',
-            htmlDecode: 'tml,iframe',
-            atLink: false,
-            emailLink : false,
-            markdown : comment.body,
-          });
-        });
-      }
-
+  $(document).ready(function() {
       steem.api.getContentReplies(parent="{{ content_user }}", parentPermlink="{{ detail.permlink }}", function (err, comments) {
         let comment_template = "";
         var comment_index;
@@ -93,10 +12,53 @@
         }
         $("#comment_template").html(comment_template);
       });
-    });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#send-comment").click(function(){
+      $(this).attr("hvr-animation", "i blink");
+      var get_comment = $("#comment-text").val();
+      var parentAuthor = this.dataset.parent_author;
+      var parentPermlink = this.dataset.parent_permlink;
+      var current_time = new Date();
+      var link_to_time =current_time.getYear()+current_time.getMonth()+current_time.getDay()+current_time.getMinutes()+current_time.getSeconds();
+      var permlink = "re-"+parentAuthor+"-"+parentPermlink+"-"+link_to_time;
+      var author = "{{ request.user }}";
+      var title = "";
+      var body = get_comment+"\n\nPosted on [{{ request.community_model.name }}]({{ request.community_model.host_name }})";
+      var jsonMetadata = {
+          "format": "markdown",
+          "tags": "{{ request.community_model.name }}",
+          "app": "coogger/1.3.9",
+          "ecosystem": "coogger",
+          "community": "{{ request.community_model.name }}",
+      };
+      api.comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, comment_res) {
+        if (err == null){
+          document.getElementById("comment-text").value = ""
+          $(this).attr("hvr-animation", "null");
+          steem.api.getContent(author, permlink, function(err, new_comment) {
+            var new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
+            comment_body_md(new_comment);
+            $("#comment_template").append(new_comment_template);
+          });
+        }
+        else{
+          alert(err);
+        }
+      });
+    })
+  });
 </script>
 <div gnrl="b-1 br-2 brc-muted" style="margin: 10% 0px;">
   <div default="paragraph" gnrl="bg-white" style="padding: 6px 4px;">
+      <textarea id="comment-text" placeholder="Reply ..."></textarea>
+      <button id="send-comment" gnrl="b-1 br-2 brc-muted bg-success c-white"
+          data-parent_author="{{ content_user }}" data-parent_permlink="{{ detail.permlink }}">
+        Post
+      </button>
       <div id="comment_template" class="comment_template"></div>
   </div>
 </div>

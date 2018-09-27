@@ -57,7 +57,6 @@
               {% if request.user.is_authenticated %}
                   const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
                   api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", -weight, function (err, res) {
-                      console.log(err,res,"unvoted"); // is it necessary to below codes
                       steem.api.getContent(author, permlink, function(err, content) {
                         var post_reward_total = 0;
                         if (pending_payout_value == 0){
