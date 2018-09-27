@@ -158,6 +158,9 @@
                   }
                 }
               });
+              if (start>follower_count){
+                do_while_stop = false;
+              }
               start += 1000;
             } while (do_while_stop);
           });
