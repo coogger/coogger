@@ -27,43 +27,54 @@ $(document).ready(function() {
     }
 });
 
-function format_of_time(created_time){
-  var created = new Date(created_time);
-  var new_data = new Date();
-  var created_year = created.getFullYear() - new_data.getFullYear();
-  var created_mon = created.getMonth() - new_data.getMonth();
-  var created_day = created.getDay() - new_data.getDay();
-  var created_hours = created.getHours() - new_data.getHours();
-  var created_minute = created.getMinutes() - new_data.getMinutes();
-  if (created_year>=1){
-    created_year = created_year+" year";
+function timeSince(date){
+  var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  var year = Math.floor(seconds / 31536000);
+  if (year>1){
+    seconds = Math.floor(seconds - (year*31536000));
+    year = year+" year";
   }
   else{
-    created_year = "";
+    year = "";
   }
-  if (created_mon>=1){
-    created_mon = created_mon+" month";
-  }
-  else{
-    created_mon = "";
-  }
-  if (created_day<8 && created_day>0){
-    created_day = created_day+" day";
+  var months = Math.floor(seconds / 2592000);
+  if (months>1){
+    seconds = Math.floor(seconds - (months*2592000));
+    months = months+" month";
   }
   else{
-    created_day = "";
+    months = "";
   }
-  if (created_hours<49 && created_hours>0){
-    created_hours = created_hours+" hours";
-  }
-  else{
-    created_hours = "";
-  }
-  if (created_minute<60 && created_minute>0){
-    created_minute = created_minute+" minute";
+  var days = Math.floor(seconds / 86400);
+  if (days>1){
+    seconds = Math.floor(seconds - (days*86400));
+    days = days+" day";
   }
   else{
-    created_minute = "";
+    days = "";
   }
-  return (created_year+" "+created_mon+" "+created_day+" "+created_hours+" "+created_minute+" "+"ago");
+  var hours = Math.floor(seconds / 3600);
+  if (hours>1){
+    seconds = Math.floor(seconds - (hours*3600));
+    hours = hours+" hours";
+  }
+  else{
+    hours = "";
+  }
+  var minutes = Math.floor(seconds / 60);
+  if (minutes>1){
+    seconds = Math.floor(seconds - (minutes*60));
+    minutes = minutes+" minute";
+  }
+  else{
+    minutes = "";
+  }
+  if (seconds>1){
+    seconds = seconds+" second";
+  }
+  else{
+    seconds = "";
+  }
+
+  return (year+" "+months+" "+days+" "+hours+" "+minutes+" "+seconds+" | ago");
 }

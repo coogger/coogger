@@ -2,6 +2,7 @@
     $(document).ready(function() {
 
       function comment_info(comment){
+        var last_update = timeSince(comment.last_update);
         var pending_payout_value = parseFloat(comment.pending_payout_value.replace(" SBD", ""));
         var post_reward_total = 0;
         if (pending_payout_value == 0){
@@ -15,7 +16,7 @@
         return ("\
         <div gnrl='br-2 c-secondary br-2 b-1 brc-muted right' style='padding: 2px 4px;' flx='ai-c'>\
             <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-                <div style='margin-left: 12px;'>"+format_of_time(comment.last_update)+"</div>\
+                <div style='margin-left: 12px;'>"+last_update+"</div>\
             </div>\
             <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
                 <div style='margin-left: 12px;'> | reply ; "+comment.children+"</div>\
@@ -49,7 +50,7 @@
                   <a flx title='"+comment.author+"' href='/@"+comment.author+"' style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>\
               @"+comment.author+"<span id='username'></span> - ("+reputation+")\
               </a>\
-                  <div style='margin-left: 8px;' gnrl='c-secondary'>"+format_of_time(comment.created)+"</div>\
+                  <div style='margin-left: 8px;' gnrl='c-secondary'>"+timeSince(comment.created)+"</div>\
               </div>\
             </div>\
           </div>"
