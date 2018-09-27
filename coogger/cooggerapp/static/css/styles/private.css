@@ -191,7 +191,9 @@ section{
 .just-pc{
   display: block;
 }
-
+.trans-memo, .json_metadata{
+  word-break: break-word;
+}
 @media only screen and (max-width: 900px) {
     .sectionclosedmobile {
         display: none;

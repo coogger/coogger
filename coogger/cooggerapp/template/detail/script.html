@@ -8,6 +8,7 @@
             console.log(err);
           }
         }
+
         $(".follow").click(function(event){
           $("#is_follow").attr({'animation':"blink i"});
           api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
@@ -109,9 +110,9 @@
           }
           write_in_html("reputation",reputation);
           write_in_html("username",content.author);
-          write_in_html("lastmod",content.last_update);
+          write_in_html("lastmod",format_of_time(content.last_update));
           write_in_html("reply",content.children);
-          write_in_html("time",content.created);
+          write_in_html("time", format_of_time(content.created));
           var root_url = "/@"+content.root_author+"/"+content.root_permlink;
           if (root_url != "/@"+content.author+"/"+content.permlink){
             $("#root_content").attr("href", root_url);

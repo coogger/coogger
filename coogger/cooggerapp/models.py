@@ -116,6 +116,7 @@ class Content(models.Model):
         if self.mod == User.objects.get(username="hakancelik"):
             try:
                 POST = Post(post=f"@{self.user}/{self.permlink}")
+                self.steemconnect_post(self.permlink, "update")
             except:
                 steem_post = self.steemconnect_post(self.permlink, "save")
         self.definition = self.prepare_definition(self.content)

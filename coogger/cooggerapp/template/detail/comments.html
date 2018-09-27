@@ -15,7 +15,7 @@
         return ("\
         <div gnrl='br-2 c-secondary br-2 b-1 brc-muted right' style='padding: 2px 4px;' flx='ai-c'>\
             <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-                <div style='margin-left: 12px;'>Last update ; "+comment.last_update+"</div>\
+                <div style='margin-left: 12px;'>"+format_of_time(comment.last_update)+"</div>\
             </div>\
             <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
                 <div style='margin-left: 12px;'> | reply ; "+comment.children+"</div>\
@@ -49,7 +49,7 @@
                   <a flx title='"+comment.author+"' href='/@"+comment.author+"' style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>\
               @"+comment.author+"<span id='username'></span> - ("+reputation+")\
               </a>\
-                  <div style='margin-left: 8px;' gnrl='c-secondary'>"+comment.created+"</div>\
+                  <div style='margin-left: 8px;' gnrl='c-secondary'>"+format_of_time(comment.created)+"</div>\
               </div>\
             </div>\
           </div>"
