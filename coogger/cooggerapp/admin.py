@@ -101,20 +101,17 @@ class CategoryofCommunityAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
+        community_model = Community.objects.filter(management=request.user)[0]
         categories = self.get_categories(request)
-        qs = qs.filter(category_name__in = categories)
+        qs = qs.filter(community=community_model, category_name__in=categories)
         return qs
 
 
-    def save_model(self, request, obj, form, change):
-        if request.user.is_superuser:
-            super(CategoryofCommunityAdmin, self).save_model(request, obj, form, change)
-        else:
-            categories = self.get_categories(request)
-            if obj.category_name in categories:
-                super(CategoryofCommunityAdmin, self).save_model(request, obj, form, change)
-            else:
-                raise Http404
+    def get_form(self, request, obj=None, **kwargs):
+        community_model = Community.objects.filter(management=request.user)[0]
+        form = super().get_form(request, obj, **kwargs)
+        form.base_fields["community"].choices = ((community_model.id, community_model),)
+        return form
 
     def get_categories(self, request):
         community_model = Community.objects.filter(management=request.user)[0]
