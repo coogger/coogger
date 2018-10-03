@@ -108,6 +108,8 @@ class CategoryofCommunityAdmin(ModelAdmin):
 
 
     def get_form(self, request, obj=None, **kwargs):
+        if request.user.is_superuser:
+            return super().get_form(request, obj, **kwargs)
         community_model = Community.objects.filter(management=request.user)[0]
         form = super().get_form(request, obj, **kwargs)
         form.base_fields["community"].choices = ((community_model.id, community_model),)

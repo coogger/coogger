@@ -6,8 +6,8 @@ class Community(models.Model):
     name = models.CharField(max_length=20, unique=True)
     host_name = models.CharField(max_length=30, unique=True)
     redirect_url = models.CharField(max_length=400, unique=True)
-    client_id = models.CharField(max_length=200, unique=True)
-    app_secret = models.CharField(max_length=400, unique=True)
+    client_id = models.CharField(max_length=200)
+    app_secret = models.CharField(max_length=400)
     login_redirect = models.CharField(max_length=50)
     default_scope = "login, offline, vote, comment, comment_options, delete_comment, custom_json, claim_reward_balance"
     scope = models.CharField(default=default_scope, max_length=200)
