@@ -1,23 +1,23 @@
 {% load django_md_editor_tags %} {% include 'home/head.html' %} {% include 'home/header.html' %}
 
-<div class="communities-ms header-bottom" gnrl="txt-xl center b-1 br-2 bg-private c-white" flx="fw-w">
-  Other communities working with Coogger Ecosystem
+<div class="communities-ms header-bottom" gnrl="txt-xl center" flx="fw-w">
+  {{ "other communities built using the coogger ecosystem."|title }}
 </div>
-<div flx="fw-w" gnrl="center txt-m" style="margin: 14px auto;">
-    {% for com in communities %}
-    <div flx style="height: auto;word-break: break-word;padding: 14px;" default="media2">
-        <div style="padding: 6px" flx="ai-c fd-c">
-          <img flx="ai-c" src="{{ com.image }}" style="max-width:  256px;max-height: 256px;"/>
-          <div>
-            <div><strong>Name :</strong> {{ com.name }}</div>
-            <div><strong>Definition :</strong> {{ com.definition }}</div>
-            <div><strong>Active :</strong> {{ com.active }}</div>
-            <div><strong>Host name :</strong> <a gnrl="c-primary" href="//{{ com.host_name }}">{{ com.host_name }}</a></div>
-            <div><strong>Redirect_url :</strong> <a gnrl="c-primary" href="//{{ com.redirect_url }}">{{ com.redirect_url }}</a> </div>
-            <div><strong>Login_redirect :</strong> <a gnrl="c-primary" href="//{{ com.host_name }}{{com.login_redirect}}">{{ com.login_redirect }}</a></div>
-            <div><strong>Scope :</strong> {{ com.scope }}</div>
-          </div>
+<div flx="fw-w fd-c" gnrl="center txt-m" style="margin: 14px auto;" default="media">
+  {% for com in communities %}
+  <div flx style="height: auto;word-break: break-word;padding: 14px;" gnrl="b-1 brc-muted">
+      <div style="padding: 6px" flx="ai-c fd-c">
+        <img flx="ai-c" src="{{ com.image }}" style="max-width:  256px;max-height: 256px;"/>
+        <div>
+          <div><strong>Name :</strong> {{ com.name }}</div>
+          <div><strong>Definition :</strong> {{ com.definition }}</div>
+          <div><strong>Active :</strong> {{ com.active }}</div>
+          <div><strong>Host name :</strong> <a gnrl="c-primary" href="//{{ com.host_name }}">{{ com.host_name }}</a></div>
+          <div><strong>Redirect_url :</strong> <a gnrl="c-primary" href="//{{ com.redirect_url }}">{{ com.redirect_url }}</a> </div>
+          <div><strong>Login_redirect :</strong> <a gnrl="c-primary" href="//{{ com.host_name }}{{com.login_redirect}}">{{ com.login_redirect }}</a></div>
+          <div><strong>Scope :</strong> {{ com.scope }}</div>
         </div>
-    </div>
-    {% endfor %}
+      </div>
+  </div>
+  {% endfor %}
 </div>
