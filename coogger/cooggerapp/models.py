@@ -226,7 +226,8 @@ class Content(models.Model):
         other_user_beneficiaries = OtherInformationOfUsers.objects.filter(user=self.user)[0].beneficiaries
         community_beneficiaries_for_coogger = CommunitySettings.objects.filter(community=self.community)[0].beneficiaries
         if community_beneficiaries != 0:
-            beneficiaries.append({"account": self.community.name, "weight": community_beneficiaries*100})
+            if self.community.name != "coogger":
+                beneficiaries.append({"account": self.community.name, "weight": community_beneficiaries*100})
         if other_user_beneficiaries != 0:
             if community_beneficiaries_for_coogger != 0 and community_beneficiaries_for_coogger>other_user_beneficiaries:
                 beneficiaries.append({"account": "coogger", "weight": community_beneficiaries_for_coogger*100})
@@ -234,6 +235,7 @@ class Content(models.Model):
                 beneficiaries.append({"account": "coogger", "weight": other_user_beneficiaries*100})
         elif community_beneficiaries_for_coogger != 0:
             beneficiaries.append({"account": "coogger", "weight": community_beneficiaries_for_coogger*100})
+        print(beneficiaries)
         return beneficiaries
 
     def ready_tags(self, limit=5):

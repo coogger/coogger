@@ -1,4 +1,4 @@
-After community leaders make you as a mod for its community, you can enter admin section and 
+After community leaders make you as a mod for its community, you can enter admin section and
 you have some permissions in the admin section.
 
 ### Addresses of Admin Section and What They can Do.
@@ -10,11 +10,11 @@ you have some permissions in the admin section.
 - https://www.coogger.com/admin/cooggerapp/content/
 - https://community_address/admin/cooggerapp/content/
 
-#### To edit your editör template for your community category
-Mods can just edit if it their community category name equal to the template name.
+#### To edit your category name, category editor template for your community category
+Mods can just edit
 
-- https://www.coogger.com/admin/cooggerapp/editortemplate/
-- https://community_address/admin/cooggerapp/editortemplate/
+- https://www.coogger.com/admin/cooggerapp/categoryofcommunity/
+- https://community_address/admin/cooggerapp/categoryofcommunity/
 
 #### To see users information
 Mods can not change or edit this information

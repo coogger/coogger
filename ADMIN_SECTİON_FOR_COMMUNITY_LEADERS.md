@@ -1,4 +1,4 @@
-After community leaders accept these [coogger ecosystem rules](https://github.com/coogger/coogger/blob/super-coogger/RULES.md), 
+After community leaders accept these [coogger ecosystem rules](https://github.com/coogger/coogger/blob/super-coogger/RULES.md),
 they can enter admin section, they have some permissions in the admin section.
 
 ### Addresses of Admin Section and What They can Do.
@@ -10,11 +10,11 @@ they can enter admin section, they have some permissions in the admin section.
 - https://www.coogger.com/admin/cooggerapp/content/
 - https://community_address/admin/cooggerapp/content/
 
-#### To create or edit your editör template for your community category
-Community leaders can just create or edit if it their community category name equal to the template name.
+#### To create or edit your category name, category editor template for your community category
+Community leaders can create, edit or delete
 
-- https://www.coogger.com/admin/cooggerapp/editortemplate/
-- https://community_address/admin/cooggerapp/editortemplate/
+- https://www.coogger.com/admin/cooggerapp/categoryofcommunity/
+- https://community_address/admin/cooggerapp/categoryofcommunity/
 
 #### To see users information
 Community leaders or mods can not change or edit this information
