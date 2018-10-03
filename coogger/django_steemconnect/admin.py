@@ -57,18 +57,15 @@ class CommunityAdmin(ModelAdmin):
     list_display = ["name", "management"]
     list_filter = ["name"]
     list_display_links = ["name", "management"]
-    search_fields = [
-                        "name", "host_name", "redirect_url", "client_id",
-                        "app_secret", "login_redirect", "scope", "management",
-                        "ms", "icon_address"
-                    ]
+    search_fields = ["name", "host_name","client_id","app_secret",]
     fields = (
-                ("management"),
+                ("management", "beneficiaries"),
                 ("name", "host_name"),
-                ("redirect_url", "client_id", "app_secret"),
+                ("redirect_url", "client_id"),
                 ("login_redirect", "scope"),
-                ("icon_address", "ms","active"),
+                ("icon_address", "ms"),
                 ("definition", "image"),
+                ("app_secret", "active"),
              )
 
     def get_queryset(self, request):

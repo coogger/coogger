@@ -6,10 +6,8 @@ from cooggerapp.choices import *
 
 # models
 from cooggerapp.models import (
-    Content,
-    UserFollow,
-    OtherInformationOfUsers,
-    ReportModel)
+    Content, UserFollow, OtherInformationOfUsers,
+    ReportModel, CategoryofCommunity)
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -20,11 +18,19 @@ class ContentForm(forms.ModelForm):
         super(ContentForm, self).__init__(*args, **kwargs)
         if community_model is not None:
             self.fields["language"].choices = make_choices(languages)
-            self.fields["category"].choices = make_choices(eval(str(community_model.name)+"_categories"))
+            self.fields["category"].choices = make_choices(self.get_categories(community_model))
 
     class Meta:
         model = Content
         fields = ["category", "language", "topic", "title", "content", "tag"]
+
+    def get_categories(self, community_model):
+        if community_model.name == "coogger":
+            category_filter = CategoryofCommunity.objects.all()
+        else:
+            category_filter = CategoryofCommunity.objects.filter(community=community_model)
+        categories = [category.category_name for category in category_filter]
+        return categories
 
 
 class UserFollowForm(forms.ModelForm):

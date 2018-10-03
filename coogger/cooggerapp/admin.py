@@ -7,7 +7,7 @@ from django.http import Http404
 
 #models
 from cooggerapp.models import (Content, Contentviews, UserFollow, SearchedWords,
-    ReportModel, OtherInformationOfUsers, EditorTemplate)
+    ReportModel, OtherInformationOfUsers, CommunitySettings, CategoryofCommunity)
 from django_steemconnect.models import Mods, Community
 
 # forms
@@ -84,6 +84,46 @@ class ContentviewsAdmin(ModelAdmin):
     search_fields = list_
 
 
+class CommunitySettingsAdmin(ModelAdmin):
+    list_ = ["community","beneficiaries"]
+    list_display = list_
+    list_display_links = list_
+    search_fields = list_
+
+
+class CategoryofCommunityAdmin(ModelAdmin):
+    list_ = ["community","category_name"]
+    list_display = list_
+    list_display_links = list_
+    search_fields = list_
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        categories = self.get_categories(request)
+        qs = qs.filter(category_name__in = categories)
+        return qs
+
+
+    def save_model(self, request, obj, form, change):
+        if request.user.is_superuser:
+            super(CategoryofCommunityAdmin, self).save_model(request, obj, form, change)
+        else:
+            categories = self.get_categories(request)
+            if obj.category_name in categories:
+                super(CategoryofCommunityAdmin, self).save_model(request, obj, form, change)
+            else:
+                raise Http404
+
+    def get_categories(self, request):
+        community_model = Community.objects.filter(management=request.user)[0]
+        categories = [
+            category.category_name for category in \
+                CategoryofCommunity.objects.filter(community=community_model)
+            ]
+        return categories
+
 class OtherInfoUsersAdmin(ModelAdmin):
     list_ = ["user","cooggerup_confirmation","cooggerup_percent"]
     list_display = list_
@@ -97,41 +137,11 @@ class OtherInfoUsersAdmin(ModelAdmin):
         raise Http404 # mods or community leader cant change
 
 
-class EditorTemplateAdmin(ModelAdmin):
-    list_ = ["category_name"]
-    list_display = list_
-    list_display_links = list_
-    search_fields = list_
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        community_model = self.get_management_community(request)
-        categories = eval(community_model.name+"_categories")
-        qs = qs.filter(category_name__in = categories)
-        return qs
-
-
-    def save_model(self, request, obj, form, change):
-        if request.user.is_superuser:
-            super(ContentAdmin, self).save_model(request, obj, form, change)
-        else:
-            community_model = self.get_management_community(request)
-            categories = eval(community_model.name+"_categories")
-            if obj.category_name in categories:
-                super(EditorTemplateAdmin, self).save_model(request, obj, form, change)
-            else:
-                raise Http404
-
-    def get_management_community(self, request):
-        return Community.objects.filter(management=request.user)[0]
-
-
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(UserFollow,UserFollowAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)
 site.register(ReportModel)
-site.register(EditorTemplate, EditorTemplateAdmin)
 site.register(OtherInformationOfUsers,OtherInfoUsersAdmin)
+site.register(CommunitySettings, CommunitySettingsAdmin)
+site.register(CategoryofCommunity, CategoryofCommunityAdmin)

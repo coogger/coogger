@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 # models
-from cooggerapp.models import Content, EditorTemplate
+from cooggerapp.models import Content, CategoryofCommunity
 
 # form
 from cooggerapp.forms import ContentForm
@@ -31,7 +31,9 @@ class Create(View):
         category_name = request.GET.get("category", None)
         category_content = ""
         if category_name is not None:
-            category_content = EditorTemplate.objects.get(category_name=category_name).template
+            category_content = CategoryofCommunity.objects.get(
+                community=request.community_model, category_name=category_name
+            ).editor_template
         form = ContentForm(community_model=request.community_model, initial={"content": category_content, "category":category_name})
         return render(request, self.template_name, {"form": form})
 
@@ -94,6 +96,6 @@ class Change(View):
 
     def create_error(self, request, form):
         warning_ms = """unexpected error, check your content please or contact us on discord;
-        <a gnrl='c-primary' href='https://discord.gg/q2rRY8Q'>https://discord.gg/q2rRY8Q</a>"""
+        <a gnrl='c-primary' href='https://discord.gg/avmdZJa'>https://discord.gg/avmdZJa</a>"""
         ms.error(request, warning_ms)
         return render(request, self.template_name, {"form": form})

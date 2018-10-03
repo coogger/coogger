@@ -29,9 +29,15 @@ from django_md_editor.models import EditorMdField
 from django_steemconnect.models import SteemConnectUser, Community
 
 
-class EditorTemplate(models.Model):
-    category_name = models.CharField(max_length=100, unique=True, verbose_name="Category name")
-    template = EditorMdField()
+class CommunitySettings(models.Model):
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    beneficiaries = models.FloatField(default=0, verbose_name="Support Coogger ecosystem with beneficiaries")
+
+
+class CategoryofCommunity(models.Model):
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    category_name = models.CharField(max_length=50, verbose_name="Category name")
+    editor_template = EditorMdField(blank=True, null=True)
 
 
 class OtherInformationOfUsers(models.Model):
@@ -41,7 +47,7 @@ class OtherInformationOfUsers(models.Model):
     sponsor = models.BooleanField(default=False)
     cooggerup_percent = models.FloatField(default=0, verbose_name="Cooggerup bot upvote percent")
     vote_percent = models.FloatField(default=100)
-    beneficiaries = models.FloatField(default=0, verbose_name="Support Coogger ecosystem with beneficiaries")
+    beneficiaries = models.IntegerField(default=0, verbose_name="Support Coogger ecosystem with beneficiaries")
     # reward db of coogger.up curation trail, reset per week
     total_votes = models.IntegerField(default=0, verbose_name="How many votes")
     total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
@@ -59,6 +65,7 @@ class Content(models.Model):
     content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces, max:4")
     language = models.CharField(max_length=30, choices=make_choices(languages), help_text=" The language of your content")
+    all_categories = [category.category_name for category in CategoryofCommunity.objects.all()]
     category = models.CharField(max_length=30, choices=make_choices(all_categories), help_text="select content category")
     definition = models.CharField(max_length=400, verbose_name="definition of content", help_text="Briefly tell your readers about your content.")
     topic = models.CharField(max_length=30, verbose_name="content topic", help_text="Please, write your topic about your contents.")
@@ -195,32 +202,8 @@ class Content(models.Model):
             json_metadata=json_metadata,
         )
         if def_name == "save":
-            beneficiaries_weight = OtherInformationOfUsers.objects.filter(user=self.user)[0].beneficiaries
-            beneficiaries_weight = round(float(beneficiaries_weight),3)
-            if beneficiaries_weight >= 15:
-                ben_weight = beneficiaries_weight * 100 - 1000
-                if self.community.name == "coogger":
-                    beneficiaries = [
-                        {"account": "hakancelik", "weight": ben_weight + 1000},
-                        ]
-                else:
-                    beneficiaries = [
-                        {"account": "hakancelik", "weight": ben_weight+500},
-                        {"account": self.community.name, "weight": 500}
-                        ]
-                comment_options = CommentOptions(parent_comment=comment, beneficiaries=beneficiaries)
-                operation = comment_options.operation
-            elif beneficiaries_weight < 15 and beneficiaries_weight > 0:
-                ben_weight = beneficiaries_weight * 100 / 3
-                if self.community.name == "coogger":
-                    beneficiaries = [
-                        {"account": "hakancelik", "weight": 3 * ben_weight },
-                        ]
-                else:
-                    beneficiaries = [
-                        {"account": "hakancelik", "weight": 2 * ben_weight},
-                        {"account": self.community.name, "weight": ben_weight}
-                        ]
+            beneficiaries = self.get_beneficiaries()
+            if beneficiaries != []:
                 comment_options = CommentOptions(parent_comment=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
             else:
@@ -236,6 +219,22 @@ class Content(models.Model):
             secret = Community.objects.filter(name=sc_community_name)[0].app_secret
             access_token = steem_connect_user.set_new_access_token(secret)
             return SteemConnect(token=access_token, data=operation).run
+
+    def get_beneficiaries(self):
+        beneficiaries = []
+        community_beneficiaries = self.community.beneficiaries
+        other_user_beneficiaries = OtherInformationOfUsers.objects.filter(user=self.user)[0].beneficiaries
+        community_beneficiaries_for_coogger = CommunitySettings.objects.filter(community=self.community)[0].beneficiaries
+        if community_beneficiaries != 0:
+            beneficiaries.append({"account": self.community.name, "weight": community_beneficiaries*100})
+        if other_user_beneficiaries != 0:
+            if community_beneficiaries_for_coogger != 0 and community_beneficiaries_for_coogger>other_user_beneficiaries:
+                beneficiaries.append({"account": "coogger", "weight": community_beneficiaries_for_coogger*100})
+            else:
+                beneficiaries.append({"account": "coogger", "weight": other_user_beneficiaries*100})
+        elif community_beneficiaries_for_coogger != 0:
+            beneficiaries.append({"account": "coogger", "weight": community_beneficiaries_for_coogger*100})
+        return beneficiaries
 
     def ready_tags(self, limit=5):
         def clearly_tags(get_tag):

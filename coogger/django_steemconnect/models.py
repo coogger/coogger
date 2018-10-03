@@ -2,14 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Community(models.Model): # TODO: create a colomn community definition for SEO
+class Community(models.Model):
     name = models.CharField(max_length=20, unique=True)
     host_name = models.CharField(max_length=30, unique=True)
     redirect_url = models.CharField(max_length=400, unique=True)
     client_id = models.CharField(max_length=200, unique=True)
     app_secret = models.CharField(max_length=400, unique=True)
     login_redirect = models.CharField(max_length=50)
-    default_scope = "vote,comment_options,comment,offline"
+    default_scope = "login, offline, vote, comment, comment_options, delete_comment, custom_json, claim_reward_balance"
     scope = models.CharField(default=default_scope, max_length=200)
     icon_address = models.CharField(max_length=400)
     ms = models.CharField(max_length=1000)
@@ -17,6 +17,7 @@ class Community(models.Model): # TODO: create a colomn community definition for 
     definition = models.CharField(max_length=900)
     image = models.CharField(max_length=400)
     active = models.BooleanField(default=True)
+    beneficiaries = models.IntegerField(default=0)
 
     @property
     def management_user(self):
