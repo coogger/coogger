@@ -1,30 +1,30 @@
 {% include 'home/script.html' %}
-<header flx="fw-nw">
+<header flx="fw-nw ai-c">
   <a flx="jc-c ai-c" href="/" gnrl="c-dark">
     <img src="{{ request.community_model.icon_address }}" gnrl="br-circle" style="width:  48px;height:  48px;padding: 0px 6px;">
     {{ request.community_model.name }} - <span gnrl="txt-xs">Beta</span></img>
   </a>
-  <div flx="ai-c" class="search just-pc" style="padding:  3px 12px;">
+  <div flx="ai-c" class="search just-pc">
     <form action="{% url 'search' %}">
       <input gnrl="bg-white c-dark b-1 br-2 brc-muted" type="text" style="padding: 6px 12px;" placeholder='Search ..' name="query" maxlength="250" value="{{ request.GET.query }}" gnrl="br-2" />
       <input type="submit" value="Search" style="display:  none;" />
     </form>
   </div>
-  <div flx="ai-c" style="padding:  3px 12px;">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-white bg-dark br-2" gnrl="wmax txt-m c-dark" href="{% url 'create' %}">
-      <i flx="as-c" class="fa fa-plus-circle" aria-hidden="true" style="margin: 0px 12px;"></i>
+  <div flx="ai-c">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-white bg-dark br-2" gnrl="wmax txt-m c-dark" href="{% url 'create' %}">
+      <i flx="as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
     </a>
   </div>
   {% if not request.user.is_authenticated %}
-  <div flx="ai-c" style="padding:  3px 12px;">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-dark" href="https://signup.steemit.com/">Sign up</a>
+  <div flx="ai-c">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-dark" href="https://signup.steemit.com/">Sign up</a>
   </div>
-  <div flx="ai-c" style="padding:  3px 12px;">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-dark" href="{% url 'login' %}">Sign in</a>
+  <div flx="ai-c">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-dark" href="{% url 'login' %}">Sign in</a>
   </div>
   {% else%}
   <div style="padding:  3px 12px;min-width: 158px;" flx="ai-c" class="open_header_menu">
-    <div style="padding: 6px;" flx="ai-c" gnrl="wmax txt-m c-secondary">
+    <div style="padding: 6px 12px;" flx="ai-c" gnrl="wmax txt-m c-secondary">
       <img style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;background-image: url('https://steemitimages.com/u/{{ request.user }}/avatar');"
         gnrl="br-circle c-muted" style="max-width: 100%;max-height: 36px;">
       <span id="steem_power"></span>%</img>
@@ -32,8 +32,8 @@
     <i gnrl="c-dark" hvr="c-warning" style="cursor:pointer;" class="fa fa-arrow-down"></i>
   </div>
   {% endif %} {% if request.user.is_staff %}
-  <div flx="ai-c" style="padding:  3px 12px;">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-dark" href="/admin/">
+  <div flx="ai-c">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-dark bg-white br-2" gnrl="wmax txt-m c-dark" href="/admin/">
       <span>Admin</span>
     </a>
   </div>
@@ -41,79 +41,79 @@
 </header>
 <div gnrl="bg-success c-white br-2" flx="jc-c" id="steem_power_bar"></div>
 <div class="header_menu" gnrl="bg-white br-2 brc-muted b-1 center ewcenter">
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="{% url 'followingcontent' %}">
       <span>Feed</span>
-      <i flx="as-c" class="fa fa-users" aria-hidden="true" style="margin: 0px 12px;"></i>
+      <i flx="as-c" class="fa fa-users" aria-hidden="true"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="/@{{ request.user }}">
       <span>Blog</span>
-      <i flx="as-c" class="fas fa-user" aria-hidden="true" style="margin: 0px 12px;"></i>
+      <i flx="as-c" class="fas fa-user" aria-hidden="true"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
-    href="{% url 'supporters' %}">
-      <span>Supporters</span>
-      <i flx="as-c" class="fas fa-life-ring" style="margin: 0px 12px;"></i>
-    </a>
-  </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="{% url 'userabout' request.user %}">
       <span>About</span>
-      <i flx="as-c" class="fas fa-file-alt" aria-hidden="true" style="margin: 0px 12px;"></i>
+      <i flx="as-c" class="fas fa-file-alt" aria-hidden="true"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="{% url 'wallet' request.user %}">
       <span>Wallet</span>
-      <i flx="as-c" class="fas fa-wallet" aria-hidden="true" style="margin: 0px 12px;"></i>
+      <i flx="as-c" class="fas fa-wallet" aria-hidden="true"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="{% url 'activity' request.user %}">
       <span>Activity</span>
-      <i flx="as-c" class="fas fa-chart-line" aria-hidden="true" style="margin: 0px 12px;"></i>
+      <i flx="as-c" class="fas fa-chart-line" aria-hidden="true"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="{% url 'comment' request.user %}">
       <span>Comments</span>
-      <i flx="as-c" class="fas fa-comments" style="margin: 0px 12px;"></i>
+      <i flx="as-c" class="fas fa-comments"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="{% url 'review' %}">
       <span>Review</span>
-      <i flx="as-c" class="fa fa-eye-slash" aria-hidden="true" style="margin: 0px 12px;"></i>
+      <i flx="as-c" class="fa fa-eye-slash" aria-hidden="true"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="{% url 'settings' %}">
-      <span>Settings</span><i flx="as-c" class="fa fa-cog" aria-hidden="true" style="margin: 0px 12px;"></i>
+      <span>Settings</span><i flx="as-c" class="fa fa-cog" aria-hidden="true"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" flx="jc-fe">
-    <a style="padding: 6px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
+    href="{% url 'supporters' %}">
+      <span>Supporters</span>
+      <i flx="as-c" class="fas fa-life-ring"></i>
+    </a>
+  </div>
+  <div flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
     href="{% url 'communities' %}">
       Communities
-      <i flx="as-c" style="margin: 0px 12px;" class="fab fa-connectdevelop"></i>
+      <i flx="as-c" class="fab fa-connectdevelop"></i>
     </a>
   </div>
-  <div style="padding:  3px 12px;" hvr-animation="i tada" flx="jc-fe">
-    <a style="padding: 6px;" hvr="c-danger bg-white br-2" flx="" gnrl="wmax txt-m c-secondary" href="{% url 'logout' %}">
+  <div hvr-animation="i tada" flx="jc-fe">
+    <a style="padding: 6px 12px;" hvr="c-danger bg-white br-2" flx="" gnrl="wmax txt-m c-secondary" href="{% url 'logout' %}">
       <span>Sign out</span>
-      <i flx="as-c" class="fas fa-sign-out-alt" style="margin: 0px 12px;"></i>
+      <i flx="as-c" class="fas fa-sign-out-alt"></i>
     </a>
   </div>
 </div>
