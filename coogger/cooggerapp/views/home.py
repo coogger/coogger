@@ -148,3 +148,6 @@ class Communities(TemplateView):
         queryset = Community.objects.filter(active=True)
         context["communities"] = queryset
         return context
+
+class Supporters(TemplateView):
+    template_name = "home/supporters.html"

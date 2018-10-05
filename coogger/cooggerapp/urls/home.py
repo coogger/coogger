@@ -10,4 +10,5 @@ urlpatterns = [
     url(r"^feed/$", home.Feed.as_view(), name="followingcontent"),
     url(r'^review/$', home.Review.as_view(), name="review"),
     url(r'^communities/$', home.Communities.as_view(), name="communities"),
+    url(r'^supporters/$', home.Supporters.as_view(), name="supporters"),
     ]
