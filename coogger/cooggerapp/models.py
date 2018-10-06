@@ -33,6 +33,8 @@ class CommunitySettings(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     beneficiaries = models.FloatField(default=0, verbose_name="Support Coogger ecosystem with beneficiaries")
 
+    def __str__(self):
+        return self.community.name
 
 class CategoryofCommunity(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)

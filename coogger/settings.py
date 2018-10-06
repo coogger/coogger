@@ -2,8 +2,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+DEBUG = False
+ALLOWED_HOSTS = [".coogger.com", ".letsteem.com"]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -17,7 +17,6 @@ INSTALLED_APPS = [
     "django_steemconnect",
     "django_md_editor",
     "rest_framework",
-    "django_hosts",
 ]
 AUTHENTICATION_BACKENDS = [
     "django_steemconnect.auth.steemconnect.SteemConnectBackend",
@@ -28,7 +27,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 MIDDLEWARE = [
-    "django_hosts.middleware.HostsRequestMiddleware", # host
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -36,15 +34,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django_hosts.middleware.HostsResponseMiddleware", # host
     ###
     "django_steemconnect.middleware.communities.CommunitiesMiddleware",
     "cooggerapp.middleware.head.HeadMiddleware",
     "cooggerapp.middleware.general.GeneralMiddleware",
 ]
 ROOT_URLCONF = "urls"
-ROOT_HOSTCONF = "hosts"
-DEFAULT_HOST = "www"
 TEMPLATES = [
     {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -88,8 +83,8 @@ TIME_ZONE = 'Europe/Istanbul'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-# SECURE_SSL_REDIRECT = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "coogger/static")
 MEDIA_URL = "/media/"
