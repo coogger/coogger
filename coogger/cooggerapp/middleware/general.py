@@ -10,9 +10,13 @@ from cooggerapp.choices import *
 class GeneralMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
+        category_objects = CategoryofCommunity.objects
         if request.community_model.name == "coogger":
-            category_filter = CategoryofCommunity.objects.all()
+            category_filter = []
+            for category in category_objects.all():
+                if category.community.active == True:
+                    category_filter.append(category)
         else:
-            category_filter = CategoryofCommunity.objects.filter(community=request.community_model)
+            category_filter = category_objects.filter(community=request.community_model)
         request.categories = make_choices([category.category_name for category in category_filter])
         request.languages = make_choices(languages)

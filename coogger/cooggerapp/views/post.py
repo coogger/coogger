@@ -24,22 +24,31 @@ from steem.post import Post
 
 
 class Create(View):
-    template_name = "controls/create.html"
+    template_name = "post/create.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         category_name = request.GET.get("category", None)
         category_content = ""
         if category_name is not None:
-            category_content = CategoryofCommunity.objects.get(
-                community=request.community_model, category_name=category_name
-            ).editor_template
-        form = ContentForm(community_model=request.community_model, initial={"content": category_content, "category":category_name})
+            community_model = request.community_model
+            if community_model.name == "coogger":
+                category_content = CategoryofCommunity.objects.get(
+                    category_name=category_name
+                ).editor_template
+            else:
+                category_content = CategoryofCommunity.objects.get(
+                    community=community_model, category_name=category_name
+                ).editor_template
+        form = ContentForm(
+            request=request,
+            initial={"content": category_content, "category":category_name}
+        )
         return render(request, self.template_name, {"form": form})
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = ContentForm(data=request.POST, community_model=request.community_model)
+        form = ContentForm(data=request.POST, request=request)
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
@@ -56,7 +65,7 @@ class Create(View):
 
 
 class Change(View):
-    template_name = "controls/change.html"
+    template_name = "post/change.html"
 
     @method_decorator(login_required)
     def get(self, request, content_id, *args, **kwargs):
@@ -66,7 +75,7 @@ class Change(View):
             queryset = queryset[0]
             self.content_update(request, content_id)
             # TODO: content_update buraya bak sayfa iki defa güncellenince içerik güncelleniyor
-            content_form = ContentForm(instance=queryset, community_model=community_model)
+            content_form = ContentForm(instance=queryset, request=request)
             context = dict(
                 content_id=content_id,
                 form=content_form,
@@ -77,7 +86,7 @@ class Change(View):
     def post(self, request, content_id, *args, **kwargs):
         community_model = request.community_model
         if Content.objects.filter(community=community_model, user=request.user, id=content_id).exists():
-            form = ContentForm(data=request.POST, community_model=community_model)
+            form = ContentForm(data=request.POST, request=request)
             maybe_error_form = form
             if form.is_valid():
                 form = form.save(commit=False)

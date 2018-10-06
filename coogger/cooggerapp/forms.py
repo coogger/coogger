@@ -14,23 +14,15 @@ from django.contrib.auth.models import User
 
 class ContentForm(forms.ModelForm):
 
-    def __init__(self, community_model=None, *args, **kwargs):
+    def __init__(self, request=None, *args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
-        if community_model is not None:
+        if request.community_model is not None:
             self.fields["language"].choices = make_choices(languages)
-            self.fields["category"].choices = make_choices(self.get_categories(community_model))
+            self.fields["category"].choices = request.categories
 
     class Meta:
         model = Content
         fields = ["category", "language", "topic", "title", "content", "tag"]
-
-    def get_categories(self, community_model):
-        if community_model.name == "coogger":
-            category_filter = CategoryofCommunity.objects.all()
-        else:
-            category_filter = CategoryofCommunity.objects.filter(community=community_model)
-        categories = [category.category_name for category in category_filter]
-        return categories
 
 
 class UserFollowForm(forms.ModelForm):

@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 
 # main project = coogger
 urlpatterns = [
-    url(r"^post", include("cooggerapp.urls.controls")),  # post
+    url(r"^post", include("cooggerapp.urls.post")),  # post
     url(r"^settings", include("cooggerapp.urls.csettings")),  # settings
     url(r"^delete", include("cooggerapp.urls.delete")),  # delete
     url(r"^", include("cooggerapp.urls.explorer")),  # explorer
