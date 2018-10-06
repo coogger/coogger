@@ -5,18 +5,19 @@ SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
-    "cooggerapp",
-    "cooggerapi",
-    "django_steemconnect",
-    "django_md_editor",
-    "rest_framework",
-    #######################
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #
+    "cooggerapp",
+    "cooggerapi",
+    "django_steemconnect",
+    "django_md_editor",
+    "rest_framework",
+    "django_hosts",
 ]
 AUTHENTICATION_BACKENDS = [
     "django_steemconnect.auth.steemconnect.SteemConnectBackend",
@@ -27,6 +28,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20
 }
 MIDDLEWARE = [
+    "django_hosts.middleware.HostsRequestMiddleware", # host
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -34,12 +36,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_hosts.middleware.HostsResponseMiddleware", # host
     ###
     "django_steemconnect.middleware.communities.CommunitiesMiddleware",
     "cooggerapp.middleware.head.HeadMiddleware",
     "cooggerapp.middleware.general.GeneralMiddleware",
 ]
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = "urls"
+ROOT_HOSTCONF = "hosts"
+DEFAULT_HOST = "www"
 TEMPLATES = [
     {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',

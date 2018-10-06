@@ -7,3 +7,4 @@ whitenoise
 steem
 steem-connect
 django_md_editor
+django-hosts
