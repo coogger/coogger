@@ -1,17 +1,56 @@
 <script type="text/javascript">
   $(document).ready(function() {
-      steem.api.getContentReplies(parent="{{ content_user }}", parentPermlink="{{ detail.permlink }}", function (err, comments) {
-        let comment_template = "";
-        var comment_index;
-        for (comment_index = 0; comment_index < comments.length; comment_index++) {
-          var comment = comments[comment_index];
-          comment_template += comment_info(comment);
-          comment_template += userinfo(comment);
-          comment_template += comment_body(comment);
-          comment_body_md(comment);
+    function replies(comments){
+      let comment_index;
+      for (comment_index = 0; comment_index < comments.length; comment_index++) {
+        let comment = comments[comment_index];
+        if (comment.children != 0){
+          steem.api.getContentReplies(parent=comment.author, parentPermlink=comment.permlink, function (err, children_comments) {
+            if (err!=null){
+              console.log(err);
+            }
+            let children_comment_index;
+            let children_comments_len = children_comments.length;
+            for (children_comment_index = 0; children_comment_index < children_comments_len; children_comment_index++) {
+              let children_comment_template = "";
+              let children_comment = children_comments[children_comment_index];
+              if (children_comment.depth<9){
+                children_comment_template += "<div class='comment_replies' id='"+children_comment.author+"-"+children_comment.permlink+"'>"
+                children_comment_template += comment_info(children_comment);
+                children_comment_template += userinfo(children_comment);
+                children_comment_template += comment_body(children_comment);
+                if (children_comment.depth == 8){
+                  children_comment_template += ('\
+                    <a gnrl="c-success center" href="/@'+children_comment.author+'/'+children_comment.permlink+'">\
+                      Show '+children_comment.children+' more replies\
+                    </a></div>');
+                }
+                else{
+                  children_comment_template += "</div>";
+                }
+                $("#"+children_comment.parent_author+"-"+children_comment.parent_permlink).append(children_comment_template);
+              }
+            }
+            replies(children_comments);
+          });
         }
-        $("#comment_template").html(comment_template);
-      });
+      }
+    }
+    steem.api.getContentReplies(parent="{{ content_user }}", parentPermlink="{{ detail.permlink }}", function (err, comments) {
+      let comment_index;
+      for (comment_index = 0; comment_index < comments.length; comment_index++) {
+        let comment_template = "";
+        let comment = comments[comment_index];
+        comment_template += "<div class='comment' id='"+comment.author+"-"+comment.permlink+"'>"
+        comment_template += "<div class='comment_highlighted'>"
+        comment_template += comment_info(comment);
+        comment_template += userinfo(comment);
+        comment_template += comment_body(comment);
+        comment_template += "</div></div>"
+        $("#comment_template").append(comment_template);
+      }
+      replies(comments);
+    });
   });
 </script>
 

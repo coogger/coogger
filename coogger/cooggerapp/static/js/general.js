@@ -79,38 +79,13 @@ function timeSince(date){
 }
 
 function comment_info(comment){
-  var last_update = timeSince(comment.last_update);
-  var pending_payout_value = parseFloat(comment.pending_payout_value.replace(" SBD", ""));
-  var post_reward_total = 0;
-  if (pending_payout_value == 0){
-    var total_payout_value = parseFloat(comment.total_payout_value.replace(" SBD", ""))
-    var curator_payout_value = parseFloat(comment.curator_payout_value.replace(" SBD", ""));
-    post_reward_total = total_payout_value+curator_payout_value;
-  }
-  else{
-    post_reward_total = pending_payout_value;
-  }
-  post_reward_total = post_reward_total.toFixed(2);
   return ("\
-  <div gnrl='br-2 c-secondary br-2 b-1 brc-muted right' style='padding: 2px 4px;' flx='ai-c'>\
-      <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-          <div style='margin-left: 12px;'>"+last_update+"</div>\
-      </div>\
-      <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-          <div style='margin-left: 12px;'> | reply ; "+comment.children+"</div>\
-      </div>\
-      <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-        <div style='margin-left: 12px;'> | votes ; "+comment.active_votes.length+"</div>\
-      </div>\
-      <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
-        <div style='margin-left: 12px;'> | $"+post_reward_total+"</div>\
-      </div></div>\
-  <div flx style='margin: 12px 0px' gnrl='bg-muted c-white br-2' class='root_content'>\
-    <div style='width: 100%;'>\
+  <div flx style='margin: 12px 0px' gnrl='c-white br-2' class='root_content'>\
+    <div>\
       <li flx='ai-c'>\
         <a href='/@"+comment.author+"/"+comment.permlink+"' id='root_content'\
-        target='blank' gnrl='c-secondary txt-s' style='color: black;padding: 8px 0px;width: 100%;'>\
-        <span style='margin: 0px 6px'>Open in new tab to view more detailed</span>\
+        target='blank' gnrl='txt-s'>\
+        <span style='margin: 0px 6px' gnrl='c-secondary'>Open in new tab to view more detailed</span>\
         </a>\
       </li>\
     </div>\
@@ -136,17 +111,18 @@ function userinfo(comment){
 }
 
 function comment_body(comment){
-  return ("\
-    <h1 gnrl='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'></h1>\
-    <div style='padding: inherit;'>\
-      <div style='width: auto;height:  auto;border: none;' class='editormd' id='"+comment.id+"_arg_editormd'>\
-          <textarea style='display:none;' id='editormd_content'></textarea>\
-      </div>\
-    </div>\
-  ");
-}
-
-function comment_body_md(comment){
+  var pending_payout_value = parseFloat(comment.pending_payout_value.replace(" SBD", ""));
+  var post_reward_total = 0;
+  if (pending_payout_value == 0){
+    var total_payout_value = parseFloat(comment.total_payout_value.replace(" SBD", ""))
+    var curator_payout_value = parseFloat(comment.curator_payout_value.replace(" SBD", ""));
+    post_reward_total = total_payout_value+curator_payout_value;
+  }
+  else{
+    post_reward_total = pending_payout_value;
+  }
+  post_reward_total = post_reward_total.toFixed(2);
+  let title = comment.title;
   $(function() {
     var Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
       height: 670,
@@ -157,4 +133,22 @@ function comment_body_md(comment){
       markdown : comment.body,
     });
   });
+  return ("\
+    <h1 gnrl='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'>"+title+"</h1>\
+    <div style='padding: inherit;'>\
+      <div style='width: auto;height:  auto;border: none;' class='editormd' id='"+comment.id+"_arg_editormd'>\
+          <textarea style='display:none;' id='editormd_content'></textarea>\
+      </div>\
+    </div>\
+    <div gnrl='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flx='ai-c'>\
+        <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
+            <div style='margin-left: 12px;'>reply ; "+comment.children+"</div>\
+        </div>\
+        <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
+           <div style='margin-left: 12px;'>votes ; "+comment.net_votes+"</div>\
+        </div>\
+        <div gnrl='txt-s' flx='ai-c' class='duread-li'>\
+           <div style='margin-left: 12px;' gnrl='c-success'> $"+post_reward_total+"</div>\
+        </div></div>\
+  ");
 }

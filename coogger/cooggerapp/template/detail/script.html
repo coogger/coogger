@@ -8,7 +8,6 @@
             console.log(err);
           }
         }
-
         $(".follow").click(function(event){
           $("#is_follow").attr({'animation':"blink i"});
           api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
@@ -115,7 +114,8 @@
           var root_url = "/@"+content.root_author+"/"+content.root_permlink;
           if (root_url != "/@"+content.author+"/"+content.permlink){
             $("#root_content").attr("href", root_url);
-            $(".root_content").css({"display":"block"});
+            $(".root_content").css({"display":"flex"});
+            $(".donation").css({"display":"none"});
           }
           write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
           write_in_html("post_reward_total2","$ "+post_reward_total.toFixed(2));
@@ -147,7 +147,9 @@
             }
             do {
               steem.api.getFollowers("{{ content_user }}", start, "blog", 1000, function(err, followers) {
-                console.log("error >>", err);
+                if (err!=null){
+                  console.log(err);
+                }
                 for (var i = 0; i < followers.length; i++) {
                   if ("{{ request.user }}" == followers[i].follower){
                     write_in_html("is_follow","Unfollow");

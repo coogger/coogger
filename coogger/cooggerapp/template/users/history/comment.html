@@ -75,7 +75,6 @@
         if (json.parent_author != ""){
           try {
             template += eval(type+"(json, type)");
-            console.log(json);
             comment_body_md(json);
           }
           catch(error) {
