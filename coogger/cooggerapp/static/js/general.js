@@ -19,12 +19,6 @@ $(document).ready(function() {
     $(".lists").click(function() {
         $("nav").toggle("fast");
     });
-    if($(window).width() < 800)
-    {
-        $("header").attr("gnrl", "br-1 bg-white");
-    } else {
-        $("header").attr("gnrl", "br-1 bg-white center");
-    }
 });
 
 function timeSince(date){
@@ -124,12 +118,11 @@ function comment_body(comment){
   post_reward_total = post_reward_total.toFixed(2);
   let title = comment.title;
   $(function() {
+    editormd.urls.atLinkBase ="https://www.coogger.com/@"
     var Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
       height: 670,
       path : '/static/lib/',
-      htmlDecode: 'tml,iframe',
-      atLink: false,
-      emailLink : false,
+      htmlDecode: 'html, iframe',
       markdown : comment.body,
     });
   });

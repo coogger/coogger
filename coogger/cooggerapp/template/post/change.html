@@ -1,32 +1,16 @@
 {% include 'home/head.html' %} {% include 'home/header.html' %}
-<script type="text/javascript">
-    $(function() {
-      var Editor = editormd("change", {
-        width : "100%",
-        height: 670,
-        path : "/static/js/lib/",
-        htmlDecode: "html,iframe",
-        emoji : true,
-        atLink: false,
-        emailLink : false
-      });
-      var lang = "en";
-      var path  = "/static/js/languages/en";
-      editormd.loadScript(path, function() {
-        Editor.lang = editormd.defaults.lang;
-        Editor.recreate();
-        });
-    });
-</script>
 <div class="header-bottom" flx="jc-c ai-c fd-c">
   <div>
     <a gnrl="c-success" target="blank" id="category_help_page" href="?category=development">
-      Need help? check this address for <span gnrl="c-dark" id="category_help_name">development</span> category
+      Need help? check this address for <span gnrl="c-dark" id="category_help_name">
+        development</span> category
     </a>
   </div>
-    <form flx="fd-c" default="form media" method="post" class="c-create-form" style="padding: 12px 6px;z-index:2" action="{% url 'change' content_id %}">
+    <form flx="fd-c" default="form media" method="post" class="c-create-form"
+    style="padding: 12px 6px;z-index:2" action="{% url 'change' content_id %}">
         {% csrf_token %} {{ form }}
-        <input flx="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
+        <input flx="as-c" type="submit" value="Save edit"
+        style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
     </form>
 </div>
 {% include 'post/script.html' %}

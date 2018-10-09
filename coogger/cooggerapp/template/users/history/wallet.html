@@ -6,7 +6,6 @@
 {% include 'users/tabs.html' %}
 {% include 'users/nav.html' %}
 {% include 'users/script.html'%}
-
 <script>
     $(document).ready(function() {
       steem.api.getAccounts(["{{ content_user }}"], function(err, result) {  // account

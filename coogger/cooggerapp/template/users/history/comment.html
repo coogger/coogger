@@ -9,12 +9,11 @@
 <script>
     function comment_body_md(comment){
       $(function() {
-        var Editor = editormd.markdownToHTML(comment.permlink, {
+        editormd.urls.atLinkBase ="https://www.coogger.com/@"
+        var Editor = editormd.markdownToHTML(comment.author+"-"+comment.permlink, {
           height: 670,
           path : '/static/lib/',
-          htmlDecode: 'tml,iframe',
-          atLink: false,
-          emailLink : false,
+          htmlDecode: 'html, iframe',
           markdown : comment.body,
         });
       });
@@ -25,6 +24,7 @@
       var parent_permlink = json.parent_permlink;
       var permlink = json.permlink;
       var title = json.title;
+      comment_body_md(json);
       return ("\
       <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>\
         <div class='his-json' flx='fd-c' gnrl=''>\
@@ -55,7 +55,7 @@
           </div>\
             <h1 gnrl='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'></h1>\
             <div style='padding: inherit;'>\
-              <div style='width: auto;height:  auto;border: none;' class='editormd' id='"+permlink+"'>\
+              <div style='width: auto;height:  auto;border: none;' class='editormd' id='"+author+"-"+permlink+"'>\
                   <textarea style='display:none;' id='editormd_content'></textarea>\
               </div>\
             </div>\
@@ -75,7 +75,6 @@
         if (json.parent_author != ""){
           try {
             template += eval(type+"(json, type)");
-            comment_body_md(json);
           }
           catch(error) {
             console.error(json,error);

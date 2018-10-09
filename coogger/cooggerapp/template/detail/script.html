@@ -121,12 +121,11 @@
           write_in_html("post_reward_total2","$ "+post_reward_total.toFixed(2));
           write_in_html("title",title);
           $(function() { // editor md
+            editormd.urls.atLinkBase ="https://www.coogger.com/@"
             var Editor = editormd.markdownToHTML("id_arg_editormd", {
               height: 670,
               path : "/static/lib/",
-              htmlDecode: "html,iframe",
-              atLink: false,
-              emailLink : false,
+              htmlDecode: "html, iframe",
               markdown : content.body,
             });
           });

@@ -1,13 +1,13 @@
 <div flx style="margin: 12px 12px;">
-    <div flx="ai-c" gnrl="br-2 b bg-secondary c-white txt-s left" hvr-a="bg-primary" class="content_list">
-        <a href="{% url 'language' ct.language %}">
-     {{ ct.language }}
-    </a>
+    <div flx="ai-c" gnrl="c-white txt-s left" class="content_list">
+        <a hvr-a="bg-primary" hvr="c-white" gnrl="c-primary b-1 br-2" href="{% url 'language' ct.language %}" style="padding: 2px 6px;">
+            {{ ct.language }}
+        </a>
     </div>
-    <div flx="ai-c" class="content_list" gnrl="br-2 b bg-secondary c-white txt-s right" hvr-a="bg-primary" class="content_list">
-        <a href="{% url 'category' ct.category %}">
-     {{ ct.category }}
-    </a>
+    <div flx="ai-c" gnrl="c-white txt-s right" class="content_list">
+        <a hvr-a="bg-primary" hvr="c-white" gnrl="c-primary b-1 br-2" href="{% url 'category' ct.category %}" style="padding: 2px 6px;">
+            {{ ct.category }}
+        </a>
     </div>
 </div>
 <div gnrl="br-2 c-secondary c-dark" flx="ai-fs" style="margin: 12px 0px;">

@@ -80,7 +80,6 @@
           $(this).attr("hvr-animation", "null");
           steem.api.getContent(author, permlink, function(err, new_comment) {
             var new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
-            comment_body_md(new_comment);
             $("#comment_template").append(new_comment_template);
           });
         }
