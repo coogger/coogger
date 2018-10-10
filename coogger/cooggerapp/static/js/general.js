@@ -23,8 +23,16 @@ $(document).ready(function() {
     $(".lists").click(function() {
         $("nav").toggle("fast");
     });
+
 });
 
+function write_in_html(id,variable) {
+  if (variable != undefined){
+    document.getElementById(id).innerHTML = variable;
+  }else{
+    document.getElementById(id).innerHTML = "";
+  }
+}
 
 function timeSince(date){
   let time_since = "";

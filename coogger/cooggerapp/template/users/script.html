@@ -1,8 +1,5 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        function write_in_html(id,variable) {
-          document.getElementById(id).innerHTML = variable;
-        }
         steem.api.getAccounts(["{{ content_user }}"], function(err, result) {  // account
           var user = result[0];
           var profile = JSON.parse(user.json_metadata).profile;
