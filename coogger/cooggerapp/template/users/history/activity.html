@@ -8,79 +8,71 @@
 {% include 'users/script.html'%}
 <script>
     function vote(json, type){
-      var author = json.author;
-      var permlink = json.permlink;
-      var voter = json.voter;
-      var weight = json.weight;
-      return ("\
-      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>\
-        <div class='his-json' gnrl=''>\
-        <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>"+type+"<i class='fas fa-chevron-circle-up'></i></div>\
-          <div class='his-user' flx='ai-c'>\
-            <a gnrl='c-primary' href='/@"+voter+"'>\
-              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+voter+"/avatar)';></div>\
-              <div class='permlink'>@"+voter+"</div>\
-            </a>\
-            <a gnrl='c-primary' style='margin-left: auto;' href='/@"+author+"'>\
-              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+author+"/avatar)';></div>\
-              <div>@"+author+"</div>\
-            </a>\
-          </div>\
-          <div class='his-data' gnrl='center' flx='ai-c'>\
-             permlink ;<a default='media' gnrl='c-success center' href='/@"+author+"/"+permlink+"'>"+permlink+"</a>\
-            <div class='history-vote-weight'>( "+weight/100+"% )</div>\
-          </div>\
-        </div>\
-      </div>");
+      return (`
+      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>
+        <div class='his-json' gnrl=''>
+        <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>${type}<i class='fas fa-chevron-circle-up'></i></div>
+          <div class='his-user' flx='ai-c'>
+            <a gnrl='c-primary' href='/@${json.voter}'>
+              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/${json.voter}/avatar)';></div>
+              <div class='permlink'>@${json.voter}</div>
+            </a>
+            <a gnrl='c-primary' style='margin-left: auto;' href='/@${json.author}'>
+              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/${json.author}/avatar)';></div>
+              <div>@${json.author}</div>
+            </a>
+          </div>
+          <div class='his-data' gnrl='center' flx='ai-c'>
+            <a default='media' gnrl='c-success center' href='/@${json.author}/${json.permlink}'>${json.permlink}</a>
+            <div class='history-vote-weight'>${json.weight/100} %</div>
+          </div>
+        </div>
+      </div>`);
     }
     function account_update(json, type){
-      var account = json.account;
-      var json_metadata = json.json_metadata;
-      return ("\
-      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>\
-        <div class='his-json' flx='fd-c' gnrl=''>\
-          <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>"+type+"<i class='fas fa-user-edit'></i></div>\
-          <div flx='fd-c'>\
-            <div class='account'> account : <a gnrl='c-primary' href='/@"+account+"'>@"+account+"</a></div>\
-            <div class='json_metadata'> json_metadata : "+json_metadata+"</div>\
-          </div>\
-        </div>\
-      </div>");
+      return (`
+      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>
+        <div class='his-json' flx='fd-c' gnrl=''>
+          <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>${type}<i class='fas fa-user-edit'></i></div>
+          <div flx='fd-c'>
+            <div class='account'> account : <a gnrl='c-primary' href='/@${json.account}'>@${json.account}</a></div>
+            <div class='json_metadata'> json_metadata : ${json.json_metadata}</div>
+          </div>
+        </div>
+      </div>`);
     }
     function account_witness_vote(json, type){
-      return ("\
-      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>\
-        <div class='his-json' flx='fd-c' gnrl=''>\
-          <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>"+type+"<i class='fas fa-chevron-circle-up'></i></div>\
-          <div class='his-user' flx='ai-c'>\
-            <a gnrl='c-primary' href='/@"+json.account+"'>\
-              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+json.account+"/avatar)';></div>\
-              <div>@"+json.account+"</div>\
-            </a>\
-            <a gnrl='c-primary' style='margin-left: auto;' href='/@"+json.witness+"'>\
-              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+json.witness+"/avatar)';></div>\
-              <div>@"+json.witness+"</div>\
-            </a>\
-          </div>\
-          <div class='his-data' gnrl='center' flx='fd-c'>\
-            <div class='witness_vote'> approve : "+json.approve+"</div>\
-          </div>\
-        </div>\
-      </div>");
+      return (`
+      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>
+        <div class='his-json' flx='fd-c' gnrl=''>
+          <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>${type}<i class='fas fa-chevron-circle-up'></i></div>
+          <div class='his-user' flx='ai-c'>
+            <a gnrl='c-primary' href='/@${json.account}'>
+              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/${json.account}/avatar)';></div>
+              <div>@${json.account}</div>
+            </a>
+            <a gnrl='c-primary' style='margin-left: auto;' href='/@${json.witness}'>
+              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/${json.witness}/avatar)';></div>
+              <div>@${json.witness}</div>
+            </a>
+          </div>
+          <div class='his-data' gnrl='center' flx='fd-c'>
+            <div class='witness_vote'> approve : ${json.approve}</div>
+          </div>
+        </div>
+      </div>`);
     }
     function custom_json(json, type){
-      var id = json.id;
-      var json = json.json
-      return ("\
-      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'\
-        <div class='his-json' flx='fd-c' gnrl=''>\
-          <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>"+type+"<i class='fas fa-certificate'></i></div>\
-          <div flx='fd-c'>\
-            <div class='custom_json_id'> id : "+id+"</div>\
-            <div class='json'> json : "+json+"</div>\
-          </div>\
-        </div>\
-      </div>");
+      return (`
+      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'
+        <div class='his-json' flx='fd-c' gnrl=''>
+          <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>${type}<i class='fas fa-certificate'></i></div>
+          <div flx='fd-c'>
+            <div class='custom_json_id'> id : ${json.id}</div>
+            <div class='json'> json : ${json.json}</div>
+          </div>
+        </div>
+      </div>`);
     }
     function account_witness_proxy(json, type){
       console.log(type, json);

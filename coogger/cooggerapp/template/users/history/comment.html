@@ -10,7 +10,7 @@
     function comment_body_md(comment){
       $(function() {
         editormd.urls.atLinkBase ="https://www.coogger.com/@"
-        var Editor = editormd.markdownToHTML(comment.author+"-"+comment.permlink, {
+        var Editor = editormd.markdownToHTML(`${comment.author}-${comment.permlink}`, {
           height: 670,
           path : '/static/lib/',
           htmlDecode: 'html, iframe',
@@ -19,48 +19,45 @@
       });
     }
     function comment(json, type){
-      var author = json.author;
-      var parent_author = json.parent_author;
-      var parent_permlink = json.parent_permlink;
-      var permlink = json.permlink;
-      var title = json.title;
       comment_body_md(json);
-      return ("\
-      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>\
-        <div class='his-json' flx='fd-c' gnrl=''>\
-          <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>"+type+"<i class='fas fa-award'></i></div>\
-          <div flx style='margin: 12px 0px' gnrl='bg-muted c-white br-2' class='root_content'>\
-            <div flx style='width: 100%;'>\
-              <li flx='ai-c' gnrl='left'>\
-                <a target='blank' id='root_content' gnrl='txt-s' href='/@"+parent_author+"/"+parent_permlink+"' style='color: black;padding: 8px 0px;width: 100%;'>\
-                <span style='margin: 0px 6px'>View the full context</span>\
-                </a>\
-              </li>\
-              <li flx='ai-c'>\
-                <a target='blank' id='root_content' gnrl='txt-s' href='/@"+author+"/"+permlink+"' style='color: black;padding: 8px 0px;width: 100%;'>\
-                <span style='margin: 0px 6px'>Open in a new tab for more detail</span>\
-                </a>\
-              </li>\
-            </div>\
-          </div>\
-          <div class='his-user' flx='ai-c'>\
-            <a gnrl='c-primary' href='/@"+author+"'>\
-              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+author+"/avatar)';></div>\
-              <div>@"+author+"</div>\
-            </a>\
-            <a gnrl='c-primary' style='margin-left: auto;' href='/@"+parent_author+"'>\
-              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/"+parent_author+"/avatar)';></div>\
-              <div>@"+parent_author+"</div>\
-            </a>\
-          </div>\
-            <h1 gnrl='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'></h1>\
-            <div style='padding: inherit;'>\
-              <div style='width: auto;height:  auto;border: none;' class='editormd' id='"+author+"-"+permlink+"'>\
-                  <textarea style='display:none;' id='editormd_content'></textarea>\
-              </div>\
-            </div>\
-        </div>\
-      </div>");
+      return (`
+      <div class='history-op' flx='fd-c' gnrl='b-1 brc-muted br-2'>
+        <div class='his-json' flx='fd-c' gnrl=''>
+          <div class='his-type' gnrl='right txt-l br-2' flx='ai-c'>${type}<i class='fas fa-award'></i></div>
+          <div flx style='margin: 12px 0px' gnrl='bg-muted c-white br-2' class='root_content'>
+            <div flx style='width: 100%;'>
+              <li flx='ai-c' gnrl='left'>
+                <a target='blank' id='root_content' gnrl='txt-s' href='/@${json.parent_author}/${json.parent_permlink}'
+                  style='color: black;padding: 8px 0px;width: 100%;'>
+                <span style='margin: 0px 6px'>View the full context</span>
+                </a>
+              </li>
+              <li flx='ai-c'>
+                <a target='blank' id='root_content' gnrl='txt-s' href='/@${json.author}/${json.permlink}'
+                  style='color: black;padding: 8px 0px;width: 100%;'>
+                <span style='margin: 0px 6px'>Open in a new tab for more detail</span>
+                </a>
+              </li>
+            </div>
+          </div>
+          <div class='his-user' flx='ai-c'>
+            <a gnrl='c-primary' href='/@${json.author}'>
+              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/${json.author}/avatar)';></div>
+              <div>@${json.author}</div>
+            </a>
+            <a gnrl='c-primary' style='margin-left: auto;' href='/@${json.parent_author}'>
+              <div class='his-avatar' gnrl='center' style='background-image: url(https://steemitimages.com/u/${json.parent_author}/avatar)';></div>
+              <div>@${json.parent_author}</div>
+            </a>
+          </div>
+            <h1 gnrl='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'></h1>
+            <div style='padding: inherit;'>
+              <div style='width: auto;height:  auto;border: none;' class='editormd' id='${json.author}-${json.permlink}'>
+                  <textarea style='display:none;' id='editormd_content'></textarea>
+              </div>
+            </div>
+        </div>
+      </div>`);
     }
 
     steem.api.getAccountHistory("{{content_user}}", -1, 400, (err, result) => {

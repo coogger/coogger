@@ -15,20 +15,24 @@
               let children_comment_template = "";
               let children_comment = children_comments[children_comment_index];
               if (children_comment.depth<9){
-                children_comment_template += "<div class='comment_replies' id='"+children_comment.author+"-"+children_comment.permlink+"'>"
+                children_comment_template += `
+                  <div class='comment_replies'
+                    id='${children_comment.author}-${children_comment.permlink}'>
+                  `
                 children_comment_template += comment_info(children_comment);
                 children_comment_template += userinfo(children_comment);
                 children_comment_template += comment_body(children_comment);
                 if (children_comment.depth == 8){
-                  children_comment_template += ('\
-                    <a gnrl="c-success center" href="/@'+children_comment.author+'/'+children_comment.permlink+'">\
-                      Show '+children_comment.children+' more replies\
-                    </a></div>');
+                  children_comment_template += (`
+                    <a gnrl="c-success center"
+                      href="/@${children_comment.author}/'${children_comment.permlink}">
+                      Show ${children_comment.children} more replies
+                    </a></div>`);
                 }
                 else{
                   children_comment_template += "</div>";
                 }
-                $("#"+children_comment.parent_author+"-"+children_comment.parent_permlink).append(children_comment_template);
+                $(`#${children_comment.parent_author}-${children_comment.parent_permlink}`).append(children_comment_template);
               }
             }
             replies(children_comments);
@@ -41,7 +45,7 @@
       for (comment_index = 0; comment_index < comments.length; comment_index++) {
         let comment_template = "";
         let comment = comments[comment_index];
-        comment_template += "<div class='comment' id='"+comment.author+"-"+comment.permlink+"'>"
+        comment_template += `<div class='comment' id='${comment.author}-${comment.permlink}'>`
         comment_template += "<div class='comment_highlighted'>"
         comment_template += comment_info(comment);
         comment_template += userinfo(comment);
@@ -53,7 +57,6 @@
     });
   });
 </script>
-
 <script>
   $(document).ready(function() {
     $("#send-comment").click(function(){
@@ -62,11 +65,13 @@
       var parentAuthor = this.dataset.parent_author;
       var parentPermlink = this.dataset.parent_permlink;
       var current_time = new Date();
-      var link_to_time =current_time.getYear()+current_time.getMonth()+current_time.getDay()+current_time.getMinutes()+current_time.getSeconds();
-      var permlink = "re-"+parentAuthor+"-"+parentPermlink+"-"+link_to_time;
+      let link_to_time = current_time.toISOString().replace(/[^a-zA-Z0-9]+/g, '');
+      // var link_to_time = current_time.getYear()+current_time.getMonth()+current_time.getDay()+current_time.getMinutes()+current_time.getSeconds();
+      var permlink = `re-${parentAuthor}-${parentPermlink}-${link_to_time}`;
       var author = "{{ request.user }}";
       var title = "";
-      var body = get_comment+"\n\nPosted on [{{ request.community_model.name }}]({{ request.community_model.host_name }})";
+      var body = `${get_comment}\n\nPosted using
+        [{{ request.community_model.name }}]({{ request.community_model.host_name }})"`;
       var jsonMetadata = {
           "format": "markdown",
           "tags": "{{ request.community_model.name }}",

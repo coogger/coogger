@@ -2,7 +2,7 @@
     $(document).ready(function() {
       $(".report").click(function(event){
         var content_id = this.getAttribute("data-content-id");
-        $("body").load("{% url 'report' %}?content_id="+content_id);
+        $("body").load(`{% url 'report' %}?content_id=${content_id}`);
       });
     {% if request.user.is_authenticated %}
       $(".upvote").click(function(event){
@@ -25,7 +25,7 @@
                 post_reward_total = pending_payout_value;
               }
               $(this).html("<i gnrl='c-primary brc-primary br-2 b-1' class='fa fa-thumbs-up'></i>");
-              $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
+              $(`#${id} #post_reward_total`).text(post_reward_total.toFixed(2));
               $(this).attr({'animation':""});
             });
         });
@@ -36,8 +36,8 @@
     for (var i = 0; i < myElements.length; i++) {
       const id = myElements.item(i).id;
       const author = id.split("-")[0];
-      const permlink = id.replace(author+"-","");
-      $("#"+id+" .carduserimg").attr("src","https://steemitimages.com/u/"+author+"/avatar");
+      const permlink = id.replace(`${author}-`,"");
+      $(`#${id} .carduserimg`).attr("src",`https://steemitimages.com/u/${author}/avatar`);
       accounts.push(author);
       steem.api.getContent(author, permlink, function(err, content) {
         var active_votes = content.active_votes;
@@ -46,14 +46,14 @@
           for (var vot = 0; vot < active_votes.length; vot++) {
             // Todo ; I must add, if already users upvoted any post and if click again, it must be removed its voted
             if ("{{request.user}}" == active_votes[vot].voter){
-              $("#"+id+" #upvote").html("<i gnrl='c-primary' hvr='c-danger' class='fa fa-thumbs-up'></i>");
+              $(`#${id} #upvote`).html("<i gnrl='c-primary' hvr='c-danger' class='fa fa-thumbs-up'></i>");
               upvoted = true;
               break;
             }
           }
         {% endif %}
         if(upvoted == false){
-          $("#"+id+" #upvote").html("<i hvr='c-primary' gnr='c-secondary' class='fa fa-thumbs-up'></i>");
+          $(`#${id} #upvote`).html("<i hvr='c-primary' gnr='c-secondary' class='fa fa-thumbs-up'></i>");
         }
         var reputation = steem.formatter.reputation(content.author_reputation);
         var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
@@ -67,9 +67,9 @@
           post_reward_total = pending_payout_value;
         }
         $("#"+id+" #reply").html(content.children);
-        $("#"+id+" #absolute_url_href").attr("href","/@"+content.author+"/"+content.permlink);
+        $("#"+id+" #absolute_url_href").attr("href",`/@${content.author}/${content.permlink}`);
         $("#"+id+" #title").html(content.title);
-        $("#"+id+" #author_href").attr("href","/@"+author);
+        $("#"+id+" #author_href").attr("href",`/@${author}`);
         $("#"+id+" #reputation").text(reputation);
         $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
       });
