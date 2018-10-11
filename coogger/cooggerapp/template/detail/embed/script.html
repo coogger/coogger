@@ -104,10 +104,14 @@
           write_in_html("reply", content.children);
           write_in_html("time", timeSince(content.created));
           var root_url = "/@"+content.root_author+"/"+content.root_permlink;
-          if (root_url != "/@"+content.author+"/"+content.permlink){
+          let post_url = "/@"+content.author+"/"+content.permlink;
+          if (root_url != post_url){ // if post is a comment
             $("#root_content").attr("href", root_url);
             $(".root_content").css({"display":"flex"});
             $(".donation").css({"display":"none"});
+            // write_in_html("post_url", post_url);
+          }else{
+            // write_in_html("post_url", root_url);
           }
           write_in_html("post_reward_total", "$ "+post_reward_total.toFixed(2));
           write_in_html("post_reward_total2", "$ "+post_reward_total.toFixed(2));

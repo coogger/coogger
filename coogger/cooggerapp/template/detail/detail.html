@@ -1,42 +1,12 @@
-{% include 'detail/script.html' %}
-<div animation="fadeIn" class="header-bottom">
-{% include 'detail/status.html' %}
-<div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
-  {% include 'detail/share_social_site.html' %}
-  <div default="media paragraph" gnrl="bg-white" style="padding: 6px 4px;margin-right: 2%;">
-    {% if detail.topic %}
-      <div flx="">
-          <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}" style="padding: 3px 6px;">
-              {% url 'utopic' detail.topic detail.user %}
-          </a>
-          <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'list' detail.topic  %}" style="padding: 3px 6px;">
-              {% url 'list' detail.topic  %}
-          </a>
-      </div>
-    {% endif %}
-    {% include 'detail/contentinfo.html' %}
-    {% include 'detail/userinfo.html' %}
-    <div>
-      <h1 gnrl="center txt-xl" id="title" style="width: 96%;margin: 12px auto;"></h1>
-      <div style="padding: inherit;">
-        <div style="width: auto;height:  auto;border: none;" class="editormd" id="id_arg_editormd">
-            <textarea style="display:none;" id='editormd_content'></textarea>
-        </div>
-      </div>
-      {% include 'detail/edit.html' %}
-      <!-- vote button  -->
-      <div gnrl="center">
-        <div class="vote circle">
-          <div class="increment up" gnrl="bg-success"></div>
-          <div class="increment down" gnrl="bg-danger"></div>
-          <div class="count" id="post_reward_total2" gnrl="txt-l bg-white"></div>
-        </div>
-      </div>
-      <!-- vote button  -->
-    </div>
-    {% include 'detail/donation.html' %}
-    {% include 'detail/comments.html' %}
-  </div>
-{% include 'detail/other_contents.html' %}
-</div>
-</div>
+{% include 'home/head.html' %}
+{% include 'home/header.html' %}
+<iframe src="/embed/{{ detail.get_absolute_url }}" style="
+    height: calc(100% - 70px);
+    width: 100%;
+    border: 0px;
+    overflow: auto;
+    top: 70px;
+    position: relative;
+"></iframe>
+</body>
+</html>

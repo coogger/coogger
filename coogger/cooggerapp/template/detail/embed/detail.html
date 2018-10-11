@@ -1,8 +1,9 @@
-{% include 'detail/script.html' %}
+{% include 'detail/embed/script.html' %}
 <div animation="fadeIn" style="padding: 12px;">
-{% include 'detail/status.html' %}
+{% include 'detail/embed/status.html' %}
 <div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
-  <div default="paragraph">
+  {% include 'detail/embed/share_social_site.html' %}
+  <div default="paragraph media">
     {% if detail.topic %}
       <div flx="">
           <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}">
@@ -22,7 +23,7 @@
             <textarea style="display:none;" id='editormd_content'></textarea>
         </div>
       </div>
-      {% include 'detail/edit.html' %}
+      {% include 'detail/embed/edit.html' %}
       <!-- vote button  -->
       <div gnrl="center">
         <div class="vote circle">
@@ -33,8 +34,8 @@
       </div>
       <!-- vote button  -->
     </div>
-    {% include 'detail/donation.html' %}
-    {% include 'detail/comments.html' %}
+    {% include 'detail/embed/donation.html' %}
+    {% include 'detail/embed/comments.html' %}
   </div>
 {% include 'detail/embed/other_contents.html' %}
 </div>

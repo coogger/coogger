@@ -2,7 +2,7 @@
   margin-left: 60px;
 }
 header{
-  height: 48px;
+  height: 55px;
   padding: 6px;
   border-bottom:  1px solid #f1f1f1;
   position:  fixed;
@@ -10,12 +10,6 @@ header{
   overflow: auto;
   z-index: 2;
   top: 0px;
-  div div{
-    padding: 3px 6px;
-  span{
-      padding: 3px 6px;
-    }
-  }
 }
 #comment-text{
   max-width: 99%;
@@ -51,7 +45,7 @@ header{
   width: 100%;
   position:fixed;
   z-index: 1;
-  top: 58px;
+  top: 66px;
 }
 .header_menu{
   display: none;

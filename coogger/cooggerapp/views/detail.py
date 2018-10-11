@@ -25,7 +25,7 @@ class SteemPost():
 
 class Detail(TemplateView):
     # TODO: if content doesnt have on steem, it have to delete on coogger.
-    template_name = "detail/main_detail.html"
+    template_name = "detail/detail.html"
 
     def get_context_data(self, username, path, **kwargs):
         self.user = authenticate(username=username)
@@ -44,6 +44,7 @@ class Detail(TemplateView):
             setattr(SteemPost, "user", self.user)
             setattr(SteemPost, "permlink", self.path)
             setattr(SteemPost, "status", "approved")
+            setattr(SteemPost, "get_absolute_url", f"@{self.user}/{self.path}")
             detail = SteemPost
         context = super(Detail, self).get_context_data(**kwargs)
         context["content_user"] = self.user

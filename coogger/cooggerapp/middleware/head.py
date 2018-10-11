@@ -71,23 +71,16 @@ class Head(object):
         elif url_name == "detail":
             username = start_path.replace("@", "")
             user = authenticate(username=username)
-            try:
-                queryset = Content.objects.filter(user=user, permlink=last_path)[0]
-                image = self.find_image(queryset.definition)
-                description = beautifultext.text[0:200]
-                title = queryset.title
-                keywords = queryset.tag
-            except:
-                POST = Post(post=f"@{username}/{last_path}")
-                title = POST.title
-                keywords = POST.tags
-                description = Content.prepare_definition(POST.body)
-                image = self.find_image(description)
+            POST = Post(post=f"@{username}/{last_path}")
+            title = POST.title
+            keywords = ""
+            for key in POST.tags:
+                keywords += key+", "
+            description = self.get_soup(POST.body).text[0:200].replace("\n"," ")
             setattr(self, "title", title)
             setattr(self, "keywords", keywords)
             setattr(self, "description", description)
-            # setattr(self, "author", "coogger {} category".format(last_path))
-            setattr(self, "image", image)
+            setattr(self, "image", self.get_image(POST.body))
         elif url_name == "hashtag":
             setattr(self, "title", "{} lates post from '{}' hashtag.".format(community_name, last_path))
             setattr(self, "keywords", "{}, {} hashtag".format(last_path, community_name))
@@ -102,13 +95,16 @@ class Head(object):
             setattr(self, "author", f"https://www.facebook.com/{community.name}")
             setattr(self, "image", community.image)
 
-    def find_image(self, definition):
-        beautifultext = BeautifulSoup(definition, "html.parser")
+    def get_soup(self, text):
+        renderer = mistune.Renderer(escape=False, parse_block_html=True)
+        markdown = mistune.Markdown(renderer=renderer)
+        return BeautifulSoup(markdown(text), "html.parser")
+
+    def get_image(self, text):
         try:
-            image = beautifultext.find("img").get("src")
+            return self.get_soup(POST.body).find("img").get("src")
         except:
-            image = ""
-        return image
+            return "https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmV7q45hYaS1TugkYDmR4NtUuLXjMGDEnN2roxGGXJeYgs"
 
 
 class HeadMiddleware(MiddlewareMixin):
