@@ -26,7 +26,7 @@ $(document).ready(function() {
 
 });
 
-function write_in_html(id,variable) {
+function write_in_html(id, variable) {
   if (variable != undefined){
     document.getElementById(id).innerHTML = variable;
   }else{
@@ -36,7 +36,7 @@ function write_in_html(id,variable) {
 
 function timeSince(date){
   let time_since = "";
-  var seconds = (new Date() - (new Date(date) + "Z")) / 1000;
+  var seconds = (new Date() - new Date(date)) / 1000;
   var year = Math.floor(seconds / 31536000);
   if (year>1){
     seconds = seconds - (year*31536000);

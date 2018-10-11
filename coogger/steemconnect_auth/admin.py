@@ -3,7 +3,7 @@ from django.contrib.admin import site, ModelAdmin
 from django.contrib.auth.models import User, Group
 
 # models
-from django_steemconnect.models import SteemConnectUser, Community, Mods
+from steemconnect_auth.models import SteemConnectUser, Community, Mods
 
 
 class SteemConnectUserAdmin(ModelAdmin):

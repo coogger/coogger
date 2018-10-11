@@ -26,7 +26,6 @@ class SteemPost():
 class Detail(TemplateView):
     # TODO: if content doesnt have on steem, it have to delete on coogger.
     template_name = "detail/main_detail.html"
-    ctof = Content.objects.filter
 
     def get_context_data(self, username, path, **kwargs):
         self.user = authenticate(username=username)
@@ -55,7 +54,7 @@ class Detail(TemplateView):
         return context
 
     def contents_of_user(self):
-        return self.ctof(user=self.user)
+        return Content.objects.filter(user=self.user)
 
     def permlinks_of_user(self):
         return self.contents_of_user().filter(permlink=self.path)
@@ -74,3 +73,7 @@ class Detail(TemplateView):
         if not Contentviews.objects.filter(content=queryset[0], ip=ip).exists():
             Contentviews(content=queryset[0], ip=ip).save()
             queryset.update(views=F("views") + 1)
+
+
+class Embed(Detail):
+    template_name = "detail/embed/embed.html"

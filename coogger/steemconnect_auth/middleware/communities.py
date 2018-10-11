@@ -1,7 +1,7 @@
 from django.utils.deprecation import MiddlewareMixin
 
 # models
-from django_steemconnect.models import Community
+from steemconnect_auth.models import Community
 
 
 class CommunitiesMiddleware(MiddlewareMixin):

@@ -26,7 +26,7 @@ from bs4 import BeautifulSoup
 import mistune
 
 from django_md_editor.models import EditorMdField
-from django_steemconnect.models import SteemConnectUser, Community
+from steemconnect_auth.models import SteemConnectUser, Community
 
 
 class CommunitySettings(models.Model):
@@ -35,6 +35,7 @@ class CommunitySettings(models.Model):
 
     def __str__(self):
         return self.community.name
+
 
 class CategoryofCommunity(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
@@ -192,7 +193,6 @@ class Content(models.Model):
             "topic": self.topic,
             "category": self.category,
             "language": self.language,
-            "dor": self.dor,
         }
         comment = Comment(
             parent_author = "",

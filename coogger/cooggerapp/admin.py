@@ -8,7 +8,7 @@ from django.http import Http404
 #models
 from cooggerapp.models import (Content, Contentviews, UserFollow, SearchedWords,
     ReportModel, OtherInformationOfUsers, CommunitySettings, CategoryofCommunity)
-from django_steemconnect.models import Mods, Community
+from steemconnect_auth.models import Mods, Community
 
 # forms
 from cooggerapp.forms import ContentForm

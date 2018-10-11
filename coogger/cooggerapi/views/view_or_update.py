@@ -17,7 +17,7 @@ from cooggerapi.serializers import (
 
 # models
 from cooggerapp.models import (Content, OtherInformationOfUsers)
-from django_steemconnect.models import SteemConnectUser, Community
+from steemconnect_auth.models import SteemConnectUser, Community
 
 
 class SteemConnectUserApi(APIView):
@@ -45,7 +45,7 @@ class SteemConnectUserApi(APIView):
 
     def set_new_access_token(self):
         # TODO: new Features! if this function is run,
-        # set_new_access_token function in django_steemconnect lib from models.py is
+        # set_new_access_token function in steemconnect_auth lib from models.py is
         # run and share coogger and steem blockchain
         pass
 

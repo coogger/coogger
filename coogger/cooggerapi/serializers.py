@@ -4,7 +4,7 @@ from rest_framework import serializers
 from cooggerapp.models import (
     Content, OtherInformationOfUsers,
     SearchedWords, UserFollow)
-from django_steemconnect.models import SteemConnectUser, Community
+from steemconnect_auth.models import SteemConnectUser, Community
 
 
 class SearchedWordsSerializer(serializers.ModelSerializer):

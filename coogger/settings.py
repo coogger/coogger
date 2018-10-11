@@ -14,12 +14,12 @@ INSTALLED_APPS = [
     #
     "cooggerapp",
     "cooggerapi",
-    "django_steemconnect",
+    "steemconnect_auth",
     "django_md_editor",
     "rest_framework",
 ]
 AUTHENTICATION_BACKENDS = [
-    "django_steemconnect.auth.steemconnect.SteemConnectBackend",
+    "steemconnect_auth.auth.steemconnect.SteemConnectBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 REST_FRAMEWORK = {
@@ -35,7 +35,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ###
-    "django_steemconnect.middleware.communities.CommunitiesMiddleware",
+    "steemconnect_auth.middleware.communities.CommunitiesMiddleware",
     "cooggerapp.middleware.head.HeadMiddleware",
     "cooggerapp.middleware.general.GeneralMiddleware",
 ]

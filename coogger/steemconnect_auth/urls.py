@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic.base import RedirectView
 
 # views
-from django_steemconnect.views import Logout, LoginSignup, login_redirect
+from steemconnect_auth.views import Logout, LoginSignup, login_redirect
 
 urlpatterns = [
     url(r"^logout/", Logout.as_view(), name="logout"),

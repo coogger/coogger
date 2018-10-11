@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 # models
-from django_steemconnect.models import SteemConnectUser, Community
+from steemconnect_auth.models import SteemConnectUser, Community
 
 # python steemconnect
 from steemconnect.client import Client

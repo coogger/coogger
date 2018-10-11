@@ -7,11 +7,9 @@
       </span> category
     </a>
   </div>
-    <form flx="fd-c" default="form media" method="post" class="c-create-form" action="{% url 'create' %}"
-    style="padding: 12px 6px;z-index:2">
+    <form flx="fd-c" default="form media" method="post" class="c-create-form" action="{% url 'create' %}" style="padding: 12px 6px;z-index:2">
         {% csrf_token %} {{ form }}
-        <input flx="as-c" type="submit" value="Share" style="padding: 12px 42px;color:#333"
-        hvr-a="i bg-white">
+        <input flx="as-c" type="submit" value="Share" style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
     </form>
 </div>
 {% include 'post/script.html' %}

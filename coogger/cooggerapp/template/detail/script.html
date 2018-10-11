@@ -76,7 +76,7 @@
           // upvoted ?
           var upvoted = false;
           var active_votes = content.active_votes;
-          write_in_html("count",active_votes.length);
+          write_in_html("count", active_votes.length);
           {% if request.user.is_authenticated %}
             for (var vot = 0; vot < active_votes.length; vot++) {
               if ("{{request.user}}" == active_votes[vot].voter){
@@ -98,10 +98,10 @@
           else{
             post_reward_total = pending_payout_value;
           }
-          write_in_html("reputation",reputation);
-          write_in_html("username",content.author);
-          write_in_html("lastmod",timeSince(content.last_update));
-          write_in_html("reply",content.children);
+          write_in_html("reputation", reputation);
+          write_in_html("username", content.author);
+          write_in_html("lastmod", timeSince(content.last_update));
+          write_in_html("reply", content.children);
           write_in_html("time", timeSince(content.created));
           var root_url = "/@"+content.root_author+"/"+content.root_permlink;
           if (root_url != "/@"+content.author+"/"+content.permlink){
@@ -109,9 +109,9 @@
             $(".root_content").css({"display":"flex"});
             $(".donation").css({"display":"none"});
           }
-          write_in_html("post_reward_total","$ "+post_reward_total.toFixed(2));
-          write_in_html("post_reward_total2","$ "+post_reward_total.toFixed(2));
-          write_in_html("title",title);
+          write_in_html("post_reward_total", "$ "+post_reward_total.toFixed(2));
+          write_in_html("post_reward_total2", "$ "+post_reward_total.toFixed(2));
+          write_in_html("title", title);
           $(function() { // editor md
             editormd.urls.atLinkBase ="https://www.coogger.com/@"
             var Editor = editormd.markdownToHTML("id_arg_editormd", {
@@ -143,7 +143,7 @@
                 }
                 for (var i = 0; i < followers.length; i++) {
                   if ("{{ request.user }}" == followers[i].follower){
-                    write_in_html("is_follow","Unfollow");
+                    write_in_html("is_follow", "Unfollow");
                     $("#follow").css({'display':"none"});
                     $("#unfollow").css({'display':"flex"});
                     do_while_stop = false;

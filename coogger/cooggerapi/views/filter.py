@@ -16,7 +16,7 @@ from cooggerapi.serializers import (
 from cooggerapp.models import (Content,
     OtherInformationOfUsers, SearchedWords,
     UserFollow)
-from django_steemconnect.models import Community, SteemConnectUser
+from steemconnect_auth.models import Community, SteemConnectUser
 
 
 class UserFilter(ModelViewSet):
