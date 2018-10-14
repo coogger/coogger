@@ -1,12 +1,7 @@
 {% include 'home/head.html' %}
 {% include 'home/header.html' %}
-<iframe src="/embed/{{ detail.get_absolute_url }}" style="
-    height: calc(100% - 70px);
-    width: 100%;
-    border: 0px;
-    overflow: auto;
-    top: 70px;
-    position: relative;
-"></iframe>
+<div class="header-bottom">
+  {% include 'detail/embed/general.html' %}
+</div>
 </body>
 </html>

@@ -9,7 +9,6 @@ from cooggerapp.choices import *
 
 # python
 import random
-import datetime
 
 # steem
 from steem.post import Post
@@ -31,10 +30,9 @@ from steemconnect_auth.models import SteemConnectUser, Community
 
 class CommunitySettings(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
-    beneficiaries = models.FloatField(default=0, verbose_name="Support Coogger ecosystem with beneficiaries")
-
-    def __str__(self):
-        return self.community.name
+    beneficiaries = models.FloatField(default=0,
+        verbose_name="Support Coogger ecosystem with beneficiaries"
+    )
 
 
 class CategoryofCommunity(models.Model):
@@ -46,11 +44,17 @@ class CategoryofCommunity(models.Model):
 class OtherInformationOfUsers(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = EditorMdField()
-    cooggerup_confirmation = models.BooleanField(default=False, verbose_name="Do you want to join in curation trails of the cooggerup bot with your account?")
+    cooggerup_confirmation = models.BooleanField(default=False,
+        verbose_name="Do you want to join in curation trails of the cooggerup bot with your account?"
+    )
     sponsor = models.BooleanField(default=False)
-    cooggerup_percent = models.FloatField(default=0, verbose_name="Cooggerup bot upvote percent")
+    cooggerup_percent = models.FloatField(default=0,
+        verbose_name="Cooggerup bot upvote percent"
+    )
     vote_percent = models.FloatField(default=100)
-    beneficiaries = models.IntegerField(default=0, verbose_name="Support Coogger ecosystem with beneficiaries")
+    beneficiaries = models.IntegerField(default=0,
+        verbose_name="Support Coogger ecosystem with beneficiaries"
+    )
     # reward db of coogger.up curation trail, reset per week
     total_votes = models.IntegerField(default=0, verbose_name="How many votes")
     total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
@@ -63,26 +67,40 @@ class OtherInformationOfUsers(models.Model):
 class Content(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
-    title = models.CharField(max_length=200, verbose_name="Title", help_text="Be sure to choose the best title related to your content.")
+    title = models.CharField(max_length=200, verbose_name="Title",
+        help_text="Be sure to choose the best title related to your content."
+    )
     permlink = models.SlugField(max_length=200)
-    content = EditorMdField()
-    tag = models.CharField(max_length=200, verbose_name="keyword", help_text="Write your tags using spaces, max:4")
-    language = models.CharField(max_length=30, choices=make_choices(languages), help_text=" The language of your content")
+    content = EditorMdField() # not necessary
+    tag = models.CharField(max_length=200, verbose_name="keyword",
+        help_text="Write your tags using spaces, max:4"
+    )
+    language = models.CharField(max_length=30, choices=make_choices(languages),
+        help_text=" The language of your content"
+    )
     all_categories = [category.category_name for category in CategoryofCommunity.objects.all()]
-    category = models.CharField(max_length=30, choices=make_choices(all_categories), help_text="select content category")
-    definition = models.CharField(max_length=400, verbose_name="definition of content", help_text="Briefly tell your readers about your content.")
-    topic = models.CharField(max_length=30, verbose_name="content topic", help_text="Please, write your topic about your contents.")
-    status = models.CharField(default="shared", max_length=30, choices=make_choices(status_choices), verbose_name="content's status")
-    time = models.DateTimeField(default=timezone.now, verbose_name="date")
-    dor = models.CharField(default=0, max_length=10)
+    category = models.CharField(max_length=30,
+        choices=make_choices(all_categories),
+        help_text="select content category"
+    )
+    definition = models.CharField(max_length=400,
+        verbose_name="definition of content",
+    )
+    topic = models.CharField(max_length=30, verbose_name="content topic",
+        help_text="Please, write your topic about your contents."
+    )
+    status = models.CharField(default="shared", max_length=30,
+        choices=make_choices(status_choices),
+        verbose_name="content's status"
+    )
     views = models.IntegerField(default=0, verbose_name="views")
-    read = models.IntegerField(default=0, verbose_name="pageviews")
-    lastmod = models.DateTimeField(default=timezone.now, verbose_name="last modified date")
-    mod = models.ForeignKey("auth.user", on_delete=models.CASCADE, blank=True, null=True, related_name="moderator")
+    mod = models.ForeignKey("auth.user", on_delete=models.CASCADE,
+        blank=True, null=True, related_name="moderator"
+    )
     cooggerup = models.BooleanField(default=False, verbose_name="was voting done")
 
     class Meta:
-        ordering = ['-time']
+        ordering = ['-id']
 
     @property
     def username(self):
@@ -109,18 +127,10 @@ class Content(models.Model):
             alt = img.get("alt")
         except:
             alt = ""
-        return "<img class='definition-img' src='{}' alt='{}'></img><p>{}</p>".format(src, alt, soup.text[0:200]+"...")
+        return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[0:200]}...</p>"
 
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
-
-    @staticmethod
-    def durationofread(text):
-        reading_speed = 20  # 1 saniyede 20 harf okunursa
-        read_content = BeautifulSoup(text, 'html.parser').get_text().replace(" ", "")
-        how_much_words = len(read_content)
-        words_time = float((how_much_words/reading_speed)/60)
-        return str(words_time)[:3]
 
     def save(self, *args, **kwargs):  # for admin.py
         if self.mod == User.objects.get(username="hakancelik"):
@@ -130,30 +140,23 @@ class Content(models.Model):
             except:
                 steem_post = self.steemconnect_post(self.permlink, "save")
         self.definition = self.prepare_definition(self.content)
+        self.content = ""
         super(Content, self).save(*args, **kwargs)
 
-    def content_save(self, request, *args, **kwargs):  # for me
+    def content_save(self, request, *args, **kwargs):
         self.community = request.community_model
         self.tag = self.ready_tags()
-        self.dor = self.durationofread(self.content+self.title)
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
-        while True:  # hem coogger'da hemde sistem'de olmaması gerek ki kayıt sırasında sorun çıkmasın.
-            try:  # TODO:  buralarda sorun var aynı adres steemit de yokken coogger'da vardı ve döngüden çıkamadı.
-                Content.objects.filter(user=self.user, permlink=self.permlink)[0]  # db de varsa
-                try:
-                    Post(post=self.get_absolute_url()).url  # sistem'de varsa
-                    self.new_permlink()  # change to self.permlink / link değişir
-                except:
-                    pass
+        while True:
+            try: # if user and pemlink is already saved on steem
+                Post(post=self.get_absolute_url()).url
+                self.new_permlink() #We need to change permlink
             except:
-                try:
-                    Post(post=self.get_absolute_url()).url  # sistem'de varsa
-                    self.new_permlink()  # change to self.permlink / link değişir
-                except:
-                    break
+                break
         steem_save = self.steemconnect_post(self.permlink, "save")
         if steem_save.status_code == 200:
+            self.content = ""
             super(Content, self).save(*args, **kwargs)
         return steem_save
 
@@ -163,20 +166,16 @@ class Content(models.Model):
         self.title = content.title
         self.tag = self.ready_tags(limit=5)
         self.topic = content.topic
-        self.dor = self.durationofread(self.content+self.title)
         steem_post = self.steemconnect_post(queryset[0].permlink, "update")
         if steem_post.status_code == 200:
             queryset.update(
                 definition=self.prepare_definition(content.content),
                 topic=self.topic,
                 title=self.title,
-                content=self.content,
                 category=content.category,
                 language=content.language,
                 tag=self.tag,
-                status="changed",
-                dor=self.dor,
-                lastmod=timezone.now(),
+                # status="changed",
             )
         return steem_post
 
@@ -187,12 +186,14 @@ class Content(models.Model):
         json_metadata = {
             "format": "markdown",
             "tags": self.tag.split(),
-            "app": "coogger/1.3.9",
-            "ecosystem": "coogger",
-            "community": self.community.name,
-            "topic": self.topic,
-            "category": self.category,
-            "language": self.language,
+            "app": "coogger/1.4.0",
+            "ecosystem": {
+                "name": "coogger",
+                "community": self.community.name,
+                "topic": self.topic,
+                "category": self.category,
+                "language": self.language,
+                },
         }
         comment = Comment(
             parent_author = "",
@@ -237,7 +238,6 @@ class Content(models.Model):
                 beneficiaries.append({"account": "coogger", "weight": other_user_beneficiaries*100})
         elif community_beneficiaries_for_coogger != 0:
             beneficiaries.append({"account": "coogger", "weight": community_beneficiaries_for_coogger*100})
-        print(beneficiaries)
         return beneficiaries
 
     def ready_tags(self, limit=5):

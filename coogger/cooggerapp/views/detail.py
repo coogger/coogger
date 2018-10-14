@@ -13,16 +13,6 @@ from cooggerapp.models import Content, Contentviews
 from cooggerapp.forms import ContentForm
 
 
-class SteemPost():
-    language = False
-    category = False
-    topic = False
-    status = "approved"
-    views = False
-    read = False
-    dor = False
-    steempost = True
-
 class Detail(TemplateView):
     # TODO: if content doesnt have on steem, it have to delete on coogger.
     template_name = "detail/detail.html"
@@ -38,14 +28,21 @@ class Detail(TemplateView):
             nameoflist = queryset.topic
             detail = queryset
         except IndexError:
+            steem_post = {}
+            steem_post["language"] = False
+            steem_post["category"] = False
+            steem_post["topic"] = False
+            steem_post["status"] = "approved"
+            steem_post["views"] = False
+            steem_post["steempost"] = True
+            steem_post["user"] = self.user
+            steem_post["permlink"] = self.path
+            steem_post["status"] = "approved"
+            steem_post["get_absolute_url"] = f"@{self.user}/{self.path}"
             nav_category = None
             urloftopic = None
             nameoflist = None
-            setattr(SteemPost, "user", self.user)
-            setattr(SteemPost, "permlink", self.path)
-            setattr(SteemPost, "status", "approved")
-            setattr(SteemPost, "get_absolute_url", f"@{self.user}/{self.path}")
-            detail = SteemPost
+            detail = steem_post
         context = super(Detail, self).get_context_data(**kwargs)
         context["content_user"] = self.user
         context["nav_category"] = nav_category
@@ -66,7 +63,6 @@ class Detail(TemplateView):
 
     def up_content_view(self):
         queryset = self.permlinks_of_user()
-        Content.objects.filter(id=queryset[0].id).update(read=F("read")+1)
         try:
             ip = self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
         except:

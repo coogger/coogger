@@ -10,15 +10,11 @@
 {% if detail.language and detail.category %}
   <div flx style="margin: 12px 0px;">
       <div flx="ai-c" gnrl="br-2 b bg-secondary c-white txt-s left" hvr-a="bg-primary" class="content_list">
-          <a href="{% url 'language' detail.language %}" style="color: white;">
-       {{ detail.language }}
-      </a>
+          <a href="" style="color: white;" id="language"></a>
       </div>
       <div flx="ai-c" class="content_list" gnrl="br-2 b bg-secondary c-white txt-s right"
         hvr-a="bg-primary" class="content_list">
-          <a href="{% url 'category' detail.category %}" style="color: white;">
-       {{ detail.category }}
-      </a>
+          <a href="" style="color: white;" id="category"></a>
       </div>
   </div>
 {% endif %}
@@ -26,19 +22,12 @@
     <div gnrl="txt-s" flx="ai-c" class="duread-li">
         <div style="margin-left: 12px;">Last update ; <span id="lastmod"></span></div>
     </div>
-    {% if detail.dor %}
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-          <div style="margin-left: 12px;" id="dor"> | min read ; {{ detail.dor }}</div>
-      </div>
-    {% endif %}
+    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+        <div style="margin-left: 12px;" id="dor"> </div>
+    </div>
     {% if detail.views %}
       <div gnrl="txt-s" flx="ai-c" class="duread-li">
           <div style="margin-left: 12px;"> | views ; {{ detail.views }}</div>
-      </div>
-    {% endif %}
-    {% if detail.read %}
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
-          <div style="margin-left: 12px;"> | pageviews ; {{ detail.read }}</div>
       </div>
     {% endif %}
     <div gnrl="txt-s" flx="ai-c" class="duread-li">

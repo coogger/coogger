@@ -34,10 +34,14 @@ function update_account(metadata){
 
 function write_in_html(id, variable) {
   if (variable != undefined){
-    document.getElementById(id).innerHTML = variable;
-  }else{
-    document.getElementById(id).innerHTML = "";
+    $(`#${id}`).html(variable);
   }
+}
+
+function dor(text){
+  // post duration of read
+  let reading_speed = 20;
+  return `min ${((text.length/reading_speed)/60).toFixed(1)}`;
 }
 
 function timeSince(date){
@@ -53,23 +57,38 @@ function timeSince(date){
     seconds = seconds - (months*2592000);
     time_since += `${months} month `;
   }
+  if (year>1 && months>1){
+    return (`${time_since} ago`);
+  }
   var days = Math.floor(seconds / 86400);
   if (days>1){
     seconds = seconds - (days*86400);
     time_since += `${days} day `;
+  }
+  if (days>1 && months>1){
+    return (`${time_since} ago`);
   }
   var hours = Math.floor(seconds / 3600);
   if (hours>1){
     seconds = seconds - (hours*3600);
     time_since += `${hours} hours `;
   }
+  if (days>1 && hours>1){
+    return (`${time_since} ago`);
+  }
   var minutes = Math.floor(seconds / 60);
   if (minutes>1){
     seconds = seconds - (minutes*60);
     time_since += `${minutes} minute `;
   }
+  if (minutes>1 && hours>1){
+    return (`${time_since} ago`);
+  }
   if (seconds>1){
     time_since += `${Math.floor(seconds)} second `;
+  }
+  if (minutes>1 && seconds>1){
+    return (`${time_since} ago`);
   }
   return (`${time_since} ago`);
 }

@@ -25,7 +25,7 @@ class ContentAdmin(ModelAdmin):
             "topic", "mod","cooggerup","status"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["status","time","cooggerup"]
+    list_filter = ["status", "cooggerup"]
     search_fields = ["topic","title"]
     fields = (("user","title"),"content","tag",("category","language","topic"),("status","cooggerup"))
 
