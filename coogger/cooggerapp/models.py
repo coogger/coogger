@@ -99,9 +99,6 @@ class Content(models.Model):
     )
     cooggerup = models.BooleanField(default=False, verbose_name="was voting done")
 
-    class Meta:
-        ordering = ['-id']
-
     @property
     def username(self):
         return self.user.username
@@ -189,6 +186,7 @@ class Content(models.Model):
             "app": "coogger/1.4.0",
             "ecosystem": {
                 "name": "coogger",
+                "version": "1.4.0",
                 "community": self.community.name,
                 "topic": self.topic,
                 "category": self.category,
@@ -262,10 +260,10 @@ class Content(models.Model):
         self.permlink += "-"+rand
 
 
-class UserFollow(models.Model):
+class OtherAddressesOfUsers(models.Model):
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
     choices = models.CharField(blank=True, null=True, max_length=15, choices=make_choices(follow), verbose_name="website")
-    adress = models.CharField(blank=True, null=True, max_length=150, verbose_name="write address / username")
+    address = models.CharField(blank=True, null=True, max_length=150, verbose_name="write address / username")
 
     @property
     def username(self):

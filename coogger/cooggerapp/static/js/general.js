@@ -26,11 +26,11 @@ $(document).ready(function() {
 });
 
 
-function update_account(metadata){
-    api.updateUserMetadata(metadata, function (err, res) {
-      console.log(err, res)
-    });
-}
+// function update_account(metadata){
+//     api.updateUserMetadata(metadata, function (err, res) {
+//       console.log(err, res)
+//     });
+// }
 
 function write_in_html(id, variable) {
   if (variable != undefined){

@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.http import Http404
 
 #models
-from cooggerapp.models import (Content, Contentviews, UserFollow, SearchedWords,
+from cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
     ReportModel, OtherInformationOfUsers, CommunitySettings, CategoryofCommunity)
 from steemconnect_auth.models import Mods, Community
 
@@ -52,7 +52,7 @@ class ContentAdmin(ModelAdmin):
         super(ContentAdmin, self).save_model(request, obj, form, change)
 
 
-class UserFollowAdmin(ModelAdmin):
+class OtherAddressesOfUsersAdmin(ModelAdmin):
     list_ = ["user","choices","adress"]
     list_display = list_
     list_display_links = list_
@@ -61,7 +61,7 @@ class UserFollowAdmin(ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser:
-            super(UserFollowAdmin, self).save_model(request, obj, form, change)
+            super(OtherAddressesOfUsersAdmin, self).save_model(request, obj, form, change)
         raise Http404
 
 
@@ -139,7 +139,7 @@ class OtherInfoUsersAdmin(ModelAdmin):
 
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)
-site.register(UserFollow,UserFollowAdmin)
+site.register(OtherAddressesOfUsers,OtherAddressesOfUsersAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)
 site.register(ReportModel)
 site.register(OtherInformationOfUsers,OtherInfoUsersAdmin)

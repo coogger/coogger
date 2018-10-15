@@ -6,7 +6,7 @@ from cooggerapp.choices import *
 
 # models
 from cooggerapp.models import (
-    Content, UserFollow, OtherInformationOfUsers,
+    Content, OtherAddressesOfUsers, OtherInformationOfUsers,
     ReportModel, CategoryofCommunity)
 from django.db import models
 from django.contrib.auth.models import User
@@ -25,9 +25,9 @@ class ContentForm(forms.ModelForm):
         fields = ["category", "language", "topic", "title", "content", "tag"]
 
 
-class UserFollowForm(forms.ModelForm):
+class OtherAddressesOfUsersForm(forms.ModelForm):
     class Meta:
-        model = UserFollow
+        model = OtherAddressesOfUsers
         fields = ["choices", "adress"]
 
 
@@ -37,9 +37,9 @@ class CSettingsUserForm(forms.ModelForm):
         fields = ["first_name", "last_name", "username", "email"]
 
 
-class UserFollowForm(forms.ModelForm):
+class OtherAddressesOfUsersForm(forms.ModelForm):
     class Meta:
-        model = UserFollow
+        model = OtherAddressesOfUsers
         fields = ["choices", "adress"]
 
 

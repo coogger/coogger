@@ -43,18 +43,22 @@
         let json_metadata = JSON.parse(content.json_metadata);
         let app_version = json_metadata.app;
         let community_name, topic, category, language;
-        if (app_version == "coogger/1.3.9"){
+        try {
           community_name = json_metadata.community;
           topic = json_metadata.topic;
           category = json_metadata.category;
           language = json_metadata.language;
         }
-        else if (app_version == "coogger/1.4.0"){
+        catch(err){
+          console.log(err);
           let coogger_ecosystem = json_metadata.ecosystem;
-          community_name = coogger_ecosystem.community;
-          topic = coogger_ecosystem.topic;
-          category = coogger_ecosystem.category;
-          language = coogger_ecosystem.language;
+          let version = coogger_ecosystem.version;
+          if (version == "1.4.0"){
+            community_name = coogger_ecosystem.community;
+            topic = coogger_ecosystem.topic;
+            category = coogger_ecosystem.category;
+            language = coogger_ecosystem.language;
+          }
         }
         $(`#${id} #language`).attr("href", `/language/${language}`);
         $(`#${id} #language`).html(language);

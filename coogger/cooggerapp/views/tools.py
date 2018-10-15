@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # models
-from cooggerapp.models import UserFollow, Content
+from cooggerapp.models import OtherAddressesOfUsers, Content
 
 def user_topics(queryset):
     topics = []
@@ -39,7 +39,7 @@ def paginator(request, queryset, hmany=6):
 
 def users_web(user):
     try:
-        user_follow = UserFollow.objects.filter(user=user)
+        user_follow = OtherAddressesOfUsers.objects.filter(user=user)
     except:
         user_follow = []
     return user_follow

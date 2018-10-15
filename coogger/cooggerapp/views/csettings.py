@@ -12,13 +12,13 @@ from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
 
 # models
-from cooggerapp.models import UserFollow, OtherInformationOfUsers, Content
+from cooggerapp.models import OtherAddressesOfUsers, OtherInformationOfUsers, Content
 
 # views
 from cooggerapp.views.tools import paginator
 
 # forms
-from cooggerapp.forms import (CSettingsUserForm, UserFollowForm, CooggerupForm, VotepercentForm, BeneficiariesForm)
+from cooggerapp.forms import (CSettingsUserForm, OtherAddressesOfUsersForm, CooggerupForm, VotepercentForm, BeneficiariesForm)
 
 # python
 import os
@@ -51,12 +51,12 @@ class Settings(View):
         return HttpResponseRedirect(request.META["PATH_INFO"])
 
     def address(self, request):
-        address_instance = UserFollow.objects.filter(user=request.user)
-        address_form = UserFollowForm(request.GET or None)
+        address_instance = OtherAddressesOfUsers.objects.filter(user=request.user)
+        address_form = OtherAddressesOfUsersForm(request.GET or None)
         return address_instance, address_form
 
     def post_address(self, request):
-        form = UserFollowForm(request.POST)
+        form = OtherAddressesOfUsersForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
             if form.choices != None and form.adress != None:

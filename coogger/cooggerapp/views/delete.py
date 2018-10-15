@@ -10,14 +10,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 # models
-from cooggerapp.models import UserFollow, Content
+from cooggerapp.models import OtherAddressesOfUsers, Content
 
 # python
 import json
 
 
 class Address(View):
-    model = UserFollow
+    model = OtherAddressesOfUsers
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
