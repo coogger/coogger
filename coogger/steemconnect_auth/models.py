@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django_md_editor.models import EditorMdField
 
 class Community(models.Model):
     name = models.CharField(max_length=20, unique=True)
@@ -57,3 +58,16 @@ class SteemConnectUser(models.Model):
     @property
     def community_name(self):
         return self.community.name
+
+
+class CommunitySettings(models.Model):
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    beneficiaries = models.FloatField(default=0,
+        verbose_name="Support Coogger ecosystem with beneficiaries"
+    )
+
+
+class CategoryofCommunity(models.Model):
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    category_name = models.CharField(max_length=50, verbose_name="Category name")
+    editor_template = EditorMdField(blank=True, null=True)

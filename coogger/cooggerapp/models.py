@@ -25,43 +25,9 @@ from bs4 import BeautifulSoup
 import mistune
 
 from django_md_editor.models import EditorMdField
-from steemconnect_auth.models import SteemConnectUser, Community
-
-
-class CommunitySettings(models.Model):
-    community = models.ForeignKey(Community, on_delete=models.CASCADE)
-    beneficiaries = models.FloatField(default=0,
-        verbose_name="Support Coogger ecosystem with beneficiaries"
-    )
-
-
-class CategoryofCommunity(models.Model):
-    community = models.ForeignKey(Community, on_delete=models.CASCADE)
-    category_name = models.CharField(max_length=50, verbose_name="Category name")
-    editor_template = EditorMdField(blank=True, null=True)
-
-
-class OtherInformationOfUsers(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = EditorMdField()
-    cooggerup_confirmation = models.BooleanField(default=False,
-        verbose_name="Do you want to join in curation trails of the cooggerup bot with your account?"
-    )
-    sponsor = models.BooleanField(default=False)
-    cooggerup_percent = models.FloatField(default=0,
-        verbose_name="Cooggerup bot upvote percent"
-    )
-    vote_percent = models.FloatField(default=100)
-    beneficiaries = models.IntegerField(default=0,
-        verbose_name="Support Coogger ecosystem with beneficiaries"
-    )
-    # reward db of coogger.up curation trail, reset per week
-    total_votes = models.IntegerField(default=0, verbose_name="How many votes")
-    total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
-
-    @property
-    def username(self):
-        return self.user.username
+from steemconnect_auth.models import (
+    SteemConnectUser, Community,
+    CategoryofCommunity, CommunitySettings)
 
 
 class Content(models.Model):
@@ -137,7 +103,6 @@ class Content(models.Model):
             except:
                 steem_post = self.steemconnect_post(self.permlink, "save")
         self.definition = self.prepare_definition(self.content)
-        self.content = ""
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request, *args, **kwargs):
@@ -153,7 +118,6 @@ class Content(models.Model):
                 break
         steem_save = self.steemconnect_post(self.permlink, "save")
         if steem_save.status_code == 200:
-            self.content = ""
             super(Content, self).save(*args, **kwargs)
         return steem_save
 
@@ -258,6 +222,29 @@ class Content(models.Model):
     def new_permlink(self):
         rand = str(random.randrange(9999))
         self.permlink += "-"+rand
+
+
+class OtherInformationOfUsers(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    about = EditorMdField()
+    cooggerup_confirmation = models.BooleanField(default=False,
+        verbose_name="Do you want to join in curation trails of the cooggerup bot with your account?"
+    )
+    sponsor = models.BooleanField(default=False)
+    cooggerup_percent = models.FloatField(default=0,
+        verbose_name="Cooggerup bot upvote percent"
+    )
+    vote_percent = models.FloatField(default=100)
+    beneficiaries = models.IntegerField(default=0,
+        verbose_name="Support Coogger ecosystem with beneficiaries"
+    )
+    # reward db of coogger.up curation trail, reset per week
+    total_votes = models.IntegerField(default=0, verbose_name="How many votes")
+    total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
+
+    @property
+    def username(self):
+        return self.user.username
 
 
 class OtherAddressesOfUsers(models.Model):

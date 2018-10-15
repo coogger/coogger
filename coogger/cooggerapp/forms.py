@@ -28,7 +28,7 @@ class ContentForm(forms.ModelForm):
 class OtherAddressesOfUsersForm(forms.ModelForm):
     class Meta:
         model = OtherAddressesOfUsers
-        fields = ["choices", "adress"]
+        fields = ["choices", "address"]
 
 
 class CSettingsUserForm(forms.ModelForm):
@@ -40,7 +40,7 @@ class CSettingsUserForm(forms.ModelForm):
 class OtherAddressesOfUsersForm(forms.ModelForm):
     class Meta:
         model = OtherAddressesOfUsers
-        fields = ["choices", "adress"]
+        fields = ["choices", "address"]
 
 
 class AboutForm(forms.ModelForm):

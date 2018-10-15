@@ -3,7 +3,7 @@ from rest_framework import serializers
 # models
 from cooggerapp.models import (
     Content, OtherInformationOfUsers,
-    SearchedWords, UserFollow)
+    SearchedWords, OtherAddressesOfUsers)
 from steemconnect_auth.models import SteemConnectUser, Community
 
 
@@ -14,10 +14,10 @@ class SearchedWordsSerializer(serializers.ModelSerializer):
         fields = ("word", "hmany")
 
 
-class UserFollowSerializer(serializers.ModelSerializer):
+class OtherAddressesOfUsersSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = UserFollow
+        model = OtherAddressesOfUsers
         fields = ("username", "choices", "adress")
 
 

@@ -3,7 +3,47 @@ from django.contrib.admin import site, ModelAdmin
 from django.contrib.auth.models import User, Group
 
 # models
-from steemconnect_auth.models import SteemConnectUser, Community, Mods
+from steemconnect_auth.models import SteemConnectUser, Community, Mods, CommunitySettings, CategoryofCommunity
+
+
+class CommunitySettingsAdmin(ModelAdmin):
+    list_ = ["community","beneficiaries"]
+    list_display = list_
+    list_display_links = list_
+    search_fields = list_
+
+
+class CategoryofCommunityAdmin(ModelAdmin):
+    list_ = ["community","category_name"]
+    list_display = list_
+    list_display_links = list_
+    search_fields = list_
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        community_model = Community.objects.filter(management=request.user)[0]
+        categories = self.get_categories(request)
+        qs = qs.filter(community=community_model, category_name__in=categories)
+        return qs
+
+
+    def get_form(self, request, obj=None, **kwargs):
+        if request.user.is_superuser:
+            return super().get_form(request, obj, **kwargs)
+        community_model = Community.objects.filter(management=request.user)[0]
+        form = super().get_form(request, obj, **kwargs)
+        form.base_fields["community"].choices = ((community_model.id, community_model),)
+        return form
+
+    def get_categories(self, request):
+        community_model = Community.objects.filter(management=request.user)[0]
+        categories = [
+            category.category_name for category in \
+                CategoryofCommunity.objects.filter(community=community_model)
+            ]
+        return categories
 
 
 class SteemConnectUserAdmin(ModelAdmin):
@@ -96,3 +136,5 @@ class CommunityAdmin(ModelAdmin):
 site.register(SteemConnectUser, SteemConnectUserAdmin)
 site.register(Community, CommunityAdmin)
 site.register(Mods, ModsAdmin)
+site.register(CommunitySettings, CommunitySettingsAdmin)
+site.register(CategoryofCommunity, CategoryofCommunityAdmin)
