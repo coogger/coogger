@@ -65,6 +65,9 @@ class Content(models.Model):
     )
     cooggerup = models.BooleanField(default=False, verbose_name="was voting done")
 
+    class Meta:
+        ordering = ["-id"]
+
     @property
     def username(self):
         return self.user.username

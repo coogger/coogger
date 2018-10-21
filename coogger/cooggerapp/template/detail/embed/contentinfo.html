@@ -10,11 +10,11 @@
 {% if detail.language and detail.category %}
   <div flx style="margin: 12px 0px;">
       <div flx="ai-c" gnrl="br-2 b bg-secondary c-white txt-s left" hvr-a="bg-primary" class="content_list">
-          <a href="" style="color: white;" id="language"></a>
+          <a href="{% url 'language' detail.language %}" style="color: white;" id="language">{{detail.language}}</a>
       </div>
       <div flx="ai-c" class="content_list" gnrl="br-2 b bg-secondary c-white txt-s right"
         hvr-a="bg-primary" class="content_list">
-          <a href="" style="color: white;" id="category"></a>
+          <a href="{% url 'category' detail.category %}" style="color: white;" id="category">{{detail.category}}</a>
       </div>
   </div>
 {% endif %}

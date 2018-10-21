@@ -73,26 +73,6 @@
         });
         steem.api.getContent(author = "{{ detail.user }}", permlink = "{{ detail.permlink }}", function(err, content) {
           $("#detail_profile_image").attr("src", "https://steemitimages.com/u/{{ content_user }}/avatar");
-          let json_metadata = JSON.parse(content.json_metadata);
-          let app_version = json_metadata.app;
-          let community_name, topic, category, language;
-          if (app_version == "coogger/1.3.9"){
-            community_name = json_metadata.community;
-            topic = json_metadata.topic;
-            category = json_metadata.category;
-            language = json_metadata.language;
-          }
-          else if (app_version == "coogger/1.4.0"){
-            let coogger_ecosystem = json_metadata.ecosystem;
-            community_name = coogger_ecosystem.community;
-            topic = coogger_ecosystem.topic;
-            category = coogger_ecosystem.category;
-            language = coogger_ecosystem.language;
-          }
-          $(`#language`).attr("href", `/language/${language}`);
-          $(`#language`).html(language);
-          $(`#category`).attr("href", `/category/${category}`);
-          $(`#category`).html(category);
           // upvoted ?
           var upvoted = false;
           var active_votes = content.active_votes;
