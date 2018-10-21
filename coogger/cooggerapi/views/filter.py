@@ -2,7 +2,7 @@
 from rest_framework.viewsets import ModelViewSet
 
 # permissions
-from cooggerapi.permissions import FilterPermission
+from cooggerapi.permissions import ApiPermission
 
 # django
 from django.core.exceptions import FieldError
@@ -23,7 +23,7 @@ class UserFilter(ModelViewSet):
     model = OtherInformationOfUsers
     queryset = model.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [FilterPermission]
+    permission_classes = [ApiPermission]
 
     def get_queryset(self):
         items = self.request.GET.items()

@@ -241,6 +241,7 @@ class OtherInformationOfUsers(models.Model):
     # reward db of coogger.up curation trail, reset per week
     total_votes = models.IntegerField(default=0, verbose_name="How many votes")
     total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
+    access_token = models.CharField(max_length=200)
 
     @property
     def username(self):
