@@ -262,7 +262,7 @@ class OtherInformationOfUsers(models.Model):
 
     @property
     def get_access_token(self):
-        if self.access_token != None:
+        if self.access_token != "":
             return self.access_token
         import hashlib
         hash_object = hashlib.sha256(random.ranrange(9999999))
