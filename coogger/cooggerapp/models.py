@@ -45,6 +45,7 @@ class Content(models.Model):
         help_text=" The language of your content"
     )
     all_categories = [category.category_name for category in CategoryofCommunity.objects.all()]
+    # all_categories = ""
     category = models.CharField(max_length=30,
         choices=make_choices(all_categories),
         help_text="select content category"
@@ -107,6 +108,15 @@ class Content(models.Model):
                 steem_post = self.steemconnect_post(self.permlink, "save")
         self.definition = self.prepare_definition(self.content)
         super(Content, self).save(*args, **kwargs)
+
+    def save_for_sync(self, *args, **kwargs):
+        try:
+            POST = Post(post=f"@{self.user}/{self.permlink}")
+            self.content = POST.body
+            self.definition = self.prepare_definition(self.content)
+            super(Content, self).save(*args, **kwargs)
+        except:
+            pass
 
     def content_save(self, request, *args, **kwargs):
         self.community = request.community_model
@@ -244,11 +254,21 @@ class OtherInformationOfUsers(models.Model):
     # reward db of coogger.up curation trail, reset per week
     total_votes = models.IntegerField(default=0, verbose_name="How many votes")
     total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
-    access_token = models.CharField(max_length=200)
+    access_token = models.CharField(max_length=200, blank=True, null=True, default="")
 
     @property
     def username(self):
         return self.user.username
+
+    @property
+    def get_access_token(self):
+        if self.access_token != None:
+            return self.access_token
+        import hashlib
+        hash_object = hashlib.sha256(random.ranrange(9999999))
+        hex_dig = hash_object.hexdigest()
+        self.objects.filter(user=self.user).update(access_token=hex_dig)
+        return hex_dig
 
 
 class OtherAddressesOfUsers(models.Model):
