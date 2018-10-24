@@ -60,7 +60,7 @@ class UserSerializer(serializers.ModelSerializer):
             "sponsor",
             "total_votes",
             "total_vote_value",
-            "get_access_token",
+            "access_token",
             )
 
 

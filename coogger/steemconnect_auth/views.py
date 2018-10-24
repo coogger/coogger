@@ -8,6 +8,7 @@ from django.conf import settings
 
 # models
 from steemconnect_auth.models import SteemConnectUser, Community
+from cooggerapp.models import OtherInformationOfUsers
 
 # python steemconnect
 from steemconnect.client import Client
@@ -40,9 +41,11 @@ class LoginSignup(View):
         access_token = tokens["access_token"]
         refresh_token = tokens["refresh_token"]
         user, created = User.objects.get_or_create(username=username)
-        if created:  # TODO:  burayı daha moduler kullanısşı hale getir.
-            from cooggerapp.models import OtherInformationOfUsers
-            OtherInformationOfUsers(user=user).save()
+        if created:
+            OtherInformationOfUsers(
+                user=user,
+                access_token=access_token
+            ).save() # create a new access_token for using coogger api with using steem access_token
         if SteemConnectUser.objects.filter(user=user).exists():
             SteemConnectUser.objects.filter(user=user).update(
                 code=code,
