@@ -45,7 +45,7 @@ class LoginSignup(View):
             OtherInformationOfUsers(
                 user=user,
                 access_token=access_token
-            ).save() # create a new access_token for using coogger api with using steem access_token
+            ).save_with_access_token() # create a new access_token for using coogger api with using steem access_token
         if SteemConnectUser.objects.filter(user=user).exists():
             SteemConnectUser.objects.filter(user=user).update(
                 code=code,

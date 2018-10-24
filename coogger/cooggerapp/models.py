@@ -254,13 +254,13 @@ class OtherInformationOfUsers(models.Model):
     # reward db of coogger.up curation trail, reset per week
     total_votes = models.IntegerField(default=0, verbose_name="How many votes")
     total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
-    access_token = models.CharField(max_length=500)
+    access_token = models.CharField(max_length=500, default="no_permission")
 
     @property
     def username(self):
         return self.user.username
 
-    def save(self, *args, **kwargs):
+    def save_with_access_token(self, *args, **kwargs):
         import hashlib
         hash_object = hashlib.sha256(self.access_token.encode('utf-8'))
         hex_dig = hash_object.hexdigest()

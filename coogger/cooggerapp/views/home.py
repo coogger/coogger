@@ -17,7 +17,7 @@ from cooggerapp.forms import ReportsForm
 
 # models
 from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers
-from steemconnect_auth.models import Community
+from steemconnect_auth.models import Community, SteemConnectUser
 
 # views
 from cooggerapp.views.tools import paginator
