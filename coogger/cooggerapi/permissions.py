@@ -29,10 +29,16 @@ class ApiPermission(BasePermission):
             if user.is_superuser and access_token == data_access_token:
                 return True
             return False
-        elif get_operation == "Update_or_Get":
+        elif get_operation == "Get":
             try:
                 username = request.parser_context["kwargs"]["username"]
                 if username == data_username and access_token == data_access_token:
+                    return True
+            except KeyError:
+                return False
+        elif get_operation == "Update":
+            try:
+                if user.is_superuser and access_token == data_access_token:
                     return True
             except KeyError:
                 return False
