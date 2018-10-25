@@ -24,7 +24,7 @@
                 children_comment_template += comment_body(children_comment);
                 if (children_comment.depth == 8){
                   children_comment_template += (`
-                    <a gnrl="c-success center"
+                    <a gnrl="center" color="c-success"
                       href="/@${children_comment.author}/'${children_comment.permlink}">
                       Show ${children_comment.children} more replies
                     </a></div>`);
@@ -95,10 +95,10 @@
     })
   });
 </script>
-<div gnrl="b-1 br-2 brc-muted">
-  <div default="paragraph" gnrl="bg-white" style="padding: 6px 4px;">
+<div gnrl="b-1 br-2" color="brc-muted">
+  <div default="paragraph" color="bg-white" style="padding: 6px 4px;">
       <textarea id="comment-text" placeholder="Reply ..."></textarea>
-      <button id="send-comment" gnrl="b-1 br-2 brc-muted bg-success c-white"
+      <button id="send-comment" gnrl="b-1 br-2" color="brc-muted bg-success c-white"
           data-parent_author="{{ content_user }}" data-parent_permlink="{{ detail.permlink }}">
         Post
       </button>

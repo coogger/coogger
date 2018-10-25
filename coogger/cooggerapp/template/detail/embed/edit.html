@@ -3,15 +3,15 @@
         <div gnrl="wmax left">
             {% if request.user.is_authenticated %}
               {% if detail.user == request.user%}
-                <a gnrl="brc-muted b-1 bg-warning br-1" hvr-a="bg-secondary" href="{% url 'change' detail.id  %}" flx="ai-c" style="padding: 6px 24px;">
-                  <i gnrl="c-white" class="fa fa-edit" aria-hidden="true"></i>
-                  <div gnrl="txt-s c-white">Edit</div>
+                <a gnrl="b-1 br-1" color="brc-muted bg-warning" hvr-a="bg-secondary" href="{% url 'change' detail.id  %}" flx="ai-c" style="padding: 6px 24px;">
+                  <i color="c-white" class="fa fa-edit" aria-hidden="true"></i>
+                  <div gnrl="txt-s" color="c-white">Edit</div>
                 </a>
               {% endif %}
             {% if detail.user != request.user and detail.status == "approved"%}
-                <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer" gnrl="brc-muted b-1 bg-warning br-1" hvr-a="bg-danger" flx="ai-c">
-                    <i gnrl="c-white" class="fa fa-flag" aria-hidden="true"></i>
-                    <div gnrl="txt-s c-white">Report</div>
+                <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer" gnrl="b-1 br-1" color="bg-warning brc-muted" hvr-a="bg-danger" flx="ai-c">
+                    <i color="c-white" class="fa fa-flag" aria-hidden="true"></i>
+                    <div gnrl="txt-s" color="c-white">Report</div>
                 </div>
             {% endif %}
           {% endif %}
