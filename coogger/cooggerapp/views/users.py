@@ -38,10 +38,10 @@ class UserClassBased(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         user = authenticate(username=username)
-        if self.request.community_model.name == "coogger":
+        if self.request.dapp_model.name == "coogger":
             queryset = self.ctof(user=user, status="approved")
         else:
-            queryset = self.ctof(community=self.request.community_model, user=user, status="approved")
+            queryset = self.ctof(dapp=self.request.dapp_model, user=user, status="approved")
         info_of_cards = paginator(self.request, queryset)
         context = super(UserClassBased, self).get_context_data(**kwargs)
         context["content"] = info_of_cards
@@ -57,10 +57,10 @@ class UserTopic(UserClassBased):
     def get_context_data(self, utopic, username, **kwargs):
         context = super(UserTopic, self).get_context_data(username, **kwargs)
         user = context["content_user"]
-        if self.request.community_model.name == "coogger":
+        if self.request.dapp_model.name == "coogger":
             queryset = self.ctof(user=user, topic=utopic, status="approved")
         else:
-            queryset = self.ctof(community=self.request.community_model, user=user, topic=utopic, status="approved")
+            queryset = self.ctof(dapp=self.request.dapp_model, user=user, topic=utopic, status="approved")
         info_of_cards = paginator(self.request, queryset)
         context["user_follow"] = users_web(user)
         context["nameoftopic"] = utopic
@@ -80,10 +80,10 @@ class UserAboutBaseClass(View):
             about_form = self.form_class(request.GET or None, instance=query)
         else:
             about_form = query.about
-        if self.request.community_model.name == "coogger":
+        if self.request.dapp_model.name == "coogger":
             queryset = Content.objects.filter(user=user, status="approved")
         else:
-            queryset = Content.objects.filter(user=user, status="approved", community=request.community_model)
+            queryset = Content.objects.filter(user=user, status="approved", dapp=request.dapp_model)
         context = {}
         context["about"] = about_form
         context["content_user"] = user
@@ -111,10 +111,10 @@ class UserComment(TemplateView):
     def get_context_data(self, username, **kwargs):
         context = super(UserComment, self).get_context_data(**kwargs)
         user = authenticate(username=username)
-        if self.request.community_model.name == "coogger":
+        if self.request.dapp_model.name == "coogger":
             queryset = Content.objects.filter(user=user, status="approved")
         else:
-            queryset = Content.objects.filter(user=user, status="approved", community=self.request.community_model)
+            queryset = Content.objects.filter(user=user, status="approved", dapp=self.request.dapp_model)
         context["user_follow"] = users_web(user)
         context["content_user"] = user
         context["topics"] = user_topics(queryset)

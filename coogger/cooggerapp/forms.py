@@ -7,7 +7,7 @@ from cooggerapp.choices import *
 # models
 from cooggerapp.models import (
     Content, OtherAddressesOfUsers, OtherInformationOfUsers,
-    ReportModel, CategoryofCommunity)
+    ReportModel, CategoryofDapp)
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -16,7 +16,7 @@ class ContentForm(forms.ModelForm):
 
     def __init__(self, request=None, *args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
-        if request.community_model is not None:
+        if request.dapp_model is not None:
             self.fields["language"].choices = make_choices(languages)
             self.fields["category"].choices = request.categories
 

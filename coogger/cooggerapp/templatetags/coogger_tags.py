@@ -3,7 +3,7 @@ from urllib.parse import quote_plus
 
 # cooggerapp
 from cooggerapp.choices import *
-from cooggerapp.models import Community,Content
+from cooggerapp.models import Dapp, Content
 
 from django import template
 register = template.Library()
@@ -24,11 +24,11 @@ def json(value, arg):
 
 @register.filter(name="hmanycontent")
 def hmanycontent(value, arg):
-    community_model = Community.objects.filter(host_name = arg)[0]
-    if community_model.name == "coogger":
+    dapp_model = Dapp.objects.filter(host_name = arg)[0]
+    if dapp_model.name == "coogger":
         hmanycontent = len(Content.objects.filter(user = value,status = "approved"))
     else:
-        hmanycontent = len(Content.objects.filter(community = community_model,user = value,status = "approved"))
+        hmanycontent = len(Content.objects.filter(dapp = dapp_model,user = value,status = "approved"))
     return hmanycontent
 
 @register.filter(name="twitter")

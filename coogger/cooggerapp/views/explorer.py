@@ -25,10 +25,10 @@ class Hashtag(TemplateView):
 
     def get_context_data(self, hashtag, **kwargs):
         if hashtag != "":
-            if self.request.community_model.name == "coogger":
+            if self.request.dapp_model.name == "coogger":
                 queryset = Content.objects.filter(tag__contains=hashtag, status="approved")
             else:
-                queryset = Content.objects.filter(community=self.request.community_model, tag__contains=hashtag, status="approved")
+                queryset = Content.objects.filter(dapp=self.request.dapp_model, tag__contains=hashtag, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Hashtag, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
@@ -41,10 +41,10 @@ class Userlist(TemplateView):
 
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
-            if self.request.community_model.name == "coogger":
+            if self.request.dapp_model.name == "coogger":
                 queryset = Content.objects.filter(topic__contains=list_, status="approved")
             else:
-                queryset = Content.objects.filter(community=self.request.community_model, topic__contains=list_, status="approved")
+                queryset = Content.objects.filter(dapp=self.request.dapp_model, topic__contains=list_, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Userlist, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
@@ -58,10 +58,10 @@ class Languages(TemplateView):
 
     def get_context_data(self, lang_name, **kwargs):
         if lang_name != "":
-            if self.request.community_model.name == "coogger":
+            if self.request.dapp_model.name == "coogger":
                 queryset = Content.objects.filter(language=lang_name, status="approved")
             else:
-                queryset = Content.objects.filter(community=self.request.community_model, language=lang_name, status="approved")
+                queryset = Content.objects.filter(dapp=self.request.dapp_model, language=lang_name, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Languages, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
@@ -75,10 +75,10 @@ class Categories(TemplateView):
 
     def get_context_data(self, cat_name, **kwargs):
         if cat_name != "":
-            if self.request.community_model.name == "coogger":
+            if self.request.dapp_model.name == "coogger":
                 queryset = self.ctof(category=cat_name, status="approved")
             else:
-                queryset = self.ctof(community=self.request.community_model, category=cat_name, status="approved")
+                queryset = self.ctof(dapp=self.request.dapp_model, category=cat_name, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Categories, self).get_context_data(**kwargs)
             context["content"] = info_of_cards

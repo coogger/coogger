@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 # models
-from steemconnect_auth.models import SteemConnectUser, Community
+from steemconnect_auth.models import SteemConnectUser, Dapp
 from cooggerapp.models import OtherInformationOfUsers
 
 # python steemconnect
@@ -17,12 +17,12 @@ import random
 
 
 def get_client(request):
-    community_model = request.community_model
+    dapp_model = request.dapp_model
     return Client(
-        client_id=community_model.client_id,
-        redirect_url=community_model.redirect_url,
+        client_id=dapp_model.client_id,
+        redirect_url=dapp_model.redirect_url,
         code=True,
-        scope=community_model.scope
+        scope=dapp_model.scope
     )
 
 
@@ -34,9 +34,9 @@ class LoginSignup(View):
 
     def get(self, request, *args, **kwargs):
         code = request.GET["code"]
-        community_model = request.community_model
+        dapp_model = request.dapp_model
         client = get_client(request)
-        tokens = client.get_refresh_token(code, community_model.app_secret)
+        tokens = client.get_refresh_token(code, dapp_model.app_secret)
         username = tokens["username"]
         access_token = tokens["access_token"]
         refresh_token = tokens["refresh_token"]
@@ -51,17 +51,17 @@ class LoginSignup(View):
                 code=code,
                 access_token=access_token,
                 refresh_token=refresh_token,
-                community=community_model,
+                dapp=dapp_model,
                 )
         else:
             SteemConnectUser(
                 user=user, code=code,
                 access_token=access_token,
                 refresh_token=refresh_token,
-                community=community_model,
+                dapp=dapp_model,
                 ).save()
         login(request, user, backend="django.contrib.auth.backends.ModelBackend")
-        return HttpResponseRedirect(community_model.login_redirect)
+        return HttpResponseRedirect(dapp_model.login_redirect)
 
 
 class Logout(View):

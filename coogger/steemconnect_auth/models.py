@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from django_md_editor.models import EditorMdField
 
-class Community(models.Model):
+class Dapp(models.Model):
     name = models.CharField(max_length=20, unique=True)
     host_name = models.CharField(max_length=30, unique=True)
     redirect_url = models.CharField(max_length=400, unique=True)
@@ -26,12 +26,12 @@ class Community(models.Model):
 
 
 class Mods(models.Model):
-    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @property
-    def community_name(self):
-        return self.community.name
+    def dapp_name(self):
+        return self.dapp.name
 
     @property
     def username(self):
@@ -40,7 +40,7 @@ class Mods(models.Model):
 
 class SteemConnectUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    community = models.ForeignKey(Community, on_delete=models.CASCADE, help_text="community", default=1)
+    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE, help_text="dapp", default=1)
     refresh_token = models.CharField(max_length=500, help_text="steemconnect user code / to get get_refresh_token")
     code = models.CharField(max_length=500, help_text="steemconnect user code / to get get_refresh_token")
     access_token = models.CharField(max_length=500, help_text="steemconnect user access_token to any operations")
@@ -56,18 +56,18 @@ class SteemConnectUser(models.Model):
         return self.user.username
 
     @property
-    def community_name(self):
-        return self.community.name
+    def dapp_name(self):
+        return self.dapp.name
 
 
-class CommunitySettings(models.Model):
-    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+class DappSettings(models.Model):
+    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
     beneficiaries = models.FloatField(default=0,
         verbose_name="Support Coogger ecosystem with beneficiaries"
     )
 
 
-class CategoryofCommunity(models.Model):
-    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+class CategoryofDapp(models.Model):
+    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
     category_name = models.CharField(max_length=50, verbose_name="Category name")
     editor_template = EditorMdField(blank=True, null=True)

@@ -42,9 +42,9 @@ In this post I will present the following topics:
 - Vision
 - Mission
 - New features of coogger?
-- How I build a community using coogger?
-- How I can set my community settings?
-- How can I share post any community which builds using coogger?
+- How I build a dapp using coogger?
+- How I can set my dapp settings?
+- How can I share post any dapp which builds using coogger?
 - Roadmap
 
 ### What is coogger?
@@ -64,7 +64,7 @@ A few friends had shared content after I took to live the project. I was thinkin
 
 
 ### Mission
-I'm constantly updating the coogger project to reach my main goal and trying to get the missing features as soon as possible, plus I'm trying to provide community leaders and moderators with easier, faster and more reliable community management services.
+I'm constantly updating the coogger project to reach my main goal and trying to get the missing features as soon as possible, plus I'm trying to provide dapp leaders and moderators with easier, faster and more reliable dapp management services.
 
 ### New features of coogger?
 I share all of the Coogger updates as the utopian contribution, so I want to leave addresses instead of writing long in order not to bother you.
@@ -75,24 +75,24 @@ I share all of the Coogger updates as the utopian contribution, so I want to lea
 - [Coogger Update | Admin Interface - Share Button - Coogger.reward - Editor Templates and Desing](https://www.coogger.com/@hakancelik/coogger-update-admin-interface-share-button-cooggerreward-editor-templates-and-desing/)
 - [Coogger Updates - All steem accounts and posts can viewable | Wallet, Comments, Activity | Donate Section | Comment, Reply Section](https://www.coogger.com/@hakancelik/coogger-updates-all-steem-accounts-and-posts-can-viewable-wallet-comments-activity-donate-section-comment-reply-section/)
 
-### How I build a community using coogger?
-Now users can't create a community directly from coogger.com. I'm trying to do this automatically. I hope I can get this done automatically with the next update.
+### How I build a dapp using coogger?
+Now users can't create a dapp directly from coogger.com. I'm trying to do this automatically. I hope I can get this done automatically with the next update.
 
-for now, Users who want to build a community using coogger must contact me, then I create a community on [admin community build section](https://www.coogger.com/admin/django_steemconnect/community/) and I set this user as a community manager, and finally, They can enter the admin section and they can edit own community settings, after that their communities sites is live.
+for now, Users who want to build a dapp using coogger must contact me, then I create a dapp on [admin dapp build section](https://www.coogger.com/admin/django_steemconnect/dapp/) and I set this user as a dapp manager, and finally, They can enter the admin section and they can edit own dapp settings, after that their communities sites is live.
 
-> Note: Community leaders have to a steemconnect application.
+> Note: dapp leaders have to a steemconnect application.
 
-<hr>If community leaders want to add custom domain like example.com, I give them cname for that, but They don't want to I will set domain name like example.coogger.com
+<hr>If dapp leaders want to add custom domain like example.com, I give them cname for that, but They don't want to I will set domain name like example.coogger.com
 
-<ceter>![coogger community.PNG](https://cdn.steemitimages.com/DQmTcmeMHHfjzSWeAeJzmjy8ZLvJ6PVnhBt5pLYhwztNbXb/coogger%20community.PNG)</ceter>
+<ceter>![coogger dapp.PNG](https://cdn.steemitimages.com/DQmTcmeMHHfjzSWeAeJzmjy8ZLvJ6PVnhBt5pLYhwztNbXb/coogger%20community.PNG)</ceter>
 
 In addition, You can see  Other [*Communities Built Using The Coogger Ecosystem*](https://www.coogger.com/communities/) this address by visiting.
 
 > Note : Only active communities appear.
 
-### How I can set my community settings?
+### How I can set my dapp settings?
 
-Community leaders and mods can edit, create or delete own community settings
+Dapp leaders and mods can edit, create or delete own dapp settings
 For example :
 - Categories and category templates
 - Steemconnect app secret
@@ -111,12 +111,12 @@ For example :
 
 For more detail of these operations read as below:
 
-- [ADMIN SECTİON FOR COMMUNITY LEADERS](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_COMMUNITY_LEADERS.md)
+- [ADMIN SECTİON FOR DAPP LEADERS](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_DAPP_LEADERS.md)
 - [ADMIN SECTİON FOR MODS](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_MODS.md)
 
-### How can I share post any community which builds using coogger?
+### How can I share post any dapp which builds using coogger?
 
-Post any community which builds using coogger is very easy because of category template.
+Post any dapp which builds using coogger is very easy because of category template.
 
 I give an example using this address, do not forget the topics I'll describe now are the same for all coogger communities sites :
 - [https://www.coogger.com/](https://www.coogger.com/)
@@ -147,9 +147,9 @@ Since coogger.com is the main site, all contents which shared on other communiti
 ### Roadmap
 I have a few plans to bring the coogger project to better places, I have written a few of them below.
 
-- I am planning to make community building on coogger through user friendly form.
+- I am planning to make dapp building on coogger through user friendly form.
 - I'm thinking about improving the comments section and making it more user friendly.
-- Different community building plans.
-- Different community templates
+- Different dapp building plans.
+- Different dapp templates
 
 <hr><span gnrl="c-secondary txt-s">Thanks for reading, please feel free to comment, resteem, upvote or support if you like coogger project or my effort.</span>

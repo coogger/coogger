@@ -1,6 +1,6 @@
-### New community creation rules in coogger ecosystem
-- The community accepts all the rules of the coogger ecosystem.
-- Community managers' only role for the coogger ecosystem should be interested in their community.
+### New dapp creation rules in coogger ecosystem
+- The dapp accepts all the rules of the coogger ecosystem.
+- Dapp managers' only role for the coogger ecosystem should be interested in their dapp.
 
 ### Content posting rules
 
@@ -12,18 +12,18 @@
 
 ### Coogger pricing
 
-- Community leaders must send $10 dollars per month to the @coogger.wallet account as SBD/STEEM.
+- Dapp leaders must send $10 dollars per month to the @coogger.wallet account as SBD/STEEM.
 - $10 dollars are used for maintenance, service and server fee.
 - Payments must be send on the 10th of every month.
 -------
 
 #### If you accept these rules, you must send a commit to this file as write
 ```
-I understand and accept to all the rules <community_name> | < @community_manager_username >
+I understand and accept to all the rules <dapp_name> | < @dapp_manager_username >
 ```
 
->Then check 
-- [ADMIN_SECTİON_FOR_COMMUNITY_LEADERS.md](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_COMMUNITY_LEADERS.md)
+>Then check
+- [ADMIN_SECTİON_FOR_DAPP_LEADERS.md](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_DAPP_LEADERS.md)
 - [ADMIN_SECTİON_FOR_MODS.md](https://github.com/coogger/coogger/blob/super-coogger/ADMIN_SECT%C4%B0ON_FOR_MODS.md)
 -----------------------
 

@@ -17,7 +17,7 @@ from cooggerapp.forms import ReportsForm
 
 # models
 from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers
-from steemconnect_auth.models import Community, SteemConnectUser
+from steemconnect_auth.models import Dapp, SteemConnectUser
 
 # views
 from cooggerapp.views.tools import paginator
@@ -35,10 +35,10 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        if self.request.community_model.name == "coogger":
+        if self.request.dapp_model.name == "coogger":
             queryset = Content.objects.filter(status="approved")
         else:
-            queryset = Content.objects.filter(community=self.request.community_model, status="approved")
+            queryset = Content.objects.filter(dapp=self.request.dapp_model, status="approved")
         context["content"] = paginator(self.request, queryset)
         return context
 
@@ -49,7 +49,7 @@ class Feed(View):  # TODO:  sorunlu
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):  # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         queryset = []
-        for q in Content.objects.filter(community=request.community_model, status="approved"):
+        for q in Content.objects.filter(dapp=request.dapp_model, status="approved"):
             if q.user.username in self.steem_following(username=request.user.username):
                 queryset.append(q)
         info_of_cards = paginator(request, queryset)
@@ -57,7 +57,7 @@ class Feed(View):  # TODO:  sorunlu
             content=info_of_cards,
         )
         if queryset == []:
-            ms.error(request, "You do not follow anyone yet on {}.".format(request.community_model.name))
+            ms.error(request, "You do not follow anyone yet on {}.".format(request.dapp_model.name))
         return render(request, self.template_name, context)
 
     def steem_following(self, username):  # TODO: fixed this section,limit = 100 ?
@@ -71,10 +71,10 @@ class Review(View):
     def get(self, request, *args, **kwargs):
         # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         q = Q(status="shared") | Q(status="changed")
-        if self.request.community_model.name == "coogger":
+        if self.request.dapp_model.name == "coogger":
             queryset = Content.objects.filter(q)
         else:
-            queryset = Content.objects.filter(q).filter(community=request.community_model)
+            queryset = Content.objects.filter(q).filter(dapp=request.dapp_model)
         info_of_cards = paginator(request, queryset)
         context = dict(
             content=info_of_cards,
@@ -98,10 +98,10 @@ class Search(TemplateView):
     def search_algorithm(self):
         searched_data = self.get_form_data()
         q = Q(title__contains=searched_data) | Q(topic__contains=searched_data) | Q(content__contains=searched_data)
-        if self.request.community_model.name == "coogger":
+        if self.request.dapp_model.name == "coogger":
             queryset = Content.objects.filter(q, status="approved").order_by("-views")
         else:
-            queryset = Content.objects.filter(q, community=self.request.community_model, status="approved").order_by("-views")
+            queryset = Content.objects.filter(q, dapp=self.request.dapp_model, status="approved").order_by("-views")
         return queryset
 
     def get_queryset(self):
@@ -140,13 +140,13 @@ class Report(View):
         return HttpResponse(self.get(request, *args, **kwargs))
 
 
-class Communities(TemplateView):
-    template_name = "home/communities.html"
+class Dapps(TemplateView):
+    template_name = "home/dapps.html"
 
     def get_context_data(self, **kwargs):
-        context = super(Communities, self).get_context_data(**kwargs)
-        queryset = Community.objects.filter(active=True)
-        context["communities"] = queryset
+        context = super(Dapps, self).get_context_data(**kwargs)
+        queryset = Dapp.objects.filter(active=True)
+        context["dapps"] = queryset
         return context
 
 class Supporters(TemplateView):

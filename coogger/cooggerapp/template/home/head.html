@@ -7,7 +7,7 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="{{ request.community_model.icon_address }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ request.dapp_model.icon_address }}" type="image/x-icon" />
     <title>{{ request.head.title|truncatechars:55 }}</title>
     <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}" />
     <meta property="og:site_name" content="{{ request.head.title|truncatechars:55 }}" />
@@ -68,12 +68,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous"> {% if request.user.is_authenticated %}
     <script>
         const scope_list = [];
-          {% for scope in request.user.steemconnectuser.community.scope|split:"," %}
+          {% for scope in request.user.steemconnectuser.dapp.scope|split:"," %}
             scope_list.push("{{ scope }}")
             {% endfor %}
             var api = sc2.Initialize({
-              app: "{{ request.user.steemconnectuser.community.name  }}.app",
-              callbackURL: "{{ request.user.steemconnectuser.community.redirect_url }}",
+              app: "{{ request.user.steemconnectuser.dapp.name  }}.app",
+              callbackURL: "{{ request.user.steemconnectuser.dapp.redirect_url }}",
               accessToken: "{{ request.user.steemconnectuser.access_token }}",
               scope: scope_list,
             });

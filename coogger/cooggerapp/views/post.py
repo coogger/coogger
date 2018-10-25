@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 # models
-from cooggerapp.models import Content, CategoryofCommunity
+from cooggerapp.models import Content, CategoryofDapp
 
 # form
 from cooggerapp.forms import ContentForm
@@ -31,14 +31,14 @@ class Create(View):
         category_name = request.GET.get("category", None)
         category_content = ""
         if category_name is not None:
-            community_model = request.community_model
-            if community_model.name == "coogger":
-                category_content = CategoryofCommunity.objects.get(
+            dapp_model = request.dapp_model
+            if dapp_model.name == "coogger":
+                category_content = CategoryofDapp.objects.get(
                     category_name=category_name
                 ).editor_template
             else:
-                category_content = CategoryofCommunity.objects.get(
-                    community=community_model, category_name=category_name
+                category_content = CategoryofDapp.objects.get(
+                    dapp=dapp_model, category_name=category_name
                 ).editor_template
         form = ContentForm(
             request=request,
@@ -69,8 +69,8 @@ class Change(View):
 
     @method_decorator(login_required)
     def get(self, request, content_id, *args, **kwargs):
-        community_model = request.community_model
-        queryset = Content.objects.filter(community=community_model, user=request.user, id=content_id)
+        dapp_model = request.dapp_model
+        queryset = Content.objects.filter(dapp=dapp_model, user=request.user, id=content_id)
         if queryset.exists():
             queryset = queryset[0]
             self.content_update(request, content_id)
@@ -84,8 +84,8 @@ class Change(View):
 
     @method_decorator(login_required)
     def post(self, request, content_id, *args, **kwargs):
-        community_model = request.community_model
-        if Content.objects.filter(community=community_model, user=request.user, id=content_id).exists():
+        dapp_model = request.dapp_model
+        if Content.objects.filter(dapp=dapp_model, user=request.user, id=content_id).exists():
             form = ContentForm(data=request.POST, request=request)
             maybe_error_form = form
             if form.is_valid():

@@ -13,11 +13,11 @@ from django.core.exceptions import FieldError
 # api serializers
 from cooggerapi.serializers import (
     UserSerializer, ContentsSerializer, SteemConnectUserSerializer,
-    CommunitySerializer)
+    DappSerializer)
 
 # models
 from cooggerapp.models import (Content, OtherInformationOfUsers)
-from steemconnect_auth.models import SteemConnectUser, Community
+from steemconnect_auth.models import SteemConnectUser, Dapp
 
 
 class SteemConnectUserApi(APIView):
@@ -78,9 +78,9 @@ class ContentApi(SteemConnectUserApi):
         pass
 
 
-class CommunityApi(APIView):
-    model = Community
-    serialize = CommunitySerializer
+class DappApi(APIView):
+    model = Dapp
+    serialize = DappSerializer
     permission_classes = [ApiPermission]
 
     def get(self, request, client_id):

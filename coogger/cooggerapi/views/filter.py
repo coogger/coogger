@@ -10,13 +10,13 @@ from django.core.exceptions import FieldError
 # api serializers
 from cooggerapi.serializers import (
     UserSerializer, ContentsSerializer, SteemConnectUserSerializer,
-    SearchedWordsSerializer, OtherAddressesOfUsersSerializer, CommunitySerializer)
+    SearchedWordsSerializer, OtherAddressesOfUsersSerializer, DappSerializer)
 
 # models
 from cooggerapp.models import (Content,
     OtherInformationOfUsers, SearchedWords,
     OtherAddressesOfUsers)
-from steemconnect_auth.models import Community, SteemConnectUser
+from steemconnect_auth.models import Dapp, SteemConnectUser
 
 
 class UserFilter(ModelViewSet):
@@ -58,7 +58,7 @@ class OtherAddressesOfUsersFilter(UserFilter):
     serializer_class = OtherAddressesOfUsersSerializer
 
 
-class CommunityFilter(UserFilter):
-    model = Community
+class DappFilter(UserFilter):
+    model = Dapp
     queryset = model.objects.all()
-    serializer_class = CommunitySerializer
+    serializer_class = DappSerializer

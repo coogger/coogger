@@ -1,10 +1,10 @@
 {% load django_md_editor_tags %} {% include 'home/head.html' %} {% include 'home/header.html' %}
 
-<div class="communities-ms header-bottom" gnrl="txt-xl center" flx="fw-w">
-  {{ "other communities built using the coogger ecosystem."|title }}
+<div class="dapps-ms header-bottom" gnrl="txt-xl center" flx="fw-w">
+  {{ "other dapps built using the coogger projects."|title }}
 </div>
 <div flx="fw-w fd-c" gnrl="center txt-m" style="margin: 14px auto;" default="media">
-  {% for com in communities %}
+  {% for com in dapps %}
   <div flx style="height: auto;word-break: break-word;padding: 14px;" gnrl="b-1 brc-muted">
       <div style="padding: 6px" flx="ai-c fd-c">
         <img flx="ai-c" src="{{ com.image }}" style="max-width:  256px;max-height: 256px;"/>

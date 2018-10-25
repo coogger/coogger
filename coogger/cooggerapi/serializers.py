@@ -4,7 +4,7 @@ from rest_framework import serializers
 from cooggerapp.models import (
     Content, OtherInformationOfUsers,
     SearchedWords, OtherAddressesOfUsers)
-from steemconnect_auth.models import SteemConnectUser, Community
+from steemconnect_auth.models import SteemConnectUser, Dapp
 
 
 class SearchedWordsSerializer(serializers.ModelSerializer):
@@ -21,10 +21,10 @@ class OtherAddressesOfUsersSerializer(serializers.ModelSerializer):
         fields = ("username", "choices", "adress")
 
 
-class CommunitySerializer(serializers.ModelSerializer):
+class DappSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Community
+        model = Dapp
         fields = ("name", "host_name", "redirect_url",
                   "client_id", "app_secret", "login_redirect",
                   "scope", "icon_address", "ms", "management_user", "management","active")
@@ -40,8 +40,8 @@ class SteemConnectUserSerializer(serializers.ModelSerializer):
             "access_token",
             "refresh_token",
             "code",
-            "community",
-            "community_name"
+            "dapp",
+            "dapp_name"
             )
 
 
@@ -68,8 +68,8 @@ class ContentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
         fields = (
-            "community",
-            "community_name",
+            "dapp",
+            "dapp_name",
             "user",
             'username',
             'title',

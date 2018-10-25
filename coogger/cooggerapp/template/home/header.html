@@ -3,8 +3,8 @@
   <div style="overflow: auto;">
     <div flx="fw-nw jc-c" gnrl="txt-m wmax ewcenter">
       <a flx="jc-c ai-c" href="/" gnrl="c-dark">
-        <img src="{{ request.community_model.icon_address }}" gnrl="br-circle" style="width:  48px;height:  48px;padding: 0px 6px;">
-        {{ request.community_model.name }} - <span gnrl="txt-xs">Beta</span></img>
+        <img src="{{ request.dapp_model.icon_address }}" gnrl="br-circle" style="width:  48px;height:  48px;padding: 0px 6px;">
+        {{ request.dapp_model.name }} - <span gnrl="txt-xs">Beta</span></img>
       </a>
       <div flx="ai-c" class="search just-pc">
         <form action="{% url 'search' %}">
@@ -109,8 +109,8 @@
   </div>
   <div flx="jc-fe">
     <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m c-secondary"
-    href="{% url 'communities' %}">
-      Communities
+    href="{% url 'dapps' %}">
+      Dapps
       <i flx="as-c" class="fab fa-connectdevelop"></i>
     </a>
   </div>

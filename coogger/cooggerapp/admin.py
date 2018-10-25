@@ -8,7 +8,7 @@ from django.http import Http404
 #models
 from cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
     ReportModel, OtherInformationOfUsers)
-from steemconnect_auth.models import Mods, Community
+from steemconnect_auth.models import Mods, Dapp
 
 # forms
 from cooggerapp.forms import ContentForm
@@ -21,7 +21,7 @@ import datetime
 
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["community_name","user","permlink",
+    list_ = ["dapp_name","user","permlink",
             "topic", "mod","cooggerup","status"]
     list_display = list_
     list_display_links = list_
@@ -38,8 +38,8 @@ class ContentAdmin(ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        community_model = Community.objects.filter(management=request.user)[0]
-        return qs.filter(community = community_model)
+        dapp_model = Dapp.objects.filter(management=request.user)[0]
+        return qs.filter(dapp = dapp_model)
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
@@ -95,7 +95,7 @@ class OtherInfoUsersAdmin(ModelAdmin):
         if request.user.is_superuser:
             super(OtherInfoUsersAdmin, self).save_model(request, obj, form, change)
         else:
-            raise Http404 # mods or community leader cant change
+            raise Http404 # mods or dapp leader cant change
 
 
 site.register(Content,ContentAdmin)

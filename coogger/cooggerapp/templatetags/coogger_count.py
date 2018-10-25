@@ -19,7 +19,7 @@ def language_count(value, arg):
     if arg.name == "coogger":
         queryset = Content.objects.filter(language = value, status="approved")
     else:
-        queryset = Content.objects.filter(language = value, status="approved", community=arg)
+        queryset = Content.objects.filter(language = value, status="approved", dapp=arg)
     count = queryset.count()
     return count
 
@@ -28,6 +28,6 @@ def categories_count(value, arg):
     if arg.name == "coogger":
         queryset = Content.objects.filter(category = value, status="approved")
     else:
-        queryset = Content.objects.filter(category = value, status="approved", community=arg)
+        queryset = Content.objects.filter(category = value, status="approved", dapp=arg)
     count = queryset.count()
     return count

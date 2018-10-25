@@ -19,23 +19,23 @@ class Head(object):
         last_path = request.path_info.split("/")[-2]
         start_path = request.path_info.split("/")[1]
         url_name = resolve(request.path_info).url_name
-        community_name = request.community_model.name
+        dapp_name = request.dapp_model.name
         if url_name == "category":
-            setattr(self, "title", f"Latest post on {community_name} from {last_path} category")
+            setattr(self, "title", f"Latest post on {dapp_name} from {last_path} category")
             setattr(self, "keywords", f"{last_path}, coogger categories,categories,category")
-            setattr(self, "description", f"Latest post on {community_name} from {last_path} category")
+            setattr(self, "description", f"Latest post on {dapp_name} from {last_path} category")
             # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "/static/media/topics/category.svg")
         elif url_name == "language":
-            setattr(self, "title", f"Latest post on {community_name} from {last_path} language")
+            setattr(self, "title", f"Latest post on {dapp_name} from {last_path} language")
             setattr(self, "keywords", "coogger languages,languages")
-            setattr(self, "description", f"Latest post on {community_name} from {last_path} language")
+            setattr(self, "description", f"Latest post on {dapp_name} from {last_path} language")
             # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "/static/media/topics/language.svg")
         elif url_name == "user":
-            setattr(self, "title", f"The latest posts from {last_path} on {community_name}")
+            setattr(self, "title", f"The latest posts from {last_path} on {dapp_name}")
             setattr(self, "keywords", f"{last_path}, coogger {last_path}")
-            setattr(self, "description", f"The latest posts from {last_path} on {community_name}")
+            setattr(self, "description", f"The latest posts from {last_path} on {dapp_name}")
             # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "https://steemitimages.com/u/{}/avatar".format(last_path.replace("@", "")))
         elif url_name == "userabout":
@@ -57,9 +57,9 @@ class Head(object):
             # setattr(self, "author", "coogger {} category".format(last_path))
             # setattr(self, "image", "coogger {} category".format(last_path))
         elif url_name == "review":
-            setattr(self, "title", "latest posts pending approval on {}".format(community_name))
+            setattr(self, "title", "latest posts pending approval on {}".format(dapp_name))
             setattr(self, "keywords", "review,coogger review,approval".format(last_path))
-            setattr(self, "description", "latest posts pending approval on {}".format(community_name))
+            setattr(self, "description", "latest posts pending approval on {}".format(dapp_name))
             # setattr(self, "author", "coogger {} category".format(last_path))
             # setattr(self, "image", "coogger {} category".format(last_path))
         elif url_name == "settings":
@@ -82,18 +82,18 @@ class Head(object):
             setattr(self, "description", description)
             setattr(self, "image", self.get_image(POST.body))
         elif url_name == "hashtag":
-            setattr(self, "title", "{} lates post from '{}' hashtag.".format(community_name, last_path))
-            setattr(self, "keywords", "{}, {} hashtag".format(last_path, community_name))
-            setattr(self, "description", "{} lates post from '{}' hashtag.".format(community_name, last_path))
+            setattr(self, "title", "{} lates post from '{}' hashtag.".format(dapp_name, last_path))
+            setattr(self, "keywords", "{}, {} hashtag".format(last_path, dapp_name))
+            setattr(self, "description", "{} lates post from '{}' hashtag.".format(dapp_name, last_path))
             # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "/static/media/icons/list.svg")
         elif url_name == "home":
-            community = request.community_model
-            setattr(self, "title", "{} | coogger".format(community.name))
-            setattr(self, "keywords", "{}, coogger ecosystem,coogger/{}".format(community.name, community.name))
-            setattr(self, "description", community.definition)
-            setattr(self, "author", f"https://www.facebook.com/{community.name}")
-            setattr(self, "image", community.image)
+            dapp = request.dapp_model
+            setattr(self, "title", "{} | coogger".format(dapp.name))
+            setattr(self, "keywords", "{}, coogger ecosystem,coogger/{}".format(dapp.name, dapp.name))
+            setattr(self, "description", dapp.definition)
+            setattr(self, "author", f"https://www.facebook.com/{dapp.name}")
+            setattr(self, "image", dapp.image)
 
     def get_soup(self, text):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)

@@ -26,12 +26,12 @@ import mistune
 
 from django_md_editor.models import EditorMdField
 from steemconnect_auth.models import (
-    SteemConnectUser, Community,
-    CategoryofCommunity, CommunitySettings)
+    SteemConnectUser, Dapp,
+    CategoryofDapp, DappSettings)
 
 
 class Content(models.Model):
-    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name="Title",
         help_text="Be sure to choose the best title related to your content."
@@ -44,7 +44,7 @@ class Content(models.Model):
     language = models.CharField(max_length=30, choices=make_choices(languages),
         help_text=" The language of your content"
     )
-    all_categories = [category.category_name for category in CategoryofCommunity.objects.all()]
+    all_categories = [category.category_name for category in CategoryofDapp.objects.all()]
     # all_categories = ""
     category = models.CharField(max_length=30,
         choices=make_choices(all_categories),
@@ -78,8 +78,8 @@ class Content(models.Model):
         return self.mod.username
 
     @property
-    def community_name(self):
-        return self.community.name
+    def dapp_name(self):
+        return self.dapp.name
 
     @staticmethod
     def prepare_definition(text):
@@ -119,7 +119,7 @@ class Content(models.Model):
             pass
 
     def content_save(self, request, *args, **kwargs):
-        self.community = request.community_model
+        self.dapp = request.dapp_model
         self.tag = self.ready_tags()
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
@@ -135,7 +135,7 @@ class Content(models.Model):
         return steem_save
 
     def content_update(self, queryset, content):
-        self.community = queryset[0].community
+        self.dapp = queryset[0].dapp
         self.user = queryset[0].user
         self.title = content.title
         self.tag = self.ready_tags(limit=5)
@@ -156,7 +156,7 @@ class Content(models.Model):
     def steemconnect_post(self, permlink, json_metadata):
         def_name = json_metadata
         if json_metadata == "save":
-            self.content += "\n"+self.community.ms.format(self.get_absolute_url())
+            self.content += "\n"+self.dapp.ms.format(self.get_absolute_url())
         json_metadata = {
             "format": "markdown",
             "tags": self.tag.split(),
@@ -164,7 +164,7 @@ class Content(models.Model):
             "ecosystem": {
                 "name": "coogger",
                 "version": "1.4.0",
-                "community": self.community.name,
+                "dapp": self.dapp.name,
                 "topic": self.topic,
                 "category": self.category,
                 "language": self.language,
@@ -172,7 +172,7 @@ class Content(models.Model):
         }
         comment = Comment(
             parent_author = "",
-            parent_permlink=self.community.name,
+            parent_permlink=self.dapp.name,
             author=str(self.user.username),
             permlink=permlink,
             title=self.title,
@@ -193,26 +193,26 @@ class Content(models.Model):
             access_token = steem_connect_user[0].access_token
             return SteemConnect(token=access_token, data=operation).run
         except:
-            sc_community_name = steem_connect_user[0].community_name
-            secret = Community.objects.filter(name=sc_community_name)[0].app_secret
+            sc_dapp_name = steem_connect_user[0].dapp_name
+            secret = Dapp.objects.filter(name=sc_dapp_name)[0].app_secret
             access_token = steem_connect_user.set_new_access_token(secret)
             return SteemConnect(token=access_token, data=operation).run
 
     def get_beneficiaries(self):
         beneficiaries = []
-        community_beneficiaries = self.community.beneficiaries
+        dapp_beneficiaries = self.dapp.beneficiaries
         other_user_beneficiaries = OtherInformationOfUsers.objects.filter(user=self.user)[0].beneficiaries
-        community_beneficiaries_for_coogger = CommunitySettings.objects.filter(community=self.community)[0].beneficiaries
-        if community_beneficiaries != 0:
-            if self.community.name != "coogger":
-                beneficiaries.append({"account": self.community.name, "weight": community_beneficiaries*100})
+        dapp_beneficiaries_for_coogger = DappSettings.objects.filter(dapp=self.dapp)[0].beneficiaries
+        if dapp_beneficiaries != 0:
+            if self.dapp.name != "coogger":
+                beneficiaries.append({"account": self.dapp.name, "weight": dapp_beneficiaries*100})
         if other_user_beneficiaries != 0:
-            if community_beneficiaries_for_coogger != 0 and community_beneficiaries_for_coogger>other_user_beneficiaries:
-                beneficiaries.append({"account": "coogger", "weight": community_beneficiaries_for_coogger*100})
+            if dapp_beneficiaries_for_coogger != 0 and dapp_beneficiaries_for_coogger>other_user_beneficiaries:
+                beneficiaries.append({"account": "coogger", "weight": dapp_beneficiaries_for_coogger*100})
             else:
                 beneficiaries.append({"account": "coogger", "weight": other_user_beneficiaries*100})
-        elif community_beneficiaries_for_coogger != 0:
-            beneficiaries.append({"account": "coogger", "weight": community_beneficiaries_for_coogger*100})
+        elif dapp_beneficiaries_for_coogger != 0:
+            beneficiaries.append({"account": "coogger", "weight": dapp_beneficiaries_for_coogger*100})
         return beneficiaries
 
     def ready_tags(self, limit=5):
@@ -229,7 +229,7 @@ class Content(models.Model):
                     tags += slugify(i.lower())+" "
             return tags
         get_tag = self.tag.split(" ")[:limit]
-        get_tag.insert(0, self.community.name)
+        get_tag.insert(0, self.dapp.name)
         return clearly_tags(get_tag)
 
     def new_permlink(self):
