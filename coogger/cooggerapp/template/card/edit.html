@@ -6,11 +6,12 @@
 </div>
 <div flx="jc-c ai-c" color="bg-success" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;">
     {% if ct.user == request.user %}
-    <a flx="ai-c" hvr-a="bg-primary" href="{% url 'change' ct.id  %}" flx="ai-c" style="height: 100%;">
-    <i color="c-white" class="fa fa-edit fa" aria-hidden="true" style="margin-left: 12px;"></i>
-    <div gnrl="txt-s" style="margin-left:6px;">Edit</div>
-  </a> {% endif %} {% if ct.user != request.user %}
-    <div flx="ai-c" class="report" data-content-id="{{ ct.id }}" hvr-a="bg-danger" flx="ai-c" style="height: 100%;cursor:pointer;">
+    <a flx="ai-c" hvr="c-white" color="c-white" href="{% url 'change' ct.id  %}" flx="ai-c" style="height: 100%;">
+      <i class="fa fa-edit fa" aria-hidden="true" style="margin-left: 12px;"></i>
+      <div gnrl="txt-s" style="margin-left:6px;">Edit</div>
+    </a>
+    {% endif %} {% if ct.user != request.user %}
+    <div flx="ai-c" class="report" data-content-id="{{ ct.id }}" color="bg-danger" flx="ai-c" style="height: 100%;cursor:pointer;">
         <i color="c-white" class="fa fa-flag fa" aria-hidden="true" style="margin-left: 12px;"></i>
         <div gnrl="txt-s" color="c-white" style="margin-left:6px;">Report</div>
     </div>

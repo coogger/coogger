@@ -3,7 +3,7 @@
 {% include 'detail/embed/status.html' %}
 <div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
   {% include 'detail/embed/share_social_site.html' %}
-  <div default="paragraph media">
+  <div default="media">
     {% if detail.topic %}
       <div flx="">
           <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}">
