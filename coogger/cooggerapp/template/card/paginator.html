@@ -1,13 +1,13 @@
 {% if content.has_previous or content.has_next %}
 <div flx="jc-c" gnrl="txt-m br-1" style="margin-top: 60px;">
-    <span gnrl="txt-m bg-secondary br-1" style="padding: 6px;">
+    <span gnrl="txt-m br-1" color="bg-secondary" style="padding: 6px;">
     {% if content.has_previous %}
-    <a gnrl="bg-success c-white b-2" href="?page={{ content.previous_page_number }}" style="padding: 6px 12px;">
+    <a gnrl="b-2" color="bg-success c-white" href="?page={{ content.previous_page_number }}" style="padding: 6px 12px;">
       previous
     </a>
     {% endif %}
     <span style="padding: 6px;">{{ content.number }} | {{ content.paginator.num_pages }}</span> {% if content.has_next %}
-    <a gnrl="bg-primary c-white b-2" href="?page={{ content.next_page_number }}" style="padding: 6px 12px;">
+    <a gnrl="b-2" color="bg-primary c-white" href="?page={{ content.next_page_number }}" style="padding: 6px 12px;">
       Next
     </a> {% endif %}
     </span>

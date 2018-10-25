@@ -24,7 +24,7 @@
               else{
                 post_reward_total = pending_payout_value;
               }
-              $(this).html("<i gnrl='c-primary brc-primary br-2 b-1' class='fa fa-thumbs-up'></i>");
+              $(this).html("<i gnrl='br-2 b-1' color='c-primary brc-primary' class='fa fa-thumbs-up'></i>");
               $(`#${id} #post_reward_total`).text(post_reward_total.toFixed(2));
               $(this).attr({'animation':""});
             });
@@ -46,7 +46,7 @@
           for (var vot = 0; vot < active_votes.length; vot++) {
             // Todo ; I must add, if already users upvoted any post and if click again, it must be removed its voted
             if ("{{request.user}}" == active_votes[vot].voter){
-              $(`#${id} #upvote`).html("<i gnrl='c-primary' hvr='c-danger' class='fa fa-thumbs-up'></i>");
+              $(`#${id} #upvote`).html("<i color='c-primary' hvr='c-danger' class='fa fa-thumbs-up'></i>");
               upvoted = true;
               break;
             }
