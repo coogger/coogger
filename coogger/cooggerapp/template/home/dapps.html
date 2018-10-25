@@ -5,13 +5,13 @@
 </div>
 <div flx="fw-w fd-c" gnrl="center txt-m" style="margin: 14px auto;" default="media">
   {% for com in dapps %}
-  <div flx style="height: auto;word-break: break-word;padding: 14px;" gnrl="b-1 brc-muted">
+  <div flx style="height: auto;word-break: break-word;padding: 14px;" gnrl="b-1" color="brc-muted">
       <div style="padding: 6px" flx="ai-c fd-c">
         <img flx="ai-c" src="{{ com.image }}" style="max-width:  256px;max-height: 256px;"/>
         <div>
           <div><strong>Name :</strong> {{ com.name }}</div>
           <div><strong>Definition :</strong> {{ com.definition }}</div>
-          <div><strong>Host name :</strong> <a gnrl="c-primary" href="//{{ com.host_name }}">{{ com.host_name }}</a></div>
+          <div><strong>Host name :</strong> <a color="c-primary" href="//{{ com.host_name }}">{{ com.host_name }}</a></div>
         </div>
       </div>
   </div>

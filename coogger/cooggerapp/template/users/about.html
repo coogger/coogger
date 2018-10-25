@@ -14,13 +14,13 @@
         <input flx="jc-c as-c" default="input" type="submit" value="Share">
     </form>
     {% else %}
-    <div default="paragraph media pm" gnrl="bg-white" style="padding: 4px 12px;">
+    <div default="paragraph media pm" color="bg-white" style="padding: 4px 12px;">
         {% load django_md_editor_tags %} {{ about|detail_load:"about_id"|safe }}
     </div>
     {% endif %}
 </div>
 {% else %}
-<div gnrl="bg-white txt-m center" flx="jc-c ai-c" default="media" style="height:20vh;">
+<div gnrl="txt-m center" color="bg-white" flx="jc-c ai-c" default="media" style="height:20vh;">
     <div gnrl="center" default="media" flx="jc-c">
         Our user has not written an article about himself yet.
     </div>

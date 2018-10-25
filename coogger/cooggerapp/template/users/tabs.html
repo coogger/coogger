@@ -1,29 +1,29 @@
 <div gnrl="center">
-  <div flx="fw-nw" gnrl="b-1 brc-muted" style="padding: 6px 0px;overflow: auto;">
+  <div flx="fw-nw" gnrl="b-1" color="brc-muted" style="padding: 6px 0px;overflow: auto;">
     {% if topics %}
     <div flx="fd-c" class="lists just-mobile" style="cursor:pointer;">
-      <div flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">TOPICS
+      <div flx="as-fs ai-c" gnrl="txt-m wmax" color="c-secondary" hvr="c-primary" style="padding: 3px 6px;">TOPICS
         <i class="fas fa-sitemap"></i>
       </div>
     </div>
     {% endif %}
     <div flx="fd-c">
-      <a href="{% url 'userabout' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">ABOUT
+      <a href="{% url 'userabout' content_user %}" color="c-secondary" flx="as-fs ai-c" gnrl="txt-m wmax" hvr="c-primary" style="padding: 3px 6px;">ABOUT
         <i class="fas fa-file-alt"></i>
       </a>
     </div>
     <div flx="fd-c">
-      <a href="{% url 'comment' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">COMMENTS
+      <a href="{% url 'comment' content_user %}" flx="as-fs ai-c" gnrl="txt-m wmax" color="c-secondary" hvr="c-primary" style="padding: 3px 6px;">COMMENTS
         <i class="fas fa-comments"></i>
       </a>
     </div>
     <div flx="fd-c">
-      <a href="{% url 'wallet' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">WALLET
+      <a href="{% url 'wallet' content_user %}" flx="as-fs ai-c" gnrl="txt-m wmax" color="c-secondary" hvr="c-primary" style="padding: 3px 6px;">WALLET
         <i class="fas fa-wallet"></i>
       </a>
     </div>
     <div flx="fd-c">
-      <a href="{% url 'activity' content_user %}" flx="as-fs ai-c" gnrl="txt-m c-secondary wmax" hvr="c-primary" style="padding: 3px 6px;">ACTIVITY
+      <a href="{% url 'activity' content_user %}" flx="as-fs ai-c" gnrl="txt-m wmax" color="c-secondary" hvr="c-primary" style="padding: 3px 6px;">ACTIVITY
         <i class="fas fa-chart-line"></i>
       </a>
     </div>

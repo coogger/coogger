@@ -62,7 +62,7 @@
     <script src="{% static 'js/general.js' %}"></script>
     <script src="{% static 'js/sc2.min.js' %}"></script>
     <script src="{% static 'js/steem.min.js' %}"></script>
-    <link href="https://cdn.rawgit.com/hakancelik96/63242e5ebb5f64bea570d8c1b476004c/raw/e9bc5b34abb95f612372f50d94b9ed209fd0a16b/coogger.css" rel="stylesheet">
+    <link href="https://rawcdn.githack.com/coogger/coogger.css/f499353d5da6034e9aa482541eaa775bb10863a7/styles/coogger.css" rel="stylesheet">
     <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles/vote.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous"> {% if request.user.is_authenticated %}
@@ -83,12 +83,12 @@
 
 <body font="quicksand" animation="fadeIn">
     {% if messages %} {% include 'home/ms.html' %} {% endif %}
-    <div class="main-messages header-bottom" style="display:none" gnrl="bg-danger c-white">
+    <div class="main-messages header-bottom" style="display:none" color="bg-danger c-white">
         <div flx="ai-c jc-c">
-            <div gnrl="bg-dark c-white br-2" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
+            <div color="bg-dark c-white" gnrl="br-2" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
             <div gnrl="txt-m" flx="jc-c fd-c">
                 <div class="wms"></div>
             </div>
-            <div gnrl="bg-dark c-white br-2" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
+            <div gnrl="br-2" color="bg-dark c-white" class="close-ms" flx="jc-c" style="cursor:pointer;">x</div>
         </div>
     </div>

@@ -2,21 +2,21 @@
 <div class="just-pc" flx="fw-nw" style="position:  relative;top: 0px;margin-left: 5%;">
   <div gnrl="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">
     Other topics of contents of the @{{content_user}} user.</div>
-    <div flx="fd-c" gnrl="bg-white b-1 brc-white txt-m" style="margin: 20px;position: sticky;top: 146px;">
+    <div flx="fd-c" gnrl="b-1 txt-m" color="bg-white brc-white" style="margin: 20px;position: sticky;top: 146px;">
         {% for list in topics %}
         {% if list == nameoftopic %}
-        <div gnrl="bg-success b-1 brc-success br-2">
-            <a flx gnrl="c-white txt-s br-2" href="/{{ list }}/@{{content_user}}" style="padding: 3px 6px;">
+        <div gnrl="b-1 br-2" color="bg-success brc-success">
+            <a flx gnrl="txt-s br-2" color="c-white" href="/{{ list }}/@{{content_user}}" style="padding: 3px 6px;">
              {{ list|title }}
-           <span gnrl="c-secondary">{{ list|topic_count:content_user }}</span>
+           <span color="c-secondary">{{ list|topic_count:content_user }}</span>
          </a>
         </div>
         {% else%}
         <div hvr-a="bg-success" gnrl="br-2 br-2">
-            <a flx gnrl="b-1 brc-muted c-dark txt-s br-2" hvr="c-white brc-dark" href="/{{list}}/@{{content_user}}"
+            <a flx gnrl="b-1 txt-s br-2" color="brc-muted c-dark" hvr="c-white brc-dark" href="/{{list}}/@{{content_user}}"
             style="padding: 3px 6px;">
           {{ list|title }}
-        <span gnrl="c-secondary"> - {{ list|topic_count:content_user }}</span>
+        <span color="c-secondary"> - {{ list|topic_count:content_user }}</span>
       </a>
         </div>
         {% endif %} {% endfor %}
