@@ -1,6 +1,26 @@
 .comment_replies{
   margin-left: 60px;
 }
+.c-definition{
+  margin-top: 68px;
+  height: calc(100% - 240px);
+  width: 100%;
+}
+.c-definition-1{
+  padding: 24px 0px;
+  background-image: url(https://steem.io/img/tokens.svg);
+  background-position: center;
+  background-blend-mode: color;
+  background-repeat: no-repeat;
+  height: 90%;
+  width: 100%;
+}
+footer{
+  margin-top: 60px;
+  padding: 36px 0px;
+  z-index: 0;
+  position: relative;
+}
 header{
   height: 55px;
   padding: 6px;

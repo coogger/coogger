@@ -47,7 +47,9 @@
     </div>
   </div>
 </header>
-<div gnrl="br-2" color="bg-success c-white" flx="jc-c" id="steem_power_bar"></div>
+{% if request.user.is_authenticated %}
+  <div gnrl="br-2" color="bg-success c-white" flx="jc-c" id="steem_power_bar"></div>
+{% endif %}
 <div class="header_menu" gnrl="br-2 b-1 center ewcenter" color="bg-white brc-muted">
   <div flx="jc-fe">
     <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m" color="c-secondary"
@@ -138,3 +140,5 @@
 <div class="closed_header_menu" hvr="bg-danger c-white" gnrl="txt-xxl b-1 br-circle" color="brc-white">
   <strong>X</strong>
 </div>
+<body font="quicksand" animation="fadeIn">
+{% if messages %} {% include 'home/ms.html' %} {% endif %}

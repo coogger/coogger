@@ -1,32 +1,38 @@
-{% include 'home/head.html' %} {% include 'home/header.html' %}
-{% include 'settings/cooggerup_data.html' %}
-<div class="header-bottom" gnrl="center" gnrl="br-2" color="bg-white">
-    <form flx="fd-c" default="form media" gnrl="b-1" color="brc-white" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
-        {% csrf_token %}
-        {{ vote_percent_form }}
-        {{ cooggerup_form }}
-        {{ beneficiaries_percent_form }}
-        {{ address_form }}
-        <input flx="as-c" type="submit" value="Save">
-    </form>
-    {% if address_instance %}
-    <div default="media pm" flx="jc-c as-c" gnrl="b-1 br-2" color="bg-dark c-white">Your web address</div>
-    <div flx="fd-c" default="media pm">
-        {% for i in address_instance %}
-        <div flx="ai-c jc-fe" gnrl="b-1 br-2 txt-l" color="brc-muted" style="padding: 6px 6px;">
-            {{ i.choices }} {% if i.choices == "web-site" %}
-            <a gnrl="bg-2 txt-l" color="c-secondary" hvr="c-primary" target="_blank" href="{{ i.adress }}" style="padding: 6px 16px;">
-        {{ i.adress}}
-      </a> {% else %}
-            <a gnrl="bg-2 txt-l" color="c-secondary" hvr="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}" style="padding: 6px 16px;">
-        {{ i.adress}}
-      </a> {% endif %}
-            <div flx="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flx="ai-c as-c" hvr-a="bg-danger" hvr="c-white" gnrl="b-1 br-2 brc-muted txt-l" style="cursor:pointer;padding: 6px;">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+{% include 'home/head.html' %}
+{% include 'home/header.html' %}
+<div>
+  {% include 'settings/cooggerup_data.html' %}
+  <div class="header-bottom" gnrl="center" gnrl="br-2" color="bg-white">
+      <form flx="fd-c" default="form media" gnrl="b-1" color="brc-white" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
+          {% csrf_token %}
+          {{ vote_percent_form }}
+          {{ cooggerup_form }}
+          {{ beneficiaries_percent_form }}
+          {{ address_form }}
+          <input flx="as-c" type="submit" value="Save">
+      </form>
+      {% if address_instance %}
+      <div default="media pm" flx="jc-c as-c" gnrl="b-1 br-2" color="bg-dark c-white">Your web address</div>
+      <div flx="fd-c" default="media pm">
+          {% for i in address_instance %}
+          <div flx="ai-c jc-fe" gnrl="b-1 br-2 txt-l" color="brc-muted" style="padding: 6px 6px;">
+              {{ i.choices }} {% if i.choices == "web-site" %}
+              <a gnrl="bg-2 txt-l" color="c-secondary" hvr="c-primary" target="_blank" href="{{ i.adress }}" style="padding: 6px 16px;">
+          {{ i.adress}}
+        </a> {% else %}
+              <a gnrl="bg-2 txt-l" color="c-secondary" hvr="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}" style="padding: 6px 16px;">
+          {{ i.adress}}
+        </a> {% endif %}
+              <div flx="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flx="ai-c as-c" hvr-a="bg-danger" hvr="c-white" gnrl="b-1 br-2 brc-muted txt-l" style="cursor:pointer;padding: 6px;">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+  {% include 'settings/script.html' %}
+  {% endif %}
 </div>
-{% include 'settings/script.html' %}
-{% endif %}
+{% include "home/footer.html" %}
+</body>
+</html>
