@@ -6,8 +6,11 @@
   height: calc(100% - 240px);
   width: 100%;
 }
+.f-address{
+  margin: 12px auto;
+}
 .c-definition-1{
-  padding: 24px 0px;
+  padding: 24px 12px;
   background-image: url(https://steem.io/img/tokens.svg);
   background-position: center;
   background-blend-mode: color;

@@ -1,7 +1,7 @@
 # django
 from django.http import *
 from django.shortcuts import render
-from django.contrib.auth import *
+# from django.contrib.auth import *
 from django.db.models import Q
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
@@ -35,12 +35,20 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
+        if not self.request.user.is_authenticated:
+            self.template_name = "home/introduction.html"
+            return context
+        else:
+            queryset = self.user_is_authenticated()
+            context["content"] = paginator(self.request, queryset)
+            return context
+
+    def user_is_authenticated(self):
         if self.request.dapp_model.name == "coogger":
             queryset = Content.objects.filter(status="approved")
         else:
             queryset = Content.objects.filter(dapp=self.request.dapp_model, status="approved")
-        context["content"] = paginator(self.request, queryset)
-        return context
+        return queryset
 
 
 class Feed(View):  # TODO:  sorunlu
@@ -148,6 +156,7 @@ class Dapps(TemplateView):
         queryset = Dapp.objects.filter(active=True)
         context["dapps"] = queryset
         return context
+
 
 class Supporters(TemplateView):
     template_name = "home/supporters.html"

@@ -1,11 +1,7 @@
 {% include 'home/head.html' %}
 {% include 'home/header.html' %}
-{% if not request.user.is_authenticated %}
-  {% include 'home/introduction.html' %}
-{% else %}
-  {% include 'home/section.html' %}
-  {% include "card/paginator.html" %}
-{% endif %}
+{% include 'home/section.html' %}
+{% include "card/paginator.html" %}
 {% include "home/footer.html" %}
 </body>
 </html>
