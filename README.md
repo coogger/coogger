@@ -1,3 +1,7 @@
+[Join and Contact us on Discord](https://discord.gg/avmdZJa)
+
+------
+
 ### For more information about coogger project
 #### English
 - [@coogger - english](https://www.coogger.com/filter/?username=coogger&language=english)
