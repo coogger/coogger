@@ -25,8 +25,7 @@ from bs4 import BeautifulSoup
 import mistune
 
 from django_md_editor.models import EditorMdField
-from steemconnect_auth.models import (
-    SteemConnectUser, Dapp,
+from steemconnect_auth.models import (SteemConnectUser, Dapp,
     CategoryofDapp, DappSettings)
 
 
@@ -99,15 +98,15 @@ class Content(models.Model):
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
 
-    def save(self, *args, **kwargs):  # for admin.py
-        if self.mod == User.objects.get(username="hakancelik"):
-            try:
-                POST = Post(post=f"@{self.user}/{self.permlink}")
-                self.steemconnect_post(self.permlink, "update")
-            except:
-                steem_post = self.steemconnect_post(self.permlink, "save")
-        self.definition = self.prepare_definition(self.content)
-        super(Content, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):  # for admin.py
+    #     if self.mod == User.objects.get(username="hakancelik"):
+    #         try:
+    #             POST = Post(post=f"@{self.user}/{self.permlink}")
+    #             self.steemconnect_post(self.permlink, "update")
+    #         except:
+    #             steem_post = self.steemconnect_post(self.permlink, "save")
+    #     self.definition = self.prepare_definition(self.content)
+    #     super(Content, self).save(*args, **kwargs)
 
     def save_for_sync(self, *args, **kwargs):
         try:

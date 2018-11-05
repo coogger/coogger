@@ -10,14 +10,14 @@ class DappSettingsAdmin(ModelAdmin):
     list_ = ["dapp","beneficiaries"]
     list_display = list_
     list_display_links = list_
-    search_fields = list_
+    search_fields = ["beneficiaries"]
 
 
 class CategoryofDappAdmin(ModelAdmin):
     list_ = ["dapp","category_name"]
     list_display = list_
     list_display_links = list_
-    search_fields = list_
+    search_fields = ["category_name"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -49,7 +49,6 @@ class CategoryofDappAdmin(ModelAdmin):
 class SteemConnectUserAdmin(ModelAdmin):
     list_display = ["user"]
     list_display_links = ["user"]
-    search_fields = ["user"]
 
 
 class ModsAdmin(ModelAdmin):
@@ -57,7 +56,6 @@ class ModsAdmin(ModelAdmin):
 
     list_display = ["dapp", "user"]
     list_display_links = ["dapp", "user"]
-    search_fields = ["dapp", "user"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

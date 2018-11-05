@@ -26,7 +26,7 @@ class ContentAdmin(ModelAdmin):
     list_display = list_
     list_display_links = list_
     list_filter = ["status", "cooggerup"]
-    search_fields = ["topic","title"]
+    search_fields = ["topic", "title", "category", "content"]
     fields = (("user","title"),"content","tag",("category","language","topic"),("status","cooggerup"))
 
     class Media:
@@ -57,7 +57,7 @@ class OtherAddressesOfUsersAdmin(ModelAdmin):
     list_display = list_
     list_display_links = list_
     list_filter = ["choices"]
-    search_fields = list_
+    search_fields = ["choices","address"]
 
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser:
@@ -88,7 +88,7 @@ class OtherInfoUsersAdmin(ModelAdmin):
     list_ = ["user","cooggerup_confirmation","cooggerup_percent","sponsor", "beneficiaries"]
     list_display = list_
     list_display_links = list_
-    search_fields = ["user"]
+    search_fields = ["cooggerup_confirmation","cooggerup_percent","sponsor", "beneficiaries"]
     list_filter = ["cooggerup_confirmation", "cooggerup_percent" ,"sponsor", "beneficiaries"]
 
     def save_model(self, request, obj, form, change):
