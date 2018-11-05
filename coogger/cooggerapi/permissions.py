@@ -31,8 +31,9 @@ class ApiPermission(BasePermission):
             return False
         elif get_operation == "Get":
             try:
-                username = request.parser_context["kwargs"]["username"]
-                if username == data_username and access_token == data_access_token:
+                if user.is_superuser and access_token == data_access_token:
+                    return True
+                elif user.username == data_username and access_token == data_access_token:
                     return True
             except KeyError:
                 return False
