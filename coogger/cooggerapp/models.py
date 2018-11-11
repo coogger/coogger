@@ -80,6 +80,9 @@ class Content(models.Model):
     def dapp_name(self):
         return self.dapp.name
 
+    def __str__(self):
+        return f"@{self.user}/{self.permlink}"
+
     @staticmethod
     def prepare_definition(text):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
@@ -274,6 +277,9 @@ class OtherAddressesOfUsers(models.Model):
 
     @property
     def username(self):
+        return self.user.username
+
+    def __str__(self):
         return self.user.username
 
 

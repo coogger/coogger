@@ -78,7 +78,7 @@ class SearchedWordsAdmin(ModelAdmin):
 
 
 class ContentviewsAdmin(ModelAdmin):
-    list_ = ["content_id","ip"]
+    list_ = ["content","ip"]
     list_display = list_
     list_display_links = list_
     search_fields = list_

@@ -47,8 +47,8 @@ class CategoryofDappAdmin(ModelAdmin):
 
 
 class SteemConnectUserAdmin(ModelAdmin):
-    list_display = ["user"]
-    list_display_links = ["user"]
+    list_display = ["user", "dapp"]
+    list_display_links = ["user", "dapp"]
 
 
 class ModsAdmin(ModelAdmin):

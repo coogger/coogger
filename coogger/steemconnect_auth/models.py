@@ -24,6 +24,9 @@ class Dapp(models.Model):
     def management_user(self):
         return self.management.username
 
+    def __str__(self):
+        return self.name
+
 
 class Mods(models.Model):
     dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
@@ -36,6 +39,9 @@ class Mods(models.Model):
     @property
     def username(self):
         return self.user.username
+
+    def __str__(self):
+        return self.dapp.name
 
 
 class SteemConnectUser(models.Model):
@@ -58,6 +64,9 @@ class SteemConnectUser(models.Model):
     @property
     def dapp_name(self):
         return self.dapp.name
+
+    def __str__(self):
+        return self.user.username
 
 
 class DappSettings(models.Model):
