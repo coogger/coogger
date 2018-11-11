@@ -12,6 +12,7 @@ from django.utils.decorators import method_decorator
 
 # models
 from cooggerapp.models import Content, CategoryofDapp
+from steemconnect_auth.models import Dapp
 
 # form
 from cooggerapp.forms import ContentForm
@@ -29,6 +30,7 @@ class Create(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         category_name = request.GET.get("category", None)
+        dapp_id = request.GET.get("dapp", None)
         category_content = ""
         if category_name is not None:
             dapp_model = request.dapp_model
@@ -40,9 +42,14 @@ class Create(View):
                 category_content = CategoryofDapp.objects.get(
                     dapp=dapp_model, category_name=category_name
                 ).editor_template
+        if dapp_id is not None:
+            dapp_model = Dapp.objects.filter(id=dapp_id)[0]
+            request.dapp_model = dapp_model
+            category_filter = CategoryofDapp.objects.filter(dapp=dapp_model)
+            request.categories = make_choices([category.category_name for category in category_filter])
         form = ContentForm(
             request=request,
-            initial={"content": category_content, "category":category_name}
+            initial={"content": category_content, "category":category_name, "dapp": request.dapp_model}
         )
         return render(request, self.template_name, {"form": form})
 

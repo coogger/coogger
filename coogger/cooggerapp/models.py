@@ -30,7 +30,7 @@ from steemconnect_auth.models import (SteemConnectUser, Dapp,
 
 
 class Content(models.Model):
-    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
+    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE, help_text="Which application want you share via?")
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name="Title",
         help_text="Be sure to choose the best title related to your content."

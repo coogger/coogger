@@ -10,5 +10,13 @@
         $("#category_help_name").html(get_category_name);
         $("#category_help_page").attr("href",category_help_address);
       });
+
+      $( "#id_dapp" ).change(function() {
+        var get_dapp_name = $( "#id_dapp" ).val();
+        if (get_dapp_name != ""){
+          window.location.href = "?dapp="+get_dapp_name
+        }
+      });
+
     });
 </script>
