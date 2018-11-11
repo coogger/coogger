@@ -1,12 +1,14 @@
 <script type="text/javascript">
     $(document).ready(function(){
+      var get_dapp_name = $( ".create #id_dapp" ).val();
       var get_category_name = $( "#id_category" ).val();
-      var category_help_address = "?category="+get_category_name;
+      var category_help_address = "?dapp="+get_dapp_name+"&category="+get_category_name;
       $("#category_help_name").html(get_category_name);
       $("#category_help_page").attr("href",category_help_address);
       $( "#id_category" ).change(function() {
+        var get_dapp_name = $( ".create #id_dapp" ).val();
         var get_category_name = $( "#id_category" ).val();
-        var category_help_address = "?category="+get_category_name;
+        var category_help_address = "?dapp="+get_dapp_name+"&category="+get_category_name;
         $("#category_help_name").html(get_category_name);
         $("#category_help_page").attr("href",category_help_address);
       });
