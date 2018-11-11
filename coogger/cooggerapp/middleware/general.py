@@ -21,5 +21,3 @@ class GeneralMiddleware(MiddlewareMixin):
             category_filter = category_objects.filter(dapp=request.dapp_model)
         request.categories = make_choices([category.category_name for category in category_filter])
         request.languages = make_choices(languages)
-        dapp_filter = Dapp.objects.filter(active=True)
-        request.dapps = make_choices([dapp.name for dapp in dapp_filter])

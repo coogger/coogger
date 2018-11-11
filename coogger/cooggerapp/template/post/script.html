@@ -14,6 +14,7 @@
       var get_dapp_name = $( ".create #id_dapp" ).val();
       $(".create .c-create-form").attr("action", "{% url 'create' %}" + "?dapp="+get_dapp_name);
       $( ".create #id_dapp" ).change(function() {
+        var get_dapp_name = $( ".create #id_dapp" ).val();
         if (get_dapp_name != ""){
           window.location.href = "?dapp="+get_dapp_name;
         }

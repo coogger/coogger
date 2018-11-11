@@ -19,7 +19,6 @@ class ContentForm(forms.ModelForm):
         if request.dapp_model is not None:
             self.fields["language"].choices = make_choices(languages)
             self.fields["category"].choices = request.categories
-            self.fields["dapp"].choices = request.dapps
 
     class Meta:
         model = Content

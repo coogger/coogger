@@ -90,7 +90,6 @@ class Change(View):
             request.categories = make_choices([category.category_name for category in category_filter])
         else:
             queryset = Content.objects.filter(dapp=dapp_model, user=request.user, id=content_id)
-        request.dapps = make_choices([request.dapp_model])
         if queryset.exists():
             self.content_update(request, content_id)
             content_form = ContentForm(instance=queryset[0], request=request)
@@ -110,7 +109,6 @@ class Change(View):
             request.categories = make_choices([category.category_name for category in category_filter])
         else:
             queryset = Content.objects.filter(dapp=dapp_model, user=request.user, id=content_id)
-        request.dapps = make_choices([request.dapp_model])
         if queryset.exists():
             form = ContentForm(data=request.POST, request=request)
             maybe_error_form = form
