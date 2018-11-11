@@ -1,13 +1,13 @@
 {% include 'home/head.html' %}
 {% include 'home/header.html' %}
-<div class="header-bottom" flx="jc-c ai-c fd-c">
+<div class="header-bottom create" flx="jc-c ai-c fd-c">
   <div>
     <a color="c-success" target="blank" id="category_help_page" href="?category=development">
       Need help? check this address for <span color="c-dark" id="category_help_name">development
       </span> category on {{ request.dapp_model.name }} Dapp
     </a>
   </div>
-    <form flx="fd-c" default="form media" method="post" class="c-create-form" action="{% url 'create' %}" style="padding: 12px 6px;z-index:2">
+    <form flx="fd-c" default="form media" method="post" class="c-create-form" action="" style="padding: 12px 6px;z-index:2">
         {% csrf_token %} {{ form }}
         <input flx="as-c" type="submit" value="Share" style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
     </form>
