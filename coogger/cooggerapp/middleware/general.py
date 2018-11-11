@@ -11,6 +11,10 @@ from cooggerapp.choices import *
 class GeneralMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
+        request.categories = make_choices([category for category in self.sort_categories(request)])
+        request.languages = make_choices([language for language in self.sort_languages(request)])
+
+    def sort_categories(self, request):
         if request.dapp_model.name == "coogger":
             category_filter = CategoryofDapp.objects.all()
         else:
@@ -25,5 +29,17 @@ class GeneralMiddleware(MiddlewareMixin):
                 categories.append(contents[0].category)
             except IndexError:
                 pass
-        request.categories = make_choices([category for category in categories])
-        request.languages = make_choices(languages)
+        return categories
+
+    def sort_languages(self, request):
+        querysets_list = []
+        for language in languages:
+            querysets = Content.objects.filter(language = language, status="approved")
+            querysets_list.append(querysets)
+        languages_list = []
+        for contents in sorted(querysets_list, key=len, reverse=True):
+            try:
+                languages_list.append(contents[0].language)
+            except IndexError:
+                pass
+        return languages_list
