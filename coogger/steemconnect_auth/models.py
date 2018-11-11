@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils.text import slugify
 from django_md_editor.models import EditorMdField
 
 class Dapp(models.Model):
@@ -80,3 +80,7 @@ class CategoryofDapp(models.Model):
     dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
     category_name = models.CharField(max_length=50, verbose_name="Category name")
     editor_template = EditorMdField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.category_name = slugify(self.category_name)
+        super(CategoryofDapp, self).save(*args, **kwargs)
