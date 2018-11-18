@@ -52,7 +52,7 @@ class Content(models.Model):
     definition = models.CharField(max_length=400,
         verbose_name="definition of content",
     )
-    topic = models.CharField(max_length=30, verbose_name="content topic",
+    topic = models.CharField(max_length=50, verbose_name="content topic",
         help_text="Please, write your topic about your contents."
     )
     status = models.CharField(default="shared", max_length=30,
@@ -101,17 +101,19 @@ class Content(models.Model):
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
 
-    # def save(self, *args, **kwargs):  # for admin.py
-    #     if self.mod == User.objects.get(username="hakancelik"):
-    #         try:
-    #             POST = Post(post=f"@{self.user}/{self.permlink}")
-    #             self.steemconnect_post(self.permlink, "update")
-    #         except:
-    #             steem_post = self.steemconnect_post(self.permlink, "save")
-    #     self.definition = self.prepare_definition(self.content)
-    #     super(Content, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):  # for admin.py
+        self.topic = slugify(self.topic.lower())
+        # if self.mod == User.objects.get(username="hakancelik"):
+        #     try:
+        #         POST = Post(post=f"@{self.user}/{self.permlink}")
+        #         self.steemconnect_post(self.permlink, "update")
+        #     except:
+        #         steem_post = self.steemconnect_post(self.permlink, "save")
+        # self.definition = self.prepare_definition(self.content)
+        super(Content, self).save(*args, **kwargs)
 
     def save_for_sync(self, *args, **kwargs):
+        "To sync coogger.db"
         try:
             POST = Post(post=f"@{self.user}/{self.permlink}")
             self.content = POST.body
@@ -125,6 +127,7 @@ class Content(models.Model):
         self.tag = self.ready_tags()
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
+        self.topic = slugify(self.topic.lower())
         while True:
             try: # if user and pemlink is already saved on steem
                 Post(post=self.get_absolute_url()).url
@@ -141,7 +144,7 @@ class Content(models.Model):
         self.user = queryset[0].user
         self.title = content.title
         self.tag = self.ready_tags(limit=5)
-        self.topic = content.topic
+        self.topic = slugify(content.topic.lower())
         steem_post = self.steemconnect_post(queryset[0].permlink, "update")
         if steem_post.status_code == 200:
             queryset.update(
@@ -263,6 +266,7 @@ class OtherInformationOfUsers(models.Model):
         return self.user.username
 
     def save_with_access_token(self, *args, **kwargs):
+        "creates api_token"
         import hashlib
         hash_object = hashlib.sha256(self.access_token.encode('utf-8'))
         hex_dig = hash_object.hexdigest()

@@ -9,7 +9,6 @@ from django.contrib import messages as ms
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.utils.text import slugify
 
 # models
 from cooggerapp.models import Content, CategoryofDapp
@@ -32,6 +31,8 @@ class Create(View):
     def get(self, request, *args, **kwargs):
         category_name = request.GET.get("category", None)
         dapp_id = request.GET.get("dapp", None)
+        if dapp_id is None and request.dapp_model.name == "coogger":
+            dapp_id = 1
         category_content = ""
         if category_name is not None:
             dapp_model = request.dapp_model

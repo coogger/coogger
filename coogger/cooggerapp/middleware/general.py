@@ -1,5 +1,5 @@
 from django.utils.deprecation import MiddlewareMixin
-from django.urls import resolve
+# from django.urls import resolve
 
 # models.
 from cooggerapp.models import CategoryofDapp, Content

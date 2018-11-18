@@ -92,6 +92,10 @@ class Filter(TemplateView):
 
     def get_context_data(self, **kwargs):
         for attr, value in self.request.GET.items():
+            if attr == "username":
+                value = User.objects.filter(username=value)[0]
+                attr = "user"
+            print(attr, value)
             try:
                 self.queryset = self.queryset.filter(**{attr: value})
             except FieldError:

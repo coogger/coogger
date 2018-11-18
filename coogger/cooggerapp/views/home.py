@@ -44,10 +44,13 @@ class Home(TemplateView):
             return context
 
     def user_is_authenticated(self):
-        if self.request.dapp_model.name == "coogger":
-            queryset = Content.objects.filter(status="approved")
+        if self.request.user.is_authenticated:
+            if self.request.dapp_model.name == "coogger":
+                queryset = Content.objects.filter(status="approved")
+            else:
+                queryset = Content.objects.filter(dapp=self.request.dapp_model, status="approved")
         else:
-            queryset = Content.objects.filter(dapp=self.request.dapp_model, status="approved")
+            queryset = []
         return queryset
 
 
@@ -73,21 +76,19 @@ class Feed(View):  # TODO:  sorunlu
         return [i["following"] for i in STEEM.get_following(username, 'abit', 'blog', limit=100)]
 
 
-class Review(View):
+class Review(TemplateView):
     template_name = "card/blogs.html"
 
-    def get(self, request, *args, **kwargs):
-        # TODO:  buradaki işlemin daha hızlı olanı vardır ya
-        q = Q(status="shared") | Q(status="changed")
+    def get_context_data(self, **kwargs):
+        context = super(Review, self).get_context_data(**kwargs)
         if self.request.dapp_model.name == "coogger":
+            q = Q(status="shared") | Q(status="changed")
             queryset = Content.objects.filter(q)
         else:
-            queryset = Content.objects.filter(q).filter(dapp=request.dapp_model)
-        info_of_cards = paginator(request, queryset)
-        context = dict(
-            content=info_of_cards,
-        )
-        return render(request, self.template_name, context)
+            q = Q(status="shared") | Q(status="changed") | Q(dapp=request.dapp_model)
+            queryset = Content.objects.filter(q)
+        context["content"] = paginator(self.request, queryset)
+        return context
 
 
 class Search(TemplateView):
@@ -95,7 +96,7 @@ class Search(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request, self.get_queryset())
+        context["content"] = paginator(self.request, self.search_algorithm())
         return context
 
     def get_form_data(self, name="query"):
@@ -110,10 +111,6 @@ class Search(TemplateView):
             queryset = Content.objects.filter(q, status="approved").order_by("-views")
         else:
             queryset = Content.objects.filter(q, dapp=self.request.dapp_model, status="approved").order_by("-views")
-        return queryset
-
-    def get_queryset(self):
-        queryset = self.search_algorithm()
         return queryset
 
 
@@ -153,8 +150,7 @@ class Dapps(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Dapps, self).get_context_data(**kwargs)
-        queryset = Dapp.objects.filter(active=True)
-        context["dapps"] = queryset
+        context["dapps"] = Dapp.objects.filter(active=True)
         return context
 
 
