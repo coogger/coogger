@@ -154,7 +154,6 @@ class Content(models.Model):
                 category=content.category,
                 language=content.language,
                 tag=self.tag,
-                # status="changed",
             )
         return steem_post
 

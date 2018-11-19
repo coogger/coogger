@@ -68,6 +68,7 @@ class ContentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
         fields = (
+            "id",
             "dapp",
             "dapp_name",
             "user",

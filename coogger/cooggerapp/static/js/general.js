@@ -32,6 +32,10 @@ $(document).ready(function() {
 //     });
 // }
 
+function get_scrollTop(){
+  return $(window).scrollTop() + $(window).height()+100;
+}
+
 function write_in_html(id, variable) {
   if (variable != undefined){
     $(`#${id}`).html(variable);

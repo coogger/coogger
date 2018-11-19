@@ -95,7 +95,6 @@ class Filter(TemplateView):
             if attr == "username":
                 value = User.objects.filter(username=value)[0]
                 attr = "user"
-            print(attr, value)
             try:
                 self.queryset = self.queryset.filter(**{attr: value})
             except FieldError:

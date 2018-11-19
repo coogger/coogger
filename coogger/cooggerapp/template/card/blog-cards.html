@@ -1,18 +1,5 @@
 <cards flx default="media2" style="margin:0px">
     {% include 'home/explain_of_page.html' %}
-    {% for ct in content %}
-    <card class="data-post-id-{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" gnrl="br-2" color="bg-white">
-        {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
-        <a href="" id="absolute_url_href" color="c-dark">
-            <div gnrl="txt-m" class="upshow">
-                <div flx="ai-c">
-                    {{ ct.definition|safe }}
-                    <!-- TODO I need to make a definition text using js -->
-                </div>
-            </div>
-        </a>
-        {% include 'card/vote.html' %}
-    </card>
-    {% endfor %}
+    {% include "card/blog-card.html" %}
 </cards>
 {% include "card/script.html" %}
