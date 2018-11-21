@@ -18,7 +18,7 @@ class OtherAddressesOfUsersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OtherAddressesOfUsers
-        fields = ("username", "choices", "adress")
+        fields = ("username", "choices", "address")
 
 
 class DappSerializer(serializers.ModelSerializer):

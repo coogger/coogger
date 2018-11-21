@@ -48,18 +48,21 @@ class ContentFilter(UserFilter):
     model = Content
     queryset = model.objects.all()
     serializer_class = ContentsSerializer
+    permission_classes = []
 
 
 class SearchedWordsFilter(UserFilter):
     model = SearchedWords
     queryset = model.objects.all()
     serializer_class = SearchedWordsSerializer
+    permission_classes = []
 
 
 class OtherAddressesOfUsersFilter(UserFilter):
     model = OtherAddressesOfUsers
     queryset = model.objects.all()
     serializer_class = OtherAddressesOfUsersSerializer
+    permission_classes = []
 
 
 class DappFilter(UserFilter):
