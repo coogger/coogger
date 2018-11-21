@@ -1,3 +1,5 @@
+{% load coogger_tags %}
+
 <script>
     $(document).ready(function() {
       $(".report").click(function(event){
@@ -76,5 +78,100 @@
         $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
       });
     }
-    });
+
+
+let posts = [];
+function loadmore(apiUrl){
+  let check = [];
+  let card = document.querySelectorAll('card')
+  let last_content = card[card.length-1];
+  let last_id = $(`#${last_content.id}`).attr("data-postid");
+  fetch(apiUrl)
+    .then((resp) => resp.json())
+    .then(function(data) {
+      let contents = data.results;
+      let content_count = data.count;
+      for (let i=0; i < contents.length ; i++){
+        let content = contents[i];
+        let id = content.id;
+        if (last_id > id){
+          if (id == content_count){
+            break;
+          }
+          if (!posts.includes(id)){
+            posts.push(id);
+            check.push(id);
+            let author = content.username;
+            let permlink = content.permlink;
+            let dapp_name = content.dapp_name;
+            let views = content.views;
+            let definition = content.definition;
+            let language = content.language;
+            let category = content.category;
+            let title = content.title;
+            let duration_of_read = dor(content.content);
+            steem.api.getContent(author, permlink, function(err, steem_content) {
+              let rep = steem.formatter.reputation(steem_content.author_reputation);
+              let reply = steem_content.children;
+              let created = timeSince(steem_content.created);
+              let post_reward_total = 0;
+              let pending_payout_value = parseFloat(steem_content.pending_payout_value.replace(" SBD", ""));
+              if (pending_payout_value == 0){
+                let total_payout_value = parseFloat(steem_content.total_payout_value.replace(" SBD", ""))
+                let curator_payout_value = parseFloat(steem_content.curator_payout_value.replace(" SBD", ""));
+                post_reward_total = total_payout_value+curator_payout_value;
+              }
+              else{
+                post_reward_total = pending_payout_value;
+              }
+              $(`cards`).append({% include 'card/card_template.js' %});
+            })
+            if (check.length >= 2){
+              break
+            }
+          }
+        }
+      }
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
+}
+
+$(window).scroll(function() {
+  if (scrolledbottom()) {
+    let apiUrl = "";
+    if ("{{ request|url_resolve:"" }}" == "user"){
+      apiUrl = `/api/filter-content/?username={{ content_user }}`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "utopic"){
+      apiUrl = `/api/filter-content/?username={{ content_user }}&topic={{ nameoftopic }}`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "home" ){
+      apiUrl = `/api/filter-content/?`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "language"){
+      apiUrl = `/api/filter-content/?language={{ language }}`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "category"){
+      apiUrl = `/api/filter-content/?category={{ category }}`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "review"){
+      apiUrl = `/api/filter-content/?status=shared`;
+    }
+
+
+    let card = document.querySelectorAll('card')
+    fetch(apiUrl)
+      .then((resp) => resp.json())
+      .then(function(data) {
+        if (data.count > card.length){
+          let page = Math.ceil(card.length / 19);
+          console.log(`${apiUrl}&page=${page}`, card.length, data.count);
+          loadmore(`${apiUrl}&page=${page}`);
+        }
+      })
+  }
+});
+});
 </script>

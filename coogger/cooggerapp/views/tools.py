@@ -25,7 +25,7 @@ def make_choices_slug(choice):
     return slugs
 
 
-def paginator(request, queryset, hmany=6):
+def paginator(request, queryset, hmany=1):
     paginator = Paginator(queryset, hmany)
     page = request.GET.get('page')
     try:

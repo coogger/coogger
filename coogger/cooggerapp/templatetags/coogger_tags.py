@@ -1,3 +1,6 @@
+# django
+from django.urls import resolve
+
 # python
 from urllib.parse import quote_plus
 
@@ -9,6 +12,10 @@ from django import template
 register = template.Library()
 
 import requests
+
+@register.filter(name="url_resolve")
+def url_resolve(request, arg):
+    return resolve(request.path_info).url_name
 
 @register.filter(name="percent")
 def percent(value, arg):

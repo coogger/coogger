@@ -1,0 +1,13 @@
+{% for ct in content %}
+  <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" gnrl="br-2" color="bg-white">
+      {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
+      <a href="" id="absolute_url_href" color="c-dark">
+          <div gnrl="txt-m" class="upshow">
+              <div flx="ai-c">
+                  {{ ct.definition|safe }}
+              </div>
+          </div>
+      </a>
+      {% include 'card/vote.html' %}
+  </card>
+{% endfor %}

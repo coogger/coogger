@@ -6,6 +6,7 @@ from cooggerapi.permissions import ApiPermission
 
 # django
 from django.core.exceptions import FieldError
+from django.contrib.auth.models import User
 
 # api serializers
 from cooggerapi.serializers import (
@@ -28,6 +29,9 @@ class UserFilter(ModelViewSet):
     def get_queryset(self):
         items = self.request.GET.items()
         for attr, value in items:
+            if attr == "username":
+                value = User.objects.filter(username=value)[0]
+                attr = "user"
             try:
                 self.queryset = self.queryset.filter(**{attr: value})
             except FieldError:
