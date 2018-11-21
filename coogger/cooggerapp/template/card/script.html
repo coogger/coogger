@@ -79,36 +79,28 @@
       });
     }
 
-$(window).scroll(function() {
-  if ( get_scrollTop() >= $(document).height()) {
-    let card = document.querySelectorAll('card')
-    let last_content = card[card.length-1];
-    let last_id = $(`#${last_content.id}`).attr("data-postid");
-    let apiUrl = "";
-    let check = [];
-    $(window).scrollTop(get_scrollTop()-1200);
-    if ("{{ request|url_resolve:"" }}" == "user"){
-      apiUrl = `/api/filter-content/?username={{ content_user }}`;
-    }
-    if ("{{ request|url_resolve:"" }}" == "utopic"){
-      apiUrl = `/api/filter-content/?&username={{ content_user }}&topic={{ nameoftopic }}`;
-    }
-    else if ("{{ request|url_resolve:"" }}" == "home" ){
-      apiUrl = `/api/filter-content/`;
-    }
-    fetch(apiUrl)
-      .then((resp) => resp.json())
-      .then(function(data) {
-        let contents = data.results;
-        for (let i=0; i < contents.length ; i++){
-          let content = contents[i];
-          let id = content.id;
-          if (last_id > id){
+
+let posts = [];
+function loadmore(apiUrl){
+  let check = [];
+  let card = document.querySelectorAll('card')
+  let last_content = card[card.length-1];
+  let last_id = $(`#${last_content.id}`).attr("data-postid");
+  fetch(apiUrl)
+    .then((resp) => resp.json())
+    .then(function(data) {
+      let contents = data.results;
+      let content_count = data.count;
+      for (let i=0; i < contents.length ; i++){
+        let content = contents[i];
+        let id = content.id;
+        if (last_id > id){
+          if (id == content_count){
+            break;
+          }
+          if (!posts.includes(id)){
+            posts.push(id);
             check.push(id);
-            console.log(id, check);
-            if (check.length >= 6){
-              break
-            }
             let author = content.username;
             let permlink = content.permlink;
             let dapp_name = content.dapp_name;
@@ -134,12 +126,50 @@ $(window).scroll(function() {
               }
               $(`cards`).append({% include 'card/card_template.js' %});
             })
+            if (check.length >= 2){
+              break
+            }
           }
         }
-      })
-      .catch(function(error) {
-        console.log(error);
-        $(window).scrollTop(get_scrollTop()+1200);
+      }
+    })
+    .catch(function(error) {
+      console.log(error);
+    })
+}
+
+$(window).scroll(function() {
+  if (scrolledbottom()) {
+    let apiUrl = "";
+    if ("{{ request|url_resolve:"" }}" == "user"){
+      apiUrl = `/api/filter-content/?username={{ content_user }}`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "utopic"){
+      apiUrl = `/api/filter-content/?username={{ content_user }}&topic={{ nameoftopic }}`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "home" ){
+      apiUrl = `/api/filter-content/?`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "language"){
+      apiUrl = `/api/filter-content/?language={{ language }}`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "category"){
+      apiUrl = `/api/filter-content/?category={{ category }}`;
+    }
+    else if ("{{ request|url_resolve:"" }}" == "review"){
+      apiUrl = `/api/filter-content/?status=shared`;
+    }
+
+
+    let card = document.querySelectorAll('card')
+    fetch(apiUrl)
+      .then((resp) => resp.json())
+      .then(function(data) {
+        if (data.count > card.length){
+          let page = Math.ceil(card.length / 19);
+          console.log(`${apiUrl}&page=${page}`, card.length, data.count);
+          loadmore(`${apiUrl}&page=${page}`);
+        }
       })
   }
 });

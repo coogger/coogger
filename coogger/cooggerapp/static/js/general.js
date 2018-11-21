@@ -32,8 +32,15 @@ $(document).ready(function() {
 //     });
 // }
 
-function get_scrollTop(){
-  return $(window).scrollTop() + $(window).height()+100;
+function get_scroll_bottom_location(){
+  return $(window).scrollTop() + $(window).height()+10;
+}
+
+function scrolledbottom(){
+  if ( get_scroll_bottom_location() >= $(document).height()){
+    return true;
+  }
+  return false;
 }
 
 function write_in_html(id, variable) {
