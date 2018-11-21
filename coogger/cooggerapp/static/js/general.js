@@ -33,7 +33,7 @@ $(document).ready(function() {
 // }
 
 function get_scroll_bottom_location(){
-  return $(window).scrollTop() + $(window).height()+10;
+  return $(window).scrollTop() + $(window).height()+2;
 }
 
 function scrolledbottom(){

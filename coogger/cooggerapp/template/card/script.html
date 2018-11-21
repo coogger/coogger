@@ -124,6 +124,7 @@ function loadmore(apiUrl){
               else{
                 post_reward_total = pending_payout_value;
               }
+              post_reward_total = post_reward_total.toFixed(2);
               $(`cards`).append({% include 'card/card_template.js' %});
             })
             if (check.length >= 2){
@@ -142,35 +143,40 @@ $(window).scroll(function() {
   if (scrolledbottom()) {
     let apiUrl = "";
     if ("{{ request|url_resolve:"" }}" == "user"){
-      apiUrl = `/api/filter-content/?username={{ content_user }}`;
+      apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}`;
     }
     else if ("{{ request|url_resolve:"" }}" == "utopic"){
-      apiUrl = `/api/filter-content/?username={{ content_user }}&topic={{ nameoftopic }}`;
+      apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}&topic={{ nameoftopic }}`;
     }
     else if ("{{ request|url_resolve:"" }}" == "home" ){
-      apiUrl = `/api/filter-content/?`;
+      apiUrl = `/api/filter-content/?status=approved`;
     }
     else if ("{{ request|url_resolve:"" }}" == "language"){
-      apiUrl = `/api/filter-content/?language={{ language }}`;
+      apiUrl = `/api/filter-content/?status=approved&language={{ language }}`;
     }
     else if ("{{ request|url_resolve:"" }}" == "category"){
-      apiUrl = `/api/filter-content/?category={{ category }}`;
+      apiUrl = `/api/filter-content/?status=approved&category={{ category }}`;
     }
     else if ("{{ request|url_resolve:"" }}" == "review"){
       apiUrl = `/api/filter-content/?status=shared`;
     }
-
-
     let card = document.querySelectorAll('card')
     fetch(apiUrl)
       .then((resp) => resp.json())
       .then(function(data) {
         if (data.count > card.length){
           let page = Math.ceil(card.length / 19);
-          console.log(`${apiUrl}&page=${page}`, card.length, data.count);
+          $(".load-more").css({"display":"block"});
           loadmore(`${apiUrl}&page=${page}`);
         }
+        else{
+          $(".load-more").css({"display":"none"});
+          $(".end-of-the-posts").css({"display":"block"});
+        }
       })
+  }
+  else{
+    $(".load-more").css({"display":"none"});
   }
 });
 });
