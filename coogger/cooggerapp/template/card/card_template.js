@@ -1,11 +1,11 @@
-`<card data-postid=${id} id=${author}-${permlink} gnrl="br-2" color="bg-white">
-  <div gnrl="br-1" color="bg-secondary" hvr-a="bg-danger" class="b-edit-point" data-edit-id=${id}>
+`<card data-postid=${content_id} id=${author}-${permlink} gnrl="br-2" color="bg-white">
+  <div gnrl="br-1" color="bg-secondary" hvr-a="bg-danger" class="b-edit-point" data-edit-id=${content_id}>
     <div class="bebordert"></div>
     <div class="beborder"></div>
     <div class="beborderb"></div>
   </div>
-<div flx="jc-c ai-c" color="bg-success" class=b-edit-panel data-edit-id-${id} style="display: none;">
-  <div flx="ai-c" class="report" data-content-id=${id} color="bg-danger" style="height: 100%;cursor:pointer;">
+<div flx="jc-c ai-c" color="bg-success" class="b-edit-panel data-edit-id-${content_id}" style="display: none;">
+  <div flx="ai-c" class="report" data-content-id=${content_id} color="bg-danger" style="height: 100%;cursor:pointer;">
     <i color="c-white" class="fa fa-flag fa" aria-hidden="true" style="margin-left: 12px;"></i>
     <div gnrl="txt-s" color="c-white" style="margin-left:6px;">Report</div>
   </div>

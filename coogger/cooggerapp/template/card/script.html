@@ -1,183 +1,186 @@
 {% load coogger_tags %}
-
 <script>
-    $(document).ready(function() {
-      $(".report").click(function(event){
-        var content_id = this.getAttribute("data-content-id");
-        $("body").load(`{% url 'report' %}?content_id=${content_id}`);
-      });
-    {% if request.user.is_authenticated %}
-      $(".upvote").click(function(event){
-        const voter = "{{ request.user }}";
-        const author = this.getAttribute("data-user");
-        const permlink = this.getAttribute("data-permlink");
-        const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
-        const id = this.getAttribute("data-id");
-        $(this).attr({'animation':"blink i"});
-        api.vote(voter, author, permlink, weight, function (err, res) {
-            console.log(res,"voted"); // is it necessary to below codes
-            steem.api.getContent(author, permlink, function(err, content) {
-              var post_reward_total = 0;
-              if (pending_payout_value == 0){
-                var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
-                var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
-                post_reward_total = total_payout_value+curator_payout_value;
-              }
-              else{
-                post_reward_total = pending_payout_value;
-              }
-              $(this).html("<i gnrl='br-2 b-1' color='c-primary brc-primary' class='fa fa-thumbs-up'></i>");
-              $(`#${id} #post_reward_total`).text(post_reward_total.toFixed(2));
-              $(this).attr({'animation':""});
-            });
+  $(document).ready(function() {
+        $(".report").click(function(event){
+          var content_id = this.getAttribute("data-content-id");
+          $("body").load(`{% url 'report' %}?content_id=${content_id}`);
         });
-      });
-    {% endif %}
-    myElements = document.querySelectorAll('card')
-    var accounts = [];
-    for (var i = 0; i < myElements.length; i++) {
-      const id = myElements.item(i).id;
-      const author = id.split("-")[0];
-      const permlink = id.replace(`${author}-`,"");
-      $(`#${id} .carduserimg`).attr("src",`https://steemitimages.com/u/${author}/avatar`);
-      accounts.push(author);
-      steem.api.getContent(author, permlink, function(err, content) {
-        var active_votes = content.active_votes;
-        var upvoted = false;
-        {% if request.user.is_authenticated %}
-          for (var vot = 0; vot < active_votes.length; vot++) {
-            // Todo ; I must add, if already users upvoted any post and if click again, it must be removed its voted
-            if ("{{request.user}}" == active_votes[vot].voter){
-              $(`#${id} #upvote`).html("<i color='c-primary' hvr='c-danger' class='fa fa-thumbs-up'></i>");
-              upvoted = true;
-              break;
-            }
-          }
-        {% endif %}
-        if(upvoted == false){
-          $(`#${id} #upvote`).html("<i hvr='c-primary' gnr='c-secondary' class='fa fa-thumbs-up'></i>");
-        }
-        var reputation = steem.formatter.reputation(content.author_reputation);
-        var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
-        var post_reward_total = 0;
-        if (pending_payout_value == 0){
-          var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
-          var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
-          post_reward_total = total_payout_value+curator_payout_value;
-        }
-        else{
-          post_reward_total = pending_payout_value;
-        }
-        $("#"+id+" #dor").html(dor(content.body));
-        $("#"+id+" #created").html(timeSince(content.created));
-        $("#"+id+" #reply").html(content.children);
-        $("#"+id+" #absolute_url_href").attr("href",`/@${content.author}/${content.permlink}`);
-        $("#"+id+" #title").html(content.title);
-        $("#"+id+" #author_href").attr("href",`/@${author}`);
-        $("#"+id+" #reputation").text(reputation);
-        $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
-      });
-    }
-
-
-let posts = [];
-function loadmore(apiUrl){
-  let check = [];
-  let card = document.querySelectorAll('card')
-  let last_content = card[card.length-1];
-  let last_id = $(`#${last_content.id}`).attr("data-postid");
-  fetch(apiUrl)
-    .then((resp) => resp.json())
-    .then(function(data) {
-      let contents = data.results;
-      let content_count = data.count;
-      for (let i=0; i < contents.length ; i++){
-        let content = contents[i];
-        let id = content.id;
-        if (last_id > id){
-          if (id == content_count){
-            break;
-          }
-          if (!posts.includes(id)){
-            posts.push(id);
-            check.push(id);
-            let author = content.username;
-            let permlink = content.permlink;
-            let dapp_name = content.dapp_name;
-            let views = content.views;
-            let definition = content.definition;
-            let language = content.language;
-            let category = content.category;
-            let title = content.title;
-            let duration_of_read = dor(content.content);
-            steem.api.getContent(author, permlink, function(err, steem_content) {
-              let rep = steem.formatter.reputation(steem_content.author_reputation);
-              let reply = steem_content.children;
-              let created = timeSince(steem_content.created);
-              let post_reward_total = 0;
-              let pending_payout_value = parseFloat(steem_content.pending_payout_value.replace(" SBD", ""));
-              if (pending_payout_value == 0){
-                let total_payout_value = parseFloat(steem_content.total_payout_value.replace(" SBD", ""))
-                let curator_payout_value = parseFloat(steem_content.curator_payout_value.replace(" SBD", ""));
-                post_reward_total = total_payout_value+curator_payout_value;
+      {% if request.user.is_authenticated %}
+        $(".upvote").click(function(event){
+          const voter = "{{ request.user }}";
+          const author = this.getAttribute("data-user");
+          const permlink = this.getAttribute("data-permlink");
+          const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
+          const id = this.getAttribute("data-id");
+          $(this).attr({'animation':"blink i"});
+          api.vote(voter, author, permlink, weight, function (err, res) {
+              console.log(res,"voted"); // is it necessary to below codes
+              steem.api.getContent(author, permlink, function(err, content) {
+                var post_reward_total = 0;
+                if (pending_payout_value == 0){
+                  var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+                  var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+                  post_reward_total = total_payout_value+curator_payout_value;
+                }
+                else{
+                  post_reward_total = pending_payout_value;
+                }
+                $(this).html("<i gnrl='br-2 b-1' color='c-primary brc-primary' class='fa fa-thumbs-up'></i>");
+                $(`#${id} #post_reward_total`).text(post_reward_total.toFixed(2));
+                $(this).attr({'animation':""});
+              });
+          });
+        });
+      {% endif %}
+      myElements = document.querySelectorAll('card')
+      var accounts = [];
+      for (var i = 0; i < myElements.length; i++) {
+        const id = myElements.item(i).id;
+        const author = id.split("-")[0];
+        const permlink = id.replace(`${author}-`,"");
+        $(`#${id} .carduserimg`).attr("src",`https://steemitimages.com/u/${author}/avatar`);
+        accounts.push(author);
+        steem.api.getContent(author, permlink, function(err, content) {
+          var active_votes = content.active_votes;
+          var upvoted = false;
+          {% if request.user.is_authenticated %}
+            for (var vot = 0; vot < active_votes.length; vot++) {
+              // Todo ; I must add, if already users upvoted any post and if click again, it must be removed its voted
+              if ("{{request.user}}" == active_votes[vot].voter){
+                $(`#${id} #upvote`).html("<i color='c-primary' hvr='c-danger' class='fa fa-thumbs-up'></i>");
+                upvoted = true;
+                break;
               }
-              else{
-                post_reward_total = pending_payout_value;
-              }
-              post_reward_total = post_reward_total.toFixed(2);
-              $(`cards`).append({% include 'card/card_template.js' %});
-            })
-            if (check.length >= 2){
-              break
             }
+          {% endif %}
+          if(upvoted == false){
+            $(`#${id} #upvote`).html("<i hvr='c-primary' gnr='c-secondary' class='fa fa-thumbs-up'></i>");
           }
-        }
+          var reputation = steem.formatter.reputation(content.author_reputation);
+          var pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
+          var post_reward_total = 0;
+          if (pending_payout_value == 0){
+            var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
+            var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
+            post_reward_total = total_payout_value+curator_payout_value;
+          }
+          else{
+            post_reward_total = pending_payout_value;
+          }
+          $("#"+id+" #dor").html(dor(content.body));
+          $("#"+id+" #created").html(timeSince(content.created));
+          $("#"+id+" #reply").html(content.children);
+          $("#"+id+" #absolute_url_href").attr("href",`/@${content.author}/${content.permlink}`);
+          $("#"+id+" #title").html(content.title);
+          $("#"+id+" #author_href").attr("href",`/@${author}`);
+          $("#"+id+" #reputation").text(reputation);
+          $("#"+id+" #post_reward_total").text(post_reward_total.toFixed(2));
+        });
       }
-    })
-    .catch(function(error) {
-      console.log(error);
-    })
-}
 
-$(window).scroll(function() {
-  if (scrolledbottom()) {
-    let apiUrl = "";
-    if ("{{ request|url_resolve:"" }}" == "user"){
-      apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}`;
-    }
-    else if ("{{ request|url_resolve:"" }}" == "utopic"){
-      apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}&topic={{ nameoftopic }}`;
-    }
-    else if ("{{ request|url_resolve:"" }}" == "home" ){
-      apiUrl = `/api/filter-content/?status=approved`;
-    }
-    else if ("{{ request|url_resolve:"" }}" == "language"){
-      apiUrl = `/api/filter-content/?status=approved&language={{ language }}`;
-    }
-    else if ("{{ request|url_resolve:"" }}" == "category"){
-      apiUrl = `/api/filter-content/?status=approved&category={{ category }}`;
-    }
-    else if ("{{ request|url_resolve:"" }}" == "review"){
-      apiUrl = `/api/filter-content/?status=shared`;
-    }
+  let apiUrl = "";
+  if ("{{ request|url_resolve:"" }}" == "user"){
+    apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}`;
+  }
+  else if ("{{ request|url_resolve:"" }}" == "utopic"){
+    apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}&topic={{ nameoftopic }}`;
+  }
+  else if ("{{ request|url_resolve:"" }}" == "home" ){
+    apiUrl = `/api/filter-content/?status=approved`;
+  }
+  else if ("{{ request|url_resolve:"" }}" == "language"){
+    apiUrl = `/api/filter-content/?status=approved&language={{ language }}`;
+  }
+  else if ("{{ request|url_resolve:"" }}" == "category"){
+    apiUrl = `/api/filter-content/?status=approved&category={{ category }}`;
+  }
+  else if ("{{ request|url_resolve:"" }}" == "review"){
+    apiUrl = `/api/filter-content/?status=shared`;
+  }
+
+  function get_data_count(apiUrl){
+    return fetch(apiUrl)
+      .then((resp) => resp.json())
+      .then(function(data) {
+        return data.count;
+      })
+      .catch(function(error) {
+        console.log('request failed', error)
+      });
+  }
+
+  let posts = [];
+  function loadmore(apiUrl){
+    let check = [];
     let card = document.querySelectorAll('card')
+    let last_content = card[card.length-1];
+    let last_id = $(`#${last_content.id}`).attr("data-postid");
     fetch(apiUrl)
       .then((resp) => resp.json())
       .then(function(data) {
-        if (data.count > card.length){
+        let contents = data.results;
+        let content_count = data.count;
+        for (let i=0; i <= contents.length ; i++){
+          let content = contents[i];
+          let content_id = content.id;
+          if (last_id > content_id){
+            if (!posts.includes(content_id)){
+              posts.push(content_id);
+              check.push(content_id);
+              let author = content.username;
+              let permlink = content.permlink;
+              let dapp_name = content.dapp_name;
+              let views = content.views;
+              let definition = content.definition;
+              let language = content.language;
+              let category = content.category;
+              let title = content.title;
+              let duration_of_read = dor(content.content);
+              steem.api.getContent(author, permlink, function(err, steem_content) {
+                let rep = steem.formatter.reputation(steem_content.author_reputation);
+                let reply = steem_content.children;
+                let created = timeSince(steem_content.created);
+                let post_reward_total = 0;
+                let pending_payout_value = parseFloat(steem_content.pending_payout_value.replace(" SBD", ""));
+                if (pending_payout_value == 0){
+                  let total_payout_value = parseFloat(steem_content.total_payout_value.replace(" SBD", ""))
+                  let curator_payout_value = parseFloat(steem_content.curator_payout_value.replace(" SBD", ""));
+                  post_reward_total = total_payout_value+curator_payout_value;
+                }
+                else{
+                  post_reward_total = pending_payout_value;
+                }
+                post_reward_total = post_reward_total.toFixed(2);
+                $(`cards`).append({% include 'card/card_template.js' %});
+              })
+              if (check.length >= 2){
+                break
+              }
+            }
+          }
+        }
+      })
+  }
+  const dataCount = get_data_count(apiUrl);
+
+  $(window).scroll(function() {
+    if (scrolledbottom()) {
+      $(".load-more").css({"display":"block"});
+      let card = document.querySelectorAll('card');
+      dataCount.then(function(data_count){
+        if (data_count > card.length){
           let page = Math.ceil(card.length / 19);
-          $(".load-more").css({"display":"block"});
           loadmore(`${apiUrl}&page=${page}`);
         }
         else{
           $(".load-more").css({"display":"none"});
           $(".end-of-the-posts").css({"display":"block"});
         }
-      })
-  }
-  else{
-    $(".load-more").css({"display":"none"});
-  }
-});
+      });
+    }
+    else{
+      $(".load-more").css({"display":"none"});
+    }
+  });
 });
 </script>
