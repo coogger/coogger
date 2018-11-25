@@ -12,7 +12,7 @@
 </div>
 <div gnrl="b-1 br-2" color="brc-white" style="padding: 6px 12px;">
   <div flx="ai-c">
-    <a gnrl="txt-m" color="c-dark" href="/@mahsumclkblk" id="author_href" flx="ai-c" hvr-a="c-private">
+    <a gnrl="txt-m" color="c-dark" href="/@${author}" id="author_href" flx="ai-c" hvr-a="c-private">
       <img class="carduserimg" gnrl="br-circle" width="40px" height="40px" src=https://steemitimages.com/u/${author}/avatar>
         <div flx="fd-c">
           <span flx="ai-c" class="carduser" style="margin-left:6px;">@${author} -
