@@ -1,11 +1,5 @@
 <script type="text/javascript">
     $(document).ready(function() {
-      // convert images url to steemitimages in content
-      images = document.querySelectorAll(".editormd img");
-      for (var i = 0; i < images.length; i++) {
-        images[i].src = `https://steemitimages.com/0x0/${images[i].src}`
-      }
-      //
         $(".follow").click(function(event){
           $("#is_follow").attr({'animation':"blink i"});
           api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {

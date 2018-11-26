@@ -28,6 +28,17 @@ $(document).ready(function() {
 //     });
 // }
 
+function update_images(query){
+  // convert images url to steemitimages in cards
+  images = document.querySelectorAll(query);
+  for (var i = 0; i < images.length; i++) {
+    if (!images[i].src.startsWith("https://steemitimages.com/0x0/")){
+      images[i].src = `https://steemitimages.com/0x0/${images[i].src}`;
+    }
+  }
+  //
+}
+
 function get_scroll_bottom_location(){
   return $(window).scrollTop() + $(window).height()+100;
 }

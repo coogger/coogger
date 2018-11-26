@@ -1,15 +1,25 @@
 `<card data-postid=${content_id} id=${author}-${permlink} gnrl="br-2" color="bg-white">
+{% if request.user.is_authenticated %}
   <div gnrl="br-1" color="bg-secondary" hvr-a="bg-danger" class="b-edit-point" data-edit-id=${content_id}>
     <div class="bebordert"></div>
     <div class="beborder"></div>
     <div class="beborderb"></div>
   </div>
+{% if ct.user == request.user %}
 <div flx="jc-c ai-c" color="bg-success" class="b-edit-panel data-edit-id-${content_id}" style="display: none;">
+  <a flx="ai-c" hvr="c-white" color="c-white" href="/post/change/${content_id}/" flx="ai-c" style="height: 100%;">
+    <i class="fa fa-edit fa" aria-hidden="true" style="margin-left: 12px;"></i>
+    <div gnrl="txt-s" style="margin-left:6px;">Edit</div>
+  </a>
+  {% endif %}
+  {% if ct.user != request.user %}
   <div flx="ai-c" class="report" data-content-id=${content_id} color="bg-danger" style="height: 100%;cursor:pointer;">
     <i color="c-white" class="fa fa-flag fa" aria-hidden="true" style="margin-left: 12px;"></i>
     <div gnrl="txt-s" color="c-white" style="margin-left:6px;">Report</div>
   </div>
+{% endif %}
 </div>
+{% endif %}
 <div gnrl="b-1 br-2" color="brc-white" style="padding: 6px 12px;">
   <div flx="ai-c">
     <a gnrl="txt-m" color="c-dark" href="/@${author}" id="author_href" flx="ai-c" hvr-a="c-private">
