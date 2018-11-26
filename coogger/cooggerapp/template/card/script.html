@@ -1,6 +1,12 @@
 {% load coogger_tags %}
 <script>
   $(document).ready(function() {
+    // convert images url to steemitimages in cards
+    images = document.querySelectorAll("definition-img");
+    for (var i = 0; i < images.length; i++) {
+      images[i].src = `https://steemitimages.com/0x0/${images[i].src}`
+    }
+    //
         $(".report").click(function(event){
           var content_id = this.getAttribute("data-content-id");
           $("body").load(`{% url 'report' %}?content_id=${content_id}`);

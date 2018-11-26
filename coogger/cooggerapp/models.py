@@ -96,7 +96,7 @@ class Content(models.Model):
             alt = img.get("alt")
         except:
             alt = ""
-        return f"<img class='definition-img' src='https://steemitimages.com/0x0/{src}' alt='{alt}'></img><p>{soup.text[0:200]}...</p>"
+        return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[0:200]}...</p>"
 
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
