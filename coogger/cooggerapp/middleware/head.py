@@ -80,7 +80,7 @@ class Head(object):
             setattr(self, "title", title)
             setattr(self, "keywords", keywords)
             setattr(self, "description", description)
-            setattr(self, "image", self.get_image(POST.body))
+            setattr(self, "image", self.get_image(POST))
         elif url_name == "hashtag":
             setattr(self, "title", "{} lates post from '{}' hashtag.".format(dapp_name, last_path))
             setattr(self, "keywords", "{}, {} hashtag".format(last_path, dapp_name))
@@ -100,9 +100,9 @@ class Head(object):
         markdown = mistune.Markdown(renderer=renderer)
         return BeautifulSoup(markdown(text), "html.parser")
 
-    def get_image(self, text):
+    def get_image(self, POST):
         try:
-            return self.get_soup(POST.body).find("img").get("src")
+            return f"https://steemitimages.com/0x0/{self.get_soup(POST.body).find('img').get('src')}"
         except:
             return "https://steemitimages.com/0x0/https://cdn.steemitimages.com/DQmV7q45hYaS1TugkYDmR4NtUuLXjMGDEnN2roxGGXJeYgs"
 
