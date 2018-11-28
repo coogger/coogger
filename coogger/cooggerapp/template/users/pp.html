@@ -13,7 +13,7 @@
     </h1>
     <div flx="jc-c">
         <div flx="fd-c" style="margin: 6px;" gnrl="br-2" color="bg-white">
-            <div flx="as-c">{{ content_user|hmanycontent:request.META.HTTP_HOST }}</div>
+            <div flx="as-c" id="post-count" data-post-count="{{ content_user|hmanycontent:request.META.HTTP_HOST }}"></div>
             <div gnrl="b-1 br-2 txt-s" color="brc-muted c-secondary" style="padding: 3px 6px;">Contents</div>
         </div>
         <div flx="fd-c" style="margin: 6px;" gnrl="br-2" color="bg-white">
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="unfollow" id="unfollow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="br-2 b-1" color="brc-muted bg-secondary" style="cursor:pointer;padding: 3px 30px;display:none">
-        <div gnrl="txt-m" color="c-white" id="is_follow">
+        <div gnrl="txt-m" color="c-white" id="is_unfollow">
             Unfollow
         </div>
     </div>

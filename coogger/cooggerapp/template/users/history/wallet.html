@@ -9,23 +9,48 @@
 <script>
     $(document).ready(function() {
       steem.api.getAccounts(["{{ content_user }}"], function(err, result) {  // account
-        var user = result[0];
-        var profile = JSON.parse(user.json_metadata).profile;
+        let user = result[0];
+        let reward_vesting_steem = user.reward_vesting_steem.replace(" STEEM","");
+        if (reward_vesting_steem != 0){
+          $(".redeem-rewards").css("display", "flex");
+          $("#reward_balance").html(`${reward_vesting_steem}  SP`);
+        }
+        let profile = JSON.parse(user.json_metadata).profile;
         document.getElementById("sbd_balance").innerHTML = user.sbd_balance.replace(" SBD","");
         document.getElementById("steem_balance").innerHTML = user.balance.replace(" STEEM","");
         steem.api.getDynamicGlobalProperties(function(err, result) {
-          var effective_vesting_shares = parseFloat(user.vesting_shares.replace(" VESTS", ""))
+          let effective_vesting_shares = parseFloat(user.vesting_shares.replace(" VESTS", ""))
           + parseFloat(user.received_vesting_shares.replace(" VESTS", ""))
           - parseFloat(user.delegated_vesting_shares.replace(" VESTS", ""));
-          var total_vesting_shares = parseFloat(result.total_vesting_shares.replace(" VESTS", ""));
-          var total_vesting_fund_steem = parseFloat(result.total_vesting_fund_steem.replace(" VESTS", ""));
-          var sp = steem.formatter.vestToSteem(effective_vesting_shares, total_vesting_shares, total_vesting_fund_steem);
+          let total_vesting_shares = parseFloat(result.total_vesting_shares.replace(" VESTS", ""));
+          let total_vesting_fund_steem = parseFloat(result.total_vesting_fund_steem.replace(" VESTS", ""));
+          let sp = steem.formatter.vestToSteem(effective_vesting_shares, total_vesting_shares, total_vesting_fund_steem);
           document.getElementById("sp_balance").innerHTML = Math.round(sp);
+        });
+        $(".redeem-rewards").click(function(){
+          api.claimRewardBalance(
+            account="{{ request.user }}",
+            rewardSteem=user.reward_steem_balance,
+            rewardSbd=user.reward_sbd_balance,
+            rewardVests=user.reward_vesting_balance, function (err, res) {
+              if (err == null){
+                console.log(res)
+                location.reload();
+              }
+              else{
+                alert(err);
+              }
+          });
         });
     });
   });
 </script>
-
+<div class="redeem-rewards" title="Redeem Rewards (Transfer To Balance)" flx="jc-c fd-c" gnrl="center b-1 br-2" hvr="bg-primary" color="brc-muted bg-red c-white" style="display:none;padding: 26px 0px;margin: 13px auto;cursor: pointer;" default="media">
+  <div class="reward" flx="ai-c" color="brc-muted" style="padding: 4px 12px;margin: 4px 24px;">
+      <div gnrl="txt-m" color="brc-muted" flx="jc-c" style="padding: 3px 6px;">Your current rewards: </div>
+      <div flx="as-c" id="reward_balance" gnrl="right" style="padding: 0px 8px;"></div>
+  </div>
+</div>
 <div flx="jc-c fd-c" gnrl="center b-1 br-2" color="brc-muted" style="padding: 26px 0px;margin: 13px auto;" default="media">
     <div flx="ai-c" color="brc-muted" style="padding: 4px 12px;margin: 4px 24px;border-bottom:1px solid #eaecee">
         <div gnrl="b-1 br-2 txt-m" color="brc-muted" flx="jc-c" style="padding: 3px 6px;">STEEM</div>
@@ -57,6 +82,7 @@
     }
     function curation_reward(json, type){
       var id = Math.random();
+
       return (`
       <div class='history-op' flx='fd-c' gnrl='b-1 br-2' color='brc-muted'>
         <div class='his-json' flx='fd-c'>

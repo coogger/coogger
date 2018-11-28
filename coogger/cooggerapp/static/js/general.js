@@ -21,26 +21,26 @@ $(document).ready(function() {
     });
 });
 
-
 // function update_account(metadata){
 //     api.updateUserMetadata(metadata, function (err, res) {
 //       console.log(err, res)
 //     });
 // }
 
+// convert images url to steemitimages in cards
 function update_images(query){
-  // convert images url to steemitimages in cards
-  images = document.querySelectorAll(query);
-  for (var i = 0; i < images.length; i++) {
-    if (!images[i].src.startsWith("https://steemitimages.com/0x0/")){
-      images[i].src = `https://steemitimages.com/0x0/${images[i].src}`;
-    }
+  let images = document.querySelectorAll(query);
+  images.forEach(changeImages);
+  function changeImages(images){
+    if (!images.src.startsWith("https://steemitimages.com/0x0/")){
+        images.src = `https://steemitimages.com/0x0/${images.src}`;
+      }
   }
-  //
 }
+// convert images url to steemitimages in cards
 
 function get_scroll_bottom_location(){
-  return $(window).scrollTop() + $(window).height()+100;
+  return $(window).scrollTop() + $(window).height()+80;
 }
 
 function scrolledbottom(){
@@ -48,12 +48,6 @@ function scrolledbottom(){
     return true;
   }
   return false;
-}
-
-function write_in_html(id, variable) {
-  if (variable != undefined){
-    $(`#${id}`).html(variable);
-  }
 }
 
 function dor(text){
@@ -125,7 +119,7 @@ function comment_info(comment){
 }
 
 function userinfo(comment){
-  var reputation = steem.formatter.reputation(comment.author_reputation);
+  let reputation = steem.formatter.reputation(comment.author_reputation);
   return (`
     <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
       <div flx='ai-fs' gnrl='bg-white'>
@@ -144,11 +138,11 @@ function userinfo(comment){
 }
 
 function comment_body(comment){
-  var pending_payout_value = parseFloat(comment.pending_payout_value.replace(" SBD", ""));
-  var post_reward_total = 0;
+  let pending_payout_value = parseFloat(comment.pending_payout_value.replace(" SBD", ""));
+  let post_reward_total = 0;
   if (pending_payout_value == 0){
-    var total_payout_value = parseFloat(comment.total_payout_value.replace(" SBD", ""))
-    var curator_payout_value = parseFloat(comment.curator_payout_value.replace(" SBD", ""));
+    let total_payout_value = parseFloat(comment.total_payout_value.replace(" SBD", ""))
+    let curator_payout_value = parseFloat(comment.curator_payout_value.replace(" SBD", ""));
     post_reward_total = total_payout_value+curator_payout_value;
   }
   else{
@@ -158,7 +152,7 @@ function comment_body(comment){
   let title = comment.title;
   $(function() {
     editormd.urls.atLinkBase ="https://www.coogger.com/@"
-    var Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
+    let Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
       height: 670,
       path : '/static/lib/',
       htmlDecode: 'html, iframe',

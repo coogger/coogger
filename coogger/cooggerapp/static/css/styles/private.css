@@ -89,6 +89,7 @@ header{
 .history-op{
   padding: 6px 12px;
   margin: 2px 16px;
+  /* max-width: 100%; */
 }
 .history-vote-weight{
   margin-left: 12px;
@@ -120,6 +121,10 @@ header{
 }
 .his-json{
   padding: 6px;
+  width: 100%;
+}
+a{
+  word-break: break-all;
 }
 card{
   width: 100%;
