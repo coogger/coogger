@@ -18,7 +18,10 @@ from cooggerapp.models import OtherAddressesOfUsers, OtherInformationOfUsers, Co
 from cooggerapp.views.tools import paginator
 
 # forms
-from cooggerapp.forms import (CSettingsUserForm, OtherAddressesOfUsersForm, CooggerupForm, VotepercentForm, BeneficiariesForm)
+from cooggerapp.forms import (
+    CSettingsUserForm, OtherAddressesOfUsersForm,
+    CooggerupForm, VotepercentForm, BeneficiariesForm
+)
 
 # python
 import os

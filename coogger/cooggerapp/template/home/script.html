@@ -1,7 +1,6 @@
 <script>
     {% if request.user.is_authenticated %}
       steem.api.getAccounts(["{{ request.user }}"], function(err, result) {  // account
-        console.log(result);
         var user = result[0];
         var profile = JSON.parse(user.json_metadata).profile;
         $("#steem_power").html(user.voting_power/100);
