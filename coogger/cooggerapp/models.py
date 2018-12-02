@@ -144,10 +144,11 @@ class Content(models.Model):
         self.dapp = queryset[0].dapp
         self.user = queryset[0].user
         # self.title = content.title
+        self.permlink = queryset[0].permlink
         self.definition = self.prepare_definition(content.content)
         self.tag = self.ready_tags(limit=5)
         self.topic = slugify(content.topic.lower())
-        steem_post = self.steemconnect_post(queryset[0].permlink, "update")
+        steem_post = self.steemconnect_post(self.permlink, "update")
         if steem_post.status_code == 200:
             queryset.update(
                 definition=self.definition,
