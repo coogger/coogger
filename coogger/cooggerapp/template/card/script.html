@@ -120,8 +120,8 @@
       return data.results;
     })
   }
+  let posts = [];
   function loadMore(apiUrl){
-    let posts = [];
     let check = [];
     let card = document.querySelectorAll('card')
     let last_content = card[card.length-1];
