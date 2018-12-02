@@ -127,10 +127,15 @@
           let editor_body = "";
           let json_metadata = JSON.parse(content.json_metadata)
           let ecosystem = json_metadata.ecosystem;
+          let version = ecosystem.version;
           if (ecosystem != undefined){
-            if (ecosystem.version == "1.4.1"){
-              editor_body = ecosystem.body;
-
+            if (version != undefined){
+              if (version == "1.4.1"){
+                editor_body = ecosystem.body;
+              }
+              else{
+                editor_body = content.body;
+              }
             }
             else{
               editor_body = content.body;

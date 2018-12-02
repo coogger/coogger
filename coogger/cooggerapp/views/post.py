@@ -142,18 +142,22 @@ class Change(View):
                     return HttpResponseRedirect("/"+queryset[0].get_absolute_url)
         raise Http404
 
-    @staticmethod
-    def content_update(request, content_id):
+    def content_update(self, request, content_id):
         ct = Content.objects.filter(user=request.user, id=content_id)
-        steem = Post(post=ct[0].get_absolute_url)
-        json_metadata = steem["json_metadata"]
+        post = Post(post=ct[0].get_absolute_url)
+        ct.update(content=self.get_body_from_steem(post), title=post.title)
+
+    def get_body_from_steem(self, post):
+        json_metadata = post["json_metadata"]
         try:
             ecosystem = json_metadata["ecosystem"]
+        except (KeyError, TypeError):
+            return post.body
+        try:
             version = ecosystem["version"]
-            if version == "1.4.1":
-                coogger_post_body = ecosystem["body"]
-            else:
-                coogger_post_body = steem.body
-        except KeyError:
-            coogger_post_body = steem.body
-        ct.update(content=coogger_post_body, title=steem.title)
+        except (TypeError, KeyError):
+            return post.body
+        if version == "1.4.1":
+            return ecosystem["body"]
+        else:
+            return post.body
