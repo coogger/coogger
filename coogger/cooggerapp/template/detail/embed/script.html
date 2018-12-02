@@ -126,10 +126,10 @@
           $("#title").html(title);
           let editor_body = "";
           let json_metadata = JSON.parse(content.json_metadata)
-          let ecosystem = json_metadata.ecosystem;
-          let version = ecosystem.version;
-          if (ecosystem != undefined){
-            if (version != undefined){
+          try{
+            let ecosystem = json_metadata.ecosystem;
+            try{
+              let version = ecosystem.version;
               if (version == "1.4.1"){
                 editor_body = ecosystem.body;
               }
@@ -137,11 +137,13 @@
                 editor_body = content.body;
               }
             }
-            else{
+            catch(err){
+              console.log(err);
               editor_body = content.body;
             }
           }
-          else{
+          catch(err){
+            console.log(err);
             editor_body = content.body;
           }
           $(function() { // editor md
