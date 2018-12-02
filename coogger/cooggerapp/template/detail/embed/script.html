@@ -124,13 +124,28 @@
           $("#post_reward_total").html("$ "+post_reward_total.toFixed(2));
           $("#post_reward_total2").html("$ "+post_reward_total.toFixed(2));
           $("#title").html(title);
+          let editor_body = "";
+          let json_metadata = JSON.parse(content.json_metadata)
+          let ecosystem = json_metadata.ecosystem;
+          if (ecosystem != undefined){
+            if (ecosystem.version == "1.4.1"){
+              editor_body = ecosystem.body;
+
+            }
+            else{
+              editor_body = content.body;
+            }
+          }
+          else{
+            editor_body = content.body;
+          }
           $(function() { // editor md
             editormd.urls.atLinkBase ="https://www.coogger.com/@"
             let Editor = editormd.markdownToHTML("id_arg_editormd", {
               height: 670,
               path : "/static/lib/",
               htmlDecode: "html, iframe",
-              markdown : content.body,
+              markdown : editor_body,
             });
           });
         });

@@ -7,7 +7,7 @@
   </div>
 <div flx="jc-c ai-c" color="bg-success" class="b-edit-panel data-edit-id-${content_id}" style="display: none;">
   {% if ct.user == request.user %}
-  <a flx="ai-c" hvr="c-white" color="c-white" href="/post/change/${content_id}/" flx="ai-c" style="height: 100%;">
+  <a flx="ai-c" hvr="c-white" color="c-white" href="/post/change/@${author}/${permlink}" flx="ai-c" style="height: 100%;">
     <i class="fa fa-edit fa" aria-hidden="true" style="margin-left: 12px;"></i>
     <div gnrl="txt-s" style="margin-left:6px;">Edit</div>
   </a>

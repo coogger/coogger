@@ -6,6 +6,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # models
 from cooggerapp.models import OtherAddressesOfUsers, Content
 
+def get_user(username):
+    return User.objects.filter(username=username)[0].user
+
 def user_topics(queryset):
     topics = []
     for query in queryset:

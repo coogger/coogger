@@ -9,10 +9,14 @@ from django.contrib import messages as ms
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.http import Http404
 
 # models
 from cooggerapp.models import Content, CategoryofDapp
 from steemconnect_auth.models import Dapp
+
+# views
+from cooggerapp.views.tools import get_user
 
 # form
 from cooggerapp.forms import ContentForm
@@ -70,67 +74,86 @@ class Create(View):
             save = form.content_save(request)  # save with steemconnect and get ms
             if save.status_code != 200:  # if any error show the error
                 ms.error(request, save.text)
-                return self.create_error(request, form)
-            return HttpResponseRedirect("/"+form.get_absolute_url())
+                return render(request, self.template_name, dict(form=form))
+            return HttpResponseRedirect("/"+form.get_absolute_url)
         else:
-            return self.create_error(request, form)
-
-    def create_error(self, request, form):
-        return render(request, self.template_name, {"form": form})
+            return render(request, self.template_name, dict(form=form))
 
 
 class Change(View):
     template_name = "post/change.html"
 
     @method_decorator(login_required)
-    def get(self, request, content_id, *args, **kwargs):
-        dapp_model = request.dapp_model
-        if dapp_model.name == "coogger":
-            queryset = Content.objects.filter(user=request.user, id=content_id)
-            request.dapp_model = queryset[0].dapp
-            category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
-            request.categories = make_choices([category.category_name for category in category_filter])
-        else:
-            queryset = Content.objects.filter(dapp=dapp_model, user=request.user, id=content_id)
-        if queryset.exists():
-            self.content_update(request, content_id)
-            content_form = ContentForm(instance=queryset[0], request=request)
-            context = dict(
-                content_id=content_id,
-                form=content_form,
-            )
-            return render(request, self.template_name, context)
+    def get(self, request, username, permlink, *args, **kwargs):
+        if request.user.username == username:
+            queryset = Content.objects.filter(user=request.user, permlink=permlink)
+            if queryset.exists():
+                content_id = queryset[0].id
+                self.content_update(request, content_id)
+                queryset = Content.objects.filter(user=request.user, permlink=permlink)
+                dapp_model = request.dapp_model
+                if dapp_model.name == "coogger":
+                    request.dapp_model = queryset[0].dapp
+                    category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
+                    request.categories = make_choices([category.category_name for category in category_filter])
+                else:
+                    queryset = queryset.filter(dapp=dapp_model)
+                    if not queryset.exists():
+                        raise Http404
+                content_form = ContentForm(instance=queryset[0], request=request)
+                context = dict(
+                    username=username,
+                    permlink=permlink,
+                    form=content_form,
+                )
+                return render(request, self.template_name, context)
+        raise Http404
 
     @method_decorator(login_required)
-    def post(self, request, content_id, *args, **kwargs):
-        dapp_model = request.dapp_model
-        if dapp_model.name == "coogger":
-            queryset = Content.objects.filter(user=request.user, id=content_id)
-            request.dapp_model = queryset[0].dapp
-            category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
-            request.categories = make_choices([category.category_name for category in category_filter])
-        else:
-            queryset = Content.objects.filter(dapp=dapp_model, user=request.user, id=content_id)
-        if queryset.exists():
-            form = ContentForm(data=request.POST, request=request)
-            maybe_error_form = form
-            if form.is_valid():
-                form = form.save(commit=False)
-                queryset = Content.objects.filter(user=request.user, id=content_id)
-                save = form.content_update(queryset, form)  # save with sc2py and get ms
-                if save.status_code != 200:
-                    ms.error(request, save.text)
-                    return self.create_error(request, maybe_error_form)
-                return HttpResponseRedirect("/"+queryset[0].get_absolute_url())
+    def post(self, request, username, permlink, *args, **kwargs):
+        if request.user.username == username:
+            queryset = Content.objects.filter(user=request.user, permlink=permlink)
+            if queryset.exists():
+                content_id = queryset[0].id
+                dapp_model = request.dapp_model
+                if dapp_model.name == "coogger":
+                    request.dapp_model = queryset[0].dapp
+                    category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
+                    request.categories = make_choices([category.category_name for category in category_filter])
+                else:
+                    queryset = queryset.filter(dapp=dapp_model)
+                    if not queryset.exists():
+                        raise Http404
+                form = ContentForm(data=request.POST, request=request)
+                maybe_error_form = form
+                if form.is_valid():
+                    form = form.save(commit=False)
+                    save = form.content_update(queryset, form)
+                    if save.status_code != 200:
+                        ms.error(request, save.text)
+                        warning_ms = """unexpected error, check your content please or contact us on discord;
+                        <a gnrl='c-primary' href='https://discord.gg/avmdZJa'>https://discord.gg/avmdZJa</a>"""
+                        ms.error(request, warning_ms)
+                        return render(request, self.template_name, dict(
+                            form=maybe_error_form,
+                            username=username,
+                            permlink=permlink)
+                        )
+                    return HttpResponseRedirect("/"+queryset[0].get_absolute_url)
+        raise Http404
 
     @staticmethod
     def content_update(request, content_id):
         ct = Content.objects.filter(user=request.user, id=content_id)
-        steem = Post(post=ct[0].get_absolute_url())
-        ct.update(content=steem.body, title=steem.title)
-
-    def create_error(self, request, form):
-        warning_ms = """unexpected error, check your content please or contact us on discord;
-        <a gnrl='c-primary' href='https://discord.gg/avmdZJa'>https://discord.gg/avmdZJa</a>"""
-        ms.error(request, warning_ms)
-        return render(request, self.template_name, {"form": form})
+        steem = Post(post=ct[0].get_absolute_url)
+        json_metadata = steem["json_metadata"]
+        try:
+            ecosystem = json_metadata["ecosystem"]
+            version = ecosystem["version"]
+            if version == "1.4.1":
+                coogger_post_body = ecosystem["body"]
+            else:
+                coogger_post_body = steem.body
+        except KeyError:
+            coogger_post_body = steem.body
+        ct.update(content=coogger_post_body, title=steem.title)

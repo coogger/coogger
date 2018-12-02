@@ -6,11 +6,9 @@
         development</span> category on {{ request.dapp_model.name }} Dapp
     </a>
   </div>
-    <form flx="fd-c" default="form media" method="post" class="c-update-form"
-    style="padding: 12px 6px;z-index:2" action="{% url 'change' content_id %}">
+    <form flx="fd-c" class="c-update-form" action="{% url 'change' username permlink %}"  style="padding: 12px 6px;z-index:2"  default="form media" method="post" >
         {% csrf_token %} {{ form }}
-        <input flx="as-c" type="submit" value="Save edit"
-        style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
+        <input flx="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" hvr-a="i bg-white">
     </form>
 </div>
 {% include 'post/script.html' %}

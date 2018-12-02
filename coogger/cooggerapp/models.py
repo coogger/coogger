@@ -98,6 +98,7 @@ class Content(models.Model):
             alt = ""
         return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[0:200]}...</p>"
 
+    @property
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
 
@@ -130,7 +131,7 @@ class Content(models.Model):
         self.topic = slugify(self.topic.lower())
         while True:
             try: # if user and pemlink is already saved on steem
-                Post(post=self.get_absolute_url()).url
+                Post(post=self.get_absolute_url).url
                 self.new_permlink() #We need to change permlink
             except:
                 break
@@ -142,15 +143,16 @@ class Content(models.Model):
     def content_update(self, queryset, content):
         self.dapp = queryset[0].dapp
         self.user = queryset[0].user
-        self.title = content.title
+        # self.title = content.title
+        self.definition = self.prepare_definition(content.content)
         self.tag = self.ready_tags(limit=5)
         self.topic = slugify(content.topic.lower())
         steem_post = self.steemconnect_post(queryset[0].permlink, "update")
         if steem_post.status_code == 200:
             queryset.update(
-                definition=self.prepare_definition(content.content),
+                definition=self.definition,
                 topic=self.topic,
-                title=self.title,
+                # title=self.title,
                 category=content.category,
                 language=content.language,
                 tag=self.tag,
@@ -160,27 +162,46 @@ class Content(models.Model):
     def steemconnect_post(self, permlink, json_metadata):
         def_name = json_metadata
         if json_metadata == "save":
-            self.content += "\n"+self.dapp.ms.format(self.get_absolute_url())
+            self.content += "\n"+self.dapp.ms.format(self.get_absolute_url)
         json_metadata = {
             "format": "markdown",
             "tags": self.tag.split(),
-            "app": "coogger/1.4.0",
+            "app": "coogger/1.4.1",
             "ecosystem": {
                 "name": "coogger",
-                "version": "1.4.0",
+                "version": "1.4.1",
                 "dapp": self.dapp.name,
                 "topic": self.topic,
                 "category": self.category,
                 "language": self.language,
+                "body": self.content,
                 },
         }
+        body_for_steem = f"""
+{self.definition} Read this content on [www.coogger.com](www.coogger.com/@{self.user.username}/{self.permlink})<br>
+- Dapp; [Coogger]({self.dapp.host_name})
+- Category; [Tutorial](https://www.coogger.com/category/{self.category}/)
+- Language; [Turkish](https://www.coogger.com/language/{self.language}/)
+- Topic; [Python](https://www.coogger.com/python/@{self.user.username}/)
+- Filter;[username={self.user.username}&category={self.category}&topic={self.topic}&language={self.language}](https://www.coogger.com/filter/?username={self.user.username}&category={self.category}&topic={self.topic}&language={self.language})
+- User; [@{self.user.username}](www.coogger.com/@{self.user.username})<br>
+
+--------
+
+Posted using [www.coogger.com](https://www.coogger.com)
+Coogger is an ecosystem where is **knowledge sharing network** which can **build web dapps** and **groups**
+
+#### Contact Us
+
+- [on Spectrum](https://spectrum.chat/coogger)
+- [on Discord](https://discord.gg/avmdZJa)"""
         comment = Comment(
             parent_author = "",
             parent_permlink=self.dapp.name,
             author=str(self.user.username),
             permlink=permlink,
             title=self.title,
-            body=self.content,
+            body=body_for_steem,
             json_metadata=json_metadata,
         )
         if def_name == "save":
