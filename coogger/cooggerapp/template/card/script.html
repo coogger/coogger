@@ -177,16 +177,16 @@
     if (scrolledbottom()) {
       $(".load-more").css({"display":"block"});
       let card = document.querySelectorAll('card');
-      if (data_count > card.length){
-        dataCount().then(function(data_count){
-          let page = Math.ceil(card.length / 19);
-          loadMore(`${apiUrl}&page=${page}`);
-        });
-      }
-      else{
-        $(".load-more").css({"display":"none"});
-        $(".end-of-the-posts").css({"display":"block"});
-      }
+      dataCount().then(function(data_count){
+        if (data_count > card.length){
+            let page = Math.ceil(card.length / 19);
+            loadMore(`${apiUrl}&page=${page}`);
+        }
+        else{
+          $(".load-more").css({"display":"none"});
+          $(".end-of-the-posts").css({"display":"block"});
+        }
+      })
     }
     else{
       $(".load-more").css({"display":"none"});
