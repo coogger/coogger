@@ -1,8 +1,8 @@
-{% include 'detail/embed/script.html' %}
+{% include 'detail/script.html' %}
 <div animation="fadeIn" font="quicksand" style="padding: 12px;">
-{% include 'detail/embed/status.html' %}
+{% include 'detail/status.html' %}
 <div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
-  {% include 'detail/embed/share_social_site.html' %}
+  {% include 'detail/share_social_site.html' %}
   <div default="media">
     {% if detail.topic %}
       <div flx="">
@@ -14,8 +14,8 @@
           </a>
       </div>
     {% endif %}
-    {% include 'detail/embed/contentinfo.html' %}
-    {% include 'detail/embed/userinfo.html' %}
+    {% include 'detail/contentinfo.html' %}
+    {% include 'detail/userinfo.html' %}
     <div>
       <h1 gnrl="center txt-xl" id="title" style="margin: 12px auto;"></h1>
       <div style="padding: inherit;">
@@ -23,7 +23,7 @@
             <textarea style="display:none;" id='editormd_content'></textarea>
         </div>
       </div>
-      {% include 'detail/embed/edit.html' %}
+      {% include 'detail/edit.html' %}
       <!-- vote button  -->
       <div gnrl="center">
         <div class="vote circle">
@@ -34,11 +34,11 @@
       </div>
       <!-- vote button  -->
     </div>
-    {% include 'detail/embed/donation.html' %}
+    {% include 'detail/donation.html' %}
     <div style="margin: 10% 0px;"></div>
-    {% include 'detail/embed/comments.html' %}
+    {% include 'detail/comments.html' %}
   </div>
-{% include 'detail/embed/other_contents.html' %}
+{% include 'detail/other_contents.html' %}
 </div>
 </div>
 </body>

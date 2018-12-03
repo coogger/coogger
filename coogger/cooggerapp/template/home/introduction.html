@@ -1,6 +1,5 @@
-{% include 'home/head.html' %}
-{% include 'home/header.html' %}
-
+{% extends "home/html.html" %}
+{% block body %}
   <div class="c-definition-1" gnrl="ewcenter" color="bg-dark-purple c-white">
     <div flx="fd-c">
       <strong gnrl="txt-xxl center">Create Decentralized Web Application</strong>
@@ -86,5 +85,4 @@
       </div>
     </div>
   </div>
-
-{% include "home/footer.html" %}
+{% endblock %}

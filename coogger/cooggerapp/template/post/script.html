@@ -12,7 +12,6 @@
         $("#category_help_name").html(get_category_name);
         $("#category_help_page").attr("href",category_help_address);
       });
-
       var get_dapp_name = $( ".create #id_dapp" ).val();
       $(".create .c-create-form").attr("action", "{% url 'create' %}" + "?dapp="+get_dapp_name);
       $( ".create #id_dapp" ).change(function() {
@@ -21,6 +20,5 @@
           window.location.href = "?dapp="+get_dapp_name;
         }
       });
-
     });
 </script>

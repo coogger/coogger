@@ -1,11 +1,6 @@
-{% extends "home/body.html" %}
+{% extends "home/html.html" %}
 {% block body %}
-  {% include 'users/pp.html' %}
-  {% include 'users/user-info.html' %}
-  {% include 'users/footer.html' %}
-  {% include 'users/tabs.html' %}
-  {% include 'users/nav.html' %}
-  {% include 'users/script.html'%}
+  {% include 'users/general.html' %}
   <script>
       function vote(json, type){
         return (`
@@ -90,7 +85,6 @@
         console.log(type, json);
         return json
       }
-
       steem.api.getAccountHistory("{{content_user}}", -1, 200, (err, result) => {
         let template = "";
         let history = result.filter(

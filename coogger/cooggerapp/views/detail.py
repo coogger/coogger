@@ -73,8 +73,8 @@ class Detail(TemplateView):
 
 
 class Embed(Detail):
-    template_name = "detail/embed/embed.html"
+    template_name = "detail/embed.html"
 
 
 class EmbedComments(Detail):
-    template_name = "detail/embed/comments/embed.html"
+    template_name = "detail/embed.html"

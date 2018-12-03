@@ -1,8 +1,9 @@
 {% include 'home/head.html' %}
 {% include 'home/header.html' %}
-<body font="quicksand" animation="fadeIn">
+<body font="quicksand">
   {% if messages %} {% include 'home/ms.html' %} {% endif %}
   {% block body %}{% endblock %}
+{% include 'home/load_more.html' %}
 {% include "home/footer.html" %}
 </body>
 </html>
