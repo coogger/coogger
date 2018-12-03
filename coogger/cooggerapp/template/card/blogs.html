@@ -1,6 +1,4 @@
-{% include 'home/head.html' %}
-{% include 'home/header.html' %}
-{% include 'home/section.html' %}
-{% include 'home/footer.html' %}
-</body>
-</html>
+{% extends "home/body.html" %}
+{% block body %}
+  {% include 'home/section.html' %}
+{% endblock %}

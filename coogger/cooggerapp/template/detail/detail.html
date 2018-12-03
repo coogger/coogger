@@ -1,8 +1,6 @@
-{% include 'home/head.html' %}
-{% include 'home/header.html' %}
-<div class="header-bottom">
-  {% include 'detail/embed/general.html' %}
-</div>
-{% include "home/footer.html" %}
-</body>
-</html>
+{% extends "home/body.html" %}
+{% block body %}
+  <div class="header-bottom">
+    {% include 'detail/embed/general.html' %}
+  </div>
+{% endblock %}

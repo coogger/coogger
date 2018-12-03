@@ -52,8 +52,7 @@
 {% endif %}
 <div class="header_menu" gnrl="br-2 b-1 center ewcenter" color="bg-white brc-muted">
   <div flx="jc-fe">
-    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m" color="c-secondary"
-    href="{% url 'followingcontent' %}">
+    <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flx="" hvr="c-primary bg-white br-2" gnrl="wmax txt-m" color="c-secondary" href="{% url 'followingcontent' %}">
       <span>Feed</span>
       <i flx="as-c" class="fa fa-users" aria-hidden="true"></i>
     </a>
@@ -140,5 +139,3 @@
 <div class="closed_header_menu" hvr="bg-danger c-white" gnrl="txt-xxl b-1 br-circle" color="brc-white">
   <strong>X</strong>
 </div>
-<body font="quicksand" animation="fadeIn">
-{% if messages %} {% include 'home/ms.html' %} {% endif %}

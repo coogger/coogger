@@ -1,17 +1,15 @@
-{% include 'home/head.html' %}
-{% include 'home/header.html' %}
-{% include 'users/pp.html' %}
-{% include 'users/user-info.html' %}
-{% include 'users/footer.html' %}
-{% include 'users/tabs.html' %}
-{% include 'users/nav.html' %}
-{% include 'users/script.html' %}
-{% if content %}
-  <div gnrl="center" style="margin-top:12px">
-    {% include 'card/blog-cards.html' %}
-    {% include 'users/topics.html' %}
-  </div>
-{% endif %}
-{% include 'home/footer.html' %}
-</body>
-</html>
+{% extends "home/body.html" %}
+{% block body %}
+  {% include 'users/pp.html' %}
+  {% include 'users/user-info.html' %}
+  {% include 'users/footer.html' %}
+  {% include 'users/tabs.html' %}
+  {% include 'users/nav.html' %}
+  {% include 'users/script.html' %}
+  {% if content %}
+    <div gnrl="center" style="margin-top:12px">
+      {% include 'card/blog-cards.html' %}
+      {% include 'users/topics.html' %}
+    </div>
+  {% endif %}
+{% endblock %}
