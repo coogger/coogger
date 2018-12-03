@@ -89,7 +89,10 @@ class Head(object):
             setattr(self, "image", "/static/media/icons/list.svg")
         elif url_name == "home":
             dapp = request.dapp_model
-            setattr(self, "title", "{} | coogger".format(dapp.name))
+            if dapp.name == "coogger":
+                setattr(self, "title", "{}".format(dapp.name))
+            else:
+                setattr(self, "title", "{} | coogger".format(dapp.name))
             setattr(self, "keywords", "{}, coogger ecosystem,coogger/{}".format(dapp.name, dapp.name))
             setattr(self, "description", dapp.definition)
             setattr(self, "author", f"https://www.facebook.com/{dapp.name}")

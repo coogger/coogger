@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.contrib.auth import authenticate
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 # django class based
 from django.views.generic.base import TemplateView
@@ -71,10 +72,10 @@ class Detail(TemplateView):
             Contentviews(content=queryset[0], ip=ip).save()
             queryset.update(views=F("views") + 1)
 
-
+@xframe_options_exempt
 class Embed(Detail):
     template_name = "detail/embed.html"
 
-
+@xframe_options_exempt
 class EmbedComments(Detail):
     template_name = "detail/embed.html"
