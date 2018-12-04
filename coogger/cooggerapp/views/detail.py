@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import F
 from django.contrib.auth import authenticate
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.utils.decorators import method_decorator
 
 # django class based
 from django.views.generic.base import TemplateView
@@ -72,10 +73,10 @@ class Detail(TemplateView):
             Contentviews(content=queryset[0], ip=ip).save()
             queryset.update(views=F("views") + 1)
 
-@xframe_options_exempt
+@method_decorator(xframe_options_exempt, name='dispatch')
 class Embed(Detail):
     template_name = "detail/embed.html"
 
-@xframe_options_exempt
+@method_decorator(xframe_options_exempt, name='dispatch')
 class EmbedComments(Detail):
     template_name = "detail/embed.html"

@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 
 # django class based
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic.base import TemplateView
 
