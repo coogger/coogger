@@ -95,6 +95,8 @@ class Content(models.Model):
         src = img.get("src")
         try:
             alt = img.get("alt")
+            if alt == None:
+                alt = ""
         except:
             alt = ""
         return f"<img class='definition-img' src='{src}' alt='{alt}'></img>"
@@ -187,10 +189,13 @@ class Content(models.Model):
                 },
         }
         soup = self.marktohtml(marktext=self.content)
-        img = self.get_first_image(html_soup=soup)
-        definition_for_steem = f"{img}<p>{soup.text[0:400]}... Read this content on [www.coogger.com](www.coogger.com/@{self.user.username}/{self.permlink})</p>"
-        body_for_steem = f"""
-{definition_for_steem} <br>
+        img = soup.find("img")
+        if str(img) not in str(soup)[0:600]:
+            img = self.get_first_image(html_soup=soup)
+        else:
+            img = ""
+        definition_for_steem = f"{img} {str(soup)[0:600]}...\n\nRead this content on [www.coogger.com](www.coogger.com/@{self.user.username}/{self.permlink})"
+        body_for_steem = f"""{definition_for_steem}<br>
 - Dapp; [Coogger]({self.dapp.host_name})
 - Category; [Tutorial](https://www.coogger.com/category/{self.category}/)
 - Language; [Turkish](https://www.coogger.com/language/{self.language}/)
