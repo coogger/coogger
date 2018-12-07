@@ -83,14 +83,12 @@ class Content(models.Model):
     def __str__(self):
         return f"@{self.user}/{self.permlink}"
 
-    @staticmethod
-    def marktohtml(marktext):
+    def marktohtml(self, marktext):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
         markdown = mistune.Markdown(renderer=renderer)
-        return BeautifulSoup(markdown(text), "html.parser")
+        return BeautifulSoup(markdown(marktext), "html.parser")
 
-    @staticmethod
-    def get_first_image(html_soup):
+    def get_first_image(self, html_soup):
         img = html_soup.find("img")
         if img is None:
             return ""
@@ -101,8 +99,7 @@ class Content(models.Model):
             alt = ""
         return f"<img class='definition-img' src='{src}' alt='{alt}'></img>"
 
-    @staticmethod
-    def prepare_definition(text):
+    def prepare_definition(self, text):
         soup = self.marktohtml(marktext=text)
         img = self.get_first_image(html_soup=soup)
         if img is None:

@@ -20,8 +20,8 @@ class TopicSitemap(Sitemap):
                 items_list.append(i)
         return items_list
 
-    def lastmod(self, obj):
-        return Content.objects.filter(topic=obj.topic, status="approved")[0].lastmod
+    # def lastmod(self, obj):
+        # return Content.objects.filter(topic=obj.topic, status="approved")[0].lastmod
 
     def location(self, obj):
         return "/"+obj.topic+"/@"+obj.user.username
@@ -34,8 +34,8 @@ class ContentSitemap(Sitemap):
     def items(self):
         return Content.objects.filter(status="approved")
 
-    def lastmod(self, obj):
-        return obj.lastmod
+    # def lastmod(self, obj):
+        # return obj.lastmod
 
     def location(self, obj):
         return "/"+obj.get_absolute_url
@@ -48,11 +48,11 @@ class UsersSitemap(Sitemap):
     def items(self):
         return User.objects.all()
 
-    def lastmod(self, obj):
-        try:
-            return Content.objects.filter(user=obj)[0].time
-        except IndexError:
-            pass
+    # def lastmod(self, obj):
+        # try:
+            # return Content.objects.filter(user=obj)[0].time
+        # except IndexError:
+            # pass
 
     def location(self, obj):
         return "/@"+obj.username
