@@ -36,10 +36,10 @@
 </div>
 <div flx="" style="margin: 12px 12px;">
   <div flx="ai-c" gnrl="txt-s left" color="c-white" class="content_list">
-    <a hvr="c-white bg-primary" gnrl="b-1 br-2" color="c-primary" id="language" href=/language/${language}/ style="padding: 2px 6px;">${language}</a>
+    <a hvr="c-white bg-primary" gnrl="b-1 br-2" color="c-primary" id="topic" href="/${topic}/@${author}" style="padding: 2px 6px;">${topic}</a>
   </div>
   <div flx="ai-c" gnrl="txt-s right" color="c-white" class="content_list">
-    <a hvr="c-white bg-primary" gnrl="b-1 br-2" color="c-primary" href=/category/${category}/ id="category" style="padding: 2px 6px;">${category}</a>
+    <a hvr="c-white bg-primary" gnrl="b-1 br-2" color="c-primary" href="/category/${category}/" id="category" style="padding: 2px 6px;">${category}</a>
   </div>
 </div>
 <div gnrl="br-2" color="c-secondary c-dark" flx="ai-fs" style="margin: 12px 0px;">
@@ -47,10 +47,13 @@
     <div style="margin-left: 12px;" id="dor">min ${duration_of_read}</div>
   </div>
   <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div style="margin-left: 12px;">views ${views}</div>
+  </div>
+  <div gnrl="txt-s" flx="ai-c" class="duread-li">
     <div style="margin-left: 12px;">reply <span id="reply">${reply}</span></div>
   </div>
   <div gnrl="txt-s" flx="ai-c" class="duread-li">
-    <div style="margin-left: 12px;">views ${views}</div>
+    <div style="margin-left: 12px;">votes <span id="votes">${votes}</span></div>
   </div>
 </div>
 <div flx="jc-fs" gnrl="txt-l" style="margin: 12px 12px;">
@@ -67,12 +70,13 @@
 </a>
 <div flx="jc-fe" style="padding: 6px 12px;" gnrl="br-2" color="c-secondary">
   <div gnrl="txt-s" flx="ai-c" class="duread-li" style="margin-right: auto;">
-    <div class="ctpayout" gnrl="b-1 br-2" color="c-success" style="margin:0px 2px;padding: 2px 6px;">
+    <div class="ctpayout" gnrl="b-1 br-2" color="c-white bg-success" style="margin:0px 2px;padding: 2px 6px;">
       $<span id="post_reward_total">${post_reward_total}</span>
     </div>
   </div>
-  <div class="upvote" id="upvote" data-id=${author}-${permlink} data-user=${author} data-permlink=${permlink} flx="" gnrl="br-2 txt-s" color="c-primary" style="padding: 4px 4px;cursor:pointer;">
-    <i color="c-primary" hvr="c-danger" class="fa fa-thumbs-up"></i>
+  <div flx="ai-c" gnrl="txt-s right" color="c-white" class="content_list">
+      <a hvr="c-white bg-primary" gnrl="b-1 br-2" color="c-primary"
+       href="/language/${language}" id="language" style="margin:0px 2px;padding: 2px 6px;">${language}</a>
   </div>
 </div>
 </card>`

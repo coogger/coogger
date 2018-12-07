@@ -3,6 +3,7 @@
         $(".follow").click(function(event){
           $("#is_follow").attr({'animation':"blink i"});
           api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
+            console.log(err, res);
             if (err == null){
               $("#is_follow").html("Unfollow");
               $("#follow").css({'display':"none"});
@@ -17,6 +18,7 @@
         $(".unfollow").click(function(event){
             $("#is_unfollow").attr({'animation':"blink i"});
             api.unfollow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
+              console.log(err, res);
               if (err == null){
                 $("#is_follow").html("Follow");
                 $("#follow").css({'display':"flex"});

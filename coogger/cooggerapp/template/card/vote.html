@@ -1,12 +1,11 @@
 <div flx="jc-fe" style="padding: 6px 12px;" gnrl="br-2" color="c-secondary">
     <div gnrl="txt-s" flx="ai-c" class="duread-li" style="margin-right: auto;">
-        <div class="ctpayout" gnrl="b-1 br-2" color="c-success" style="margin:0px 2px;padding: 2px 6px;">
+        <div class="ctpayout" gnrl="b-1 br-2" color="c-white bg-success" style="margin:0px 2px;padding: 2px 6px;">
             $<span id="post_reward_total"></span>
         </div>
     </div>
-    <div class="upvote" id="upvote"
-      data-id="{{ ct.user }}-{{ ct.permlink }}" data-user="{{ct.user}}"
-      data-permlink="{{ct.permlink}}" flx
-      gnrl="br-2 txt-s" color="c-primary" style="padding: 4px 4px;cursor:pointer;">
+    <div flx="ai-c" gnrl="txt-s right" color="c-white" class="content_list">
+        <a hvr="c-white bg-primary" gnrl="b-1 br-2" color="c-primary"
+         href="{% url 'language' ct.language %}" id="language" style="margin:0px 2px;padding: 2px 6px;">{{ct.language}}</a>
     </div>
 </div>

@@ -1,14 +1,24 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        steem.api.getAccounts(["{{ content_user }}"], function(err, result) {  // account
-          let user = result[0];
+        steem.api.getAccounts(["{{ content_user }}"], function(err, users) {  // account
+          let user = users[0];
           let coogger_post_count = $("#post-count").attr("data-post-count");
           $("#post-count").html(`${coogger_post_count} + ${user.post_count-coogger_post_count}`);
           let profile = JSON.parse(user.json_metadata).profile;
           document.getElementById("useruserimg").setAttribute("src","https://steemitimages.com/u/{{ content_user }}/avatar");
           $("#reputation").html(steem.formatter.reputation(user.reputation));
-          $("#about").html(profile.about);
-          $("#location").html(profile.location);
+          try{
+            $("#about").html(profile.about);
+          }
+          catch(err){
+            console.log(err);
+          }
+          try{
+            $("#location").html(profile.location);
+          }
+          catch(err){
+            console.log(err);
+          }
           steem.api.getFollowCount("{{ content_user }}", function(err, followcount) {
             $("#follower_count").html(followcount.follower_count);
             $("#following_count").html(followcount.following_count);

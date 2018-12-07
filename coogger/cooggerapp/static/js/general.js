@@ -27,6 +27,12 @@ $(document).ready(function() {
 //     });
 // }
 
+function copyTextFromId(id) {
+  let text = document.getElementById("embed-text");
+  text.select();
+  document.execCommand("copy");
+}
+
 // convert images url to steemitimages in cards
 function update_images(query){
   let images = document.querySelectorAll(query);
@@ -40,7 +46,7 @@ function update_images(query){
 // convert images url to steemitimages in cards
 
 function get_scroll_bottom_location(){
-  return $(window).scrollTop() + $(window).height()+80;
+  return $(window).scrollTop() + $(window).height()+100;
 }
 
 function scrolledbottom(){

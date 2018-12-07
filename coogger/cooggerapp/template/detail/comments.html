@@ -6,9 +6,6 @@
         let comment = comments[comment_index];
         if (comment.children != 0){
           steem.api.getContentReplies(parent=comment.author, parentPermlink=comment.permlink, function (err, children_comments) {
-            if (err!=null){
-              console.log(err);
-            }
             let children_comment_index;
             let children_comments_len = children_comments.length;
             for (children_comment_index = 0; children_comment_index < children_comments_len; children_comment_index++) {
@@ -61,30 +58,27 @@
   $(document).ready(function() {
     $("#send-comment").click(function(){
       $(this).attr("hvr-animation", "i blink");
-      var get_comment = $("#comment-text").val();
-      var parentAuthor = this.dataset.parent_author;
-      var parentPermlink = this.dataset.parent_permlink;
-      var current_time = new Date();
-      let link_to_time = current_time.toISOString().replace(/[^a-zA-Z0-9]+/g, '');
+      let get_comment = $("#comment-text").val();
+      let parentAuthor = this.dataset.parent_author;
+      let parentPermlink = this.dataset.parent_permlink;
+      let current_time = new Date();
+      let link_to_time = current_time.toISOString().replace(/[A-Z]+/g, '').replace(/[^a-z0-9]+/g, '');;
       // var link_to_time = current_time.getYear()+current_time.getMonth()+current_time.getDay()+current_time.getMinutes()+current_time.getSeconds();
-      var permlink = `re-${parentAuthor}-${parentPermlink}-${link_to_time}`;
-      var author = "{{ request.user }}";
-      var title = "";
-      var body = `${get_comment}\n\nPosted using
-        [{{ request.dapp_model.name }}]({{ request.dapp_model.host_name }})"`;
-      var jsonMetadata = {
+      let permlink = `re-${parentAuthor}-${parentPermlink}-${link_to_time}`;
+      let author = "{{ request.user }}";
+      let title = "";
+      let body = `${get_comment}\n\nPosted using [{{ request.dapp_model.host_name }}]({{ request.dapp_model.host_name }})`;
+      let jsonMetadata = {
           "format": "markdown",
           "tags": "{{ request.dapp_model.name }}",
-          "app": "coogger/1.3.9",
-          "ecosystem": "coogger",
-          "dapp": "{{ request.dapp_model.name }}",
+          "app": "coogger/1.4.1"
       };
       api.comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, comment_res) {
         if (err == null){
           document.getElementById("comment-text").value = ""
           $(this).attr("hvr-animation", "null");
           steem.api.getContent(author, permlink, function(err, new_comment) {
-            var new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
+            let new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
             $("#comment_template").append(new_comment_template);
           });
         }

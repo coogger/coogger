@@ -84,19 +84,30 @@ class Content(models.Model):
         return f"@{self.user}/{self.permlink}"
 
     @staticmethod
-    def prepare_definition(text):
+    def marktohtml(marktext):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
         markdown = mistune.Markdown(renderer=renderer)
-        soup = BeautifulSoup(markdown(text), "html.parser")
-        img = soup.find("img")
+        return BeautifulSoup(markdown(text), "html.parser")
+
+    @staticmethod
+    def get_first_image(html_soup):
+        img = html_soup.find("img")
         if img is None:
-            return "<p>{}</p>".format(soup.text[0:200]+"...")
+            return ""
         src = img.get("src")
         try:
             alt = img.get("alt")
         except:
             alt = ""
-        return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[0:200]}...</p>"
+        return f"<img class='definition-img' src='{src}' alt='{alt}'></img>"
+
+    @staticmethod
+    def prepare_definition(text):
+        soup = self.marktohtml(marktext=text)
+        img = self.get_first_image(html_soup=soup)
+        if img is None:
+            return "<p>{}</p>".format(soup.text[0:200]+"...")
+        return f"{img}<p>{soup.text[0:200]}...</p>"
 
     @property
     def get_absolute_url(self):
@@ -143,7 +154,7 @@ class Content(models.Model):
     def content_update(self, queryset, content):
         self.dapp = queryset[0].dapp
         self.user = queryset[0].user
-        # self.title = content.title
+        self.title = content.title
         self.permlink = queryset[0].permlink
         self.definition = self.prepare_definition(content.content)
         self.tag = self.ready_tags(limit=5)
@@ -153,7 +164,7 @@ class Content(models.Model):
             queryset.update(
                 definition=self.definition,
                 topic=self.topic,
-                # title=self.title,
+                title=self.title,
                 category=content.category,
                 language=content.language,
                 tag=self.tag,
@@ -178,8 +189,11 @@ class Content(models.Model):
                 "body": self.content,
                 },
         }
+        soup = self.marktohtml(marktext=self.content)
+        img = self.get_first_image(html_soup=soup)
+        definition_for_steem = f"{img}<p>{soup.text[0:400]}... Read this content on [www.coogger.com](www.coogger.com/@{self.user.username}/{self.permlink})</p>"
         body_for_steem = f"""
-{self.definition} Read this content on [www.coogger.com](www.coogger.com/@{self.user.username}/{self.permlink})<br>
+{definition_for_steem} <br>
 - Dapp; [Coogger]({self.dapp.host_name})
 - Category; [Tutorial](https://www.coogger.com/category/{self.category}/)
 - Language; [Turkish](https://www.coogger.com/language/{self.language}/)

@@ -6,33 +6,6 @@
           var content_id = this.getAttribute("data-content-id");
           $("body").load(`{% url 'report' %}?content_id=${content_id}`);
         });
-      {% if request.user.is_authenticated %}
-        $(".upvote").click(function(event){
-          const voter = "{{ request.user }}";
-          const author = this.getAttribute("data-user");
-          const permlink = this.getAttribute("data-permlink");
-          const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
-          const id = this.getAttribute("data-id");
-          $(this).attr({'animation':"blink i"});
-          api.vote(voter, author, permlink, weight, function (err, res) {
-              console.log(res,"voted"); // is it necessary to below codes
-              steem.api.getContent(author, permlink, function(err, content) {
-                var post_reward_total = 0;
-                if (pending_payout_value == 0){
-                  var total_payout_value = parseFloat(content.total_payout_value.replace(" SBD", ""))
-                  var curator_payout_value = parseFloat(content.curator_payout_value.replace(" SBD", ""));
-                  post_reward_total = total_payout_value+curator_payout_value;
-                }
-                else{
-                  post_reward_total = pending_payout_value;
-                }
-                $(this).html("<i gnrl='br-2 b-1' color='c-primary brc-primary' class='fa fa-thumbs-up'></i>");
-                $(`#${id} #post_reward_total`).text(post_reward_total.toFixed(2));
-                $(this).attr({'animation':""});
-              });
-          });
-        });
-      {% endif %}
       let cards = document.querySelectorAll('card')
       cards.forEach(forCards);
       function forCards(card){
@@ -42,20 +15,6 @@
         $(`#${id} .carduserimg`).attr("src",`https://steemitimages.com/u/${author}/avatar`);
         steem.api.getContent(author, permlink, function(err, content) {
           let active_votes = content.active_votes;
-          let upvoted = false;
-          {% if request.user.is_authenticated %}
-            for (let vot = 0; vot < active_votes.length; vot++) {
-              // Todo ; I must add, if already users upvoted any post and if click again, it must be removed its voted
-              if ("{{request.user}}" == active_votes[vot].voter){
-                $(`#${id} #upvote`).html("<i color='c-primary' hvr='c-danger' class='fa fa-thumbs-up'></i>");
-                upvoted = true;
-                break;
-              }
-            }
-          {% endif %}
-          if(upvoted == false){
-            $(`#${id} #upvote`).html("<i hvr='c-primary' gnr='c-secondary' class='fa fa-thumbs-up'></i>");
-          }
           let reputation = steem.formatter.reputation(content.author_reputation);
           let pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
           let post_reward_total = 0;
@@ -70,6 +29,7 @@
           $(`#${id} #dor`).html(dor(content.body));
           $(`#${id} #created`).html(timeSince(content.created));
           $(`#${id} #reply`).html(content.children);
+          $(`#${id} #votes`).html(content.active_votes.length);
           $(`#${id} #absolute_url_href`).attr("href",`/@${content.author}/${content.permlink}`);
           $(`#${id} #title`).html(content.title);
           $(`#${id} #author_href`).attr("href",`/@${author}`);
@@ -141,13 +101,15 @@
               let dapp_name = content.dapp_name;
               let views = content.views;
               let definition = content.definition;
-              let language = content.language;
+              let topic = content.topic;
               let category = content.category;
+              let language = content.language;
               let title = content.title;
               let duration_of_read = dor(content.content);
               steem.api.getContent(author, permlink, function(err, steem_content) {
                 let rep = steem.formatter.reputation(steem_content.author_reputation);
                 let reply = steem_content.children;
+                let votes = steem_content.active_votes.length;
                 let created = timeSince(steem_content.created);
                 let post_reward_total = 0;
                 let pending_payout_value = parseFloat(steem_content.pending_payout_value.replace(" SBD", ""));

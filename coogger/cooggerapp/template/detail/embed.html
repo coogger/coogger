@@ -1,2 +1,43 @@
 {% include 'home/head.html' %}
-{% include 'detail/general.html' %}
+{% include 'detail/script.html' %}
+<div animation="fadeIn" font="quicksand" style="padding: 12px;">
+{% include 'detail/status.html' %}
+<div class="data-post-id-{{detail.id}}" flx="jc-c fw-nw">
+  <div style="width: 100%;">
+    {% if detail.topic %}
+      <div flx="">
+          <a flx="jc-fs" gnrl="wmax" hvr="bg-white" href="{% url 'utopic' detail.topic detail.user %}">
+              {% url 'utopic' detail.topic detail.user %}
+          </a>
+          <a flx="jc-fe" gnrl="wmax right" hvr="bg-white" href="{% url 'list' detail.topic  %}">
+              {% url 'list' detail.topic  %}
+          </a>
+      </div>
+    {% endif %}
+    {% include 'detail/contentinfo.html' %}
+    {% include 'detail/userinfo.html' %}
+    <div>
+      <h1 gnrl="center txt-xl" id="title" style="margin: 12px auto;"></h1>
+      <div style="padding: inherit;">
+        <div style="width: auto;height:  auto;border: none;" class="editormd" id="id_arg_editormd">
+            <textarea style="display:none;" id='editormd_content'></textarea>
+        </div>
+      </div>
+      {% include 'detail/edit.html' %}
+      <!-- vote button  -->
+      <div gnrl="center">
+        <div class="vote circle">
+          <div class="increment up" color="bg-success"></div>
+          <div class="increment down" color="bg-danger"></div>
+          <div class="count" id="post_reward_total2" gnrl="txt-l" color="bg-white"></div>
+        </div>
+      </div>
+      <!-- vote button  -->
+    </div>
+    <div style="margin: 10% 0px;"></div>
+    {% include 'detail/comments.html' %}
+  </div>
+</div>
+</div>
+</body>
+</html>

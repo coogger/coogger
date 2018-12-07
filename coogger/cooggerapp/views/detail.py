@@ -76,7 +76,3 @@ class Detail(TemplateView):
 @method_decorator(xframe_options_exempt, name='dispatch')
 class Embed(Detail):
     template_name = "detail/embed.html"
-
-@method_decorator(xframe_options_exempt, name='dispatch')
-class EmbedComments(Detail):
-    template_name = "detail/embed.html"

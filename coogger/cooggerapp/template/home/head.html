@@ -65,18 +65,19 @@
     <link href="https://rawcdn.githack.com/coogger/coogger.css/e707ef77c8f2a3bf9326b2ee481332b8ac36f8f5/styles/coogger.css" rel="stylesheet">
     <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles/vote.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous"> {% if request.user.is_authenticated %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous"> 
+    {% if request.user.is_authenticated %}
     <script>
         const scope_list = [];
           {% for scope in request.user.steemconnectuser.dapp.scope|split:"," %}
             scope_list.push("{{ scope }}")
-            {% endfor %}
-            var api = sc2.Initialize({
-              app: "{{ request.user.steemconnectuser.dapp.name  }}.app",
-              callbackURL: "{{ request.user.steemconnectuser.dapp.redirect_url }}",
-              accessToken: "{{ request.user.steemconnectuser.access_token }}",
-              scope: scope_list,
-            });
+          {% endfor %}
+          let api = sc2.Initialize({
+            app: "{{ request.user.steemconnectuser.dapp.name  }}.app",
+            callbackURL: "{{ request.user.steemconnectuser.dapp.redirect_url }}",
+            accessToken: "{{ request.user.steemconnectuser.access_token }}",
+            scope: scope_list,
+          });
     </script>
     {% endif %}
 </head>
