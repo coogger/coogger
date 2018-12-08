@@ -108,6 +108,46 @@ class Content(models.Model):
             return "<p>{}</p>".format(soup.text[0:200]+"...")
         return f"{img}<p>{soup.text[0:200]}...</p>"
 
+    def definition_for_steem(self, marktext):
+        def prepare_text(marktext):
+            code_mark = True
+            code_mark2 = True
+            for_marktext = marktext[0:800].split("\n")
+            for line, index in zip(for_marktext, range(len(for_marktext))):
+                if line.startswith("```") or "```" in line:
+                    code_mark = False
+                    while True:
+                        try:
+                            if for_marktext[index] == "```":
+                                code_mark = True
+                        except IndexError:
+                            break
+                        index += 1
+                elif line.startswith("`") or "```" in line:
+                    code_mark2 = False
+                    while True:
+                        try:
+                            if for_marktext[index] == "`":
+                                code_mark2 = True
+                        except IndexError:
+                            break
+                        index += 1
+            if not code_mark:
+                return marktext[0:800]+"\n```\n"
+            elif not code_mark2:
+                return marktext[0:800]+"\n`\n"
+            else:
+                return marktext[0:800]
+        soup = self.marktohtml(marktext)
+        img = soup.find("img")
+        if str(img) not in str(soup)[0:800]:
+            img = f"<center>{self.get_first_image(html_soup=soup)}</center>\n\n"
+        else:
+            img = ""
+        definiton_mark = f"{prepare_text(marktext)}...\n\n<hr>\n\nRead this content\
+         on [www.coogger.com](www.coogger.com/@{self.user.username}/{self.permlink})\n"
+        return img+definiton_mark
+
     @property
     def get_absolute_url(self):
         return "@"+self.user.username+"/"+self.permlink
@@ -188,14 +228,7 @@ class Content(models.Model):
                 "body": self.content,
                 },
         }
-        soup = self.marktohtml(marktext=self.content)
-        img = soup.find("img")
-        if str(img) not in str(soup)[0:600]:
-            img = self.get_first_image(html_soup=soup)
-        else:
-            img = ""
-        definition_for_steem = f"{img} {str(soup)[0:600]}...\n\nRead this content on [www.coogger.com](www.coogger.com/@{self.user.username}/{self.permlink})"
-        body_for_steem = f"""{definition_for_steem}<br>
+        body_for_steem = f"""{self.definition_for_steem(self.content)}\n
 - Dapp; [Coogger]({self.dapp.host_name})
 - Category; [Tutorial](https://www.coogger.com/category/{self.category}/)
 - Language; [Turkish](https://www.coogger.com/language/{self.language}/)
