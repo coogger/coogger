@@ -57,6 +57,12 @@
     else if (url_resolve == "review"){
       apiUrl = `/api/filter-content/?status=shared`;
     }
+    else if (url_resolve == "filter"){
+      apiUrl = `/api/filter-content/?status=approved{{filter|safe}}`;
+    }
+    else if (url_resolve == "list"){
+      apiUrl = `/api/filter-content/?status=approved&topic={{nameofhashtag}}`;
+    }
     return apiUrl;
   }
   const apiUrl = getApiUrl(url_resolve="{{ request|url_resolve:"" }}");
@@ -70,23 +76,26 @@
         console.log('request failed', error)
       });
   }
-  let dataCount = function(){
-    return get_data(apiUrl).then(function(data){
+  let dataCount = get_data(apiUrl).then(function(data){
       return data.count;
     })
-  }
+
+  const PerLoadPostCount = "{{ request.settings.PAGE_SIZE }}";
   let contentsFromApi = function(apiUrl){
     return get_data(apiUrl).then(function(data){
       return data.results;
     })
   }
   let posts = [];
+  let requests = [];
   function loadMore(apiUrl){
     let check = [];
     let card = document.querySelectorAll('card')
     let last_content = card[card.length-1];
     let last_id = $(`#${last_content.id}`).attr("data-postid");
-    contentsFromApi(apiUrl).then(function(contents){
+    if (!requests.includes(apiUrl)){
+      requests.push(apiUrl);
+      contentsFromApi(apiUrl).then(function(contents){
         let index=0;
         let len_content=contents.length;
         for (index; index<len_content;index++){
@@ -94,7 +103,7 @@
           let content_id = content.id;
           if (last_id > content_id){
             if (!posts.includes(content_id)){
-            posts.push(content_id);
+              posts.push(content_id);
               check.push(content_id);
               let author = content.username;
               let permlink = content.permlink;
@@ -123,36 +132,34 @@
                 }
                 post_reward_total = post_reward_total.toFixed(2);
                 $(`cards`).append({% include 'card/card_template.js' %});
-                // update every new card
                 update_images(".definition-img");
-                //
               })
-              if (check.length >= 2){
+              if (check.length >= PerLoadPostCount){
                 break
               }
             }
           }
         }
-    })
-  }
-  $(window).scroll(function() {
-    if (scrolledbottom()) {
-      $(".load-more").css({"display":"block"});
-      let card = document.querySelectorAll('card');
-      dataCount().then(function(data_count){
-        if (data_count > card.length){
-            let page = Math.ceil(card.length / 19);
-            loadMore(`${apiUrl}&page=${page}`);
-        }
-        else{
-          $(".load-more").css({"display":"none"});
-          $(".end-of-the-posts").css({"display":"block"});
-        }
       })
     }
-    else{
-      $(".load-more").css({"display":"none"});
-    }
+  }
+  let cards_length = function(){
+    return document.querySelectorAll('card').length
+  }
+  $(window).scroll(function() {
+      if (scrolledbottom()) {
+        $(".load-more").css({"display":"block"});
+        dataCount.then(function(post_count){
+          if (post_count > cards_length()){
+              let page = (cards_length() / PerLoadPostCount) + 1;
+              loadMore(`${apiUrl}&page=${page}`);
+          }
+          else{
+            $(".load-more").css({"display":"none"});
+            $(".end-of-the-posts").css({"display":"block"});
+          }
+        })
+      }
   });
 });
 </script>

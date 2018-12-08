@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 # models
 from cooggerapp.models import OtherAddressesOfUsers, Content
@@ -28,7 +29,7 @@ def make_choices_slug(choice):
     return slugs
 
 
-def paginator(request, queryset, hmany=6):
+def paginator(request, queryset, hmany=settings.PAGE_SIZE):
     paginator = Paginator(queryset, hmany)
     page = request.GET.get('page')
     try:

@@ -1,5 +1,5 @@
 from django.utils.deprecation import MiddlewareMixin
-# from django.urls import resolve
+from django.conf import settings
 
 # models.
 from cooggerapp.models import CategoryofDapp, Content
@@ -13,6 +13,7 @@ class GeneralMiddleware(MiddlewareMixin):
     def process_request(self, request):
         request.categories = make_choices([category for category in self.sort_categories(request)])
         request.languages = make_choices([language for language in self.sort_languages(request)])
+        request.settings = settings
 
     def sort_categories(self, request):
         if request.dapp_model.name == "coogger":

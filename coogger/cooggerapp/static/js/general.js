@@ -20,19 +20,16 @@ $(document).ready(function() {
         $("nav").toggle("fast");
     });
 });
-
 // function update_account(metadata){
 //     api.updateUserMetadata(metadata, function (err, res) {
 //       console.log(err, res)
 //     });
 // }
-
 function copyTextFromId(id) {
   let text = document.getElementById("embed-text");
   text.select();
   document.execCommand("copy");
 }
-
 // convert images url to steemitimages in cards
 function update_images(query){
   let images = document.querySelectorAll(query);
@@ -44,73 +41,51 @@ function update_images(query){
   }
 }
 // convert images url to steemitimages in cards
-
 function get_scroll_bottom_location(){
-  return $(window).scrollTop() + $(window).height()+100;
+  return $(window).scrollTop() + $(window).height()+500;
 }
-
 function scrolledbottom(){
   if ( get_scroll_bottom_location() >= $(document).height()){
     return true;
   }
   return false;
 }
-
 function dor(text){
   // post duration of read
   let reading_speed = 20;
   return `min ${((text.length/reading_speed)/60).toFixed(1)}`;
 }
-
-function timeSince(date){
-  let time_since = "";
-  var seconds = (new Date() - new Date(date)) / 1000;
-  var year = Math.floor(seconds / 31536000);
-  if (year>1){
-    seconds = seconds - (year*31536000);
-    time_since += `${year} year `;
+function timeSince(date) {
+  let seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  let interval = Math.floor(seconds / 31536000);
+  let timesince = [];
+  if (interval > 1) {
+    seconds = (seconds - (31536000 * interval));
+    timesince.push(interval + " years ");
   }
-  var months = Math.floor(seconds / 2592000);
-  if (months>1){
-    seconds = seconds - (months*2592000);
-    time_since += `${months} month `;
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    seconds = (seconds - (2592000 * interval));
+    timesince.push(interval + " months ");
   }
-  if (year>1 && months>1){
-    return (`${time_since} ago`);
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    seconds = (seconds - (86400 * interval));
+    timesince.push(interval + " days ");
   }
-  var days = Math.floor(seconds / 86400);
-  if (days>1){
-    seconds = seconds - (days*86400);
-    time_since += `${days} day `;
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    seconds = (seconds - (3600 * interval));
+    timesince.push(interval + " hours ");
   }
-  if (days>1 && months>1){
-    return (`${time_since} ago`);
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    seconds = (seconds - (60 * interval));
+    timesince.push(interval + " minutes ");
   }
-  var hours = Math.floor(seconds / 3600);
-  if (hours>1){
-    seconds = seconds - (hours*3600);
-    time_since += `${hours} hours `;
-  }
-  if (days>1 && hours>1){
-    return (`${time_since} ago`);
-  }
-  var minutes = Math.floor(seconds / 60);
-  if (minutes>1){
-    seconds = seconds - (minutes*60);
-    time_since += `${minutes} minute `;
-  }
-  if (minutes>1 && hours>1){
-    return (`${time_since} ago`);
-  }
-  if (seconds>1){
-    time_since += `${Math.floor(seconds)} second `;
-  }
-  if (minutes>1 && seconds>1){
-    return (`${time_since} ago`);
-  }
-  return (`${time_since} ago`);
+  timesince.push(seconds + " seconds ");
+  return timesince.slice(0, 2) + " ago";
 }
-
 function comment_info(comment){
   return (`
   <div flx style='margin: 12px 0px' gnrl='c-white br-2' class='root_content'>
@@ -123,7 +98,6 @@ function comment_info(comment){
     </div>
   </div>`);
 }
-
 function userinfo(comment){
   let reputation = steem.formatter.reputation(comment.author_reputation);
   return (`
@@ -142,7 +116,6 @@ function userinfo(comment){
     </div>`
   );
 }
-
 function comment_body(comment){
   let pending_payout_value = parseFloat(comment.pending_payout_value.replace(" SBD", ""));
   let post_reward_total = 0;
@@ -181,6 +154,7 @@ function comment_body(comment){
         </div>
         <div gnrl='txt-s' flx='ai-c' class='duread-li'>
            <div style='margin-left: 12px;' gnrl='c-success'> $ ${post_reward_total}</div>
-        </div></div>
+        </div>
+      </div>
   `);
 }

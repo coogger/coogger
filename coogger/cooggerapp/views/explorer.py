@@ -41,9 +41,9 @@ class Userlist(TemplateView):
     def get_context_data(self, list_, **kwargs):
         if list_ != "":
             if self.request.dapp_model.name == "coogger":
-                queryset = Content.objects.filter(topic__contains=list_, status="approved")
+                queryset = Content.objects.filter(topic=list_, status="approved")
             else:
-                queryset = Content.objects.filter(dapp=self.request.dapp_model, topic__contains=list_, status="approved")
+                queryset = Content.objects.filter(dapp=self.request.dapp_model, topic=list_, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Userlist, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
@@ -90,7 +90,9 @@ class Filter(TemplateView):
     queryset = Content.objects
 
     def get_context_data(self, **kwargs):
+        filter_ = ""
         for attr, value in self.request.GET.items():
+            filter_ += f"&{attr}={value}"
             if attr == "username":
                 value = User.objects.filter(username=value)[0]
                 attr = "user"
@@ -101,5 +103,6 @@ class Filter(TemplateView):
         info_of_cards = paginator(self.request, self.queryset)
         context = super(Filter, self).get_context_data(**kwargs)
         context["content"] = info_of_cards
-        context["filter"] = True
+        print(filter_)
+        context["filter"] = filter_
         return context
