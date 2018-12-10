@@ -35,22 +35,30 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
+        queryset = self.user_is_authenticated()
+        context["content"] = paginator(self.request, queryset)
         if not self.request.user.is_authenticated:
             self.template_name = "home/introduction.html"
             return context
         else:
-            queryset = self.user_is_authenticated()
-            context["content"] = paginator(self.request, queryset)
             return context
 
     def user_is_authenticated(self):
+        contents = Content.objects.filter(status="approved")
         if self.request.user.is_authenticated:
             if self.request.dapp_model.name == "coogger":
-                queryset = Content.objects.filter(status="approved")
+                queryset = contents
             else:
-                queryset = Content.objects.filter(dapp=self.request.dapp_model, status="approved")
+                queryset = contents.filter(dapp=self.request.dapp_model)
         else:
             queryset = []
+            check_queryset = []
+            for content in contents:
+                if content.user not in check_queryset:
+                    queryset.append(content)
+                    check_queryset.append(content.user)
+                if len(check_queryset) > 16:
+                    break
         return queryset
 
 

@@ -11,11 +11,7 @@
 }
 .c-definition-1{
   padding: 24px 12px;
-  background-image: url(https://steem.io/img/tokens.svg);
-  background-position: center;
-  background-blend-mode: color;
-  background-repeat: no-repeat;
-  height: calc(100% - 116px);
+  height: calc(80% - 116px);
   margin-top: 68px;
 }
 footer{

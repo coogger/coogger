@@ -2,8 +2,9 @@
 {% block body %}
   <div class="c-definition-1" gnrl="ewcenter" color="bg-dark-purple c-white">
     <div flx="fd-c">
-      <strong gnrl="txt-xxl center">Create Decentralized Web Application</strong>
-      <span gnrl="center" color="c-grey" hvr="c-white">and start earning money</span>
+      <span gnrl="center">Coogger is an ecosystem where is knowledge sharing network which can create web DApp</span>
+      <strong gnrl="txt-xxl center">Create Decentralized Own Web Application or Just Use Coogger.com</strong>
+      <span gnrl="center" color="c-grey" hvr="c-white">Share your experiences and knowledge and start earning money</span>
       <span gnrl="center" >With Steem blockchain technology using coogger project</span>
       <span gnrl="center" >
         Steem is a blockchain-based rewards platform for publishers to monetize content and grow community.
@@ -11,11 +12,22 @@
       <span gnrl="center">
         <a color="c-blue" href="https://discord.gg/avmdZJa">Join and Contact us on  Discord</a>
       </span>
-      <span gnrl="center">And we create a DApp ( decentralized application ) for you</span>
     </div>
   </div>
-  <div gnrl="center ewcenter txt-m" flx="fd-c">
-    <div style="margin: 12px;padding: 12px;" color="bg-grey2" gnrl="br-2">
+  <strong gnrl="txt-xxl center" flx="ai-c" color="c-dark-purple" style="margin:24px 0px;">Our Users and Their Posts</strong>
+  <cards flx="ai-b" gnrl="center">
+    {% for ct in content %}
+      <card  default="media2" data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" gnrl="br-2" color="bg-white" style="margin: 6px;">
+          {% include "card/userinfo.html" %}
+          {% include "card/contentinfo.html" %}
+          <a href="" id="absolute_url_href" color="c-dark"></a>
+          {% include 'card/bottom.html' %}
+      </card>
+    {% endfor %}
+  </cards>
+  {% include "card/general_script.html" %}
+  <div gnrl="center ewcenter txt-m" flx="">
+    <div style="margin: 12px;padding: 12px;" gnrl="br-2" flx="fd-c">
       <span gnrl="center txt-xl"><strong>About COOGGER</strong></span>
       <div flx="ai-c" style="margin-bottom: 6px;">
         <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
@@ -85,4 +97,28 @@
       </div>
     </div>
   </div>
+  <!-- github cards  -->
+  <div gnrl="center">
+    <div style="margin:8px;">
+      <div class="github-card" data-github="coogger/coogger" data-width="400" data-height="" data-theme="default"></div>
+      <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+    </div>
+    <div style="margin:8px;">
+      <div class="github-card" data-github="coogger/coogger.css" data-width="400" data-height="" data-theme="default"></div>
+      <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+    </div>
+    <div style="margin:8px;">
+      <div class="github-card" data-github="coogger/steemconnect" data-width="400" data-height="" data-theme="default"></div>
+      <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+    </div>
+    <div style="margin:8px;">
+      <div class="github-card" data-github="coogger/django_md_editor" data-width="400" data-height="" data-theme="default"></div>
+      <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+    </div>
+    <div style="margin:8px;">
+      <div class="github-card" data-github="coogger/steemconnect_auth" data-width="400" data-height="" data-theme="default"></div>
+      <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+    </div>
+  </div>
+  <!--  -->
 {% endblock %}
