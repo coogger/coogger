@@ -1,41 +1,41 @@
-<div flx style="margin: 12px 0px;display:none" gnrl="br-2 right" color="c-white" class="root_content">
+<div flex style="margin: 12px 0px;display:none" general="br-2 right c-white" class="root_content">
   <div>
-    <li flx="ai-c">
-      <a id="root_content" gnrl="txt-s" color="c-secondary">
-      <span style="margin: 0px 6px" color="c-secondary">This is just comment, view the full context</span>
+    <li flex="ai-c">
+      <a id="root_content" general="txt-s c-secondary">
+      <span style="margin: 0px 6px" general="c-secondary">This is just comment, view the full context</span>
       </a>
     </li>
   </div>
 </div>
 {% if detail.language and detail.category %}
-  <div flx style="margin: 12px 0px;">
-      <div flx="ai-c" gnrl="br-2 b txt-s left" color="bg-secondary c-white" hvr-a="bg-primary" class="content_list">
+  <div flex style="margin: 12px 0px;">
+      <div flex="ai-c" general="br-2 b txt-s left bg-secondary c-white" animation-hover="bg-primary" class="content_list">
           <a href="{% url 'language' detail.language %}" style="color: white;" id="language">{{detail.language}}</a>
       </div>
-      <div flx="ai-c" class="content_list" gnrl="br-2 b txt-s right" color="bg-secondary c-white" hvr-a="bg-primary" class="content_list">
+      <div flex="ai-c" class="content_list" general="br-2 b txt-s right bg-secondary c-white" animation-hover="bg-primary" class="content_list">
           <a href="{% url 'category' detail.category %}" style="color: white;" id="category">{{detail.category}}</a>
       </div>
   </div>
 {% endif %}
-<div gnrl="br-2 br-2 b-1" color="c-secondary brc-muted" style="padding: 2px 0px;" flx="ai-c">
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+<div general="br-2 br-2 b-1 c-secondary brc-muted" style="padding: 2px 0px;" flex="ai-c">
+    <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;">Last update ; <span id="lastmod"></span></div>
     </div>
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;" id="dor"> </div>
     </div>
     {% if detail.views %}
-      <div gnrl="txt-s" flx="ai-c" class="duread-li">
+      <div general="txt-s" flex="ai-c" class="duread-li">
           <div style="margin-left: 12px;"> | views ; {{ detail.views }}</div>
       </div>
     {% endif %}
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;"> | reply ; <span id="reply"></span></div>
     </div>
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;"> | votes ; <span id="count"></div>
     </div>
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;"> | <span id="post_reward_total"></div>
     </div>
 </div>

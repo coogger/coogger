@@ -1,19 +1,19 @@
 {% if request.user.is_authenticated %}
-<div gnrl="br-1" color="bg-secondary" hvr-a="bg-danger" class="b-edit-point" data-edit-id="{{ ct.id }}">
+<div general="br-1 bg-secondary" animation-hover="bg-danger" class="b-edit-point" data-edit-id="{{ ct.id }}">
     <div class="bebordert"></div>
     <div class="beborder"></div>
     <div class="beborderb"></div>
 </div>
-<div flx="jc-c ai-c" color="bg-success" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;">
+<div flex="jc-c ai-c" general="bg-success" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;">
     {% if ct.user == request.user %}
-    <a flx="ai-c" hvr="c-white" color="c-white" href="{% url 'change' ct.user ct.permlink %}" flx="ai-c" style="height: 100%;">
+    <a flex="ai-c" hover="c-white" general="c-white" href="{% url 'change' ct.user ct.permlink %}" flex="ai-c" style="height: 100%;">
       <i class="fa fa-edit fa" aria-hidden="true" style="margin-left: 12px;"></i>
-      <div gnrl="txt-s" style="margin-left:6px;">Edit</div>
+      <div general="txt-s" style="margin-left:6px;">Edit</div>
     </a>
     {% endif %} {% if ct.user != request.user %}
-    <div flx="ai-c" class="report" data-content-id="{{ ct.id }}" color="bg-danger" flx="ai-c" style="height: 100%;cursor:pointer;">
-        <i color="c-white" class="fa fa-flag fa" aria-hidden="true" style="margin-left: 12px;"></i>
-        <div gnrl="txt-s" color="c-white" style="margin-left:6px;">Report</div>
+    <div flex="ai-c" class="report" data-content-id="{{ ct.id }}" general="bg-danger" style="height: 100%;cursor:pointer;">
+        <i general="c-white" class="fa fa-flag fa" aria-hidden="true" style="margin-left: 12px;"></i>
+        <div general="txt-s c-white" style="margin-left:6px;">Report</div>
     </div>
     {% endif %}
 </div>

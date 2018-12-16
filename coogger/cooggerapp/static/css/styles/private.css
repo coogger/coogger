@@ -1,3 +1,14 @@
+cards {
+    position: relative;
+    margin: 12px auto;
+    z-index: 0;
+}
+card {
+    margin: 3px 0;
+    box-shadow: 0 1px 2px 1px #c5c5c5;
+    position: relative;
+    width: 100%;
+}
 .comment_replies{
   margin-left: 60px;
 }
@@ -224,7 +235,7 @@ section{
 .trans-memo, .json_metadata{
   word-break: break-word;
 }
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 768px) {
     .sectionclosedmobile {
         display: none;
     }

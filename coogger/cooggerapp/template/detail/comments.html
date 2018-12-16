@@ -21,7 +21,7 @@
                 children_comment_template += comment_body(children_comment);
                 if (children_comment.depth == 8){
                   children_comment_template += (`
-                    <a gnrl="center" color="c-success"
+                    <a general="center c-success"
                       href="/@${children_comment.author}/'${children_comment.permlink}">
                       Show ${children_comment.children} more replies
                     </a></div>`);
@@ -57,7 +57,7 @@
 <script>
   $(document).ready(function() {
     $("#send-comment").click(function(){
-      $(this).attr("hvr-animation", "i blink");
+      $(this).attr("animation-hover", "i blink");
       let get_comment = $("#comment-text").val();
       let parentAuthor = this.dataset.parent_author;
       let parentPermlink = this.dataset.parent_permlink;
@@ -76,7 +76,7 @@
       api.comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, comment_res) {
         if (err == null){
           document.getElementById("comment-text").value = ""
-          $(this).attr("hvr-animation", "null");
+          $(this).attr("animation-hover", "null");
           steem.api.getContent(author, permlink, function(err, new_comment) {
             let new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
             $("#comment_template").append(new_comment_template);
@@ -89,10 +89,10 @@
     })
   });
 </script>
-<div gnrl="b-1 br-2" color="brc-muted">
-  <div default="paragraph" color="bg-white" style="padding: 6px 4px;">
+<div general="b-1 br-2 brc-muted">
+  <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
       <textarea id="comment-text" placeholder="Reply ..."></textarea>
-      <button id="send-comment" gnrl="b-1 br-2" color="brc-muted bg-success c-white"
+      <button id="send-comment" general="b-1 br-2 brc-muted bg-success c-white"
           data-parent_author="{{ content_user }}" data-parent_permlink="{{ detail.permlink }}">
         Post
       </button>

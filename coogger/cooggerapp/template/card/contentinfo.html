@@ -1,29 +1,29 @@
-<div flx style="margin: 12px 12px;">
-    <div flx="ai-c" gnrl="txt-s left" color="c-white" class="content_list">
-        <a hvr="c-white bg-primary" gnrl="b-1 br-2" color="c-primary" id="topic"
+<div flex style="margin: 12px 12px;">
+    <div flex="ai-c" general="txt-s left c-white" class="content_list">
+        <a hover="c-white bg-primary" general="b-1 br-2 c-primary" id="topic"
           href="{% url 'utopic' ct.topic ct.user %}" style="padding: 2px 6px;">{{ct.topic}}</a>
     </div>
-    <div flx="ai-c" gnrl="txt-s right" color="c-white" class="content_list">
-        <a hvr="c-white bg-primary" gnrl="b-1 br-2" color="c-primary"
+    <div flex="ai-c" general="txt-s right c-white" class="content_list">
+        <a hover="c-white bg-primary" general="b-1 br-2 c-primary"
          href="{% url 'category' ct.category %}" id="category" style="padding: 2px 6px;">{{ct.category}}</a>
     </div>
 </div>
-<div gnrl="br-2" color="c-secondary c-dark" flx="ai-fs" style="margin: 12px 0px;">
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+<div general="br-2 c-secondary c-dark" flex="ai-fs" style="margin: 12px 0px;">
+    <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;" id="dor"></div>
     </div>
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;">views {{ ct.views }}</div>
     </div>
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;">reply <span id="reply"></span></div>
     </div>
-    <div gnrl="txt-s" flx="ai-c" class="duread-li">
+    <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;">votes <span id="votes"></span></div>
     </div>
 </div>
-<div flx="jc-fs" gnrl="txt-l" style="margin: 12px 12px;">
+<div flex="jc-fs" general="txt-l" style="margin: 12px 12px;">
     <a href='' id="absolute_url_href">
-    <strong id="title" color="c-dark"></strong>
+    <strong id="title" general="c-dark"></strong>
   </a>
 </div>

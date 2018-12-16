@@ -1,23 +1,23 @@
 <div style="border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;">
-  <div flx="ai-fs" color="bg-white">
-    <img gnrl="br-circle left" id="detail_profile_image" src="" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
-    <div gnrl="txt-s" flx="fd-c" class="duread-li">
-        <a flx title="{{ content_user  }}" href="/@{{ content_user  }}"
+  <div flex="ai-fs" general="bg-white">
+    <img general="br-circle left" id="detail_profile_image" src="" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
+    <div general="txt-s" flex="fd-c" class="duread-li">
+        <a flex title="{{ content_user  }}" href="/@{{ content_user  }}"
           style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
       @<span id="username"></span> - (<span id="reputation"></span>)
     </a>
-        <div style="margin-left: 8px;" color="c-secondary"><span id="time"> </span></div>
+        <div style="margin-left: 8px;" general="c-secondary"><span id="time"> </span></div>
     </div>
   </div>
-  <div flx="fd-s">
+  <div flex="fd-s">
     {% if request.user != content_user and request.user.is_authenticated %}
-    <div gnrl="br-2 b-1" color="bg-secondary brc-muted" class="follow" id="follow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;">
-        <div gnrl="txt-s" color="c-white" id="is_follow">
+    <div general="br-2 b-1 bg-secondary brc-muted" class="follow" id="follow" flex="jc-c as-c" animation-hover="bg-primary" general="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;">
+        <div general="txt-s c-white" id="is_follow">
             Follow
         </div>
     </div>
-    <div gnrl="br-2 b-1" color="bg-secondary brc-muted" class="unfollow" id="unfollow" flx="jc-c as-c" hvr-a="bg-primary" gnrl="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;display:none">
-        <div gnrl="txt-s" color="c-white" id="is_unfollow">
+    <div general="br-2 b-1 bg-secondary brc-muted" class="unfollow" id="unfollow" flex="jc-c as-c" animation-hover="bg-primary" general="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;display:none">
+        <div general="txt-s c-white" id="is_unfollow">
             Unfollow
         </div>
     </div>

@@ -1,22 +1,22 @@
 {% load coogger_count %}
-<div class="just-pc" flx="fw-nw" style="position:  relative;top: 0px;margin-left: 5%;">
-  <div gnrl="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">
+<div class="just-pc" flex="fw-nw" style="position:  relative;top: 0px;margin-left: 5%;">
+  <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">
     Other topics of contents of the @{{content_user}} user.</div>
-    <div flx="fd-c" gnrl="b-1 txt-m" color="bg-white brc-white" style="margin: 20px;position: sticky;top: 146px;">
+    <div flex="fd-c" general="b-1 txt-m bg-white brc-white" style="margin: 20px;position: sticky;top: 146px;">
         {% for list in topics %}
         {% if list == nameoftopic %}
-        <div gnrl="b-1 br-2" color="bg-success brc-success">
-            <a flx gnrl="txt-s br-2" color="c-white" href="/{{ list }}/@{{content_user}}" style="padding: 3px 6px;">
+        <div general="b-1 br-2 bg-success brc-success">
+            <a flex general="txt-s br-2 c-white" href="/{{ list }}/@{{content_user}}" style="padding: 3px 6px;">
              {{ list|title }}
-           <span color="c-secondary">{{ list|topic_count:content_user }}</span>
+           <span general="c-secondary">{{ list|topic_count:content_user }}</span>
          </a>
         </div>
         {% else%}
-        <div hvr-a="bg-success" gnrl="br-2 br-2">
-            <a flx gnrl="b-1 txt-s br-2" color="brc-muted c-dark" hvr="c-white brc-dark" href="/{{list}}/@{{content_user}}"
+        <div animation-hover="bg-success" general="br-2 br-2">
+            <a flex general="b-1 txt-s br-2 brc-muted c-dark" hover="c-white brc-dark" href="/{{list}}/@{{content_user}}"
             style="padding: 3px 6px;">
           {{ list|title }}
-        <span color="c-secondary"> - {{ list|topic_count:content_user }}</span>
+        <span general="c-secondary"> - {{ list|topic_count:content_user }}</span>
       </a>
         </div>
         {% endif %} {% endfor %}

@@ -1,17 +1,17 @@
 <!-- other contents of topic  -->
 {% if nav_category %}
-  <div class="just-pc" flx="fw-nw" default="media2" style="position:  relative;top: 0px;">
-    <div gnrl="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 14px;">Other contents of the {{detail.topic}} topic of the @{{content_user}} user.</div>
-      <div flx="fd-c" gnrl="b-1 txt-m" color="bg-white brc-white" style="margin: 20px;position: sticky;top: 90px;">
+  <div class="just-pc" flex="fw-nw" device-laptop="w-50" device-laptopl="w-40" device-4k="w-30" style="position:  relative;top: 0px;">
+    <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 14px;">Other contents of the {{detail.topic}} topic of the @{{content_user}} user.</div>
+      <div flex="fd-c" general="b-1 txt-m bg-white brc-white" style="margin: 20px;position: sticky;top: 90px;">
           {% for list in nav_category %}
           {% if list.permlink == urloftopic %}
-          <div gnrl="b-1 br-2" color="bg-success brc-success">
-              <a flx gnrl="txt-s br-2" color="c-white" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
+          <div general="b-1 br-2 bg-success brc-success">
+              <a flex general="txt-s br-2 c-white" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
                {{ list.title|title }}</a>
         </div>
           {% else%}
-          <div hvr-a="bg-success" gnrl="br-2 br-2">
-              <a flx gnrl="b-1 txt-s br-2" color="brc-muted c-dark" hvr="c-white brc-dark" href="/{{list.get_absolute_url}}"
+          <div animation-hover="bg-success" general="br-2 br-2">
+              <a flex general="b-1 txt-s br-2 brc-muted c-dark" hover="c-white" href="/{{list.get_absolute_url}}"
               style="padding: 3px 6px;">
              {{ list.title|title }}</a>
           </div>

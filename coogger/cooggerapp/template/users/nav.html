@@ -1,20 +1,20 @@
 {% load coogger_count %}
-<div gnrl="center" class="just-mobile">
+<div general="center" class="just-mobile">
     <nav style="display: none;overflow: auto;margin: 12px 0px;">
-        <div flx="fw-nw jc-c" gnrl="txt-m wmax">
+        <div flex="fw-nw jc-c" general="txt-m wmax">
             {% for topic in topics %}
                 {% if topic == nameoftopic %}
-                  <div gnrl="br-2" color="bg-success">
-                      <a flx="jc-c" gnrl="txt-s" color="c-white" href="{% url 'utopic' topic content_user %}"
+                  <div general="br-2 bg-success">
+                      <a flex="jc-c" general="txt-s c-white" href="{% url 'utopic' topic content_user %}"
                       style="padding: 3px 6px;">{{ topic|title }}
-                      <span color="c-secondary">{{ topic|topic_count:content_user }}</span>
+                      <span general="c-secondary">{{ topic|topic_count:content_user }}</span>
                     </a>
                   </div>
               {% else%}
-                <div hvr-a="bg-success" gnrl="br-2" color="bg-white">
-                    <a flx="jc-c" gnrl="txt-s br-2" color="c-dark" hvr="c-white brc-dark" href="{% url 'utopic' topic content_user %}"
+                <div animation-hover="bg-success" general="br-2 bg-white">
+                    <a flex="jc-c" general="txt-s br-2 c-dark" hover="c-white brc-dark" href="{% url 'utopic' topic content_user %}"
                     style="padding: 3px 6px;">{{ topic|title }}
-                  <span color="c-secondary">{{ topic|topic_count:content_user }}</span>
+                  <span general="c-secondary">{{ topic|topic_count:content_user }}</span>
                 </a>
                 </div>
               {% endif %}

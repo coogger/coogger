@@ -17,11 +17,11 @@ and this section must be improved
       let address = addresses[1];
       console.log(platform, address);
       other_address_template += `
-      <div flx="ai-c jc-fe" gnrl="b-1 br-2 brc-muted txt-l" style="padding: 6px 6px;">${platform}
-        <a gnrl="bg-2 c-secondary txt-l" hvr="c-primary" target="_blank" href="https://www.${platform}.com/${address}" style="padding: 6px 16px;">
+      <div flex="ai-c jc-fe" general="b-1 br-2 brc-muted txt-l" style="padding: 6px 6px;">${platform}
+        <a general="bg-2 c-secondary txt-l" hover="c-primary" target="_blank" href="https://www.${platform}.com/${address}" style="padding: 6px 16px;">
           ${address}
         </a>
-        <div flx="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flx="ai-c as-c" hvr-a="bg-danger" hvr="c-white" gnrl="b-1 br-2 brc-muted txt-l" style="cursor:pointer;padding: 6px;">
+        <div flex="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flex="ai-c as-c" animation-hover="bg-danger" hover="c-white" general="b-1 br-2 brc-muted txt-l" style="cursor:pointer;padding: 6px;">
           <i class="fa fa-trash" aria-hidden="true"></i>
         </div>
       </div>`
@@ -30,17 +30,23 @@ and this section must be improved
   });
 </script>
 
-<div class="header-bottom" gnrl="center" gnrl="bg-white br-2">
-    <form flx="fd-c" default="form media" gnrl="b-1 brc-white" method="post" action="{% url 'settings' %}"
+<div class="header-bottom" general="center" general="bg-white br-2">
+    <form flex="fd-c" default="form"
+    device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+     general="b-1 brc-white" method="post" action="{% url 'settings' %}"
       style="padding: 3px 6px;">
         {% csrf_token %}
         {{ vote_percent_form }}
         {{ cooggerup_form }}
         {{ beneficiaries_percent_form }}
         {{ address_form }}
-        <input flx="as-c" type="submit" value="Save">
+        <input flex="as-c" type="submit" value="Save">
     </form>
-    <div default="media pm" flx="jc-c as-c" gnrl="bg-dark c-white b-1 br-2">Your web address</div>
-    <div flx="fd-c" default="media pm" id="other_address"></div>
+    <div default="pm"
+    device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+    flex="jc-c as-c" general="bg-dark c-white b-1 br-2">Your web address</div>
+    <div flex="fd-c" default="pm"
+    device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+     id="other_address"></div>
 </div>
 {% include 'settings/script.html' %} -->

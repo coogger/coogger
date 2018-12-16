@@ -1,27 +1,27 @@
 {% load coogger_count %}
-<section gnrl="center" flx="fw-nw" class="header-bottom">
-    <div flx="fd-c ac-c ai-fs fw-nw" gnrl="right b-1 br-2" color="brc-muted" class="section-right sectionclosedmobile">
-      <span gnrl="center txt-l" color="c-secondary" flx="ai-c">Languages <i class="fas fa-language"></i></span>
+<section general="center" flex="fw-nw" class="header-bottom">
+    <div flex="fd-c ac-c ai-fs fw-nw" general="right b-1 br-2 brc-muted" class="section-right sectionclosedmobile">
+      <span general="center txt-l c-secondary" flex="ai-c">Languages <i class="fas fa-language"></i></span>
       <div style="overflow: auto;">
           {% for link,name in request.languages %}
-          <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary">
-              <a href="{% url 'language' link %}" color="c-dark" hvr="c-white" style="padding: 4px 12px;">
+          <div general="br-2" flex="ai-c jc-fs" animation-hover="bg-primary">
+              <a href="{% url 'language' link %}" general="c-dark" hover="c-white" style="padding: 4px 12px;">
                 {{ name|truncatechars:20 }}
-                <span gnrl="txt-s" color="c-secondary">{{ name|language_count:request.dapp_model }}</span>
+                <span general="txt-s c-secondary">{{ name|language_count:request.dapp_model }}</span>
               </a>
           </div>
           {% endfor %}
       </div>
     </div>
     {% include 'card/blog-cards.html' %}
-    <div flx="fd-c ac-c ai-fs fw-nw" gnrl="left b-1 br-2" color="brc-muted" class="section-left sectionclosedmobile">
-      <span gnrl="center txt-l" color="c-secondary bg-white">Categories </span>
+    <div flex="fd-c ac-c ai-fs fw-nw" general="left b-1 br-2 brc-muted" class="section-left sectionclosedmobile">
+      <span general="center txt-l c-secondary bg-white">Categories </span>
       <div style="overflow: auto;">
           {% for link,name in request.categories %}
-          <div gnrl="br-2" flx="ai-c jc-fs" hvr-a="bg-primary">
-              <a href="{% url 'category' link %}" color="c-dark" hvr="c-white" style="padding: 4px 12px;">
+          <div general="br-2" flex="ai-c jc-fs" animation-hover="bg-primary">
+              <a href="{% url 'category' link %}" general="c-dark" hover="c-white" style="padding: 4px 12px;">
                 {{ name|truncatechars:20 }}
-                <span gnrl="txt-s" color="c-secondary">{{ name|categories_count:request.dapp_model }}</span>
+                <span general="txt-s c-secondary">{{ name|categories_count:request.dapp_model }}</span>
               </a>
           </div>
           {% endfor %}

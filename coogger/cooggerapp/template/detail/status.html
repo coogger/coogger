@@ -1,10 +1,11 @@
-<div default="media" gnrl="center">
+<div device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+general="center">
     {% if detail.status == "shared" or detail.status == "changed" %}
-    <div class="review-mod" gnrl="b-2 br-2 center" color="brc-warning bg-warning c-white" flx="ai-c">
+    <div class="review-mod" general="b-2 br-2 center brc-warning bg-warning c-white" flex="ai-c">
         A moderator will review this content within 1 and 2 days, status : {{ detail.status }}
     </div>
     {% endif %} {% if detail.status == "rejected" %}
-    <div gnrl="b-2 br-2 center" color="brc-warning bg-warning c-white" flx="jc-c ai-c" style="height: 20vh;margin-bottom: 2px;">
+    <div general="b-2 br-2 center brc-warning bg-warning c-white" flex="jc-c ai-c" style="height: 20vh;margin-bottom: 2px;">
         Rejected by @{{ detail.mod }}
     </div>
     {% endif %}

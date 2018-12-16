@@ -1,24 +1,21 @@
 {% load coogger_tags %}
-<div class="just-pc" style="position:  relative;top: 300px;">
-  <div style="position:  sticky;top: 100px;" flx="fd-c ai-c">
-    <div class="share-on-facebook" style="margin-bottom:  24px;">
-      <a target="blank" href="https://www.facebook.com/sharer/sharer.php?u=https://{{ request.dapp_model.host_name }}/@{{ detail.user }}/{{ detail.permlink }}">
-        <i class="fab fa-facebook fa-2x" style="color:#3b5998;"></i>
-      </a>
-    </div>
-    <div class="share-on-twitter">
-      <a target="blank" href="https://twitter.com/home?status='{{ detail.title|twitter:'' }}'%20by%20@{{ detail.user }}%20https://{{ request.dapp_model.host_name }}/@{{ detail.user }}/{{ detail.permlink }}">
-        <i class="fab fa-twitter fa-2x" style="color:#1da1f2;"></i>
-      </a>
-    </div>
-    <div class="share-using-embed" flx="fd-c"
-    onclick="copyTextFromId('embed-text')" gnrl="b-1 br-2 txt-s"
-    color="brc-white c-blue bg-white" hvr="c-white bg-primary" style="margin: 22px 0px;cursor:pointer;padding: 4px;">
-      <i class="fas fa-code" gnrl="center"></i>
-      <textarea id="embed-text" style="width: 0px;height: 0px;opacity: 0;position: absolute;">
-        <iframe scrolling="yes" frameborder="0" height="96%" width="100%" src="https://www.coogger.com/embed/@{{ detail.user }}/{{ detail.permlink }}"></iframe>
-      </textarea>
-      Copy Embed Code
-    </div>
+<div general="right">
+  <div class="share-on-facebook" style="margin: 0px 4px;">
+    <a target="blank" href="https://www.facebook.com/sharer/sharer.php?u=https://{{ request.dapp_model.host_name }}/@{{ detail.user }}/{{ detail.permlink }}">
+      <i class="fab fa-facebook fa-x" style="color:#3b5998;"></i>
+    </a>
+  </div>
+  <div class="share-on-twitter" style="margin: 0px 4px;">
+    <a target="blank" href="https://twitter.com/home?status='{{ detail.title|twitter:'' }}'%20by%20@{{ detail.user }}%20https://{{ request.dapp_model.host_name }}/@{{ detail.user }}/{{ detail.permlink }}">
+      <i class="fab fa-twitter fa-x" style="color:#1da1f2;"></i>
+    </a>
+  </div>
+  <div class="share-using-embed" flex="fd-c"
+  onclick="copyTextFromId('embed-text')" general="b-1 br-2 txt-s brc-white c-blue bg-white"
+  hover="c-white bg-primary" style="cursor:pointer;">
+    <i class="fas fa-code" general="center"></i>
+    <textarea id="embed-text" style="width: 0px;height: 0px;opacity: 0;position: absolute;">
+      <iframe scrolling="yes" frameborder="0" height="96%" width="100%" src="https://www.coogger.com/embed/@{{ detail.user }}/{{ detail.permlink }}"></iframe>
+    </textarea>
   </div>
 </div>

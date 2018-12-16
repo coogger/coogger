@@ -1,104 +1,106 @@
 {% extends "home/html.html" %}
 {% block body %}
-  <div class="c-definition-1" gnrl="ewcenter" color="bg-dark-purple c-white">
-    <div flx="fd-c">
-      <span gnrl="center">Coogger is an ecosystem where is knowledge sharing network which can create web DApp</span>
-      <strong gnrl="txt-xxl center">Create Decentralized Own Web Application or Just Use Coogger.com</strong>
-      <span gnrl="center" color="c-grey" hvr="c-white">Share your experiences and knowledge and start earning money</span>
-      <span gnrl="center" >With Steem blockchain technology using coogger project</span>
-      <span gnrl="center" >
+  <div class="c-definition-1" general="ewcenter bg-dark-purple c-white">
+    <div flex="fd-c">
+      <span general="center">Coogger is an ecosystem where is knowledge sharing network which can create web DApp</span>
+      <strong general="txt-xxl center">Create Decentralized Own Web Application or Just Use Coogger.com</strong>
+      <span general="center c-grey" hover="c-white">Share your experiences and knowledge and start earning money</span>
+      <span general="center" >With Steem blockchain technology using coogger project</span>
+      <span general="center" >
         Steem is a blockchain-based rewards platform for publishers to monetize content and grow community.
       </span>
-      <span gnrl="center">
-        <a color="c-blue" href="https://discord.gg/avmdZJa">Join and Contact us on  Discord</a>
+      <span general="center">
+        <a general="c-blue" href="https://discord.gg/avmdZJa">Join and Contact us on  Discord</a>
       </span>
     </div>
   </div>
-  <strong gnrl="txt-xxl center" flx="ai-c" color="c-dark-purple" style="margin:24px 0px;">Our Users and Their Posts</strong>
-  <cards flx="ai-b" gnrl="center">
+  <strong general="txt-xxl center c-dark-purple" flex="ai-c" style="margin:24px 0px;">Our Users and Their Posts</strong>
+  <cards flex="ai-b" general="center">
     {% for ct in content %}
-      <card  default="media2" data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" gnrl="br-2" color="bg-white" style="margin: 6px;">
+      <card device-mobiles="w-100" device-mobilem="w-98" device-mobilel="w-98"
+       device-tablet="w-80" device-laptop="w-40" device-laptopl="w-30" device-4k="w-30"
+       data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" general="br-2 bg-white w-30" style="margin: 6px;">
           {% include "card/userinfo.html" %}
           {% include "card/contentinfo.html" %}
-          <a href="" id="absolute_url_href" color="c-dark"></a>
+          <a href="" id="absolute_url_href" general="c-dark"></a>
           {% include 'card/bottom.html' %}
       </card>
     {% endfor %}
   </cards>
   {% include "card/general_script.html" %}
-  <div gnrl="center ewcenter txt-m" flx="">
-    <div style="margin: 12px;padding: 12px;" gnrl="br-2" flx="fd-c">
-      <span gnrl="center txt-xl"><strong>About COOGGER</strong></span>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+  <div general="center ewcenter txt-m" flex="">
+    <div style="margin: 12px;padding: 12px;" general="br-2" flex="fd-c">
+      <span general="center txt-xl"><strong>About COOGGER</strong></span>
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white"></i>
+        <div flex="fd-c">
           <strong>SEO friendly</strong>
         </div>
       </div>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white"></i>
+        <div flex="fd-c">
           <strong>Steem Blockchain</strong>
           <span></span>
         </div>
       </div>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white"></i>
+        <div flex="fd-c">
           <strong>Fully responsive</strong>
           <span></span>
         </div>
       </div>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white"></i>
+        <div flex="fd-c">
           <strong>Admin dashboard</strong>
           <span>Build and Management your community DApp</span>
         </div>
       </div>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white"></i>
+        <div flex="fd-c">
           <strong>No deposit </strong>
           <span>Don't pay for anything! We will took few percents from your articles rewards</span>
         </div>
       </div>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white"></i>
+        <div flex="fd-c">
           <strong>Cross-browser compatibility</strong>
           <span>
             Chrome, Firefox, IE, Safari, Opera, Edge - COOGGER works the same in all browsers.
           </span>
         </div>
       </div>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white"></i>
+        <div flex="fd-c">
           <strong>Frequent updates</strong>
-          <div flx="fd-c"></div>
+          <div flex="fd-c"></div>
         </div>
       </div>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle"></i>
+        <div flex="fd-c">
           <strong>Customizable</strong>
           <span>You can configure your website easily by using admin dashboard.</span>
         </div>
       </div>
-      <div flx="ai-c" style="margin-bottom: 6px;">
-        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" color="bg-blue8 c-white" gnrl="br-circle"></i>
-        <div flx="fd-c">
+      <div flex="ai-c" style="margin-bottom: 6px;">
+        <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white"></i>
+        <div flex="fd-c">
           <strong>We are open-source</strong>
           <span>Fork me on
-            <a color="c-blue" hvr="c-success" href="https://www.github.com/coogger">Github - coogger</a>
+            <a general="c-blue" hover="c-success" href="https://www.github.com/coogger">Github - coogger</a>
           </span>
         </div>
       </div>
     </div>
   </div>
   <!-- github cards  -->
-  <div gnrl="center">
+  <div general="center">
     <div style="margin:8px;">
       <div class="github-card" data-github="coogger/coogger" data-width="400" data-height="" data-theme="default"></div>
       <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>

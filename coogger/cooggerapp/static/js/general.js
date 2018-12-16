@@ -88,11 +88,11 @@ function timeSince(date) {
 }
 function comment_info(comment){
   return (`
-  <div flx style='margin: 12px 0px' gnrl='c-white br-2' class='root_content'>
+  <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
     <div>
-      <li flx='ai-c'>
-        <a href='/@${comment.author}/${comment.permlink}' id='root_content' target='blank' gnrl='txt-s'>
-        <span style='margin: 0px 6px' gnrl='c-secondary'>Open in new tab to view more detailed</span>
+      <li flex='ai-c'>
+        <a href='/@${comment.author}/${comment.permlink}' id='root_content' target='blank' general='txt-s'>
+        <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
         </a>
       </li>
     </div>
@@ -102,15 +102,15 @@ function userinfo(comment){
   let reputation = steem.formatter.reputation(comment.author_reputation);
   return (`
     <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
-      <div flx='ai-fs' gnrl='bg-white'>
-        <img gnrl='br-circle left' id='detail_profile_image' src='https://steemitimages.com/u/${comment.author}/avatar' class='useruserimg'
+      <div flex='ai-fs' general='bg-white'>
+        <img general='br-circle left' id='detail_profile_image' src='https://steemitimages.com/u/${comment.author}/avatar' class='useruserimg'
           style='height:  40px;width:  40px;margin:  initial;'></a>
-        <div gnrl='txt-s' flx='fd-c' class='duread-li'>
-            <a flx title='${comment.author}' href='/@${comment.author}'
+        <div general='txt-s' flex='fd-c' class='duread-li'>
+            <a flex title='${comment.author}' href='/@${comment.author}'
               style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
             @${comment.author}<span id='username'></span> - (${reputation})
         </a>
-            <div style='margin-left: 8px;' gnrl='c-secondary'>${timeSince(comment.created)}</div>
+            <div style='margin-left: 8px;' general='c-secondary'>${timeSince(comment.created)}</div>
         </div>
       </div>
     </div>`
@@ -139,21 +139,21 @@ function comment_body(comment){
     });
   });
   return (`
-    <h1 gnrl='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'>${title}</h1>
+    <h1 general='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'>${title}</h1>
     <div style='padding: inherit;'>
       <div style='width: auto;height:  auto;border: none;' class='editormd' id='${comment.id}_arg_editormd'>
           <textarea style='display:none;' id='editormd_content'></textarea>
       </div>
     </div>
-    <div gnrl='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flx='ai-c'>
-        <div gnrl='txt-s' flx='ai-c' class='duread-li'>
+    <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
+        <div general='txt-s' flex='ai-c' class='duread-li'>
             <div style='margin-left: 12px;'>reply ; ${comment.children}</div>
         </div>
-        <div gnrl='txt-s' flx='ai-c' class='duread-li'>
+        <div general='txt-s' flex='ai-c' class='duread-li'>
            <div style='margin-left: 12px;'>votes ; ${comment.net_votes}</div>
         </div>
-        <div gnrl='txt-s' flx='ai-c' class='duread-li'>
-           <div style='margin-left: 12px;' gnrl='c-success'> $ ${post_reward_total}</div>
+        <div general='txt-s' flex='ai-c' class='duread-li'>
+           <div style='margin-left: 12px;' general='c-success'> $ ${post_reward_total}</div>
         </div>
       </div>
   `);
