@@ -9,33 +9,59 @@
 </div>
 {% if detail.language and detail.category %}
   <div flex style="margin: 12px 0px;">
-      <div flex="ai-c" general="br-2 b txt-s left bg-secondary c-white" animation-hover="bg-primary" class="content_list">
-          <a href="{% url 'language' detail.language %}" style="color: white;" id="language">{{detail.language}}</a>
-      </div>
-      <div flex="ai-c" class="content_list" general="br-2 b txt-s right bg-secondary c-white" animation-hover="bg-primary" class="content_list">
-          <a href="{% url 'category' detail.category %}" style="color: white;" id="category">{{detail.category}}</a>
-      </div>
+    <div flex="ai-c" class="content_list" general="br-2 txt-s right bg-secondary c-white" animation-hover="bg-primary">
+      <a href="{% url 'language' detail.language %}" general="c-white">
+        <i class="fas fa-flag"></i>
+        <span id="language">{{detail.language|title}}</span>
+        <div flex="ai-c" general="br-2 txt-s bg-secondary c-white" animation-hover="bg-primary">
+          <a href="{% url 'filter' %}?language={{detail.language}}&category={{detail.category}}" general="c-white">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+            <span id="category">{{detail.category|title}}</span>
+            <div flex="ai-c" general="br-2 txt-s bg-secondary c-white" animation-hover="bg-primary">
+              <a general="c-white" flex="ai-c" href="{% url 'filter' %}?language={{detail.language}}&category={{detail.category}}&topic={{detail.topic}}">
+                <i class="fa fa-hashtag" aria-hidden="true"></i>
+                <span id="topic">{{detail.topic|title}}</span>
+              </a>
+            </div>
+          </a>
+        </div>
+      </a>
+    </div>
   </div>
 {% endif %}
 <div general="br-2 br-2 b-1 c-secondary brc-muted" style="padding: 2px 0px;" flex="ai-c">
     <div general="txt-s" flex="ai-c" class="duread-li">
-        <div style="margin-left: 12px;">Last update ; <span id="lastmod"></span></div>
-    </div>
-    <div general="txt-s" flex="ai-c" class="duread-li">
-        <div style="margin-left: 12px;" id="dor"> </div>
+      <div style="margin-left: 12px;">
+          <i class="fab fa-readme" style="margin: 0px 6px 0px 0px;"></i>
+          <span id="dor"></span>
+      </div>
     </div>
     {% if detail.views %}
       <div general="txt-s" flex="ai-c" class="duread-li">
-          <div style="margin-left: 12px;"> | views ; {{ detail.views }}</div>
+          <div style="margin-left: 12px;">
+            <i class="fas fa-eye"></i>
+            views {{ detail.views }}
+          </div>
       </div>
     {% endif %}
     <div general="txt-s" flex="ai-c" class="duread-li">
-        <div style="margin-left: 12px;"> | reply ; <span id="reply"></span></div>
+        <div style="margin-left: 12px;">
+          <i class="fas fa-reply"></i>
+          reply <span id="reply"></span></div>
     </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
-      <div style="margin-left: 12px;"> | votes ; <span id="count"></div>
+      <div style="margin-left: 12px;">
+        <i class="fas fa-chevron-circle-up"></i>
+        votes <span id="count">
+      </div>
     </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
-      <div style="margin-left: 12px;"> | <span id="post_reward_total"></div>
+      <div style="margin-left: 12px;"><span general="c-success" id="post_reward_total"></div>
+    </div>
+    <div general="txt-s right" flex="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">
+          <i class="fas fa-clock"></i>
+          Last update | <span id="lastmod"></span>
+        </div>
     </div>
 </div>

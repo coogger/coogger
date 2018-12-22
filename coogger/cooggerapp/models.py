@@ -229,10 +229,10 @@ class Content(models.Model):
                 },
         }
         body_for_steem = f"""{self.definition_for_steem(self.content)}\n
-- Dapp; [Coogger]({self.dapp.host_name})
-- Category; [Tutorial](https://www.coogger.com/category/{self.category}/)
-- Language; [Turkish](https://www.coogger.com/language/{self.language}/)
-- Topic; [Python](https://www.coogger.com/python/@{self.user.username}/)
+- Dapp; [{self.dapp.host_name}]({self.dapp.host_name})
+- Category; [{self.category}](https://www.coogger.com/category/{self.category}/)
+- Language; [{self.language}](https://www.coogger.com/language/{self.language}/)
+- Topic; [{self.topic}](https://www.coogger.com/{self.topic}/@{self.user.username}/)
 - Filter;[username={self.user.username}&category={self.category}&topic={self.topic}&language={self.language}](https://www.coogger.com/filter/?username={self.user.username}&category={self.category}&topic={self.topic}&language={self.language})
 - User; [@{self.user.username}](www.coogger.com/@{self.user.username})<br>
 

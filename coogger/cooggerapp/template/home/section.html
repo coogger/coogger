@@ -6,7 +6,7 @@
           {% for link,name in request.languages %}
           <div general="br-2" flex="ai-c jc-fs" animation-hover="bg-primary">
               <a href="{% url 'language' link %}" general="c-dark" hover="c-white" style="padding: 4px 12px;">
-                {{ name|truncatechars:20 }}
+                {{ name|truncatechars:20|title }}
                 <span general="txt-s c-secondary">{{ name|language_count:request.dapp_model }}</span>
               </a>
           </div>
@@ -20,7 +20,7 @@
           {% for link,name in request.categories %}
           <div general="br-2" flex="ai-c jc-fs" animation-hover="bg-primary">
               <a href="{% url 'category' link %}" general="c-dark" hover="c-white" style="padding: 4px 12px;">
-                {{ name|truncatechars:20 }}
+                {{ name|truncatechars:20|title }}
                 <span general="txt-s c-secondary">{{ name|categories_count:request.dapp_model }}</span>
               </a>
           </div>

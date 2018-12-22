@@ -50,7 +50,8 @@
                         else{
                           post_reward_total = pending_payout_value;
                         }
-                        $("#post_reward_total").text(post_reward_total.toFixed(2));
+                        $("#post_reward_total").html("$ "+post_reward_total.toFixed(2));
+                        $("#post_reward_total2").html("$ "+post_reward_total.toFixed(2));
                         $(".up").css({"opacity":1});
                         $("#count").text(count + 1);
                       });
@@ -123,8 +124,8 @@
             $(".root_content").css({"display":"flex"});
             $(".donation").css({"display":"none"});
           }
-          $("#post_reward_total").html("$ "+post_reward_total.toFixed(2));
           $("#post_reward_total2").html("$ "+post_reward_total.toFixed(2));
+          $("#post_reward_total").html("$ "+post_reward_total.toFixed(2));
           $("#title").html(title);
           let editor_body = "";
           let json_metadata = JSON.parse(content.json_metadata)

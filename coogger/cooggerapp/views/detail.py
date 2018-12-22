@@ -61,7 +61,7 @@ class Detail(TemplateView):
 
     def lists_of_user(self):
         permlinks = self.permlinks_of_user()[0]
-        return self.contents_of_user().filter(topic=permlinks.topic, status="approved")
+        return self.contents_of_user().filter(topic=permlinks.topic, status="approved").order_by("id")
 
     def up_content_view(self):
         queryset = self.permlinks_of_user()

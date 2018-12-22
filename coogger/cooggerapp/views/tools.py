@@ -8,7 +8,7 @@ from django.conf import settings
 from cooggerapp.models import OtherAddressesOfUsers, Content
 
 def get_user(username):
-    return User.objects.filter(username=username)[0].user
+    return User.objects.filter(username=username)[0]
 
 def user_topics(queryset):
     topics = []

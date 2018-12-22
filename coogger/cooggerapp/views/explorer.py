@@ -35,22 +35,6 @@ class Hashtag(TemplateView):
             return context
 
 
-class Userlist(TemplateView):
-    template_name = "card/blogs.html"
-
-    def get_context_data(self, list_, **kwargs):
-        if list_ != "":
-            if self.request.dapp_model.name == "coogger":
-                queryset = Content.objects.filter(topic=list_, status="approved")
-            else:
-                queryset = Content.objects.filter(dapp=self.request.dapp_model, topic=list_, status="approved")
-            info_of_cards = paginator(self.request, queryset)
-            context = super(Userlist, self).get_context_data(**kwargs)
-            context["content"] = info_of_cards
-            context["nameofhashtag"] = list_
-            return context
-
-
 class Languages(TemplateView):
     # TODO:  do language check,  is it necessary ?
     template_name = "card/blogs.html"

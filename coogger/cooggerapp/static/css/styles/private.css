@@ -9,6 +9,9 @@ card {
     position: relative;
     width: 100%;
 }
+.capitalize{
+  text-transform: capitalize;
+}
 .comment_replies{
   margin-left: 60px;
 }

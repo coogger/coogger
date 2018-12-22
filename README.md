@@ -152,8 +152,5 @@ Since coogger.com is the main site, all contents which shared on other communiti
 I have a few plans to bring the coogger project to better places, I have written a few of them below.
 
 - I am planning to make dapp building on coogger through user friendly form.
-- I'm thinking about improving the comments section and making it more user friendly.
 - Different dapp building plans.
 - Different dapp templates
-
-<hr><span gnrl="c-secondary txt-s">Thanks for reading, please feel free to comment, resteem, upvote or support if you like coogger project or my effort.</span>

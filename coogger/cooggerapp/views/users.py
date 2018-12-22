@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages as ms
 from django.db.models import F
 from django.contrib.auth import authenticate
+from django.shortcuts import redirect
 
 # class
 from django.views.generic.base import TemplateView
@@ -20,7 +21,7 @@ from cooggerapp.models import OtherInformationOfUsers, Content
 from cooggerapp.forms import AboutForm
 
 # views
-from cooggerapp.views.tools import get_facebook, users_web, paginator, user_topics
+from cooggerapp.views.tools import get_facebook, users_web, paginator, user_topics, get_user
 
 # steem
 from steem import Steem
@@ -51,21 +52,17 @@ class UserClassBased(TemplateView):
         return context
 
 
-class UserTopic(UserClassBased):
+class UserTopic(View):
     "kullanıcıların konu adresleri"
 
-    def get_context_data(self, utopic, username, **kwargs):
-        context = super(UserTopic, self).get_context_data(username, **kwargs)
-        user = context["content_user"]
-        if self.request.dapp_model.name == "coogger":
-            queryset = self.ctof(user=user, topic=utopic, status="approved")
+    def get(self, request, utopic, username):
+        user = get_user(username)
+        if request.dapp_model.name == "coogger":
+            queryset = Content.objects.filter(user=user, topic=utopic, status="approved")
         else:
-            queryset = self.ctof(dapp=self.request.dapp_model, user=user, topic=utopic, status="approved")
-        info_of_cards = paginator(self.request, queryset)
-        context["user_follow"] = users_web(user)
-        context["nameoftopic"] = utopic
-        context["content"] = info_of_cards
-        return context
+            queryset = Content.objects.filter(dapp=request.dapp_model, user=user, topic=utopic, status="approved")
+        queryset = queryset.order_by("id")
+        return redirect(f"/@{queryset[0].user}/{queryset[0].permlink}")
 
 
 class UserAboutBaseClass(View):

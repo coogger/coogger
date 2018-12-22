@@ -7,9 +7,6 @@
     if (url_resolve == "user"){
       apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}`;
     }
-    else if (url_resolve == "utopic"){
-      apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}&topic={{ nameoftopic }}`;
-    }
     else if (url_resolve == "home" ){
       apiUrl = `/api/filter-content/?status=approved`;
     }

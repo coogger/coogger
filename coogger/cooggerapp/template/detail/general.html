@@ -3,16 +3,6 @@
 {% include 'detail/status.html' %}
 <div class="data-post-id-{{detail.id}}" flex="jc-c fw-nw">
   <div device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50">
-    {% if detail.topic %}
-      <div flex="">
-          <a flex="jc-fs" general="wmax" hover="bg-white" href="{% url 'utopic' detail.topic detail.user %}">
-              {% url 'utopic' detail.topic detail.user %}
-          </a>
-          <a flex="jc-fe" general="wmax right" hover="bg-white" href="{% url 'list' detail.topic  %}">
-              {% url 'list' detail.topic  %}
-          </a>
-      </div>
-    {% endif %}
     {% include 'detail/contentinfo.html' %}
     {% include 'detail/userinfo.html' %}
     <div>

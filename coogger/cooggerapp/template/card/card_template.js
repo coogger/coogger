@@ -29,37 +29,57 @@
             <span general="txt-s br-2 c-seconday" style="padding: 2px" id="reputation">${rep}</span>
             <span general="txt-s c-secondary"> | ${dapp_name}</span>
           </span>
-          <span general="txt-xs c-dark" style="margin-left:6px;" id="created">${created}</span>
+          <span general="txt-xs c-dark" style="margin-left:6px;" id="created">
+            <i class="fas fa-clock"></i>
+              <span class="capitalize" id="created">${created}</span>
+          </span>
         </div>
     </a>
   </div>
 </div>
-<div flex="" style="margin: 12px 12px;">
-  <div flex="ai-c" general="txt-s left c-white" class="content_list">
-    <a hover="c-white bg-primary" general="b-1 br-2 c-primary" id="topic" href="/${topic}/@${author}" style="padding: 2px 6px;">${topic}</a>
-  </div>
-  <div flex="ai-c" general="txt-s right c-white" class="content_list">
-    <a hover="c-white bg-primary" general="b-1 br-2 c-primary" href="/category/${category}/" id="category" style="padding: 2px 6px;">${category}</a>
-  </div>
+<div flex="jc-fs" general="txt-l" style="margin: 12px 12px;">
+  <a class="capitalize" href=/@${author}/${permlink} id="absolute_url_href">
+    <strong id="title" general="c-dark">${title}</strong>
+  </a>
 </div>
 <div general="br-2 c-secondary c-dark" flex="ai-fs" style="margin: 12px 0px;">
   <div general="txt-s" flex="ai-c" class="duread-li">
-    <div style="margin-left: 12px;" id="dor">min ${duration_of_read}</div>
+    <div class="capitalize" style="margin-left: 12px;" flex="ai-fe">
+      <i class="fab fa-readme" style="margin: 0px 6px 0px 0px;"></i>
+      ${duration_of_read}
+    </div>
   </div>
   <div general="txt-s" flex="ai-c" class="duread-li">
-    <div style="margin-left: 12px;">views ${views}</div>
+      <div class="capitalize" style="margin-left: 12px;">
+        <i class="fas fa-eye"></i>
+        views ${views}
+      </div>
   </div>
   <div general="txt-s" flex="ai-c" class="duread-li">
-    <div style="margin-left: 12px;">reply <span id="reply">${reply}</span></div>
+      <div class="capitalize" style="margin-left: 12px;">
+        <i class="fas fa-reply"></i>
+        reply ${reply}
+      </div>
   </div>
   <div general="txt-s" flex="ai-c" class="duread-li">
-    <div style="margin-left: 12px;">votes <span id="votes">${votes}</span></div>
+      <div class="capitalize" style="margin-left: 12px;">
+        <i class="fas fa-chevron-circle-up"></i>
+        votes ${votes}
+      </div>
   </div>
 </div>
-<div flex="jc-fs" general="txt-l" style="margin: 12px 12px;">
-  <a href=/@${author}/${permlink} id="absolute_url_href">
-    <strong id="title" general="c-dark">${title}</strong>
-  </a>
+<div flex style="margin: 12px 12px;">
+
+<div flex="ai-c" general="txt-s left c-white" class="content_list">
+    <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary" id="topic"
+      href="{% url 'filter' %}?username=${author}&language=${language}&category=${category}&topic=${topic}" style="padding: 2px 6px;">
+      <i class="fa fa-hashtag" aria-hidden="true"></i>${topic}</a>
+</div>
+<div flex="ai-c" general="txt-s right c-white" class="content_list">
+    <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary"
+     href="{% url 'filter' %}?username=${author}&language=${language}&category=${category}" id="category" style="padding: 2px 6px;">
+     <i class="fa fa-list-alt" aria-hidden="true"></i>${category}</a>
+</div>
 </div>
 <a href=/@${author}/${permlink} id="absolute_url_href" general="c-dark">
   <div general="txt-m" class="upshow">
@@ -75,8 +95,9 @@
     </div>
   </div>
   <div flex="ai-c" general="txt-s right c-white" class="content_list">
-      <a hover="c-white bg-primary" general="b-1 br-2 c-primary"
-       href="/language/${language}" id="language" style="margin:0px 2px;padding: 2px 6px;">${language}</a>
+  <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary" href="{% url 'filter' %}?username=${author}&language=${language}" id="language" style="margin:0px 2px;padding: 2px 6px;">
+    <i class="fas fa-flag"></i>
+    ${language}</a>
   </div>
 </div>
 </card>`
