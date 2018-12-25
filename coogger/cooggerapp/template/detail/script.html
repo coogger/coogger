@@ -129,20 +129,20 @@
           $("#title").html(title);
           let editor_body = "";
           try{
-            let json_metadata = JSON.parse(content.json_metadata)
-          }
-          catch(err){
-            console.log(err);
-            let json_metadata = "";
-          }
-          try{
-            let ecosystem = json_metadata.ecosystem;
+            let json_metadata = JSON.parse(content.json_metadata);
             try{
-              let version = ecosystem.version;
-              if (version == "1.4.1"){
-                editor_body = ecosystem.body;
+              let ecosystem = json_metadata.ecosystem;
+              try{
+                let version = ecosystem.version;
+                if (version == "1.4.1"){
+                  editor_body = ecosystem.body;
+                }
+                else{
+                  editor_body = content.body;
+                }
               }
-              else{
+              catch(err){
+                console.log(err);
                 editor_body = content.body;
               }
             }
