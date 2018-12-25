@@ -20,10 +20,10 @@ from cooggerapp.models import (Content,
 from steemconnect_auth.models import Dapp, SteemConnectUser
 
 
-class UserFilter(ModelViewSet):
+class Filter(ModelViewSet):
     model = OtherInformationOfUsers
     queryset = model.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = []
     permission_classes = [ApiPermission]
 
     def get_queryset(self):
@@ -32,40 +32,48 @@ class UserFilter(ModelViewSet):
             if attr == "username":
                 value = User.objects.filter(username=value)[0]
                 attr = "user"
+            elif attr == "dapp":
+                value = Dapp.objects.filter(name=value)[0]
             try:
                 self.queryset = self.queryset.filter(**{attr: value})
             except FieldError:
                 pass
         return self.queryset
 
+class UserFilter(Filter):
+    model = OtherInformationOfUsers
+    # queryset = model.objects.all()
+    serializer_class = UserSerializer
+    # permission_classes = [ApiPermission]
 
-class SteemConnectUserFilter(UserFilter):
+
+class SteemConnectUserFilter(Filter):
     model = SteemConnectUser
     queryset = model.objects.all()
     serializer_class = SteemConnectUserSerializer
 
-class ContentFilter(UserFilter):
+class ContentFilter(Filter):
     model = Content
     queryset = model.objects.all()
     serializer_class = ContentsSerializer
     permission_classes = []
 
 
-class SearchedWordsFilter(UserFilter):
+class SearchedWordsFilter(Filter):
     model = SearchedWords
     queryset = model.objects.all()
     serializer_class = SearchedWordsSerializer
     permission_classes = []
 
 
-class OtherAddressesOfUsersFilter(UserFilter):
+class OtherAddressesOfUsersFilter(Filter):
     model = OtherAddressesOfUsers
     queryset = model.objects.all()
     serializer_class = OtherAddressesOfUsersSerializer
     permission_classes = []
 
 
-class DappFilter(UserFilter):
+class DappFilter(Filter):
     model = Dapp
     queryset = model.objects.all()
     serializer_class = DappSerializer

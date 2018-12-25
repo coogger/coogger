@@ -27,7 +27,8 @@
     }
     return apiUrl;
   }
-  const apiUrl = getApiUrl(url_resolve="{{ request|url_resolve:"" }}");
+  const currentUrl = "{{ request|url_resolve:"" }}"
+  const apiUrl = getApiUrl(currentUrl);
   function get_data(apiUrl){
     return fetch(apiUrl)
       .then((resp) => resp.json())
@@ -41,7 +42,6 @@
   let dataCount = get_data(apiUrl).then(function(data){
       return data.count;
     })
-
   const PerLoadPostCount = "{{ request.settings.PAGE_SIZE }}";
   let contentsFromApi = function(apiUrl){
     return get_data(apiUrl).then(function(data){

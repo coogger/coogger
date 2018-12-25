@@ -93,6 +93,7 @@ header{
   right: 5%;
   z-index: 2;
   position: fixed;
+  top: 12px;
   padding: 6px 14px;
   cursor:  pointer;
 }

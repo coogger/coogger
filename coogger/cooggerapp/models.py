@@ -64,6 +64,7 @@ class Content(models.Model):
         blank=True, null=True, related_name="moderator"
     )
     cooggerup = models.BooleanField(default=False, verbose_name="was voting done")
+    # time = models.DateTimeField(default=timezone.now, verbose_name="date") is that necessary
 
     class Meta:
         ordering = ["-id"]
@@ -357,7 +358,7 @@ class OtherAddressesOfUsers(models.Model):
         return self.user.username
 
 
-class SearchedWords(models.Model):
+class SearchedWords(models.Model): # maybe we can use this model for filter if visited
     # TODO:  add new column named user, as user or None
     word = models.CharField(unique=True, max_length=310)
     hmany = models.IntegerField(default=1)

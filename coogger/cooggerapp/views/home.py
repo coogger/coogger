@@ -62,7 +62,7 @@ class Home(TemplateView):
         return queryset
 
 
-class Feed(View):  # TODO:  sorunlu
+class Feed(View):  # TODO:  must be done using steem js
     template_name = "card/blogs.html"
 
     @method_decorator(login_required)
@@ -99,29 +99,6 @@ class Review(TemplateView):
         return context
 
 
-class Search(TemplateView):
-    template_name = "card/blogs.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(Search, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request, self.search_algorithm())
-        return context
-
-    def get_form_data(self, name="query"):
-        name = self.request.GET[name].lower()
-        SearchedWords(word=name).save()
-        return name
-
-    def search_algorithm(self):
-        searched_data = self.get_form_data()
-        q = Q(title__contains=searched_data) | Q(topic__contains=searched_data) | Q(content__contains=searched_data)
-        if self.request.dapp_model.name == "coogger":
-            queryset = Content.objects.filter(q, status="approved").order_by("-views")
-        else:
-            queryset = Content.objects.filter(q, dapp=self.request.dapp_model, status="approved").order_by("-views")
-        return queryset
-
-
 class Report(View):
     form_class = ReportsForm
 
@@ -151,6 +128,29 @@ class Report(View):
             ms.error(request, "Your complaint has been received.")
             return HttpResponseRedirect("/")
         return HttpResponse(self.get(request, *args, **kwargs))
+
+
+class Search(TemplateView):
+    template_name = "card/blogs.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(Search, self).get_context_data(**kwargs)
+        context["content"] = paginator(self.request, self.search_algorithm())
+        return context
+
+    def get_form_data(self, name="query"):
+        name = self.request.GET[name].lower()
+        SearchedWords(word=name).save()
+        return name
+
+    def search_algorithm(self):
+        searched_data = self.get_form_data()
+        q = Q(title__contains=searched_data) | Q(topic__contains=searched_data) | Q(content__contains=searched_data)
+        if self.request.dapp_model.name == "coogger":
+            queryset = Content.objects.filter(q, status="approved").order_by("-views")
+        else:
+            queryset = Content.objects.filter(q, dapp=self.request.dapp_model, status="approved").order_by("-views")
+        return queryset
 
 
 class Dapps(TemplateView):

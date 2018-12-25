@@ -19,6 +19,10 @@ $(document).ready(function() {
     $(".lists").click(function() {
         $("nav").toggle("fast");
     });
+    $(".run-filter").click(function() {
+        $(".filter-machine").toggle("fast");
+    });
+
 });
 // function update_account(metadata){
 //     api.updateUserMetadata(metadata, function (err, res) {

@@ -14,6 +14,7 @@ from django.views.generic.base import TemplateView
 
 # models
 from cooggerapp.models import Content
+from steemconnect_auth.models import Dapp
 
 # views
 from cooggerapp.views.tools import paginator
@@ -23,7 +24,7 @@ class Hashtag(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, hashtag, **kwargs):
-        if hashtag != "":
+        if hashtag:
             if self.request.dapp_model.name == "coogger":
                 queryset = Content.objects.filter(tag__contains=hashtag, status="approved")
             else:
@@ -40,7 +41,7 @@ class Languages(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, lang_name, **kwargs):
-        if lang_name != "":
+        if lang_name:
             if self.request.dapp_model.name == "coogger":
                 queryset = Content.objects.filter(language=lang_name, status="approved")
             else:
@@ -57,7 +58,7 @@ class Categories(TemplateView):
     ctof = Content.objects.filter
 
     def get_context_data(self, cat_name, **kwargs):
-        if cat_name != "":
+        if cat_name:
             if self.request.dapp_model.name == "coogger":
                 queryset = self.ctof(category=cat_name, status="approved")
             else:
@@ -71,22 +72,23 @@ class Categories(TemplateView):
 
 class Filter(TemplateView):
     template_name = "card/blogs.html"
-    queryset = Content.objects
+    queryset = Content.objects.filter(status="approved")
 
     def get_context_data(self, **kwargs):
-        filter_ = ""
+        filter = ""
         for attr, value in self.request.GET.items():
-            filter_ += f"&{attr}={value}"
-            if attr == "username":
-                value = User.objects.filter(username=value)[0]
-                attr = "user"
-            try:
-                self.queryset = self.queryset.filter(**{attr: value})
-            except FieldError:
-                pass
-        info_of_cards = paginator(self.request, self.queryset)
+            if attr and value:
+                filter += f"&{attr}={value}"
+                if attr == "username":
+                    value = User.objects.filter(username=value)[0]
+                    attr = "user"
+                elif attr == "dapp":
+                    value = Dapp.objects.filter(name=value)[0]
+                try:
+                    self.queryset = self.queryset.filter(**{attr: value})
+                except FieldError:
+                    pass
         context = super(Filter, self).get_context_data(**kwargs)
-        context["content"] = info_of_cards
-        print(filter_)
-        context["filter"] = filter_
+        context["content"] = paginator(self.request, self.queryset)
+        context["filter"] = filter
         return context

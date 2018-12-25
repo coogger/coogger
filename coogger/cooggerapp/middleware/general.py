@@ -13,6 +13,7 @@ class GeneralMiddleware(MiddlewareMixin):
     def process_request(self, request):
         request.categories = make_choices([category for category in self.sort_categories(request)])
         request.languages = make_choices([language for language in self.sort_languages(request)])
+        request.dapps = make_choices([dapp.name for dapp in self.sort_dapps()])
         request.settings = settings
 
     def sort_categories(self, request):
@@ -44,3 +45,7 @@ class GeneralMiddleware(MiddlewareMixin):
             except IndexError:
                 pass
         return languages_list
+
+    def sort_dapps(self):
+        queryset = Dapp.objects.filter(active=True)
+        return queryset
