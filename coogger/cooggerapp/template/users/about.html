@@ -2,7 +2,7 @@
 {% block body %}
   {% include 'users/general.html' %}
   {% if about %}
-  <div flex="jc-c">
+  <div general="center">
       {% if content_user == request.user %}
       <form default="form" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
       flex="fd-c" method="post" action="{% url 'userabout' content_user %}">

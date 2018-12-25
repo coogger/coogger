@@ -128,7 +128,13 @@
           $("#post_reward_total").html("$ "+post_reward_total.toFixed(2));
           $("#title").html(title);
           let editor_body = "";
-          let json_metadata = JSON.parse(content.json_metadata)
+          try{
+            let json_metadata = JSON.parse(content.json_metadata)
+          }
+          catch(err){
+            console.log(err);
+            let json_metadata = "";
+          }
           try{
             let ecosystem = json_metadata.ecosystem;
             try{

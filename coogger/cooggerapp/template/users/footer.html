@@ -1,29 +1,27 @@
-<footer flex="jc-c" general="txt-s" hover="c-private" style="padding: 6px 0px;">
+<u-footer flex="jc-c" general="txt-s" hover="c-private" style="padding: 6px 0px;">
     <div flex="fw-nw" style="overflow: auto;">
         {% for follow in user_follow %} {% if follow.choices == "web-site"%}
         <div flex>
             <a animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" target="_blank" href="{{follow.address}}" style="padding: 3px 6px;">
-        <i class="fa fa-globe" aria-hidden="true">
-          <span>{{ follow.choices|cut:"-" }} </span>
+        <i class="fa fa-globe" aria-hidden="true" general="txt-s">
+          {{ follow.choices|cut:"-" }}
         </i>
       </a>
         </div>
         {% else %}
         <div flex>
             <a animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" target="_blank" href="https://www.{{follow.choices}}.com/{{follow.address}}" style="padding: 3px 6px;">
-          <i class="fab fa-{{follow.choices}}" aria-hidden="true">
-            <span>{{follow.choices|title}} - {{follow.address}}</span>
+          <i class="fab fa-{{follow.choices}}" aria-hidden="true" general="txt-s">
+            {{follow.address}}
           </i>
         </a>
         </div>
         {% endif %} {% endfor %}
         <div flex>
-            <a flex="ai-c" animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" target="_blank" href="https://www.steemit.com/@{{ content_user }}" style="padding: 3px 6px;">
-          <img flex="ai-c" src="/static/media/steemit.png" style="width: 12px;height: 12px;">
-            <span>steemit.com/@{{ content_user }}</span>
-          </i>
+          <a flex="ai-c" animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" target="_blank" href="https://www.steemit.com/@{{ content_user }}" style="padding: 3px 6px;">
+            <img flex="ai-c" src="/static/media/steemit.png" style="width: 12px;height: 12px;">
+            steemit.com/@{{ content_user }}
         </a>
-        </div>
+      </div>
     </div>
-    </div>
-</footer>
+</u-footer>

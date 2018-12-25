@@ -17,10 +17,11 @@
                 <div>@${json.author}</div>
               </a>
             </div>
-            <div class='his-data' general='center' flex='ai-c'>
-              <a device-mobiles='w-100' device-mobilel='w-98' device-tablet='w-60' device-laptop='w-40' device-laptopl='w-70' device-4k='w-50'
-               general='center c-success' color='' href='/@${json.author}/${json.permlink}'>${json.permlink}</a>
-              <div class='history-vote-weight'>${json.weight/100} %</div>
+            <div class='his-data'>
+              <a general='center c-primary' color='' href='/@${json.author}/${json.permlink}'>${json.permlink}</a>
+              <div class='history-vote-weight' general="br-2 bg-success w-${json.weight/100}">
+                <span general="c-white txt-s center">${json.weight/100}%</span>
+              </div>
             </div>
           </div>
         </div>`);
@@ -114,6 +115,8 @@
       });
   </script>
   <div general="center bg-white">
-      <div id="activity-history" class="activity-history" flex="fd-cr" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"></div>
+      <div id="activity-history" class="activity-history" flex="fd-cr" general="w-70"
+      device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-70" device-laptop="w-60"
+      device-laptopl="w-70"></div>
   </div>
 {% endblock %}

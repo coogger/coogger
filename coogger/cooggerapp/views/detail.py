@@ -30,17 +30,17 @@ class Detail(TemplateView):
             nameoflist = queryset.topic
             detail = queryset
         except IndexError:
-            steem_post = {}
-            steem_post["language"] = False
-            steem_post["category"] = False
-            steem_post["topic"] = False
-            steem_post["status"] = "approved"
-            steem_post["views"] = False
-            steem_post["steempost"] = True
-            steem_post["user"] = self.user
-            steem_post["permlink"] = self.path
-            steem_post["status"] = "approved"
-            steem_post["get_absolute_url"] = f"@{self.user}/{self.path}"
+            steem_post = dict(
+                language = False,
+                category = False,
+                topic = False,
+                status = "approved",
+                views = False,
+                steempost = True,
+                user = self.user,
+                permlink = self.path,
+                get_absolute_url = f"@{self.user}/{self.path}"
+            )
             nav_category = None
             urloftopic = None
             nameoflist = None

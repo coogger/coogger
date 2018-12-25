@@ -5,7 +5,7 @@
         </div>
     </div>
     <div flex="ai-c" general="txt-s right c-white" class="content_list">
-        <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary" href="{% url 'filter' %}?username={{ ct.user }}&language={{ct.language}}" id="language" style="margin:0px 2px;padding: 2px 6px;">
+        <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary" href="{% url 'language' ct.language %}" id="language" style="margin:0px 2px;padding: 2px 6px;">
          <i class="fas fa-flag"></i>{{ct.language}}</a>
     </div>
 </div>
