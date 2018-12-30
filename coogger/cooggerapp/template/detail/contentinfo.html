@@ -7,8 +7,14 @@
     </li>
   </div>
 </div>
-{% if detail.language and detail.category %}
+{% if detail.topic or detail.address %}
   <div flex style="margin: 12px 0px;">
+    {% if detail.address %}
+      <div flex="ai-c" class="content_list" general="br-2 txt-s left bg-primary c-white"
+       animation-hover="bg-primary">
+        <a href="{{ detail.address }}/?ref=www.coogger.com" target="blank" general="c-white ">{{ detail.address }}</a>
+      </div>
+    {% endif %}
     <div flex="ai-c" class="content_list" general="br-2 txt-s right bg-secondary c-white" animation-hover="bg-primary">
       <a href="{% url 'language' detail.language %}" general="c-white">
         <i class="fas fa-flag"></i>

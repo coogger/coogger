@@ -128,7 +128,7 @@ class Change(View):
                 maybe_error_form = form
                 if form.is_valid():
                     form = form.save(commit=False)
-                    save = form.content_update(queryset, form)
+                    save = form.content_update(old=queryset, new=form)
                     if save.status_code != 200:
                         ms.error(request, save.text)
                         warning_ms = """unexpected error, check your content please or contact us on discord;

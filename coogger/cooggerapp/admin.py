@@ -27,11 +27,16 @@ class ContentAdmin(ModelAdmin):
     list_display_links = list_
     list_filter = ["status", "cooggerup"]
     search_fields = ["topic", "title", "category", "content"]
-    fields = (("user","title"),"content","tag",("category","language","topic"),("status","cooggerup"),("choices", "address"))
+    fields = (
+        ("user","title"),("content","tag"),
+        ("category","language","topic"),("status","cooggerup"),
+        ("address"),
+    )
 
     class Media:
         css = {
-        'coogger.css': ('https://cdn.rawgit.com/hakancelik96/63242e5ebb5f64bea570d8c1b476004c/raw/e9bc5b34abb95f612372f50d94b9ed209fd0a16b/coogger.css',),
+            "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e50842\
+                16bc25091db34e8796459736e2ae4/styles/coogger.css",),
         }
 
     def get_queryset(self, request):

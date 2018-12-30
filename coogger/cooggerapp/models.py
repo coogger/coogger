@@ -37,11 +37,11 @@ class Content(models.Model):
     )
     permlink = models.SlugField(max_length=200)
     content = EditorMdField() # not necessary
-    tag = models.CharField(max_length=200, verbose_name="keyword",
+    tag = models.CharField(max_length=200, verbose_name="Keyword",
         help_text="Write your tags using spaces, max:4"
     )
     language = models.CharField(max_length=30, choices=make_choices(languages),
-        help_text=" The language of your content"
+        help_text="The language of your content"
     )
     all_categories = [category.category_name for category in CategoryofDapp.objects.all()]
     # all_categories = ""
@@ -50,23 +50,22 @@ class Content(models.Model):
         help_text="select content category"
     )
     definition = models.CharField(max_length=400,
-        verbose_name="definition of content",
+        verbose_name="Definition of content",
     )
-    topic = models.CharField(max_length=50, verbose_name="content topic",
+    topic = models.CharField(max_length=50, verbose_name="Content topic",
         help_text="Please, write your topic about your contents."
     )
     status = models.CharField(default="shared", max_length=30,
         choices=make_choices(status_choices),
         verbose_name="content's status"
     )
-    views = models.IntegerField(default=0, verbose_name="views")
+    views = models.IntegerField(default=0, verbose_name="Views")
     mod = models.ForeignKey("auth.user", on_delete=models.CASCADE,
         blank=True, null=True, related_name="moderator"
     )
-    cooggerup = models.BooleanField(default=False, verbose_name="was voting done")
-    choices = models.CharField(blank=True, null=True, max_length=15, choices=make_choices(follow), verbose_name="website name")
-    address = models.CharField(blank=True, null=True, max_length=150, verbose_name="write address about this content")
-    date = models.DateTimeField(default=timezone.now, verbose_name="date")
+    cooggerup = models.BooleanField(default=False, verbose_name="Was voting done")
+    address = models.CharField(blank=True, null=True, max_length=150, verbose_name="Add an address about this content if you want")
+    date = models.DateTimeField(default=timezone.now, verbose_name="Date")
 
     class Meta:
         ordering = ["-id"]
@@ -178,22 +177,24 @@ class Content(models.Model):
             super(Content, self).save(*args, **kwargs)
         return steem_save
 
-    def content_update(self, queryset, content):
-        self.dapp = queryset[0].dapp
-        self.user = queryset[0].user
-        self.title = content.title
-        self.permlink = queryset[0].permlink
-        self.definition = self.prepare_definition(content.content)
+    def content_update(self, old, new):
+        self.dapp = old[0].dapp
+        self.user = old[0].user
+        self.permlink = old[0].permlink
+        self.title = new.title
+        self.address = new.address
+        self.definition = self.prepare_definition(new.content)
         self.tag = self.ready_tags(limit=5)
-        self.topic = slugify(content.topic.lower())
+        self.topic = slugify(new.topic.lower())
         steem_post = self.steemconnect_post(self.permlink, "update")
         if steem_post.status_code == 200:
-            queryset.update(
+            old.update(
                 definition=self.definition,
                 topic=self.topic,
                 title=self.title,
-                category=content.category,
-                language=content.language,
+                address=self.address,
+                category=new.category,
+                language=new.language,
                 tag=self.tag,
             )
         return steem_post
@@ -213,28 +214,20 @@ class Content(models.Model):
                 "topic": self.topic,
                 "category": self.category,
                 "language": self.language,
-                "choices": self.choices,
                 "address": self.address,
                 "body": self.content,
             },
         }
         body_for_steem = f"""{self.definition_for_steem(self.content)}\n
 - Dapp; [{self.dapp.host_name}]({self.dapp.host_name})
-- Category; [{self.category}](https://www.coogger.com/category/{self.category}/)
-- Language; [{self.language}](https://www.coogger.com/language/{self.language}/)
-- Topic; [{self.topic}](https://www.coogger.com/{self.topic}/@{self.user.username}/)
-- Filter;[username={self.user.username}&category={self.category}&topic={self.topic}&language={self.language}](https://www.coogger.com/filter/?username={self.user.username}&category={self.category}&topic={self.topic}&language={self.language})
-- User; [@{self.user.username}](www.coogger.com/@{self.user.username})<br>
+- Category; [{self.category}](https://{self.dapp.host_name}/category/{self.category}/)
+- Language; [{self.language}](https://{self.dapp.host_name}/language/{self.language}/)
+- Topic; [{self.topic}](https://{self.dapp.host_name}/{self.topic}/@{self.user.username}/)
+- User; [@{self.user.username}]({self.dapp.host_name}/@{self.user.username})<br>
 
 --------
 
-Posted using [www.coogger.com](https://www.coogger.com)
-Coogger is an ecosystem where is **knowledge sharing network** which can **build web dapps** and **groups**
-
-#### Contact Us
-
-- [on Spectrum](https://spectrum.chat/coogger)
-- [on Discord](https://discord.gg/avmdZJa)"""
+{self.dapp.ms}"""
         comment = Comment(
             parent_author = "",
             parent_permlink=self.dapp.name,
