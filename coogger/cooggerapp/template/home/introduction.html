@@ -14,26 +14,6 @@
       </span>
     </div>
   </div>
-  <strong general="txt-xxl center c-dark-purple w-100" flex="ai-c" style="margin:24px 0px;">Our Users and Their Posts</strong>
-  <div general="center">
-    <cards flex="ai-b" general="w-100 center" style="margin:0px">
-     {% for ct in content %}
-       <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" general="br-2 bg-white w-30" device-mobiles="w-100" device-mobilem="w-98" device-mobilel="w-98"
-        device-tablet="w-80" device-laptop="w-40" device-laptopl="w-30" device-4k="w-30" style="margin:6px;">
-           {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
-           <a href="" id="absolute_url_href" general="c-dark">
-               <div general="txt-m" class="upshow">
-                   <div flex="ai-c">
-                       {{ ct.definition|safe }}
-                   </div>
-               </div>
-           </a>
-           {% include 'card/bottom.html' %}
-       </card>
-     {% endfor %}
-    </cards>
-    {% include "card/general_script.html" %}
-  </div>
   <div general="center ewcenter txt-m" flex="">
     <div style="margin: 12px;padding: 12px;" general="br-2" flex="fd-c">
       <span general="center txt-xl"><strong>About COOGGER</strong></span>
@@ -104,5 +84,21 @@
         </div>
       </div>
     </div>
+  </div>
+  <strong general="txt-xxl center c-dark-purple w-100" flex="ai-c" style="margin:24px 0px;">Our Users and Their Posts</strong>
+  <div general="center">
+    <cards flex="ai-b" general="w-100 center" style="margin:0px">
+     {% for ct in content %}
+       <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" general="br-2 bg-white w-30" device-mobiles="w-100" device-mobilem="w-98" device-mobilel="w-98"
+        device-tablet="w-80" device-laptop="w-40" device-laptopl="w-30" device-4k="w-30" style="margin:6px;">
+           {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
+           <a href="" id="absolute_url_href" general="c-dark">
+               <div general="txt-m" class="upshow"><div flex="ai-c">{{ ct.definition|safe }}</div></div>
+           </a>
+           {% include 'card/bottom.html' %}
+       </card>
+     {% endfor %}
+    </cards>
+    {% include "card/script.html" %}
   </div>
 {% endblock %}

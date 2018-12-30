@@ -1,4 +1,12 @@
-`<card data-postid=${content_id} id=${author}-${permlink} general="br-2 bg-white">
+let card = "";
+{% if introduction %}
+  card = `<card data-postid="${content_id}" id="${author}-${permlink}" general="br-2 bg-white w-30" device-mobiles="w-100"
+  device-mobilem="w-98" device-mobilel="w-98" device-tablet="w-80" device-laptop="w-40" device-laptopl="w-30"
+  device-4k="w-30" style="margin:6px;">`;
+{% else %}
+  card = `<card data-postid="${content_id}" id="${author}-${permlink}" general="br-2 bg-white">`;
+{% endif %}
+let card_output = `${card}
 {% if request.user.is_authenticated %}
   <div general="br-1 bg-secondary" animation-hover="bg-danger" class="b-edit-point" data-edit-id=${content_id}>
     <div class="bebordert"></div>
@@ -100,4 +108,4 @@
     ${language}</a>
   </div>
 </div>
-</card>`
+</card>`;

@@ -93,7 +93,8 @@
                   post_reward_total = pending_payout_value;
                 }
                 post_reward_total = post_reward_total.toFixed(2);
-                $(`cards`).append({% include 'card/card_template.js' %});
+                {% include 'card/card_template.js' %}
+                $(`cards`).append(card_output);
                 update_images(".definition-img");
               })
               if (check.length >= PerLoadPostCount){

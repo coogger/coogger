@@ -39,26 +39,17 @@ class Home(TemplateView):
         context["content"] = paginator(self.request, queryset)
         if not self.request.user.is_authenticated:
             self.template_name = "home/introduction.html"
+            context["introduction"] = True
             return context
         else:
             return context
 
     def user_is_authenticated(self):
         contents = Content.objects.filter(status="approved")
-        if self.request.user.is_authenticated:
-            if self.request.dapp_model.name == "coogger":
-                queryset = contents
-            else:
-                queryset = contents.filter(dapp=self.request.dapp_model)
+        if self.request.dapp_model.name == "coogger":
+            queryset = contents
         else:
-            queryset = []
-            check_queryset = []
-            for content in contents:
-                if content.user not in check_queryset:
-                    queryset.append(content)
-                    check_queryset.append(content.user)
-                if len(check_queryset) > 16:
-                    break
+            queryset = contents.filter(dapp=self.request.dapp_model)
         return queryset
 
 

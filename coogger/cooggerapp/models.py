@@ -64,10 +64,15 @@ class Content(models.Model):
         blank=True, null=True, related_name="moderator"
     )
     cooggerup = models.BooleanField(default=False, verbose_name="was voting done")
-    # time = models.DateTimeField(default=timezone.now, verbose_name="date") is that necessary
+    choices = models.CharField(blank=True, null=True, max_length=15, choices=make_choices(follow), verbose_name="website name")
+    address = models.CharField(blank=True, null=True, max_length=150, verbose_name="write address about this content")
+    date = models.DateTimeField(default=timezone.now, verbose_name="date")
 
     class Meta:
         ordering = ["-id"]
+
+    def __str__(self):
+        return f"@{self.user}/{self.permlink}"
 
     @property
     def username(self):
@@ -80,9 +85,6 @@ class Content(models.Model):
     @property
     def dapp_name(self):
         return self.dapp.name
-
-    def __str__(self):
-        return f"@{self.user}/{self.permlink}"
 
     def marktohtml(self, marktext):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
@@ -155,24 +157,9 @@ class Content(models.Model):
 
     def save(self, *args, **kwargs):  # for admin.py
         self.topic = slugify(self.topic.lower())
-        # if self.mod == User.objects.get(username="hakancelik"):
-        #     try:
-        #         POST = Post(post=f"@{self.user}/{self.permlink}")
-        #         self.steemconnect_post(self.permlink, "update")
-        #     except:
-        #         steem_post = self.steemconnect_post(self.permlink, "save")
+        self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
         super(Content, self).save(*args, **kwargs)
-
-    def save_for_sync(self, *args, **kwargs):
-        "To sync coogger.db"
-        try:
-            POST = Post(post=f"@{self.user}/{self.permlink}")
-            self.content = POST.body
-            self.definition = self.prepare_definition(self.content)
-            super(Content, self).save(*args, **kwargs)
-        except:
-            pass
 
     def content_save(self, request, *args, **kwargs):
         self.dapp = request.dapp_model
@@ -226,8 +213,10 @@ class Content(models.Model):
                 "topic": self.topic,
                 "category": self.category,
                 "language": self.language,
+                "choices": self.choices,
+                "address": self.address,
                 "body": self.content,
-                },
+            },
         }
         body_for_steem = f"""{self.definition_for_steem(self.content)}\n
 - Dapp; [{self.dapp.host_name}]({self.dapp.host_name})
