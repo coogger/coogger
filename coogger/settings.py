@@ -84,9 +84,17 @@ TIME_ZONE = 'Europe/Istanbul'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-# SECURE_SSL_REDIRECT = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "coogger/static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "coogger/media")
+# md eitor
+MDEDITOR_CONFIGS = {
+    "toolbar": [
+        "undo", "redo", "|",
+        "help", "info",
+        "||", "preview", "watch", "fullscreen"
+    ],
+}

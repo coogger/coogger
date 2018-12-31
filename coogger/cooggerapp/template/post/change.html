@@ -7,9 +7,9 @@
           development</span> category on {{ request.dapp_model.name }} Dapp
       </a>
     </div>
-      <form flex="fd-c" class="c-update-form" action="{% url 'change' username permlink %}"
-      style="padding: 12px 6px;z-index:2"  default="form" method="post"
-      device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50">
+      <form flex="fd-c" class="c-update-form" action="{% url 'change' username permlink %}" style="padding: 12px 6px"
+      default="form" method="post" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60"
+      device-laptop="w-40" device-laptopl="w-70" device-4k="w-50">
           {% csrf_token %} {{ form }}
           <input flex="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" animation-hover="i bg-white">
       </form>

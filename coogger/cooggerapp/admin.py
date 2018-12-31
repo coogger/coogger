@@ -28,9 +28,17 @@ class ContentAdmin(ModelAdmin):
     list_filter = ["status", "cooggerup"]
     search_fields = ["topic", "title", "category", "content"]
     fields = (
-        ("user","title"),("content","tag"),
-        ("category","language","topic"),("status","cooggerup"),
+        ("user"),
+        ("dapp"),
+        ("category"),
+        ("language"),
+        ("topic"),
+        ("title"),
+        ("content"),
         ("address"),
+        ("tag"),
+        ("cooggerup"),
+        ("status"),
     )
 
     class Media:

@@ -156,9 +156,10 @@
             editor_body = content.body;
           }
           $(function() { // editor md
-            editormd.urls.atLinkBase ="https://www.coogger.com/@"
+            editormd.urls.atLinkBase ="https://www.coogger.com/@";
             let Editor = editormd.markdownToHTML("id_arg_editormd", {
-              height: 670,
+              atLink : false,
+              emailLink : false,
               path : "/static/lib/",
               htmlDecode: "html, iframe",
               markdown : editor_body,

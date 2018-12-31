@@ -36,7 +36,7 @@ class Content(models.Model):
         help_text="Be sure to choose the best title related to your content."
     )
     permlink = models.SlugField(max_length=200)
-    content = EditorMdField() # not necessary
+    content = EditorMdField()
     tag = models.CharField(max_length=200, verbose_name="Keyword",
         help_text="Write your tags using spaces, max:4"
     )
