@@ -4,7 +4,7 @@
   <script>
       function vote(json, type){
         return (`
-        <div class='history-op' flex='fd-c' general='b-1 br-2 brc-muted' color=''>
+        <div class='history-op' flex='fd-c' general='b-1 br-2 brc-muted'>
           <div class='his-json'>
           <div class='his-type' general='right txt-l br-2' flex='ai-c'>${type}<i class='fas fa-chevron-circle-up'></i></div>
             <div class='his-user' flex='ai-c'>
@@ -115,8 +115,9 @@
       });
   </script>
   <div general="center bg-white">
-      <div id="activity-history" class="activity-history" flex="fd-cr" general="w-70"
-      device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-70" device-laptop="w-60"
-      device-laptopl="w-70"></div>
+      <div id="activity-history" class="activity-history"
+      flex="fd-cr" general="w-50"
+      flex="fd-cr" device-mobiles="w-100" device-mobilel="w-98"
+      device-tablet="w-96" device-laptop="w-70" device-laptopl="w-70"></div>
   </div>
 {% endblock %}

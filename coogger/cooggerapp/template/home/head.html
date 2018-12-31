@@ -1,4 +1,5 @@
-{% load static from staticfiles %} {% load coogger_tags %}
+{% load static from staticfiles %}
+{% load coogger_tags %}
 <!-- Doctype HTML5 -->
 <!doctype html>
 <html lang="en">
@@ -7,33 +8,33 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="{{ request.dapp_model.icon_address }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ request.dapp_model.icon_address }}" type="image/x-icon"/>
     <!-- SEO -->
     <title>{{ request.head.title|truncatechars:55 }}</title>
-    <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}" />
-    <meta property="og:site_name" content="{{ request.head.title|truncatechars:55 }}" />
-    <meta name="twitter:title" content="{{ request.head.title|truncatechars:55 }}" />
-    <meta itemprop="name" content="{{ request.head.title|truncatechars:55 }}" />
-    <meta name="keywords" content="{{ request.head.keywords }}" />
-    <meta name="description" content="{{ request.head.description|truncatechars:150 }}" />
-    <meta name="twitter:description" content="{{ request.head.description|truncatechars:150 }}" />
-    <meta property="og:description" content="{{ request.head.description|truncatechars:150 }}" />
-    <meta itemprop="description" content="{{ request.head.description|truncatechars:150 }}" />
-    <meta property="og:image" content="{{ request.head.image }}" />
-    <meta itemprop="image" content="{{ request.head.image }}" />
-    <meta name="twitter:image:src" content="{{ request.head.image }}" />
-    <meta name="author" content="{{ request.head.author }}" />
-    <meta property="article:author" content="{{ request.head.author }}" />
-    <meta property="article:publisher" content="{{ request.head.author }}" />
-    <meta name="robots" content="index, follow" />
-    <meta name="revisit-after" content="2" />
-    <meta name="revisit-after" content="2 days" />
+    <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}"/>
+    <meta property="og:site_name" content="{{ request.head.title|truncatechars:55 }}"/>
+    <meta name="twitter:title" content="{{ request.head.title|truncatechars:55 }}"/>
+    <meta itemprop="name" content="{{ request.head.title|truncatechars:55 }}"/>
+    <meta name="keywords" content="{{ request.head.keywords }}"/>
+    <meta name="description" content="{{ request.head.description|truncatechars:150 }}"/>
+    <meta name="twitter:description" content="{{ request.head.description|truncatechars:150 }}"/>
+    <meta property="og:description" content="{{ request.head.description|truncatechars:150 }}"/>
+    <meta itemprop="description" content="{{ request.head.description|truncatechars:150 }}"/>
+    <meta property="og:image" content="{{ request.head.image }}"/>
+    <meta itemprop="image" content="{{ request.head.image }}"/>
+    <meta name="twitter:image:src" content="{{ request.head.image }}"/>
+    <meta name="author" content="{{ request.head.author }}"/>
+    <meta property="article:author" content="{{ request.head.author }}"/>
+    <meta property="article:publisher" content="{{ request.head.author }}"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="revisit-after" content="2"/>
+    <meta name="revisit-after" content="2 days"/>
     <!-- SOCIAL -->
     <meta name="twitter:card" content="summary">
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}"/>
     <!-- RESPONSE -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <!-- COOGGER'S css js -->
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/general.js' %}"></script>
@@ -42,10 +43,8 @@
     <link href="https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css" rel="stylesheet">
     <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles/vote.css' %}" rel="stylesheet">
-    <!-- FONT -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <!-- MD EDITOR -->
-    <link href="{% static 'css/editormd.css' %}" type="text/css" media="all" rel="stylesheet">
+    <link href="{% static 'css/editormd.min.css' %}" type="text/css" media="all" rel="stylesheet">
     <script type="text/javascript" src="{% static 'js/editormd.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/lib/codemirror/codemirror.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/lib/codemirror/modes.min.js' %}"></script>
@@ -57,6 +56,8 @@
     <script type="text/javascript" src="{% static 'js/lib/flowchart.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/lib/jquery.flowchart.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/lib/sequence-diagram.min.js' %}"></script>
+    <!-- FONT -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <!-- STEEMCONNECT -->
     {% if request.user.is_authenticated %}
       <script>

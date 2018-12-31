@@ -10,10 +10,10 @@
 {% if detail.topic or detail.address %}
   <div flex style="margin: 12px 0px;">
     {% if detail.address %}
-      <div class="content_list" general="br-2 txt-s left bg-primary c-white w-50"
-       animation-hover="bg-primary" style="height: 15px;margin-bottom: 2px;overflow: hidden;"
-       device-mobilel="w-100" device-tablet="w-80">
-        <a href="{{ detail.address }}/?ref=www.coogger.com" target="blank" general="c-white ">{{ detail.address }}</a>
+      <div device-mobilel="w-100" device-tablet="w-80" general="w-50">
+        <a class="content_list" style="height: 15px;margin-bottom: 2px;overflow: hidden;"
+        animation-hover="bg-primary" href="{{ detail.address }}/?ref=www.coogger.com" target="blank"
+        general="c-white br-2 txt-s left bg-primary c-white wmax">{{ detail.address }}</a>
       </div>
     {% endif %}
     <div flex="ai-c" class="content_list" general="br-2 txt-s right bg-secondary c-white" animation-hover="bg-primary">
