@@ -74,6 +74,14 @@ class Content(models.Model):
         return f"@{self.user}/{self.permlink}"
 
     @property
+    def next_post(self):
+        return Content.objects.filter(id=int(self.id)+1)[0].get_absolute_url
+
+    @property
+    def previous_post(self):
+        return Content.objects.filter(id=int(self.id)-1)[0].get_absolute_url
+
+    @property
     def username(self):
         return self.user.username
 

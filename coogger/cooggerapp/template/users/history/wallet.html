@@ -68,9 +68,7 @@
           <div flex="as-c" id="sp_balance" general="right" style="padding: 0px 8px;"></div>SP
       </div>
   </div>
-
-  <div general="center b-1 br-2 brc-muted" style="margin: 13px auto;" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50">
-  </div>
+  <div general="center b-1 br-2 brc-muted" style="margin: 13px auto;" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"></div>
 
   <!--  -->
   <script>
@@ -278,7 +276,7 @@
       function fill_order(json, type){ // not necessary
         return json
       }
-
+      
       steem.api.getAccountHistory("{{content_user}}", -1, 200, (err, result) => {
         let template = "";
         let history = result.filter(

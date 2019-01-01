@@ -1,34 +1,33 @@
-{% load django_md_editor_tags %}
-  {% include 'detail/script.html' %}
-  <div animation="fadeIn" font="quicksand" style="padding: 12px;">
-    {% include 'detail/status.html' %}
-      <div class="data-post-id-{{detail.id}}" general="center w-100">
-        <div device-mobiles="w-100" device-mobilem="w-99" device-mobilel="w-98" device-tablet="w-98" device-4k="w-50">
-          {% include 'detail/contentinfo.html' %}
-          {% include 'detail/userinfo.html' %}
-          <h1 general="center txt-xl" id="title" style="margin: 12px auto;"></h1>
-          <div style="padding: inherit;">
-            <div style="width: auto;height:  auto;border: none;padding:0px;" class="editormd" id="id_arg_editormd">
-                <textarea style="display:none;" id='editormd_content'></textarea>
-            </div>
+{% include 'detail/script.html' %}
+<div animation="fadeIn" font="quicksand" style="padding: 12px;">
+  {% include 'detail/status.html' %}
+    <div class="data-post-id-{{detail.id}}" general="center w-100">
+      <div device-mobiles="w-100" device-mobilem="w-99" device-mobilel="w-98" device-tablet="w-98" device-4k="w-50">
+        {% include 'detail/contentinfo.html' %}
+        {% include 'detail/userinfo.html' %}
+        <h1 general="center txt-xl" id="title" style="margin: 12px auto;"></h1>
+        <div style="padding: inherit;">
+          <div style="width: auto;height:  auto;border: none;padding:0px;" class="editormd" id="id_arg_editormd">
+              <textarea style="display:none;" id='editormd_content'></textarea>
           </div>
-          {% include 'detail/edit.html' %}
-          {% include 'detail/share_social_site.html' %}
-          <!-- vote button  -->
-          <div general="center">
-            <div class="vote circle">
-              <div class="increment up" general="bg-success"></div>
-              <div class="increment down" general="bg-danger"></div>
-              <div class="count" id="post_reward_total2" general="txt-l bg-white"></div>
-            </div>
-          </div>
-          <!-- vote button  -->
-          {% include 'detail/donation.html' %}
-          <div style="margin: 10% 0px;"></div>
-          {% include 'detail/comments.html' %}
         </div>
-        {% include 'detail/other_contents.html' %}
+        {% include 'detail/edit.html' %}
+        {% include 'detail/share_social_site.html' %}
+        <!-- vote button  -->
+        <div general="center">
+          <div class="vote circle">
+            <div class="increment up" general="bg-success"></div>
+            <div class="increment down" general="bg-danger"></div>
+            <div class="count" id="post_reward_total2" general="txt-l bg-white"></div>
+          </div>
+        </div>
+        <!-- vote button  -->
+        {% include 'detail/donation.html' %}
+        <div style="margin: 10% 0px;"></div>
+        {% include 'detail/comments.html' %}
       </div>
+      {% include 'detail/other_contents.html' %}
     </div>
+  </div>
 </body>
 </html>

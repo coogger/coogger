@@ -1,5 +1,16 @@
 {% extends "home/html.html" %}
 {% block body %}
+  <div class="just-mobile">
+    <div style="z-index: 2;">
+      <a flex="jc-c" general="c-white br-1 txt-s" href="{{ detail.next_post }}"
+      style="position: fixed;top: 20%;right: 0%;height: 60%;background: #80808042;z-index: 2;writing-mode: tb-rl;text-orientation: upright;">Next</a>
+    </div>
+    <div style="z-index: 2;">
+      <a flex="jc-c" general="c-white br-1 txt-s" href="{{ detail.previous_post }}"
+      style="position: fixed;top: 20%;left: 0%;height: 60%;background: #80808042;z-index: 2;writing-mode: tb-rl;text-orientation: upright;"
+      >Previous</a>
+    </div>
+  </div>
   <div class="header-bottom" general="w-100">
     {% include 'detail/general.html' %}
   </div>
