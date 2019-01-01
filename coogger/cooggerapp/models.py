@@ -77,14 +77,14 @@ class Content(models.Model):
     def next_post(self):
         try:
             return Content.objects.filter(topic=self.topic, id=int(self.id)+1)[0].get_absolute_url
-        except:
-            return None
+        except IndexError :
+            return False
     @property
     def previous_post(self):
         try:
             return Content.objects.filter(topic=self.topic, id=int(self.id)-1)[0].get_absolute_url
-        except:
-            return None
+        except IndexError :
+            return False
 
     @property
     def username(self):
