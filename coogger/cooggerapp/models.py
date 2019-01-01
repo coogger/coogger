@@ -75,11 +75,16 @@ class Content(models.Model):
 
     @property
     def next_post(self):
-        return Content.objects.filter(id=int(self.id)+1)[0].get_absolute_url
-
+        try:
+            return Content.objects.filter(topic=self.topic, id=int(self.id)+1)[0].get_absolute_url
+        except:
+            return None
     @property
     def previous_post(self):
-        return Content.objects.filter(id=int(self.id)-1)[0].get_absolute_url
+        try:
+            return Content.objects.filter(topic=self.topic, id=int(self.id)-1)[0].get_absolute_url
+        except:
+            return None
 
     @property
     def username(self):
