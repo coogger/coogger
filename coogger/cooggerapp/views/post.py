@@ -93,8 +93,7 @@ class Change(View):
                 queryset = Content.objects.filter(user=request.user, permlink=permlink)
                 dapp_model = request.dapp_model
                 if dapp_model.name == "coogger":
-                    request.dapp_model = queryset[0].dapp
-                    category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
+                    category_filter = CategoryofDapp.objects.filter(dapp=dapp_model)
                     request.categories = make_choices([category.category_name for category in category_filter])
                 else:
                     queryset = queryset.filter(dapp=dapp_model)
@@ -117,8 +116,7 @@ class Change(View):
                 content_id = queryset[0].id
                 dapp_model = request.dapp_model
                 if dapp_model.name == "coogger":
-                    request.dapp_model = queryset[0].dapp
-                    category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
+                    category_filter = CategoryofDapp.objects.filter(dapp=dapp_model)
                     request.categories = make_choices([category.category_name for category in category_filter])
                 else:
                     queryset = queryset.filter(dapp=dapp_model)
@@ -140,6 +138,15 @@ class Change(View):
                             permlink=permlink)
                         )
                     return HttpResponseRedirect("/"+queryset[0].get_absolute_url)
+                else:
+                    ms.error(request, form.errors)
+                    warning_ms = """unexpected error, check your content please or contact us on discord;
+                    <a gnrl='c-primary' href='https://discord.gg/avmdZJa'>https://discord.gg/avmdZJa</a>"""
+                    return render(request, self.template_name, dict(
+                        form=form,
+                        username=username,
+                        permlink=permlink)
+                    )
         raise Http404
 
     def content_update(self, request, content_id):
