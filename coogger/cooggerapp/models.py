@@ -75,16 +75,16 @@ class Content(models.Model):
 
     @property
     def next_post(self):
-        try:
-            return Content.objects.filter(topic=self.topic, id=int(self.id)+1)[0].get_absolute_url
-        except IndexError :
-            return False
+        topic_obj = Content.objects.filter(topic=self.topic)
+        for content in topic_obj:
+            if self.id < content.id:
+                return content.get_absolute_url
     @property
     def previous_post(self):
-        try:
-            return Content.objects.filter(topic=self.topic, id=int(self.id)-1)[0].get_absolute_url
-        except IndexError :
-            return False
+        topic_obj = Content.objects.filter(topic=self.topic)
+        for content in topic_obj:
+            if self.id > content.id:
+                return content.get_absolute_url
 
     @property
     def username(self):

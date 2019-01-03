@@ -11,9 +11,6 @@ from django.views.generic.base import TemplateView
 # cooggerapp models
 from cooggerapp.models import Content, Contentviews
 
-# form
-from cooggerapp.forms import ContentForm
-
 
 class Detail(TemplateView):
     # TODO: if content doesnt have on steem, it have to delete on coogger.
