@@ -32,7 +32,7 @@ and this section must be improved
 
 <div class="header-bottom" general="center" general="bg-white br-2">
     <form flex="fd-c" default="form"
-    device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+    mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
      general="b-1 brc-white" method="post" action="{% url 'settings' %}"
       style="padding: 3px 6px;">
         {% csrf_token %}
@@ -43,10 +43,10 @@ and this section must be improved
         <input flex="as-c" type="submit" value="Save">
     </form>
     <div default="pm"
-    device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+    mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
     flex="jc-c as-c" general="bg-dark c-white b-1 br-2">Your web address</div>
     <div flex="fd-c" default="pm"
-    device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+    mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
      id="other_address"></div>
 </div>
 {% include 'settings/script.html' %} -->

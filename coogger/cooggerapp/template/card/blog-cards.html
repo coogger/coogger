@@ -1,12 +1,12 @@
 {% if content %}
-  <cards flex general="w-30" device-mobiles="w-100" device-mobilem="w-98" device-mobilel="w-98"
-   device-tablet="w-80" device-laptop="w-40" device-laptopl="w-30" device-4k="w-30" style="margin:0px">
+  <cards flex general="w-30" mobile-s="w-100" mobile-m="w-98" mobile-l="w-98"
+   tablet="w-80" laptop="w-40" laptop-l="w-30" max="w-30" style="margin:0px">
       {% include 'home/explain_of_page.html' %}
       {% include "card/blog-card.html" %}
   </cards>
   {% include "card/script.html" %}
 {% elif not content %}
   <div flex general="bg-dark w-100 center br-2" hover-animation="i c-primary">
-    <div general="c-yellow txt-l" device-mobile="txt-m"><strong>Bunun için üzgünüz hiç bir sonuç bulunamadı...</strong></div>
+    <div general="c-yellow txt-l" mobile="txt-m"><strong>Bunun için üzgünüz hiç bir sonuç bulunamadı...</strong></div>
   </div>
 {% endif %}

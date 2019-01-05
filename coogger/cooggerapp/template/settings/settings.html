@@ -3,7 +3,7 @@
   <div>
     {% include 'settings/cooggerup_data.html' %}
     <div class="header-bottom" general="center" general="br-2 bg-white">
-        <form flex="fd-c" default="form" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+        <form flex="fd-c" default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
         general="b-1 brc-white" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
             {% csrf_token %}
             {{ vote_percent_form }}
@@ -14,10 +14,10 @@
         </form>
         {% if address_instance %}
         <div default="pm"
-        device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+        mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
          flex="jc-c as-c" general="b-1 br-2 bg-dark c-white">Your web address</div>
         <div flex="fd-c" default="pm"
-        device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50">
+        mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50">
             {% for i in address_instance %}
             <div flex="ai-c jc-fe" general="b-1 br-2 txt-l brc-muted" style="padding: 6px 6px;">
                 {{ i.choices }} {% if i.choices == "web-site" %}

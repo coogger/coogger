@@ -4,22 +4,22 @@
   {% if about %}
   <div general="center">
       {% if content_user == request.user %}
-      <form default="form" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+      <form default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
       flex="fd-c" method="post" action="{% url 'userabout' content_user %}">
           {% csrf_token %} {{ about }}
           <input flex="jc-c as-c" default="input" type="submit" value="Share">
       </form>
       {% else %}
       <div default="paragraph pm"
-      device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"
+      mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
        general="bg-white" style="padding: 4px 12px;">
           {% load django_md_editor_tags %} {{ about|detail_load:"about_id"|safe }}
       </div>
       {% endif %}
   </div>
   {% else %}
-  <div general="txt-m center bg-white" flex="jc-c ai-c" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50" style="height:20vh;">
-      <div general="center" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50" flex="jc-c">
+  <div general="txt-m center bg-white" flex="jc-c ai-c" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" style="height:20vh;">
+      <div general="center" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" flex="jc-c">
           Our user has not written an article about himself yet.
       </div>
   </div>

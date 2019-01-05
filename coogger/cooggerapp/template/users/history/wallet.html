@@ -46,7 +46,7 @@
       });
     });
   </script>
-  <div class="redeem-rewards" title="Redeem Rewards (Transfer To Balance)" flex="jc-c fd-c" general="center b-1 br-2 brc-muted bg-red c-white" hover="bg-primary" style="display:none;padding: 26px 0px;margin: 13px auto;cursor: pointer;" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50">
+  <div class="redeem-rewards" title="Redeem Rewards (Transfer To Balance)" flex="jc-c fd-c" general="center b-1 br-2 brc-muted bg-red c-white" hover="bg-primary" style="display:none;padding: 26px 0px;margin: 13px auto;cursor: pointer;" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50">
     <div class="reward" flex="ai-c" general="brc-muted" style="padding: 4px 12px;margin: 4px 24px;">
         <div general="txt-m brc-muted" flex="jc-c" style="padding: 3px 6px;">Your current rewards: </div>
         <div flex="as-c" id="reward_sp" general="right" style="padding: 0px 8px;"></div>
@@ -54,7 +54,7 @@
         <div flex="as-c" id="reward_sbd" general="right" style="padding: 0px 8px;"></div>
     </div>
   </div>
-  <div flex="jc-c fd-c" general="center b-1 br-2 brc-muted" style="padding: 26px 0px;margin: 13px auto;" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50">
+  <div flex="jc-c fd-c" general="center b-1 br-2 brc-muted" style="padding: 26px 0px;margin: 13px auto;" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50">
       <div flex="ai-c" general="brc-muted" style="padding: 4px 12px;margin: 4px 24px;border-bottom:1px solid #eaecee">
           <div general="b-1 br-2 txt-m brc-muted" flex="jc-c" style="padding: 3px 6px;">STEEM</div>
           <div flex="as-c" id="steem_balance" general="right" style="padding: 0px 8px;"></div>STEEM
@@ -68,7 +68,7 @@
           <div flex="as-c" id="sp_balance" general="right" style="padding: 0px 8px;"></div>SP
       </div>
   </div>
-  <div general="center b-1 br-2 brc-muted" style="margin: 13px auto;" device-mobiles="w-100" device-mobilel="w-98" device-tablet="w-60" device-laptop="w-40" device-laptopl="w-70" device-4k="w-50"></div>
+  <div general="center b-1 br-2 brc-muted" style="margin: 13px auto;" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"></div>
 
   <!--  -->
   <script>
@@ -276,7 +276,7 @@
       function fill_order(json, type){ // not necessary
         return json
       }
-      
+
       steem.api.getAccountHistory("{{content_user}}", -1, 200, (err, result) => {
         let template = "";
         let history = result.filter(
@@ -313,7 +313,7 @@
 
   <div general="center bg-white w-100">
       <div id="wallet-history" class="wallet-history" general="w-50"
-      flex="fd-cr" device-mobiles="w-100" device-mobilel="w-98"
-      device-tablet="w-96" device-laptop="w-70" device-laptopl="w-70"></div>
+      flex="fd-cr" mobile-s="w-100" mobile-l="w-98"
+      tablet="w-96" laptop="w-70" laptop-l="w-70"></div>
   </div>
 {% endblock %}

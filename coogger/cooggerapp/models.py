@@ -148,20 +148,19 @@ class Content(models.Model):
                             break
                         index += 1
             if not code_mark:
-                return marktext[0:800]+"\n```\n"
+                return marktext[0:800]+"\n```\n..."
             elif not code_mark2:
-                return marktext[0:800]+"\n`\n"
+                return marktext[0:800]+"\n`\n..."
             else:
-                return marktext[0:800]
+                return marktext[0:800]+"..."
         soup = self.marktohtml(marktext)
         img = soup.find("img")
         if str(img) not in str(soup)[0:800]:
-            img = f"<center>{self.get_first_image(html_soup=soup)}</center>\n\n"
+            img = f"<center>{self.get_first_image(html_soup=soup)}</center>"
         else:
             img = ""
-        definiton_mark = f"{prepare_text(marktext)}...\n\n<hr>\n\nRead this content\
-         on [www.coogger.com](www.coogger.com/@{self.user.username}/{self.permlink})\n"
-        return img+definiton_mark
+        definiton_mark = f"{img}\n\n{prepare_text(marktext)}\n\n<hr>\n\nRead this content on [{self.dapp.host_name}](https://{self.dapp.host_name}/@{self.user.username}/{self.permlink})\n"
+        return definiton_mark
 
     @property
     def get_absolute_url(self):
@@ -185,7 +184,7 @@ class Content(models.Model):
                 self.new_permlink() #We need to change permlink
             except:
                 break
-        steem_save = self.steemconnect_post(self.permlink, "save")
+        steem_save = self.steemconnect_post(op_name="save")
         if steem_save.status_code == 200:
             super(Content, self).save(*args, **kwargs)
         return steem_save
@@ -199,7 +198,7 @@ class Content(models.Model):
         self.definition = self.prepare_definition(new.content)
         self.tag = self.ready_tags(limit=5)
         self.topic = slugify(new.topic.lower())
-        steem_post = self.steemconnect_post(self.permlink, "update")
+        steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
             old.update(
                 definition=self.definition,
@@ -212,10 +211,7 @@ class Content(models.Model):
             )
         return steem_post
 
-    def steemconnect_post(self, permlink, json_metadata):
-        def_name = json_metadata
-        if json_metadata == "save":
-            self.content += "\n"+self.dapp.ms.format(self.get_absolute_url)
+    def steemconnect_post(self, op_name):
         json_metadata = {
             "format": "markdown",
             "tags": self.tag.split(),
@@ -245,19 +241,19 @@ class Content(models.Model):
             parent_author = "",
             parent_permlink=self.dapp.name,
             author=str(self.user.username),
-            permlink=permlink,
+            permlink=self.permlink,
             title=self.title,
             body=body_for_steem,
             json_metadata=json_metadata,
         )
-        if def_name == "save":
+        if op_name == "save":
             beneficiaries = self.get_beneficiaries()
             if beneficiaries != []:
                 comment_options = CommentOptions(parent_comment=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
             else:
                 operation = comment.operation
-        else:
+        elif op_name == "update":
             operation = comment.operation
         steem_connect_user = SteemConnectUser.objects.filter(user=self.user)
         try:
