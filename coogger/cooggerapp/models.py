@@ -129,20 +129,20 @@ class Content(models.Model):
             code_mark2 = True
             for_marktext = marktext[0:800].split("\n")
             for line, index in zip(for_marktext, range(len(for_marktext))):
-                if line.startswith("```") or "```" in line:
+                if line.startswith("```"):
                     code_mark = False
                     while True:
                         try:
-                            if for_marktext[index] == "```":
+                            if for_marktext[index+1].startswith("```"):
                                 code_mark = True
                         except IndexError:
                             break
                         index += 1
-                elif line.startswith("`") or "```" in line:
+                elif line.startswith("`"):
                     code_mark2 = False
                     while True:
                         try:
-                            if for_marktext[index] == "`":
+                            if for_marktext[index+1].startswith("`"):
                                 code_mark2 = True
                         except IndexError:
                             break
@@ -151,8 +151,7 @@ class Content(models.Model):
                 return marktext[0:800]+"\n```\n..."
             elif not code_mark2:
                 return marktext[0:800]+"\n`\n..."
-            else:
-                return marktext[0:800]+"..."
+            return marktext[0:800]+"..."
         soup = self.marktohtml(marktext)
         img = soup.find("img")
         if str(img) not in str(soup)[0:800]:
