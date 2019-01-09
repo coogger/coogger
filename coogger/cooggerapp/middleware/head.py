@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 # models
 from cooggerapp.models import Content, Topic
 from django.contrib.auth.models import User
-
+from steemconnect_auth.models import CategoryofDapp
 
 from bs4 import BeautifulSoup
 import mistune
@@ -24,50 +24,39 @@ class Head(object):
             setattr(self, "title", f"Latest post on {dapp_name} from {last_path} category")
             setattr(self, "keywords", f"{last_path}, coogger categories,categories,category")
             setattr(self, "description", f"Latest post on {dapp_name} from {last_path} category")
-            # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "/static/media/topics/category.svg")
         elif url_name == "language":
             setattr(self, "title", f"Latest post on {dapp_name} from {last_path} language")
             setattr(self, "keywords", "coogger languages,languages")
             setattr(self, "description", f"Latest post on {dapp_name} from {last_path} language")
-            # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "/static/media/topics/language.svg")
         elif url_name == "user":
             setattr(self, "title", f"The latest posts from {last_path} on {dapp_name}")
             setattr(self, "keywords", f"{last_path}, coogger {last_path}")
             setattr(self, "description", f"The latest posts from {last_path} on {dapp_name}")
-            # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "https://steemitimages.com/u/{}/avatar".format(last_path.replace("@", "")))
         elif url_name == "userabout":
             setattr(self, "title", "About of {}".format(last_path.replace("@", "")))
             setattr(self, "keywords", "about {},{}".format(last_path, last_path))
             setattr(self, "description", "About of {}".format(last_path.replace("@", "")))
-            # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "https://steemitimages.com/u/{}/avatar".format(last_path.replace("@", "")))
         elif url_name == "utopic":
             setattr(self, "title", "{}'s contents about topic of {}".format(last_path.replace("@", ""), start_path))
             setattr(self, "keywords", "{}, {}, coogger topic,topic".format(last_path.replace("@", ""), start_path))
             setattr(self, "description", "{}'s contents about topic of {}".format(last_path.replace("@", ""), start_path))
-            # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "https://steemitimages.com/u/{}/avatar".format(last_path.replace("@", "")))
         elif url_name == "followingcontent":
             setattr(self, "title", "feed")
             setattr(self, "keywords", "Coogger feed,feed")
             setattr(self, "description", "Coogger feed")
-            # setattr(self, "author", "coogger {} category".format(last_path))
-            # setattr(self, "image", "coogger {} category".format(last_path))
         elif url_name == "review":
             setattr(self, "title", "latest posts pending approval on {}".format(dapp_name))
             setattr(self, "keywords", "review,coogger review,approval".format(last_path))
             setattr(self, "description", "latest posts pending approval on {}".format(dapp_name))
-            # setattr(self, "author", "coogger {} category".format(last_path))
-            # setattr(self, "image", "coogger {} category".format(last_path))
         elif url_name == "settings":
             setattr(self, "title", "settings")
             setattr(self, "keywords", "settings,coogger settings")
             setattr(self, "description", "Coogger settings,")
-            # setattr(self, "author", )
-            # setattr(self, "image", "")
         elif url_name == "detail":
             username = start_path.replace("@", "")
             user = authenticate(username=username)
@@ -85,7 +74,6 @@ class Head(object):
             setattr(self, "title", "{} lates post from '{}' hashtag.".format(dapp_name, last_path))
             setattr(self, "keywords", "{}, {} hashtag".format(last_path, dapp_name))
             setattr(self, "description", "{} lates post from '{}' hashtag.".format(dapp_name, last_path))
-            # setattr(self, "author", "coogger {} category".format(last_path))
             setattr(self, "image", "/static/media/icons/list.svg")
         elif url_name == "home":
             dapp = request.dapp_model
@@ -98,13 +86,14 @@ class Head(object):
             setattr(self, "author", f"https://www.facebook.com/{dapp.name}")
             setattr(self, "image", dapp.image)
         elif url_name == "topic":
-            topic = Topic.objects.filter(name=last_path)
-            if not topic.exists():
-                # save new topic
-                Topic(name=last_path).save()
-            setattr(self, "title", f"Topic - {topic[0].name} | Coogger")
-            setattr(self, "description", topic[0].definition)
-            setattr(self, "image", topic[0].image_address)
+            try:
+                topic = Topic.objects.filter(name=last_path)[0]
+            except IndexError:
+                pass
+            else:
+                setattr(self, "title", f"Topic - {topic.name} | Coogger")
+                setattr(self, "description", topic.definition)
+                setattr(self, "image", topic.image_address)
     def get_soup(self, text):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
         markdown = mistune.Markdown(renderer=renderer)

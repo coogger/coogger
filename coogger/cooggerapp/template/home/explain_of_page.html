@@ -1,41 +1,62 @@
-<div general="center" flex="fd-c">
-  {% if nameoflist_ex or nameofhashtag %}
-    <div flex="jc-c" style="margin-bottom: 24px;">
-        <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;" />
-        <img flex="as-fe" src="/static/media/icons/list.svg" style="width: 60px;height: 60px;" />
+<div>
+  {% if nameofhashtag %}
+  <div general="w-100" tablet="w-80" mobile-l="w-98" style="margin-top:12px;">
+    <div style="margin:12px;">
+      <div general="txt-m c-dark" flex="ai-c">
+        <img general="br-circle w-20 b-1 brc-muted" style="margin:0px" src="/static/media/topics/earth.svg">
+        <img src="/static/media/icons/list.svg" general="w-8" style="margin:6px" />
+        <strong general="txt-l" class="capitalize" style="margin-left:6px">{{ nameofhashtag }}</strong>
+      </div>
     </div>
-    <div flex="jc-c">
-        <h1>{{ nameoflist_ex }}</h1>
-        {% if nameofhashtag %}
-        <h1>{{ nameofhashtag }}</h1>
-        {% endif %}
-    </div>
+    <strong general="txt-s" style="margin-left: 12px;">
+      CONTENTS
+      <span style="padding:3px;" class="query_count"></span>
+  </strong>
+  </div>
   {% endif %}
   {% if language %}
-    <div flex="jc-c" style="margin-bottom: 24px;">
-        <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;" />
-        <img flex="as-fe" src="/static/media/topics/language.svg" style="width: 60px;height: 60px;" />
+  <div general="w-100" tablet="w-80" mobile-l="w-98" style="margin-top:12px;">
+    <div style="margin:12px;">
+      <div general="txt-m c-dark" flex="ai-c">
+        <img general="br-circle w-20 b-1 brc-muted" style="margin:0px" src="/static/media/topics/earth.svg">
+        <img src="/static/media/topics/language.svg" general="w-8" style="margin:6px" />
+        <strong general="txt-l" class="capitalize" style="margin-left:6px">{{ language }}</strong>
+      </div>
     </div>
-    <div flex="jc-c">
-        <h1>{{ language }}</h1>
-    </div>
+    <strong general="txt-s" style="margin-left: 12px;">
+      CONTENTS
+      <span style="padding:3px;" class="query_count"></span>
+  </strong>
+  </div>
   {% endif %}
   {% if category %}
-    <div flex="jc-c" style="margin-bottom: 24px;">
-        <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;" />
-        <img flex="as-fe" src="/static/media/topics/category.svg" style="width: 60px;height: 60px;" />
+  <div general="w-100" tablet="w-80" mobile-l="w-98" style="margin-top:12px;">
+    <div style="margin:12px;">
+      <div general="txt-m c-dark" flex="ai-c">
+        <img general="br-circle w-20 b-1 brc-muted" style="margin:0px" src="/static/media/topics/earth.svg">
+        <img src="/static/media/topics/category.svg" general="w-8" style="margin:6px" />
+        <strong general="txt-l" class="capitalize" style="margin-left:6px">{{ category }}</strong>
+      </div>
     </div>
-    <div flex="jc-c">
-        <h1>{{ category }}</h1>
-    </div>
+    <strong general="txt-s" style="margin-left: 12px;">
+      CONTENTS
+      <span style="padding:3px;" class="query_count"></span>
+  </strong>
+  </div>
   {% endif %}
   {% if filter %}
-    <div flex="jc-c" style="margin-bottom: 24px;">
-        <img src="/static/media/topics/earth.svg" style="width: 120px;height: 120px;" />
-        <img flex="as-fe" src="/static/media/topics/filter.svg" style="width: 60px;height: 60px;" />
+  <div general="w-100" tablet="w-80" mobile-l="w-98" style="margin-top:12px;">
+    <div style="margin:12px;">
+      <div general="txt-m c-dark" flex="ai-c">
+        <img general="br-circle w-20 b-1 brc-muted" style="margin:0px" src="/static/media/topics/earth.svg">
+        <img src="/static/media/topics/filter.svg" general="w-8" style="margin:6px" />
+        <strong general="txt-l" class="capitalize" style="margin-left:6px">{{ filter }}</strong>
+      </div>
     </div>
-    <div style="word-break: break-word;">
-        <h1>{{ filter }}</h1>
-    </div>
+    <strong general="txt-s" style="margin-left: 12px;">
+      CONTENTS
+      <span style="padding:3px;" class="query_count"></span>
+  </strong>
+  </div>
   {% endif %}
 </div>

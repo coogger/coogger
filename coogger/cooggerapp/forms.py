@@ -12,11 +12,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class TopicForm(forms.ModelForm):
-    class Meta:
-        model = Topic
-        fields = ["image_address", "definition"]
-
 class ContentForm(forms.ModelForm):
 
     def __init__(self, request=None, *args, **kwargs):

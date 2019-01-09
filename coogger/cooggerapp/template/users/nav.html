@@ -7,14 +7,14 @@
                   <div general="br-2 bg-success">
                       <a flex="jc-c" general="txt-s c-white" href="{% url 'utopic' topic content_user %}"
                       style="padding: 3px 6px;">{{ topic|title }}
-                      <span general="c-secondary">{{ topic|topic_count:content_user }}</span>
+                      <span general="right">{{ topic|topic_count:content_user }}</span>
                     </a>
                   </div>
               {% else%}
                 <div animation-hover="bg-success" general="br-2 bg-white">
                     <a flex="jc-c" general="txt-s br-2 c-dark" hover="c-white brc-dark" href="{% url 'utopic' topic content_user %}"
                     style="padding: 3px 6px;">{{ topic|title }}
-                  <span general="c-secondary">{{ topic|topic_count:content_user }}</span>
+                  <span general="right">{{ topic|topic_count:content_user }}</span>
                 </a>
                 </div>
               {% endif %}

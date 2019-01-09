@@ -8,7 +8,7 @@
         <div general="b-1 br-2 bg-success brc-success">
             <a flex general="txt-s br-2 c-white" href="/{{ list }}/@{{content_user}}" style="padding: 3px 6px;">
              {{ list|title }}
-           <span general="c-secondary">{{ list|topic_count:content_user }}</span>
+           <span general="right">{{ list|topic_count:content_user }}</span>
          </a>
         </div>
         {% else%}
@@ -16,7 +16,7 @@
             <a flex general="b-1 txt-s br-2 brc-muted c-dark" hover="c-white" href="/{{list}}/@{{content_user}}"
             style="padding: 3px 6px;">
           {{ list|title }}
-        <span general="c-secondary"> - {{ list|topic_count:content_user }}</span>
+        <span general="right">{{ list|topic_count:content_user }}</span>
       </a>
         </div>
         {% endif %} {% endfor %}

@@ -112,13 +112,13 @@ class OtherInfoUsersAdmin(ModelAdmin):
 
 
 class TopicAdmin(ModelAdmin):
-    list_ = ["name","edit"]
+    list_ = ["name"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["name", "edit"]
-    search_fields = ["name","definition","edit"]
+    list_filter = ["name"]
+    search_fields = ["name","definition"]
     fields = (
-        ("name", "edit"),
+        ("name"),
         ("definition", "image_address"),
     )
 

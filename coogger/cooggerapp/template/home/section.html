@@ -19,7 +19,7 @@
     <div class="categories" general="bg-white br-1">
         {% for link,name in request.categories %}
         <div general="br-2" flex="ai-c jc-fs" hover="bg-blue">
-            <a href="{% url 'language' link %}" general="c-dark w-100" flex="ai-c" hover="c-white" style="padding: 4px 12px;">
+            <a href="{% url 'category' link %}" general="c-dark w-100" flex="ai-c" hover="c-white" style="padding: 4px 12px;">
               <span general="txt-s">{{ name|truncatechars:20|title }}</span>
               <span general="txt-s right">{{ name|categories_count:request.dapp_model }}</span>
             </a>

@@ -1,4 +1,4 @@
-{% if topic.edit == "false" %}
+{% if topic.name %}
   <div general="center w-50" tablet="w-80" mobile-l="w-98" flex="fd-c" style="margin-top:12px;">
     <div flex="ai-c" style="margin:12px;">
       <div general="txt-m c-dark" flex="ai-c">
@@ -10,17 +10,8 @@
     <strong general="txt-s" style="margin-left: 12px;">
       CONTENTS
       <span style="padding:3px;">
-      {{ content|length }}
+      {{ query_count }}
     </span>
   </strong>
   </div>
-{% else %}
-<div general="center w-50">
-  <form flex="fd-c" action="{% url 'topic' topic_name %}" style="padding: 12px 6px"
-  default="form" method="post" mobile-s="w-100" mobile-l="w-98" tablet="w-60"
-  laptop="w-40" laptop-l="w-70" max="w-50">
-      {% csrf_token %} {{topic_form}}
-      <input flex="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" animation-focus="i bg-white">
-  </form>
-</div>
 {% endif %}

@@ -37,10 +37,6 @@ class Topic(models.Model):
     definition = models.CharField(max_length=600, verbose_name="Definition of topic",
         help_text="Definition of topic", default=""
     )
-    edit = models.CharField(default=False, max_length=6,
-        choices=make_choices([True, False]),
-        verbose_name="Is the definition editable?"
-    )
 
     def __str__(self):
         return self.name

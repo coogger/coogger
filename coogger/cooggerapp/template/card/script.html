@@ -28,6 +28,10 @@
     else if (url_resolve == "list"){
       apiUrl = `/api/filter-content/?status=approved&topic={{nameofhashtag}}`;
     }
+    else if (url_resolve == "hashtag"){
+      apiUrl = `/api/filter-content/?status=approved&tag={{ nameofhashtag }}`;
+    }
+
     return apiUrl;
   }
   const currentUrl = "{{ request|url_resolve:"" }}"
@@ -43,6 +47,7 @@
       });
   }
   let dataCount = get_data(apiUrl).then(function(data){
+      $(".query_count").html(data.count);
       return data.count;
     })
   const PerLoadPostCount = "{{ request.settings.PAGE_SIZE }}";
