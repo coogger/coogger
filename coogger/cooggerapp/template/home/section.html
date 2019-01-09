@@ -1,7 +1,7 @@
 {% load coogger_count %}
 <div general="center w-100" style="margin-top: 12px;">
   <!-- languages and categories -->
-  <div class="sectionclosedmobile lg" style="margin-right:12px;">
+  <div class="lg" style="margin-right:12px;">
     <button general="center txt-m c-secondary" flex="ai-c">Languages <i class="fas fa-language"></i></button>
     <div class="languages" general="bg-white br-1">
         {% for link,name in request.languages %}
@@ -14,7 +14,7 @@
         {% endfor %}
     </div>
   </div>
-  <div class="sectionclosedmobile ctg" style="margin-right:12px;">
+  <div class="ctg" style="margin-right:12px;">
     <button general="center txt-m c-secondary" flex="ai-c">Categories <i class="fa fa-list-alt" aria-hidden="true"></i></button>
     <div class="categories" general="bg-white br-1">
         {% for link,name in request.categories %}

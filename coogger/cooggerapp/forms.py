@@ -7,10 +7,15 @@ from cooggerapp.choices import *
 # models
 from cooggerapp.models import (
     Content, OtherAddressesOfUsers, OtherInformationOfUsers,
-    ReportModel, CategoryofDapp)
+    ReportModel, CategoryofDapp, Topic)
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ["image_address", "definition"]
 
 class ContentForm(forms.ModelForm):
 

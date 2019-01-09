@@ -1,12 +1,10 @@
-{% if topic.edit == open %}
-  <div general="b-1 br-2 brc-muted center" flex="fd-c" style="margin-top:12px;">
-    <div flex="ai-c">
+{% if topic.edit == "false" %}
+  <div general="center w-50" tablet="w-80" mobile-l="w-98" flex="fd-c" style="margin-top:12px;">
+    <div flex="ai-c" style="margin:12px;">
       <div general="txt-m c-dark" flex="ai-c">
-        <img general="br-circle w-20" style="margin:0px" src="{{ topic.image_address }}">
-        <div flex="fd-c">
-          <strong general="txt-l">{{ topic.name }}</strong>
-          <span general="txt-s">{{ topic.definition }}</span>
-        </div>
+        <img general="br-circle w-10 b-1 brc-muted" style="margin:0px" src="{{ topic.image_address }}">
+        <strong general="txt-l" class="capitalize" style="margin-left:6px">{{ topic.name }}</strong>
+        <span general="txt-s">{{ topic.definition }}</span>
       </div>
     </div>
     <strong general="txt-s" style="margin-left: 12px;">
@@ -17,5 +15,12 @@
   </strong>
   </div>
 {% else %}
-asd
+<div general="center w-50">
+  <form flex="fd-c" action="{% url 'topic' topic_name %}" style="padding: 12px 6px"
+  default="form" method="post" mobile-s="w-100" mobile-l="w-98" tablet="w-60"
+  laptop="w-40" laptop-l="w-70" max="w-50">
+      {% csrf_token %} {{topic_form}}
+      <input flex="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" animation-focus="i bg-white">
+  </form>
+</div>
 {% endif %}

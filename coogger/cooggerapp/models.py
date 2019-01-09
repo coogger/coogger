@@ -31,13 +31,13 @@ from steemconnect_auth.models import (SteemConnectUser, Dapp,
 
 class Topic(models.Model):
     name = models.CharField(unique=True, max_length=50, verbose_name="Content topic",
-        help_text="Please, write your topic about your contents."
+        help_text="Please, write topic name."
     )
     image_address = models.CharField(max_length=400, default="")
-    definition = models.CharField(max_length=50, verbose_name="Definition of topic",
+    definition = models.CharField(max_length=600, verbose_name="Definition of topic",
         help_text="Definition of topic", default=""
     )
-    edit = models.CharField(default="open", max_length=6,
+    edit = models.CharField(default=False, max_length=6,
         choices=make_choices([True, False]),
         verbose_name="Is the definition editable?"
     )
