@@ -2,16 +2,18 @@
   <div general="center w-50" tablet="w-80" mobile-l="w-98" flex="fd-c" style="margin-top:12px;">
     <div flex="ai-c" style="margin:12px;">
       <div general="txt-m c-dark" flex="ai-c">
-        <img general="br-circle w-10 b-1 brc-muted" style="margin:0px" src="{{ topic.image_address }}">
+        {% if topic.image_address %}
+          <img general="br-circle w-10 b-1 brc-muted" style="margin:0px" src="{{ topic.image_address }}">
+        {% endif %}
         <strong general="txt-l" class="capitalize" style="margin-left:6px">{{ topic.name }}</strong>
-        <span general="txt-s">{{ topic.definition }}</span>
       </div>
+      {% if topic.definition %}
+        <span general="txt-s" style="margin-left: 12px;">{{ topic.definition }}</span>
+      {% endif %}
     </div>
     <strong general="txt-s" style="margin-left: 12px;">
       CONTENTS
-      <span style="padding:3px;">
-      {{ query_count }}
-    </span>
+        <span style="padding:3px;" class="query_count"></span>
   </strong>
   </div>
 {% endif %}

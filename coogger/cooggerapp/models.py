@@ -33,9 +33,9 @@ class Topic(models.Model):
     name = models.CharField(unique=True, max_length=50, verbose_name="Content topic",
         help_text="Please, write topic name."
     )
-    image_address = models.CharField(max_length=400, default="")
+    image_address = models.CharField(max_length=400, blank=True, null=True)
     definition = models.CharField(max_length=600, verbose_name="Definition of topic",
-        help_text="Definition of topic", default=""
+        help_text="Definition of topic", blank=True, null=True
     )
 
     def __str__(self):
@@ -247,7 +247,7 @@ class Content(models.Model):
 - Dapp; [{self.dapp.host_name}]({self.dapp.host_name})
 - Category; [{self.category}](https://{self.dapp.host_name}/category/{self.category}/)
 - Language; [{self.language}](https://{self.dapp.host_name}/language/{self.language}/)
-- Topic; [{self.topic}](https://{self.dapp.host_name}/{self.topic}/@{self.user.username}/)
+- Topic; [{self.topic}](https://{self.dapp.host_name}/topic/{self.topic}/)
 - User; [@{self.user.username}]({self.dapp.host_name}/@{self.user.username})<br>
 
 --------

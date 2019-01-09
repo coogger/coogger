@@ -35,7 +35,11 @@ class TopicView(TemplateView):
             info_of_cards = paginator(self.request, queryset)
             context = super(TopicView, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
-            context["topic"] = Topic.objects.filter(name=topic)[0]
+            topic_query = Topic.objects.filter(name=topic)
+            if topic_query.exists():
+                context["topic"] = topic_query[0]
+            else:
+                Topic(name=topic).save()
             return context
         raise Http404
 
