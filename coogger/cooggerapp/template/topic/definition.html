@@ -1,0 +1,21 @@
+{% if topic.edit == open %}
+  <div general="b-1 br-2 brc-muted center" flex="fd-c" style="margin-top:12px;">
+    <div flex="ai-c">
+      <div general="txt-m c-dark" flex="ai-c">
+        <img general="br-circle w-20" style="margin:0px" src="{{ topic.image_address }}">
+        <div flex="fd-c">
+          <strong general="txt-l">{{ topic.name }}</strong>
+          <span general="txt-s">{{ topic.definition }}</span>
+        </div>
+      </div>
+    </div>
+    <strong general="txt-s" style="margin-left: 12px;">
+      CONTENTS
+      <span style="padding:3px;">
+      {{ content|length }}
+    </span>
+  </strong>
+  </div>
+{% else %}
+asd
+{% endif %}

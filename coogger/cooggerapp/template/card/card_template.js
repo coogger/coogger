@@ -80,7 +80,7 @@ let card_output = `${card}
 
 <div flex="ai-c" general="txt-s left c-white" class="content_list">
     <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary" id="topic"
-      href="/${topic}/@${author}" style="padding: 2px 6px;">
+      href="/topic/${topic}/" style="padding: 2px 6px;">
       <i class="fa fa-hashtag" aria-hidden="true"></i>${topic}</a>
 </div>
 <div flex="ai-c" general="txt-s right c-white" class="content_list">

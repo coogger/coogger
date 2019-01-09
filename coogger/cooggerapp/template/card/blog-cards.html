@@ -2,11 +2,23 @@
   <cards flex general="w-30" mobile-s="w-100" mobile-m="w-98" mobile-l="w-98"
    tablet="w-80" laptop="w-40" laptop-l="w-30" max="w-30" style="margin:0px">
       {% include 'home/explain_of_page.html' %}
-      {% include "card/blog-card.html" %}
+      {% for ct in content %}
+        <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" general="br-2 bg-white">
+            {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
+            <a href="" id="absolute_url_href" general="c-dark">
+                <div general="txt-m" class="upshow">
+                    <div flex="ai-c">
+                        {{ ct.definition|safe }}
+                    </div>
+                </div>
+            </a>
+            {% include 'card/bottom.html' %}
+        </card>
+      {% endfor %}
   </cards>
   {% include "card/script.html" %}
 {% elif not content %}
   <div flex general="bg-dark w-100 center br-2" hover-animation="i c-primary">
-    <div general="c-yellow txt-l" mobile="txt-m"><strong>Bunun için üzgünüz hiç bir sonuç bulunamadı...</strong></div>
+    <div general="c-yellow txt-l" mobile="txt-m"><strong>Sorry for this inconvenient no results found...</strong></div>
   </div>
 {% endif %}

@@ -3,7 +3,7 @@ from django.urls import resolve
 from django.contrib.auth import authenticate
 
 # models
-from cooggerapp.models import Content
+from cooggerapp.models import Content, Topic
 from django.contrib.auth.models import User
 
 
@@ -97,7 +97,14 @@ class Head(object):
             setattr(self, "description", dapp.definition)
             setattr(self, "author", f"https://www.facebook.com/{dapp.name}")
             setattr(self, "image", dapp.image)
-
+        elif url_name == "topic":
+            topic = Topic.objects.filter(name=last_path)
+            if not topic.exists():
+                # save new topic
+                Topic(name=last_path).save()
+            setattr(self, "title", f"Topic - {topic[0].name} | Coogger")
+            setattr(self, "description", topic[0].definition)
+            setattr(self, "image", topic[0].image_address)
     def get_soup(self, text):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
         markdown = mistune.Markdown(renderer=renderer)

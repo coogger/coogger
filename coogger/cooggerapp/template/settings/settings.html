@@ -2,7 +2,7 @@
 {% block body %}
   <div>
     {% include 'settings/cooggerup_data.html' %}
-    <div class="header-bottom" general="center" general="br-2 bg-white">
+    <div general="center" general="br-2 bg-white">
         <form flex="fd-c" default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
         general="b-1 brc-white" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
             {% csrf_token %}

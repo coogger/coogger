@@ -1,30 +1,34 @@
 {% load coogger_count %}
-<section general="center" flex="fw-nw" class="header-bottom">
-    <div flex="fd-c ac-c ai-fs fw-nw" general="right b-1 br-2 brc-muted" class="section-right sectionclosedmobile">
-      <span general="center txt-l c-secondary" flex="ai-c">Languages <i class="fas fa-language"></i></span>
-      <div style="overflow: auto;">
-          {% for link,name in request.languages %}
-          <div general="br-2" flex="ai-c jc-fs" animation-hover="bg-primary">
-              <a href="{% url 'language' link %}" general="c-dark" hover="c-white" style="padding: 4px 12px;">
-                {{ name|truncatechars:20|title }}
-                <span general="txt-s c-secondary">{{ name|language_count:request.dapp_model }}</span>
-              </a>
-          </div>
-          {% endfor %}
-      </div>
+<div general="center w-100" style="margin-top: 12px;">
+  <!-- languages and categories -->
+  <div class="sectionclosedmobile lg" style="margin-right:12px;">
+    <button general="center txt-m c-secondary" flex="ai-c">Languages <i class="fas fa-language"></i></button>
+    <div class="languages" general="bg-white br-1">
+        {% for link,name in request.languages %}
+        <div general="br-2" flex="ai-c jc-fs" hover="bg-blue">
+            <a href="{% url 'language' link %}" general="c-dark w-100" flex="ai-c" hover="c-white" style="padding: 4px 12px;">
+              <span general="txt-s">{{ name|truncatechars:20|title }}</span>
+              <span general="txt-s right">{{ name|language_count:request.dapp_model }}</span>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% include 'card/blog-cards.html' %}
-    <div flex="fd-c ac-c ai-fs fw-nw" general="left b-1 br-2 brc-muted" class="section-left sectionclosedmobile">
-      <span general="center txt-l c-secondary bg-white">Categories </span>
-      <div style="overflow: auto;">
-          {% for link,name in request.categories %}
-          <div general="br-2" flex="ai-c jc-fs" animation-hover="bg-primary">
-              <a href="{% url 'category' link %}" general="c-dark" hover="c-white" style="padding: 4px 12px;">
-                {{ name|truncatechars:20|title }}
-                <span general="txt-s c-secondary">{{ name|categories_count:request.dapp_model }}</span>
-              </a>
-          </div>
-          {% endfor %}
-      </div>
+  </div>
+  <div class="sectionclosedmobile ctg" style="margin-right:12px;">
+    <button general="center txt-m c-secondary" flex="ai-c">Categories <i class="fa fa-list-alt" aria-hidden="true"></i></button>
+    <div class="categories" general="bg-white br-1">
+        {% for link,name in request.categories %}
+        <div general="br-2" flex="ai-c jc-fs" hover="bg-blue">
+            <a href="{% url 'language' link %}" general="c-dark w-100" flex="ai-c" hover="c-white" style="padding: 4px 12px;">
+              <span general="txt-s">{{ name|truncatechars:20|title }}</span>
+              <span general="txt-s right">{{ name|categories_count:request.dapp_model }}</span>
+            </a>
+        </div>
+        {% endfor %}
     </div>
+  </div>
+</div>
+<section general="center" flex="fw-nw">
+  <!-- contents -->
+  {% include 'card/blog-cards.html' %}
 </section>

@@ -7,7 +7,7 @@ from django.http import Http404
 
 #models
 from cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
-    ReportModel, OtherInformationOfUsers)
+    ReportModel, OtherInformationOfUsers, Topic)
 from steemconnect_auth.models import Mods, Dapp
 
 # forms
@@ -111,9 +111,26 @@ class OtherInfoUsersAdmin(ModelAdmin):
             raise Http404 # mods or dapp leader cant change
 
 
+class TopicAdmin(ModelAdmin):
+    list_ = ["name","edit"]
+    list_display = list_
+    list_display_links = list_
+    list_filter = ["name", "edit"]
+    search_fields = ["name","definition","edit"]
+    fields = (
+        ("name", "edit"),
+        ("definition", "image_address"),
+    )
+
+    class Media:
+        css = {
+            "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css",),
+        }
+
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(OtherAddressesOfUsers,OtherAddressesOfUsersAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)
 site.register(ReportModel)
 site.register(OtherInformationOfUsers,OtherInfoUsersAdmin)
+site.register(Topic, TopicAdmin)

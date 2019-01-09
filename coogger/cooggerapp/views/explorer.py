@@ -13,11 +13,28 @@ from django.views import View
 from django.views.generic.base import TemplateView
 
 # models
-from cooggerapp.models import Content
+from cooggerapp.models import Content, Topic
 from steemconnect_auth.models import Dapp
 
 # views
 from cooggerapp.views.tools import paginator
+
+
+class TopicView(TemplateView):
+    template_name = "topic/index.html"
+
+    def get_context_data(self, topic, **kwargs):
+        if topic:
+            if self.request.dapp_model.name == "coogger":
+                queryset = Content.objects.filter(topic=topic, status="approved")
+            else:
+                queryset = Content.objects.filter(dapp=self.request.dapp_model, topic=topic, status="approved")
+            info_of_cards = paginator(self.request, queryset)
+            context = super(TopicView, self).get_context_data(**kwargs)
+            context["content"] = info_of_cards
+            context["topic"] = Topic.objects.filter(name="python")[0]
+            return context
+        return HttpResponseRedirect("/")
 
 
 class Hashtag(TemplateView):
@@ -34,6 +51,7 @@ class Hashtag(TemplateView):
             context["content"] = info_of_cards
             context["nameofhashtag"] = hashtag
             return context
+        return HttpResponseRedirect("/")
 
 
 class Languages(TemplateView):
@@ -51,6 +69,7 @@ class Languages(TemplateView):
             context["content"] = info_of_cards
             context["language"] = lang_name
             return context
+        return HttpResponseRedirect("/")
 
 
 class Categories(TemplateView):
@@ -68,6 +87,7 @@ class Categories(TemplateView):
             context["content"] = info_of_cards
             context["category"] = cat_name
             return context
+        return HttpResponseRedirect("/")
 
 
 class Filter(TemplateView):

@@ -22,6 +22,9 @@
     else if (url_resolve == "filter"){
       apiUrl = `/api/filter-content/?status=approved{{filter|safe}}`;
     }
+    else if (url_resolve == "topic"){
+      apiUrl = `/api/filter-content/?status=approved&topic={{ topic.name }}`;
+    }
     else if (url_resolve == "list"){
       apiUrl = `/api/filter-content/?status=approved&topic={{nameofhashtag}}`;
     }

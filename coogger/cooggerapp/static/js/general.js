@@ -20,9 +20,14 @@ $(document).ready(function() {
         $("nav").toggle("fast");
     });
     $(".run-filter").click(function() {
-        $(".filter-machine").toggle("fast");
+        $(".filter-machine").toggle({"display":"block"});
     });
-
+    $(".lg").click(function() {
+        $(".languages").toggle({"display":"block"});
+    });
+    $(".ctg").click(function() {
+        $(".categories").toggle({"display":"block"});
+    });
 });
 // function update_account(metadata){
 //     api.updateUserMetadata(metadata, function (err, res) {

@@ -1,8 +1,8 @@
 {% extends "home/html.html" %}
-{% load django_md_editor_tags %}
 {% block body %}
-  <div class="dapps-ms header-bottom" general="txt-xl center" flex="fw-w">
-    {{ "other dapps built using the coogger projects."|title }}
+<div flex="fd-c">
+  <div class="dapps-ms capitalize" general="txt-xl center" flex="fw-w">
+    other dapps built using the coogger projects.
   </div>
   <div flex="fw-w fd-c" general="center txt-m" style="margin: 14px auto;" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50">
     {% for com in dapps %}
@@ -18,4 +18,5 @@
     </div>
     {% endfor %}
   </div>
+</div>
 {% endblock %}

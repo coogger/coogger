@@ -8,11 +8,11 @@
       </a>
       <div flex="ai-c" class="search just-pc">
         <form action="{% url 'search' %}">
-          <input general="b-1 br-2 bg-white c-dark brc-muted" type="text" style="padding: 6px 12px;" placeholder='Search ..' name="query" maxlength="250" value="{{ request.GET.query }}" general="br-2" />
+          <input general="b-1 br-2 bg-white c-dark brc-muted" type="text" style="padding: 6px 12px;" placeholder='Search contents ..' name="query" maxlength="250" value="{{ request.GET.query }}" general="br-2" />
           <input type="submit" value="Search" style="display:  none;" />
         </form>
       </div>
-      <div class="run-filter" flex="ai-c" hover="bg-yellow c-white" general="br-2" style="cursor: pointer;">
+      <div class="run-filter" flex="ai-c" hover="c-blue" general="br-2" style="cursor: pointer;">
         <i class="fas fa-sliders-h"></i>Filter content
       </div>
       {% if not request.user.is_authenticated %}
@@ -50,8 +50,10 @@
     </div>
   </div>
 </header>
-{% if request.user.is_authenticated %}
+<div general="w-100">
   <div general="br-2 bg-success c-white" flex="jc-c" id="steem_power_bar"></div>
+</div>
+{% if request.user.is_authenticated %}
   <div class="header_menu" general="br-2 b-1 center ewcenter bg-white brc-muted">
     <div flex="jc-fe">
       <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex="" hover="c-primary bg-white br-2" general="wmax txt-m c-secondary" href="{% url 'followingcontent' %}">
@@ -142,7 +144,7 @@
     <strong>X</strong>
   </div>
 {% endif %}
-<div flex="ai-c" general="w-50 center" class="header-bottom filter-machine" style="display: none;">
+<div flex="ai-c" general="w-100 center" class="filter-machine" style="display: none;">
   <div flex="fd-c" general="center">
     <form default="form" method="GET" action="/filter/">
       <div>Dapp
@@ -152,21 +154,25 @@
           {% endfor %}
         </select>
       </div>
-      <div>Username<input type="text" name="username" value=""></div>
-      <div>Topic<input type="text" name="topic" value=""></div>
-      <div>Language
-        <select name="language" id="id_language">
-          {% for langid, lang in request.languages %}
-            <option value="{{langid}}">{{lang}}</option>
-          {% endfor %}
-        </select>
+      <div flex="">
+        <div style="padding-right: 8px;">Username<input type="text" name="username" value=""></div>
+        <div style="padding-left: 8px;">Topic<input type="text" name="topic" value=""></div>
       </div>
-      <div>Category
-        <select name="category" id="id_category">
-          {% for catid, cat in request.categories %}
-            <option value="{{catid}}">{{cat}}</option>
-          {% endfor %}
-        </select>
+      <div flex="">
+        <div>Language
+          <select name="language" id="id_language">
+            {% for langid, lang in request.languages %}
+              <option value="{{langid}}">{{lang}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>Category
+          <select name="category" id="id_category">
+            {% for catid, cat in request.categories %}
+              <option value="{{catid}}">{{cat}}</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
       <input type="submit" value="Filter" style="width: 100%;">
     </form>

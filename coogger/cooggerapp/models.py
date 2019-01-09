@@ -29,6 +29,23 @@ from steemconnect_auth.models import (SteemConnectUser, Dapp,
     CategoryofDapp, DappSettings)
 
 
+class Topic(models.Model):
+    name = models.CharField(unique=True, max_length=50, verbose_name="Content topic",
+        help_text="Please, write your topic about your contents."
+    )
+    image_address = models.CharField(max_length=400, default="")
+    definition = models.CharField(max_length=50, verbose_name="Definition of topic",
+        help_text="Definition of topic", default=""
+    )
+    edit = models.CharField(default="open", max_length=6,
+        choices=make_choices([True, False]),
+        verbose_name="Is the definition editable?"
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Content(models.Model):
     dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE, help_text="Which application want you share via?")
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
@@ -125,16 +142,16 @@ class Content(models.Model):
 
     def definition_for_steem(self, marktext):
         def prepare_text(marktext):
-            code_mark = True
-            code_mark2 = True
+            code_mark = True # closed
+            code_mark2 = True # closed
             for_marktext = marktext[0:800].split("\n")
             for line, index in zip(for_marktext, range(len(for_marktext))):
                 if line.startswith("```"):
-                    code_mark = False
+                    code_mark = False # open
                     while True:
                         try:
                             if for_marktext[index+1].startswith("```"):
-                                code_mark = True
+                                code_mark = True # cloased
                         except IndexError:
                             break
                         index += 1
@@ -169,6 +186,8 @@ class Content(models.Model):
         self.topic = slugify(self.topic.lower())
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
+        if not Topic.objects.filter(name=self.topic).exists():
+            Topic(name=self.topic).save()
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request, *args, **kwargs):
@@ -185,6 +204,8 @@ class Content(models.Model):
                 break
         steem_save = self.steemconnect_post(op_name="save")
         if steem_save.status_code == 200:
+            if not Topic.objects.filter(name=self.topic).exists():
+                Topic(name=self.topic).save()
             super(Content, self).save(*args, **kwargs)
         return steem_save
 

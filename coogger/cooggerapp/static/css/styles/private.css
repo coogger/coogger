@@ -9,11 +9,48 @@ cards {
 .previous_post{
   position: fixed;top: 20%;left: 0%;height: 60%;background: #80808042;z-index: 2;writing-mode: tb-rl;text-orientation: upright;
 }
+.languages, .categories{
+  overflow: auto;
+  z-index: 1;
+  position: absolute;
+  width: 140px;
+  display: none;
+  box-shadow: 0 3px 12px rgba(27,31,35,.15);
+}
+.lg button, .ctg button{
+  background-color: #eff3f6;
+  background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+  color: #24292e;
+  -webkit-appearance: none;
+  background-position: -1px -1px;
+  background-repeat: repeat-x;
+  background-size: 110% 110%;
+  border: 1px solid rgba(27,31,35,.2);
+  border-radius: .25em;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 7px;
+  font-weight: 600;
+  line-height: 16px;
+  padding: 2px 12px;
+  position: relative;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-transform: none;
+  font: inherit;
+  margin: 0;
+}
+.lg button:focus, .ctg button:focus{
+  outline: none;
+  background-image: none;
+}
 card {
-    margin: 3px 0;
-    box-shadow: 0 1px 2px 1px #c5c5c5;
-    position: relative;
-    width: 100%;
+  border-top:solid 1px #eaecee;
+  border-bottom:solid 1px #eaecee;
+  margin: 3px 0;
+  position: relative;
+  width: 100%;
 }
 .capitalize{
   text-transform: capitalize;
@@ -44,7 +81,6 @@ header{
   height: 55px;
   padding: 6px;
   border-bottom:  1px solid #f1f1f1;
-  position:  fixed;
   width: 100%;
   overflow: auto;
   z-index: 2;
@@ -82,9 +118,9 @@ header{
 #steem_power_bar{
   height: 4px;
   width: 100%;
-  position:fixed;
+  position: relative;
   z-index: 1;
-  top: 66px;
+  top: 0px;
 }
 .header_menu{
   display: none;
