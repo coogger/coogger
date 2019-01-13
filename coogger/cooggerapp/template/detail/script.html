@@ -155,12 +155,12 @@
             console.log(err);
             editor_body = content.body;
           }
+          {% load static %}
           $(function() { // editor md
-            editormd.urls.atLinkBase ="https://www.coogger.com/@";
             let Editor = editormd.markdownToHTML("id_arg_editormd", {
               atLink : false,
               emailLink : false,
-              path : "/static/lib/",
+              path : "{% static  '/js/lib/' %}",
               htmlDecode: "html, iframe",
               markdown : editor_body,
             });

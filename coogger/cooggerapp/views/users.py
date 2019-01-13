@@ -1,18 +1,11 @@
 # django
-from django.http import *
 from django.shortcuts import render
-from django.contrib.auth import *
-from django.contrib.auth.models import User
-from django.contrib import messages as ms
-from django.db.models import F
-from django.contrib.auth import authenticate
 from django.shortcuts import redirect
+from django.contrib.auth import authenticate
 
 # class
 from django.views.generic.base import TemplateView
 from django.views import View
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 
 # models
 from cooggerapp.models import OtherInformationOfUsers, Content
@@ -21,15 +14,7 @@ from cooggerapp.models import OtherInformationOfUsers, Content
 from cooggerapp.forms import AboutForm
 
 # views
-from cooggerapp.views.tools import get_facebook, users_web, paginator, user_topics, get_user
-
-# steem
-from steem import Steem
-
-# python
-import os
-import json
-import requests
+from cooggerapp.views.tools import users_web, paginator, user_topics
 
 
 class UserClassBased(TemplateView):
@@ -38,15 +23,15 @@ class UserClassBased(TemplateView):
     ctof = Content.objects.filter
 
     def get_context_data(self, username, **kwargs):
-        user = authenticate(username=username)
+        user = authenticate(username=username) # this line for creating new user
         if self.request.dapp_model.name == "coogger":
-            queryset = self.ctof(user=user, status="approved")
+            queryset = Content.objects.filter(user=user, status="approved")
         else:
-            queryset = self.ctof(dapp=self.request.dapp_model, user=user, status="approved")
+            queryset = Content.objects.filter(dapp=self.request.dapp_model, user=user, status="approved")
         info_of_cards = paginator(self.request, queryset)
         context = super(UserClassBased, self).get_context_data(**kwargs)
         context["content"] = info_of_cards
-        context["content_user"] = User.objects.filter(username=username)[0]
+        context["content_user"] = user
         context["user_follow"] = users_web(user)
         context["topics"] = user_topics(queryset)
         return context
@@ -56,7 +41,7 @@ class UserTopic(View):
     "kullanıcıların konu adresleri"
 
     def get(self, request, utopic, username):
-        user = get_user(username)
+        user = authenticate(username=username)
         if request.dapp_model.name == "coogger":
             queryset = Content.objects.filter(user=user, topic=utopic, status="approved")
         else:
@@ -68,11 +53,10 @@ class UserTopic(View):
 class UserAboutBaseClass(View):
     template_name = "users/about.html"
     form_class = AboutForm
-    oiouof = OtherInformationOfUsers.objects.filter
 
     def get(self, request, username, *args, **kwargs):
         user = authenticate(username=username)
-        query = self.oiouof(user=user)[0]
+        query = OtherInformationOfUsers.objects.filter(user=user)[0]
         if user == request.user:
             about_form = self.form_class(request.GET or None, instance=query)
         else:
@@ -91,14 +75,14 @@ class UserAboutBaseClass(View):
     def post(self, request, username, *args, **kwargs):
         if request.user.is_authenticated:  # oturum açmış ve
             if request.user.username == username:  # kendisi ise
-                query = self.oiouof(user=request.user)[0]
+                query = OtherInformationOfUsers.objects.filter(user=request.user)[0]
                 about_form = self.form_class(request.POST, instance=query)
                 if about_form.is_valid():  # ve post isteği ise
                     about_form = about_form.save(commit=False)
                     about_form.user = request.user
                     about_form.about = "\n" + about_form.about
                     about_form.save()
-                    return HttpResponseRedirect("/about/@{}".format(request.user.username))
+                    return redirect("/about/@{}".format(request.user.username))
 
 
 class UserComment(TemplateView):

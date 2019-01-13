@@ -1,8 +1,6 @@
 # django
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 
 # models
 from cooggerapp.models import Content
@@ -63,6 +61,7 @@ class UsersSitemap(Sitemap):
 
     # @property
     # def paginator(self):
+    # from django.core.paginator import Paginator
     #     return Paginator(self.items(), self.limit)
 
 

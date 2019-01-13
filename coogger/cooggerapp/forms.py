@@ -1,5 +1,5 @@
 # form
-from django import forms
+from django.forms import ModelForm
 
 # choices
 from cooggerapp.choices import *
@@ -7,12 +7,11 @@ from cooggerapp.choices import *
 # models
 from cooggerapp.models import (
     Content, OtherAddressesOfUsers, OtherInformationOfUsers,
-    ReportModel, CategoryofDapp, Topic)
-from django.db import models
+    ReportModel)
 from django.contrib.auth.models import User
 
 
-class ContentForm(forms.ModelForm):
+class ContentForm(ModelForm):
 
     def __init__(self, request=None, *args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
@@ -25,49 +24,49 @@ class ContentForm(forms.ModelForm):
         fields = ["dapp", "category", "language", "topic", "title", "content", "address", "tag"]
 
 
-class OtherAddressesOfUsersForm(forms.ModelForm):
+class OtherAddressesOfUsersForm(ModelForm):
     class Meta:
         model = OtherAddressesOfUsers
         fields = ["choices", "address"]
 
 
-class CSettingsUserForm(forms.ModelForm):
+class CSettingsUserForm(ModelForm):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "username", "email"]
 
 
-class OtherAddressesOfUsersForm(forms.ModelForm):
+class OtherAddressesOfUsersForm(ModelForm):
     class Meta:
         model = OtherAddressesOfUsers
         fields = ["choices", "address"]
 
 
-class AboutForm(forms.ModelForm):
+class AboutForm(ModelForm):
     class Meta:
         model = OtherInformationOfUsers
         fields = ["about"]
 
 
-class CooggerupForm(forms.ModelForm):
+class CooggerupForm(ModelForm):
     class Meta:
         model = OtherInformationOfUsers
         fields = ["cooggerup_confirmation", "cooggerup_percent"]
 
 
-class VotepercentForm(forms.ModelForm):
+class VotepercentForm(ModelForm):
     class Meta:
         model = OtherInformationOfUsers
         fields = ["vote_percent"]
 
 
-class BeneficiariesForm(forms.ModelForm):
+class BeneficiariesForm(ModelForm):
     class Meta:
         model = OtherInformationOfUsers
         fields = ["beneficiaries"]
 
 
-class ReportsForm(forms.ModelForm):
+class ReportsForm(ModelForm):
     class Meta:
         model = ReportModel
         fields = ["complaints", "add"]

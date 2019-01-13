@@ -1,5 +1,4 @@
 # django
-from django.contrib.auth.models import User
 from django.db.models import F
 from django.contrib.auth import authenticate
 from django.views.decorators.clickjacking import xframe_options_exempt

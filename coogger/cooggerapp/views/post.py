@@ -1,28 +1,22 @@
 # django
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
-from django.db.models import F
-from django.contrib import messages as ms
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.http import Http404
 
-# class
-# from django.views.generic import ListView
+# class base
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import Http404
 
 # models
 from cooggerapp.models import Content, CategoryofDapp
 from steemconnect_auth.models import Dapp
 
-# views
-from cooggerapp.views.tools import get_user
-
 # form
 from cooggerapp.forms import ContentForm
 
 # choices
-from cooggerapp.choices import *
+from cooggerapp.choices import make_choices
 
 # steem
 from steem.post import Post
@@ -73,9 +67,9 @@ class Create(View):
             form.user = request.user
             save = form.content_save(request)  # save with steemconnect and get ms
             if save.status_code != 200:  # if any error show the error
-                ms.error(request, save.text)
+                messages.error(request, save.text)
                 return render(request, self.template_name, dict(form=form))
-            return HttpResponseRedirect("/"+form.get_absolute_url)
+            return redirect("/"+form.get_absolute_url)
         else:
             return render(request, self.template_name, dict(form=form))
 
@@ -128,18 +122,18 @@ class Change(View):
                     form = form.save(commit=False)
                     save = form.content_update(old=queryset, new=form)
                     if save.status_code != 200:
-                        ms.error(request, save.text)
+                        messages.error(request, save.text)
                         warning_ms = """unexpected error, check your content please or contact us on discord;
                         <a gnrl='c-primary' href='https://discord.gg/avmdZJa'>https://discord.gg/avmdZJa</a>"""
-                        ms.error(request, warning_ms)
+                        messages.error(request, warning_ms)
                         return render(request, self.template_name, dict(
                             form=maybe_error_form,
                             username=username,
                             permlink=permlink)
                         )
-                    return HttpResponseRedirect("/"+queryset[0].get_absolute_url)
+                    return redirect("/"+queryset[0].get_absolute_url)
                 else:
-                    ms.error(request, form.errors)
+                    messages.error(request, form.errors)
                     warning_ms = """unexpected error, check your content please or contact us on discord;
                     <a gnrl='c-primary' href='https://discord.gg/avmdZJa'>https://discord.gg/avmdZJa</a>"""
                     return render(request, self.template_name, dict(

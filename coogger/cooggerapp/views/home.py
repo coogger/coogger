@@ -1,10 +1,7 @@
 # django
-from django.http import *
 from django.shortcuts import render
-# from django.contrib.auth import *
 from django.db.models import Q
-from django.contrib import messages as ms
-from django.contrib.auth.models import User
+from django.contrib import messages
 from django.urls import resolve
 from django.conf import settings
 
@@ -18,18 +15,14 @@ from django.utils.decorators import method_decorator
 from cooggerapp.forms import ReportsForm
 
 # models
-from cooggerapp.models import Content, SearchedWords, ReportModel, OtherInformationOfUsers
-from steemconnect_auth.models import Dapp, SteemConnectUser
+from cooggerapp.models import Content, SearchedWords, ReportModel
+from steemconnect_auth.models import Dapp
 
 # views
 from cooggerapp.views.tools import paginator
 
-import json
-
 # steem
 from steem import Steem
-from steem.post import Post
-from steem.amount import Amount
 
 
 class Home(TemplateView):
@@ -72,7 +65,7 @@ class Feed(View):  # TODO:  must be done using steem js
             content=info_of_cards,
         )
         if queryset == []:
-            ms.error(request, "You do not follow anyone yet on {}.".format(request.dapp_model.name))
+            messages.error(request, "You do not follow anyone yet on {}.".format(request.dapp_model.name))
         return render(request, self.template_name, context)
 
     def steem_following(self, username):  # TODO: fixed this section,limit = 100 ?
@@ -115,13 +108,13 @@ class Report(View):
         if report_form.is_valid():
             content = Content.objects.filter(id=request.POST["content_id"])[0]
             if ReportModel.objects.filter(user=request.user, content=content).exists():
-                ms.error(request, "Your complaint is in the evaluation process.")
+                messages.error(request, "Your complaint is in the evaluation process.")
                 return HttpResponseRedirect("/")
             report_form = report_form.save(commit=False)
             report_form.user = request.user
             report_form.content = content
             report_form.save()
-            ms.error(request, "Your complaint has been received.")
+            messages.error(request, "Your complaint has been received.")
             return HttpResponseRedirect("/")
         return HttpResponse(self.get(request, *args, **kwargs))
 

@@ -2,27 +2,24 @@
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils import timezone
+from django.utils.timezone import now
 
 # choices
 from cooggerapp.choices import *
 
 # python
-import random
+from random import randrange
 
 # steem
 from steem.post import Post
 
 # steemconnect
 from steemconnect.steemconnect import SteemConnect
-from steemconnect.operations import (
-    Unfollow, Comment,
-    Follow, Unfollow, CommentOptions
-)
+from steemconnect.operations import (Comment, CommentOptions)
 
 # 3. other
 from bs4 import BeautifulSoup
-import mistune
+from mistune import Renderer, Markdown
 
 from django_md_editor.models import EditorMdField
 from steemconnect_auth.models import (SteemConnectUser, Dapp,
@@ -78,7 +75,7 @@ class Content(models.Model):
     )
     cooggerup = models.BooleanField(default=False, verbose_name="Was voting done")
     address = models.CharField(blank=True, null=True, max_length=150, verbose_name="Add an address about this content if you want")
-    date = models.DateTimeField(default=timezone.now, verbose_name="Date")
+    date = models.DateTimeField(default=now, verbose_name="Date")
 
     class Meta:
         ordering = ["-id"]
@@ -112,8 +109,8 @@ class Content(models.Model):
         return self.dapp.name
 
     def marktohtml(self, marktext):
-        renderer = mistune.Renderer(escape=False, parse_block_html=True)
-        markdown = mistune.Markdown(renderer=renderer)
+        renderer = Renderer(escape=False, parse_block_html=True)
+        markdown = Markdown(renderer=renderer)
         return BeautifulSoup(markdown(marktext), "html.parser")
 
     def get_first_image(self, html_soup):
@@ -316,8 +313,7 @@ class Content(models.Model):
         return clearly_tags(get_tag)
 
     def new_permlink(self):
-        rand = str(random.randrange(9999))
-        self.permlink += "-"+rand
+        self.permlink += "-"+str(randrange(9999))
 
 
 class OtherInformationOfUsers(models.Model):
@@ -382,7 +378,7 @@ class ReportModel(models.Model):
     content = models.ForeignKey("content", on_delete=models.CASCADE, verbose_name="şikayet edilen içerik")
     complaints = models.CharField(choices=make_choices(reports), max_length=40, verbose_name="type of report")
     add = models.CharField(blank=True, null=True, max_length=600, verbose_name="Can you give more information ?")
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=now)
 
 
 class Contentviews(models.Model):

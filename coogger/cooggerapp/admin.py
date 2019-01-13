@@ -1,17 +1,10 @@
-from django.contrib.admin import ModelAdmin, StackedInline, site, TabularInline, AdminSite
-from django.utils import timezone
-from django.contrib import messages as ms
-from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.admin import ModelAdmin, site
 from django.http import Http404
 
 #models
 from cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
     ReportModel, OtherInformationOfUsers, Topic)
 from steemconnect_auth.models import Mods, Dapp
-
-# forms
-from cooggerapp.forms import ContentForm
 
 #choices
 from cooggerapp.choices import *

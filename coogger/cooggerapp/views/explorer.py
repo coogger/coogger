@@ -1,16 +1,7 @@
-# TODO:  burayı bir güzelliştir
-
 # django
-from django.http import *
-from django.shortcuts import render
-from django.contrib.auth import *
-from django.contrib import messages as ms
-from django.contrib.auth.models import User
 from django.http import Http404
 
 # django class based
-from django.contrib.auth.decorators import login_required
-from django.views import View
 from django.views.generic.base import TemplateView
 
 # models
@@ -18,7 +9,7 @@ from cooggerapp.models import Content, Topic
 from steemconnect_auth.models import Dapp, CategoryofDapp
 
 # views
-from cooggerapp.views.tools import paginator
+from cooggerapp.views.tools import paginator, get_user
 
 # choices
 from cooggerapp.choices import languages
@@ -105,7 +96,7 @@ class Filter(TemplateView):
             if attr and value:
                 filter += f"&{attr}={value}"
                 if attr == "username":
-                    value = User.objects.filter(username=value)[0]
+                    value = get_user(username=value)
                     attr = "user"
                 elif attr == "dapp":
                     value = Dapp.objects.filter(name=value)[0]

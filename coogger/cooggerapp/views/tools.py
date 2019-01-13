@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 
 # models
-from cooggerapp.models import OtherAddressesOfUsers, Content
+from cooggerapp.models import OtherAddressesOfUsers
 
 def get_user(username):
     return User.objects.filter(username=username)[0]
