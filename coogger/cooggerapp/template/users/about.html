@@ -2,24 +2,27 @@
 {% block body %}
   {% include 'users/general.html' %}
   {% if about %}
-  <div general="center">
+  <div general="center w-100">
       {% if content_user == request.user %}
-      <form default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
+      <form default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40"
+      laptop-l="w-70" max="w-50" general="w-60"
       flex="fd-c" method="post" action="{% url 'userabout' content_user %}">
-          {% csrf_token %} {{ about }}
+          {% csrf_token %} {{ about }} {{ about.media }}
           <input flex="jc-c as-c" default="input" type="submit" value="Share">
       </form>
       {% else %}
       <div default="paragraph pm"
       mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
-       general="bg-white" style="padding: 4px 12px;">
-          {% load django_md_editor_tags %} {{ about|detail_load:"about_id"|safe }}
+       general="b-1 br-2 brc-muted" style="padding: 6px;">
+          {% load django_md_editor_tags %} {{ about|markdown_to_html:"about"|safe }}
       </div>
       {% endif %}
   </div>
   {% else %}
-  <div general="txt-m center bg-white" flex="jc-c ai-c" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" style="height:20vh;">
-      <div general="center" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" flex="jc-c">
+  <div general="txt-m center bg-white" flex="jc-c ai-c" mobile-s="w-100"
+   mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" style="height:20vh;">
+      <div general="center" mobile-s="w-100" mobile-l="w-98" tablet="w-60"
+       laptop="w-40" laptop-l="w-70" max="w-50" flex="jc-c">
           Our user has not written an article about himself yet.
       </div>
   </div>

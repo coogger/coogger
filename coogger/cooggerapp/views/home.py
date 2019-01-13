@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.contrib import messages as ms
 from django.contrib.auth.models import User
+from django.urls import resolve
+from django.conf import settings
 
 # django class based
 from django.views.generic.base import TemplateView
@@ -35,22 +37,25 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        queryset = self.user_is_authenticated()
-        context["content"] = paginator(self.request, queryset)
-        if not self.request.user.is_authenticated:
+        queryset = Content.objects.filter(status="approved")
+        url_name = resolve(self.request.path_info).url_name
+        is_authenticated = self.request.user.is_authenticated
+        if not is_authenticated and url_name == "home":
             self.template_name = "home/introduction.html"
+            check, posts = [], []
+            for query in queryset:
+                if query.user not in check:
+                    check.append(query.user)
+                    posts.append(query)
+                if len(posts) == settings.PAGE_SIZE:
+                    break
             context["introduction"] = True
-            return context
+            queryset = posts
         else:
-            return context
-
-    def user_is_authenticated(self):
-        contents = Content.objects.filter(status="approved")
-        if self.request.dapp_model.name == "coogger":
-            queryset = contents
-        else:
-            queryset = contents.filter(dapp=self.request.dapp_model)
-        return queryset
+            if not self.request.dapp_model.name == "coogger":
+                queryset = queryset.filter(dapp=self.request.dapp_model)
+        context["content"] = paginator(self.request, queryset)
+        return context
 
 
 class Feed(View):  # TODO:  must be done using steem js

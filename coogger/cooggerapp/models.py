@@ -180,7 +180,7 @@ class Content(models.Model):
 
     def save(self, *args, **kwargs):  # for admin.py
         self.topic = slugify(self.topic.lower())
-        self.permlink = slugify(self.title.lower())
+        # self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
         if not Topic.objects.filter(name=self.topic).exists():
             Topic(name=self.topic).save()

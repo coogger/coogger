@@ -30,12 +30,15 @@ def json(value, arg):
     return value[arg]
 
 @register.filter(name="hmanycontent")
-def hmanycontent(value, arg):
-    dapp_model = Dapp.objects.filter(host_name = arg)[0]
+def hmanycontent(user, host):
+    if user.is_anonymous:
+        return 0
+    dapp_model = Dapp.objects.filter(host_name = host)[0]
+    hmanycontent = 0
     if dapp_model.name == "coogger":
-        hmanycontent = len(Content.objects.filter(user = value,status = "approved"))
+        hmanycontent = len(Content.objects.filter(user = user,status = "approved"))
     else:
-        hmanycontent = len(Content.objects.filter(dapp = dapp_model,user = value,status = "approved"))
+        hmanycontent = len(Content.objects.filter(dapp = dapp_model, user = user, status = "approved"))
     return hmanycontent
 
 @register.filter(name="twitter")

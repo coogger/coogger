@@ -3,22 +3,25 @@
   <div style="overflow: auto;">
     <div flex="fw-nw jc-c" general="txt-m wmax ewcenter">
       <a flex="jc-c ai-c" href="/" general="c-dark">
-        <img src="{{ request.dapp_model.icon_address }}" general="br-circle" style="width:  48px;height:  48px;padding: 0px 6px;">
+        <img src="{{ request.dapp_model.icon_address }}" general="br-circle"
+        style="width:  48px;height:  48px;padding: 0px 6px;">
         {{ request.dapp_model.name }} - <span general="txt-xs">Beta</span></img>
       </a>
       <div flex="ai-c" class="search just-pc">
         <form action="{% url 'search' %}">
-          <input general="b-1 br-2 bg-white c-dark brc-muted" type="text" style="padding: 6px 12px;" placeholder='Search contents ..' name="query" maxlength="250" value="{{ request.GET.query }}" general="br-2" />
+          <input general="b-1 br-2 bg-white c-dark brc-muted" type="text"
+          style="padding: 6px 12px;" placeholder='Search contents ..' name="query"
+          maxlength="250" value="{{ request.GET.query }}" general="br-2" />
           <input type="submit" value="Search" style="display:  none;" />
         </form>
       </div>
       <div class="run-filter" flex="ai-c" hover="c-blue" general="br-2" style="cursor: pointer;">
-        <i class="fas fa-sliders-h"></i>Filter content
+        <i class="fas fa-sliders-h"></i>Filter contents
       </div>
       {% if not request.user.is_authenticated %}
       <div flex="ai-c">
         <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex=""
-          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="https://signup.steemit.com/">Sign up</a>
+          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="https://signup.steemit.com/?ref=www.coogger.com">Sign up</a>
       </div>
       <div flex="ai-c">
         <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex=""
@@ -51,7 +54,7 @@
   </div>
 </header>
 <div general="w-100">
-  <div general="br-2 bg-success c-white" flex="jc-c" id="steem_power_bar"></div>
+  <div general="br-2 bg-success c-white" flex="jc-c" id="steem_power_bar" style="width: 0%;"></div>
 </div>
 {% if request.user.is_authenticated %}
   <div class="header_menu" general="br-2 b-1 center ewcenter bg-white brc-muted">

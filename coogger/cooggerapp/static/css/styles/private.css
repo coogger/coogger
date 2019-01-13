@@ -59,17 +59,12 @@ card {
   margin-left: 60px;
 }
 .c-definition{
-  margin-top: 38px;
-  height: 100%;
   width: 100%;
+  padding: 10% 0px;
+  height: calc(80% - 116px);
 }
 .f-address{
   margin: 12px auto;
-}
-.c-definition-1{
-  padding: 24px 12px;
-  height: calc(80% - 116px);
-  margin-top: 68px;
 }
 footer{
   margin-top: 60px;

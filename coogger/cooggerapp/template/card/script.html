@@ -7,7 +7,7 @@
     if (url_resolve == "user"){
       apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}`;
     }
-    else if (url_resolve == "home" ){
+    else if (url_resolve == "home" || url_resolve == "explorer_posts" ){
       apiUrl = `/api/filter-content/?status=approved`;
     }
     else if (url_resolve == "language"){
@@ -31,7 +31,6 @@
     else if (url_resolve == "hashtag"){
       apiUrl = `/api/filter-content/?status=approved&tag={{ nameofhashtag }}`;
     }
-
     return apiUrl;
   }
   const currentUrl = "{{ request|url_resolve:"" }}"
@@ -122,7 +121,7 @@
         $(".load-more").css({"display":"block"});
         dataCount.then(function(post_count){
           if (post_count > cards_length()){
-              let page = (cards_length() / PerLoadPostCount) + 1;
+              let page = parseInt(((cards_length() / PerLoadPostCount) + 1).toFixed(1));
               loadMore(`${apiUrl}&page=${page}`);
           }
           else{
