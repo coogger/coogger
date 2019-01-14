@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import Http404
+from django.template.loader import render_to_string
 
 # class base
 from django.views import View
@@ -31,7 +32,7 @@ class Create(View):
         dapp_id = request.GET.get("dapp", None)
         if dapp_id is None and request.dapp_model.name == "coogger":
             dapp_id = 1
-        category_content = ""
+        category_content = render_to_string("post/editor-note.html")
         if category_name is not None:
             dapp_model = request.dapp_model
             if dapp_model.name == "coogger":

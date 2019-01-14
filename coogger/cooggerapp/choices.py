@@ -19,7 +19,6 @@ languages = [
         "arabic",
         "azerbaijani",
     ]
-
 follow = [
         "github",
         "linkedin",
@@ -28,7 +27,6 @@ follow = [
         "youtube",
         "web site",
     ]
-
 reports = [
     "Fraud or Plagiarism",
     "Hate Speech or Internet Trolling",
@@ -44,7 +42,6 @@ status_choices = [
     "rejected",
     "approved",
     ]
-
 
 def make_choices(choice):
     from django.utils.text import slugify

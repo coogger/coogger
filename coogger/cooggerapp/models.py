@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
+from django.template.loader import render_to_string
 
 # choices
 from cooggerapp.choices import *
@@ -65,7 +66,7 @@ class Content(models.Model):
     topic = models.CharField(max_length=50, verbose_name="Content topic",
         help_text="Please, write your topic about your contents."
     )
-    status = models.CharField(default="shared", max_length=30,
+    status = models.CharField(default="approved", max_length=30,
         choices=make_choices(status_choices),
         verbose_name="content's status"
     )
@@ -165,11 +166,10 @@ class Content(models.Model):
         soup = self.marktohtml(marktext)
         img = soup.find("img")
         if str(img) not in str(soup)[0:800]:
-            img = f"<center>{self.get_first_image(html_soup=soup)}</center>"
+            image = self.get_first_image(html_soup=soup)
         else:
-            img = ""
-        definiton_mark = f"{img}\n\n{prepare_text(marktext)}\n\n<hr>\n\nRead this content on [{self.dapp.host_name}](https://{self.dapp.host_name}/@{self.user.username}/{self.permlink})\n"
-        return definiton_mark
+            image = ""
+        return dict(image=image, definition=prepare_text(marktext))
 
     @property
     def get_absolute_url(self):
@@ -225,39 +225,32 @@ class Content(models.Model):
         return steem_post
 
     def steemconnect_post(self, op_name):
-        json_metadata = {
-            "format": "markdown",
-            "tags": self.tag.split(),
-            "app": "coogger/1.4.1",
-            "ecosystem": {
-                "name": "coogger",
-                "version": "1.4.1",
-                "dapp": self.dapp.name,
-                "topic": self.topic,
-                "category": self.category,
-                "language": self.language,
-                "address": self.address,
-                "body": self.content,
-            },
-        }
-        body_for_steem = f"""{self.definition_for_steem(self.content)}\n
-- Dapp; [{self.dapp.host_name}]({self.dapp.host_name})
-- Category; [{self.category}](https://{self.dapp.host_name}/category/{self.category}/)
-- Language; [{self.language}](https://{self.dapp.host_name}/language/{self.language}/)
-- Topic; [{self.topic}](https://{self.dapp.host_name}/topic/{self.topic}/)
-- User; [@{self.user.username}]({self.dapp.host_name}/@{self.user.username})<br>
-
---------
-
-{self.dapp.ms}"""
+        context = dict(
+            definition_for_steem=self.definition_for_steem(self.content),
+            self=self,
+        )
         comment = Comment(
             parent_author = "",
             parent_permlink=self.dapp.name,
             author=str(self.user.username),
             permlink=self.permlink,
             title=self.title,
-            body=body_for_steem,
-            json_metadata=json_metadata,
+            body=render_to_string("post/steem-post-note.html", context),
+            json_metadata=dict(
+                format="markdown",
+                tags=self.tag.split(),
+                app="coogger/1.4.1",
+                ecosystem=dict(
+                    name="coogger",
+                    version="1.4.1",
+                    dapp=self.dapp.name,
+                    topic=self.topic,
+                    category=self.category,
+                    language=self.language,
+                    address=self.address,
+                    body=self.content,
+                )
+            ),
         )
         if op_name == "save":
             beneficiaries = self.get_beneficiaries()
