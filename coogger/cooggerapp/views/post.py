@@ -25,33 +25,39 @@ from steem.post import Post
 
 class Create(View):
     template_name = "post/create.html"
+    initial = {}
+    category_name = None
+    dapp_id = 1
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        category_name = request.GET.get("category", None)
-        dapp_id = request.GET.get("dapp", None)
-        if dapp_id is None and request.dapp_model.name == "coogger":
-            dapp_id = 1
+        for key, value in request.GET.items():
+            if key == "dapp":
+                self.dapp_id = value
+            elif key == "category":
+                self.category_name = value
+            else:
+                self.initial[key] = value
         category_content = render_to_string("post/editor-note.html")
-        if category_name is not None:
+        if self.category_name is not None:
             dapp_model = request.dapp_model
             if dapp_model.name == "coogger":
                 category_content = CategoryofDapp.objects.get(
-                    category_name=category_name
+                    category_name=self.category_name
                 ).editor_template
             else:
                 category_content = CategoryofDapp.objects.get(
-                    dapp=dapp_model, category_name=category_name
+                    dapp=dapp_model, category_name=self.category_name
                 ).editor_template
-        if dapp_id is not None:
-            dapp_model = Dapp.objects.filter(id=dapp_id)[0]
+        if self.dapp_id is not None:
+            dapp_model = Dapp.objects.filter(id=self.dapp_id)[0]
             request.dapp_model = dapp_model
             category_filter = CategoryofDapp.objects.filter(dapp=dapp_model)
             request.categories = make_choices([category.category_name for category in category_filter])
-        form = ContentForm(
-            request=request,
-            initial={"content": category_content, "category":category_name, "dapp": request.dapp_model}
-        )
+        self.initial["content"] = category_content
+        self.initial["category"] = self.category_name
+        self.initial["dapp"] = request.dapp_model
+        form = ContentForm(request=request, initial=self.initial)
         return render(request, self.template_name, {"form": form})
 
     @method_decorator(login_required)

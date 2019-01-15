@@ -22,18 +22,30 @@ class TopicView(TemplateView):
         queryset = Content.objects.filter(topic=topic, status="approved")
         if queryset.exists():
             if not self.request.dapp_model.name == "coogger":
-                queryset = Content.objects.filter(dapp=self.request.dapp_model, topic=topic, status="approved")
+                queryset = Content.objects.filter(
+                    dapp=self.request.dapp_model,
+                    topic=topic, status="approved"
+                )
             info_of_cards = paginator(self.request, queryset)
             context = super(TopicView, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
             topic_query = Topic.objects.filter(name=topic)
             if topic_query.exists():
                 context["topic"] = topic_query[0]
+                context["topic_users"] = self.get_users(queryset)
             else:
                 Topic(name=topic).save()
             return context
         raise Http404
 
+    def get_users(self, queryset):
+        users = []
+        for query in queryset:
+            if query.username not in users:
+                users.append(query.username)
+                if len(users) == 30:
+                    break
+        return users
 
 class Hashtag(TemplateView):
     template_name = "card/blogs.html"
@@ -70,14 +82,18 @@ class Languages(TemplateView):
 
 class Categories(TemplateView):
     template_name = "card/blogs.html"
-    ctof = Content.objects.filter
 
     def get_context_data(self, cat_name, **kwargs):
         if CategoryofDapp.objects.filter(category_name=cat_name).exists():
             if self.request.dapp_model.name == "coogger":
-                queryset = self.ctof(category=cat_name, status="approved")
+                queryset = Content.objects.filter(
+                    category=cat_name, status="approved"
+                )
             else:
-                queryset = self.ctof(dapp=self.request.dapp_model, category=cat_name, status="approved")
+                queryset = Content.objects.filter(
+                    dapp=self.request.dapp_model,
+                    category=cat_name, status="approved"
+                )
             context = super(Categories, self).get_context_data(**kwargs)
             info_of_cards = paginator(self.request, queryset)
             context["content"] = info_of_cards

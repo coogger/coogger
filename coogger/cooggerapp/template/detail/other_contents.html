@@ -4,19 +4,19 @@
     <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 14px;">
       Other contents of the {{detail.topic}} topic of the @{{content_user}} user.
     </div>
-    <div flex="fd-c" general="bg-white brc-white" style="margin: 20px;position: sticky;top: 90px;">
+    <ol flex="fd-c" general="bg-white brc-white" style="position: sticky;top: 90px;margin-left: 20px;">
         {% for list in nav_category %}
         {% if list.permlink == urloftopic %}
-        <div general="bg-success">
+        <li general="bg-success br-1 txt-s">
             <a flex general="txt-s c-white" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
-            - {{ list.title|title }}</a>
-      </div>
+             {{ list.title|title }}</a>
+      </li>
         {% else%}
-        <div animation-hover="bg-success">
-            <a flex general="txt-s c-dark" hover="c-white" href="/{{list.get_absolute_url}}" style="padding: 3px 6px;">
-          - {{ list.title|title }}</a>
-        </div>
+        <li hover="txt-s bg-success" general="br-1 txt-xs" style="border-bottom: 1px solid #efefef;">
+            <a flex general="txt-s c-dark br-1" hover="c-white" href="/{{list.get_absolute_url}}" style="padding: 3px 6px;">
+          {{ list.title|title }}</a>
+        </li>
         {% endif %} {% endfor %}
-    </div>
+    </ol>
   </div>
 {% endif %}
