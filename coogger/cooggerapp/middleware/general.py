@@ -2,7 +2,7 @@ from django.utils.deprecation import MiddlewareMixin
 from django.conf import settings
 
 # models.
-from cooggerapp.models import CategoryofDapp, Content
+from cooggerapp.models import CategoryofDapp, Content, Topic
 from steemconnect_auth.models import Dapp
 
 # coices
@@ -13,7 +13,8 @@ class GeneralMiddleware(MiddlewareMixin):
     def process_request(self, request):
         request.categories = make_choices([category for category in self.sort_categories(request)])
         request.languages = make_choices([language for language in self.sort_languages(request)])
-        request.dapps = make_choices([dapp.name for dapp in self.sort_dapps()])
+        request.topics = self.sort_topics(request)
+        request.dapps = make_choices([dapp.name for dapp in self.sort_dapps])
         request.settings = settings
 
     def sort_categories(self, request):
@@ -46,6 +47,34 @@ class GeneralMiddleware(MiddlewareMixin):
                 pass
         return languages_list
 
+    @property
     def sort_dapps(self):
         queryset = Dapp.objects.filter(active=True)
         return queryset
+
+    def sort_topics(self, request):
+        if request.dapp_model.name == "coogger":
+            contents = Content.objects.filter(status="approved")
+        else:
+            contents = Content.objects.filter(
+                dapp=request.dapp_model, status="approved"
+            )
+        topic_querysets = [
+            Content.objects.filter(
+                topic = content.topic,
+                status="approved"
+            ) for content in contents
+        ]
+        topics = []
+        check = []
+        for content in sorted(topic_querysets, key=len, reverse=True):
+            try:
+                topic = Topic.objects.filter(name=content[0].topic)[0]
+                if len(topics) == 30:
+                    break
+                elif topic.name not in check:
+                    topics.append(topic)
+                    check.append(topic.name)
+            except IndexError:
+                pass
+        return topics

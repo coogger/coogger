@@ -1,0 +1,20 @@
+{% load coogger_tags %}
+{% load coogger_count %}
+{% if request|url_resolve:"" == "home" or request|url_resolve:"" == "search"%}
+<div class="just-pc" flex="fw-nw" general="w-16">
+  <div general="center">Topics</div>
+  <ul flex="fd-c" general="bg-white brc-white">
+    {% for topic in request.topics %}
+      <li general="txt-s">
+        <a hover="c-primary" flex="ai-c" general="txt-s c-dark" href="/topic/{{ topic.name }}" style="padding: 3px 6px;">
+          {% if topic.image_address %}
+            <img general="w-6" src="{{ topic.image_address }}" style="margin: 0px;">
+          {% endif %}
+          <span style="margin-left: 2px;">{{ topic.name |title }}</span>
+          <span flex="ai-c" general="txt-xs c-secondary" style="margin-left: 4px;"> ( {{ topic|topic_count:"" }} )</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

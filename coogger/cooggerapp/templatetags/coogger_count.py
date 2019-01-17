@@ -9,10 +9,13 @@ from cooggerapp.models import Content
 
 @register.filter(name="topic_count")
 def topic_count(value, arg):
-    user = User.objects.filter(username=arg)[0]
-    queryset = Content.objects.filter(user=user, topic = value, status="approved")
-    count = queryset.count()
-    return count
+    contents = Content.objects.filter(topic = value, status="approved")
+    if arg != "":
+        user = User.objects.filter(username=arg)[0]
+        queryset = contents.filter(user=user)
+    else:
+        queryset = contents
+    return queryset.count()
 
 @register.filter(name="language_count")
 def language_count(value, arg):
