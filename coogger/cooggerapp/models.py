@@ -76,10 +76,10 @@ class Content(models.Model):
     )
     cooggerup = models.BooleanField(default=False, verbose_name="Was voting done")
     address = models.CharField(blank=True, null=True, max_length=150, verbose_name="Add an address about this content if you want")
-    date = models.DateTimeField(default=now, verbose_name="Date")
+    created = models.DateTimeField(default=now, verbose_name="Created")
 
     class Meta:
-        ordering = ["-date"]
+        ordering = ["-created"]
 
     def __str__(self):
         return f"@{self.user}/{self.permlink}"
@@ -177,7 +177,6 @@ class Content(models.Model):
 
     def save(self, *args, **kwargs):  # for admin.py
         self.topic = slugify(self.topic.lower())
-        # self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
         if not Topic.objects.filter(name=self.topic).exists():
             Topic(name=self.topic).save()

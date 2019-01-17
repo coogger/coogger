@@ -33,7 +33,7 @@ class ContentAdmin(ModelAdmin):
         ("tag"),
         ("cooggerup"),
         ("status"),
-        ("date"),
+        ("created"),
     )
 
     class Media:
