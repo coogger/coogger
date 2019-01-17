@@ -79,7 +79,7 @@ class Content(models.Model):
     date = models.DateTimeField(default=now, verbose_name="Date")
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["-date"]
 
     def __str__(self):
         return f"@{self.user}/{self.permlink}"

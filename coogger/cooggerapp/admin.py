@@ -27,11 +27,13 @@ class ContentAdmin(ModelAdmin):
         ("language"),
         ("topic"),
         ("title"),
+        ("permlink"),
         ("content"),
         ("address"),
         ("tag"),
         ("cooggerup"),
         ("status"),
+        ("date"),
     )
 
     class Media:
