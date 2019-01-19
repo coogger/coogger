@@ -1,5 +1,6 @@
 from django.utils.deprecation import MiddlewareMixin
 from django.conf import settings
+from django.urls import resolve
 
 # models.
 from cooggerapp.models import CategoryofDapp, Content, Topic
@@ -11,9 +12,12 @@ from cooggerapp.choices import *
 class GeneralMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
+        url_name = resolve(request.path_info).url_name
         request.categories = make_choices([category for category in self.sort_categories(request)])
         request.languages = make_choices([language for language in self.sort_languages(request)])
-        request.topics = self.sort_topics(request)
+        topics_urls = ["home", "search", "explorer_posts"]
+        if url_name in topics_urls:
+            request.topics = self.sort_topics(request)
         request.dapps = make_choices([dapp.name for dapp in self.sort_dapps])
         request.settings = settings
 
