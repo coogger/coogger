@@ -149,7 +149,3 @@ class Dapps(TemplateView):
         context = super(Dapps, self).get_context_data(**kwargs)
         context["dapps"] = Dapp.objects.filter(active=True)
         return context
-
-
-class Supporters(TemplateView):
-    template_name = "home/supporters.html"

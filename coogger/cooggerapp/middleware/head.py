@@ -17,12 +17,13 @@ from steem.post import Post
 class HeadMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        path_info = request.path_info
-        split_path = path_info.split("/")
-        url_name = resolve(path_info).url_name
+        self.path_info = request.path_info
+        if self.path_info.split("/")[1] == "api":
+            return None
+        url_name = resolve(self.path_info).url_name
         self.dapp_model = request.dapp_model
-        self.last_path = split_path[-2]
-        self.start_path = split_path[1]
+        self.last_path = self.path_info.split("/")[-2]
+        self.start_path = self.path_info.split("/")[1]
         try:
             request.head = eval(f"self.{url_name}()")
         except AttributeError:
@@ -36,9 +37,9 @@ class HeadMiddleware(MiddlewareMixin):
         for key in post.tags:
             keywords += key+", "
         return dict(
-            title=post.title,
+            title=post.title.capitalize(),
             keywords=keywords,
-            description=self.get_soup(post.body).text[0:200].replace("\n"," "),
+            description=self.get_soup(post.body).text[0:200].replace("\n"," ").capitalize(),
             image=self.get_image(post),
         )
 
@@ -48,47 +49,77 @@ class HeadMiddleware(MiddlewareMixin):
         except IndexError:
             pass
         return dict(
-            title=f"Topic - {topic.name} | Coogger",
+            title=f"{topic.name} - Topic | Coogger".capitalize(),
             keywords=topic.name,
-            description=topic.definition,
+            description=topic.definition.capitalize(),
             image=topic.image_address,
+        )
+
+    def wallet(self):
+        username = self.path_info.split("/")[2][1:]
+        return dict(
+            title=f"{username} - wallet".capitalize(),
+            keywords=f"{username}, wallet {username}, wallet",
+            description=f"Wallet {username}".capitalize(),
+            image=None,
+        )
+
+    def activity(self):
+        username = self.path_info.split("/")[2][1:]
+        return dict(
+            title=f"{username} - activity".capitalize(),
+            keywords=f"{username}, activity {username}, activity",
+            description=f"activity {username}".capitalize(),
+            image=None,
+        )
+
+    def comment(self):
+        username = self.path_info.split("/")[2][1:]
+        return dict(
+            title=f"{username} - comment".capitalize(),
+            keywords=f"{username}, comment {username}, comment",
+            description=f"comment {username}".capitalize(),
+            image=None,
         )
 
     def category(self):
         return dict(
-            title=f"Latest post on {self.dapp_model.name} from {self.last_path} category",
-            keywords=f"{self.last_path}, coogger categories,categories,category",
-            description=f"Latest post on {self.dapp_model.name} from {self.last_path} category",
+            title=f"Latest post on {self.dapp_model.name} from {self.last_path} category".capitalize(),
+            keywords=f"{self.last_path}, {self.last_path} category",
+            description=f"Latest post on {self.dapp_model.name} from {self.last_path} category".capitalize(),
             image="/static/media/topics/category.svg",
         )
 
     def language(self):
         return dict(
-            title=f"Latest post on {self.dapp_model.name} from {self.last_path} language",
-            keywords="coogger languages,languages",
-            description=f"Latest post on {self.dapp_model.name} from {self.last_path} language",
+            title=f"{self.last_path} language | {self.dapp_model.name}".capitalize(),
+            keywords=f"{self.last_path}, language {self.last_path}",
+            description=f"Latest post on {self.dapp_model.name} from {self.last_path} language".capitalize(),
             image="/static/media/topics/language.svg",
         )
 
     def user(self):
+        username = self.last_path[1:]
         return dict(
-            title=f"The latest posts from {self.last_path} on {self.dapp_model.name}",
-            keywords=f"{self.last_path}, coogger {self.last_path}",
-            description=f"The latest posts from {self.last_path} on {self.dapp_model.name}",
+            title=f"{username} • {self.dapp_model.name} knowledge content".capitalize(),
+            keywords=f"{self.last_path}, {username}, coogger {self.last_path}",
+            description=f"The latest posts from {self.last_path} on {self.dapp_model.name}".capitalize(),
             image="https://steemitimages.com/u/{}/avatar".format(self.last_path.replace("@", "")),
         )
 
     def userabout(self):
+        username = self.last_path[1:]
         return dict(
-            title="About of {}".format(self.last_path.replace("@", "")),
-            keywords="about {},{}".format(self.last_path, self.last_path),
-            description="About of {}".format(self.last_path.replace("@", "")),
-            image="https://steemitimages.com/u/{}/avatar".format(self.last_path.replace("@", "")),
+            title=f"{username} | About".capitalize(),
+            keywords=f"about {username}, {username}, about",
+            description=f"About of {username}".capitalize(),
+            image=f"https://steemitimages.com/u/{username}/avatar",
         )
 
     def utopic(self):
+        username = self.last_path[1:]
         return dict(
-            title="{}'s contents about topic of {}".format(self.last_path.replace("@", ""), self.start_path),
+            title=f"{self.start_path} - {username}",
             keywords="{}, {}, coogger topic,topic".format(self.last_path.replace("@", ""), self.start_path),
             description="{}'s contents about topic of {}".format(self.last_path.replace("@", ""), self.start_path),
             image="https://steemitimages.com/u/{}/avatar".format(self.last_path.replace("@", "")),

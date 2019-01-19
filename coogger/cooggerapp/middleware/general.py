@@ -12,16 +12,20 @@ from cooggerapp.choices import *
 class GeneralMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        url_name = resolve(request.path_info).url_name
+        self.path_info = request.path_info
+        if self.path_info.split("/")[1] == "api":
+            return None
+        url_name = resolve(self.path_info).url_name
         request.categories = make_choices([category for category in self.sort_categories(request)])
         request.languages = make_choices([language for language in self.sort_languages(request)])
         topics_urls = ["home", "search", "explorer_posts"]
         if url_name in topics_urls:
             request.topics = self.sort_topics(request)
-        request.dapps = make_choices([dapp.name for dapp in self.sort_dapps])
+        request.dapps = make_choices([dapp.name for dapp in self.sort_dapps()])
         request.settings = settings
 
-    def sort_categories(self, request):
+    @staticmethod
+    def sort_categories(request):
         if request.dapp_model.name == "coogger":
             category_filter = CategoryofDapp.objects.all()
         else:
@@ -38,7 +42,8 @@ class GeneralMiddleware(MiddlewareMixin):
                 pass
         return categories
 
-    def sort_languages(self, request):
+    @staticmethod
+    def sort_languages(request):
         querysets_list = []
         for language in languages:
             querysets = Content.objects.filter(language = language, status="approved")
@@ -51,12 +56,13 @@ class GeneralMiddleware(MiddlewareMixin):
                 pass
         return languages_list
 
-    @property
-    def sort_dapps(self):
+    @staticmethod
+    def sort_dapps():
         queryset = Dapp.objects.filter(active=True)
         return queryset
 
-    def sort_topics(self, request):
+    @staticmethod
+    def sort_topics(request):
         if request.dapp_model.name == "coogger":
             contents = Content.objects.filter(status="approved")
         else:

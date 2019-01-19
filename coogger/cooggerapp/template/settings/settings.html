@@ -1,40 +1,38 @@
 {% extends "home/html.html" %}
 {% block body %}
-  <div>
-    {% include 'settings/cooggerup_data.html' %}
-    <div general="center" general="br-2 bg-white">
-        <form flex="fd-c" default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
-        general="b-1 brc-white" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
-            {% csrf_token %}
-            {{ vote_percent_form }}
-            {{ cooggerup_form }}
-            {{ beneficiaries_percent_form }}
-            {{ address_form }}
-            <input flex="as-c" type="submit" value="Save">
-        </form>
-        {% if address_instance %}
-        <div default="pm"
-        mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
-         flex="jc-c as-c" general="b-1 br-2 bg-dark c-white">Your web address</div>
-        <div flex="fd-c" default="pm"
-        mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50">
-            {% for i in address_instance %}
-            <div flex="ai-c jc-fe" general="b-1 br-2 txt-l brc-muted" style="padding: 6px 6px;">
-                {{ i.choices }} {% if i.choices == "web-site" %}
-                <a general="bg-2 txt-l c-secondary" hover="c-primary" target="_blank" href="{{ i.adress }}" style="padding: 6px 16px;">
-            {{ i.adress}}
-          </a> {% else %}
-                <a general="bg-2 txt-l c-secondary" hover="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}" style="padding: 6px 16px;">
-            {{ i.adress}}
-          </a> {% endif %}
-                <div flex="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flex="ai-c as-c" animation-hover="bg-danger" hover="c-white" general="b-1 br-2 brc-muted txt-l" style="cursor:pointer;padding: 6px;">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </div>
+{% include 'settings/cooggerup_data.html' %}
+<div general="center" general="br-2 bg-white">
+    <form flex="fd-c" default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
+    general="b-1 brc-white" method="post" action="{% url 'settings' %}" style="padding: 3px 6px;">
+        {% csrf_token %}
+        {{ vote_percent_form }}
+        {{ cooggerup_form }}
+        {{ beneficiaries_percent_form }}
+        {{ address_form }}
+        <input flex="as-c" type="submit" value="Save">
+    </form>
+    {% if address_instance %}
+    <div default="pm"
+    mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
+     flex="jc-c as-c" general="b-1 br-2 bg-dark c-white">Your web address</div>
+    <div flex="fd-c" default="pm"
+    mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50">
+        {% for i in address_instance %}
+        <div flex="ai-c jc-fe" general="b-1 br-2 txt-l brc-muted" style="padding: 6px 6px;">
+            {{ i.choices }} {% if i.choices == "web-site" %}
+            <a general="bg-2 txt-l c-secondary" hover="c-primary" target="_blank" href="{{ i.adress }}" style="padding: 6px 16px;">
+        {{ i.adress}}
+      </a> {% else %}
+            <a general="bg-2 txt-l c-secondary" hover="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}" style="padding: 6px 16px;">
+        {{ i.adress}}
+      </a> {% endif %}
+            <div flex="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flex="ai-c as-c" animation-hover="bg-danger" hover="c-white" general="b-1 br-2 brc-muted txt-l" style="cursor:pointer;padding: 6px;">
+                <i class="fa fa-trash" aria-hidden="true"></i>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
-    {% include 'settings/script.html' %}
-    {% endif %}
-  </div>
+</div>
+{% include 'settings/script.html' %}
+{% endif %}
 {% endblock %}
