@@ -1,6 +1,6 @@
 {% load coogger_tags %}
 {% load coogger_count %}
-{% if request|url_resolve:"" == "home" or request|url_resolve:"" == "search"%}
+{% if request|url_resolve:"" == "home" or request|url_resolve:"" == "search" or request|url_resolve:"" == "explorer_posts"%}
 <div class="just-pc" flex="fw-nw" general="w-16">
   <div general="center">Topics</div>
   <ul flex="fd-c" general="bg-white brc-white">

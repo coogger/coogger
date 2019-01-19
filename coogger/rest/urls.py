@@ -1,10 +1,10 @@
 from rest_framework import routers
 
 from django.conf.urls import url, include
-from cooggerapi.views.filter import (UserFilter, ContentFilter,
+from rest.views.filter import (UserFilter, ContentFilter,
 SearchedWordsFilter, OtherAddressesOfUsersFilter, DappFilter,
 SteemConnectUserFilter)
-from cooggerapi.views.view_or_update import (SteemConnectUserApi, UserApi,
+from rest.views.view_or_update import (SteemConnectUserApi, UserApi,
     ContentApi, DappApi)
 
 router = routers.DefaultRouter()

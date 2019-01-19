@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # permissions
-from cooggerapi.permissions import ApiPermission
+from rest.permissions import ApiPermission
 
 # django
 from django.http import Http404
@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import FieldError
 
 # api serializers
-from cooggerapi.serializers import (
+from rest.serializers import (
     UserSerializer, ContentsSerializer, SteemConnectUserSerializer,
     DappSerializer)
 

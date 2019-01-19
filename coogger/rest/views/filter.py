@@ -2,14 +2,14 @@
 from rest_framework.viewsets import ModelViewSet
 
 # permissions
-from cooggerapi.permissions import ApiPermission
+from rest.permissions import ApiPermission
 
 # django
 from django.core.exceptions import FieldError
 from django.contrib.auth.models import User
 
 # api serializers
-from cooggerapi.serializers import (
+from rest.serializers import (
     UserSerializer, ContentsSerializer, SteemConnectUserSerializer,
     SearchedWordsSerializer, OtherAddressesOfUsersSerializer, DappSerializer)
 
