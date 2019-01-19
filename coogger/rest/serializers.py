@@ -35,13 +35,11 @@ class SteemConnectUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = SteemConnectUser
         fields = (
-            'user',
             "username",
+            "dapp_name",
             "access_token",
             "refresh_token",
             "code",
-            "dapp",
-            "dapp_name"
             )
 
 
@@ -50,14 +48,13 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = OtherInformationOfUsers
         fields = (
-            "user",
             'username',
             "about",
             "cooggerup_confirmation",
             "cooggerup_percent",
-            "vote_percent",
             "beneficiaries",
             "sponsor",
+            "vote_percent",
             "total_votes",
             "total_vote_value",
             "access_token",
@@ -68,11 +65,6 @@ class ContentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
         fields = (
-            "id",
-            "created",
-            "dapp",
-            "dapp_name",
-            "user",
             'username',
             'title',
             'permlink',
@@ -82,9 +74,11 @@ class ContentsSerializer(serializers.ModelSerializer):
             "category",
             "language",
             "topic",
+            "dapp_name",
             "status",
             "views",
-            "mod",
             "modusername",
             "cooggerup",
+            "id",
+            "created",
             )
