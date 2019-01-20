@@ -28,12 +28,34 @@ from steemconnect_auth.models import (SteemConnectUser, Dapp,
 
 
 class Topic(models.Model):
-    name = models.CharField(unique=True, max_length=50, verbose_name="Content topic",
+    name = models.CharField(
+        unique=True, max_length=50,
+        verbose_name="Content topic",
         help_text="Please, write topic name."
     )
-    image_address = models.CharField(max_length=400, blank=True, null=True)
-    definition = models.CharField(max_length=600, verbose_name="Definition of topic",
-        help_text="Definition of topic", blank=True, null=True
+    image_address = models.CharField(
+        max_length=400,
+        blank=True, null=True
+    )
+    definition = models.CharField(
+        max_length=600,
+        verbose_name="Definition of topic",
+        help_text="Definition of topic",
+        blank=True, null=True,
+    )
+    tags = models.CharField(
+        max_length=200,
+        blank=True, null=True,
+        verbose_name="Keyword",
+        help_text="Write your tags using spaces, max:4"
+    )
+    address = models.CharField(
+        blank=True, null=True, max_length=150,
+        verbose_name="Add an address if it have"
+    )
+    editable = models.BooleanField(
+        default=True,
+        verbose_name="Is it editable? | Yes/No"
     )
 
     def __str__(self):
@@ -48,13 +70,13 @@ class Content(models.Model):
     )
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
-    tag = models.CharField(max_length=200, verbose_name="Keyword",
+    tags = models.CharField(max_length=200, verbose_name="Keyword",
         help_text="Write your tags using spaces, max:4"
     )
     language = models.CharField(max_length=30, choices=make_choices(languages),
         help_text="The language of your content"
     )
-    all_categories = [category.category_name for category in CategoryofDapp.objects.all()]
+    all_categories = [category.name for category in CategoryofDapp.objects.all()]
     # all_categories = ""
     category = models.CharField(max_length=30,
         choices=make_choices(all_categories),
@@ -75,8 +97,12 @@ class Content(models.Model):
         blank=True, null=True, related_name="moderator"
     )
     cooggerup = models.BooleanField(default=False, verbose_name="Was voting done")
-    address = models.CharField(blank=True, null=True, max_length=150, verbose_name="Add an address about this content if you want")
+    address = models.CharField(
+        blank=True, null=True, max_length=150,
+        verbose_name="Add an address about this content if you want"
+    )
     created = models.DateTimeField(default=now, verbose_name="Created")
+    last_update = models.DateTimeField(default=now, verbose_name="Last update")
 
     class Meta:
         ordering = ["-created"]
@@ -252,7 +278,7 @@ class Content(models.Model):
             ),
         )
         if op_name == "save":
-            beneficiaries = self.get_beneficiaries()
+            beneficiaries = self.get_beneficiaries
             if beneficiaries != []:
                 comment_options = CommentOptions(parent_comment=comment, beneficiaries=beneficiaries)
                 operation = comment_options.operation
@@ -270,21 +296,42 @@ class Content(models.Model):
             access_token = steem_connect_user.set_new_access_token(secret)
             return SteemConnect(token=access_token, data=operation).run
 
+    @property
     def get_beneficiaries(self):
         beneficiaries = []
-        dapp_beneficiaries = self.dapp.beneficiaries
-        other_user_beneficiaries = OtherInformationOfUsers.objects.filter(user=self.user)[0].beneficiaries
-        dapp_beneficiaries_for_coogger = DappSettings.objects.filter(dapp=self.dapp)[0].beneficiaries
-        if dapp_beneficiaries != 0:
+        if self.dapp.beneficiaries != 0:
             if self.dapp.name != "coogger":
-                beneficiaries.append({"account": self.dapp.name, "weight": dapp_beneficiaries*100})
-        if other_user_beneficiaries != 0:
-            if dapp_beneficiaries_for_coogger != 0 and dapp_beneficiaries_for_coogger>other_user_beneficiaries:
-                beneficiaries.append({"account": "coogger", "weight": dapp_beneficiaries_for_coogger*100})
+                beneficiaries.append(
+                    dict(
+                        account=self.dapp.name,
+                        weight=self.dapp.beneficiaries * 100
+                    )
+                )
+        user_filter_obj = OtherInformationOfUsers.objects.filter(user=self.user)
+        user_beneficiaries = user_filter_obj[0].beneficiaries
+        for_coogger = DappSettings.objects.filter(dapp=self.dapp)[0].beneficiaries
+        if user_beneficiaries != 0:
+            if for_coogger != 0 and for_coogger > user_beneficiaries:
+                beneficiaries.append(
+                    dict(
+                        account="coogger",
+                        weight=for_coogger * 100
+                    )
+                )
             else:
-                beneficiaries.append({"account": "coogger", "weight": other_user_beneficiaries*100})
-        elif dapp_beneficiaries_for_coogger != 0:
-            beneficiaries.append({"account": "coogger", "weight": dapp_beneficiaries_for_coogger*100})
+                beneficiaries.append(
+                    dict(
+                        account="coogger",
+                        weight=user_beneficiaries * 100
+                    )
+                )
+        elif for_coogger != 0:
+            beneficiaries.append(
+                dict(
+                    account="coogger",
+                    weight=for_coogger * 100
+                )
+            )
         return beneficiaries
 
     def ready_tags(self, limit=5):
@@ -334,7 +381,9 @@ class OtherInformationOfUsers(models.Model):
     def save_with_access_token(self, *args, **kwargs):
         "creates api_token"
         import hashlib
-        hash_object = hashlib.sha256(self.access_token.encode('utf-8'))
+        hash_object = hashlib.sha256(
+            self.access_token.encode('utf-8')
+        )
         hex_dig = hash_object.hexdigest()
         self.access_token = hex_dig
         super(OtherInformationOfUsers, self).save(*args, **kwargs)
@@ -342,8 +391,16 @@ class OtherInformationOfUsers(models.Model):
 
 class OtherAddressesOfUsers(models.Model):
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
-    choices = models.CharField(blank=True, null=True, max_length=15, choices=make_choices(follow), verbose_name="website")
-    address = models.CharField(blank=True, null=True, max_length=150, verbose_name="write address / username")
+    choices = models.CharField(
+        blank=True,
+        null=True, max_length=15,
+        choices=make_choices(follow),
+        verbose_name="website"
+    )
+    address = models.CharField(
+        blank=True, null=True, max_length=150,
+        verbose_name="write address / username"
+    )
 
     @property
     def username(self):
@@ -353,8 +410,7 @@ class OtherAddressesOfUsers(models.Model):
         return self.user.username
 
 
-class SearchedWords(models.Model): # maybe we can use this model for filter if visited
-    # TODO:  add new column named user, as user or None
+class SearchedWords(models.Model):
     word = models.CharField(unique=True, max_length=310)
     hmany = models.IntegerField(default=1)
 
@@ -362,17 +418,37 @@ class SearchedWords(models.Model): # maybe we can use this model for filter if v
         try:
             super(SearchedWords, self).save(*args, **kwargs)
         except:
-            SearchedWords.objects.filter(word=self.word).update(hmany=models.F("hmany") + 1)
+            SearchedWords.objects.filter(
+                word=self.word
+            ).update(hmany=models.F("hmany") + 1)
 
 
 class ReportModel(models.Model):
-    user = models.ForeignKey("auth.user", on_delete=models.CASCADE, verbose_name="şikayet eden kişi")
-    content = models.ForeignKey("content", on_delete=models.CASCADE, verbose_name="şikayet edilen içerik")
-    complaints = models.CharField(choices=make_choices(reports), max_length=40, verbose_name="type of report")
-    add = models.CharField(blank=True, null=True, max_length=600, verbose_name="Can you give more information ?")
+    user = models.ForeignKey(
+        "auth.user",
+        on_delete=models.CASCADE,
+        verbose_name="şikayet eden kişi"
+    )
+    content = models.ForeignKey(
+        "content",
+        on_delete=models.CASCADE,
+        verbose_name="şikayet edilen içerik"
+    )
+    complaints = models.CharField(
+        choices=make_choices(reports),
+        max_length=40, verbose_name="type of report"
+    )
+    add = models.CharField(
+        blank=True, null=True,
+        max_length=600,
+        verbose_name="Can you give more information ?"
+    )
     date = models.DateTimeField(default=now)
 
 
 class Contentviews(models.Model):
-    content = models.ForeignKey(Content, on_delete=models.CASCADE)
+    content = models.ForeignKey(
+        Content,
+        on_delete=models.CASCADE
+    )
     ip = models.GenericIPAddressField()

@@ -18,7 +18,8 @@ class HeadMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         self.path_info = request.path_info
-        if self.path_info.split("/")[1] == "api":
+        invalid = ["sitemap", "api", "robots"]
+        if self.path_info.split("/")[1] in invalid:
             return None
         url_name = resolve(self.path_info).url_name
         self.dapp_model = request.dapp_model

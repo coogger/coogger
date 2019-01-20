@@ -78,9 +78,9 @@ class DappSettings(models.Model):
 
 class CategoryofDapp(models.Model):
     dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
-    category_name = models.CharField(max_length=50, verbose_name="Category name")
-    editor_template = EditorMdField(blank=True, null=True)
+    name = models.CharField(max_length=50, verbose_name="Category name")
+    template = EditorMdField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.category_name = slugify(self.category_name)
+        self.name = slugify(self.name)
         super(CategoryofDapp, self).save(*args, **kwargs)

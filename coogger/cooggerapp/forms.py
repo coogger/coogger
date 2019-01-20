@@ -21,7 +21,7 @@ class ContentForm(ModelForm):
 
     class Meta:
         model = Content
-        fields = ["dapp", "category", "language", "topic", "title", "content", "address", "tag"]
+        fields = ["dapp", "category", "language", "topic", "title", "content", "address", "tags"]
 
 
 class OtherAddressesOfUsersForm(ModelForm):

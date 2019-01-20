@@ -30,7 +30,7 @@ class ContentAdmin(ModelAdmin):
         ("permlink"),
         ("content"),
         ("address"),
-        ("tag"),
+        ("tags"),
         ("cooggerup"),
         ("status"),
         ("created"),
@@ -107,20 +107,22 @@ class OtherInfoUsersAdmin(ModelAdmin):
 
 
 class TopicAdmin(ModelAdmin):
-    list_ = ["name"]
+    list_ = ["name", "tags", "editable"]
     list_display = list_
     list_display_links = list_
-    list_filter = ["name"]
+    list_filter = ["editable"]
     search_fields = ["name","definition"]
     fields = (
-        ("name"),
+        ("name", "tags"),
         ("definition", "image_address"),
+        ("editable"),
     )
 
     class Media:
         css = {
             "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css",),
         }
+
 
 site.register(Content,ContentAdmin)
 site.register(Contentviews,ContentviewsAdmin)

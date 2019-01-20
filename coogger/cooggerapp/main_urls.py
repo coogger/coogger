@@ -9,5 +9,5 @@ urlpatterns = [
     url(r"^", include("cooggerapp.urls.home")),  # home
     url(r"^", include("cooggerapp.urls.detail")),  # post detail
     url(r"^", include("cooggerapp.urls.users")),  # users
-    url(r"^", include("cooggerapp.urls.seo")),  # seo
+    url(r"^", include("cooggerapp.urls.sitemap")),  # sitemap
 ]

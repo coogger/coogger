@@ -14,10 +14,10 @@ class DappSettingsAdmin(ModelAdmin):
 
 
 class CategoryofDappAdmin(ModelAdmin):
-    list_ = ["dapp","category_name"]
+    list_ = ["dapp","name"]
     list_display = list_
     list_display_links = list_
-    search_fields = ["category_name"]
+    search_fields = ["name"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -25,7 +25,7 @@ class CategoryofDappAdmin(ModelAdmin):
             return qs
         dapp_model = Dapp.objects.filter(management=request.user)[0]
         categories = self.get_categories(request)
-        qs = qs.filter(dapp=dapp_model, category_name__in=categories)
+        qs = qs.filter(dapp=dapp_model, name__in=categories)
         return qs
 
 
@@ -40,7 +40,7 @@ class CategoryofDappAdmin(ModelAdmin):
     def get_categories(self, request):
         dapp_model = Dapp.objects.filter(management=request.user)[0]
         categories = [
-            category.category_name for category in \
+            category.name for category in \
                 CategoryofDapp.objects.filter(dapp=dapp_model)
             ]
         return categories

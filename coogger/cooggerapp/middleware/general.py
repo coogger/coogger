@@ -32,7 +32,7 @@ class GeneralMiddleware(MiddlewareMixin):
             category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
         querysets_list = []
         for category in category_filter:
-            querysets = Content.objects.filter(category = category.category_name, status="approved")
+            querysets = Content.objects.filter(category = category.name, status="approved")
             querysets_list.append(querysets)
         categories = []
         for contents in sorted(querysets_list, key=len, reverse=True):
