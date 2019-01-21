@@ -47,6 +47,7 @@ class TopicView(TemplateView):
                     break
         return users
 
+
 class Hashtag(TemplateView):
     template_name = "card/blogs.html"
 
@@ -84,7 +85,7 @@ class Categories(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, cat_name, **kwargs):
-        if CategoryofDapp.objects.filter(category_name=cat_name).exists():
+        if CategoryofDapp.objects.filter(name=cat_name).exists():
             if self.request.dapp_model.name == "coogger":
                 queryset = Content.objects.filter(
                     category=cat_name, status="approved"
@@ -111,14 +112,16 @@ class Filter(TemplateView):
         for attr, value in self.request.GET.items():
             if attr and value:
                 filter += f"&{attr}={value}"
+                # to content filter api with js
+                # dont delete
                 if attr == "username":
                     value = get_user(username=value)
                     attr = "user"
                 elif attr == "dapp":
                     value = Dapp.objects.filter(name=value)[0]
-                if attr == "tag":
+                if attr == "tags":
                     try:
-                        self.queryset = self.queryset.filter(tag__contains = value)
+                        self.queryset = self.queryset.filter(tags__contains = value)
                     except FieldError:
                         pass
                 else:

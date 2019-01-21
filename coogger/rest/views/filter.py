@@ -34,9 +34,9 @@ class Filter(ModelViewSet):
                 attr = "user"
             elif attr == "dapp":
                 value = Dapp.objects.filter(name=value)[0]
-            if attr == "tag":
+            if attr == "tags":
                 try:
-                    self.queryset = self.queryset.filter(tag__contains = value)
+                    self.queryset = self.queryset.filter(tags__contains = value)
                 except FieldError:
                     pass
             else:

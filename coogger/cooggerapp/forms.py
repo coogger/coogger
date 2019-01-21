@@ -16,7 +16,6 @@ class ContentForm(ModelForm):
     def __init__(self, request=None, *args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
         if request.dapp_model is not None:
-            self.fields["language"].choices = make_choices(languages)
             self.fields["category"].choices = request.categories
 
     class Meta:

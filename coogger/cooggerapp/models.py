@@ -32,31 +32,31 @@ class Topic(models.Model):
         unique=True, max_length=50,
         verbose_name="Content topic",
         help_text="Please, write topic name."
-    )
-    image_address = models.CharField(
+        )
+    image_address = models.URLField(
         max_length=400,
         blank=True, null=True
-    )
+        )
     definition = models.CharField(
         max_length=600,
         verbose_name="Definition of topic",
         help_text="Definition of topic",
         blank=True, null=True,
-    )
+        )
     tags = models.CharField(
         max_length=200,
         blank=True, null=True,
         verbose_name="Keyword",
         help_text="Write your tags using spaces, max:4"
-    )
-    address = models.CharField(
+        )
+    address = models.URLField(
         blank=True, null=True, max_length=150,
         verbose_name="Add an address if it have"
-    )
+        )
     editable = models.BooleanField(
         default=True,
         verbose_name="Is it editable? | Yes/No"
-    )
+        )
 
     def __str__(self):
         return self.name
@@ -67,40 +67,40 @@ class Content(models.Model):
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name="Title",
         help_text="Be sure to choose the best title related to your content."
-    )
+        )
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
     tags = models.CharField(max_length=200, verbose_name="Keyword",
         help_text="Write your tags using spaces, max:4"
-    )
+        )
     language = models.CharField(max_length=30, choices=make_choices(languages),
         help_text="The language of your content"
-    )
+        )
     all_categories = [category.name for category in CategoryofDapp.objects.all()]
     # all_categories = ""
     category = models.CharField(max_length=30,
         choices=make_choices(all_categories),
         help_text="select content category"
-    )
+        )
     definition = models.CharField(max_length=400,
         verbose_name="Definition of content",
-    )
+        )
     topic = models.CharField(max_length=50, verbose_name="Content topic",
         help_text="Please, write your topic about your contents."
-    )
+        )
     status = models.CharField(default="approved", max_length=30,
         choices=make_choices(status_choices),
         verbose_name="content's status"
-    )
+        )
     views = models.IntegerField(default=0, verbose_name="Views")
     mod = models.ForeignKey("auth.user", on_delete=models.CASCADE,
         blank=True, null=True, related_name="moderator"
-    )
+        )
     cooggerup = models.BooleanField(default=False, verbose_name="Was voting done")
-    address = models.CharField(
+    address = models.URLField(
         blank=True, null=True, max_length=150,
         verbose_name="Add an address about this content if you want"
-    )
+        )
     created = models.DateTimeField(default=now, verbose_name="Created")
     last_update = models.DateTimeField(default=now, verbose_name="Last update")
 
@@ -397,7 +397,7 @@ class OtherAddressesOfUsers(models.Model):
         choices=make_choices(follow),
         verbose_name="website"
     )
-    address = models.CharField(
+    address = models.URLField(
         blank=True, null=True, max_length=150,
         verbose_name="write address / username"
     )
@@ -411,7 +411,7 @@ class OtherAddressesOfUsers(models.Model):
 
 
 class SearchedWords(models.Model):
-    word = models.CharField(unique=True, max_length=310)
+    word = models.CharField(unique=True, max_length=100)
     hmany = models.IntegerField(default=1)
 
     def save(self, *args, **kwargs):

@@ -12,11 +12,11 @@ class Dapp(models.Model):
     login_redirect = models.CharField(max_length=50)
     default_scope = "login, offline, vote, comment, comment_options, delete_comment, custom_json, claim_reward_balance"
     scope = models.CharField(default=default_scope, max_length=200)
-    icon_address = models.CharField(max_length=400)
+    icon_address = models.URLField(max_length=400)
     ms = EditorMdField()
     management = models.ForeignKey(User, on_delete=models.CASCADE)
     definition = models.CharField(max_length=900)
-    image = models.CharField(max_length=400)
+    image = models.URLField(max_length=400)
     active = models.BooleanField(default=True)
     beneficiaries = models.IntegerField(default=0)
 

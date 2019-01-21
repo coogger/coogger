@@ -142,33 +142,40 @@
 <div flex="ai-c" general="w-100 center" class="filter-machine" style="display: none;">
   <div flex="fd-c" general="center">
     <form default="form" method="GET" action="/filter/">
-      <div>Dapp
+      <div flex>Dapp
         <select name="dapp" id="id_dapp">
-          {% for dappid, dapp in request.dapps %}
-            <option value="{{dappid}}">{{dapp}}</option>
+          {% for value, name in request.dapps %}
+            <option value="{{ value }}">{{ name }}</option>
           {% endfor %}
         </select>
       </div>
       <div flex="">
-        <div style="padding-right: 8px;">Username<input type="text" name="username" value=""></div>
-        <div style="padding-left: 8px;">Topic<input type="text" name="topic" value=""></div>
+        <div style="padding-right: 8px;">Username<input type="text" name="username" value="{{ content_user }}"></div>
+        {% if topic.name %}
+          <div style="padding-left: 8px;">Topic<input type="text" name="topic" value="{{ topic.name }}"></div>
+        {% elif detail.topic %}
+          <div style="padding-left: 8px;">Topic<input type="text" name="topic" value="{{ detail.topic }}"></div>
+        {% else %}
+          <div style="padding-left: 8px;">Topic<input type="text" name="topic" value=""></div>
+        {% endif %}
       </div>
       <div flex="">
         <div>Language
           <select name="language" id="id_language">
-            {% for langid, lang in request.languages %}
-              <option value="{{langid}}">{{lang}}</option>
+            {% for value, name, count in request.sort_languages %}
+              <option value="{{value}}" class="capitalize">{{ name }} | {{ count }}</option>
             {% endfor %}
           </select>
         </div>
         <div>Category
           <select name="category" id="id_category">
-            {% for catid, cat in request.categories %}
-              <option value="{{catid}}">{{cat}}</option>
+            {% for value, name, count in request.sort_categories %}
+              <option value="{{value}}" class="capitalize">{{ name }} | {{ count }}</option>
             {% endfor %}
           </select>
         </div>
       </div>
+      <div style="padding-left: 8px;">Tags<input type="text" name="tags" value=""></div>
       <input type="submit" value="Filter" style="width: 100%;">
     </form>
   </div>

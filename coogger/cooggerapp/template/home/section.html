@@ -1,14 +1,13 @@
-{% load coogger_count %}
 <div general="center w-100" style="margin-top: 12px;">
   <!-- languages and categories -->
   <div class="lg" style="margin-right:12px;">
     <button general="center txt-m c-secondary" flex="ai-c">Languages <i class="fas fa-language"></i></button>
     <div class="languages" general="bg-white br-1">
-        {% for link,name in request.languages %}
+        {% for link, name, count in request.sort_languages %}
         <div general="br-2" flex="ai-c jc-fs" hover="bg-blue">
             <a href="{% url 'language' link %}" general="c-dark w-100" flex="ai-c" hover="c-white" style="padding: 4px 12px;">
-              <span general="txt-s">{{ name|truncatechars:20|title }}</span>
-              <span general="txt-s right">{{ name|language_count:request.dapp_model }}</span>
+              <span general="txt-s" class="capitalize">{{ name|truncatechars:20 }}</span>
+              <span general="txt-s right">{{ count }}</span>
             </a>
         </div>
         {% endfor %}
@@ -17,11 +16,11 @@
   <div class="ctg" style="margin-right:12px;">
     <button general="center txt-m c-secondary" flex="ai-c">Categories <i class="fa fa-list-alt" aria-hidden="true"></i></button>
     <div class="categories" general="bg-white br-1">
-        {% for link,name in request.categories %}
+        {% for link, name, count in request.sort_categories %}
         <div general="br-2" flex="ai-c jc-fs" hover="bg-blue">
             <a href="{% url 'category' link %}" general="c-dark w-100" flex="ai-c" hover="c-white" style="padding: 4px 12px;">
-              <span general="txt-s">{{ name|truncatechars:20|title }}</span>
-              <span general="txt-s right">{{ name|categories_count:request.dapp_model }}</span>
+              <span general="txt-s" class="capitalize">{{ name|truncatechars:20 }}</span>
+              <span general="txt-s right">{{ count }}</span>
             </a>
         </div>
         {% endfor %}

@@ -69,7 +69,7 @@ class ContentsSerializer(serializers.ModelSerializer):
             'title',
             'permlink',
             'content',
-            "tag",
+            "tags",
             "definition",
             "category",
             "language",

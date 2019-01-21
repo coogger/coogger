@@ -43,17 +43,17 @@ class Create(View):
             dapp_model = request.dapp_model
             if dapp_model.name == "coogger":
                 category_content = CategoryofDapp.objects.get(
-                    category_name=self.category_name
+                    name=self.category_name
                 ).editor_template
             else:
                 category_content = CategoryofDapp.objects.get(
-                    dapp=dapp_model, category_name=self.category_name
+                    dapp=dapp_model, name=self.category_name
                 ).editor_template
         if self.dapp_id is not None:
             dapp_model = Dapp.objects.filter(id=self.dapp_id)[0]
             request.dapp_model = dapp_model
             category_filter = CategoryofDapp.objects.filter(dapp=dapp_model)
-            request.categories = make_choices([category.category_name for category in category_filter])
+            request.categories = make_choices([category.name for category in category_filter])
         self.initial["content"] = category_content
         self.initial["category"] = self.category_name
         self.initial["dapp"] = request.dapp_model
@@ -67,7 +67,7 @@ class Create(View):
             dapp_model = Dapp.objects.filter(id=dapp_id)[0]
             request.dapp_model = dapp_model
             category_filter = CategoryofDapp.objects.filter(dapp=dapp_model)
-            request.categories = make_choices([category.category_name for category in category_filter])
+            request.categories = make_choices([category.name for category in category_filter])
         form = ContentForm(data=request.POST, request=request)
         if form.is_valid():
             form = form.save(commit=False)
@@ -95,7 +95,7 @@ class Change(View):
                 dapp_model = request.dapp_model
                 if dapp_model.name == "coogger":
                     category_filter = CategoryofDapp.objects.filter(dapp=dapp_model)
-                    request.categories = make_choices([category.category_name for category in category_filter])
+                    request.categories = make_choices([category.name for category in category_filter])
                 else:
                     queryset = queryset.filter(dapp=dapp_model)
                     if not queryset.exists():
@@ -118,7 +118,7 @@ class Change(View):
                 dapp_model = request.dapp_model
                 if dapp_model.name == "coogger":
                     category_filter = CategoryofDapp.objects.filter(dapp=dapp_model)
-                    request.categories = make_choices([category.category_name for category in category_filter])
+                    request.categories = make_choices([category.name for category in category_filter])
                 else:
                     queryset = queryset.filter(dapp=dapp_model)
                     if not queryset.exists():

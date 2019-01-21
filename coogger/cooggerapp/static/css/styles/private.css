@@ -254,9 +254,6 @@ section{
   max-width: 70px;
   max-height: 70px;
 }
-.comment{
-  word-break: break-all;
-}
 .headeruserimg{
   height: 30px;
   width: 30px;

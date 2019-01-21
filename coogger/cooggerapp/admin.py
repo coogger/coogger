@@ -3,7 +3,7 @@ from django.http import Http404
 
 #models
 from cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
-    ReportModel, OtherInformationOfUsers, Topic)
+    ReportModel, OtherInformationOfUsers, Topic, CategoryofDapp)
 from steemconnect_auth.models import Mods, Dapp
 
 #choices
@@ -38,8 +38,7 @@ class ContentAdmin(ModelAdmin):
 
     class Media:
         css = {
-            "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e50842\
-                16bc25091db34e8796459736e2ae4/styles/coogger.css",),
+            "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css",),
         }
 
     def get_queryset(self, request):
@@ -51,7 +50,8 @@ class ContentAdmin(ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        form.base_fields["category"].choices = request.categories
+        category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
+        form.base_fields["category"].choices = make_choices([category.name for category in category_filter])
         return form
 
     def save_model(self, request, obj, form, change):
