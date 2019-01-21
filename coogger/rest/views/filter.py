@@ -11,12 +11,13 @@ from django.contrib.auth.models import User
 # api serializers
 from rest.serializers import (
     UserSerializer, ContentsSerializer, SteemConnectUserSerializer,
-    SearchedWordsSerializer, OtherAddressesOfUsersSerializer, DappSerializer)
+    SearchedWordsSerializer, OtherAddressesOfUsersSerializer, DappSerializer,
+    ContentviewsSerializer, TopicSerializer)
 
 # models
 from cooggerapp.models import (Content,
     OtherInformationOfUsers, SearchedWords,
-    OtherAddressesOfUsers)
+    OtherAddressesOfUsers, Contentviews, Topic)
 from steemconnect_auth.models import Dapp, SteemConnectUser
 
 
@@ -48,15 +49,26 @@ class Filter(ModelViewSet):
 
 class UserFilter(Filter):
     model = OtherInformationOfUsers
-    # queryset = model.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = [ApiPermission]
+
+
+class ContentviewsFilter(Filter):
+    model = Contentviews
+    queryset = model.objects.all()
+    serializer_class = ContentviewsSerializer
+
+
+class TopicFilter(Filter):
+    model = Topic
+    queryset = model.objects.all()
+    serializer_class = TopicSerializer
 
 
 class SteemConnectUserFilter(Filter):
     model = SteemConnectUser
     queryset = model.objects.all()
     serializer_class = SteemConnectUserSerializer
+
 
 class ContentFilter(Filter):
     model = Content

@@ -3,13 +3,15 @@ from rest_framework import routers
 from django.conf.urls import url, include
 from rest.views.filter import (UserFilter, ContentFilter,
 SearchedWordsFilter, OtherAddressesOfUsersFilter, DappFilter,
-SteemConnectUserFilter)
+SteemConnectUserFilter, ContentviewsFilter, TopicFilter)
 from rest.views.view_or_update import (SteemConnectUserApi, UserApi,
     ContentApi, DappApi)
 
 router = routers.DefaultRouter()
 
 router.register(r'filter-steemconnect-user', SteemConnectUserFilter)
+router.register(r'filter-content-views-filter', ContentviewsFilter)
+router.register(r'filter-topic', TopicFilter)
 router.register(r'filter-user', UserFilter)
 router.register(r'filter-content', ContentFilter)
 router.register(r'filter-searched', SearchedWordsFilter)

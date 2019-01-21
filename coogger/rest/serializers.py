@@ -3,8 +3,23 @@ from rest_framework import serializers
 # models
 from cooggerapp.models import (
     Content, OtherInformationOfUsers,
-    SearchedWords, OtherAddressesOfUsers)
+    SearchedWords, OtherAddressesOfUsers,
+    Contentviews, Topic)
 from steemconnect_auth.models import SteemConnectUser, Dapp
+
+
+class TopicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Topic
+        fields = ("name", "image_address", "definition")
+
+
+class ContentviewsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Contentviews
+        fields = ("content", "ip")
 
 
 class SearchedWordsSerializer(serializers.ModelSerializer):
@@ -35,11 +50,13 @@ class SteemConnectUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = SteemConnectUser
         fields = (
+            'user',
             "username",
-            "dapp_name",
             "access_token",
             "refresh_token",
             "code",
+            "dapp",
+            "dapp_name"
             )
 
 
@@ -48,13 +65,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = OtherInformationOfUsers
         fields = (
+            "user",
             'username',
             "about",
             "cooggerup_confirmation",
             "cooggerup_percent",
+            "vote_percent",
             "beneficiaries",
             "sponsor",
-            "vote_percent",
             "total_votes",
             "total_vote_value",
             "access_token",
@@ -65,20 +83,24 @@ class ContentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
         fields = (
+            "id",
+            "created",
+            "dapp",
+            "dapp_name",
+            "user",
             'username',
             'title',
             'permlink',
             'content',
-            "tags",
+            "tag",
             "definition",
             "category",
             "language",
             "topic",
-            "dapp_name",
             "status",
             "views",
+            "mod",
             "modusername",
             "cooggerup",
-            "id",
-            "created",
+            "address",
             )
