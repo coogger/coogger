@@ -397,8 +397,8 @@ class OtherAddressesOfUsers(models.Model):
         choices=make_choices(follow),
         verbose_name="website"
     )
-    address = models.URLField(
-        blank=True, null=True, max_length=150,
+    address = models.CharField(
+        blank=True, null=True, max_length=50,
         verbose_name="write address / username"
     )
 

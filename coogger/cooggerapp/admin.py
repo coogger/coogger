@@ -55,7 +55,6 @@ class ContentAdmin(ModelAdmin):
         return form
 
     def save_model(self, request, obj, form, change):
-        obj.lastmod = datetime.datetime.now()
         obj.mod = request.user
         super(ContentAdmin, self).save_model(request, obj, form, change)
 
@@ -70,7 +69,8 @@ class OtherAddressesOfUsersAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser:
             super(OtherAddressesOfUsersAdmin, self).save_model(request, obj, form, change)
-        raise Http404
+        else:
+            raise Http404
 
 
 class SearchedWordsAdmin(ModelAdmin):
@@ -82,7 +82,8 @@ class SearchedWordsAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser:
             super(SearchedWordsAdmin, self).save_model(request, obj, form, change)
-        raise Http404
+        else:
+            raise Http404
 
 
 class ContentviewsAdmin(ModelAdmin):
@@ -90,6 +91,12 @@ class ContentviewsAdmin(ModelAdmin):
     list_display = list_
     list_display_links = list_
     search_fields = list_
+
+    def save_model(self, request, obj, form, change):
+        if request.user.is_superuser:
+            super(ContentviewsAdmin, self).save_model(request, obj, form, change)
+        else:
+            raise Http404 # mods or dapp leader cant change
 
 
 class OtherInfoUsersAdmin(ModelAdmin):

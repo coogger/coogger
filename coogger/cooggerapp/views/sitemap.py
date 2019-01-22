@@ -1,6 +1,7 @@
 # django
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import render
+from django.contrib.auth.models import User
 
 # models
 from cooggerapp.models import Content, Topic

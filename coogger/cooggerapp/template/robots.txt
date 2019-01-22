@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: /media/
 Sitemap: https://www.coogger.com/sitemap/topic.xml
+Sitemap: https://www.coogger.com/sitemap/utopic.xml
 Sitemap: https://www.coogger.com/sitemap/content.xml
 Sitemap: https://www.coogger.com/sitemap/users.xml
