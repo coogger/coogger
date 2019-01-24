@@ -210,7 +210,7 @@ class Content(models.Model):
 
     def content_save(self, request, *args, **kwargs):
         self.dapp = request.dapp_model
-        self.tag = self.ready_tags()
+        self.tags = self.ready_tags()
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
         self.topic = slugify(self.topic.lower())
@@ -234,7 +234,7 @@ class Content(models.Model):
         self.title = new.title
         self.address = new.address
         self.definition = self.prepare_definition(new.content)
-        self.tag = self.ready_tags(limit=5)
+        self.tags = self.ready_tags(limit=5)
         self.topic = slugify(new.topic.lower())
         steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
@@ -245,7 +245,7 @@ class Content(models.Model):
                 address=self.address,
                 category=new.category,
                 language=new.language,
-                tag=self.tag,
+                tags=self.tags,
             )
         return steem_post
 
@@ -263,7 +263,7 @@ class Content(models.Model):
             body=render_to_string("post/steem-post-note.html", context),
             json_metadata=dict(
                 format="markdown",
-                tags=self.tag.split(),
+                tag=self.tags.split(),
                 app="coogger/1.4.1",
                 ecosystem=dict(
                     name="coogger",
@@ -309,7 +309,10 @@ class Content(models.Model):
                 )
         user_filter_obj = OtherInformationOfUsers.objects.filter(user=self.user)
         user_beneficiaries = user_filter_obj[0].beneficiaries
-        for_coogger = DappSettings.objects.filter(dapp=self.dapp)[0].beneficiaries
+        try:
+            for_coogger = DappSettings.objects.filter(dapp=self.dapp)[0].beneficiaries
+        except IndexError:
+            for_coogger = 0 
         if user_beneficiaries != 0:
             if for_coogger != 0 and for_coogger > user_beneficiaries:
                 beneficiaries.append(
@@ -347,7 +350,7 @@ class Content(models.Model):
                 else:
                     tags += slugify(i.lower())+" "
             return tags
-        get_tag = self.tag.split(" ")[:limit]
+        get_tag = self.tags.split(" ")[:limit]
         get_tag.insert(0, self.dapp.name)
         return clearly_tags(get_tag)
 
