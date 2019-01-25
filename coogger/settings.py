@@ -13,14 +13,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #
-    "cooggerapp",
-    "rest",
-    "steemconnect_auth",
+    "core.cooggerapp",
+    "core.api",
+    "core.steemconnect_auth",
     "django_md_editor",
     "rest_framework",
 ]
 AUTHENTICATION_BACKENDS = [
-    "steemconnect_auth.auth.steemconnect.SteemConnectBackend",
+    "core.steemconnect_auth.auth.steemconnect.SteemConnectBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 REST_FRAMEWORK = dict(
@@ -36,16 +36,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ###
-    "steemconnect_auth.middleware.communities.CommunitiesMiddleware",
-    "cooggerapp.middleware.head.HeadMiddleware",
-    "cooggerapp.middleware.general.GeneralMiddleware",
+    "core.steemconnect_auth.middleware.communities.CommunitiesMiddleware",
+    "core.cooggerapp.middleware.head.HeadMiddleware",
+    "core.cooggerapp.middleware.general.GeneralMiddleware",
 ]
-ROOT_URLCONF = "urls"
+ROOT_URLCONF = "coogger.urls"
 TEMPLATES = [
     dict(
         BACKEND='django.template.backends.django.DjangoTemplates',
         DIRS=[
-            os.path.join(BASE_DIR, "coogger","cooggerapp","template"),
+            os.path.join(BASE_DIR, "core","cooggerapp","template"),
         ],
     APP_DIRS=True,
     OPTIONS=dict(
@@ -58,18 +58,18 @@ TEMPLATES = [
         ),
     ),
 ]
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = "coogger.wsgi.application"
 DATABASES = dict(
     default=dict(
         ENGINE='django.db.backends.sqlite3',
-        NAME=os.path.join(BASE_DIR, 'coogger/coogger.db'),
+        NAME=os.path.join(BASE_DIR, 'db/coogger.db'),
     ),
 )
 AUTH_PASSWORD_VALIDATORS = [
-    dict(NAME="django.contrib.auth.password_validation.UserAttributeSimilarityValidator"),
-    dict(NAME="django.contrib.auth.password_validation.MinimumLengthValidator"),
-    dict(NAME="django.contrib.auth.password_validation.CommonPasswordValidator"),
-    dict(NAME="django.contrib.auth.password_validation.NumericPasswordValidator"),
+    # dict(NAME="django.contrib.auth.password_validation.UserAttributeSimilarityValidator"),
+    # dict(NAME="django.contrib.auth.password_validation.MinimumLengthValidator"),
+    # dict(NAME="django.contrib.auth.password_validation.CommonPasswordValidator"),
+    # dict(NAME="django.contrib.auth.password_validation.NumericPasswordValidator"),
 ]
 LANGUAGE_CODE = "en"
 TIME_ZONE = "Europe/Istanbul"
@@ -79,14 +79,19 @@ USE_TZ = True
 # SECURE_SSL_REDIRECT = True
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "coogger/static")
+STATIC_ROOT = os.path.join(BASE_DIR, "/static")
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "coogger/media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "/media")
 # md eitor
 MDEDITOR_CONFIGS = dict(
     toolbar=[
         "undo", "redo", "|",
+        "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+        "h1", "h2", "h3", "h5", "h6", "|",
+        "list-ul", "list-ol", "hr", "|",
+        "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",
+        "emoji", "html-entities", "pagebreak", "goto-line", "|",
         "help", "info",
         "||", "preview", "watch", "fullscreen"
-    ],
+        ],
 )

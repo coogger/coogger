@@ -6,10 +6,10 @@ from django.contrib import admin
 
 # common addresses
 urlpatterns = [
-    url(r"^accounts/", include('steemconnect_auth.urls')), # signup, login or create new user
+    url(r"^accounts/", include('core.steemconnect_auth.urls')), # signup, login or create new user
     url(r'^admin/', admin.site.urls), # admin panel
-    url(r"^api/",include("rest.urls")),
-    url(r"^",include("cooggerapp.main_urls")), # home
+    url(r"^api/",include("core.api.urls")),
+    url(r"^",include("core.cooggerapp.redirect_urls")), # home
 ]
 
 if settings.DEBUG:
