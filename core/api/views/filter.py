@@ -20,6 +20,8 @@ from core.cooggerapp.models import (Content,
     OtherAddressesOfUsers, Contentviews, Topic)
 from core.steemconnect_auth.models import Dapp, SteemConnectUser
 
+# views
+from core.cooggerapp.views.tools import content_by_filter
 
 class Filter(ModelViewSet):
     model = OtherInformationOfUsers
@@ -28,24 +30,9 @@ class Filter(ModelViewSet):
     permission_classes = [ApiPermission]
 
     def get_queryset(self):
-        items = self.request.GET.items()
-        for attr, value in items:
-            if attr == "username":
-                value = User.objects.filter(username=value)[0]
-                attr = "user"
-            elif attr == "dapp":
-                value = Dapp.objects.filter(name=value)[0]
-            if attr == "tags":
-                try:
-                    self.queryset = self.queryset.filter(tags__contains = value)
-                except FieldError:
-                    pass
-            else:
-                try:
-                    self.queryset = self.queryset.filter(**{attr: value})
-                except FieldError:
-                    pass
-        return self.queryset
+        return content_by_filter(
+            self.request.GET.items(), self.queryset
+            ).get("queryset")
 
 class UserFilter(Filter):
     model = OtherInformationOfUsers

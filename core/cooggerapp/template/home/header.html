@@ -162,14 +162,14 @@
       <div flex="">
         <div>Language
           <select name="language" id="id_language">
-            {% for value, name, count in request.sort_languages %}
+            {% for value, name, count in request.languages %}
               <option value="{{value}}" class="capitalize">{{ name }} | {{ count }}</option>
             {% endfor %}
           </select>
         </div>
         <div>Category
           <select name="category" id="id_category">
-            {% for value, name, count in request.sort_categories %}
+            {% for value, name, count in request.categories %}
               <option value="{{value}}" class="capitalize">{{ name }} | {{ count }}</option>
             {% endfor %}
           </select>

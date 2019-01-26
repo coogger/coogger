@@ -9,7 +9,7 @@ from core.cooggerapp.models import Content, Topic
 from core.steemconnect_auth.models import Dapp, CategoryofDapp
 
 # views
-from core.cooggerapp.views.tools import paginator, get_user
+from core.cooggerapp.views.tools import paginator, get_user, content_by_filter
 
 # choices
 from core.cooggerapp.choices import languages
@@ -108,28 +108,8 @@ class Filter(TemplateView):
     queryset = Content.objects.filter(status="approved")
 
     def get_context_data(self, **kwargs):
-        filter = ""
-        for attr, value in self.request.GET.items():
-            if attr and value:
-                filter += f"&{attr}={value}"
-                # to content filter api with js
-                # dont delete
-                if attr == "username":
-                    value = get_user(username=value)
-                    attr = "user"
-                elif attr == "dapp":
-                    value = Dapp.objects.filter(name=value)[0]
-                if attr == "tags":
-                    try:
-                        self.queryset = self.queryset.filter(tags__contains = value)
-                    except FieldError:
-                        pass
-                else:
-                    try:
-                        self.queryset = self.queryset.filter(**{attr: value})
-                    except FieldError:
-                        pass
+        filtered = content_by_filter(self.request.GET.items(), self.queryset)
         context = super(Filter, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request, self.queryset)
-        context["filter"] = filter
+        context["content"] = paginator(self.request, filtered.get("queryset"))
+        context["filter"] = filtered.get("filter")
         return context

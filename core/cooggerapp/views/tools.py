@@ -6,6 +6,25 @@ from django.conf import settings
 
 # models
 from core.cooggerapp.models import OtherAddressesOfUsers
+from core.steemconnect_auth.models import Dapp
+
+def content_by_filter(items, queryset):
+    filter = ""
+    for attr, value in items:
+        filter += f"&{attr}={value}"
+        if attr == "username":
+            value = get_user(username=value)
+            attr = "user"
+        elif attr == "dapp":
+            value = Dapp.objects.filter(name=value)[0]
+        if attr == "tags":
+            try:
+                self.queryset = self.queryset.filter(tags__contains = value)
+            except FieldError:
+                pass
+        else:
+            queryset = queryset.filter(**{attr: value})
+    return dict(filter=filter, queryset=queryset)
 
 def get_user(username):
     return User.objects.filter(username=username)[0]

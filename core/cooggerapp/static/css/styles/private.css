@@ -137,6 +137,7 @@ header{
   padding: 6px 12px;
   margin: 4px 0px;
   max-width: 100%;
+  word-break: break-word;
 }
 .history-vote-weight{
   margin-left: 12px;

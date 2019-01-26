@@ -3,7 +3,7 @@
   <div class="lg" style="margin-right:12px;">
     <button general="center txt-m c-secondary" flex="ai-c">Languages <i class="fas fa-language"></i></button>
     <div class="languages" general="bg-white br-1">
-        {% for link, name, count in request.sort_languages %}
+        {% for link, name, count in request.languages %}
         <div general="br-2" flex="ai-c jc-fs" hover="bg-blue">
             <a href="{% url 'language' link %}" general="c-dark w-100" flex="ai-c" hover="c-white" style="padding: 4px 12px;">
               <span general="txt-s" class="capitalize">{{ name|truncatechars:20 }}</span>
@@ -16,7 +16,7 @@
   <div class="ctg" style="margin-right:12px;">
     <button general="center txt-m c-secondary" flex="ai-c">Categories <i class="fa fa-list-alt" aria-hidden="true"></i></button>
     <div class="categories" general="bg-white br-1">
-        {% for link, name, count in request.sort_categories %}
+        {% for link, name, count in request.categories %}
         <div general="br-2" flex="ai-c jc-fs" hover="bg-blue">
             <a href="{% url 'category' link %}" general="c-dark w-100" flex="ai-c" hover="c-white" style="padding: 4px 12px;">
               <span general="txt-s" class="capitalize">{{ name|truncatechars:20 }}</span>
@@ -29,7 +29,7 @@
 </div>
 <section general="center" flex="fw-nw">
   <!-- contents -->
-  {% include 'topic/insection-left.html' %}
+  {% include 'home/insection-left.html' %}
   {% include 'card/blog-cards.html' %}
-  {% include 'topic/insection-right.html' %}
+  {% include 'home/insection-right.html' %}
 </section>
