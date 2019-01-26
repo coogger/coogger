@@ -27,7 +27,7 @@
 
 ```python
 python manage.py makemigrations
-python manage.py makemigrations django_steemconnect
+python manage.py makemigrations steemconnect_auth
 python manage.py makemigrations cooggerapp
 python manage.py migrate
 python manage.py runserver

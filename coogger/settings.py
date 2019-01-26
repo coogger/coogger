@@ -12,12 +12,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #
+    "django_md_editor",
+    "rest_framework",
     "core.cooggerapp",
     "core.api",
     "core.steemconnect_auth",
-    "django_md_editor",
-    "rest_framework",
 ]
 AUTHENTICATION_BACKENDS = [
     "core.steemconnect_auth.auth.steemconnect.SteemConnectBackend",
@@ -35,7 +34,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    ###
     "core.steemconnect_auth.middleware.communities.CommunitiesMiddleware",
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.general.GeneralMiddleware",
@@ -65,12 +63,7 @@ DATABASES = dict(
         NAME=os.path.join(BASE_DIR, 'db/coogger.db'),
     ),
 )
-AUTH_PASSWORD_VALIDATORS = [
-    # dict(NAME="django.contrib.auth.password_validation.UserAttributeSimilarityValidator"),
-    # dict(NAME="django.contrib.auth.password_validation.MinimumLengthValidator"),
-    # dict(NAME="django.contrib.auth.password_validation.CommonPasswordValidator"),
-    # dict(NAME="django.contrib.auth.password_validation.NumericPasswordValidator"),
-]
+AUTH_PASSWORD_VALIDATORS = []
 LANGUAGE_CODE = "en"
 TIME_ZONE = "Europe/Istanbul"
 USE_I18N = True
@@ -79,9 +72,9 @@ USE_TZ = True
 # SECURE_SSL_REDIRECT = True
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "/static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "/media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # md eitor
 MDEDITOR_CONFIGS = dict(
     toolbar=[

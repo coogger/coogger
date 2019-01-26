@@ -5,7 +5,6 @@ from rest_framework.viewsets import ModelViewSet
 from core.api.permissions import ApiPermission
 
 # django
-from django.core.exceptions import FieldError
 from django.contrib.auth.models import User
 
 # api serializers
