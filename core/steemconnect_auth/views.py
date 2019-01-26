@@ -33,13 +33,13 @@ def login_redirect(request):
 class LoginSignup(View):
 
     def get(self, request, *args, **kwargs):
-        code = request.GET["code"]
+        code = request.GET.get("code")
         dapp_model = request.dapp_model
         client = get_client(request)
         tokens = client.get_refresh_token(code, dapp_model.app_secret)
-        username = tokens["username"]
-        access_token = tokens["access_token"]
-        refresh_token = tokens["refresh_token"]
+        username = tokens.get("username")
+        access_token = tokens.get("access_token")
+        refresh_token = tokens.get("refresh_token")
         user, created = User.objects.get_or_create(username=username)
         if SteemConnectUser.objects.filter(user=user).exists():
             SteemConnectUser.objects.filter(user=user).update(
@@ -57,6 +57,13 @@ class LoginSignup(View):
                 ).save()
         if created:
             OtherInformationOfUsers(user=user).save()
+        else:
+            oiou_obj = OtherInformationOfUsers.objects.filter(user=user)
+            access_token = oiou_obj[0].access_token
+            if access_token == "no_permission":
+                oiou_obj.update(
+                    access_token=oiou_obj.get_new_access_token()
+                )
         login(request, user, backend="django.contrib.auth.backends.ModelBackend")
         return HttpResponseRedirect(dapp_model.login_redirect)
 
