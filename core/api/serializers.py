@@ -12,7 +12,7 @@ class TopicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Topic
-        fields = ("name", "image_address", "definition")
+        fields = ("name", "image_address", "definition", "tags", "address", "editable")
 
 
 class ContentviewsSerializer(serializers.ModelSerializer):
@@ -42,7 +42,8 @@ class DappSerializer(serializers.ModelSerializer):
         model = Dapp
         fields = ("name", "host_name", "redirect_url",
                   "client_id", "app_secret", "login_redirect",
-                  "scope", "icon_address", "ms", "management_user", "management","active")
+                  "scope", "icon_address", "ms", "management_user",
+                   "active", "definition", "image", "active", "beneficiaries")
 
 
 class SteemConnectUserSerializer(serializers.ModelSerializer):
@@ -50,13 +51,12 @@ class SteemConnectUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = SteemConnectUser
         fields = (
-            'user',
             "username",
+            "dapp_name",
+            "dapp",
             "access_token",
             "refresh_token",
             "code",
-            "dapp",
-            "dapp_name"
             )
 
 
@@ -65,8 +65,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = OtherInformationOfUsers
         fields = (
-            "user",
-            'username',
+            "username",
             "about",
             "cooggerup_confirmation",
             "cooggerup_percent",
@@ -84,10 +83,7 @@ class ContentsSerializer(serializers.ModelSerializer):
         model = Content
         fields = (
             "id",
-            "created",
-            "dapp",
             "dapp_name",
-            "user",
             'username',
             'title',
             'permlink',
@@ -103,4 +99,6 @@ class ContentsSerializer(serializers.ModelSerializer):
             "modusername",
             "cooggerup",
             "address",
+            "created",
+            "last_update",
             )

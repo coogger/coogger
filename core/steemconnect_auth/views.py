@@ -41,11 +41,6 @@ class LoginSignup(View):
         access_token = tokens["access_token"]
         refresh_token = tokens["refresh_token"]
         user, created = User.objects.get_or_create(username=username)
-        if created:
-            OtherInformationOfUsers(
-                user=user,
-                access_token=access_token
-            ).save_with_access_token() # create a new access_token for using coogger api with using steem access_token
         if SteemConnectUser.objects.filter(user=user).exists():
             SteemConnectUser.objects.filter(user=user).update(
                 code=code,
@@ -60,6 +55,8 @@ class LoginSignup(View):
                 refresh_token=refresh_token,
                 dapp=dapp_model,
                 ).save()
+        if created:
+            OtherInformationOfUsers(user=user).save()
         login(request, user, backend="django.contrib.auth.backends.ModelBackend")
         return HttpResponseRedirect(dapp_model.login_redirect)
 

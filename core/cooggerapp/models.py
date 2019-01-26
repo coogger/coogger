@@ -381,14 +381,17 @@ class OtherInformationOfUsers(models.Model):
     def username(self):
         return self.user.username
 
-    def save_with_access_token(self, *args, **kwargs):
-        "creates api_token"
+    def save(self, *args, **kwargs):
+        if self.access_token == "no_permission":
+            self.save_with_access_token()
+        else:
+            super(OtherInformationOfUsers, self).save(*args, **kwargs)
+
+    def save_with_access_token(self):
+        "creates api_token and user save"
         import hashlib
-        hash_object = hashlib.sha256(
-            self.access_token.encode('utf-8')
-        )
-        hex_dig = hash_object.hexdigest()
-        self.access_token = hex_dig
+        sc_token = SteemConnectUser.objects.filter(user=self.user)[0].access_token
+        self.access_token = hashlib.sha256(sc_token.encode("utf-8")).hexdigest()
         super(OtherInformationOfUsers, self).save(*args, **kwargs)
 
 
