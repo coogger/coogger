@@ -76,7 +76,7 @@ class Create(View):
             if save.status_code != 200:  # if any error show the error
                 messages.error(request, save.text)
                 return render(request, self.template_name, dict(form=form))
-            return redirect("/"+form.get_absolute_url)
+            return redirect(form.get_absolute_url)
         else:
             return render(request, self.template_name, dict(form=form))
 
@@ -138,7 +138,7 @@ class Change(View):
                             username=username,
                             permlink=permlink)
                         )
-                    return redirect("/"+queryset[0].get_absolute_url)
+                    return redirect(queryset[0].get_absolute_url)
                 else:
                     messages.error(request, form.errors)
                     warning_ms = """unexpected error, check your content please or contact us on discord;

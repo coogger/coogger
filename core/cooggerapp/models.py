@@ -199,7 +199,7 @@ class Content(models.Model):
 
     @property
     def get_absolute_url(self):
-        return f"{self.topic}/@{self.user.username}/{self.permlink}"
+        return f"/{self.topic}/@{self.user.username}/{self.permlink}"
 
     def save(self, *args, **kwargs):  # for admin.py
         self.topic = slugify(self.topic.lower())

@@ -62,7 +62,7 @@ class LoginSignup(View):
             access_token = oiou_obj[0].access_token
             if access_token == "no_permission":
                 oiou_obj.update(
-                    access_token=oiou_obj.get_new_access_token()
+                    access_token=OtherInformationOfUsers(user=user).get_new_access_token()
                 )
         login(request, user, backend="django.contrib.auth.backends.ModelBackend")
         return HttpResponseRedirect(dapp_model.login_redirect)
