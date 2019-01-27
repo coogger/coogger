@@ -15,9 +15,9 @@ class Detail(TemplateView):
     # TODO: if content doesnt have on steem, it have to delete on coogger.
     template_name = "detail/detail.html"
 
-    def get_context_data(self, username, path, **kwargs):
+    def get_context_data(self, topic, username, permlink, **kwargs):
         self.user = authenticate(username=username)
-        self.path = path
+        self.permlink = permlink
         try:
             self.up_content_view()
             queryset = self.permlinks_of_user()[0]
@@ -34,8 +34,8 @@ class Detail(TemplateView):
                 views = False,
                 steempost = True,
                 user = self.user,
-                permlink = self.path,
-                get_absolute_url = f"@{self.user}/{self.path}"
+                permlink = self.permlink,
+                get_absolute_url = f"@{self.user}/{self.permlink}"
             )
             nav_category = None
             urloftopic = None
@@ -53,7 +53,7 @@ class Detail(TemplateView):
         return Content.objects.filter(user=self.user)
 
     def permlinks_of_user(self):
-        return self.contents_of_user().filter(permlink=self.path)
+        return self.contents_of_user().filter(permlink=self.permlink)
 
     def lists_of_user(self):
         permlinks = self.permlinks_of_user()[0]

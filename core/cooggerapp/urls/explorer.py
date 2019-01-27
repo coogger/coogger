@@ -12,5 +12,3 @@ urlpatterns = [
     url(r'^category/(?P<cat_name>.+)/', explorer.Categories.as_view(), name="category"),
     url(r'^filter', explorer.Filter.as_view(), name="filter"),
     ]
-
-# aslında bütün keşif adreslerini filter ile yapabilirsin.

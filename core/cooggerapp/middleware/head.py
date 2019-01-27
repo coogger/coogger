@@ -22,31 +22,32 @@ class HeadMiddleware(MiddlewareMixin):
         if self.path_info.split("/")[1] in invalid:
             return None
         url_name = resolve(self.path_info).url_name
+        self.kwargs = resolve(self.path_info).kwargs
         self.dapp_model = request.dapp_model
-        self.last_path = self.path_info.split("/")[-2]
-        self.start_path = self.path_info.split("/")[1]
         try:
             request.head = eval(f"self.{url_name}()")
         except AttributeError:
             pass
 
     def detail(self):
-        username = self.start_path.replace("@", "")
+        username = self.kwargs.get("username")
+        permlink = self.kwargs.get("permlink")
+        topic = self.kwargs.get("topic").capitalize()
         user = authenticate(username=username)
-        post = Post(post=f"@{username}/{self.last_path}")
+        post = Post(post=f"@{username}/{permlink}")
         keywords = ""
         for key in post.tags:
             keywords += key+", "
         return dict(
-            title=post.title.capitalize(),
-            keywords=keywords,
+            title=f"{topic} | {post.title.capitalize()}",
+            keywords=f"{keywords}{topic.lower()}",
             description=self.get_soup(post.body).text[0:200].replace("\n"," ").capitalize(),
             image=self.get_image(post),
         )
 
     def topic(self):
         try:
-            topic = Topic.objects.filter(name=self.last_path)[0]
+            topic = Topic.objects.filter(name=self.kwargs.get("topic"))[0]
         except IndexError:
             pass
         return dict(
@@ -57,7 +58,7 @@ class HeadMiddleware(MiddlewareMixin):
         )
 
     def wallet(self):
-        username = self.path_info.split("/")[2][1:]
+        username = self.kwargs.get("username")
         return dict(
             title=f"{username} - wallet".capitalize(),
             keywords=f"{username}, wallet {username}, wallet",
@@ -66,7 +67,7 @@ class HeadMiddleware(MiddlewareMixin):
         )
 
     def activity(self):
-        username = self.path_info.split("/")[2][1:]
+        username = self.kwargs.get("username")
         return dict(
             title=f"{username} - activity".capitalize(),
             keywords=f"{username}, activity {username}, activity",
@@ -75,7 +76,7 @@ class HeadMiddleware(MiddlewareMixin):
         )
 
     def comment(self):
-        username = self.path_info.split("/")[2][1:]
+        username = self.kwargs.get("username")
         return dict(
             title=f"{username} - comment".capitalize(),
             keywords=f"{username}, comment {username}, comment",
@@ -84,32 +85,34 @@ class HeadMiddleware(MiddlewareMixin):
         )
 
     def category(self):
+        cat_name = self.kwargs.get("cat_name")
         return dict(
-            title=f"Latest post on {self.dapp_model.name} from {self.last_path} category".capitalize(),
-            keywords=f"{self.last_path}, {self.last_path} category",
-            description=f"Latest post on {self.dapp_model.name} from {self.last_path} category".capitalize(),
+            title=f"Latest post on {self.dapp_model.name} from {cat_name} category".capitalize(),
+            keywords=f"{cat_name}, {cat_name} category",
+            description=f"Latest post on {self.dapp_model.name} from {cat_name} category".capitalize(),
             image="/static/media/topics/category.svg",
         )
 
     def language(self):
+        lang_name = self.kwargs.get("lang_name")
         return dict(
-            title=f"{self.last_path} language | {self.dapp_model.name}".capitalize(),
-            keywords=f"{self.last_path}, language {self.last_path}",
-            description=f"Latest post on {self.dapp_model.name} from {self.last_path} language".capitalize(),
+            title=f"{lang_name} language | {self.dapp_model.name}".capitalize(),
+            keywords=f"{lang_name}, language {lang_name}",
+            description=f"Latest post on {self.dapp_model.name} from {lang_name} language".capitalize(),
             image="/static/media/topics/language.svg",
         )
 
     def user(self):
-        username = self.last_path[1:]
+        username = self.kwargs.get("username")
         return dict(
             title=f"{username} • {self.dapp_model.name} knowledge content".capitalize(),
-            keywords=f"{self.last_path}, {username}, coogger {self.last_path}",
-            description=f"The latest posts from {self.last_path} on {self.dapp_model.name}".capitalize(),
-            image="https://steemitimages.com/u/{}/avatar".format(self.last_path.replace("@", "")),
+            keywords=f"{username}, coogger {username}",
+            description=f"The latest posts from {username} on {self.dapp_model.name}".capitalize(),
+            image=f"https://steemitimages.com/u/{username}/avatar",
         )
 
     def userabout(self):
-        username = self.last_path[1:]
+        username = self.kwargs.get("username")
         return dict(
             title=f"{username} | About".capitalize(),
             keywords=f"about {username}, {username}, about",
@@ -118,12 +121,13 @@ class HeadMiddleware(MiddlewareMixin):
         )
 
     def utopic(self):
-        username = self.last_path[1:]
+        username = self.kwargs.get("username")
+        topic = self.kwargs.get("topic")
         return dict(
-            title=f"{self.start_path} - {username}",
-            keywords="{}, {}, coogger topic,topic".format(self.last_path.replace("@", ""), self.start_path),
-            description="{}'s contents about topic of {}".format(self.last_path.replace("@", ""), self.start_path),
-            image="https://steemitimages.com/u/{}/avatar".format(self.last_path.replace("@", "")),
+            title=f"{topic} - {username}",
+            keywords=f"{username}, {topic}",
+            description=f"{username}'s contents about topic of {topic}",
+            image=f"https://steemitimages.com/u/{username}/avatar",
         )
 
     def followingcontent(self):
@@ -136,9 +140,9 @@ class HeadMiddleware(MiddlewareMixin):
 
     def review(self):
         return dict(
-            title="latest posts pending approval on {}".format(self.dapp_model.name),
-            keywords="review,coogger review,approval".format(self.last_path),
-            description="latest posts pending approval on {}".format(self.dapp_model.name),
+            title=f"latest posts pending approval on {self.dapp_model.name}",
+            keywords=f"review,coogger review,approval",
+            description=f"latest posts pending approval on {self.dapp_model.name}",
             image=None,
         )
 
@@ -151,10 +155,11 @@ class HeadMiddleware(MiddlewareMixin):
         )
 
     def hashtag(self):
+        tag = self.self.kwargs.get("hashtag")
         return dict(
-            title="{} lates post from '{}' hashtag.".format(self.dapp_model.name, self.last_path),
-            keywords="{}, {} hashtag".format(self.last_path, self.dapp_model.name),
-            description="{} lates post from '{}' hashtag.".format(self.dapp_model.name, self.last_path),
+            title=f"{self.dapp_model.name} lates post from '{tag}' hashtag.",
+            keywords=f"{tag}",
+            description=f"{self.dapp_model.name} lates post from '{tag}' hashtag.",
             image="/static/media/icons/list.svg",
         )
 

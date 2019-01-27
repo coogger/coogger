@@ -29,7 +29,6 @@
           $(`#${id} #created`).html(timeSince(content.created));
           $(`#${id} #reply`).html(content.children);
           $(`#${id} #votes`).html(content.active_votes.length);
-          $(`#${id} #absolute_url_href`).attr("href",`/@${content.author}/${content.permlink}`);
           $(`#${id} #title`).html(content.title);
           $(`#${id} #author_href`).attr("href",`/@${author}`);
           $(`#${id} #reputation`).text(reputation);

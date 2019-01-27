@@ -91,25 +91,12 @@ class GeneralMiddleware(MiddlewareMixin):
         languages_list = []
         for contents in sorted(querysets_list, key=len, reverse=True):
             try:
-                languages_list.append(
-                    dict(
-                        name=contents[0].language,
-                        count=len(contents)
-                        )
-                    )
+                languages_list.append(contents[0].language)
             except IndexError:
                 pass
         context = []
         for lang in languages_list:
-            name = lang["name"]
-            count = lang["count"]
-            context.append(
-                (
-                    slugify(name),
-                    str(name).lower(),
-                    count
-                    )
-                )
+            context.append((slugify(lang), str(lang).lower()))
         return context
 
     def categories(self, request):
@@ -131,25 +118,12 @@ class GeneralMiddleware(MiddlewareMixin):
         categories = []
         for contents in sorted(querysets_list, key=len, reverse=True):
             try:
-                categories.append(
-                    dict(
-                        name=contents[0].category,
-                        count=len(contents),
-                    )
-                )
+                categories.append(contents[0].category)
             except IndexError:
                 pass
         context = []
         for cat in categories:
-            name = cat["name"]
-            count = cat["count"]
-            context.append(
-                (
-                    slugify(name),
-                    str(name).lower(),
-                    count
-                    )
-                )
+            context.append((slugify(cat),str(cat).lower()))
         return context
 
     def sort_languages(self, request, url_name):

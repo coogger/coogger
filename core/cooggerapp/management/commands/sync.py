@@ -124,6 +124,10 @@ class Sync(BaseCommand):
             if c_object.exists():
                 if content.last_update != c_object[0].last_update:
                     self.stdout.write(f"update a content >> {c_object}")
+                    try:
+                        mod = User.objects.filter(username=content.modusername)[0]
+                    except AttributeError:
+                        mod = None
                     c_object.update(
                         dapp=Dapp.objects.filter(name=content.dapp_name)[0],
                         title=content.title,
@@ -137,11 +141,15 @@ class Sync(BaseCommand):
                         views=content.views,
                         last_update=content.last_update,
                         address=content.address,
-                        mod=User.objects.filter(username=content.modusername)[0],
+                        mod=mod,
                         cooggerup=content.cooggerup,
                     )
             else:
                 self.stdout.write(f"saved a content")
+                try:
+                    mod = User.objects.filter(username=content.modusername)[0]
+                except AttributeError:
+                    mod = None
                 Content(
                     dapp=Dapp.objects.filter(name=content.dapp_name)[0],
                     user=user,
@@ -158,7 +166,7 @@ class Sync(BaseCommand):
                     address=content.address,
                     created=content.created,
                     last_update=content.last_update,
-                    mod=User.objects.filter(username=content.modusername)[0],
+                    mod=mod,
                     cooggerup=content.cooggerup,
                 ).save()
 

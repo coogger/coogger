@@ -33,7 +33,6 @@ class ContentAdmin(ModelAdmin):
         ("tags"),
         ("cooggerup"),
         ("status"),
-        ("created"),
     )
 
     class Media:
@@ -121,7 +120,9 @@ class TopicAdmin(ModelAdmin):
     search_fields = ["name","definition"]
     fields = (
         ("name", "tags"),
-        ("definition", "image_address"),
+        ("definition"),
+        ("image_address"),
+        ("address"),
         ("editable"),
     )
 

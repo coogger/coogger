@@ -40,12 +40,12 @@ class UserClassBased(TemplateView):
 class UserTopic(View):
     "kullanıcıların konu adresleri"
 
-    def get(self, request, utopic, username):
+    def get(self, request, username, topic):
         user = authenticate(username=username)
         if request.dapp_model.name == "coogger":
-            queryset = Content.objects.filter(user=user, topic=utopic, status="approved")
+            queryset = Content.objects.filter(user=user, topic=topic, status="approved")
         else:
-            queryset = Content.objects.filter(dapp=request.dapp_model, user=user, topic=utopic, status="approved")
+            queryset = Content.objects.filter(dapp=request.dapp_model, user=user, topic=topic, status="approved")
         queryset = queryset.order_by("id")
         return redirect(f"/@{queryset[0].user}/{queryset[0].permlink}")
 
