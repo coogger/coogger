@@ -19,16 +19,13 @@ def content_by_filter(items, queryset):
         elif attr == "dapp":
             value = Dapp.objects.filter(name=value)[0]
         if attr == "tags":
-            self.queryset = self.queryset.filter(tags__contains = value)
+            queryset = queryset.filter(tags__contains = value)
         else:
             try:
                 queryset = queryset.filter(**{attr: value})
             except FieldError:
                 pass
     return dict(filter=filter, queryset=queryset)
-
-def get_user(username):
-    return User.objects.filter(username=username)[0]
 
 def user_topics(queryset):
     topics = []

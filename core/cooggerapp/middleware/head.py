@@ -32,14 +32,19 @@ class HeadMiddleware(MiddlewareMixin):
     def detail(self):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
-        topic = self.kwargs.get("topic").capitalize()
         user = authenticate(username=username)
+        topic = Content.objects.filter(
+            user=user, permlink=permlink
+            )[0].topic
         post = Post(post=f"@{username}/{permlink}")
+        title = post.title
+        if title == "":
+            title = post.root_title
         keywords = ""
         for key in post.tags:
             keywords += key+", "
         return dict(
-            title=f"{topic} | {post.title.capitalize()}",
+            title=f"{topic.capitalize()} | {title.capitalize()}",
             keywords=f"{keywords}{topic.lower()}",
             description=self.get_soup(post.body).text[0:200].replace("\n"," ").capitalize(),
             image=self.get_image(post),

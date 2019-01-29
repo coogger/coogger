@@ -8,12 +8,12 @@
         {% for list in nav_category %}
         {% if list.permlink == urloftopic %}
         <li general="bg-success br-1 txt-s">
-            <a flex general="txt-s c-white" href="/{{ list.get_absolute_url }}" style="padding: 3px 6px;">
+            <a flex general="txt-s c-white" href="{{ list.get_absolute_url }}" style="padding: 3px 6px;">
              {{ list.title|title }}</a>
       </li>
         {% else%}
         <li hover="txt-s bg-success" general="br-1 txt-xs" style="border-bottom: 1px solid #efefef;">
-            <a flex general="txt-s c-dark br-1" hover="c-white" href="/{{list.get_absolute_url}}" style="padding: 3px 6px;">
+            <a flex general="txt-s c-dark br-1" hover="c-white" href="{{list.get_absolute_url}}" style="padding: 3px 6px;">
           {{ list.title|title }}</a>
         </li>
         {% endif %} {% endfor %}

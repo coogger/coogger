@@ -9,7 +9,7 @@ from core.cooggerapp.models import Content, Topic
 from core.steemconnect_auth.models import Dapp, CategoryofDapp
 
 # views
-from core.cooggerapp.views.tools import paginator, get_user, content_by_filter
+from core.cooggerapp.views.tools import paginator, content_by_filter
 
 # choices
 from core.cooggerapp.choices import languages
@@ -52,7 +52,7 @@ class Hashtag(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, hashtag, **kwargs):
-        queryset = Content.objects.filter(tag__contains=hashtag, status="approved")
+        queryset = Content.objects.filter(tags__contains=hashtag, status="approved")
         if queryset.exists():
             if not self.request.dapp_model.name == "coogger":
                 queryset = queryset.filter(dapp=self.request.dapp_model)

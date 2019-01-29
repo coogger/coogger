@@ -58,9 +58,9 @@ class GeneralMiddleware(MiddlewareMixin):
             try:
                 context.append(
                     (
-                        slugify(name=contents[0].category),
-                        str(name=contents[0].category).lower(),
-                        count=len(contents)
+                        slugify(contents[0].category),
+                        str(contents[0].category).lower(),
+                        len(contents)
                         )
                     )
             except IndexError:

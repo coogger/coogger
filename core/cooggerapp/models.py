@@ -111,6 +111,10 @@ class Content(models.Model):
         return f"@{self.user}/{self.permlink}"
 
     @property
+    def get_absolute_url(self):
+        return f"/@{self.user.username}/{self.permlink}"
+
+    @property
     def next_post(self):
         topic_obj = Content.objects.filter(topic=self.topic)
         for content in topic_obj:
@@ -196,10 +200,6 @@ class Content(models.Model):
         else:
             image = ""
         return dict(image=image, definition=prepare_text(marktext))
-
-    @property
-    def get_absolute_url(self):
-        return f"/{self.topic}/@{self.user.username}/{self.permlink}"
 
     def save(self, *args, **kwargs):  # for admin.py
         self.topic = slugify(self.topic.lower())
@@ -389,7 +389,11 @@ class OtherInformationOfUsers(models.Model):
     def get_new_access_token(self):
         "creates api_token and user save"
         import hashlib
-        sc_token = SteemConnectUser.objects.filter(user=self.user)[0].access_token
+        sc_user = SteemConnectUser.objects.filter(user=self.user)
+        try:
+            sc_token = sc_user[0].access_token
+        except IndexError:
+            return "no_permission"
         return hashlib.sha256(sc_token.encode("utf-8")).hexdigest()
 
 
@@ -451,8 +455,5 @@ class ReportModel(models.Model):
 
 
 class Contentviews(models.Model):
-    content = models.ForeignKey(
-        Content,
-        on_delete=models.CASCADE
-    )
+    content = models.ForeignKey(Content,on_delete=models.CASCADE)
     ip = models.GenericIPAddressField()

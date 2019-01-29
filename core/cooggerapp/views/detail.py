@@ -12,19 +12,13 @@ from core.cooggerapp.models import Content, Contentviews
 
 
 class Detail(TemplateView):
-    # TODO: if content doesnt have on steem, it have to delete on coogger.
     template_name = "detail/detail.html"
 
-    def get_context_data(self, topic, username, permlink, **kwargs):
-        self.user = authenticate(username=username)
-        self.permlink = permlink
+    def get_context_data(self, username, permlink, **kwargs):
+        user = authenticate(username=username)
+        content = Content.objects.filter(user=user, permlink=permlink)
         try:
-            self.up_content_view()
-            queryset = self.permlinks_of_user()[0]
-            nav_category = self.lists_of_user()
-            urloftopic = queryset.permlink
-            nameoflist = queryset.topic
-            detail = queryset
+            get_content = content[0]
         except IndexError:
             steem_post = dict(
                 language = False,
@@ -33,42 +27,39 @@ class Detail(TemplateView):
                 status = "approved",
                 views = False,
                 steempost = True,
-                user = self.user,
-                permlink = self.permlink,
-                get_absolute_url = f"@{self.user}/{self.permlink}"
+                user = user,
+                permlink = permlink,
+                get_absolute_url = f"/@{user}/{permlink}"
             )
             nav_category = None
             urloftopic = None
             nameoflist = None
             detail = steem_post
+        else:
+            try:
+                ip = self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
+            except:
+                pass
+            else:
+                if not Contentviews.objects.filter(content=get_content, ip=ip).exists():
+                    content.update(views=F("views") + 1)
+                    Contentviews(content=get_content, ip=ip).save()
+            topic = get_content.topic
+            nav_category = Content.objects.filter(
+                user=user, topic=topic, status="approved"
+                ).order_by("created")
+            urloftopic = permlink
+            nameoflist = topic
+            detail = get_content
         context = super(Detail, self).get_context_data(**kwargs)
-        context["content_user"] = self.user
+        context["content_user"] = user
         context["nav_category"] = nav_category
         context["urloftopic"] = urloftopic
         context["nameoflist"] = nameoflist
         context["detail"] = detail
         return context
 
-    def contents_of_user(self):
-        return Content.objects.filter(user=self.user)
 
-    def permlinks_of_user(self):
-        return self.contents_of_user().filter(permlink=self.permlink)
-
-    def lists_of_user(self):
-        permlinks = self.permlinks_of_user()[0]
-        return self.contents_of_user().filter(topic=permlinks.topic, status="approved").order_by("id")
-
-    def up_content_view(self):
-        queryset = self.permlinks_of_user()
-        try:
-            ip = self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
-        except:
-            return False
-        if not Contentviews.objects.filter(content=queryset[0], ip=ip).exists():
-            Contentviews(content=queryset[0], ip=ip).save()
-            queryset.update(views=F("views") + 1)
-
-@method_decorator(xframe_options_exempt, name='dispatch')
+@method_decorator(xframe_options_exempt, name="dispatch")
 class Embed(Detail):
     template_name = "detail/embed.html"
