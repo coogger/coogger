@@ -116,16 +116,32 @@ class Content(models.Model):
 
     @property
     def next_post(self):
-        topic_obj = Content.objects.filter(topic=self.topic)
-        for content in topic_obj:
-            if self.id < content.id:
-                return content.get_absolute_url
+        obj = Content.objects.filter(user=self.user, topic=self.topic)
+        content_id = obj.filter(permlink=self.permlink)[0].id
+        index = 0
+        for i, content in zip(range(len(obj)), obj):
+            if content.id == content_id:
+                index = i
+                break
+        try:
+            return obj[index-1].get_absolute_url
+        except IndexError:
+            return False
+
     @property
     def previous_post(self):
-        topic_obj = Content.objects.filter(topic=self.topic)
-        for content in topic_obj:
-            if self.id > content.id:
-                return content.get_absolute_url
+        obj = Content.objects.filter(user=self.user, topic=self.topic)
+        content_id = obj.filter(permlink=self.permlink)[0].id
+        index = 0
+        for i, content in zip(range(len(obj)), obj):
+            if content.id == content_id:
+                index = i
+                break
+        try:
+            return obj[index+1].get_absolute_url
+        except IndexError:
+            return False
+
 
     @property
     def username(self):
