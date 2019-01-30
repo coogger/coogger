@@ -32,11 +32,14 @@ class HeadMiddleware(MiddlewareMixin):
     def detail(self):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
-        user = authenticate(username=username)
-        topic = Content.objects.filter(
-            user=user, permlink=permlink
-            )[0].topic
         post = Post(post=f"@{username}/{permlink}")
+        user = authenticate(username=username)
+        try:
+            topic = Content.objects.filter(
+                user=user, permlink=permlink
+                )[0].topic
+        except IndexError:
+            topic = post.category
         title = post.title
         if title == "":
             title = post.root_title

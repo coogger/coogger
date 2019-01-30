@@ -25,7 +25,7 @@
           else{
             post_reward_total = pending_payout_value;
           }
-          $(`#${id} #dor`).html(dor(content.body));
+          $(`#${id} #dor`).html(dor(get_realy_content(content)));
           $(`#${id} #created`).html(timeSince(content.created));
           $(`#${id} #reply`).html(content.children);
           $(`#${id} #votes`).html(content.active_votes.length);

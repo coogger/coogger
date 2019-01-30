@@ -82,8 +82,8 @@
             let category = content.category;
             let language = content.language;
             let title = content.title;
-            let duration_of_read = dor(content.content);
             steem.api.getContent(author, permlink, function(err, steem_content) {
+              let duration_of_read = dor(get_realy_content(steem_content));
               let rep = steem.formatter.reputation(steem_content.author_reputation);
               let reply = steem_content.children;
               let votes = steem_content.active_votes.length;

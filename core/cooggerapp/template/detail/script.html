@@ -99,7 +99,6 @@
               }
             }
           {% endif %}
-          $("#dor").html(dor(content.body));
           let reputation = steem.formatter.reputation(content.author_reputation);
           let title = content.root_title;
           let pending_payout_value = parseFloat(content.pending_payout_value.replace(" SBD", ""));
@@ -112,6 +111,8 @@
           else{
             post_reward_total = pending_payout_value;
           }
+          let tags = JSON.parse(content.json_metadata).tags;
+          $("#tags").html(getTagsAsTemplate(tags));
           $("#reputation").html(reputation);
           $("#username").html(content.author);
           $("#lastmod").html(timeSince(content.last_update));
@@ -127,34 +128,8 @@
           $("#post_reward_total2").html("$ "+post_reward_total.toFixed(2));
           $("#post_reward_total").html("$ "+post_reward_total.toFixed(2));
           $("#title").html(title);
-          let editor_body = "";
-          try{
-            let json_metadata = JSON.parse(content.json_metadata);
-            try{
-              let ecosystem = json_metadata.ecosystem;
-              try{
-                let version = ecosystem.version;
-                if (version == "1.4.1"){
-                  editor_body = ecosystem.body;
-                }
-                else{
-                  editor_body = content.body;
-                }
-              }
-              catch(err){
-                console.log(err);
-                editor_body = content.body;
-              }
-            }
-            catch(err){
-              console.log(err);
-              editor_body = content.body;
-            }
-          }
-          catch(err){
-            console.log(err);
-            editor_body = content.body;
-          }
+          let editor_body = get_realy_content(content);
+          $("#dor").html(dor(editor_body));
           {% load static %}
           $(function() { // editor md
             let Editor = editormd.markdownToHTML("id_arg_editormd", {

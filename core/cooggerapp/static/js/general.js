@@ -34,6 +34,16 @@ $(document).ready(function() {
 //       console.log(err, res)
 //     });
 // }
+function getTagsAsTemplate(tags){
+  let template = "";
+  for (const index in tags) {
+    let tag = tags[index];
+    template += `<div class="tag">
+      <a href="/tags/${tag}" general="c-white" hover="bg-dark-purple">#${tag}</a>
+    </div>`
+  }
+  return template;
+}
 function copyTextFromId(id) {
   let text = document.getElementById("embed-text");
   text.select();
@@ -49,7 +59,6 @@ function update_images(query){
       }
   }
 }
-// convert images url to steemitimages in cards
 function get_scroll_bottom_location(){
   return $(window).scrollTop() + $(window).height()+500;
 }
@@ -61,8 +70,39 @@ function scrolledbottom(){
 }
 function dor(text){
   // post duration of read
-  let reading_speed = 20;
-  return `min ${((text.length/reading_speed)/60).toFixed(1)}`;
+  let reading_speed = 28;
+  return `min ${((text.length/reading_speed)/60).toFixed(2)}`;
+}
+function get_realy_content(content){
+  let editor_body = "";
+  try{
+    let json_metadata = JSON.parse(content.json_metadata);
+    try{
+      let ecosystem = json_metadata.ecosystem;
+      try{
+        let version = ecosystem.version;
+        if (version == "1.4.1"){
+          editor_body = ecosystem.body;
+        }
+        else{
+          editor_body = content.body;
+        }
+      }
+      catch(err){
+        console.log(err);
+        editor_body = content.body;
+      }
+    }
+    catch(err){
+      console.log(err);
+      editor_body = content.body;
+    }
+  }
+  catch(err){
+    console.log(err);
+    editor_body = content.body;
+  }
+  return editor_body;
 }
 function timeSince(date) {
   let seconds = Math.floor((new Date() - new Date(date)) / 1000);

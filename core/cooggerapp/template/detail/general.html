@@ -5,13 +5,7 @@
       <div mobile-s="w-100" mobile-m="w-99" mobile-l="w-98" tablet="w-98" max="w-50">
         {% include 'detail/contentinfo.html' %}
         {% include 'detail/userinfo.html' %}
-        <div class="tags" flex="jc-sa" general="right bg-dark-purple txt-s">
-          {% for tag in detail.tags.split %}
-            <div class="tag">
-              <a href="/tags/{{ tag }}" general="c-white" hover="bg-dark-purple">#{{ tag }}</a>
-            </div>
-          {% endfor %}
-        </div>
+        <div class="tags" id="tags" flex="jc-sa" general="right bg-dark-purple txt-s"></div>
         <h1 general="center txt-xl" id="title" style="margin: 12px auto;"></h1>
         <div style="padding: inherit;">
           <div style="width: auto;height:  auto;border: none;padding:0px;" class="editormd" id="id_arg_editormd">
