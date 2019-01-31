@@ -1,11 +1,11 @@
 {% extends "home/html.html" %}
 {% block body %}
   <div class="create" flex="jc-c ai-c fd-c" general="center w-100" style="margin-top: 30px;">
-    <a general="c-success" target="blank" id="category_help_page" href="?category=development">
+    <a style="margin-bottom: 12px;" general="c-success" target="blank" id="category_help_page" href="?category=development">
       Need help? check this address for <span general="c-dark" id="category_help_name">
         development</span> category on {{ request.dapp_model.name }} Dapp
     </a>
-    <form flex="fd-c" default="form"
+    <form general="b-1 br-2 brc-muted" flex="fd-c" default="form"
     mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
      method="post" class="c-create-form" action="" style="padding: 12px 6px">
         {% csrf_token %} {{ form.media }} {{ form }}

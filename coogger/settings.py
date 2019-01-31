@@ -43,7 +43,7 @@ TEMPLATES = [
     dict(
         BACKEND='django.template.backends.django.DjangoTemplates',
         DIRS=[
-            os.path.join(BASE_DIR, "core","cooggerapp","template"),
+            os.path.join(BASE_DIR, "core", "cooggerapp", "template"),
         ],
     APP_DIRS=True,
     OPTIONS=dict(

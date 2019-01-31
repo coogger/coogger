@@ -125,7 +125,7 @@ class Content(models.Model):
                 break
         try:
             return obj[index-1].get_absolute_url
-        except IndexError:
+        except (IndexError, AssertionError):
             return False
 
     @property

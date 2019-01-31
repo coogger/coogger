@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core.exceptions import FieldError
+from django.contrib.auth import authenticate
 
 # models
 from core.cooggerapp.models import OtherAddressesOfUsers
@@ -14,7 +15,7 @@ def content_by_filter(items, queryset):
     for attr, value in items:
         filter += f"&{attr}={value}"
         if attr == "username":
-            value = get_user(username=value)
+            value = authenticate(username=value)
             attr = "user"
         elif attr == "dapp":
             value = Dapp.objects.filter(name=value)[0]

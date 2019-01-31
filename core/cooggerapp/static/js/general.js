@@ -3,30 +3,29 @@ $(document).ready(function() {
         $(".main-messages").remove();
     })
     $(".open_header_menu").click(function() {
-        $(".closed_header_menu").css({"display":"flex"});
-        $(".header_menu").toggle("fast", function(){
-          $(".header_menu").css({"display":"flex"});
-        });
+        $(".header_menu").toggle();
     })
-    $(".closed_header_menu").click(function() {
-        $(".closed_header_menu").css({"display":"none"});
-        $(".header_menu").toggle("fast", function() {});
+    $(".open_footer").click(function() {
+        $("footer").toggle();
+    })
+    $(".closed_footer").click(function() {
+        $("footer").css({"display":"none"});
     })
     $(".b-edit-point").click(function() {
-        var data_edit_id = this.getAttribute("data-edit-id");
-        $(`.data-edit-id-${data_edit_id}`).toggle("fast");
+        let data_edit_id = this.getAttribute("data-edit-id");
+        $(`.data-edit-id-${data_edit_id}`).toggle();
     });
     $(".lists").click(function() {
-        $("nav").toggle("fast");
+        $("nav").toggle();
     });
     $(".run-filter").click(function() {
-        $(".filter-machine").toggle({"display":"block"});
+        $(".filter-machine").toggle();
     });
     $(".lg").click(function() {
-        $(".languages").toggle({"display":"block"});
+        $(".languages").toggle();
     });
     $(".ctg").click(function() {
-        $(".categories").toggle({"display":"block"});
+        $(".categories").toggle();
     });
 });
 // function update_account(metadata){

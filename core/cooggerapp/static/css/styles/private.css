@@ -9,6 +9,17 @@ cards {
 .previous_post{
   position: fixed;top: 20%;left: 0%;height: 60%;background: #80808042;z-index: 2;writing-mode: tb-rl;text-orientation: upright;
 }
+body{
+  margin-bottom: 60px;
+  height: auto;
+  width: auto;
+}
+.helptext{
+  background-color: #eaecee;
+  font-size: 12px;
+  padding: 2px 10px;
+  color: black;
+}
 .tags{
   border-bottom: 4px solid #ecd611;
 }
@@ -71,23 +82,51 @@ card {
   width: 100%;
   padding: 10% 0px;
 }
-.f-address{
-  margin: 12px auto;
+.f-address>li{
+  display: block;
+  padding: 10px 0px;
+  margin: 9px 0px;
+}
+.f-address>li>a{
+  padding: 6px;
+  position: absolute;
+  width: 90%;
 }
 footer{
-  margin-top: 60px;
-  padding: 36px 0px;
-  z-index: 0;
-  position: relative;
-}
-header{
-  height: 55px;
-  padding: 6px;
-  border-bottom:  1px solid #f1f1f1;
-  width: 100%;
-  overflow: auto;
-  z-index: 2;
+  position: fixed;
   top: 0px;
+  right: 0px;
+  padding: 0px 0px 0px 12px;
+  height: 100%;
+}
+.open_footer{
+  padding: 4px;
+  cursor: pointer;
+}
+.open_header_menu{
+  cursor: pointer;
+}
+.open_footer>div{
+  width: 26px;
+  height: 4px;
+  margin-bottom: 4px;
+  background: #333333;
+  cursor:pointer;
+}
+.closed_footer{
+  padding: 0px 14px;
+    cursor: pointer;
+}
+.header_menu{
+  position: absolute;
+  z-index: 2;
+  top: 60px;
+  display: none;
+  min-width: 158px;
+}
+.header_menu>.title{
+  border-bottom: 1px solid #fafafa;
+padding: 12px 0px;
 }
 #comment-text{
   max-width: 99%;
@@ -125,22 +164,11 @@ header{
   z-index: 1;
   top: 0px;
 }
-.header_menu{
-  display: none;
-  position: fixed;
-  top: 0px;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
+.header_menu>li>a{
+  padding: 6px 0px;
 }
-.closed_header_menu{
-  display: none;
-  right: 5%;
-  z-index: 2;
-  position: fixed;
-  top: 12px;
-  padding: 6px 14px;
-  cursor:  pointer;
+.fab{
+  padding: 0px 6px;
 }
 .history-op{
   padding: 6px 12px;

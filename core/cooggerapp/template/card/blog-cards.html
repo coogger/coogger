@@ -17,7 +17,5 @@
   </cards>
   {% include "card/script.html" %}
 {% elif not content %}
-  <div flex general="bg-dark w-100 center br-2" hover-animation="i c-primary">
-    <div general="c-yellow txt-l" mobile="txt-m"><strong>Sorry for this inconvenient no results found...</strong></div>
-  </div>
+  {% include 'home/we_are_sory.html' %}
 {% endif %}
