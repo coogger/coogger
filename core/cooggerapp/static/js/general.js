@@ -33,6 +33,43 @@ $(document).ready(function() {
 //       console.log(err, res)
 //     });
 // }
+function replies(comments){
+  let comment_index;
+  for (comment_index = 0; comment_index < comments.length; comment_index++) {
+    let comment = comments[comment_index];
+    if (comment.children != 0){
+      steem.api.getContentReplies(parent=comment.author, parentPermlink=comment.permlink, function (err, children_comments) {
+        let children_comment_index;
+        let children_comments_len = children_comments.length;
+        for (children_comment_index = 0; children_comment_index < children_comments_len; children_comment_index++) {
+          let children_comment_template = "";
+          let children_comment = children_comments[children_comment_index];
+          if (children_comment.depth<9){
+            children_comment_template += `
+              <div class='comment_replies'
+                id='${children_comment.author}-${children_comment.permlink}'>
+              `
+            children_comment_template += comment_info(children_comment);
+            children_comment_template += userinfo(children_comment);
+            children_comment_template += comment_body(children_comment);
+            if (children_comment.depth == 8){
+              children_comment_template += (`
+                <a general="center c-success"
+                  href="/@${children_comment.author}/'${children_comment.permlink}">
+                  Show ${children_comment.children} more replies
+                </a></div>`);
+            }
+            else{
+              children_comment_template += "</div>";
+            }
+            $(`#${children_comment.parent_author}-${children_comment.parent_permlink}`).append(children_comment_template);
+          }
+        }
+        replies(children_comments);
+      });
+    }
+  }
+}
 function getTagsAsTemplate(tags){
   let template = "";
   for (const index in tags) {
@@ -70,7 +107,7 @@ function scrolledbottom(){
 function dor(text){
   // post duration of read
   let reading_speed = 28;
-  return `min ${((text.length/reading_speed)/60).toFixed(2)}`;
+  return `min ${((text.length/reading_speed)/60).toFixed(1)}`;
 }
 function get_realy_content(content){
   let editor_body = "";
@@ -88,17 +125,14 @@ function get_realy_content(content){
         }
       }
       catch(err){
-        console.log(err);
         editor_body = content.body;
       }
     }
     catch(err){
-      console.log(err);
       editor_body = content.body;
     }
   }
   catch(err){
-    console.log(err);
     editor_body = content.body;
   }
   return editor_body;

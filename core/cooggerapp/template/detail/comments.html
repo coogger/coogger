@@ -1,60 +1,30 @@
 <script type="text/javascript">
   $(document).ready(function() {
-    function replies(comments){
-      let comment_index;
-      for (comment_index = 0; comment_index < comments.length; comment_index++) {
-        let comment = comments[comment_index];
-        if (comment.children != 0){
-          steem.api.getContentReplies(parent=comment.author, parentPermlink=comment.permlink, function (err, children_comments) {
-            let children_comment_index;
-            let children_comments_len = children_comments.length;
-            for (children_comment_index = 0; children_comment_index < children_comments_len; children_comment_index++) {
-              let children_comment_template = "";
-              let children_comment = children_comments[children_comment_index];
-              if (children_comment.depth<9){
-                children_comment_template += `
-                  <div class='comment_replies'
-                    id='${children_comment.author}-${children_comment.permlink}'>
-                  `
-                children_comment_template += comment_info(children_comment);
-                children_comment_template += userinfo(children_comment);
-                children_comment_template += comment_body(children_comment);
-                if (children_comment.depth == 8){
-                  children_comment_template += (`
-                    <a general="center c-success"
-                      href="/@${children_comment.author}/'${children_comment.permlink}">
-                      Show ${children_comment.children} more replies
-                    </a></div>`);
-                }
-                else{
-                  children_comment_template += "</div>";
-                }
-                $(`#${children_comment.parent_author}-${children_comment.parent_permlink}`).append(children_comment_template);
-              }
-            }
-            replies(children_comments);
-          });
-        }
+    let load_comments = true;
+    $(window).scroll(function(){
+      if (load_comments && scrolledbottom()){
+        load_comments = false;
+        steem.api.getContentReplies(parent="{{ content_user }}", parentPermlink="{{ detail.permlink }}", function (err, comments) {
+          let comment_index;
+          for (comment_index = 0; comment_index < comments.length; comment_index++) {
+            let comment_template = "";
+            let comment = comments[comment_index];
+            comment_template += `<div class='comment' id='${comment.author}-${comment.permlink}'>`
+            comment_template += "<div class='comment_highlighted'>"
+            comment_template += comment_info(comment);
+            comment_template += userinfo(comment);
+            comment_template += comment_body(comment);
+            comment_template += "</div></div>"
+            $("#comment_template").append(comment_template);
+          }
+          replies(comments);
+        });
       }
-    }
-    steem.api.getContentReplies(parent="{{ content_user }}", parentPermlink="{{ detail.permlink }}", function (err, comments) {
-      let comment_index;
-      for (comment_index = 0; comment_index < comments.length; comment_index++) {
-        let comment_template = "";
-        let comment = comments[comment_index];
-        comment_template += `<div class='comment' id='${comment.author}-${comment.permlink}'>`
-        comment_template += "<div class='comment_highlighted'>"
-        comment_template += comment_info(comment);
-        comment_template += userinfo(comment);
-        comment_template += comment_body(comment);
-        comment_template += "</div></div>"
-        $("#comment_template").append(comment_template);
-      }
-      replies(comments);
     });
   });
 </script>
 <script>
+// to write a comments
   $(document).ready(function() {
     $("#send-comment").click(function(){
       $(this).attr("animation-hover", "i blink");
@@ -63,7 +33,6 @@
       let parentPermlink = this.dataset.parent_permlink;
       let current_time = new Date();
       let link_to_time = current_time.toISOString().replace(/[A-Z]+/g, '').replace(/[^a-z0-9]+/g, '');;
-      // var link_to_time = current_time.getYear()+current_time.getMonth()+current_time.getDay()+current_time.getMinutes()+current_time.getSeconds();
       let permlink = `re-${parentAuthor}-${parentPermlink}-${link_to_time}`;
       let author = "{{ request.user }}";
       let title = "";
@@ -92,8 +61,7 @@
 <div general="b-1 br-2 brc-muted">
   <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
       <textarea id="comment-text" placeholder="Reply ..."></textarea>
-      <button id="send-comment" general="b-1 br-2 brc-muted bg-success c-white"
-          data-parent_author="{{ content_user }}" data-parent_permlink="{{ detail.permlink }}">
+      <button id="send-comment" general="b-1 br-2 brc-muted bg-success c-white" data-parent_author="{{ content_user }}" data-parent_permlink="{{ detail.permlink }}">
         Post
       </button>
       <div id="comment_template" class="comment_template"></div>
