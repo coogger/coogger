@@ -129,6 +129,7 @@ class Sync(BaseCommand):
                     except AttributeError:
                         mod = None
                     c_object.update(
+                        user=user,
                         dapp=Dapp.objects.filter(name=content.dapp_name)[0],
                         title=content.title,
                         content=content.content,

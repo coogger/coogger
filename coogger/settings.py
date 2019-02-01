@@ -1,19 +1,27 @@
 import os
-
+import environ
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+environ.Env.read_env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = '0o-ibh!$m!46+2y^9720!@pu(g*($hy1m0^89b%j8hrwr%k!$k'
-DEBUG = True
-PAGE_SIZE = 10
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env("DEBUG")
 ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    # django
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    # editor
     "django_md_editor",
+    # rest
     "rest_framework",
+    # coogger
     "core.cooggerapp",
     "core.api",
     "core.steemconnect_auth",
@@ -22,18 +30,21 @@ AUTHENTICATION_BACKENDS = [
     "core.steemconnect_auth.auth.steemconnect.SteemConnectBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
+PAGE_SIZE = 10
 REST_FRAMEWORK = dict(
     DEFAULT_PAGINATION_CLASS="rest_framework.pagination.PageNumberPagination",
     PAGE_SIZE=PAGE_SIZE,
 )
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # django
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # coogger
     "core.steemconnect_auth.middleware.communities.CommunitiesMiddleware",
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.general.GeneralMiddleware",
@@ -59,8 +70,8 @@ TEMPLATES = [
 WSGI_APPLICATION = "coogger.wsgi.application"
 DATABASES = dict(
     default=dict(
-        ENGINE='django.db.backends.sqlite3',
-        NAME=os.path.join(BASE_DIR, 'db/coogger.db'),
+        ENGINE=env("DATABASES_ENGINE"),
+        NAME=env("DATABASES_NAME"),
     ),
 )
 AUTH_PASSWORD_VALIDATORS = []
@@ -83,7 +94,7 @@ MDEDITOR_CONFIGS = dict(
         "h1", "h2", "h3", "h5", "h6", "|",
         "list-ul", "list-ol", "hr", "|",
         "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",
-        "emoji", "html-entities", "pagebreak", "goto-line", "|",
+        "html-entities", "pagebreak", "goto-line", "|",
         "help", "info",
         "||", "preview", "watch", "fullscreen"
         ],
