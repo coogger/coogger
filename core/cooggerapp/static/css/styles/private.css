@@ -100,18 +100,13 @@ footer{
   height: 100%;
 }
 .open_footer{
-  padding: 4px;
   cursor: pointer;
+  width: 30px;
+  height: 16px;
+  margin: 0px 12px;
 }
 .open_header_menu{
   cursor: pointer;
-}
-.open_footer>div{
-  width: 26px;
-  height: 4px;
-  margin-bottom: 4px;
-  background: #333333;
-  cursor:pointer;
 }
 .closed_footer{
   padding: 0px 14px;

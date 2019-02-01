@@ -10,7 +10,7 @@
       </a>
       <div flex="ai-c" class="search just-pc" style="padding: 0px 12px;">
         <form action="{% url 'search' %}">
-          <input name="query" style="padding: 6px 4px;" general="b-1 br-2 bg-white c-dark brc-muted" type="text" 
+          <input name="query" style="padding: 6px 4px;" general="b-1 br-2 bg-white c-dark brc-muted" type="text"
           maxlength="250" value="{{ request.GET.query }}" placeholder="search content .." general="br-2" />
           <input type="submit" value="Search" style="display:  none;" />
         </form>
@@ -127,9 +127,7 @@
       </div>
       {% endif %}
       <div class="open_footer" flex="ai-c fd-c">
-        <div></div>
-        <div></div>
-        <div></div>
+        <i class="fas fa-bars"></i>
       </div>
     </div>
   </div>

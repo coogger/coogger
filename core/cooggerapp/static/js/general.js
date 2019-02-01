@@ -1,38 +1,51 @@
 $(document).ready(function() {
-    $(".close-ms").click(function() {
-        $(".main-messages").remove();
-    })
-    $(".open_header_menu").click(function() {
-        $(".header_menu").toggle();
-    })
-    $(".open_footer").click(function() {
-        $("footer").toggle();
-    })
-    $(".closed_footer").click(function() {
-        $("footer").css({"display":"none"});
-    })
-    $(".b-edit-point").click(function() {
-        let data_edit_id = this.getAttribute("data-edit-id");
-        $(`.data-edit-id-${data_edit_id}`).toggle();
+  $(".b-edit-point").click(function() {
+      let id = this.getAttribute("data-edit-id");
+      $(`.data-edit-id-${id}`).toggle();
+  });
+  let off_target = [
+    {target:".open_footer", hide:"footer"},
+    {target:".open_header_menu", hide:".header_menu"},
+    {target:".close-ms", hide:".main-messages"},
+    {target:".lg", hide:".languages"},
+    {target:".ctg", hide:".categories"},
+    {target:".lists", hide:"nav"},
+    {target:".run-filter", hide:".filter-machine"},
+  ];
+  for (i in off_target) {
+    let target = off_target[i].target;
+    let hide = off_target[i].hide;
+    $("*").click(function(e){
+      if ( !$(e.target).is(target) && !$(e.target).is(`${target} *`) && !$(e.target).is(hide) && !$(e.target).is(`${hide} *`) ){
+        $(hide).hide();
+      }
     });
-    $(".lists").click(function() {
-        $("nav").toggle();
-    });
-    $(".run-filter").click(function() {
-        $(".filter-machine").toggle();
-    });
-    $(".lg").click(function() {
-        $(".languages").toggle();
-    });
-    $(".ctg").click(function() {
-        $(".categories").toggle();
-    });
+  }
+  $(".open_footer").click(function() {
+      $("footer").toggle();
+  })
+  $(".closed_footer").click(function() {
+      $("footer").hide();
+  })
+  $(".open_header_menu").click(function() {
+      $(".header_menu").toggle();
+  })
+  $(".close-ms").click(function() {
+      $(".main-messages").remove();
+  })
+  $(".lg").click(function() {
+      $(".languages").toggle();
+  });
+  $(".ctg").click(function() {
+      $(".categories").toggle();
+  });
+  $(".lists").click(function() {
+      $("nav").toggle();
+  });
+  $(".run-filter").click(function() {
+      $(".filter-machine").toggle();
+  });
 });
-// function update_account(metadata){
-//     api.updateUserMetadata(metadata, function (err, res) {
-//       console.log(err, res)
-//     });
-// }
 function replies(comments){
   let comment_index;
   for (comment_index = 0; comment_index < comments.length; comment_index++) {
