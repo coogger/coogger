@@ -37,7 +37,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <!-- jquery -->
     <script src="{% static 'js/jquery.min.js'%}"></script>
-    {% if detail or about %}
+    {% if detail or about or user_comment%}
       <!-- editormd -->
       <link href="{% static 'css/editormd.min.css' %}" type="text/css" media="all" rel="stylesheet">
       <script type="text/javascript" src="{% static 'js/editormd.min.js' %}"></script>

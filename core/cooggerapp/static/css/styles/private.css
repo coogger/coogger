@@ -123,6 +123,7 @@ footer{
   top: 60px;
   display: none;
   min-width: 158px;
+  padding: 6px 8px;
 }
 .header_menu>.title{
   border-bottom: 1px solid #fafafa;
@@ -161,8 +162,8 @@ padding: 12px 0px;
   height: 4px;
   width: 100%;
   position: relative;
-  z-index: 1;
-  top: 0px;
+  z-index: -1;
+  top: -2px;
 }
 .header_menu>li>a{
   padding: 6px 0px;

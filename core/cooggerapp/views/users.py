@@ -100,6 +100,7 @@ class UserComment(TemplateView):
         context["content_user"] = user
         context["topics"] = user_topics(queryset)
         context["django_md_editor"] = True
+        context["user_comment"] = True
         return context
 
 
