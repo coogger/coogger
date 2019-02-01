@@ -1,24 +1,19 @@
 {% load coogger_count %}
-<div class="just-pc" flex="fw-nw" style="position:  relative;top: 0px;margin-left: 5%;">
+<div class="just-pc" flex="" general="w-20" laptop="w-30" style="position:  relative;top: 0px;margin-left: 5%;">
   <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">
-    Topics of the <a style="margin:0px 4px;" general="c-blue" href="/@{{content_user}}">@{{content_user}}</a> user.</div>
-    <div flex="fd-c" general="b-1 txt-m bg-white brc-white" style="margin: 20px;position: sticky;top: 146px;">
-        {% for list in topics %}
-        {% if list == nameoftopic %}
-        <div general="b-1 br-2 bg-success brc-success">
-            <a flex general="txt-s br-2 c-white" href="/{{ list }}/@{{content_user}}/" style="padding: 3px 6px;">
-             {{ list|title }}
-           <span general="right">{{ list|topic_count:content_user }}</span>
-         </a>
-        </div>
-        {% else%}
-        <div animation-hover="bg-success" general="br-2 br-2">
-            <a flex general="b-1 txt-s br-2 brc-muted c-dark" hover="c-white" href="/{{ list }}/@{{content_user}}/"
-            style="padding: 3px 6px;">
-          {{ list|title }}
-        <span general="right">{{ list|topic_count:content_user }}</span>
-      </a>
-        </div>
-        {% endif %} {% endfor %}
-    </div>
+      <ul general="bg-white brc-white" style="position: sticky;top: 16px;">
+        <li general="center">@{{content_user}}'s Topics</li>
+        {% for topic in topics %}
+        <li general="txt-s c-yellow">
+          <a hover="c-white bg-red" flex="ai-c" general="txt-s c-dark br-4" href="/{{ topic }}/@{{content_user}}" style="padding: 3px 6px;">
+            {% if topic.image_address %}
+              <img general="w-8" src="{{ topic.image_address }}" style="margin: 0px;">
+            {% endif %}
+            <span style="margin-left: 2px;">{{ topic.name |title }}</span>
+            <span general="txt-xs right">{{ topic|topic_count:"" }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+  </div>
 </div>

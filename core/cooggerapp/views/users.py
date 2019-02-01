@@ -20,7 +20,6 @@ from core.cooggerapp.views.tools import users_web, paginator, user_topics
 class UserClassBased(TemplateView):
     "user's home page"
     template_name = "users/user.html"
-    ctof = Content.objects.filter
 
     def get_context_data(self, username, **kwargs):
         user = authenticate(username=username) # this line for creating new user

@@ -7,7 +7,7 @@ from django.core.exceptions import FieldError
 from django.contrib.auth import authenticate
 
 # models
-from core.cooggerapp.models import OtherAddressesOfUsers
+from core.cooggerapp.models import OtherAddressesOfUsers, Topic
 from core.steemconnect_auth.models import Dapp
 
 def content_by_filter(items, queryset):
@@ -31,9 +31,9 @@ def content_by_filter(items, queryset):
 def user_topics(queryset):
     topics = []
     for query in queryset:
-        topic = query.topic
-        if topic not in topics:
-            topics.append(topic)
+        topic_obj = Topic.objects.filter(name=query.topic)[0]
+        if topic_obj not in topics:
+            topics.append(topic_obj)
     return topics
 
 

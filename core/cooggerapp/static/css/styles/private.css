@@ -3,6 +3,11 @@ cards {
     margin: 12px auto;
     z-index: 0;
 }
+.utopic-img{
+  height: 0%
+  ;margin: 0px;
+  margin-right: 6px;
+}
 .next_post{
   position: fixed;top: 20%;right: 0%;height: 60%;background: #80808042;z-index: 2;writing-mode: tb-rl;text-orientation: upright;
 }
