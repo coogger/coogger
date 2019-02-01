@@ -39,8 +39,8 @@ $(document).ready(function() {
   $(".ctg").click(function() {
       $(".categories").toggle();
   });
-  $(".lists").click(function() {
-      $("nav").toggle();
+  $(".utopic-open").click(function() {
+      $(".utopic").toggle();
   });
   $(".run-filter").click(function() {
       $(".filter-machine").toggle();

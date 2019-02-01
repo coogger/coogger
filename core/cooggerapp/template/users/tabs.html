@@ -1,12 +1,10 @@
 <div general="center">
   <div flex="fw-nw" general="b-1 brc-muted" style="padding: 6px 0px;overflow: auto;">
-    {% if topics %}
-    <div flex="fd-c" class="lists just-mobile" style="cursor:pointer;">
+    <div flex="fd-c" class="utopic-open just-mobile" style="cursor:pointer;">
       <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">TOPICS
         <i class="fas fa-sitemap"></i>
       </div>
     </div>
-    {% endif %}
     <div flex="fd-c">
       <a href="{% url 'userabout' content_user %}" flex="as-fs ai-c" general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">ABOUT
         <i class="fas fa-file-alt"></i>

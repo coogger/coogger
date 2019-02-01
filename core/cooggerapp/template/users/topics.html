@@ -7,7 +7,7 @@
         <li general="txt-s c-yellow">
           <a hover="c-white bg-red" flex="ai-c" general="txt-s c-dark br-4" href="/{{ topic }}/@{{content_user}}" style="padding: 3px 6px;">
             {% if topic.image_address %}
-              <img general="w-8" src="{{ topic.image_address }}" style="margin: 0px;">
+              <img general="w-8" src="{{ topic.image_address }}" style="margin: 0px;height: 0%;">
             {% endif %}
             <span style="margin-left: 2px;">{{ topic.name |title }}</span>
             <span general="txt-xs right">{{ topic|topic_count:"" }}</span>

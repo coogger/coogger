@@ -8,6 +8,9 @@ cards {
   ;margin: 0px;
   margin-right: 6px;
 }
+.utopic-m-count{
+  margin-left: 6px;
+}
 .next_post{
   position: fixed;top: 20%;right: 0%;height: 60%;background: #80808042;z-index: 2;writing-mode: tb-rl;text-orientation: upright;
 }
