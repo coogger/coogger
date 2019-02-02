@@ -4,31 +4,33 @@
   <script>
       function vote(json, type){
         return (`
-        <div class='history-op' flex='fd-c' general='b-1 br-2 brc-muted'>
-          <div class='his-json'>
-          <div class='his-type' general='right txt-l br-2' flex='ai-c'>${type}<i class='fas fa-chevron-circle-up'></i></div>
-            <div class='his-user' flex='ai-c'>
-              <a general='c-primary' href='/@${json.voter}'>
-                <div class='his-avatar' general='center' style='background-image: url(https://steemitimages.com/u/${json.voter}/avatar)';></div>
-                <div class='permlink'>@${json.voter}</div>
-              </a>
-              <a general='c-primary' style='margin-left: auto;' href='/@${json.author}'>
-                <div class='his-avatar' general='center' style='background-image: url(https://steemitimages.com/u/${json.author}/avatar)';></div>
-                <div>@${json.author}</div>
-              </a>
-            </div>
-            <div class='his-data'>
-              <a general='center c-primary' color='' href='/@${json.author}/${json.permlink}'>${json.permlink}</a>
-              <div class='history-vote-weight' general="br-2 bg-success" style="width:${json.weight/100}%">
-                <span general="c-white txt-s center">${json.weight/100}%</span>
+          <div class='history-op' flex='fd-c' general='b-1 br-6 brc-muted'>
+            <div class='his-json'>
+              <div class='his-type' general='right txt-l br-2' flex='ai-c'>${type}<i class='fas fa-chevron-circle-up'></i></div>
+              <div class='his-user' flex='ai-c'>
+                <a general='c-primary' href='/@${json.voter}'>
+                  <div class='his-avatar' general='center' style='background-image: url(https://steemitimages.com/u/${json.voter}/avatar)';></div>
+                  <div class='permlink'>@${json.voter}</div>
+                </a>
+                <a general='center c-primary w-50' color='' href='/@${json.author}/${json.permlink}'>${json.permlink}</a>
+                <a general='c-primary' href='/@${json.author}'>
+                  <div class='his-avatar' general='center' style='background-image: url(https://steemitimages.com/u/${json.author}/avatar)';></div>
+                  <div>@${json.author}</div>
+                </a>
+              </div>
+              <div class='his-data'>
+                <div general="b-1 br-2 brc-success w-100">
+                  <div class='history-vote-weight' general="br-2 bg-success" style="width:${json.weight/100}%">
+                    <span general="c-white txt-s center">${json.weight/100}%</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>`);
+          </div>`);
       }
       function account_update(json, type){
         return (`
-        <div class='history-op' flex='fd-c' general='b-1 br-2 brc-muted' color=''>
+        <div class='history-op' flex='fd-c' general='b-1 br-6 brc-muted' color=''>
           <div class='his-json' flex='fd-c'>
             <div class='his-type' general='right txt-l br-2' flex='ai-c'>${type}<i class='fas fa-user-edit'></i></div>
             <div flex='fd-c'>
@@ -40,7 +42,7 @@
       }
       function account_witness_vote(json, type){
         return (`
-        <div class='history-op' flex='fd-c' general='b-1 br-2 brc-muted' color=''>
+        <div class='history-op' flex='fd-c' general='b-1 br-6 brc-muted' color=''>
           <div class='his-json' flex='fd-c'>
             <div class='his-type' general='right txt-l br-2' flex='ai-c'>${type}<i class='fas fa-chevron-circle-up'></i></div>
             <div class='his-user' flex='ai-c'>
@@ -61,7 +63,7 @@
       }
       function custom_json(json, type){
         return (`
-        <div class='history-op' flex='fd-c' general='b-1 br-2 brc-muted' color=''
+        <div class='history-op' flex='fd-c' general='b-1 br-6 brc-muted' color=''
           <div class='his-json' flex='fd-c'>
             <div class='his-type' general='right txt-l br-2' flex='ai-c'>${type}<i class='fas fa-certificate'></i></div>
             <div flex='fd-c'>
@@ -73,21 +75,22 @@
       }
       function account_witness_proxy(json, type){
         console.log(type, json);
-        return json
+        return ""
       }
       function delete_comment(json, type){
         console.log(type, json);
-        return json
+        return ""
       }
       function feed_publish(json, type){
         console.log(type, json);
-        return json
+        return ""
       }
       function comment_options(json, type){
         console.log(type, json);
-        return json
+        return ""
       }
       steem.api.getAccountHistory("{{content_user}}", -1, 200, (err, result) => {
+        console.log(err, result);
         let template = "";
         let history = result.filter(
           tx => (

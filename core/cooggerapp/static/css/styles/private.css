@@ -8,6 +8,18 @@ cards {
   ;margin: 0px;
   margin-right: 6px;
 }
+.trans-memo{
+  padding: 6px;
+}
+.permlink{
+  margin-top: 12px;
+}
+.his-type{
+  margin: 6px 0px;
+  border-bottom: 1px solid #eaecee;
+  padding-bottom: 9px;
+  border-radius: 12px;
+}
 .utopic-m-count{
   margin-left: 6px;
 }
@@ -180,9 +192,6 @@ padding: 12px 0px;
   max-width: 100%;
   word-break: break-word;
 }
-.history-vote-weight{
-  margin-left: 12px;
-}
 .his-avatar{
   background-repeat: no-repeat;
   background-position: left;
@@ -211,9 +220,6 @@ padding: 12px 0px;
 .his-json{
   padding: 6px;
   width: 100%;
-}
-a{
-  word-break: break-all;
 }
 card{
   width: 100%;

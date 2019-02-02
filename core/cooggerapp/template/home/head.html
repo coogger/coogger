@@ -51,17 +51,17 @@
       <script type="text/javascript" src="{% static 'js/lib/flowchart.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'js/lib/jquery.flowchart.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'js/lib/sequence-diagram.min.js' %}"></script>
-      {% if request.user|hmanycontent:request.META.HTTP_HOST == 0 %}
-        <!-- google ads in just detail page -->
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({
-             google_ad_client: "ca-pub-9215854020523450",
-          enable_page_level_ads: true
-         });
-       </script>
-     {% endif %}
     {% endif %}
+    {% if request.user|hmanycontent:request.META.HTTP_HOST == 0 and detail %}
+      <!-- google ads in just detail page -->
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+           google_ad_client: "ca-pub-9215854020523450",
+        enable_page_level_ads: true
+       });
+     </script>
+   {% endif %}
     <!-- COOGGER'S css js -->
     <script src="{% static 'js/general.js' %}"></script>
     <script src="{% static 'js/sc2.min.js' %}"></script>
