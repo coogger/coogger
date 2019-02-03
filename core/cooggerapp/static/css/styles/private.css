@@ -225,9 +225,13 @@ card{
   width: 100%;
 }
 .review-mod{
-  height: 20vh;
+  padding: 6px 12px;
   margin-bottom: 2px;
   margin: auto;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+  text-transform: uppercase;
 }
 .definition-img{
   max-width: 100%;

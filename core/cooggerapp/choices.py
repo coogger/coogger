@@ -35,10 +35,8 @@ reports = [
     "Wrong list name",
     "I think this content should not be at coogger",
     ]
-
 status_choices = [
     "shared",
-    "changed",
     "rejected",
     "approved",
     ]

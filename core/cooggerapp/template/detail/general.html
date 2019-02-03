@@ -1,8 +1,8 @@
 {% include 'detail/script.html' %}
 <div animation="fadeIn" font="quicksand" style="padding: 12px;">
-  {% include 'detail/status.html' %}
     <div class="data-post-id-{{detail.id}}" general="center w-100">
       <div mobile-s="w-100" mobile-m="w-99" mobile-l="w-98" tablet="w-98" max="w-50">
+        {% include 'detail/status.html' %}
         {% include 'detail/contentinfo.html' %}
         {% include 'detail/userinfo.html' %}
         <div class="tags" id="tags" flex="jc-sa" general="right bg-dark-purple txt-s"></div>

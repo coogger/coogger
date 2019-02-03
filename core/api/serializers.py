@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 
 # models
 from core.cooggerapp.models import (
@@ -8,35 +8,35 @@ from core.cooggerapp.models import (
 from core.steemconnect_auth.models import SteemConnectUser, Dapp
 
 
-class TopicSerializer(serializers.ModelSerializer):
+class TopicSerializer(ModelSerializer):
 
     class Meta:
         model = Topic
         fields = ("name", "image_address", "definition", "tags", "address", "editable")
 
 
-class ContentviewsSerializer(serializers.ModelSerializer):
+class ContentviewsSerializer(ModelSerializer):
 
     class Meta:
         model = Contentviews
         fields = ("content", "ip")
 
 
-class SearchedWordsSerializer(serializers.ModelSerializer):
+class SearchedWordsSerializer(ModelSerializer):
 
     class Meta:
         model = SearchedWords
         fields = ("word", "hmany")
 
 
-class OtherAddressesOfUsersSerializer(serializers.ModelSerializer):
+class OtherAddressesOfUsersSerializer(ModelSerializer):
 
     class Meta:
         model = OtherAddressesOfUsers
         fields = ("username", "choices", "address")
 
 
-class DappSerializer(serializers.ModelSerializer):
+class DappSerializer(ModelSerializer):
 
     class Meta:
         model = Dapp
@@ -46,7 +46,7 @@ class DappSerializer(serializers.ModelSerializer):
                    "active", "definition", "image", "active", "beneficiaries")
 
 
-class SteemConnectUserSerializer(serializers.ModelSerializer):
+class SteemConnectUserSerializer(ModelSerializer):
 
     class Meta:
         model = SteemConnectUser
@@ -60,7 +60,7 @@ class SteemConnectUserSerializer(serializers.ModelSerializer):
             )
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(ModelSerializer):
 
     class Meta:
         model = OtherInformationOfUsers
@@ -78,7 +78,7 @@ class UserSerializer(serializers.ModelSerializer):
             )
 
 
-class ContentsSerializer(serializers.ModelSerializer):
+class ContentsSerializer(ModelSerializer):
     class Meta:
         model = Content
         fields = (
