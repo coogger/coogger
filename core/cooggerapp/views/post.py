@@ -19,8 +19,8 @@ from core.cooggerapp.forms import ContentForm
 # choices
 from core.cooggerapp.choices import make_choices
 
-# steem
-from steem.post import Post
+# beem
+from beem.comment import Comment
 
 
 class Create(View):
@@ -152,8 +152,8 @@ class Change(View):
 
     def content_update(self, request, content_id):
         ct = Content.objects.filter(user=request.user, id=content_id)
-        post = Post(post=ct[0].get_absolute_url)
-        ct.update(content=self.get_body_from_steem(post), title=post.title)
+        beem_comment = Comment(ct[0].get_absolute_url)
+        ct.update(content=self.get_body_from_steem(beem_comment), title=beem_comment.title)
 
     def get_body_from_steem(self, post):
         json_metadata = post["json_metadata"]

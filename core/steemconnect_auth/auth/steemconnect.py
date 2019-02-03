@@ -6,13 +6,17 @@ from django.http import Http404
 # models
 from core.cooggerapp.models import OtherInformationOfUsers
 
-# steem
-from steem.steem import Steem
+# beem
+from beem.account import Account
+from beem.exceptions import AccountDoesNotExistsException
+
 
 class SteemConnectBackend:
 
     def authenticate(self, request, username=None, **kwargs):
-        if Steem().get_account(username) is None:
+        try:
+            Account(username)
+        except AccountDoesNotExistsException:
             raise Http404
         user_model = get_user_model()
         user, created = user_model.objects.get_or_create(username=username)

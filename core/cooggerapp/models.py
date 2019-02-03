@@ -11,8 +11,9 @@ from core.cooggerapp.choices import *
 # python
 from random import randrange
 
-# steem
-from steem.post import Post
+# beem
+from beem.comment import Comment
+from beem.exceptions import ContentDoesNotExistsException
 
 # steemconnect
 from steemconnect.steemconnect import SteemConnect
@@ -232,9 +233,9 @@ class Content(models.Model):
         self.topic = slugify(self.topic.lower())
         while True:
             try: # if user and pemlink is already saved on steem
-                Post(post=self.get_absolute_url).url
+                Comment(self.get_absolute_url)
                 self.new_permlink() #We need to change permlink
-            except:
+            except ContentDoesNotExistsException:
                 break
         steem_save = self.steemconnect_post(op_name="save")
         if steem_save.status_code == 200:

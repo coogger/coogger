@@ -21,9 +21,6 @@ from core.steemconnect_auth.models import Dapp
 # views
 from core.cooggerapp.views.tools import paginator
 
-# steem
-from steem import Steem
-
 
 class Home(TemplateView):
     template_name = "card/blogs.html"

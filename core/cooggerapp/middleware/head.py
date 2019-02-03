@@ -10,8 +10,8 @@ from core.steemconnect_auth.models import CategoryofDapp
 from bs4 import BeautifulSoup
 import mistune
 
-# steem
-from steem.post import Post
+# beem
+from beem.comment import Comment
 
 
 class HeadMiddleware(MiddlewareMixin):
@@ -32,7 +32,7 @@ class HeadMiddleware(MiddlewareMixin):
     def detail(self):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
-        post = Post(post=f"@{username}/{permlink}")
+        post = Comment(f"@{username}/{permlink}")
         user = authenticate(username=username)
         try:
             topic = Content.objects.filter(
