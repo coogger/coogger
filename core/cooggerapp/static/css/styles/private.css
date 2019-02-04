@@ -3,6 +3,25 @@ cards {
     margin: 12px auto;
     z-index: 0;
 }
+.commits{
+  margin-top: 24px;
+}
+.commit-detail{
+      padding: 12px 12px;
+}
+.commit{
+  padding: 12px;
+  margin-bottom: 6px;
+}
+.commit a:hover{
+      text-decoration: underline;
+}
+.commit-user{
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  margin: 0px;
+}
 .utopic-img{
   height: 0%
   ;margin: 0px;

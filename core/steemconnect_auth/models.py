@@ -84,3 +84,9 @@ class CategoryofDapp(models.Model):
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
         super(CategoryofDapp, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    # def __getattribute__(self, name):
+    #     return super(CategoryofDapp, self).__getattribute__(name)

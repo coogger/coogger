@@ -27,6 +27,16 @@ from django_md_editor.models import EditorMdField
 from core.steemconnect_auth.models import (SteemConnectUser, Dapp,
     CategoryofDapp, DappSettings)
 
+# hash
+from hashlib import sha256
+import uuid
+
+def get_new_hash():
+    return sha256(
+        str(uuid.uuid4().hex
+            ).encode("utf-8")
+        ).hexdigest()
+
 
 class Topic(models.Model):
     name = models.CharField(
@@ -142,7 +152,6 @@ class Content(models.Model):
             return obj[index+1].get_absolute_url
         except IndexError:
             return False
-
 
     @property
     def username(self):
@@ -375,6 +384,23 @@ class Content(models.Model):
         self.permlink += "-"+str(randrange(9999))
 
 
+class Commit(models.Model):
+
+    hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
+    user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
+    topic = models.ForeignKey("Topic", on_delete=models.CASCADE)
+    content = models.ForeignKey("content", on_delete=models.CASCADE)
+    body = EditorMdField()
+    msg = models.CharField(max_length=150, default="Initial commit")
+    created = models.DateTimeField(default=now, verbose_name="Created")
+
+    class Meta:
+        ordering = ["-created"]
+
+    def __str__(self):
+        return f"<Commit(content='{self.content}', msg='{self.msg}')>"
+
+
 class OtherInformationOfUsers(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = EditorMdField()
@@ -405,13 +431,10 @@ class OtherInformationOfUsers(models.Model):
 
     def get_new_access_token(self):
         "creates api_token and user save"
-        import hashlib
         sc_user = SteemConnectUser.objects.filter(user=self.user)
-        try:
-            sc_token = sc_user[0].access_token
-        except IndexError:
-            return "no_permission"
-        return hashlib.sha256(sc_token.encode("utf-8")).hexdigest()
+        if sc_user.exists():
+            return get_new_hash()
+        return "no_permission"
 
 
 class OtherAddressesOfUsers(models.Model):
@@ -430,6 +453,13 @@ class OtherAddressesOfUsers(models.Model):
     @property
     def username(self):
         return self.user.username
+
+    @property
+    def get_addresses(self):
+        try:
+            return OtherAddressesOfUsers.objects.filter(user=self.user)
+        except:
+            return []
 
     def __str__(self):
         return self.user.username

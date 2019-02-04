@@ -3,7 +3,7 @@ from django.http import Http404
 
 #models
 from core.cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
-    ReportModel, OtherInformationOfUsers, Topic, CategoryofDapp)
+    ReportModel, OtherInformationOfUsers, Topic, CategoryofDapp, Commit)
 from core.steemconnect_auth.models import Mods, Dapp
 
 #choices
@@ -133,6 +133,7 @@ class TopicAdmin(ModelAdmin):
 
 
 site.register(Content,ContentAdmin)
+site.register(Commit)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(OtherAddressesOfUsers,OtherAddressesOfUsersAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)
