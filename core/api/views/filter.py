@@ -20,7 +20,7 @@ from core.cooggerapp.models import (Content,
 from core.steemconnect_auth.models import Dapp, SteemConnectUser
 
 # views
-from core.cooggerapp.views.tools import content_by_filter
+from core.cooggerapp.utils import content_by_filter
 
 class Filter(ModelViewSet):
     model = OtherInformationOfUsers

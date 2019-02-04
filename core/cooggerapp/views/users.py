@@ -8,13 +8,13 @@ from django.views.generic.base import TemplateView
 from django.views import View
 
 # models
-from core.cooggerapp.models import OtherInformationOfUsers, Content
+from core.cooggerapp.models import OtherInformationOfUsers, Content, OtherAddressesOfUsers
 
 # forms
 from core.cooggerapp.forms import AboutForm
 
 # views
-from core.cooggerapp.views.tools import users_web, paginator, user_topics
+from core.cooggerapp.utils import paginator, user_topics
 
 
 class UserClassBased(TemplateView):
@@ -31,7 +31,7 @@ class UserClassBased(TemplateView):
         context = super(UserClassBased, self).get_context_data(**kwargs)
         context["content"] = info_of_cards
         context["content_user"] = user
-        context["user_follow"] = users_web(user)
+        context["user_follow"] = OtherAddressesOfUsers.objects.filter(user=user).get_addresses
         context["topics"] = user_topics(queryset)
         return context
 
@@ -67,7 +67,7 @@ class UserAboutBaseClass(View):
         context = {}
         context["about"] = about_form
         context["content_user"] = user
-        context["user_follow"] = users_web(user)
+        context["user_follow"] = OtherAddressesOfUsers.objects.filter(user=user).get_addresses
         context["topics"] = user_topics(queryset)
         return render(request, self.template_name, context)
 
@@ -95,7 +95,7 @@ class UserComment(TemplateView):
             queryset = Content.objects.filter(user=user, status="approved")
         else:
             queryset = Content.objects.filter(user=user, status="approved", dapp=self.request.dapp_model)
-        context["user_follow"] = users_web(user)
+        context["user_follow"] = OtherAddressesOfUsers.objects.filter(user=user).get_addresses
         context["content_user"] = user
         context["topics"] = user_topics(queryset)
         context["django_md_editor"] = True

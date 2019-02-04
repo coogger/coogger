@@ -19,7 +19,7 @@ from core.cooggerapp.models import Content, SearchedWords, ReportModel
 from core.steemconnect_auth.models import Dapp
 
 # views
-from core.cooggerapp.views.tools import paginator
+from core.cooggerapp.utils import paginator
 
 
 class Home(TemplateView):

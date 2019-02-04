@@ -7,8 +7,9 @@ from django.core.exceptions import FieldError
 from django.contrib.auth import authenticate
 
 # models
-from core.cooggerapp.models import OtherAddressesOfUsers, Topic
+from core.cooggerapp.models import Topic
 from core.steemconnect_auth.models import Dapp
+
 
 def content_by_filter(items, queryset):
     filter = ""
@@ -57,22 +58,3 @@ def paginator(request, queryset, hmany=settings.PAGE_SIZE):
     except EmptyPage:
         contacts = paginator.page(paginator.num_pages)
     return contacts
-
-
-def users_web(user):
-    try:
-        user_follow = OtherAddressesOfUsers.objects.filter(user=user)
-    except:
-        user_follow = []
-    return user_follow
-
-
-def get_facebook(user):
-    facebook = None
-    try:
-        for f in users_web(user):
-            if f.choices == "facebook":
-                facebook = f.adress
-    except:
-        pass
-    return facebook

@@ -10,7 +10,7 @@ from core.steemconnect_auth.models import Dapp
 # coices
 from core.cooggerapp.choices import *
 
-from core.cooggerapp.views.tools import content_by_filter
+from core.cooggerapp.utils import content_by_filter
 
 class GeneralMiddleware(MiddlewareMixin):
 

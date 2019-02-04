@@ -9,7 +9,7 @@ from core.cooggerapp.models import Content, Topic
 from core.steemconnect_auth.models import Dapp, CategoryofDapp
 
 # views
-from core.cooggerapp.views.tools import paginator, content_by_filter
+from core.cooggerapp.utils import paginator, content_by_filter
 
 # choices
 from core.cooggerapp.choices import languages
