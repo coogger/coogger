@@ -5,7 +5,6 @@ from django.utils.text import slugify
 
 # models.
 from core.cooggerapp.models import CategoryofDapp, Content, Topic
-from core.steemconnect_auth.models import Dapp
 
 # coices
 from core.cooggerapp.choices import *
@@ -26,15 +25,10 @@ class GeneralMiddleware(MiddlewareMixin):
         request.languages = self.languages(request)
         if url_name in ["home", "search", "explorer_posts"]:
             request.sort_topics = self.sort_topics(request)
-        request.dapps = make_choices([dapp.name for dapp in Dapp.objects.filter(active=True)])
         request.settings = settings
 
     def sort_categories(self, request, url_name):
         category_queryset = CategoryofDapp.objects.all()
-        if request.dapp_model.name != "coogger":
-            category_queryset = category_queryset.filter(
-                dapp=request.dapp_model
-            )
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved")
         specific_url_names = ["topic", "category", "language"]
@@ -46,7 +40,8 @@ class GeneralMiddleware(MiddlewareMixin):
         elif url_name == "filter":
             content_queryset = content_by_filter(request.GET.items(), content_queryset).get("queryset")
         for category in category_queryset:
-            querysets = content_queryset.filter(category=category.name)
+            print(category)
+            querysets = content_queryset.filter(category=category)
             try:
                 querysets[0]
             except:
@@ -88,14 +83,10 @@ class GeneralMiddleware(MiddlewareMixin):
 
     def categories(self, request):
         category_queryset = CategoryofDapp.objects.all()
-        if request.dapp_model.name != "coogger":
-            category_queryset = category_queryset.filter(
-                dapp=request.dapp_model
-            )
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved")
         for category in category_queryset:
-            querysets = content_queryset.filter(category=category.name)
+            querysets = content_queryset.filter(category=category)
             try:
                 querysets[0]
             except:
@@ -146,12 +137,7 @@ class GeneralMiddleware(MiddlewareMixin):
 
     @staticmethod
     def sort_topics(request):
-        if request.dapp_model.name == "coogger":
-            contents = Content.objects.filter(status="approved")
-        else:
-            contents = Content.objects.filter(
-                dapp=request.dapp_model, status="approved"
-            )
+        contents = Content.objects.filter(status="approved")
         topic_querysets = [
             Content.objects.filter(
                 topic = content.topic,

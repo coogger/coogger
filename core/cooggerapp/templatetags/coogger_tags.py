@@ -6,7 +6,7 @@ from urllib.parse import quote_plus
 
 # core.cooggerapp
 from core.cooggerapp.choices import *
-from core.cooggerapp.models import Dapp, Content
+from core.cooggerapp.models import Content
 
 from django import template
 register = template.Library()
@@ -33,13 +33,7 @@ def json(value, arg):
 def hmanycontent(user, host):
     if user.is_anonymous:
         return 0
-    dapp_model = Dapp.objects.filter(host_name = host)[0]
-    hmanycontent = 0
-    if dapp_model.name == "coogger":
-        hmanycontent = len(Content.objects.filter(user = user,status = "approved"))
-    else:
-        hmanycontent = len(Content.objects.filter(dapp = dapp_model, user = user, status = "approved"))
-    return hmanycontent
+    return Content.objects.filter(user = user, status = "approved").count()
 
 @register.filter(name="twitter")
 def twitter(value, arg):

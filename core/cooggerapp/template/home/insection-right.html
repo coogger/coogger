@@ -6,7 +6,7 @@
     <div general="right b-1 br-2 brc-muted bg-dark-purple" flex="fd-c" style="padding: 6px 10px;position: sticky;top: 30px;">
       {% if request|url_resolve:"" == "topic" %}
         <!-- to topic -->
-        <a hover="c-yellow" general="c-white txt-s" href="/post/create/?topic={{ topic.name }}&dapp={{ request.dapp_model.id }}" style="margin-bottom: 12px;">
+        <a hover="c-yellow" general="c-white txt-s" href="/post/create/?topic={{ topic.name }}" style="margin-bottom: 12px;">
           <div general="center">Click and write a post about a {{ topic.name }} topic</div>
         </a>
         {% if topic.image_address %}
@@ -37,7 +37,7 @@
         </span>
       {% endif %}
       {% if language %}
-        <a hover="c-yellow" general="c-white txt-s" href="/post/create/?language={{ language }}&dapp={{ request.dapp_model.id }}" style="margin-bottom: 12px;">
+        <a hover="c-yellow" general="c-white txt-s" href="/post/create/?language={{ language }}" style="margin-bottom: 12px;">
           <div general="center">Click and write a post about a {{ language }} language</div>
         </a>
         <div general="center" flex="ai-c" style="margin-bottom: 12px;">
@@ -49,7 +49,7 @@
         </span>
       {% endif %}
       {% if category %}
-        <a hover="c-yellow" general="c-white txt-s" href="/post/create/?category={{ category }}&dapp={{ request.dapp_model.id }}" style="margin-bottom: 12px;">
+        <a hover="c-yellow" general="c-white txt-s" href="/post/create/?category={{ category }}" style="margin-bottom: 12px;">
           <div general="center">Click and write a post about a {{ category }} category</div>
         </a>
         <div general="center" flex="ai-c" style="margin-bottom: 12px;">

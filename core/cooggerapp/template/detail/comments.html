@@ -36,7 +36,7 @@
       let permlink = `re-${parentAuthor}-${parentPermlink}-${link_to_time}`;
       let author = "{{ request.user }}";
       let title = "";
-      let body = `${get_comment}\n\nPosted using [{{ request.dapp_model.host_name }}]({{ request.dapp_model.host_name }})`;
+      let body = `${get_comment}\n\nPosted using [https://{{ request.dapp_model.host_name }}]({{ request.dapp_model.host_name }})`;
       let jsonMetadata = {
           "format": "markdown",
           "tags": "{{ request.dapp_model.name }}",

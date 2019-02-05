@@ -3,14 +3,7 @@ from django.contrib.admin import site, ModelAdmin
 from django.contrib.auth.models import User, Group
 
 # models
-from core.steemconnect_auth.models import SteemConnectUser, Dapp, Mods, DappSettings, CategoryofDapp
-
-
-class DappSettingsAdmin(ModelAdmin):
-    list_ = ["dapp","beneficiaries"]
-    list_display = list_
-    list_display_links = list_
-    search_fields = ["beneficiaries"]
+from core.steemconnect_auth.models import SteemConnectUser, Dapp, CategoryofDapp
 
 
 class CategoryofDappAdmin(ModelAdmin):
@@ -49,46 +42,6 @@ class CategoryofDappAdmin(ModelAdmin):
 class SteemConnectUserAdmin(ModelAdmin):
     list_display = ["user", "dapp"]
     list_display_links = ["user", "dapp"]
-
-
-class ModsAdmin(ModelAdmin):
-    "Just accept superuser and dapp manager"
-
-    list_display = ["dapp", "user"]
-    list_display_links = ["dapp", "user"]
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        dapp_model = self.get_management_dapp(request)[0]
-        return qs.filter(dapp = dapp_model)
-
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        if request.user.is_superuser:
-            return form
-        dapp_queryset = self.get_management_dapp(request)
-        form.base_fields["dapp"]._queryset = dapp_queryset
-        return form
-
-    def save_model(self, request, obj, form, change):
-        if request.user.is_superuser or self.get_management_dapp(request).exists():
-            if not obj.user.is_staff:
-                management_user = User.objects.filter(username=obj.user).update(is_staff=True)
-            if not obj.user.groups.filter(name="mod").exists():
-                group = Group.objects.get(name="mod")
-                obj.user.groups.add(group)
-            super(ModsAdmin, self).save_model(request, obj, form, change)
-
-    def delete_model(self, request, object):
-        User.objects.filter(username=object.user.username).update(is_staff=False)
-        object.delete()
-        group = Group.objects.get(name="mod")
-        object.user.groups.remove(group)
-
-    def get_management_dapp(self, request):
-        return Dapp.objects.filter(management=request.user)
 
 
 class DappAdmin(ModelAdmin):
@@ -133,6 +86,4 @@ class DappAdmin(ModelAdmin):
 
 site.register(SteemConnectUser, SteemConnectUserAdmin)
 site.register(Dapp, DappAdmin)
-site.register(Mods, ModsAdmin)
-site.register(DappSettings, DappSettingsAdmin)
 site.register(CategoryofDapp, CategoryofDappAdmin)

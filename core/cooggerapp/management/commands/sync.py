@@ -3,9 +3,8 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 
 # coogger-python
-from coogger.content import ContentApi, ContentFilterApi
+from coogger.content import ContentFilterApi
 from coogger.user import SteemConnectUserApi, UserApi, UserFilterApi
-from coogger.dapp import DappFilterApi, DappApi
 from coogger.search import SearchFilterApi
 from coogger.useraddress import UserAddresFilterApi
 from coogger.views import ViewsFilterApi
@@ -16,8 +15,7 @@ from core.cooggerapp.models import (OtherInformationOfUsers, Content,
     OtherAddressesOfUsers, SearchedWords, Contentviews, Topic
 )
 from core.steemconnect_auth.models import (
-    Dapp, Mods, SteemConnectUser,
-    DappSettings, CategoryofDapp)
+    Dapp, SteemConnectUser)
 
 
 class Sync(BaseCommand):
@@ -130,7 +128,6 @@ class Sync(BaseCommand):
                         mod = None
                     c_object.update(
                         user=user,
-                        dapp=Dapp.objects.filter(name=content.dapp_name)[0],
                         title=content.title,
                         content=content.content,
                         tags=content.tags,
@@ -152,7 +149,6 @@ class Sync(BaseCommand):
                 except AttributeError:
                     mod = None
                 Content(
-                    dapp=Dapp.objects.filter(name=content.dapp_name)[0],
                     user=user,
                     title=content.title,
                     permlink=content.permlink,
@@ -274,7 +270,6 @@ class Command(BaseCommand):
             eval(f"sync.{which}()")
         else:
             sync.user()
-            sync.dapp()
             sync.content()
             sync.useraddresses()
             sync.searched()

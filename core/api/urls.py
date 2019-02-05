@@ -2,7 +2,7 @@ from rest_framework import routers
 
 from django.conf.urls import url, include
 from core.api.views.filter import (UserFilter, ContentFilter,
-SearchedWordsFilter, OtherAddressesOfUsersFilter, DappFilter,
+SearchedWordsFilter, OtherAddressesOfUsersFilter,
 SteemConnectUserFilter, ContentviewsFilter, TopicFilter)
 from core.api.views.view_or_update import (SteemConnectUserApi, UserApi,
     ContentApi, DappApi)
@@ -16,7 +16,6 @@ router.register(r'filter-user', UserFilter)
 router.register(r'filter-content', ContentFilter)
 router.register(r'filter-searched', SearchedWordsFilter)
 router.register(r'filter-useraddresses', OtherAddressesOfUsersFilter)
-router.register(r'filter-dapp', DappFilter)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

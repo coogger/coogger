@@ -25,7 +25,7 @@ from mistune import Renderer, Markdown
 
 from django_md_editor.models import EditorMdField
 from core.steemconnect_auth.models import (SteemConnectUser, Dapp,
-    CategoryofDapp, DappSettings)
+    CategoryofDapp)
 
 # hash
 from hashlib import sha256
@@ -74,7 +74,6 @@ class Topic(models.Model):
 
 
 class Content(models.Model):
-    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE, help_text="Which application want you share via?")
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name="Title",
         help_text="Be sure to choose the best title related to your content."
@@ -87,12 +86,7 @@ class Content(models.Model):
     language = models.CharField(max_length=30, choices=make_choices(languages),
         help_text="The language of your content"
         )
-    all_categories = [category.name for category in CategoryofDapp.objects.all()]
-    # all_categories = ""
-    category = models.CharField(max_length=30,
-        choices=make_choices(all_categories),
-        help_text="select content category"
-        )
+    category = models.ForeignKey(CategoryofDapp, on_delete=models.CASCADE, help_text="select content category")
     definition = models.CharField(max_length=400,
         verbose_name="Definition of content",
         )
@@ -166,10 +160,6 @@ class Content(models.Model):
     def modusername(self):
         return self.mod.username
 
-    @property
-    def dapp_name(self):
-        return self.dapp.name
-
     def marktohtml(self, marktext):
         renderer = Renderer(escape=False, parse_block_html=True)
         markdown = Markdown(renderer=renderer)
@@ -240,7 +230,6 @@ class Content(models.Model):
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request, *args, **kwargs):
-        self.dapp = request.dapp_model
         self.tags = self.ready_tags()
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.content)
@@ -259,7 +248,6 @@ class Content(models.Model):
         return steem_save
 
     def content_update(self, old, new):
-        self.dapp = old[0].dapp
         self.user = old[0].user
         self.permlink = old[0].permlink
         self.title = new.title
@@ -287,7 +275,7 @@ class Content(models.Model):
         )
         comment = Comment(
             parent_author = "",
-            parent_permlink=self.dapp.name,
+            parent_permlink="coogger",
             author=str(self.user.username),
             permlink=self.permlink,
             title=self.title,
@@ -299,7 +287,6 @@ class Content(models.Model):
                 ecosystem=dict(
                     name="coogger",
                     version="1.4.1",
-                    dapp=self.dapp.name,
                     topic=self.topic,
                     category=self.category,
                     language=self.language,
@@ -322,48 +309,20 @@ class Content(models.Model):
             access_token = steem_connect_user[0].access_token
             return SteemConnect(token=access_token, data=operation).run
         except:
-            sc_dapp_name = steem_connect_user[0].dapp_name
-            secret = Dapp.objects.filter(name=sc_dapp_name)[0].app_secret
+            secret = Dapp.objects.filter(name="coogger")[0].app_secret
             access_token = steem_connect_user.set_new_access_token(secret)
             return SteemConnect(token=access_token, data=operation).run
 
     @property
     def get_beneficiaries(self):
         beneficiaries = []
-        if self.dapp.beneficiaries != 0:
-            if self.dapp.name != "coogger":
-                beneficiaries.append(
-                    dict(
-                        account=self.dapp.name,
-                        weight=self.dapp.beneficiaries * 100
-                    )
-                )
         user_filter_obj = OtherInformationOfUsers.objects.filter(user=self.user)
         user_beneficiaries = user_filter_obj[0].beneficiaries
-        try:
-            for_coogger = DappSettings.objects.filter(dapp=self.dapp)[0].beneficiaries
-        except IndexError:
-            for_coogger = 0
         if user_beneficiaries != 0:
-            if for_coogger != 0 and for_coogger > user_beneficiaries:
-                beneficiaries.append(
-                    dict(
-                        account="coogger",
-                        weight=for_coogger * 100
-                    )
-                )
-            else:
-                beneficiaries.append(
-                    dict(
-                        account="coogger",
-                        weight=user_beneficiaries * 100
-                    )
-                )
-        elif for_coogger != 0:
             beneficiaries.append(
                 dict(
                     account="coogger",
-                    weight=for_coogger * 100
+                    weight=user_beneficiaries * 100
                 )
             )
         return beneficiaries
@@ -382,7 +341,7 @@ class Content(models.Model):
                     tags += slugify(i.lower())+" "
             return tags
         get_tag = self.tags.split(" ")[:limit]
-        get_tag.insert(0, self.dapp.name)
+        get_tag.insert(0, "coogger")
         return clearly_tags(get_tag)
 
     def new_permlink(self):

@@ -28,22 +28,6 @@ class Dapp(models.Model):
         return self.name
 
 
-class Mods(models.Model):
-    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    @property
-    def dapp_name(self):
-        return self.dapp.name
-
-    @property
-    def username(self):
-        return self.user.username
-
-    def __str__(self):
-        return self.dapp.name
-
-
 class SteemConnectUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE, help_text="dapp", default=1)
@@ -69,13 +53,6 @@ class SteemConnectUser(models.Model):
         return self.user.username
 
 
-class DappSettings(models.Model):
-    dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
-    beneficiaries = models.FloatField(default=0,
-        verbose_name="Support Coogger ecosystem with beneficiaries"
-    )
-
-
 class CategoryofDapp(models.Model):
     dapp = models.ForeignKey(Dapp, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, verbose_name="Category name")
@@ -87,6 +64,3 @@ class CategoryofDapp(models.Model):
 
     def __str__(self):
         return self.name
-
-    # def __getattribute__(self, name):
-    #     return super(CategoryofDapp, self).__getattribute__(name)

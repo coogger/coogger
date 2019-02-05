@@ -8,7 +8,6 @@ from django.contrib.auth import authenticate
 
 # models
 from core.cooggerapp.models import Topic
-from core.steemconnect_auth.models import Dapp
 
 
 def content_by_filter(items, queryset):
@@ -18,9 +17,7 @@ def content_by_filter(items, queryset):
         if attr == "username":
             value = authenticate(username=value)
             attr = "user"
-        elif attr == "dapp":
-            value = Dapp.objects.filter(name=value)[0]
-        if attr == "tags":
+        elif attr == "tags":
             queryset = queryset.filter(tags__contains = value)
         else:
             try:

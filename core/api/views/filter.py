@@ -17,7 +17,7 @@ from core.api.serializers import (
 from core.cooggerapp.models import (Content,
     OtherInformationOfUsers, SearchedWords,
     OtherAddressesOfUsers, Contentviews, Topic)
-from core.steemconnect_auth.models import Dapp, SteemConnectUser
+from core.steemconnect_auth.models import SteemConnectUser
 
 # views
 from core.cooggerapp.utils import content_by_filter
@@ -75,9 +75,3 @@ class OtherAddressesOfUsersFilter(Filter):
     queryset = model.objects.all()
     serializer_class = OtherAddressesOfUsersSerializer
     permission_classes = []
-
-
-class DappFilter(Filter):
-    model = Dapp
-    queryset = model.objects.all()
-    serializer_class = DappSerializer

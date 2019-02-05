@@ -6,7 +6,7 @@ from django.views.generic.base import TemplateView
 
 # models
 from core.cooggerapp.models import Content, Topic
-from core.steemconnect_auth.models import Dapp, CategoryofDapp
+from core.steemconnect_auth.models import CategoryofDapp
 
 # views
 from core.cooggerapp.utils import paginator, content_by_filter
@@ -21,11 +21,6 @@ class TopicView(TemplateView):
     def get_context_data(self, topic, *args, **kwargs):
         queryset = Content.objects.filter(topic=topic, status="approved")
         if queryset.exists():
-            if not self.request.dapp_model.name == "coogger":
-                queryset = Content.objects.filter(
-                    dapp=self.request.dapp_model,
-                    topic=topic, status="approved"
-                )
             info_of_cards = paginator(self.request, queryset)
             context = super(TopicView, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
@@ -54,8 +49,6 @@ class Hashtag(TemplateView):
     def get_context_data(self, hashtag, **kwargs):
         queryset = Content.objects.filter(tags__contains=hashtag, status="approved")
         if queryset.exists():
-            if not self.request.dapp_model.name == "coogger":
-                queryset = queryset.filter(dapp=self.request.dapp_model)
             info_of_cards = paginator(self.request, queryset)
             context = super(Hashtag, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
@@ -69,10 +62,7 @@ class Languages(TemplateView):
 
     def get_context_data(self, lang_name, **kwargs):
         if lang_name in languages:
-            if self.request.dapp_model.name == "coogger":
-                queryset = Content.objects.filter(language=lang_name, status="approved")
-            else:
-                queryset = Content.objects.filter(dapp=self.request.dapp_model, language=lang_name, status="approved")
+            queryset = Content.objects.filter(language=lang_name, status="approved")
             info_of_cards = paginator(self.request, queryset)
             context = super(Languages, self).get_context_data(**kwargs)
             context["content"] = info_of_cards
@@ -86,15 +76,9 @@ class Categories(TemplateView):
 
     def get_context_data(self, cat_name, **kwargs):
         if CategoryofDapp.objects.filter(name=cat_name).exists():
-            if self.request.dapp_model.name == "coogger":
-                queryset = Content.objects.filter(
-                    category=cat_name, status="approved"
-                )
-            else:
-                queryset = Content.objects.filter(
-                    dapp=self.request.dapp_model,
-                    category=cat_name, status="approved"
-                )
+            queryset = Content.objects.filter(
+                category=cat_name, status="approved"
+            )
             context = super(Categories, self).get_context_data(**kwargs)
             info_of_cards = paginator(self.request, queryset)
             context["content"] = info_of_cards

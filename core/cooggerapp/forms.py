@@ -15,12 +15,11 @@ class ContentForm(ModelForm):
 
     def __init__(self, request=None, *args, **kwargs):
         super(ContentForm, self).__init__(*args, **kwargs)
-        if request.dapp_model is not None:
-            self.fields["category"].choices = request.categories
+        self.fields["category"].choices = request.categories
 
     class Meta:
         model = Content
-        fields = ["dapp", "category", "language", "topic", "title", "content", "address", "tags"]
+        fields = ["category", "language", "topic", "title", "content", "address", "tags"]
 
 
 class OtherAddressesOfUsersForm(ModelForm):

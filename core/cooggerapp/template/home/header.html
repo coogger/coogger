@@ -3,10 +3,9 @@
   <div style="overflow: auto;">
     <div flex="fw-nw jc-c" general="txt-m wmax ewcenter">
       <a flex="jc-c ai-c fd-c" href="/" general="c-dark txt-m" style="padding: 0px 12px;">
-        <img src="{{ request.dapp_model.icon_address }}" general="br-circle" style="width: 36px;height: 36px;padding: 0px 6px;">
+          <img src="{{ request.dapp_model.icon_address }}" general="br-circle" style="width: 36px;height: 36px;padding: 0px 6px;">
           <span general="txt-m">{{ request.dapp_model.name }}</span>
           <span general="txt-xs">Beta</span>
-      </img>
       </a>
       <div flex="ai-c" class="search just-pc" style="padding: 0px 12px;">
         <form action="{% url 'search' %}">
@@ -38,7 +37,7 @@
         <div style="padding: 6px 12px;" flex="ai-c" general="wmax txt-m c-secondary">
           <img style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;background-image: url('https://steemitimages.com/u/{{ request.user }}/avatar');"
             general="br-circle c-muted" style="max-width: 100%;max-height: 36px;">
-          <span id="steem_power"></span>%</img>
+          <span id="steem_power"></span>%
         </div>
         <!--  -->
         <ul class="header_menu" general="br-2 b-1 bg-white brc-muted">
@@ -103,12 +102,6 @@
               <span>Settings</span>
             </a>
           </li>
-          <li flex="">
-            <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2" general="txt-m c-secondary w-100" href="{% url 'dapps' %}">
-              <i flex="as-c" class="fab fa-connectdevelop"></i>
-              <span>Dapps</span>
-            </a>
-          </li>
           <li hvr-animation="i tada" flex="">
             <a hover="c-white bg-danger br-2" flex="" general="txt-m c-secondary w-100" href="{% url 'logout' %}">
               <i flex="as-c" class="fas fa-sign-out-alt"></i>
@@ -138,13 +131,6 @@
 <div flex="ai-c" general="w-100 center" class="filter-machine" style="display: none;">
   <div flex="fd-c" general="center">
     <form default="form" method="GET" action="/filter/">
-      <div flex>Dapp
-        <select name="dapp" id="id_dapp">
-          {% for value, name in request.dapps %}
-            <option value="{{ value }}">{{ name }}</option>
-          {% endfor %}
-        </select>
-      </div>
       <div flex="">
         <div style="padding-right: 8px;">Username<input type="text" name="username" value="{{ content_user }}"></div>
         {% if topic.name %}

@@ -16,7 +16,6 @@ from core.cooggerapp.forms import ReportsForm
 
 # models
 from core.cooggerapp.models import Content, SearchedWords, ReportModel
-from core.steemconnect_auth.models import Dapp
 
 # views
 from core.cooggerapp.utils import paginator
@@ -41,9 +40,6 @@ class Home(TemplateView):
                     break
             context["introduction"] = True
             queryset = posts
-        else:
-            if not self.request.dapp_model.name == "coogger":
-                queryset = queryset.filter(dapp=self.request.dapp_model)
         context["content"] = paginator(self.request, queryset)
         return context
 
@@ -54,7 +50,7 @@ class Feed(View):  # TODO:  must be done using steem js
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):  # TODO:  buradaki işlemin daha hızlı olanı vardır ya
         queryset = []
-        for q in Content.objects.filter(dapp=request.dapp_model, status="approved"):
+        for q in Content.objects.filter(status="approved"):
             if q.user.username in self.steem_following(username=request.user.username):
                 queryset.append(q)
         info_of_cards = paginator(request, queryset)
@@ -62,7 +58,7 @@ class Feed(View):  # TODO:  must be done using steem js
             content=info_of_cards,
         )
         if queryset == []:
-            messages.error(request, "You do not follow anyone yet on {}.".format(request.dapp_model.name))
+            messages.error(request, "You do not follow anyone yet on coogger.")
         return render(request, self.template_name, context)
 
     def steem_following(self, username):  # TODO: fixed this section,limit = 100 ?
@@ -75,12 +71,8 @@ class Review(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Review, self).get_context_data(**kwargs)
-        if self.request.dapp_model.name == "coogger":
-            q = Q(status="shared") | Q(status="changed")
-            queryset = Content.objects.filter(q)
-        else:
-            q = Q(status="shared") | Q(status="changed") | Q(dapp=request.dapp_model)
-            queryset = Content.objects.filter(q)
+        q = Q(status="shared") | Q(status="changed")
+        queryset = Content.objects.filter(q)
         context["content"] = paginator(self.request, queryset)
         return context
 
@@ -132,17 +124,5 @@ class Search(TemplateView):
     def search_algorithm(self):
         searched_data = self.get_form_data()
         q = Q(title__contains=searched_data) | Q(topic__contains=searched_data) | Q(content__contains=searched_data)
-        if self.request.dapp_model.name == "coogger":
-            queryset = Content.objects.filter(q, status="approved").order_by("-views")
-        else:
-            queryset = Content.objects.filter(q, dapp=self.request.dapp_model, status="approved").order_by("-views")
+        queryset = Content.objects.filter(q, status="approved").order_by("-views")
         return queryset
-
-
-class Dapps(TemplateView):
-    template_name = "home/dapps.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(Dapps, self).get_context_data(**kwargs)
-        context["dapps"] = Dapp.objects.filter(active=True)
-        return context

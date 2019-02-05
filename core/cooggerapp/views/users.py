@@ -23,10 +23,7 @@ class Home(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         user = authenticate(username=username) # this line for creating new user
-        if self.request.dapp_model.name == "coogger":
-            queryset = Content.objects.filter(user=user, status="approved")
-        else:
-            queryset = Content.objects.filter(dapp=self.request.dapp_model, user=user, status="approved")
+        queryset = Content.objects.filter(user=user, status="approved")
         info_of_cards = paginator(self.request, queryset)
         context = super(Home, self).get_context_data(**kwargs)
         context["content"] = info_of_cards
@@ -77,10 +74,7 @@ class About(View):
             about_form = self.form_class(request.GET or None, instance=query)
         else:
             about_form = query.about
-        if self.request.dapp_model.name == "coogger":
-            queryset = Content.objects.filter(user=user, status="approved")
-        else:
-            queryset = Content.objects.filter(user=user, status="approved", dapp=request.dapp_model)
+        queryset = Content.objects.filter(user=user, status="approved")
         context = {}
         context["about"] = about_form
         context["content_user"] = user
@@ -108,10 +102,7 @@ class Comment(TemplateView):
     def get_context_data(self, username, **kwargs):
         context = super(Comment, self).get_context_data(**kwargs)
         user = authenticate(username=username)
-        if self.request.dapp_model.name == "coogger":
-            queryset = Content.objects.filter(user=user, status="approved")
-        else:
-            queryset = Content.objects.filter(user=user, status="approved", dapp=self.request.dapp_model)
+        queryset = Content.objects.filter(user=user, status="approved")
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["content_user"] = user
         context["topics"] = user_topics(queryset)

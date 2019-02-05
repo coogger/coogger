@@ -4,7 +4,7 @@ from django.http import Http404
 #models
 from core.cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
     ReportModel, OtherInformationOfUsers, Topic, CategoryofDapp, Commit)
-from core.steemconnect_auth.models import Mods, Dapp
+from core.steemconnect_auth.models import Dapp
 
 #choices
 from core.cooggerapp.choices import *
@@ -14,7 +14,7 @@ import datetime
 
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["dapp_name","user","permlink",
+    list_ = ["user","permlink",
             "topic", "mod","cooggerup","status"]
     list_display = list_
     list_display_links = list_
@@ -22,7 +22,6 @@ class ContentAdmin(ModelAdmin):
     search_fields = ["topic", "title", "category", "content"]
     fields = (
         ("user"),
-        ("dapp"),
         ("category"),
         ("language"),
         ("topic"),
@@ -40,22 +39,12 @@ class ContentAdmin(ModelAdmin):
             "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css",),
         }
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        dapp_model = Dapp.objects.filter(management=request.user)[0]
-        return qs.filter(dapp = dapp_model)
-
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        category_filter = CategoryofDapp.objects.filter(dapp=request.dapp_model)
-        form.base_fields["category"].choices = make_choices([category.name for category in category_filter])
-        return form
-
     def save_model(self, request, obj, form, change):
-        obj.mod = request.user
-        super(ContentAdmin, self).save_model(request, obj, form, change)
+        if request.user.is_superuser:
+            obj.mod = request.user
+            super(ContentAdmin, self).save_model(request, obj, form, change)
+        else:
+            raise Http404
 
 
 class OtherAddressesOfUsersAdmin(ModelAdmin):
