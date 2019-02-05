@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
 
 # core.cooggerapp models
-from core.cooggerapp.models import Content, Contentviews, Commit, Topic
+from core.cooggerapp.models import Content, Contentviews, Commit, Topic, UTopic
 
 
 class Detail(TemplateView):
@@ -73,10 +73,10 @@ class Commits(TemplateView):
 
     def get_context_data(self, username, topic, **kwargs):
         user = authenticate(username=username)
-        topic = Topic.objects.filter(name=topic)[0]
+        utopic = UTopic.objects.filter(user=user, name=topic)[0]
         context = super(Commits, self).get_context_data(**kwargs)
         context["content_user"] = user
-        context["commits"] = Commit.objects.filter(user=user, topic=topic)
+        context["commits"] = Commit.objects.filter(utopic=utopic)
         return context
 
 class CommitDetail(TemplateView):

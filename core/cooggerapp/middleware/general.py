@@ -40,7 +40,6 @@ class GeneralMiddleware(MiddlewareMixin):
         elif url_name == "filter":
             content_queryset = content_by_filter(request.GET.items(), content_queryset).get("queryset")
         for category in category_queryset:
-            print(category)
             querysets = content_queryset.filter(category=category)
             try:
                 querysets[0]
@@ -140,8 +139,7 @@ class GeneralMiddleware(MiddlewareMixin):
         contents = Content.objects.filter(status="approved")
         topic_querysets = [
             Content.objects.filter(
-                topic = content.topic,
-                status="approved"
+                topic = content.topic
             ) for content in contents
         ]
         topics = []

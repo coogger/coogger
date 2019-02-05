@@ -13,12 +13,11 @@ import datetime
 
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","permlink",
-            "topic", "mod","cooggerup","status"]
+    list_ = ["user","permlink", "mod","cooggerup","status"]
     list_display = list_
     list_display_links = list_
     list_filter = ["status", "cooggerup"]
-    search_fields = ["topic", "title", "category", "body"]
+    search_fields = ["title", "body", "permlink"]
     fields = (
         ("user"),
         ("category"),

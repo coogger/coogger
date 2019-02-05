@@ -3,11 +3,11 @@
 {% load django_md_editor_tags %}
 <div general="center" class="commits">
   <div class="commit" flex="fd-c" general="w-60 b-1 br-2 brc-muted">
-      <a general="c-primary left" href="{% url 'commit' commit.user commit.topic commit.hash %}">{{ commit.msg }}</a>
+      <a general="c-primary left" href="{% url 'commit' commit.content.user commit.utopic.name commit.hash %}">{{ commit.msg }}</a>
       <div flex="ai-c">
         <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ commit.content.user }}/avatar');">
         <span general="txt-s" style="margin-left: 6px;"><strong>@{{ commit.content.user }}</strong> committed {{ commit.created|timesince }}</span>
-        <a general="c-primary right" href="{% url 'commit' commit.user commit.topic commit.hash %}">{{ commit.hash|truncatechars:12 }}</a>
+        <a general="c-primary right" href="{% url 'commit' commit.content.user commit.utopic commit.hash %}">{{ commit.hash|truncatechars:12 }}</a>
       </div>
       <div flex>
         <a href="{{ commit.content.get_absolute_url }}">{{ commit.content|truncatechars:50 }}</a>

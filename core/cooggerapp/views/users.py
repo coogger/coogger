@@ -8,7 +8,7 @@ from django.views.generic.base import TemplateView
 from django.views import View
 
 # models
-from core.cooggerapp.models import OtherInformationOfUsers, Content, OtherAddressesOfUsers, Commit
+from core.cooggerapp.models import OtherInformationOfUsers, Content, OtherAddressesOfUsers, Commit, UTopic
 from core.cooggerapp.models import Topic as TopicModel
 # forms
 from core.cooggerapp.forms import AboutForm
@@ -39,14 +39,15 @@ class Topic(TemplateView):
 
     def get_context_data(self, username, topic, **kwargs):
         user = authenticate(username=username)
-        queryset = Content.objects.filter(user=user, topic=topic, status="approved")
-        topic = TopicModel.objects.filter(name=topic)[0]
-        commits = Commit.objects.filter(user=user, topic=topic)
+        global_topic = TopicModel.objects.filter(name=topic)[0]
+        contents = Content.objects.filter(user=user, topic=global_topic, status="approved")
+        utopic = UTopic.objects.filter(user=user, name=topic)[0]
+        commits = Commit.objects.filter(utopic=utopic)
         total_dor = 0
-        for dor in [query.dor for query in queryset]:
+        for dor in [query.dor for query in contents]:
             total_dor += dor
         total_views = 0
-        for views in [query.views for query in queryset]:
+        for views in [query.views for query in contents]:
             total_views += views
         try:
             last_commit = commits[len(commits)-1]
@@ -54,7 +55,7 @@ class Topic(TemplateView):
             last_commit = list()
         context = super(Topic, self).get_context_data(**kwargs)
         context["content_user"] = user
-        context["queryset"] = queryset
+        context["queryset"] = contents
         context["commits_count"] = commits.count()
         context["last_commit"] = last_commit
         context["topic"] = topic

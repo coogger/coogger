@@ -12,8 +12,8 @@ from coogger.topic import TopicFilterApi
 
 # core.*models
 from core.cooggerapp.models import (OtherInformationOfUsers, Content,
-    OtherAddressesOfUsers, SearchedWords, Contentviews, Topic
-)
+    OtherAddressesOfUsers, SearchedWords,
+    Contentviews, Topic, UTopic, Category, Commit)
 from steemconnect_auth.models import SteemConnectUser
 
 
@@ -76,8 +76,8 @@ class Sync(BaseCommand):
                 username=get_user_from_db.username,
                 data=self.data
             ).ditop
-        except Exception as e:
-            self.stdout.write(e, username)
+        except:
+            pass
         else:
             sc_object = SteemConnectUser.objects.filter(user=get_user_from_db)
             if sc_object.exists():
@@ -99,7 +99,7 @@ class Sync(BaseCommand):
         content_filter_api = ContentFilterApi(data=self.data)
         all_contents = []
         while True:
-            content_filter_api.filter()
+            content_filter_api.filter(dapp="coogger")
             self.stdout.write(f"count >> {content_filter_api.ditop.count}, received >> {len(all_contents)}")
             for content in content_filter_api.results:
                 all_contents.append(content)
@@ -111,10 +111,7 @@ class Sync(BaseCommand):
 
     def content(self):
         for content in self.get_all_contents():
-            try:
-                user = User.objects.filter(username=content.username)[0]
-            except IndexError:
-                self.user_update(content.username)
+            user = self.user_update(content.username)
             c_object = Content.objects.filter(user=user, permlink=content.permlink)
             if c_object.exists():
                 if content.last_update != c_object[0].last_update:
@@ -123,19 +120,21 @@ class Sync(BaseCommand):
                         mod = User.objects.filter(username=content.modusername)[0]
                     except AttributeError:
                         mod = None
+                    category_id = Category.objects.filter(name=content.category)
+                    topic = Topic.objects.filter(name=content.topic)
+                    topic.update(address=content.address)
                     c_object.update(
                         user=user,
                         title=content.title,
-                        content=content.content,
+                        body=content.content,
                         tags=content.tags,
                         language=content.language,
-                        category=content.category,
+                        category=category_id[0],
                         definition=content.definition,
-                        topic=content.topic,
+                        topic=topic[0],
                         status=content.status,
                         views=content.views,
                         last_update=content.last_update,
-                        address=content.address,
                         mod=mod,
                         cooggerup=content.cooggerup,
                     )
@@ -145,24 +144,44 @@ class Sync(BaseCommand):
                     mod = User.objects.filter(username=content.modusername)[0]
                 except AttributeError:
                     mod = None
-                Content(
-                    user=user,
-                    title=content.title,
-                    permlink=content.permlink,
-                    content=content.content,
-                    tags=content.tags,
-                    language=content.language,
-                    category=content.category,
-                    definition=content.definition,
-                    topic=content.topic,
-                    status=content.status,
-                    views=content.views,
-                    address=content.address,
-                    created=content.created,
-                    last_update=content.last_update,
-                    mod=mod,
-                    cooggerup=content.cooggerup,
-                ).save()
+                category_id = Category.objects.filter(name=content.category)
+                if not category_id.exists():
+                    Category(name=content.category).save()
+                    category_id = Category.objects.filter(name=content.category)
+                utopic = UTopic.objects.filter(user=user, name=content.topic)
+                if not utopic.exists():
+                    UTopic(user=user, name=content.topic, address=content.address).save()
+                    utopic = UTopic.objects.filter(name=content.topic)
+                else:
+                    utopic.update(address=content.address)
+                try:
+                    topic = Topic.objects.filter(name=content.topic)[0]
+                except:
+                    pass
+                else:
+                    Content(
+                        user=user,
+                        title=content.title,
+                        permlink=content.permlink,
+                        body=content.content,
+                        tags=content.tags,
+                        language=content.language,
+                        category=category_id[0],
+                        definition=content.definition,
+                        topic=topic,
+                        status=content.status,
+                        views=content.views,
+                        created=content.created,
+                        last_update=content.last_update,
+                        mod=mod,
+                        cooggerup=content.cooggerup,
+                    ).save()
+                    if not UTopic.objects.filter(user=user, name=topic.name).exists():
+                        UTopic(user=user, name=topic.name, address=content.address).save()
+                    utopic = UTopic.objects.filter(user=user, name=topic.name)[0]
+                    content = Content.objects.filter(user=user, permlink=content.permlink)[0]
+                    if not Commit.objects.filter(utopic=utopic, content=content).exists():
+                        Commit(utopic=utopic, content=content, body=content.body).save()
 
     def searched(self):
         search_filter_api = SearchFilterApi(data=self.data)
@@ -188,7 +207,7 @@ class Sync(BaseCommand):
         while True:
             filter_user_address.filter()
             for searched in filter_user_address.results:
-                user = User.objects.filter(username=searched.username)[0]
+                user = self.user_update(searched.username)
                 choices = searched.choices
                 address = searched.address
                 address_obj = OtherAddressesOfUsers.objects.filter(
@@ -208,12 +227,19 @@ class Sync(BaseCommand):
 
     def views(self):
         filter_views = ViewsFilterApi(data=self.data)
+        content_filter_api = ContentFilterApi(data=self.data)
         while True:
             filter_views.filter()
             for view in filter_views.results:
-                content = Content.objects.filter(id=view.content)[0]
-                if not Contentviews.objects.filter(content=content, ip=view.ip).exists():
-                    Contentviews(content=content, ip=view.ip).save()
+                content_filter_api.filter(id=view.content, dapp="coogger")
+                content = content_filter_api.results[0]
+                try:
+                    content = Content.objects.filter(user=self.user_update(content.username), permlink=content.permlink)[0]
+                except IndexError:
+                    pass
+                else:
+                    if not Contentviews.objects.filter(content=content, ip=view.ip).exists():
+                        Contentviews(content=content, ip=view.ip).save()
             if filter_views.next:
                 filter_views.api_url = filter_views.next
             else:
@@ -266,9 +292,9 @@ class Command(BaseCommand):
         if which is not None:
             eval(f"sync.{which}()")
         else:
-            sync.user()
+            sync.topic()
             sync.content()
             sync.useraddresses()
             sync.searched()
-            sync.topic()
-            sync.views()
+            # sync.user()
+            # sync.views()

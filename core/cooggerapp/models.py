@@ -40,8 +40,9 @@ def get_new_hash():
 
 class UTopic(models.Model):
     "topic for users"
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(
-        unique=True, max_length=50,
+        max_length=50,
         verbose_name="Content topic",
         help_text="Please, write topic name."
         )
@@ -70,12 +71,40 @@ class UTopic(models.Model):
         return self.name
 
 
-class Topic(UTopic):
+class Topic(models.Model):
     "global topic"
+    name = models.CharField(
+        max_length=50,
+        verbose_name="Content topic",
+        help_text="Please, write topic name."
+        )
+    image_address = models.URLField(
+        max_length=400,
+        blank=True, null=True
+        )
+    definition = models.CharField(
+        max_length=600,
+        verbose_name="Definition of topic",
+        help_text="Definition of topic",
+        blank=True, null=True,
+        )
+    tags = models.CharField(
+        max_length=200,
+        blank=True, null=True,
+        verbose_name="Keyword",
+        help_text="Write your tags using spaces, max:4"
+        )
+    address = models.URLField(
+        blank=True, null=True, max_length=150,
+        verbose_name="Add an address if it have"
+        )
     editable = models.BooleanField(
         default=True,
         verbose_name="Is it editable? | Yes/No"
         )
+
+    def __str__(self):
+        return self.name
 
 
 class Category(models.Model):
@@ -97,7 +126,7 @@ class Content(models.Model):
         help_text="Be sure to choose the best title related to your content."
         )
     body = EditorMdField()
-    topic = models.ForeignKey(UTopic, on_delete=models.CASCADE, verbose_name="Your topic",
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, verbose_name="Your topic",
         help_text="Please, write your topic about your contents."
         )
     language = models.CharField(max_length=30, choices=make_choices(languages),
@@ -354,8 +383,7 @@ class Content(models.Model):
 
 class Commit(models.Model):
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    topic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
+    utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
@@ -405,7 +433,7 @@ class OtherInformationOfUsers(models.Model):
 
 
 class OtherAddressesOfUsers(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     choices = models.CharField(
         blank=True,
         null=True, max_length=15,
