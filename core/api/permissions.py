@@ -4,7 +4,7 @@ from django.http import Http404
 
 # models
 from core.cooggerapp.models import OtherInformationOfUsers
-from core.steemconnect_auth.models import SteemConnectUser
+from steemconnect_auth.models import SteemConnectUser
 
 class ApiPermission(BasePermission):
     message = "You don't have permission!"

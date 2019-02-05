@@ -8,7 +8,7 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="{{ request.dapp_model.icon_address }}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="https://www.coogger.com/static/logos/png/48.png" type="image/x-icon"/>
     <!-- SEO -->
     <title>{{ request.head.title|truncatechars:55 }}</title>
     <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}"/>
@@ -74,15 +74,11 @@
     <!-- STEEMCONNECT -->
     {% if request.user.is_authenticated %}
       <script>
-          const scope_list = [];
-            {% for scope in request.user.steemconnectuser.dapp.scope|split:"," %}
-              scope_list.push("{{ scope }}")
-            {% endfor %}
             let api = sc2.Initialize({
-              app: "{{ request.user.steemconnectuser.dapp.name  }}.app",
-              callbackURL: "{{ request.user.steemconnectuser.dapp.redirect_url }}",
+              app: "{{ request.settings.CLIENT_ID }}",
+              callbackURL: "{{ request.settings.REDIRECT_URL }}",
               accessToken: "{{ request.user.steemconnectuser.access_token }}",
-              scope: scope_list,
+              scope: "{{ request.settings.SCOPE }}",
             });
       </script>
     {% endif %}

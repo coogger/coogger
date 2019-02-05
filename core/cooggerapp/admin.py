@@ -4,7 +4,6 @@ from django.http import Http404
 #models
 from core.cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
     ReportModel, OtherInformationOfUsers, Topic, CategoryofDapp, Commit)
-from core.steemconnect_auth.models import Dapp
 
 #choices
 from core.cooggerapp.choices import *

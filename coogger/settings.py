@@ -1,7 +1,6 @@
 import os
 import environ
 env = environ.Env(
-    # set casting, default value
     DEBUG=(bool, False)
 )
 environ.Env.read_env()
@@ -21,13 +20,15 @@ INSTALLED_APPS = [
     "django_md_editor",
     # rest
     "rest_framework",
+    # steemconnect
+    "steemconnect_auth",
     # coogger
     "core.cooggerapp",
     "core.api",
-    "core.steemconnect_auth",
+
 ]
 AUTHENTICATION_BACKENDS = [
-    "core.steemconnect_auth.auth.steemconnect.SteemConnectBackend",
+    "steemconnect_auth.auth.steemconnect.SteemConnectBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 PAGE_SIZE = 10
@@ -45,7 +46,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # coogger
-    "core.steemconnect_auth.middleware.communities.CommunitiesMiddleware",
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.general.GeneralMiddleware",
 ]
@@ -92,4 +92,17 @@ MDEDITOR_CONFIGS = dict(
         "help", "info",
         "||", "preview", "watch", "fullscreen"
         ],
+)
+# steemconnect_auth
+if DEBUG:
+    redirect_url = "http://127.0.0.1:8000/accounts/steemconnect/"
+else:
+    redirect_url = "http://www.coogger.com/accounts/steemconnect/"
+STEEMCONNECT_AUTH_CONFIGS = dict(
+    redirect_url=redirect_url,
+    client_id=env("CLIENT_ID"),
+    app_secret=env("APP_SECRET"),
+    scope="login,offline,vote,comment,delete_comment,comment_options,custom_json,claim_reward_balance",
+    code=True,
+    login_redirect="/",
 )

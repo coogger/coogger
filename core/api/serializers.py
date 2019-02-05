@@ -5,7 +5,7 @@ from core.cooggerapp.models import (
     Content, OtherInformationOfUsers,
     SearchedWords, OtherAddressesOfUsers,
     Contentviews, Topic)
-from core.steemconnect_auth.models import SteemConnectUser, Dapp
+from steemconnect_auth.models import SteemConnectUser
 
 
 class TopicSerializer(ModelSerializer):
@@ -36,24 +36,12 @@ class OtherAddressesOfUsersSerializer(ModelSerializer):
         fields = ("username", "choices", "address")
 
 
-class DappSerializer(ModelSerializer):
-
-    class Meta:
-        model = Dapp
-        fields = ("name", "host_name", "redirect_url",
-                  "client_id", "app_secret", "login_redirect",
-                  "scope", "icon_address", "ms", "management_user",
-                   "active", "definition", "image", "active", "beneficiaries")
-
-
 class SteemConnectUserSerializer(ModelSerializer):
 
     class Meta:
         model = SteemConnectUser
         fields = (
             "username",
-            "dapp_name",
-            "dapp",
             "access_token",
             "refresh_token",
             "code",
@@ -83,7 +71,6 @@ class ContentsSerializer(ModelSerializer):
         model = Content
         fields = (
             "id",
-            "dapp_name",
             'username',
             'title',
             'permlink',

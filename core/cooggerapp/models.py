@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
 from django.template.loader import render_to_string
+from django.conf import settings
 
 # choices
 from core.cooggerapp.choices import *
@@ -24,8 +25,7 @@ from bs4 import BeautifulSoup
 from mistune import Renderer, Markdown
 
 from django_md_editor.models import EditorMdField
-from core.steemconnect_auth.models import (SteemConnectUser, Dapp,
-    CategoryofDapp)
+from steemconnect_auth.models import SteemConnectUser
 
 # hash
 from hashlib import sha256
@@ -68,6 +68,18 @@ class Topic(models.Model):
         default=True,
         verbose_name="Is it editable? | Yes/No"
         )
+
+    def __str__(self):
+        return self.name
+
+
+class CategoryofDapp(models.Model):
+    name = models.CharField(max_length=50, verbose_name="Category name")
+    template = EditorMdField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.name = slugify(self.name)
+        super(CategoryofDapp, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -309,8 +321,7 @@ class Content(models.Model):
             access_token = steem_connect_user[0].access_token
             return SteemConnect(token=access_token, data=operation).run
         except:
-            secret = Dapp.objects.filter(name="coogger")[0].app_secret
-            access_token = steem_connect_user.set_new_access_token(secret)
+            access_token = steem_connect_user.update_access_token(settings.APP_SECRET)
             return SteemConnect(token=access_token, data=operation).run
 
     @property

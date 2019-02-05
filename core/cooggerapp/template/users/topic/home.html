@@ -7,6 +7,7 @@
           <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ content_user }}/avatar');">
           <i class="fas fa-book"></i>
           <a general="c-primary txt-m" href="{% url 'utopic' topic content_user %}">@{{ content_user }}/{{ topic }}</a>
+          <a general="c-primary txt-m right" href="{% url 'create' %}?topic={{ topic }}">Add content your {{ topic }} topic</a>
         </div>
         <div flex general="b-1 br-2 brc-primary" style="margin-top: 6px;padding: 4px 12px;">
           <a href="{% url 'commits' content_user topic %}">
@@ -40,6 +41,9 @@
         </div>
         <div general="b-1 br-2 brc-primary bg-primary c-white" style="margin-top: 3px;"></div>
         <div style="margin-top: 6px;">
+          {% if not queryset %}
+            <a general="c-primary txt-m right" href="{% url 'create' %}?topic={{ topic }}">Add content your {{ topic }} topic</a>
+          {% endif %}
           {% for query in queryset %}
             <div class="utopic-query" flex="ai-c">
               <i class="fa fa-file-alt"></i>

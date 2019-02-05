@@ -13,10 +13,6 @@ from django.contrib.auth.models import User
 
 class ContentForm(ModelForm):
 
-    def __init__(self, request=None, *args, **kwargs):
-        super(ContentForm, self).__init__(*args, **kwargs)
-        self.fields["category"].choices = request.categories
-
     class Meta:
         model = Content
         fields = ["category", "language", "topic", "title", "content", "address", "tags"]

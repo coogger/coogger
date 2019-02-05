@@ -12,12 +12,11 @@ from django.core.exceptions import FieldError
 
 # api serializers
 from core.api.serializers import (
-    UserSerializer, ContentsSerializer, SteemConnectUserSerializer,
-    DappSerializer)
+    UserSerializer, ContentsSerializer, SteemConnectUserSerializer)
 
 # models
 from core.cooggerapp.models import (Content, OtherInformationOfUsers)
-from core.steemconnect_auth.models import SteemConnectUser, Dapp
+from steemconnect_auth.models import SteemConnectUser
 
 
 class SteemConnectUserApi(APIView):
@@ -76,21 +75,3 @@ class ContentApi(SteemConnectUserApi):
         # TODO: new Features! if this function is run,
         # content_save function from models.py is run and share coogger and steem blockchain
         pass
-
-
-class DappApi(APIView):
-    model = Dapp
-    serialize = DappSerializer
-    permission_classes = [ApiPermission]
-
-    def get(self, request, client_id):
-        queryset = self.model.objects.get(client_id=client_id)
-        serialized_user = self.serialize(queryset)
-        return Response(serialized_user.data)
-
-    def post(self, request, client_id):
-        obj = self.model.objects.get(client_id=client_id)
-        for attr, value in request.POST.items():
-            setattr(obj, attr, value)
-        obj.save()
-        return self.get(request, client_id)

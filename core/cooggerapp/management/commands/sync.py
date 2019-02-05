@@ -14,8 +14,7 @@ from coogger.topic import TopicFilterApi
 from core.cooggerapp.models import (OtherInformationOfUsers, Content,
     OtherAddressesOfUsers, SearchedWords, Contentviews, Topic
 )
-from core.steemconnect_auth.models import (
-    Dapp, SteemConnectUser)
+from steemconnect_auth.models import SteemConnectUser
 
 
 class Sync(BaseCommand):
@@ -83,7 +82,6 @@ class Sync(BaseCommand):
             sc_object = SteemConnectUser.objects.filter(user=get_user_from_db)
             if sc_object.exists():
                 sc_object.update(
-                    dapp=Dapp.objects.filter(id=sc_user.dapp)[0],
                     refresh_token=sc_user.refresh_token,
                     code=sc_user.code,
                     access_token=sc_user.access_token
@@ -91,7 +89,6 @@ class Sync(BaseCommand):
             else:
                 SteemConnectUser(
                     user=get_user_from_db,
-                    dapp=Dapp.objects.filter(id=sc_user.dapp)[0],
                     refresh_token=sc_user.refresh_token,
                     code=sc_user.code,
                     access_token=sc_user.access_token

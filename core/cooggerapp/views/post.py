@@ -38,15 +38,15 @@ class Create(View):
         if self.category_name is not None:
             category_content = CategoryofDapp.objects.get(
                 name=self.category_name
-            ).editor_template
+            ).template
         self.initial["content"] = category_content
         self.initial["category"] = self.category_name
-        form = ContentForm(request=request, initial=self.initial)
+        form = ContentForm(initial=self.initial)
         return render(request, self.template_name, {"form": form})
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = ContentForm(data=request.POST, request=request)
+        form = ContentForm(data=request.POST)
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
@@ -70,7 +70,7 @@ class Change(View):
                 content_id = queryset[0].id
                 self.content_update(request, content_id)
                 queryset = Content.objects.filter(user=request.user, permlink=permlink)
-                content_form = ContentForm(instance=queryset[0], request=request)
+                content_form = ContentForm(instance=queryset[0])
                 context = dict(
                     username=username,
                     permlink=permlink,
@@ -85,7 +85,7 @@ class Change(View):
             queryset = Content.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
                 content_id = queryset[0].id
-                form = ContentForm(data=request.POST, request=request)
+                form = ContentForm(data=request.POST)
                 maybe_error_form = form
                 if form.is_valid():
                     form = form.save(commit=False)

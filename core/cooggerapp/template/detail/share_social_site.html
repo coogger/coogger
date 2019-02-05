@@ -1,12 +1,12 @@
 {% load coogger_tags %}
 <div general="right">
   <div class="share-on-facebook" style="margin: 0px 4px;">
-    <a target="blank" href="https://www.facebook.com/sharer/sharer.php?u=https://{{ request.dapp_model.host_name }}/@{{ detail.user }}/{{ detail.permlink }}">
+    <a target="blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.coogger.com/@{{ detail.user }}/{{ detail.permlink }}">
       <i class="fab fa-facebook fa-x" style="color:#3b5998;"></i>
     </a>
   </div>
   <div class="share-on-twitter" style="margin: 0px 4px;">
-    <a target="blank" href="https://twitter.com/home?status='{{ detail.title|twitter:'' }}'%20by%20@{{ detail.user }}%20https://{{ request.dapp_model.host_name }}/@{{ detail.user }}/{{ detail.permlink }}">
+    <a target="blank" href="https://twitter.com/home?status='{{ detail.title|twitter:'' }}'%20by%20@{{ detail.user }}%20https://www.coogger.com/@{{ detail.user }}/{{ detail.permlink }}">
       <i class="fab fa-twitter fa-x" style="color:#1da1f2;"></i>
     </a>
   </div>

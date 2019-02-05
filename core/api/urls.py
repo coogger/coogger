@@ -5,7 +5,7 @@ from core.api.views.filter import (UserFilter, ContentFilter,
 SearchedWordsFilter, OtherAddressesOfUsersFilter,
 SteemConnectUserFilter, ContentviewsFilter, TopicFilter)
 from core.api.views.view_or_update import (SteemConnectUserApi, UserApi,
-    ContentApi, DappApi)
+    ContentApi)
 
 router = routers.DefaultRouter()
 
@@ -21,6 +21,5 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^content/@(?P<username>.*)/(?P<permlink>.*)/$', ContentApi.as_view()),
     url(r'^user/@(?P<username>.*)/$', UserApi.as_view()),
-    url(r'^dapp/(?P<client_id>.*)/$', DappApi.as_view()),
     url(r'^steemconnectuser/@(?P<username>.*)/$', SteemConnectUserApi.as_view()),
 ]

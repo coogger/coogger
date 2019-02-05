@@ -10,14 +10,14 @@ from django.contrib.auth.models import User
 # api serializers
 from core.api.serializers import (
     UserSerializer, ContentsSerializer, SteemConnectUserSerializer,
-    SearchedWordsSerializer, OtherAddressesOfUsersSerializer, DappSerializer,
+    SearchedWordsSerializer, OtherAddressesOfUsersSerializer,
     ContentviewsSerializer, TopicSerializer)
 
 # models
 from core.cooggerapp.models import (Content,
     OtherInformationOfUsers, SearchedWords,
     OtherAddressesOfUsers, Contentviews, Topic)
-from core.steemconnect_auth.models import SteemConnectUser
+from steemconnect_auth.models import SteemConnectUser
 
 # views
 from core.cooggerapp.utils import content_by_filter

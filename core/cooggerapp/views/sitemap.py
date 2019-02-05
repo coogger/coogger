@@ -4,8 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 
 # models
-from core.cooggerapp.models import Content, Topic
-from core.steemconnect_auth.models import CategoryofDapp
+from core.cooggerapp.models import Content, Topic, CategoryofDapp
 
 # choices
 from core.cooggerapp.choices import languages

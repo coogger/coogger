@@ -5,8 +5,7 @@ from django.http import Http404
 from django.views.generic.base import TemplateView
 
 # models
-from core.cooggerapp.models import Content, Topic
-from core.steemconnect_auth.models import CategoryofDapp
+from core.cooggerapp.models import Content, Topic, CategoryofDapp
 
 # views
 from core.cooggerapp.utils import paginator, content_by_filter

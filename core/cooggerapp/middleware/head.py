@@ -3,9 +3,8 @@ from django.urls import resolve
 from django.contrib.auth import authenticate
 
 # models
-from core.cooggerapp.models import Content, Topic
+from core.cooggerapp.models import Content, Topic, CategoryofDapp
 from django.contrib.auth.models import User
-from core.steemconnect_auth.models import CategoryofDapp
 
 from bs4 import BeautifulSoup
 import mistune
@@ -23,7 +22,6 @@ class HeadMiddleware(MiddlewareMixin):
             return None
         url_name = resolve(self.path_info).url_name
         self.kwargs = resolve(self.path_info).kwargs
-        self.dapp_model = request.dapp_model
         try:
             request.head = eval(f"self.{url_name}()")
         except AttributeError:
@@ -95,27 +93,27 @@ class HeadMiddleware(MiddlewareMixin):
     def category(self):
         cat_name = self.kwargs.get("cat_name")
         return dict(
-            title=f"Latest post on {self.dapp_model.name} from {cat_name} category".capitalize(),
+            title=f"Latest post on coogger from {cat_name} category".capitalize(),
             keywords=f"{cat_name}, {cat_name} category",
-            description=f"Latest post on {self.dapp_model.name} from {cat_name} category".capitalize(),
+            description=f"Latest post on coogger from {cat_name} category".capitalize(),
             image="/static/media/topics/category.svg",
         )
 
     def language(self):
         lang_name = self.kwargs.get("lang_name")
         return dict(
-            title=f"{lang_name} language | {self.dapp_model.name}".capitalize(),
+            title=f"{lang_name} language | coogger".capitalize(),
             keywords=f"{lang_name}, language {lang_name}",
-            description=f"Latest post on {self.dapp_model.name} from {lang_name} language".capitalize(),
+            description=f"Latest post on coogger from {lang_name} language".capitalize(),
             image="/static/media/topics/language.svg",
         )
 
     def user(self):
         username = self.kwargs.get("username")
         return dict(
-            title=f"{username} • {self.dapp_model.name} knowledge content".capitalize(),
+            title=f"{username} • coogger knowledge content".capitalize(),
             keywords=f"{username}, coogger {username}",
-            description=f"The latest posts from {username} on {self.dapp_model.name}".capitalize(),
+            description=f"The latest posts from {username} on coogger".capitalize(),
             image=f"https://steemitimages.com/u/{username}/avatar",
         )
 
@@ -148,9 +146,9 @@ class HeadMiddleware(MiddlewareMixin):
 
     def review(self):
         return dict(
-            title=f"latest posts pending approval on {self.dapp_model.name}",
+            title=f"latest posts pending approval on coogger",
             keywords=f"review,coogger review,approval",
-            description=f"latest posts pending approval on {self.dapp_model.name}",
+            description=f"latest posts pending approval on coogger",
             image=None,
         )
 
@@ -165,18 +163,18 @@ class HeadMiddleware(MiddlewareMixin):
     def hashtag(self):
         tag = self.self.kwargs.get("hashtag")
         return dict(
-            title=f"{self.dapp_model.name} lates post from '{tag}' hashtag.",
+            title=f"coogger lates post from '{tag}' hashtag.",
             keywords=f"{tag}",
-            description=f"{self.dapp_model.name} lates post from '{tag}' hashtag.",
+            description=f"coogger lates post from '{tag}' hashtag.",
             image="/static/media/icons/list.svg",
         )
 
     def home(self):
         return dict(
-            title=f"{self.dapp_model.name}",
-            keywords=f"{self.dapp_model.name}, coogger ecosystem,coogger/{self.dapp_model.name}",
-            description=self.dapp_model.definition,
-            image=self.dapp_model.image,
+            title=f"coogger",
+            keywords=f"coogger",
+            description="Coogger is an ecosystem where is knowledge sharing network",
+            image="https://www.coogger.com/static/logos/png/800.png",
         )
 
     @staticmethod
