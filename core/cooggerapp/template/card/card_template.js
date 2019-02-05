@@ -35,7 +35,6 @@ let card_output = `${card}
         <div flex="fd-c">
           <span flex="ai-c" class="carduser" style="margin-left:6px;">@${author} -
             <span general="txt-s br-2 c-seconday" style="padding: 2px" id="reputation">${rep}</span>
-            <span general="txt-s c-secondary"> | ${dapp_name}</span>
           </span>
           <span general="txt-xs c-dark" style="margin-left:6px;" id="created">
             <i class="fas fa-clock"></i>
