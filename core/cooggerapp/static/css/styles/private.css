@@ -3,6 +3,12 @@ cards {
     margin: 12px auto;
     z-index: 0;
 }
+.utopic-query{
+  padding: 6px 0px;
+}
+.utopic-user{
+  padding: 12px 6px;
+}
 .commits{
   margin-top: 24px;
 }
@@ -13,7 +19,7 @@ cards {
   padding: 12px;
   margin-bottom: 6px;
 }
-.commit a:hover{
+.commit a:hover, .utopic a:hover{
       text-decoration: underline;
 }
 .commit-user{

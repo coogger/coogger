@@ -81,7 +81,7 @@ class Content(models.Model):
         )
     permlink = models.SlugField(max_length=200)
     content = EditorMdField()
-    tags = models.CharField(max_length=200, verbose_name="Keyword",
+    tags = models.CharField(max_length=200, verbose_name="Keywords",
         help_text="Write your tags using spaces, max:4"
         )
     language = models.CharField(max_length=30, choices=make_choices(languages),
@@ -96,7 +96,7 @@ class Content(models.Model):
     definition = models.CharField(max_length=400,
         verbose_name="Definition of content",
         )
-    topic = models.CharField(max_length=50, verbose_name="Content topic",
+    topic = models.CharField(max_length=50, verbose_name="Your topic",
         help_text="Please, write your topic about your contents."
         )
     status = models.CharField(default="approved", max_length=30,
@@ -120,6 +120,11 @@ class Content(models.Model):
 
     def __str__(self):
         return f"@{self.user}/{self.permlink}"
+
+    @property
+    def dor(self):
+        "duration of read"
+        return round(float((self.content.__len__()/28)/60), 3)
 
     @property
     def get_absolute_url(self):
@@ -502,5 +507,5 @@ class ReportModel(models.Model):
 
 
 class Contentviews(models.Model):
-    content = models.ForeignKey(Content,on_delete=models.CASCADE)
+    content = models.ForeignKey(Content, on_delete=models.CASCADE)
     ip = models.GenericIPAddressField()

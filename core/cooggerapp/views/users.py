@@ -8,8 +8,8 @@ from django.views.generic.base import TemplateView
 from django.views import View
 
 # models
-from core.cooggerapp.models import OtherInformationOfUsers, Content, OtherAddressesOfUsers
-
+from core.cooggerapp.models import OtherInformationOfUsers, Content, OtherAddressesOfUsers, Commit
+from core.cooggerapp.models import Topic as TopicModel
 # forms
 from core.cooggerapp.forms import AboutForm
 
@@ -17,7 +17,7 @@ from core.cooggerapp.forms import AboutForm
 from core.cooggerapp.utils import paginator, user_topics
 
 
-class UserClassBased(TemplateView):
+class Home(TemplateView):
     "user's home page"
     template_name = "users/user.html"
 
@@ -28,28 +28,45 @@ class UserClassBased(TemplateView):
         else:
             queryset = Content.objects.filter(dapp=self.request.dapp_model, user=user, status="approved")
         info_of_cards = paginator(self.request, queryset)
-        context = super(UserClassBased, self).get_context_data(**kwargs)
+        context = super(Home, self).get_context_data(**kwargs)
         context["content"] = info_of_cards
         context["content_user"] = user
-        context["user_follow"] = OtherAddressesOfUsers.objects.filter(user=user).get_addresses
+        context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["topics"] = user_topics(queryset)
         return context
 
 
-class UserTopic(View):
+class Topic(TemplateView):
     "kullanıcıların konu adresleri"
+    template_name = "users/topic/home.html"
 
-    def get(self, request, username, topic):
+    def get_context_data(self, username, topic, **kwargs):
         user = authenticate(username=username)
-        if request.dapp_model.name == "coogger":
-            queryset = Content.objects.filter(user=user, topic=topic, status="approved")
-        else:
-            queryset = Content.objects.filter(dapp=request.dapp_model, user=user, topic=topic, status="approved")
-        queryset = queryset.order_by("id")
-        return redirect(f"/@{queryset[0].user}/{queryset[0].permlink}")
+        queryset = Content.objects.filter(user=user, topic=topic, status="approved")
+        topic = TopicModel.objects.filter(name=topic)[0]
+        commits = Commit.objects.filter(user=user, topic=topic)
+        total_dor = 0
+        for dor in [query.dor for query in queryset]:
+            total_dor += dor
+        total_views = 0
+        for views in [query.views for query in queryset]:
+            total_views += views
+        try:
+            last_commit = commits[len(commits)-1]
+        except AssertionError:
+            last_commit = list()
+        context = super(Topic, self).get_context_data(**kwargs)
+        context["content_user"] = user
+        context["queryset"] = queryset
+        context["commits_count"] = commits.count()
+        context["last_commit"] = last_commit
+        context["topic"] = topic
+        context["total_dor"] = f"{total_dor} min"
+        context["total_views"] = total_views
+        return context
 
 
-class UserAboutBaseClass(View):
+class About(View):
     template_name = "users/about.html"
     form_class = AboutForm
 
@@ -67,7 +84,7 @@ class UserAboutBaseClass(View):
         context = {}
         context["about"] = about_form
         context["content_user"] = user
-        context["user_follow"] = OtherAddressesOfUsers.objects.filter(user=user).get_addresses
+        context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["topics"] = user_topics(queryset)
         return render(request, self.template_name, context)
 
@@ -84,18 +101,18 @@ class UserAboutBaseClass(View):
                     return redirect("/about/@{}".format(request.user.username))
 
 
-class UserComment(TemplateView):
+class Comment(TemplateView):
     "History of users"
     template_name = "users/history/comment.html"
 
     def get_context_data(self, username, **kwargs):
-        context = super(UserComment, self).get_context_data(**kwargs)
+        context = super(Comment, self).get_context_data(**kwargs)
         user = authenticate(username=username)
         if self.request.dapp_model.name == "coogger":
             queryset = Content.objects.filter(user=user, status="approved")
         else:
             queryset = Content.objects.filter(user=user, status="approved", dapp=self.request.dapp_model)
-        context["user_follow"] = OtherAddressesOfUsers.objects.filter(user=user).get_addresses
+        context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["content_user"] = user
         context["topics"] = user_topics(queryset)
         context["django_md_editor"] = True
@@ -103,19 +120,19 @@ class UserComment(TemplateView):
         return context
 
 
-class UserWallet(UserComment):
+class Wallet(Comment):
     "History of users"
     template_name = "users/history/wallet.html"
 
     def get_context_data(self, username, **kwargs):
-        context = super(UserWallet, self).get_context_data(username, **kwargs)
+        context = super(Wallet, self).get_context_data(username, **kwargs)
         return context
 
 
-class UserActivity(UserComment):
+class Activity(Comment):
     "History of users"
     template_name = "users/history/activity.html"
 
     def get_context_data(self, username, **kwargs):
-        context = super(UserActivity, self).get_context_data(username, **kwargs)
+        context = super(Activity, self).get_context_data(username, **kwargs)
         return context

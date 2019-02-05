@@ -1,0 +1,55 @@
+{% extends "home/html.html" %}
+{% block body %}
+  <div style="margin: auto;margin-top: 12px;" general="w-100">
+    <div general="center" flex="fd-c">
+      <div class="utopic" general="center w-60" flex="fd-c">
+        <div general="bg-muted br-2" flex="ai-c" class="utopic-user">
+          <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ content_user }}/avatar');">
+          <i class="fas fa-book"></i>
+          <a general="c-primary txt-m" href="{% url 'utopic' topic content_user %}">@{{ content_user }}/{{ topic }}</a>
+        </div>
+        <div flex general="b-1 br-2 brc-primary" style="margin-top: 6px;padding: 4px 12px;">
+          <a href="{% url 'commits' content_user topic %}">
+            <div flex="ai-c">
+              <i class="fas fa-history"></i>
+              <span id="commits_count" general="txt-s">
+                <strong>{{ commits_count }}</strong> commits
+              </span>
+            </div>
+          </a>
+          <div general="txt-s" flex="ai-c" class="duread-li">
+            <div style="margin-left: 12px;">
+                <i class="fab fa-readme"></i>
+                <span>Total {{ total_dor }}</span>
+            </div>
+          </div>
+          <div general="txt-s" flex="ai-c" class="duread-li">
+              <div style="margin-left: 12px;">
+                <i class="fas fa-eye"></i>
+                <span>Total views {{ total_views }}</span>
+              </div>
+          </div>
+          {% if last_commit.created %}
+          <div general="txt-s right" flex="ai-c" class="duread-li">
+              <div>
+                <i class="fas fa-clock"></i>
+                <span>Last update | {{ last_commit.created|timesince }}</span>
+              </div>
+          </div>
+          {% endif %}
+        </div>
+        <div general="b-1 br-2 brc-primary bg-primary c-white" style="margin-top: 3px;"></div>
+        <div style="margin-top: 6px;">
+          {% for query in queryset %}
+            <div class="utopic-query" flex="ai-c">
+              <i class="fa fa-file-alt"></i>
+              <a general="c-primary" href="{{ query.get_absolute_url }}">
+                <span>{{ query.permlink|truncatechars:90 }}</span>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
