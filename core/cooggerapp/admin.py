@@ -3,7 +3,7 @@ from django.http import Http404
 
 #models
 from core.cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
-    ReportModel, OtherInformationOfUsers, Topic, CategoryofDapp, Commit)
+    ReportModel, OtherInformationOfUsers, Topic, Commit, UTopic)
 
 #choices
 from core.cooggerapp.choices import *
@@ -18,7 +18,7 @@ class ContentAdmin(ModelAdmin):
     list_display = list_
     list_display_links = list_
     list_filter = ["status", "cooggerup"]
-    search_fields = ["topic", "title", "category", "content"]
+    search_fields = ["topic", "title", "category", "body"]
     fields = (
         ("user"),
         ("category"),
@@ -26,8 +26,7 @@ class ContentAdmin(ModelAdmin):
         ("topic"),
         ("title"),
         ("permlink"),
-        ("content"),
-        ("address"),
+        ("body"),
         ("tags"),
         ("cooggerup"),
         ("status"),
@@ -122,6 +121,7 @@ class TopicAdmin(ModelAdmin):
 
 site.register(Content,ContentAdmin)
 site.register(Commit)
+site.register(UTopic)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(OtherAddressesOfUsers,OtherAddressesOfUsersAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)

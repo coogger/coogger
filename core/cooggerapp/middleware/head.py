@@ -3,7 +3,7 @@ from django.urls import resolve
 from django.contrib.auth import authenticate
 
 # models
-from core.cooggerapp.models import Content, Topic, CategoryofDapp
+from core.cooggerapp.models import Content, Topic
 from django.contrib.auth.models import User
 
 from bs4 import BeautifulSoup

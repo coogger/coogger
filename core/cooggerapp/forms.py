@@ -15,7 +15,7 @@ class ContentForm(ModelForm):
 
     class Meta:
         model = Content
-        fields = ["category", "language", "topic", "title", "content", "address", "tags"]
+        fields = ["category", "language", "title", "body", "tags"]
 
 
 class OtherAddressesOfUsersForm(ModelForm):

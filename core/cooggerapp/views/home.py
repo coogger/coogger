@@ -79,7 +79,6 @@ class Review(TemplateView):
 
 class Report(View):
     form_class = ReportsForm
-
     template_name = "home/report.html"
 
     @method_decorator(login_required)
@@ -123,6 +122,6 @@ class Search(TemplateView):
 
     def search_algorithm(self):
         searched_data = self.get_form_data()
-        q = Q(title__contains=searched_data) | Q(topic__contains=searched_data) | Q(content__contains=searched_data)
+        q = Q(title__contains=searched_data) | Q(topic__contains=searched_data) | Q(body__contains=searched_data)
         queryset = Content.objects.filter(q, status="approved").order_by("-views")
         return queryset

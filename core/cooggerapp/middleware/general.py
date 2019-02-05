@@ -4,7 +4,7 @@ from django.urls import resolve
 from django.utils.text import slugify
 
 # models.
-from core.cooggerapp.models import CategoryofDapp, Content, Topic
+from core.cooggerapp.models import Category, Content, Topic
 
 # coices
 from core.cooggerapp.choices import *
@@ -28,7 +28,7 @@ class GeneralMiddleware(MiddlewareMixin):
         request.settings = settings
 
     def sort_categories(self, request, url_name):
-        category_queryset = CategoryofDapp.objects.all()
+        category_queryset = Category.objects.all()
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved")
         specific_url_names = ["topic", "category", "language"]
@@ -82,7 +82,7 @@ class GeneralMiddleware(MiddlewareMixin):
         return context
 
     def categories(self, request):
-        category_queryset = CategoryofDapp.objects.all()
+        category_queryset = Category.objects.all()
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved")
         for category in category_queryset:

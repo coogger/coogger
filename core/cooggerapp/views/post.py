@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 # models
-from core.cooggerapp.models import Content, CategoryofDapp
+from core.cooggerapp.models import Content, Category
 
 # form
 from core.cooggerapp.forms import ContentForm
@@ -36,7 +36,7 @@ class Create(View):
                 self.initial[key] = value
         category_content = render_to_string("post/editor-note.html")
         if self.category_name is not None:
-            category_content = CategoryofDapp.objects.get(
+            category_content = Category.objects.get(
                 name=self.category_name
             ).template
         self.initial["content"] = category_content
@@ -115,7 +115,7 @@ class Change(View):
     def content_update(self, request, content_id):
         ct = Content.objects.filter(user=request.user, id=content_id)
         beem_comment = Comment(ct[0].get_absolute_url)
-        ct.update(content=self.get_body_from_steem(beem_comment), title=beem_comment.title)
+        ct.update(body=self.get_body_from_steem(beem_comment), title=beem_comment.title)
 
     def get_body_from_steem(self, post):
         json_metadata = post["json_metadata"]

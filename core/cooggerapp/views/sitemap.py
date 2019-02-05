@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 
 # models
-from core.cooggerapp.models import Content, Topic, CategoryofDapp
+from core.cooggerapp.models import Content, Topic, Category
 
 # choices
 from core.cooggerapp.choices import languages
@@ -50,7 +50,7 @@ class CategoriesSitemap(Sitemap):
     priority = 0.9
 
     def items(self):
-        return CategoryofDapp.objects.all()
+        return Category.objects.all()
 
     def lastmod(self, obj):
         try:

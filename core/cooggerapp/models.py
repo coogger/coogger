@@ -38,7 +38,8 @@ def get_new_hash():
         ).hexdigest()
 
 
-class Topic(models.Model):
+class UTopic(models.Model):
+    "topic for users"
     name = models.CharField(
         unique=True, max_length=50,
         verbose_name="Content topic",
@@ -64,22 +65,26 @@ class Topic(models.Model):
         blank=True, null=True, max_length=150,
         verbose_name="Add an address if it have"
         )
-    editable = models.BooleanField(
-        default=True,
-        verbose_name="Is it editable? | Yes/No"
-        )
 
     def __str__(self):
         return self.name
 
 
-class CategoryofDapp(models.Model):
+class Topic(UTopic):
+    "global topic"
+    editable = models.BooleanField(
+        default=True,
+        verbose_name="Is it editable? | Yes/No"
+        )
+
+
+class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="Category name")
     template = EditorMdField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
-        super(CategoryofDapp, self).save(*args, **kwargs)
+        super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -87,23 +92,23 @@ class CategoryofDapp(models.Model):
 
 class Content(models.Model):
     user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
+    permlink = models.SlugField(max_length=200)
     title = models.CharField(max_length=200, verbose_name="Title",
         help_text="Be sure to choose the best title related to your content."
         )
-    permlink = models.SlugField(max_length=200)
-    content = EditorMdField()
-    tags = models.CharField(max_length=200, verbose_name="Keywords",
-        help_text="Write your tags using spaces, max:4"
+    body = EditorMdField()
+    topic = models.ForeignKey(UTopic, on_delete=models.CASCADE, verbose_name="Your topic",
+        help_text="Please, write your topic about your contents."
         )
     language = models.CharField(max_length=30, choices=make_choices(languages),
         help_text="The language of your content"
         )
-    category = models.ForeignKey(CategoryofDapp, on_delete=models.CASCADE, help_text="select content category")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, help_text="select content category")
+    tags = models.CharField(max_length=200, verbose_name="Keywords",
+        help_text="Write your tags using spaces, max:4"
+        )
     definition = models.CharField(max_length=400,
         verbose_name="Definition of content",
-        )
-    topic = models.CharField(max_length=50, verbose_name="Your topic",
-        help_text="Please, write your topic about your contents."
         )
     status = models.CharField(default="approved", max_length=30,
         choices=make_choices(status_choices),
@@ -114,10 +119,6 @@ class Content(models.Model):
         blank=True, null=True, related_name="moderator"
         )
     cooggerup = models.BooleanField(default=False, verbose_name="Was voting done")
-    address = models.URLField(
-        blank=True, null=True, max_length=150,
-        verbose_name="Add an address about this content if you want"
-        )
     created = models.DateTimeField(default=now, verbose_name="Created")
     last_update = models.DateTimeField(default=now, verbose_name="Last update")
 
@@ -130,7 +131,7 @@ class Content(models.Model):
     @property
     def dor(self):
         "duration of read"
-        return round(float((self.content.__len__()/28)/60), 3)
+        return round(float((self.body.__len__()/28)/60), 3)
 
     @property
     def get_absolute_url(self):
@@ -235,17 +236,13 @@ class Content(models.Model):
         return dict(image=image, definition=prepare_text(marktext))
 
     def save(self, *args, **kwargs):  # for admin.py
-        self.topic = slugify(self.topic.lower())
-        self.definition = self.prepare_definition(self.content)
-        if not Topic.objects.filter(name=self.topic).exists():
-            Topic(name=self.topic).save()
+        self.definition = self.prepare_definition(self.body)
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request, *args, **kwargs):
         self.tags = self.ready_tags()
         self.permlink = slugify(self.title.lower())
-        self.definition = self.prepare_definition(self.content)
-        self.topic = slugify(self.topic.lower())
+        self.definition = self.prepare_definition(self.body)
         while True:
             try: # if user and pemlink is already saved on steem
                 Comment(self.get_absolute_url)
@@ -254,8 +251,6 @@ class Content(models.Model):
                 break
         steem_save = self.steemconnect_post(op_name="save")
         if steem_save.status_code == 200:
-            if not Topic.objects.filter(name=self.topic).exists():
-                Topic(name=self.topic).save()
             super(Content, self).save(*args, **kwargs)
         return steem_save
 
@@ -264,14 +259,12 @@ class Content(models.Model):
         self.permlink = old[0].permlink
         self.title = new.title
         self.address = new.address
-        self.definition = self.prepare_definition(new.content)
+        self.definition = self.prepare_definition(new.body)
         self.tags = self.ready_tags(limit=5)
-        self.topic = slugify(new.topic.lower())
         steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
             old.update(
                 definition=self.definition,
-                topic=self.topic,
                 title=self.title,
                 address=self.address,
                 category=new.category,
@@ -282,7 +275,7 @@ class Content(models.Model):
 
     def steemconnect_post(self, op_name):
         context = dict(
-            definition_for_steem=self.definition_for_steem(self.content),
+            definition_for_steem=self.definition_for_steem(self.body),
             self=self,
         )
         comment = Comment(
@@ -299,11 +292,11 @@ class Content(models.Model):
                 ecosystem=dict(
                     name="coogger",
                     version="1.4.1",
-                    topic=self.topic,
+                    topic=self.topic.name,
                     category=self.category,
                     language=self.language,
                     address=self.address,
-                    body=self.content,
+                    body=self.body,
                 )
             ),
         )
@@ -360,11 +353,10 @@ class Content(models.Model):
 
 
 class Commit(models.Model):
-
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
-    user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
-    topic = models.ForeignKey("Topic", on_delete=models.CASCADE)
-    content = models.ForeignKey("content", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    topic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
+    content = models.ForeignKey(Content, on_delete=models.CASCADE)
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
     created = models.DateTimeField(default=now, verbose_name="Created")
@@ -413,7 +405,7 @@ class OtherInformationOfUsers(models.Model):
 
 
 class OtherAddressesOfUsers(models.Model):
-    user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     choices = models.CharField(
         blank=True,
         null=True, max_length=15,
@@ -454,13 +446,10 @@ class SearchedWords(models.Model):
 
 
 class ReportModel(models.Model):
-    user = models.ForeignKey(
-        "auth.user",
-        on_delete=models.CASCADE,
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
         verbose_name="şikayet eden kişi"
     )
-    content = models.ForeignKey(
-        "content",
+    content = models.ForeignKey(Content,
         on_delete=models.CASCADE,
         verbose_name="şikayet edilen içerik"
     )

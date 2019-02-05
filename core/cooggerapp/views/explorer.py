@@ -5,7 +5,7 @@ from django.http import Http404
 from django.views.generic.base import TemplateView
 
 # models
-from core.cooggerapp.models import Content, Topic, CategoryofDapp
+from core.cooggerapp.models import Content, Topic, Category
 
 # views
 from core.cooggerapp.utils import paginator, content_by_filter
@@ -74,7 +74,7 @@ class Categories(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, cat_name, **kwargs):
-        if CategoryofDapp.objects.filter(name=cat_name).exists():
+        if Category.objects.filter(name=cat_name).exists():
             queryset = Content.objects.filter(
                 category=cat_name, status="approved"
             )
