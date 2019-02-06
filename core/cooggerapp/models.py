@@ -13,7 +13,7 @@ from core.cooggerapp.choices import *
 from random import randrange
 
 # beem
-from beem.comment import Comment
+from beem.comment import Comment as BeemComment
 from beem.exceptions import ContentDoesNotExistsException
 
 # steemconnect
@@ -43,16 +43,15 @@ class UTopic(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(
         max_length=50,
-        verbose_name="Content topic",
+        verbose_name="Name",
         help_text="Please, write topic name."
         )
     image_address = models.URLField(
-        max_length=400,
+        max_length=400, help_text="Add and Image Address",
         blank=True, null=True
         )
     definition = models.CharField(
         max_length=600,
-        verbose_name="Definition of topic",
         help_text="Definition of topic",
         blank=True, null=True,
         )
@@ -64,7 +63,7 @@ class UTopic(models.Model):
         )
     address = models.URLField(
         blank=True, null=True, max_length=150,
-        verbose_name="Add an address if it have"
+        help_text="Add an address if it have"
         )
 
     def __str__(self):
@@ -73,9 +72,7 @@ class UTopic(models.Model):
 
 class Topic(models.Model):
     "global topic"
-    name = models.CharField(
-        max_length=50,
-        verbose_name="Content topic",
+    name = models.CharField(max_length=50,
         help_text="Please, write topic name."
         )
     image_address = models.URLField(
@@ -84,7 +81,6 @@ class Topic(models.Model):
         )
     definition = models.CharField(
         max_length=600,
-        verbose_name="Definition of topic",
         help_text="Definition of topic",
         blank=True, null=True,
         )
@@ -108,7 +104,7 @@ class Topic(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Category name")
+    name = models.CharField(max_length=50)
     template = EditorMdField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -269,12 +265,14 @@ class Content(models.Model):
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request, *args, **kwargs):
+        self.user = request.user
+        self.topic = Topic.objects.get(name=request.GET.get("topic"))
         self.tags = self.ready_tags()
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.body)
         while True:
             try: # if user and pemlink is already saved on steem
-                Comment(self.get_absolute_url)
+                BeemComment(self.get_absolute_url)
                 self.new_permlink() #We need to change permlink
             except ContentDoesNotExistsException:
                 break
@@ -284,20 +282,27 @@ class Content(models.Model):
         return steem_save
 
     def content_update(self, old, new):
-        self.user = old[0].user
-        self.permlink = old[0].permlink
+        self.topic = old[0].topic
+        self.body = new.body
         self.title = new.title
-        self.address = new.address
-        self.definition = self.prepare_definition(new.body)
-        self.tags = self.ready_tags(limit=5)
+        self.category = new.category
+        self.language = new.language
+        self.tags = self.ready_tags()
+        topic_name = request.GET.get("topic", None)
+        if topic_name is not None:
+            if UTopic.objects.filter(user=old[0].user, name=topic_name).exists():
+                self.topic = Topic.objects.get(user=request.user, name=topic_name)
+            else:
+                return dict(status_code=500, text=f"you need to create the {topic_name} topic first.")
         steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
             old.update(
-                definition=self.definition,
+                body=self.body,
+                topic=self.topic,
+                definition=self.prepare_definition(new.body),
                 title=self.title,
-                address=self.address,
-                category=new.category,
-                language=new.language,
+                category=self.category,
+                language=self.language,
                 tags=self.tags,
             )
         return steem_post
@@ -321,10 +326,10 @@ class Content(models.Model):
                 ecosystem=dict(
                     name="coogger",
                     version="1.4.1",
-                    topic=self.topic.name,
+                    topic=self.topic,
                     category=self.category,
                     language=self.language,
-                    address=self.address,
+                    # address=self.address,
                     body=self.body,
                 )
             ),
