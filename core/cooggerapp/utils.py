@@ -7,7 +7,7 @@ from django.core.exceptions import FieldError
 from django.contrib.auth import authenticate
 
 # models
-from core.cooggerapp.models import UTopic
+from core.cooggerapp.models import Category, Topic
 
 
 def content_by_filter(items, queryset):
@@ -19,6 +19,12 @@ def content_by_filter(items, queryset):
             attr = "user"
         elif attr == "tags":
             queryset = queryset.filter(tags__contains = value)
+        elif attr == "category":
+            category = Category.objects.get(name=value)
+            queryset = queryset.filter(category = category)
+        elif attr == "topic":
+            topic = Topic.objects.get(name=value)
+            queryset = queryset.filter(topic = topic)
         else:
             try:
                 queryset = queryset.filter(**{attr: value})
