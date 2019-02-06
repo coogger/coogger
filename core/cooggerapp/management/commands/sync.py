@@ -1,10 +1,11 @@
 # django
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 # coogger-python
 from coogger.content import ContentFilterApi
-from coogger.user import SteemConnectUserApi, UserApi, UserFilterApi
+from coogger.user import SteemConnectUserApi, UserApi, UserFilterApi, SteemConnectFilterApi
 from coogger.search import SearchFilterApi
 from coogger.useraddress import UserAddresFilterApi
 from coogger.views import ViewsFilterApi
@@ -17,11 +18,35 @@ from core.cooggerapp.models import (OtherInformationOfUsers, Content,
 from steemconnect_auth.models import SteemConnectUser
 
 
-class Sync(BaseCommand):
+class Sync():
 
     def __init__(self, data):
         self.data = data
-        super(Sync, self).__init__()
+
+    def steemconnect_user(self):
+        steemconnect_user = SteemConnectFilterApi(data=self.data)
+        while True:
+            steemconnect_user.filter()
+            for sc_user in steemconnect_user.results:
+                user = authenticate(username=sc_user.username)
+                sc_object = SteemConnectUser.objects.filter(user=user)
+                if sc_object.exists():
+                    sc_object.update(
+                        refresh_token=sc_user.refresh_token,
+                        code=sc_user.code,
+                        access_token=sc_user.access_token
+                    )
+                else:
+                    SteemConnectUser(
+                        user=user,
+                        refresh_token=sc_user.refresh_token,
+                        code=sc_user.code,
+                        access_token=sc_user.access_token
+                    ).save()
+            if steemconnect_user.next:
+                steemconnect_user.api_url = steemconnect_user.next
+            else:
+                break
 
     def user(self):
         user_filter_api = UserFilterApi(data=self.data)
@@ -35,72 +60,49 @@ class Sync(BaseCommand):
                 break
 
     def user_update(self, username):
-        get_user_from_db, created = User.objects.get_or_create(username=username)
-        if created:
-            self.stdout.write(f"created new user named >> {username}")
+        user = authenticate(username=username)
         try:
-            user = UserApi(
+            user_api = UserApi(
                 username=username,
                 data=self.data
             ).ditop
         except Exception as e:
-            self.stdout.write(e, username)
+            print(e, username, "\r")
         else:
-            oiou_object = OtherInformationOfUsers.objects.filter(user=get_user_from_db)
+            oiou_object = OtherInformationOfUsers.objects.filter(user=user)
             if oiou_object.exists():
                 oiou_object.update(
-                    about=user.about,
-                    cooggerup_confirmation=user.cooggerup_confirmation,
-                    cooggerup_percent=user.cooggerup_percent,
-                    vote_percent=user.vote_percent,
-                    beneficiaries=user.beneficiaries,
-                    sponsor=user.sponsor,
-                    total_votes=user.total_votes,
-                    total_vote_value=user.total_vote_value,
-                    access_token=user.access_token,
+                    about=user_api.about,
+                    cooggerup_confirmation=user_api.cooggerup_confirmation,
+                    cooggerup_percent=user_api.cooggerup_percent,
+                    vote_percent=user_api.vote_percent,
+                    beneficiaries=user_api.beneficiaries,
+                    sponsor=user_api.sponsor,
+                    total_votes=user_api.total_votes,
+                    total_vote_value=user_api.total_vote_value,
+                    access_token=user_api.access_token,
                 )
             else:
                 OtherInformationOfUsers(
-                    user=get_user_from_db,
-                    about=user.about,
-                    cooggerup_confirmation=user.cooggerup_confirmation,
-                    cooggerup_percent=user.cooggerup_percent,
-                    vote_percent=user.vote_percent,
-                    beneficiaries=user.beneficiaries,
-                    sponsor=user.sponsor,
-                    total_votes=user.total_votes,
-                    total_vote_value=user.total_vote_value,
+                    user=user,
+                    about=user_api.about,
+                    cooggerup_confirmation=user_api.cooggerup_confirmation,
+                    cooggerup_percent=user_api.cooggerup_percent,
+                    vote_percent=user_api.vote_percent,
+                    beneficiaries=user_api.beneficiaries,
+                    sponsor=user_api.sponsor,
+                    total_votes=user_api.total_votes,
+                    total_vote_value=user_api.total_vote_value,
                 ).save()
-        try:
-            sc_user = SteemConnectUserApi(
-                username=get_user_from_db.username,
-                data=self.data
-            ).ditop
-        except:
-            pass
-        else:
-            sc_object = SteemConnectUser.objects.filter(user=get_user_from_db)
-            if sc_object.exists():
-                sc_object.update(
-                    refresh_token=sc_user.refresh_token,
-                    code=sc_user.code,
-                    access_token=sc_user.access_token
-                )
-            else:
-                SteemConnectUser(
-                    user=get_user_from_db,
-                    refresh_token=sc_user.refresh_token,
-                    code=sc_user.code,
-                    access_token=sc_user.access_token
-                ).save()
-        return get_user_from_db
+        return user
 
     def get_all_contents(self):
+        # TODO: there is a problem, it is not fetch all of content.
         content_filter_api = ContentFilterApi(data=self.data)
         all_contents = []
         while True:
             content_filter_api.filter(dapp="coogger")
-            self.stdout.write(f"count >> {content_filter_api.ditop.count}, received >> {len(all_contents)}")
+            print(f"count >> {content_filter_api.ditop.count}, received >> {len(all_contents)}", "\r")
             for content in content_filter_api.results:
                 all_contents.append(content)
             if content_filter_api.next:
@@ -112,34 +114,34 @@ class Sync(BaseCommand):
     def content(self):
         for content in self.get_all_contents():
             user = self.user_update(content.username)
+            topic = self.topic(content.topic)
+            if topic is None:
+                continue
             c_object = Content.objects.filter(user=user, permlink=content.permlink)
-            if c_object.exists():
-                if content.last_update != c_object[0].last_update:
-                    self.stdout.write(f"update a content >> {c_object}")
-                    try:
-                        mod = User.objects.filter(username=content.modusername)[0]
-                    except AttributeError:
-                        mod = None
-                    category_id = Category.objects.filter(name=content.category)
-                    topic = Topic.objects.filter(name=content.topic)
-                    topic.update(address=content.address)
-                    c_object.update(
-                        user=user,
-                        title=content.title,
-                        body=content.content,
-                        tags=content.tags,
-                        language=content.language,
-                        category=category_id[0],
-                        definition=content.definition,
-                        topic=topic[0],
-                        status=content.status,
-                        views=content.views,
-                        last_update=content.last_update,
-                        mod=mod,
-                        cooggerup=content.cooggerup,
-                    )
+            if c_object.exists() and content.last_update != c_object[0].last_update:
+                print(f"update a content >> {c_object}", "\r")
+                try:
+                    mod = User.objects.filter(username=content.modusername)[0]
+                except AttributeError:
+                    mod = None
+                category_id = Category.objects.filter(name=content.category)
+                c_object.update(
+                    user=user,
+                    title=content.title,
+                    body=content.content,
+                    tags=content.tags,
+                    language=content.language,
+                    category=category_id[0],
+                    definition=content.definition,
+                    topic=topic,
+                    status=content.status,
+                    views=content.views,
+                    last_update=content.last_update,
+                    mod=mod,
+                    cooggerup=content.cooggerup,
+                )
             else:
-                self.stdout.write(f"saved a content")
+                print(f"saved a content -> {content.permlink}", "\r")
                 try:
                     mod = User.objects.filter(username=content.modusername)[0]
                 except AttributeError:
@@ -148,40 +150,32 @@ class Sync(BaseCommand):
                 if not category_id.exists():
                     Category(name=content.category).save()
                     category_id = Category.objects.filter(name=content.category)
+                Content(
+                    user=user,
+                    title=content.title,
+                    permlink=content.permlink,
+                    body=content.content,
+                    tags=content.tags,
+                    language=content.language,
+                    category=category_id[0],
+                    definition=content.definition,
+                    topic=topic,
+                    status=content.status,
+                    views=content.views,
+                    created=content.created,
+                    last_update=content.last_update,
+                    mod=mod,
+                    cooggerup=content.cooggerup,
+                ).save()
                 utopic = UTopic.objects.filter(user=user, name=content.topic)
-                if not utopic.exists():
-                    UTopic(user=user, name=content.topic, address=content.address).save()
-                    utopic = UTopic.objects.filter(name=content.topic)
-                else:
+                if utopic.exists():
                     utopic.update(address=content.address)
-                try:
-                    topic = Topic.objects.filter(name=content.topic)[0]
-                except:
-                    pass
                 else:
-                    Content(
-                        user=user,
-                        title=content.title,
-                        permlink=content.permlink,
-                        body=content.content,
-                        tags=content.tags,
-                        language=content.language,
-                        category=category_id[0],
-                        definition=content.definition,
-                        topic=topic,
-                        status=content.status,
-                        views=content.views,
-                        created=content.created,
-                        last_update=content.last_update,
-                        mod=mod,
-                        cooggerup=content.cooggerup,
-                    ).save()
-                    if not UTopic.objects.filter(user=user, name=topic.name).exists():
-                        UTopic(user=user, name=topic.name, address=content.address).save()
-                    utopic = UTopic.objects.filter(user=user, name=topic.name)[0]
-                    content = Content.objects.filter(user=user, permlink=content.permlink)[0]
-                    if not Commit.objects.filter(utopic=utopic, content=content).exists():
-                        Commit(utopic=utopic, content=content, body=content.body).save()
+                    UTopic(user=user, name=content.topic, address=content.address).save()
+                    utopic = UTopic.objects.filter(user=user, name=content.topic)
+                content = Content.objects.filter(user=user, permlink=content.permlink)[0]
+                if not Commit.objects.filter(utopic=utopic[0], content=content).exists():
+                    Commit(utopic=utopic[0], content=content, body=content.body).save()
 
     def searched(self):
         search_filter_api = SearchFilterApi(data=self.data)
@@ -245,33 +239,34 @@ class Sync(BaseCommand):
             else:
                 break
 
-    def topic(self):
+    def topic(self, name):
         topic_views = TopicFilterApi(data=self.data)
-        while True:
-            topic_views.filter()
-            for top in topic_views.results:
-                t_obj = Topic.objects.filter(name=top.name)
-                if t_obj.exists():
-                    t_obj.update(
-                        image_address=top.image_address,
-                        definition=top.definition,
-                        tags=top.tags,
-                        address=top.address,
-                        editable=top.editable,
-                        )
-                else:
-                    Topic(
-                        name=top.name,
-                        image_address=top.image_address,
-                        definition=top.definition,
-                        tags=top.tags,
-                        address=top.address,
-                        editable=top.editable,
-                        ).save()
-            if topic_views.next:
-                topic_views.api_url = topic_views.next
+        topic_views.filter(name=name)
+        try:
+            topic = topic_views.results[0]
+        except Exception as e:
+            Topic(name=name).save()
+        else:
+            t_obj = Topic.objects.filter(name=topic.name)
+            if t_obj.exists():
+                t_obj.update(
+                    image_address=topic.image_address,
+                    definition=topic.definition,
+                    tags=topic.tags,
+                    address=topic.address,
+                    editable=topic.editable,
+                    )
             else:
-                break
+                print(f"create topic >> {topic.name}")
+                Topic(
+                    name=topic.name,
+                    image_address=topic.image_address,
+                    definition=topic.definition,
+                    tags=topic.tags,
+                    address=topic.address,
+                    editable=topic.editable,
+                    ).save()
+            return Topic.objects.filter(name=topic.name)[0]
 
 
 class Command(BaseCommand):
@@ -292,7 +287,7 @@ class Command(BaseCommand):
         if which is not None:
             eval(f"sync.{which}()")
         else:
-            sync.topic()
+            sync.steemconnect_user()
             sync.content()
             sync.useraddresses()
             sync.searched()
