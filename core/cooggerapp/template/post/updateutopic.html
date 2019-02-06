@@ -1,0 +1,11 @@
+{% extends "home/html.html" %}
+{% block body %}
+  <div class="create" flex="jc-c ai-c fd-c" general="center w-100" style="margin-top: 30px;">
+    <form action="{% url 'update-utopic' name %}" general="b-1 br-2 brc-muted" flex="fd-c" default="form"
+    mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
+     method="post" class="c-create-form" style="padding: 12px 6px">
+        {% csrf_token %}  {{ form }}
+        <input flex="as-c" type="submit" value="Save Edit" style="padding: 12px 42px;color:#333" animation-hover="i bg-white">
+    </form>
+  </div>
+{% endblock %}

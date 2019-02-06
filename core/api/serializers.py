@@ -74,7 +74,7 @@ class ContentsSerializer(ModelSerializer):
             'username',
             'title',
             'permlink',
-            'content',
+            'body',
             "tags",
             "definition",
             "category",
@@ -85,7 +85,6 @@ class ContentsSerializer(ModelSerializer):
             "mod",
             "modusername",
             "cooggerup",
-            "address",
             "created",
             "last_update",
             )

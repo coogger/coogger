@@ -60,7 +60,7 @@ class UTopic(models.Model):
         max_length=200,
         blank=True, null=True,
         verbose_name="Keyword",
-        help_text="Write your tags using spaces, max:4"
+        help_text="Write your tags using spaces"
         )
     address = models.URLField(
         blank=True, null=True, max_length=150,
@@ -92,7 +92,7 @@ class Topic(models.Model):
         max_length=200,
         blank=True, null=True,
         verbose_name="Keyword",
-        help_text="Write your tags using spaces, max:4"
+        help_text="Write your tags using spaces"
         )
     address = models.URLField(
         blank=True, null=True, max_length=150,

@@ -45,14 +45,14 @@ class Detail(TemplateView):
                 if not Contentviews.objects.filter(content=get_content, ip=ip).exists():
                     content.update(views=F("views") + 1)
                     Contentviews(content=get_content, ip=ip).save()
-            topic = Topic.objects.filter(name=get_content.topic)[0]
             nav_category = Content.objects.filter(
-                user=user, topic=topic.name, status="approved"
+                user=user, topic=get_content.topic, status="approved"
                 ).order_by("created")
             urloftopic = permlink
-            nameoflist = topic.name
+            nameoflist = get_content.topic
             detail = get_content
-            commits_count = Commit.objects.filter(user=user, topic=topic).count()
+            utopic = UTopic.objects.filter(user=user, name=get_content.topic)[0]
+            commits_count = Commit.objects.filter(utopic=utopic).count()
         context = super(Detail, self).get_context_data(**kwargs)
         context["content_user"] = user
         context["nav_category"] = nav_category

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import Http404
 from django.template.loader import render_to_string
+# from django.contrib.auth import authenticate
 
 # class base
 from django.views import View
@@ -10,16 +11,74 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 # models
-from core.cooggerapp.models import Content, Category
+from core.cooggerapp.models import Content, Category, UTopic
 
 # form
-from core.cooggerapp.forms import ContentForm
+from core.cooggerapp.forms import ContentForm, UTopicForm
 
 # choices
 from core.cooggerapp.choices import make_choices
 
 # beem
 from beem.comment import Comment
+
+
+class CreateUTopic(View):
+    template_name = "post/utopic.html"
+    form_class = UTopicForm
+    model = UTopic
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {"form": self.form_class()})
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            if not self.model.objects.filter(user=request.user, name=form.name).exists():
+                save = form.save()
+                return redirect(f"/{form.name}/@{form.user}")
+            else:
+                messages.warning(request, f"{form.name} is already taken by yours")
+                return render(request, self.template_name, dict(form=self.form_class(data=request.POST)))
+        else:
+            return render(request, self.template_name, dict(form=form))
+
+
+class UpdateUTopic(CreateUTopic):
+    template_name = "post/updateutopic.html"
+
+    @method_decorator(login_required)
+    def get(self, request, name, *args, **kwargs):
+        instance = self.model.objects.filter(user=request.user, name=name)[0]
+        context = dict(
+            form=self.form_class(instance=instance),
+            name=name
+        )
+        return render(request, self.template_name, context)
+
+    @method_decorator(login_required)
+    def post(self, request, name, *args, **kwargs):
+        form = self.form_class(data=request.POST)
+        context = dict(
+            form=self.form_class(data=request.POST),
+            name=name,
+        )
+        if form.is_valid():
+            form = form.save(commit=False)
+            self.model.objects.filter(user=request.user, name=name).update(
+                name=form.name,
+                image_address=form.image_address,
+                definition=form.definition,
+                tags=form.tags,
+                address=form.address,
+            )
+            return render(request, self.template_name, context)
+        else:
+            return render(request, self.template_name, context)
 
 
 class Create(View):
@@ -53,7 +112,7 @@ class Create(View):
             save = form.content_save(request)  # save with steemconnect and get ms
             if save.status_code != 200:  # if any error show the error
                 messages.error(request, save.text)
-                return render(request, self.template_name, dict(form=form))
+                return render(request, self.template_name, dict(form=ContentForm(data=request.POST)))
             return redirect(form.get_absolute_url)
         else:
             return render(request, self.template_name, dict(form=form))

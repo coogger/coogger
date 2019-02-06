@@ -7,8 +7,15 @@ from core.cooggerapp.choices import *
 # models
 from core.cooggerapp.models import (
     Content, OtherAddressesOfUsers, OtherInformationOfUsers,
-    ReportModel)
+    ReportModel, UTopic)
 from django.contrib.auth.models import User
+
+
+class UTopicForm(ModelForm):
+
+    class Meta:
+        model = UTopic
+        fields = ["name", "image_address", "definition", "tags", "address"]
 
 
 class ContentForm(ModelForm):

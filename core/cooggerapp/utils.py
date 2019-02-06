@@ -7,7 +7,7 @@ from django.core.exceptions import FieldError
 from django.contrib.auth import authenticate
 
 # models
-from core.cooggerapp.models import Topic
+from core.cooggerapp.models import UTopic
 
 
 def content_by_filter(items, queryset):
@@ -25,14 +25,6 @@ def content_by_filter(items, queryset):
             except FieldError:
                 pass
     return dict(filter=filter, queryset=queryset)
-
-def user_topics(queryset):
-    topics = []
-    for query in queryset:
-        topic_obj = Topic.objects.filter(name=query.topic)[0]
-        if topic_obj not in topics:
-            topics.append(topic_obj)
-    return topics
 
 
 def make_choices_slug(choice):

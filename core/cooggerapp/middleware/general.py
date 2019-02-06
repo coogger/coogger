@@ -31,12 +31,15 @@ class GeneralMiddleware(MiddlewareMixin):
         category_queryset = Category.objects.all()
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved")
-        specific_url_names = ["topic", "category", "language"]
-        if url_name in specific_url_names:
-            name = self.path_info.split("/")[2]
-            # /topic/autocad/ = autocad
-            # /category/tutorial/ = tutorial
-            content_queryset = content_queryset.filter(**{url_name:name})
+        name = self.path_info.split("/")[2]
+        if url_name == "category":
+            category = Category.objects.filter(name=name)[0]
+            content_queryset = content_queryset.filter(category=category)
+        elif url_name == "topic":
+            topic = Topic.objects.filter(name=name)[0]
+            content_queryset = content_queryset.filter(topic=topic)
+        elif url_name == "language":
+            content_queryset = content_queryset.filter(language=name)
         elif url_name == "filter":
             content_queryset = content_by_filter(request.GET.items(), content_queryset).get("queryset")
         for category in category_queryset:
@@ -104,12 +107,15 @@ class GeneralMiddleware(MiddlewareMixin):
     def sort_languages(self, request, url_name):
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved")
-        specific_url_names = ["topic", "category", "language"]
-        if url_name in specific_url_names:
-            name = self.path_info.split("/")[2]
-            # /topic/autocad/ = autocad
-            # /category/tutorial/ = tutorial
-            content_queryset = content_queryset.filter(**{url_name:name})
+        name = self.path_info.split("/")[2]
+        if url_name == "category":
+            category = Category.objects.filter(name=name)[0]
+            content_queryset = content_queryset.filter(category=category)
+        elif url_name == "topic":
+            topic = Topic.objects.filter(name=name)[0]
+            content_queryset = content_queryset.filter(topic=topic)
+        elif url_name == "language":
+            content_queryset = content_queryset.filter(language=name)
         elif url_name == "filter":
             content_queryset = content_by_filter(request.GET.items(), content_queryset).get("queryset")
         for language in languages:

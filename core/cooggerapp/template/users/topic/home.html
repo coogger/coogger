@@ -7,7 +7,12 @@
           <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ content_user }}/avatar');">
           <i class="fas fa-book"></i>
           <a general="c-primary txt-m" href="{% url 'utopic' topic content_user %}">@{{ content_user }}/{{ topic }}</a>
-          <a general="c-primary txt-m right" href="{% url 'create' %}?topic={{ topic }}">Add content your {{ topic }} topic</a>
+          {% if request.user == content_user %}
+            <div general="right" flex="fd-c">
+              <a general="br-1 c-white bg-dark-purple txt-s right" href="{% url 'create' %}?topic={{ topic }}" style="padding: 6px;">Add content your {{ topic }} topic</a>
+              <a general="br-1 c-white bg-warning txt-s right" href="{% url  'update-utopic' topic %}" style="margin-top:3px;padding: 6px;">Update</a>
+            </div>
+          {% endif %}
         </div>
         <div flex general="b-1 br-2 brc-primary" style="margin-top: 6px;padding: 4px 12px;">
           <a href="{% url 'commits' content_user topic %}">
@@ -42,7 +47,15 @@
         <div general="b-1 br-2 brc-primary bg-primary c-white" style="margin-top: 3px;"></div>
         <div style="margin-top: 6px;">
           {% if not queryset %}
-            <a general="c-primary txt-m right" href="{% url 'create' %}?topic={{ topic }}">Add content your {{ topic }} topic</a>
+            {% if request.user == content_user %}
+              <div general="bg-dark-purple c-white br-2" class="utopic-nocontent">
+                <a general="c-white txt-l center" href="{% url 'create' %}?topic={{ topic }}">Add content your {{ topic }} topic</a>
+              </div>
+            {% else %}
+              <div general="bg-red c-white br-2" class="utopic-nocontent">
+                <span general="c-white txt-l center">No content has been added in {{ topic }} topic yet by {{ content_user }}</span>
+              </div>
+            {% endif %}
           {% endif %}
           {% for query in queryset %}
             <div class="utopic-query" flex="ai-c">

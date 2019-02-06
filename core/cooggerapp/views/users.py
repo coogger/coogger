@@ -14,7 +14,7 @@ from core.cooggerapp.models import Topic as TopicModel
 from core.cooggerapp.forms import AboutForm
 
 # views
-from core.cooggerapp.utils import paginator, user_topics
+from core.cooggerapp.utils import paginator
 
 
 class Home(TemplateView):
@@ -29,7 +29,7 @@ class Home(TemplateView):
         context["content"] = info_of_cards
         context["content_user"] = user
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
-        context["topics"] = user_topics(queryset)
+        context["topics"] = UTopic.objects.filter(user=user)
         return context
 
 
@@ -39,8 +39,12 @@ class Topic(TemplateView):
 
     def get_context_data(self, username, topic, **kwargs):
         user = authenticate(username=username)
-        global_topic = TopicModel.objects.filter(name=topic)[0]
-        contents = Content.objects.filter(user=user, topic=global_topic, status="approved")
+        try:
+            global_topic = TopicModel.objects.filter(name=topic)[0]
+        except IndexError:
+            contents = list()
+        else:
+            contents = Content.objects.filter(user=user, topic=global_topic, status="approved")
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
         commits = Commit.objects.filter(utopic=utopic)
         total_dor = 0
@@ -80,7 +84,7 @@ class About(View):
         context["about"] = about_form
         context["content_user"] = user
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
-        context["topics"] = user_topics(queryset)
+        context["topics"] = UTopic.objects.filter(user=user)
         return render(request, self.template_name, context)
 
     def post(self, request, username, *args, **kwargs):
@@ -106,7 +110,7 @@ class Comment(TemplateView):
         queryset = Content.objects.filter(user=user, status="approved")
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["content_user"] = user
-        context["topics"] = user_topics(queryset)
+        context["topics"] = UTopic.objects.filter(user=user)
         context["django_md_editor"] = True
         context["user_comment"] = True
         return context

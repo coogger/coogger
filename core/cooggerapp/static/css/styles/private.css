@@ -3,6 +3,10 @@ cards {
     margin: 12px auto;
     z-index: 0;
 }
+.utopic-nocontent{
+  margin-top: 5%;
+padding: 24px 0px;
+}
 .utopic-query{
   padding: 6px 0px;
 }

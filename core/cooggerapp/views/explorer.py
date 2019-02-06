@@ -18,6 +18,7 @@ class TopicView(TemplateView):
     template_name = "topic/index.html"
 
     def get_context_data(self, topic, *args, **kwargs):
+        topic = Topic.objects.filter(name=topic)[0]
         queryset = Content.objects.filter(topic=topic, status="approved")
         if queryset.exists():
             info_of_cards = paginator(self.request, queryset)
@@ -74,9 +75,10 @@ class Categories(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, cat_name, **kwargs):
-        if Category.objects.filter(name=cat_name).exists():
+        category = Category.objects.filter(name=cat_name)
+        if category.exists():
             queryset = Content.objects.filter(
-                category=cat_name, status="approved"
+                category=category[0], status="approved"
             )
             context = super(Categories, self).get_context_data(**kwargs)
             info_of_cards = paginator(self.request, queryset)
