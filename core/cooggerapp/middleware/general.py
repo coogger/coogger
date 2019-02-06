@@ -31,7 +31,10 @@ class GeneralMiddleware(MiddlewareMixin):
         category_queryset = Category.objects.all()
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved")
-        name = self.path_info.split("/")[2]
+        try:
+            name = self.path_info.split("/")[2]
+        except IndexError:
+            return None
         if url_name == "category":
             category = Category.objects.filter(name=name)[0]
             content_queryset = content_queryset.filter(category=category)
@@ -107,7 +110,10 @@ class GeneralMiddleware(MiddlewareMixin):
     def sort_languages(self, request, url_name):
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved")
-        name = self.path_info.split("/")[2]
+        try:
+            name = self.path_info.split("/")[2]
+        except IndexError:
+            return None
         if url_name == "category":
             category = Category.objects.filter(name=name)[0]
             content_queryset = content_queryset.filter(category=category)
@@ -148,7 +154,7 @@ class GeneralMiddleware(MiddlewareMixin):
                 topic = content.topic
             ) for content in contents
         ]
-        topics = []
+        topics = dict()
         check = []
         for content in sorted(topic_querysets, key=len, reverse=True):
             try:
@@ -156,7 +162,7 @@ class GeneralMiddleware(MiddlewareMixin):
                 if len(topics) == 30:
                     break
                 elif topic.name not in check:
-                    topics.append(topic)
+                    topics.__setitem__(topic, contents.filter(topic=content[0].topic).count())
                     check.append(topic.name)
             except IndexError:
                 pass

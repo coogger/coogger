@@ -21,6 +21,7 @@ from core.cooggerapp.choices import make_choices
 
 # beem
 from beem.comment import Comment
+from beem.exceptions import ContentDoesNotExistsException
 
 
 class CreateUTopic(View):
@@ -30,7 +31,10 @@ class CreateUTopic(View):
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {"form": self.form_class()})
+        initial = dict()
+        for key, value in request.GET.items():
+            initial.__setitem__(key, value)
+        return render(request, self.template_name, {"form": self.form_class(initial=initial)})
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -83,32 +87,42 @@ class UpdateUTopic(CreateUTopic):
 
 class Create(View):
     template_name = "post/create.html"
-    initial = {}
-    category_name = None
+    form_class = ContentForm
+    initial_template = "post/editor-note.html"
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
+        initial, category = dict(), None
+        if request.GET.get("topic", None) is None:
+            messages.warning(request, "you need to write like that /post/create/?topic={your_topic_name} or create the topic first.")
+            return redirect(f"/post/utopic/")
         for key, value in request.GET.items():
             if key == "category":
-                self.category_name = value
+                category = Category.objects.get(name=value)
+                category_template = category.template
+                initial.__setitem__("category", category)
+            elif key == "topic":
+                try:
+                    utopic = UTopic.objects.filter(user=request.user, name=value)[0]
+                except IndexError:
+                    messages.warning(request, f"you need to create the {value} topic first.")
+                    return redirect(f"/post/utopic/?name={value}")
+                initial.__setitem__("topic", utopic)
             else:
-                self.initial[key] = value
-        category_content = render_to_string("post/editor-note.html")
-        if self.category_name is not None:
-            category_content = Category.objects.get(
-                name=self.category_name
-            ).template
-        self.initial["content"] = category_content
-        self.initial["category"] = self.category_name
-        form = ContentForm(initial=self.initial)
-        return render(request, self.template_name, {"form": form})
+                initial.__setitem__(key, value)
+        if category is None:
+            category_template = render_to_string(self.initial_template)
+        initial.__setitem__("content", category_template)
+        context = dict(
+            form=self.form_class(initial=initial)
+        )
+        return render(request, self.template_name, context)
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = ContentForm(data=request.POST)
+        form = self.form_class(data=request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            form.user = request.user
             save = form.content_save(request)  # save with steemconnect and get ms
             if save.status_code != 200:  # if any error show the error
                 messages.error(request, save.text)
@@ -120,20 +134,21 @@ class Create(View):
 
 class Change(View):
     template_name = "post/change.html"
+    form_class = ContentForm
+    model = Content
 
     @method_decorator(login_required)
     def get(self, request, username, permlink, *args, **kwargs):
         if request.user.username == username:
-            queryset = Content.objects.filter(user=request.user, permlink=permlink)
+            queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
                 content_id = queryset[0].id
                 self.content_update(request, content_id)
-                queryset = Content.objects.filter(user=request.user, permlink=permlink)
-                content_form = ContentForm(instance=queryset[0])
+                queryset = self.model.objects.filter(user=request.user, permlink=permlink)[0]
                 context = dict(
                     username=username,
                     permlink=permlink,
-                    form=content_form,
+                    form=self.form_class(instance=queryset),
                 )
                 return render(request, self.template_name, context)
         raise Http404
@@ -141,52 +156,50 @@ class Change(View):
     @method_decorator(login_required)
     def post(self, request, username, permlink, *args, **kwargs):
         if request.user.username == username:
-            queryset = Content.objects.filter(user=request.user, permlink=permlink)
+            queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
                 content_id = queryset[0].id
-                form = ContentForm(data=request.POST)
-                maybe_error_form = form
+                form = self.form_class(data=request.POST)
                 if form.is_valid():
                     form = form.save(commit=False)
                     save = form.content_update(old=queryset, new=form)
                     if save.status_code != 200:
                         messages.error(request, save.text)
-                        warning_ms = """unexpected error, check your content please or contact us on discord;
-                        <a gnrl='c-primary' href='https://discord.gg/avmdZJa'>https://discord.gg/avmdZJa</a>"""
-                        messages.error(request, warning_ms)
                         return render(request, self.template_name, dict(
-                            form=maybe_error_form,
+                            form=self.form_class(data=request.POST),
                             username=username,
                             permlink=permlink)
                         )
                     return redirect(queryset[0].get_absolute_url)
                 else:
-                    messages.error(request, form.errors)
-                    warning_ms = """unexpected error, check your content please or contact us on discord;
-                    <a gnrl='c-primary' href='https://discord.gg/avmdZJa'>https://discord.gg/avmdZJa</a>"""
-                    return render(request, self.template_name, dict(
+                    context = dict(
                         form=form,
                         username=username,
-                        permlink=permlink)
+                        permlink=permlink
                     )
+                    return render(request, self.template_name, context)
         raise Http404
 
-    def content_update(self, request, content_id):
-        ct = Content.objects.filter(user=request.user, id=content_id)
-        beem_comment = Comment(ct[0].get_absolute_url)
-        ct.update(body=self.get_body_from_steem(beem_comment), title=beem_comment.title)
+    def content_update(self, request, content_id): # is it necessary
+        content = Content.objects.filter(id=content_id)
+        try:
+            beem_comment = Comment(content[0].get_absolute_url)
+        except ContentDoesNotExistsException:
+            pass
+        else:
+            content.update(body=self.get_body_from_steem(beem_comment), title=beem_comment.title)
 
     def get_body_from_steem(self, post):
-        json_metadata = post["json_metadata"]
+        json_metadata = post.get("json_metadata")
         try:
-            ecosystem = json_metadata["ecosystem"]
+            ecosystem = json_metadata.get("ecosystem")
         except (KeyError, TypeError):
             return post.body
         try:
-            version = ecosystem["version"]
+            version = ecosystem.get("version")
         except (TypeError, KeyError):
             return post.body
         if version == "1.4.1":
-            return ecosystem["body"]
+            return ecosystem.get("body")
         else:
             return post.body
