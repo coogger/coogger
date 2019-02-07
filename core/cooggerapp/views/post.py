@@ -80,9 +80,7 @@ class UpdateUTopic(CreateUTopic):
                 tags=form.tags,
                 address=form.address,
             )
-            return render(request, self.template_name, context)
-        else:
-            return render(request, self.template_name, context)
+        return render(request, self.template_name, context)
 
 
 class Create(View):
@@ -163,7 +161,7 @@ class Change(View):
                 form = self.form_class(data=request.POST)
                 if form.is_valid():
                     form = form.save(commit=False)
-                    save = form.content_update(old=queryset, new=form)
+                    save = form.content_update(request=request, old=queryset, new=form)
                     if save.status_code != 200:
                         messages.error(request, save.text)
                         return render(request, self.template_name, dict(
@@ -182,10 +180,11 @@ class Change(View):
         raise Http404
 
     def content_update(self, request, content_id): # is it necessary
-        content = Content.objects.filter(id=content_id)
+        content = self.model.objects.filter(id=content_id)
         try:
             beem_comment = Comment(content[0].get_absolute_url)
         except ContentDoesNotExistsException:
+            # delete this content
             pass
         else:
             content.update(body=self.get_body_from_steem(beem_comment), title=beem_comment.title)
@@ -196,11 +195,13 @@ class Change(View):
             ecosystem = json_metadata.get("ecosystem")
         except (KeyError, TypeError):
             return post.body
-        try:
-            version = ecosystem.get("version")
-        except (TypeError, KeyError):
-            return post.body
-        if version == "1.4.1":
-            return ecosystem.get("body")
         else:
-            return post.body
+            try:
+                version = ecosystem.get("version")
+            except (TypeError, KeyError):
+                return post.body
+            else:
+                if version == "1.4.1":
+                    return ecosystem.get("body")
+                else:
+                    return post.body

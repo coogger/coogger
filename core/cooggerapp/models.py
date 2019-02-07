@@ -154,6 +154,10 @@ class Content(models.Model):
         return f"@{self.user}/{self.permlink}"
 
     @property
+    def utopic(self):
+        return UTopic.objects.filter(user=self.user, name=self.topic)[0]
+
+    @property
     def dor(self):
         "duration of read"
         return round(float((self.body.__len__()/28)/60), 3)
@@ -204,23 +208,19 @@ class Content(models.Model):
         return BeautifulSoup(markdown(marktext), "html.parser")
 
     def get_first_image(self, html_soup):
+        context = dict(alt=False, src=False)
         img = html_soup.find("img")
         if img is None:
-            return ""
-        src = img.get("src")
-        try:
-            alt = img.get("alt")
-            if alt == None:
-                alt = ""
-        except:
-            alt = ""
-        return dict(alt=alt, src=src)
+            return context
+        context["src"] = img.get("src", None)
+        context["alt"] = img.get("alt", None)
+        return context
 
     def prepare_definition(self, text):
         soup = self.marktohtml(marktext=text)
         first_image = self.get_first_image(html_soup=soup)
-        if img is None:
-            return "<p>{}</p>".format(soup.text[0:200]+"...")
+        if first_image.get("src") is None:
+            return f"<p>{soup.text[0:200]}...</p>"
         return f"<img class='definition-img' src='{first_image.get('src')}' alt='{first_image.get('alt')}'></img><p>{soup.text[:200]}...</p>"
 
     def definition_for_steem(self, marktext):
@@ -254,10 +254,9 @@ class Content(models.Model):
             return marktext[0:800]+"..."
         soup = self.marktohtml(marktext)
         img = soup.find("img")
+        image = dict(src=False, alt=False)
         if str(img) not in str(soup)[0:800]:
             image = self.get_first_image(html_soup=soup)
-        else:
-            image = ""
         return dict(image=image, definition=prepare_text(marktext))
 
     def save(self, *args, **kwargs):  # for admin.py
@@ -266,37 +265,32 @@ class Content(models.Model):
 
     def content_save(self, request, *args, **kwargs):
         self.user = request.user
-        self.topic = Topic.objects.get(name=request.GET.get("topic"))
+        self.topic = Topic.objects.filter(name=request.GET.get("topic"))[0]
         self.tags = self.ready_tags()
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition(self.body)
         while True:
             try: # if user and pemlink is already saved on steem
                 BeemComment(self.get_absolute_url)
-                self.new_permlink() #We need to change permlink
+                self.permlink += "-"+str(randrange(9999)) #We need to change permlink
             except ContentDoesNotExistsException:
                 break
         steem_save = self.steemconnect_post(op_name="save")
         if steem_save.status_code == 200:
             super(Content, self).save(*args, **kwargs)
             utopic = UTopic.objects.filter(user=self.user, name=self.topic)[0]
-            Commit(utopic=utopic, content=self, body=self.body, msg=self.msg).save()
+            Commit(utopic=utopic, content=self, body=self.body, msg=request.POST.get("msg")).save()
         return steem_save
 
-    def content_update(self, old, new):
+    def content_update(self, request, old, new):
+        self.user = old[0].user
         self.topic = old[0].topic
         self.body = new.body
+        self.permlink = old[0].permlink
         self.title = new.title
         self.category = new.category
         self.language = new.language
         self.tags = self.ready_tags()
-        topic_name = request.GET.get("topic", None)
-        if topic_name is not None:
-            utopic = UTopic.objects.filter(user=old[0].user, name=topic_name)
-            if utopic.exists():
-                self.topic = Topic.objects.get(user=request.user, name=topic_name)
-            else:
-                return dict(status_code=500, text=f"you need to create the {topic_name} topic first.")
         steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
             old.update(
@@ -309,10 +303,10 @@ class Content(models.Model):
                 tags=self.tags,
             )
             Commit(
-                utopic=utopic,
-                content=self,
-                body="Değişim buraya gelecek",
-                msg=new.msg
+                utopic=self.utopic,
+                content=Content.objects.get(user=self.user, permlink=self.permlink),
+                body=self.body,
+                msg=request.POST.get("msg"),
                 ).save()
         return steem_post
 
@@ -332,21 +326,18 @@ class Content(models.Model):
                 format="markdown",
                 tags=self.tags.split(),
                 app="coogger/1.4.1",
-                ecosystem=dict(
-                    name="coogger",
+                coogger=dict(
                     version="1.4.1",
-                    topic=self.topic,
-                    category=self.category,
+                    topic=self.topic.name,
+                    category=self.category.name,
                     language=self.language,
-                    # address=self.address,
                     body=self.body,
                 )
             ),
         )
         if op_name == "save":
-            beneficiaries = self.get_beneficiaries
-            if beneficiaries != []:
-                comment_options = CommentOptions(parent_comment=comment, beneficiaries=beneficiaries)
+            if self.get_user_beneficiaries != []:
+                comment_options = CommentOptions(parent_comment=comment, beneficiaries=self.get_user_beneficiaries)
                 operation = comment_options.operation
             else:
                 operation = comment.operation
@@ -361,15 +352,14 @@ class Content(models.Model):
             return SteemConnect(token=access_token, data=operation).run
 
     @property
-    def get_beneficiaries(self):
+    def get_user_beneficiaries(self):
         beneficiaries = []
-        user_filter_obj = OtherInformationOfUsers.objects.filter(user=self.user)
-        user_beneficiaries = user_filter_obj[0].beneficiaries
-        if user_beneficiaries != 0:
+        user_benefic = OtherInformationOfUsers.objects.filter(user=self.user)[0].beneficiaries
+        if user_benefic != 0:
             beneficiaries.append(
                 dict(
                     account="coogger",
-                    weight=user_beneficiaries * 100
+                    weight=user_benefic * 100
                 )
             )
         return beneficiaries
@@ -390,9 +380,6 @@ class Content(models.Model):
         get_tag = self.tags.split(" ")[:limit]
         get_tag.insert(0, "coogger")
         return clearly_tags(get_tag)
-
-    def new_permlink(self):
-        self.permlink += "-"+str(randrange(9999))
 
 
 class Commit(models.Model):

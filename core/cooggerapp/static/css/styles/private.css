@@ -293,6 +293,7 @@ section{
 }
 .content_list{
   padding: 2px 6px;
+  margin-right: 6px;
 }
 .b-edit-point{
   width: 18px;

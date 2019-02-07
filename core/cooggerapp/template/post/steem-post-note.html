@@ -1,4 +1,7 @@
-{{ ![definition_for_steem.image.alt](definition_for_steem.image.src) }}
+{% if definition_for_steem.image.src %}
+  <center>![{{ definition_for_steem.image.alt }}]({{ definition_for_steem.image.src }})</center>
+{% endif %}
+
 {{ definition_for_steem.definition }}
 
 -------------
@@ -14,4 +17,4 @@ Read this content on [www.coogger.com](https://www.coogger.com/@{{ self.user.use
 
 Posted using [www.coogger.com](https://www.coogger.com)
 Coogger is an ecosystem where is **knowledge sharing network**
-If your inters please [contact us on discord](https://discord.gg/avmdZJa)
+If your interest please [contact us on discord](https://discord.gg/avmdZJa)

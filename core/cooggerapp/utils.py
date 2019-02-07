@@ -23,7 +23,7 @@ def content_by_filter(items, queryset):
             category = Category.objects.get(name=value)
             queryset = queryset.filter(category = category)
         elif attr == "topic":
-            topic = Topic.objects.get(name=value)
+            topic = Topic.objects.filter(name=value)[0]
             queryset = queryset.filter(topic = topic)
         else:
             try:

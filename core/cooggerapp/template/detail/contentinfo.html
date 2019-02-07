@@ -7,35 +7,35 @@
     </li>
   </div>
 </div>
-{% if detail.topic or detail.address %}
-  <div flex style="margin: 12px 0px;">
-    {% if detail.address %}
-      <div mobile-l="w-100" tablet="w-80" general="w-50">
-        <a class="content_list" style="height: 15px;margin-bottom: 2px;overflow: hidden;"
-        animation-hover="bg-primary" href="{{ detail.address }}/?ref=www.coogger.com" target="blank"
-        general="c-white br-2 txt-s left bg-primary c-white">{{ detail.address }}</a>
+<div flex style="margin: 12px 0px;">
+  {% if detail.utopic.address %}
+    <div mobile-l="w-100" tablet="w-80" general="w-50">
+      <a class="content_list" style="height: 15px;margin-bottom: 2px;overflow: hidden;"
+      animation-hover="bg-primary" href="{{ detail.address }}/?ref=www.coogger.com" target="blank"
+      general="c-white br-2 txt-s left bg-primary c-white">{{ detail.utopic.address }}</a>
+    </div>
+  {% endif %}
+    <div general="right">
+      <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
+        <a href="{% url 'filter' %}?username={{ content_user }}&language={{detail.language}}" general="c-dark" hover="c-white">
+          <i class="fas fa-flag"></i>
+          <span id="language">{{detail.language|title}}</span>
+        </a>
       </div>
-    {% endif %}
-    <div flex="ai-c" class="content_list" general="br-2 txt-s right bg-secondary c-white" animation-hover="bg-primary">
-      <a href="{% url 'language' detail.language %}" general="c-white">
-        <i class="fas fa-flag"></i>
-        <span id="language">{{detail.language|title}}</span>
-        <div flex="ai-c" general="br-2 txt-s bg-secondary c-white" animation-hover="bg-primary">
-          <a href="{% url 'filter' %}?language={{detail.language}}&category={{detail.category}}" general="c-white">
-            <i class="fa fa-list-alt" aria-hidden="true"></i>
-            <span id="category">{{detail.category|title}}</span>
-            <div flex="ai-c" general="br-2 txt-s bg-secondary c-white" animation-hover="bg-primary">
-              <a general="c-white" flex="ai-c" href="{% url 'filter' %}?language={{detail.language}}&category={{detail.category}}&topic={{detail.topic}}">
-                <i class="fa fa-hashtag" aria-hidden="true"></i>
-                <span id="topic">{{detail.topic|title}}</span>
-              </a>
-            </div>
-          </a>
-        </div>
-      </a>
+      <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
+        <a href="{% url 'filter' %}?username={{ content_user }}&category={{ detail.category }}" general="c-dark" hover="c-white">
+          <i class="fa fa-list-alt" aria-hidden="true"></i>
+          <span id="category">{{detail.category|title}}</span>
+        </a>
+      </div>
+      <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
+        <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'filter' %}?username={{ content_user }}&topic={{detail.topic}}">
+          <i class="fa fa-hashtag" aria-hidden="true"></i>
+          <span id="topic">{{detail.topic|title}}</span>
+        </a>
+      </div>
     </div>
   </div>
-{% endif %}
 <div general="c-secondary brc-muted bg-white" style="padding: 2px 0px;position: sticky;top: 0px;z-index: 1;" flex="ai-c">
     <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;">
