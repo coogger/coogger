@@ -113,6 +113,7 @@ class Create(View):
         if category is None:
             category_template = render_to_string(self.initial_template)
         initial.__setitem__("content", category_template)
+        initial.__setitem__("msg", "Initial commit")
         context = dict(
             form=self.form_class(initial=initial)
         )
@@ -148,7 +149,7 @@ class Change(View):
                 context = dict(
                     username=username,
                     permlink=permlink,
-                    form=self.form_class(instance=queryset),
+                    form=self.form_class(instance=queryset, initial=dict(msg=f"Update {queryset.title.lower()}")),
                 )
                 return render(request, self.template_name, context)
         raise Http404

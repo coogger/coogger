@@ -350,6 +350,15 @@ section{
 .just-pc{
   display: block;
 }
+.utopic-query{
+  padding: 6px 0px;
+  margin: 3px 0px;
+}
+.utopic a{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .trans-memo, .json_metadata{
   word-break: break-word;
 }

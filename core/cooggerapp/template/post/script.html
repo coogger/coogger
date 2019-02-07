@@ -1,14 +1,11 @@
 <script type="text/javascript">
     $(document).ready(function(){
-      var get_category_name = $( "#id_category" ).val();
-      var category_help_address = "?category="+get_category_name;
-      $("#category_help_name").html(get_category_name);
-      $("#category_help_page").attr("href", category_help_address);
-      $( "#id_category" ).change(function() {
-        var get_category_name = $( "#id_category" ).val();
-        var category_help_address = "?category="+get_category_name;
-        $("#category_help_name").html(get_category_name);
-        $("#category_help_page").attr("href",category_help_address);
+      $("select#id_category").change(function(e){
+        let value = e.target.value;
+        let option = $( `[name='category'] [value='${value}']` ).text();
+        $("#category_help_name").html(option);
+        $("#category_help_page").css("display", "block");
+        $("#category_help_page").attr("href", "?category="+option);
       });
     });
 </script>

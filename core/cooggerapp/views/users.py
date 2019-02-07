@@ -62,8 +62,8 @@ class Topic(TemplateView):
         context["queryset"] = contents
         context["commits_count"] = commits.count()
         context["last_commit"] = last_commit
-        context["topic"] = topic
-        context["total_dor"] = f"{total_dor} min"
+        context["utopic"] = utopic
+        context["total_dor"] = f"{round(total_dor, 3)} min"
         context["total_views"] = total_views
         return context
 

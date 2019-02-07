@@ -214,14 +214,14 @@ class Content(models.Model):
                 alt = ""
         except:
             alt = ""
-        return f"<img class='definition-img' src='{src}' alt='{alt}'></img>"
+        return dict(alt=alt, src=src)
 
     def prepare_definition(self, text):
         soup = self.marktohtml(marktext=text)
-        img = self.get_first_image(html_soup=soup)
+        first_image = self.get_first_image(html_soup=soup)
         if img is None:
             return "<p>{}</p>".format(soup.text[0:200]+"...")
-        return f"{img}<p>{soup.text[0:200]}...</p>"
+        return f"<img class='definition-img' src='{first_image.get('src')}' alt='{first_image.get('alt')}'></img><p>{soup.text[:200]}...</p>"
 
     def definition_for_steem(self, marktext):
         def prepare_text(marktext):
@@ -279,6 +279,8 @@ class Content(models.Model):
         steem_save = self.steemconnect_post(op_name="save")
         if steem_save.status_code == 200:
             super(Content, self).save(*args, **kwargs)
+            utopic = UTopic.objects.filter(user=self.user, name=self.topic)[0]
+            Commit(utopic=utopic, content=self, body=self.body, msg=self.msg).save()
         return steem_save
 
     def content_update(self, old, new):
@@ -290,7 +292,8 @@ class Content(models.Model):
         self.tags = self.ready_tags()
         topic_name = request.GET.get("topic", None)
         if topic_name is not None:
-            if UTopic.objects.filter(user=old[0].user, name=topic_name).exists():
+            utopic = UTopic.objects.filter(user=old[0].user, name=topic_name)
+            if utopic.exists():
                 self.topic = Topic.objects.get(user=request.user, name=topic_name)
             else:
                 return dict(status_code=500, text=f"you need to create the {topic_name} topic first.")
@@ -305,6 +308,12 @@ class Content(models.Model):
                 language=self.language,
                 tags=self.tags,
             )
+            Commit(
+                utopic=utopic,
+                content=self,
+                body="Değişim buraya gelecek",
+                msg=new.msg
+                ).save()
         return steem_post
 
     def steemconnect_post(self, op_name):
