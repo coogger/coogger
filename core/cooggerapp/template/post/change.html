@@ -8,4 +8,22 @@
           <input flex="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" animation-hover="i bg-white">
       </form>
   </div>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      steem.api.getContent(author = "{{ username }}", permlink = "{{ permlink }}", function(err, content) {
+        let editor_body = get_realy_content(content);
+        {% load static %}
+        $(function() {
+          let Editor = editormd("id_body_editormd", {
+            atLink : false,
+            emailLink : false,
+            path : "{% static  '/js/lib/' %}",
+            htmlDecode: "html, iframe",
+            markdown : editor_body,
+            flowChart : true,
+          });
+        });
+      });
+    });
+  </script>
 {% endblock %}

@@ -15,8 +15,7 @@ def content_by_filter(items, queryset):
     for attr, value in items:
         filter += f"&{attr}={value}"
         if attr == "username":
-            value = authenticate(username=value)
-            attr = "user"
+            queryset = queryset.filter(user = authenticate(username=value))
         elif attr == "tags":
             queryset = queryset.filter(tags__contains = value)
         elif attr == "category":

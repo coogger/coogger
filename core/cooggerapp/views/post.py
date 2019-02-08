@@ -19,10 +19,6 @@ from core.cooggerapp.forms import ContentForm, UTopicForm
 # choices
 from core.cooggerapp.choices import make_choices
 
-# beem
-from beem.comment import Comment
-from beem.exceptions import ContentDoesNotExistsException
-
 
 class CreateUTopic(View):
     template_name = "post/utopic.html"
@@ -123,6 +119,7 @@ class Create(View):
         if form.is_valid():
             form = form.save(commit=False)
             save = form.content_save(request)  # save with steemconnect and get ms
+            print(save)
             if save.status_code != 200:  # if any error show the error
                 messages.error(request, save.text)
                 return render(request, self.template_name, dict(form=ContentForm(data=request.POST)))
@@ -142,7 +139,6 @@ class Change(View):
             queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
                 content_id = queryset[0].id
-                self.content_update(request, content_id)
                 queryset = self.model.objects.filter(user=request.user, permlink=permlink)[0]
                 context = dict(
                     username=username,
@@ -162,6 +158,7 @@ class Change(View):
                 if form.is_valid():
                     form = form.save(commit=False)
                     save = form.content_update(request=request, old=queryset, new=form)
+                    print(save)
                     if save.status_code != 200:
                         messages.error(request, save.text)
                         return render(request, self.template_name, dict(
@@ -178,30 +175,3 @@ class Change(View):
                     )
                     return render(request, self.template_name, context)
         raise Http404
-
-    def content_update(self, request, content_id): # is it necessary
-        content = self.model.objects.filter(id=content_id)
-        try:
-            beem_comment = Comment(content[0].get_absolute_url)
-        except ContentDoesNotExistsException:
-            # delete this content
-            pass
-        else:
-            content.update(body=self.get_body_from_steem(beem_comment), title=beem_comment.title)
-
-    def get_body_from_steem(self, post):
-        json_metadata = post.get("json_metadata")
-        try:
-            ecosystem = json_metadata.get("ecosystem")
-        except (KeyError, TypeError):
-            return post.body
-        else:
-            try:
-                version = ecosystem.get("version")
-            except (TypeError, KeyError):
-                return post.body
-            else:
-                if version == "1.4.1":
-                    return ecosystem.get("body")
-                else:
-                    return post.body
