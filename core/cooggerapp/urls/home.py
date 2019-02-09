@@ -1,12 +1,11 @@
 from django.conf.urls import url
 
 # views
-from core.cooggerapp.views import home
+from core.cooggerapp.views.home import Home, Search, Report, Review
 
 urlpatterns = [
-    url(r'^$', home.Home.as_view(), name="home"),
-    url(r'^search/$', home.Search.as_view(), name="search"),
-    url(r'^report/$', home.Report.as_view(), name="report"),
-    url(r"^feed/$", home.Feed.as_view(), name="followingcontent"),
-    url(r'^review/$', home.Review.as_view(), name="review"),
+    url(r'^$', Home.as_view(), name="home"),
+    url(r'^search/$', Search.as_view(), name="search"),
+    url(r'^report/$', Report.as_view(), name="report"),
+    url(r'^review/$', Review.as_view(), name="review"),
     ]

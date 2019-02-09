@@ -9,9 +9,6 @@ from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
 import mistune
 
-# beem
-from beem.comment import Comment
-
 
 class HeadMiddleware(MiddlewareMixin):
 
@@ -30,26 +27,21 @@ class HeadMiddleware(MiddlewareMixin):
     def detail(self):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
-        post = Comment(f"@{username}/{permlink}")
         user = authenticate(username=username)
         try:
-            topic = Content.objects.filter(
-                user=user, permlink=permlink
-                )[0].topic
+            content = Content.objects.filter(user=user, permlink=permlink)[0]
         except IndexError:
-            topic = post.category
-        title = post.title
-        if title == "":
-            title = post.root_title
-        keywords = ""
-        for key in post.tags:
-            keywords += key+", "
-        return dict(
-            title=f"{topic.capitalize()} | {title.capitalize()}",
-            keywords=f"{keywords}{topic.lower()}",
-            description=self.get_soup(post.body).text[0:200].replace("\n"," ").capitalize(),
-            image=self.get_image(post),
-        )
+            return dict(title="", keywords="", description="", image="")
+        else:
+            keywords = ""
+            for key in content.tags.split():
+                keywords += key+", "
+            return dict(
+                title=f"{content.topic.capitalize()} | {content.title.capitalize()}",
+                keywords=f"{keywords}{content.topic.lower()}",
+                description=self.get_soup(post.body).text[0:200].replace("\n"," ").capitalize(),
+                image=self.get_image(content),
+            )
 
     def topic(self):
         try:
@@ -136,14 +128,6 @@ class HeadMiddleware(MiddlewareMixin):
             image=f"https://steemitimages.com/u/{username}/avatar",
         )
 
-    def followingcontent(self):
-        return dict(
-            title="feed",
-            keywords="Coogger feed,feed",
-            description="Coogger feed",
-            image=None,
-        )
-
     def review(self):
         return dict(
             title=f"latest posts pending approval on coogger",
@@ -183,10 +167,10 @@ class HeadMiddleware(MiddlewareMixin):
         markdown = mistune.Markdown(renderer=renderer)
         return BeautifulSoup(markdown(text), "html.parser")
 
-    def get_image(self, post):
+    def get_image(self, content):
         steemitimages = "https://steemitimages.com/0x0/"
         coogger_icon_image = f"{steemitimages}https://cdn.steemitimages.com/DQmV7q45hYaS1TugkYDmR4NtUuLXjMGDEnN2roxGGXJeYgs"
         try:
-            return steemitimages+self.get_soup(post.body).find('img').get('src')
+            return steemitimages+self.get_soup(content.body).find('img').get('src')
         except:
             return coogger_icon_image

@@ -123,7 +123,6 @@ function dor(text){
   return `min ${((text.length/reading_speed)/60).toFixed(1)}`;
 }
 function get_realy_content(content){
-  let editor_body = "";
   try{
     let json_metadata = JSON.parse(content.json_metadata);
     try{
@@ -131,24 +130,23 @@ function get_realy_content(content){
       try{
         let version = ecosystem.version;
         if (version == "1.4.1"){
-          editor_body = ecosystem.body;
+          return ecosystem.body;
         }
         else{
-          editor_body = content.body;
+          return content.body;
         }
       }
       catch(err){
-        editor_body = content.body;
+        return content.body;
       }
     }
     catch(err){
-      editor_body = content.body;
+      return content.body;
     }
   }
   catch(err){
-    editor_body = content.body;
+    return content.body;
   }
-  return editor_body;
 }
 function timeSince(date) {
   let seconds = Math.floor((new Date() - new Date(date)) / 1000);

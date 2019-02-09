@@ -355,7 +355,7 @@ section{
   padding: 6px 0px;
   margin: 3px 0px;
 }
-.utopic a{
+.utopic a, .his-json a{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

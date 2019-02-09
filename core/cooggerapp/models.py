@@ -293,6 +293,7 @@ class Content(models.Model):
                 tags=self.tags,
             )
             Commit(
+                # tx_id = steem_post["result"]["id"], # ="1b99579041b558af27334c1db22ad51923d47ce2" # DOTO
                 utopic=self.utopic,
                 content=Content.objects.get(user=self.user, permlink=self.permlink),
                 body=self.body,
@@ -316,7 +317,7 @@ class Content(models.Model):
                 format="markdown",
                 tags=self.tags.split(),
                 app="coogger/1.4.1",
-                coogger=dict(
+                ecosystem=dict(
                     version="1.4.1",
                     topic=self.topic.name,
                     category=self.category.name,
@@ -373,6 +374,7 @@ class Content(models.Model):
 
 
 class Commit(models.Model):
+    # TODO hash must be a post tx_id
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     content = models.ForeignKey(Content, on_delete=models.CASCADE)

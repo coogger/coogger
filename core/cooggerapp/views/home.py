@@ -44,28 +44,6 @@ class Home(TemplateView):
         return context
 
 
-class Feed(View):  # TODO:  must be done using steem js
-    template_name = "card/blogs.html"
-
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):  # TODO:  buradaki işlemin daha hızlı olanı vardır ya
-        queryset = []
-        for q in Content.objects.filter(status="approved"):
-            if q.user.username in self.steem_following(username=request.user.username):
-                queryset.append(q)
-        info_of_cards = paginator(request, queryset)
-        context = dict(
-            content=info_of_cards,
-        )
-        if queryset == []:
-            messages.error(request, "You do not follow anyone yet on coogger.")
-        return render(request, self.template_name, context)
-
-    def steem_following(self, username):  # TODO: fixed this section,limit = 100 ?
-        STEEM = Steem(nodes=['https://api.steemit.com'])
-        return [i["following"] for i in STEEM.get_following(username, 'abit', 'blog', limit=100)]
-
-
 class Review(TemplateView):
     template_name = "card/blogs.html"
 

@@ -119,7 +119,6 @@ class Create(View):
         if form.is_valid():
             form = form.save(commit=False)
             save = form.content_save(request)  # save with steemconnect and get ms
-            print(save)
             if save.status_code != 200:  # if any error show the error
                 messages.error(request, save.text)
                 return render(request, self.template_name, dict(form=ContentForm(data=request.POST)))
@@ -158,7 +157,6 @@ class Change(View):
                 if form.is_valid():
                     form = form.save(commit=False)
                     save = form.content_update(request=request, old=queryset, new=form)
-                    print(save)
                     if save.status_code != 200:
                         messages.error(request, save.text)
                         return render(request, self.template_name, dict(
