@@ -1,15 +1,13 @@
 # django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.db.models import Q
 from django.contrib import messages
 from django.urls import resolve
 from django.conf import settings
-
-# django class based
 from django.views.generic.base import TemplateView
 from django.views import View
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # form
 from core.cooggerapp.forms import ReportsForm
@@ -55,11 +53,10 @@ class Review(TemplateView):
         return context
 
 
-class Report(View):
+class Report(LoginRequiredMixin, View):
     form_class = ReportsForm
     template_name = "home/report.html"
 
-    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         report_form = self.form_class()
         context = dict(
@@ -68,20 +65,19 @@ class Report(View):
         )
         return render(request, self.template_name, context)
 
-    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         report_form = self.form_class(request.POST)
         if report_form.is_valid():
             content = Content.objects.filter(id=request.POST["content_id"])[0]
             if ReportModel.objects.filter(user=request.user, content=content).exists():
                 messages.error(request, "Your complaint is in the evaluation process.")
-                return HttpResponseRedirect("/")
+                return redirect(reverse("home"))
             report_form = report_form.save(commit=False)
             report_form.user = request.user
             report_form.content = content
             report_form.save()
             messages.error(request, "Your complaint has been received.")
-            return HttpResponseRedirect("/")
+            return redirect(reverse("home"))
         return HttpResponse(self.get(request, *args, **kwargs))
 
 

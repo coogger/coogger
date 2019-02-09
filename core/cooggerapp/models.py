@@ -374,7 +374,7 @@ class Content(models.Model):
 
 
 class Commit(models.Model):
-    # TODO hash must be a post tx_id
+    # TODO hash can be a post tx_id
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     content = models.ForeignKey(Content, on_delete=models.CASCADE)

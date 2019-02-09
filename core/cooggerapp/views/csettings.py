@@ -1,11 +1,10 @@
 # django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 # class
 from django.views import View
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # models
 from core.cooggerapp.models import OtherAddressesOfUsers, OtherInformationOfUsers
@@ -19,10 +18,9 @@ from core.cooggerapp.forms import (OtherAddressesOfUsersForm,
 import os
 
 
-class Settings(View):
+class Settings(LoginRequiredMixin, View):
     template_name = "settings/settings.html"
 
-    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         address = self.address(request)
         context = dict(
@@ -34,7 +32,6 @@ class Settings(View):
         )
         return render(request, self.template_name, context)
 
-    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         try:
             self.post_coogger_up(request)
@@ -43,7 +40,7 @@ class Settings(View):
             self.post_beneficiaries(request)
         except Exception as e:
             messages.error(request, e)
-        return HttpResponseRedirect(request.META["PATH_INFO"])
+        return redirect(request.META["PATH_INFO"])
 
     def address(self, request):
         address_instance = OtherAddressesOfUsers.objects.filter(user=request.user)
@@ -54,7 +51,7 @@ class Settings(View):
         form = OtherAddressesOfUsersForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            if form.choices != None and form.adress != None:
+            if form.choices != None and form.address != None:
                 form.user = request.user
                 form.save()
                 messages.error(request, "Your website has added")

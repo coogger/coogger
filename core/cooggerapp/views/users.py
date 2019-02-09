@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate
+from django.urls import reverse
 
 # class
 from django.views.generic.base import TemplateView
@@ -97,7 +98,7 @@ class About(View):
                     about_form.user = request.user
                     about_form.about = "\n" + about_form.about
                     about_form.save()
-                    return redirect("/about/@{}".format(request.user.username))
+                    return redirect(reverse("userabout", kwargs=dict(username=request.user.username)))
 
 
 class Comment(TemplateView):
