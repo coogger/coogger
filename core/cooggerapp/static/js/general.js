@@ -196,8 +196,10 @@ function userinfo(comment){
   return (`
     <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
       <div flex='ai-fs' general='bg-white'>
-        <img general='br-circle left' id='detail_profile_image' src='https://steemitimages.com/u/${comment.author}/avatar' class='useruserimg'
-          style='height:  40px;width:  40px;margin:  initial;'></a>
+      <a flex title='${comment.author}' href='/@${comment.author}'
+        style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
+          <img general='br-circle left' id='detail_profile_image' src='https://steemitimages.com/u/${comment.author}/avatar' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
+        </a>
         <div general='txt-s' flex='fd-c' class='duread-li'>
             <a flex title='${comment.author}' href='/@${comment.author}'
               style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>

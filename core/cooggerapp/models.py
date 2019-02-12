@@ -263,7 +263,7 @@ class Content(models.Model):
         self.user = request.user
         self.topic = Topic.objects.filter(name=request.GET.get("topic"))[0]
         self.tags = self.ready_tags()
-        self.permlink = slugify(self.title.lower())
+        self.permlink = slugify(self.title.lower()) # TODO if permlink is not exists on steem share .
         self.definition = self.prepare_definition(self.body)
         steem_save = self.steemconnect_post(op_name="save")
         if steem_save.status_code == 200:
@@ -274,13 +274,34 @@ class Content(models.Model):
 
     def content_update(self, request, old, new):
         self.user = old[0].user
-        self.topic = old[0].topic
+        get_topic_name = request.GET.get("topic", None)
+        if get_topic_name is None:
+            get_topic_name = old[0].topic
+        self.topic = Topic.objects.filter(name=get_topic_name)[0]
         self.body = new.body
         self.permlink = old[0].permlink
         self.title = new.title
         self.category = new.category
         self.language = new.language
         self.tags = self.ready_tags()
+        commit_context = dict()
+        if self.topic != old[0].topic:
+            commit_context["from_topic"] = old[0].topic
+            commit_context["to_topic"] = self.topic
+        if self.title != old[0].title:
+            commit_context["from_title"] = old[0].title
+            commit_context["to_title"] = self.title
+        if self.category != old[0].category:
+            commit_context["from_category"] = old[0].category
+            commit_context["to_category"] = self.category
+        if self.language != old[0].language:
+            commit_context["from_language"] = old[0].language
+            commit_context["to_language"] = self.language
+        if self.tags != old[0].tags:
+            commit_context["from_tags"] = old[0].tags
+            commit_context["to_tags"] = self.tags
+        if self.body != old[0].body:
+            commit_context["body"] = self.body # TODO old[0].body - self.body
         steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
             old.update(
@@ -292,13 +313,14 @@ class Content(models.Model):
                 language=self.language,
                 tags=self.tags,
             )
-            Commit(
-                # tx_id = steem_post["result"]["id"], # ="1b99579041b558af27334c1db22ad51923d47ce2" # DOTO
-                utopic=self.utopic,
-                content=Content.objects.get(user=self.user, permlink=self.permlink),
-                body=self.body,
-                msg=request.POST.get("msg"),
-                ).save()
+            if commit_context != dict():
+                Commit(
+                    # tx_id = steem_post["result"]["id"], # ="1b99579041b558af27334c1db22ad51923d47ce2" # DOTO
+                    utopic=self.utopic,
+                    content=Content.objects.get(user=self.user, permlink=self.permlink),
+                    body=render_to_string("post/commit.html", commit_context),
+                    msg=request.POST.get("msg"),
+                    ).save()
         return steem_post
 
     def steemconnect_post(self, op_name):
@@ -319,9 +341,6 @@ class Content(models.Model):
                 app="coogger/1.4.1",
                 ecosystem=dict(
                     version="1.4.1",
-                    topic=self.topic.name,
-                    category=self.category.name,
-                    language=self.language,
                     body=self.body,
                 )
             ),

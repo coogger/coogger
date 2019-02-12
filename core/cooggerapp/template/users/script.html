@@ -8,13 +8,17 @@
           document.getElementById("useruserimg").setAttribute("src","https://steemitimages.com/u/{{ content_user }}/avatar");
           $("#reputation").html(steem.formatter.reputation(user.reputation));
           try{
-            $("#about").html(profile.about);
+            if (profile.about != "about"){
+              $("#about").html(profile.about);
+            }
           }
           catch(err){
             console.log(err);
           }
           try{
-            $("#location").html(profile.location);
+            if (profile.location != "location"){
+              $("#location").html(profile.location);
+            }
           }
           catch(err){
             console.log(err);

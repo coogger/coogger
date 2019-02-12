@@ -85,9 +85,14 @@ class Create(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         initial, category = dict(), None
-        if request.GET.get("topic", None) is None:
+        topic_name = request.GET.get("topic", None)
+        if topic_name is None:
             messages.warning(request, "you need to write like that /post/create/?topic={your_topic_name} or create the topic first.")
             return redirect(reverse("create-utopic"))
+        else:
+            if not Topic.objects.filter(name=topic_name).exists():
+                messages.warning(request, f"you need to create the {topic_name} topic first.")
+                return redirect(reverse("create-utopic")+f"?name={topic_name}")
         for key, value in request.GET.items():
             if key == "category":
                 category = Category.objects.get(name=value)
@@ -131,6 +136,10 @@ class Change(LoginRequiredMixin, View):
 
     def get(self, request, username, permlink, *args, **kwargs):
         if request.user.username == username:
+            topic_name = request.GET.get("topic", None)
+            if topic_name is not None and not Topic.objects.filter(name=topic_name).exists():
+                messages.warning(request, f"you need to create the {topic_name} topic first.")
+                return redirect(reverse("create-utopic")+f"?name={topic_name}")
             queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
                 content_id = queryset[0].id

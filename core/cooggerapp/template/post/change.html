@@ -1,7 +1,7 @@
 {% extends "home/html.html" %}
 {% block body %}
   <div class="update" flex="jc-c ai-c fd-c" general="center w-100" style="margin-top:30px;">
-      <form flex="fd-c" class="c-update-form" action="{% url 'change' username permlink %}" style="padding: 12px 6px"
+      <form flex="fd-c" class="c-update-form" action="" style="padding: 12px 6px"
       default="form" method="post" mobile-s="w-100" mobile-l="w-98" tablet="w-60"
       laptop="w-40" laptop-l="w-70" max="w-50">
           {% csrf_token %} {{ form }} {{ form.media }}

@@ -226,8 +226,8 @@ class Sync():
             filter_views.filter()
             for view in filter_views.results:
                 content_filter_api.filter(id=view.content, dapp="coogger")
-                content = content_filter_api.results[0]
                 try:
+                    content = content_filter_api.results[0]
                     content = Content.objects.filter(user=self.user_update(content.username), permlink=content.permlink)[0]
                 except IndexError:
                     pass
@@ -287,9 +287,9 @@ class Command(BaseCommand):
         if which is not None:
             eval(f"sync.{which}()")
         else:
-            sync.steemconnect_user()
-            sync.content()
-            sync.useraddresses()
-            sync.searched()
+            # sync.steemconnect_user()
+            # sync.content()
+            # sync.useraddresses()
+            # sync.searched()
             # sync.user()
-            # sync.views()
+            sync.views()

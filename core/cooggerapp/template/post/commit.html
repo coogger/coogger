@@ -1,0 +1,36 @@
+--------------
+
+{% if from_title %}
+|       | Title |
+| - |
+| From  |   {{ from_title }}
+| To  |   {{ to_title }}
+{% endif %}
+{% if from_topic %}
+|       | Topic |
+| - |
+| From  |   {{ from_topic }}
+| To  |   {{ to_topic }}
+{% endif %}
+{% if from_category %}
+|       | Category |
+| - |
+| From  |   {{ from_category }}
+| To  |   {{ to_category }}
+{% endif %}
+{% if from_language %}
+|       | Language |
+| - |
+| From  |   {{ from_language }}
+| To  |   {{ to_language }}
+{% endif %}
+{% if from_tags %}
+|       | Tags |
+| - |
+| From  |   {{ from_tags }}
+| To  |   {{ to_tags }}
+{% endif %}
+
+------------------
+
+{% if body %}{{ body }}{% endif %}
