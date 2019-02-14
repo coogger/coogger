@@ -97,7 +97,7 @@ MDEDITOR_CONFIGS = dict(
 if DEBUG:
     redirect_url = "http://127.0.0.1:8000/accounts/steemconnect/"
 else:
-    redirect_url = "http://www.coogger.com/accounts/steemconnect/"
+    redirect_url = "https://www.coogger.com/accounts/steemconnect/"
 STEEMCONNECT_AUTH_CONFIGS = dict(
     redirect_url=redirect_url,
     client_id=env("CLIENT_ID"),

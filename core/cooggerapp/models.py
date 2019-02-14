@@ -150,6 +150,22 @@ class Content(models.Model):
         return f"@{self.user}/{self.permlink}"
 
     @property
+    def username(self):
+        return self.user.username
+
+    @property
+    def modusername(self):
+        return self.mod.username
+
+    @property
+    def category_name(self):
+        return self.category.name
+
+    @property
+    def topic_name(self):
+        return self.topic.name
+
+    @property
     def utopic(self):
         return UTopic.objects.filter(user=self.user, name=self.topic)[0]
 
@@ -189,14 +205,6 @@ class Content(models.Model):
             return obj[index+1].get_absolute_url
         except IndexError:
             return False
-
-    @property
-    def username(self):
-        return self.user.username
-
-    @property
-    def modusername(self):
-        return self.mod.username
 
     def marktohtml(self, marktext):
         renderer = Renderer(escape=False, parse_block_html=True)

@@ -77,8 +77,8 @@
             let permlink = content.permlink;
             let views = content.views;
             let definition = content.definition;
-            let topic = content.topic;
-            let category = content.category;
+            let topic = content.topic_name;
+            let category = content.category_name;
             let language = content.language;
             let title = content.title;
             steem.api.getContent(author, permlink, function(err, steem_content) {
