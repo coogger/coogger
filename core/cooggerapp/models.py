@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.timezone import now
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.db import IntegrityError
 
 # choices
 from core.cooggerapp.choices import *
@@ -37,7 +38,7 @@ def get_new_hash():
 class UTopic(models.Model):
     "topic for users"
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(
+    name = models.SlugField(
         max_length=50,
         verbose_name="Name",
         help_text="Please, write topic name."
@@ -62,13 +63,21 @@ class UTopic(models.Model):
         help_text="Add an address if it have"
         )
 
+    def save(self, *args, **kwargs):
+        self.name = slugify(self.name)
+        try:
+            Topic(name=self.name).save()
+        except IntegrityError:
+            pass
+        super(UTopic, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
 
 class Topic(models.Model):
     "global topic"
-    name = models.CharField(max_length=50,
+    name = models.SlugField(unique=True, max_length=50,
         help_text="Please, write topic name."
         )
     image_address = models.URLField(
@@ -94,6 +103,10 @@ class Topic(models.Model):
         default=True,
         verbose_name="Is it editable? | Yes/No"
         )
+
+    def save(self, *args, **kwargs):
+        self.name = slugify(self.name)
+        super(Topic, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -280,7 +293,7 @@ class Content(models.Model):
             get_msg = request.POST.get("msg")
             if get_msg == "Initial commit":
                 get_msg = f"{self.title} Published."
-            Commit(utopic=utopic, content=self, body=self.body, msg=get_msg).save()
+            Commit(user=self.user, utopic=utopic, content=self, body=self.body, msg=get_msg).save()
         return steem_save
 
     def content_update(self, request, old, new):
@@ -327,6 +340,7 @@ class Content(models.Model):
             if commit_context != dict():
                 Commit(
                     # tx_id = steem_post["result"]["id"], # ="1b99579041b558af27334c1db22ad51923d47ce2" # DOTO
+                    user=self.user,
                     utopic=self.utopic,
                     content=Content.objects.get(user=self.user, permlink=self.permlink),
                     body=render_to_string("post/commit.html", commit_context),

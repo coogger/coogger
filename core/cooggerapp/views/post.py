@@ -2,10 +2,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import Http404
+from django.utils.text import slugify
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+from django.db import IntegrityError
 
 # models
 from core.cooggerapp.models import Content, Category, UTopic, Topic
@@ -35,8 +37,6 @@ class CreateUTopic(LoginRequiredMixin, View):
             form.user = request.user
             if not self.model.objects.filter(user=request.user, name=form.name).exists():
                 save = form.save()
-                if not Topic.objects.filter(name=form.name).exists():
-                    Topic(name=form.name).save()
                 return redirect(reverse("utopic", kwargs={"topic": form.name, "username": form.user}))
             else:
                 messages.warning(request, f"{form.name} is already taken by yours" )
@@ -61,6 +61,7 @@ class UpdateUTopic(CreateUTopic):
         return render(request, self.template_name, context)
 
     def post(self, request, name, *args, **kwargs):
+        name = slugify(name)
         form = self.form_class(data=request.POST)
         context = dict(
             form=self.form_class(data=request.POST),
@@ -68,6 +69,7 @@ class UpdateUTopic(CreateUTopic):
         )
         if form.is_valid():
             form = form.save(commit=False)
+            form.name = slugify(form.name)
             self.model.objects.filter(user=request.user, name=name).update(
                 name=form.name,
                 image_address=form.image_address,
@@ -75,6 +77,10 @@ class UpdateUTopic(CreateUTopic):
                 tags=form.tags,
                 address=form.address,
             )
+            try:
+                Topic(name=form.name).save()
+            except IntegrityError:
+                pass
         return render(request, self.template_name, context)
 
 
