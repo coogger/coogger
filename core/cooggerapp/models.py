@@ -269,7 +269,10 @@ class Content(models.Model):
         if steem_save.status_code == 200:
             super(Content, self).save(*args, **kwargs)
             utopic = UTopic.objects.filter(user=self.user, name=self.topic)[0]
-            Commit(utopic=utopic, content=self, body=self.body, msg=request.POST.get("msg")).save()
+            get_msg = request.POST.get("msg")
+            if get_msg == "Initial commit":
+                get_msg = f"{self.title} Published."
+            Commit(utopic=utopic, content=self, body=self.body, msg=get_msg).save()
         return steem_save
 
     def content_update(self, request, old, new):

@@ -89,55 +89,57 @@ class Sync():
     def get_all_contents(self):
         all_contents = []
         content_filter_api = ContentFilterApi(data=self.data)
-        payload = content_filter_api.filter(dapp="coogger")
+        payload = content_filter_api.filter(dapp="coogger", status="approved")
         for content in content_filter_api.get(payload):
             all_contents.append(content)
         return reversed(all_contents)
 
     def content(self):
-        for content in self.get_all_contents():
-            user = self.user_update(username=content.username)
-            print(f"content >> @{content.username}/{content.permlink}")
-            c_object = Content.objects.filter(user=user, permlink=content.permlink)
+        for post in self.get_all_contents():
+            user = self.user_update(username=post.username)
+            c_object = Content.objects.filter(user=user, permlink=post.permlink)
             if not c_object.exists():
-                topic = self.topic(content.topic)
-                print(topic, 11)
-                print(f"saved a content -> {content.permlink}", "\r")
                 try:
-                    mod = User.objects.filter(username=content.modusername)[0]
+                    mod = self.user_update(post.modusername)
                 except AttributeError:
                     mod = None
-                category_id = Category.objects.filter(name=content.category)
+                category_id = Category.objects.filter(name=post.category)
                 if not category_id.exists():
-                    Category(name=content.category).save()
-                    category_id = Category.objects.filter(name=content.category)
+                    Category(name=post.category).save()
+                    category_id = Category.objects.filter(name=post.category)
                 Content(
                     user=user,
-                    title=content.title,
-                    permlink=content.permlink,
-                    body=content.content,
-                    tags=content.tags,
-                    language=content.language,
+                    title=post.title,
+                    permlink=post.permlink,
+                    body=post.content,
+                    tags=post.tags,
+                    language=post.language,
                     category=category_id[0],
-                    definition=content.definition,
-                    topic=topic,
-                    status=content.status,
-                    views=content.views,
-                    created=content.created,
-                    last_update=content.last_update,
+                    definition=post.definition,
+                    topic=self.topic(post.topic),
+                    status=post.status,
+                    views=post.views,
+                    created=post.created,
+                    last_update=post.last_update,
                     mod=mod,
-                    cooggerup=content.cooggerup,
+                    cooggerup=post.cooggerup,
                 ).save()
-                utopic = UTopic.objects.filter(user=user, name=content.topic)
+                utopic = UTopic.objects.filter(user=user, name=post.topic)
                 if utopic.exists():
-                    utopic.update(address=content.address)
+                    utopic.update(address=post.address)
                 else:
-                    UTopic(user=user, name=content.topic, address=content.address).save()
-                    utopic = UTopic.objects.filter(user=user, name=content.topic)
-                content = Content.objects.filter(user=user, permlink=content.permlink)[0]
+                    UTopic(user=user, name=post.topic, address=post.address).save()
+                    utopic = UTopic.objects.filter(user=user, name=post.topic)
+                content = Content.objects.filter(user=user, permlink=post.permlink)[0]
                 if not Commit.objects.filter(utopic=utopic[0], content=content).exists():
-                    Commit(user=user, utopic=utopic[0], content=content, body=content.body).save()
-            self.views(c_object)
+                    Commit(
+                        user=user,
+                        utopic=utopic[0],
+                        content=content,
+                        body=content.body,
+                        msg=f"{post.title} Published."
+                        ).save()
+            self.views(id=post.id, obj=c_object)
 
     def searched(self):
         search_filter_api = SearchFilterApi(data=self.data)
@@ -171,22 +173,26 @@ class Sync():
                     address=address,
                 ).save()
 
-    def views(self, content_obj):
-        view_obj = Contentviews.objects.filter(content_id=content_obj[0].id)
+    def views(self, id, obj):
         filter_views = ViewsFilterApi(data=self.data)
-        payload = filter_views.filter(content=content_obj[0].id)
+        payload = filter_views.filter(content=id)
         count = filter_views.count(payload)
-        print(f"content >> {content_obj} views >> {count}")
-        if not view_obj.exists() or int(count) != view_obj.count():
-            for view in filter_views.get(payload):
-                if not view_obj.filter(ip=view.ip).exists():
-                    Contentviews(content_id=content_obj[0].id, ip=view.ip).save()
+        print(f"{obj} views >> {count}")
+        view_obj = Contentviews.objects.filter(content_id=obj[0].id)
+        if view_obj.exists():
+            if count == view_obj.count():
+                return
+        for view in filter_views.get(payload):
+            if not view_obj.filter(ip=view.ip).exists():
+                Contentviews(content_id=obj[0].id, ip=view.ip).save()
 
     def topic(self, name):
         topic_views = TopicFilterApi(data=self.data)
         payload = topic_views.filter(name=name)
         if topic_views.count(payload) == 0:
-            if not Topic.objects.filter(name=name).exists():
+            try:
+                Topic.objects.filter(name=name)[0]
+            except IndexError:
                 Topic(name=name).save()
                 return Topic.objects.filter(name=name)[0]
         else:

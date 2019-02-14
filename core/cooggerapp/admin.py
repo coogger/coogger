@@ -3,7 +3,7 @@ from django.http import Http404
 
 #models
 from core.cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
-    ReportModel, OtherInformationOfUsers, Topic, Commit, UTopic)
+    ReportModel, OtherInformationOfUsers, Topic, Commit, UTopic, Category)
 
 #choices
 from core.cooggerapp.choices import *
@@ -120,6 +120,7 @@ class TopicAdmin(ModelAdmin):
 site.register(Content,ContentAdmin)
 site.register(Commit)
 site.register(UTopic)
+site.register(Category)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(OtherAddressesOfUsers,OtherAddressesOfUsersAdmin)
 site.register(SearchedWords,SearchedWordsAdmin)
