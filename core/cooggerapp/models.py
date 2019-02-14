@@ -224,9 +224,9 @@ class Content(models.Model):
         markdown = Markdown(renderer=renderer)
         return BeautifulSoup(markdown(marktext), "html.parser")
 
-    def get_first_image(self, html_soup):
+    def get_first_image(self, soup):
         context = dict(alt=False, src=False)
-        img = html_soup.find("img")
+        img = soup.find("img")
         if img is None:
             return context
         context["src"] = img.get("src", None)
@@ -235,46 +235,10 @@ class Content(models.Model):
 
     def prepare_definition(self, text):
         soup = self.marktohtml(marktext=text)
-        first_image = self.get_first_image(html_soup=soup)
+        first_image = self.get_first_image(soup=soup)
         if first_image.get("src") is None:
             return f"<p>{soup.text[0:200]}...</p>"
         return f"<img class='definition-img' src='{first_image.get('src')}' alt='{first_image.get('alt')}'></img><p>{soup.text[:200]}...</p>"
-
-    def definition_for_steem(self, marktext):
-        def prepare_text(marktext):
-            code_mark = True # closed
-            code_mark2 = True # closed
-            for_marktext = marktext[0:800].split("\n")
-            for line, index in zip(for_marktext, range(len(for_marktext))):
-                if line.startswith("```"):
-                    code_mark = False # open
-                    while True:
-                        try:
-                            if for_marktext[index+1].startswith("```"):
-                                code_mark = True # cloased
-                        except IndexError:
-                            break
-                        index += 1
-                elif line.startswith("`"):
-                    code_mark2 = False
-                    while True:
-                        try:
-                            if for_marktext[index+1].startswith("`"):
-                                code_mark2 = True
-                        except IndexError:
-                            break
-                        index += 1
-            if not code_mark:
-                return marktext[0:800]+"\n```\n..."
-            elif not code_mark2:
-                return marktext[0:800]+"\n`\n..."
-            return marktext[0:800]+"..."
-        soup = self.marktohtml(marktext)
-        img = soup.find("img")
-        image = dict(src=False, alt=False)
-        if str(img) not in str(soup)[0:800]:
-            image = self.get_first_image(html_soup=soup)
-        return dict(image=image, definition=prepare_text(marktext))
 
     def save(self, *args, **kwargs):  # for admin.py
         self.definition = self.prepare_definition(self.body)
@@ -350,8 +314,9 @@ class Content(models.Model):
 
     def steemconnect_post(self, op_name):
         context = dict(
-            definition_for_steem=self.definition_for_steem(self.body),
-            self=self,
+            image=self.get_first_image(soup=self.marktohtml(marktext)),
+            username=self.username,
+            permlink=self.permlink,
         )
         comment = Comment(
             parent_author = "",
