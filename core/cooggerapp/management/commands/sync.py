@@ -25,39 +25,29 @@ class Sync():
 
     def steemconnect_user(self):
         steemconnect_user = SteemConnectFilterApi(data=self.data)
-        while True:
-            steemconnect_user.filter()
-            for sc_user in steemconnect_user.results:
-                user = authenticate(username=sc_user.username)
-                sc_object = SteemConnectUser.objects.filter(user=user)
-                if sc_object.exists():
-                    sc_object.update(
-                        refresh_token=sc_user.refresh_token,
-                        code=sc_user.code,
-                        access_token=sc_user.access_token
-                    )
-                else:
-                    SteemConnectUser(
-                        user=user,
-                        refresh_token=sc_user.refresh_token,
-                        code=sc_user.code,
-                        access_token=sc_user.access_token
-                    ).save()
-            if steemconnect_user.next:
-                steemconnect_user.api_url = steemconnect_user.next
+        payload = steemconnect_user.filter()
+        for sc_user in steemconnect_user.get(payload):
+            user = authenticate(username=sc_user.username)
+            sc_object = SteemConnectUser.objects.filter(user=user)
+            if sc_object.exists():
+                sc_object.update(
+                    refresh_token=sc_user.refresh_token,
+                    code=sc_user.code,
+                    access_token=sc_user.access_token
+                )
             else:
-                break
+                SteemConnectUser(
+                    user=user,
+                    refresh_token=sc_user.refresh_token,
+                    code=sc_user.code,
+                    access_token=sc_user.access_token
+                ).save()
 
     def user(self):
         user_filter_api = UserFilterApi(data=self.data)
-        while True:
-            user_filter_api.filter()
-            for user in user_filter_api.results:
-                self.user_update(user.username)
-            if user_filter_api.next:
-                user_filter_api.api_url = user_filter_api.next
-            else:
-                break
+        payload = user_filter_api.filter()
+        for user in user_filter_api.get(payload):
+            self.user_update(user.username)
 
     def user_update(self, username):
         user = authenticate(username=username)
@@ -67,7 +57,7 @@ class Sync():
                 data=self.data
             ).ditop
         except Exception as e:
-            print(e, username, "\r")
+            print(e, username)
         else:
             oiou_object = OtherInformationOfUsers.objects.filter(user=user)
             if oiou_object.exists():
@@ -97,50 +87,21 @@ class Sync():
         return user
 
     def get_all_contents(self):
-        # TODO: there is a problem, it is not fetch all of content.
-        content_filter_api = ContentFilterApi(data=self.data)
         all_contents = []
-        while True:
-            content_filter_api.filter(dapp="coogger")
-            print(f"count >> {content_filter_api.ditop.count}, received >> {len(all_contents)}", "\r")
-            for content in content_filter_api.results:
-                all_contents.append(content)
-            if content_filter_api.next:
-                content_filter_api.api_url = content_filter_api.next
-            else:
-                break
+        content_filter_api = ContentFilterApi(data=self.data)
+        payload = content_filter_api.filter(dapp="coogger")
+        for content in content_filter_api.get(payload):
+            all_contents.append(content)
         return reversed(all_contents)
 
     def content(self):
         for content in self.get_all_contents():
-            user = self.user_update(content.username)
-            topic = self.topic(content.topic)
-            if topic is None:
-                continue
+            user = self.user_update(username=content.username)
+            print(f"content >> @{content.username}/{content.permlink}")
             c_object = Content.objects.filter(user=user, permlink=content.permlink)
-            if c_object.exists() and content.last_update != c_object[0].last_update:
-                print(f"update a content >> {c_object}", "\r")
-                try:
-                    mod = User.objects.filter(username=content.modusername)[0]
-                except AttributeError:
-                    mod = None
-                category_id = Category.objects.filter(name=content.category)
-                c_object.update(
-                    user=user,
-                    title=content.title,
-                    body=content.content,
-                    tags=content.tags,
-                    language=content.language,
-                    category=category_id[0],
-                    definition=content.definition,
-                    topic=topic,
-                    status=content.status,
-                    views=content.views,
-                    last_update=content.last_update,
-                    mod=mod,
-                    cooggerup=content.cooggerup,
-                )
-            else:
+            if not c_object.exists():
+                topic = self.topic(content.topic)
+                print(topic, 11)
                 print(f"saved a content -> {content.permlink}", "\r")
                 try:
                     mod = User.objects.filter(username=content.modusername)[0]
@@ -175,98 +136,81 @@ class Sync():
                     utopic = UTopic.objects.filter(user=user, name=content.topic)
                 content = Content.objects.filter(user=user, permlink=content.permlink)[0]
                 if not Commit.objects.filter(utopic=utopic[0], content=content).exists():
-                    Commit(utopic=utopic[0], content=content, body=content.body).save()
+                    Commit(user=user, utopic=utopic[0], content=content, body=content.body).save()
+            self.views(c_object)
 
     def searched(self):
         search_filter_api = SearchFilterApi(data=self.data)
-        while True:
-            search_filter_api.filter()
-            for searched in search_filter_api.results:
-                word = searched.word
-                s_object = SearchedWords.objects.filter(word=word)
-                if s_object.exists():
-                    s_object.update(hmany=searched.hmany)
-                else:
-                    SearchedWords(
-                        word=word,
-                        hmany=searched.hmany,
-                    ).save()
-            if search_filter_api.next:
-                search_filter_api.api_url = search_filter_api.next
+        payload = search_filter_api.filter()
+        for searched in search_filter_api.get(payload):
+            word = searched.word
+            s_object = SearchedWords.objects.filter(word=word)
+            if s_object.exists():
+                s_object.update(hmany=searched.hmany)
             else:
-                break
+                SearchedWords(
+                    word=word,
+                    hmany=searched.hmany,
+                ).save()
 
     def useraddresses(self):
         filter_user_address = UserAddresFilterApi(data=self.data)
-        while True:
-            filter_user_address.filter()
-            for searched in filter_user_address.results:
-                user = self.user_update(searched.username)
-                choices = searched.choices
-                address = searched.address
-                address_obj = OtherAddressesOfUsers.objects.filter(
-                    user=user, choices=choices,
-                    address=address
-                    )
-                if not address_obj.exists():
-                    OtherAddressesOfUsers(
-                        user=user,
-                        choices=choices,
-                        address=address,
-                    ).save()
-            if filter_user_address.next:
-                filter_user_address.api_url = filter_user_address.next
-            else:
-                break
+        payload = filter_user_address.filter()
+        for searched in filter_user_address.get(payload):
+            user = self.user_update(searched.username)
+            choices = searched.choices
+            address = searched.address
+            address_obj = OtherAddressesOfUsers.objects.filter(
+                user=user, choices=choices,
+                address=address
+                )
+            if not address_obj.exists():
+                OtherAddressesOfUsers(
+                    user=user,
+                    choices=choices,
+                    address=address,
+                ).save()
 
-    def views(self):
+    def views(self, content_obj):
+        view_obj = Contentviews.objects.filter(content_id=content_obj[0].id)
         filter_views = ViewsFilterApi(data=self.data)
-        content_filter_api = ContentFilterApi(data=self.data)
-        while True:
-            filter_views.filter()
-            for view in filter_views.results:
-                content_filter_api.filter(id=view.content, dapp="coogger")
-                try:
-                    content = content_filter_api.results[0]
-                    content = Content.objects.filter(user=self.user_update(content.username), permlink=content.permlink)[0]
-                except IndexError:
-                    pass
-                else:
-                    if not Contentviews.objects.filter(content=content, ip=view.ip).exists():
-                        Contentviews(content=content, ip=view.ip).save()
-            if filter_views.next:
-                filter_views.api_url = filter_views.next
-            else:
-                break
+        payload = filter_views.filter(content=content_obj[0].id)
+        count = filter_views.count(payload)
+        print(f"content >> {content_obj} views >> {count}")
+        if not view_obj.exists() or int(count) != view_obj.count():
+            for view in filter_views.get(payload):
+                if not view_obj.filter(ip=view.ip).exists():
+                    Contentviews(content_id=content_obj[0].id, ip=view.ip).save()
 
     def topic(self, name):
         topic_views = TopicFilterApi(data=self.data)
-        topic_views.filter(name=name)
-        try:
-            topic = topic_views.results[0]
-        except Exception as e:
-            Topic(name=name).save()
+        payload = topic_views.filter(name=name)
+        if topic_views.count(payload) == 0:
+            if not Topic.objects.filter(name=name).exists():
+                Topic(name=name).save()
+                return Topic.objects.filter(name=name)[0]
         else:
-            t_obj = Topic.objects.filter(name=topic.name)
-            if t_obj.exists():
-                t_obj.update(
-                    image_address=topic.image_address,
-                    definition=topic.definition,
-                    tags=topic.tags,
-                    address=topic.address,
-                    editable=topic.editable,
-                    )
-            else:
-                print(f"create topic >> {topic.name}")
-                Topic(
-                    name=topic.name,
-                    image_address=topic.image_address,
-                    definition=topic.definition,
-                    tags=topic.tags,
-                    address=topic.address,
-                    editable=topic.editable,
-                    ).save()
-            return Topic.objects.filter(name=topic.name)[0]
+            for topic in topic_views.get(payload):
+                t_obj = Topic.objects.filter(name=topic.name)
+                if t_obj.exists():
+                    t_obj.update(
+                        image_address=topic.image_address,
+                        definition=topic.definition,
+                        tags=topic.tags,
+                        address=topic.address,
+                        editable=topic.editable,
+                        )
+                else:
+                    print(f"create topic >> {topic.name}")
+                    Topic(
+                        name=topic.name,
+                        image_address=topic.image_address,
+                        definition=topic.definition,
+                        tags=topic.tags,
+                        address=topic.address,
+                        editable=topic.editable,
+                        ).save()
+                return t_obj[0]
 
 
 class Command(BaseCommand):
@@ -287,9 +231,8 @@ class Command(BaseCommand):
         if which is not None:
             eval(f"sync.{which}()")
         else:
-            # sync.steemconnect_user()
-            # sync.content()
-            # sync.useraddresses()
-            # sync.searched()
+            sync.steemconnect_user()
+            sync.content()
+            sync.useraddresses()
+            sync.searched()
             # sync.user()
-            sync.views()

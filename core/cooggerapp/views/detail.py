@@ -73,10 +73,24 @@ class Commits(TemplateView):
 
     def get_context_data(self, username, topic, **kwargs):
         user = authenticate(username=username)
+        global_topic = Topic.objects.filter(name=topic)[0]
+        contents = Content.objects.filter(user=user, topic=global_topic, status="approved")
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
         context = super(Commits, self).get_context_data(**kwargs)
+        commits = Commit.objects.filter(utopic=utopic)
+        total_dor = 0
+        for dor in [query.dor for query in contents]:
+            total_dor += dor
+        total_views = 0
+        for views in [query.views for query in contents]:
+            total_views += views
         context["content_user"] = user
-        context["commits"] = Commit.objects.filter(utopic=utopic)
+        context["utopic"] = utopic
+        context["commits_count"] = commits.count()
+        context["last_commit"] = commits[len(commits)-1]
+        context["commits"] = commits
+        context["total_views"] = total_views
+        context["total_dor"] = f"{round(total_dor, 3)} min"
         return context
 
 class CommitDetail(TemplateView):

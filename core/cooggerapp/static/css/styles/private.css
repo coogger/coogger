@@ -20,7 +20,7 @@ padding: 24px 0px;
       padding: 12px 12px;
 }
 .commit{
-  padding: 12px;
+  padding: 6px;
   margin-bottom: 6px;
 }
 .commit a:hover, .utopic a:hover{
@@ -355,7 +355,7 @@ section{
   padding: 6px 0px;
   margin: 3px 0px;
 }
-.utopic a, .his-json a{
+.utopic a, .his-json a ,.history-op a{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

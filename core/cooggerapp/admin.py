@@ -19,7 +19,6 @@ class ContentAdmin(ModelAdmin):
     list_filter = ["status", "cooggerup"]
     search_fields = ["title", "body", "permlink"]
     fields = (
-        ("user"),
         ("category"),
         ("language"),
         ("topic"),

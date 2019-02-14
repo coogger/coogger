@@ -48,6 +48,7 @@ class TopicFilter(Filter):
     model = Topic
     queryset = model.objects.all()
     serializer_class = TopicSerializer
+    permission_classes = []
 
 
 class SteemConnectUserFilter(Filter):

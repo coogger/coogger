@@ -36,7 +36,7 @@ class Home(TemplateView):
 
 class Topic(TemplateView):
     "kullanıcıların konu adresleri"
-    template_name = "users/topic/home.html"
+    template_name = "users/topic/contents-for-alt.html"
 
     def get_context_data(self, username, topic, **kwargs):
         user = authenticate(username=username)
@@ -61,6 +61,7 @@ class Topic(TemplateView):
         context = super(Topic, self).get_context_data(**kwargs)
         context["content_user"] = user
         context["queryset"] = contents
+        context["commits"] = commits
         context["commits_count"] = commits.count()
         context["last_commit"] = last_commit
         context["utopic"] = utopic

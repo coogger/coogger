@@ -1,0 +1,24 @@
+{% extends "users/topic/home.html" %}
+{% block alt_topic %}
+  <div style="margin-top: 6px;" general="brc-muted b-1 br-2">
+    {% if not queryset %}
+      {% if request.user == content_user %}
+        <div general="bg-dark-purple c-white br-2" class="utopic-nocontent">
+          <a general="c-white txt-l center" href="{% url 'create' %}?topic={{ utopic }}">Add content your {{ utopic }} topic</a>
+        </div>
+      {% else %}
+        <div general="bg-red c-white br-2" class="utopic-nocontent">
+          <span general="c-white txt-l center">No content has been added in {{ utopic }} topic yet by {{ content_user }}</span>
+        </div>
+      {% endif %}
+    {% endif %}
+    {% for query in queryset %}
+      <div class="utopic-query" flex="ai-c" general="w-100">
+        <i class="fa fa-file-alt"></i>
+        <a general="c-primary w-96" href="{{ query.get_absolute_url }}">
+          <span>{{ query.permlink }}</span>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
