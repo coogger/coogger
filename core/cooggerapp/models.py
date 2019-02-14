@@ -314,7 +314,7 @@ class Content(models.Model):
 
     def steemconnect_post(self, op_name):
         context = dict(
-            image=self.get_first_image(soup=self.marktohtml(marktext)),
+            image=self.get_first_image(soup=self.marktohtml(self.body)),
             username=self.username,
             permlink=self.permlink,
         )
