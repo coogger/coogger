@@ -4,7 +4,7 @@
 
 ![](https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge)
 
-![](https://img.shields.io/github/issues/coogger/coogger.svg?style=for-the-badge) ![](https://img.shields.io/github/issues-pr/coogger/coogger.svg?style=for-the-badge)
+[![](https://img.shields.io/github/issues/coogger/coogger.svg?style=for-the-badge)](https://github.com/coogger/coogger/issues) [![](https://img.shields.io/github/issues-pr/coogger/coogger.svg?style=for-the-badge)](https://github.com/coogger/coogger/pulls)
 
 ![](https://img.shields.io/github/languages/code-size/coogger/coogger.svg?style=for-the-badge) ![](https://img.shields.io/github/languages/top/coogger/coogger.svg?style=for-the-badge) ![](https://img.shields.io/github/languages/count/coogger/coogger.svg?style=for-the-badge)
 
