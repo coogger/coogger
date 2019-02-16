@@ -2,21 +2,28 @@
 {% block alt_topic %}
   <div general="center w-100" class="commits">
     {% for commit in commits %}
-      <div class="commit" general="w-100 b-1 br-2 brc-muted">
-        <div flex="fd-c" general="w-100">
-          <a general="left" href="{% url 'commit' commit.content.user commit.utopic.name commit.hash %}">
-              <h1 general="c-primary">
+      <div general="w-100 b-1 br-2 brc-muted" style="margin: 2px 0px;">
+        <div class="commit">
+          <div flex="fd-c" general="w-100">
+            <a general="w-90" href="{% url 'commit' commit.content.user commit.utopic.name commit.hash %}">
+              <span general="txt-l c-primary">
                 {{ commit.msg|title }}
-              </h1>
+              </span>
             </a>
-            <div flex="ai-c">
-              <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ commit.content.user }}/avatar');">
-              <span general="txt-s" style="margin-left: 6px;"><strong>@{{ commit.content.user }}</strong> committed {{ commit.created|timesince }}</span>
-              <a general="c-primary right" href="{% url 'commit'  commit.content.user  commit.utopic.name commit.hash %}">{{ commit.hash|truncatechars:12 }}</a>
+            <a general="txt-s c-primary w-30" href="{% url 'commit'  commit.content.user  commit.utopic.name commit.hash %}">{{ commit.hash }}</a>
+            <div flex="fd-c" general="w-100">
+              <div flex="ai-c">
+                <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ commit.content.user }}/avatar');">
+                <span general="txt-s" style="margin-left: 6px;">
+                  <strong>@{{ commit.content.user }}</strong>
+                </span>
+              </div>
+              <span>committed {{ commit.created|timesince }}</span>
             </div>
-            <div flex style="margin-top: 12px;">
-              <a href="{{ commit.content.get_absolute_url }}">{{ commit.content|truncatechars:100 }}</a>
+            <div flex style="margin-top: 6px;" general="w-100">
+              <a general="w-70" href="{{ commit.content.get_absolute_url }}">{{ commit.content }}</a>
             </div>
+          </div>
         </div>
       </div>
       {% endfor %}
