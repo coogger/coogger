@@ -219,26 +219,27 @@ class Content(models.Model):
         except IndexError:
             return False
 
-    def marktohtml(self, marktext):
+    @staticmethod
+    def marktohtml(marktext):
         renderer = Renderer(escape=False, parse_block_html=True)
         markdown = Markdown(renderer=renderer)
         return BeautifulSoup(markdown(marktext), "html.parser")
 
-    def get_first_image(self, soup):
-        context = dict(alt=False, src=False)
+    @staticmethod
+    def get_first_image(soup):
         img = soup.find("img")
-        if img is None:
-            return context
-        context["src"] = img.get("src", None)
-        context["alt"] = img.get("alt", None)
+        context = dict()
+        context["src"] = img.get("src", False)
+        context["alt"] = img.get("alt", False)
         return context
 
     def prepare_definition(self, text):
         soup = self.marktohtml(marktext=text)
         first_image = self.get_first_image(soup=soup)
-        if first_image.get("src") is None:
+        src, alt = first_image.get("src"), first_image.get("alt")
+        if src:
             return f"<p>{soup.text[0:200]}...</p>"
-        return f"<img class='definition-img' src='{first_image.get('src')}' alt='{first_image.get('alt')}'></img><p>{soup.text[:200]}...</p>"
+        return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[:200]}...</p>"
 
     def save(self, *args, **kwargs):  # for admin.py
         self.definition = self.prepare_definition(self.body)

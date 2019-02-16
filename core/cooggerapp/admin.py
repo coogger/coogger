@@ -24,6 +24,7 @@ class ContentAdmin(ModelAdmin):
         ("topic"),
         ("title"),
         ("permlink"),
+        ("definition"),
         ("body"),
         ("tags"),
         ("cooggerup"),
