@@ -32,12 +32,12 @@
 <div class="capitalize" flex style="margin: 12px 12px;">
     <div flex="ai-c" general="txt-s left c-white" class="content_list">
         <a hover="c-white bg-primary" general="b-1 br-2 c-primary" id="topic"
-          href="{% url 'topic' ct.topic %}" style="padding: 2px 6px;">
+          href="{% url 'utopic' ct.topic ct.user %}" style="padding: 2px 6px;">
           <i class="fa fa-hashtag" aria-hidden="true"></i>{{ct.topic}}</a>
     </div>
     <div flex="ai-c" general="txt-s right c-white" class="content_list">
         <a hover="c-white bg-primary" general="b-1 br-2 c-primary"
-         href="{% url 'category' ct.category %}" id="category" style="padding: 2px 6px;">
+         href="{% url 'filter' %}/?username={{ ct.user }}&category={{ ct.category }}" id="category" style="padding: 2px 6px;">
          <i class="fa fa-list-alt" aria-hidden="true"></i>{{ct.category}}</a>
     </div>
 </div>
