@@ -228,21 +228,22 @@ class Content(models.Model):
     @staticmethod
     def get_first_image(soup):
         img = soup.find("img")
-        context = dict()
-        context["src"] = img.get("src", False)
-        context["alt"] = img.get("alt", False)
+        context = dict(src="", alt="")
+        if img is not None:
+            context.update(src=img.get("src", ""))
+            context.update(alt=img.get("alt", ""))
         return context
 
-    def prepare_definition(self, text):
-        soup = self.marktohtml(marktext=text)
-        first_image = self.get_first_image(soup=soup)
+    def prepare_definition(self):
+        soup = self.marktohtml(self.body)
+        first_image = self.get_first_image(soup)
         src, alt = first_image.get("src"), first_image.get("alt")
         if src:
-            return f"<p>{soup.text[0:200]}...</p>"
-        return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[:200]}...</p>"
+            return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[:200]}...</p>"
+        return f"<p>{soup.text[0:200]}...</p>"
 
     def save(self, *args, **kwargs):  # for admin.py
-        self.definition = self.prepare_definition(self.body)
+        self.definition = self.prepare_definition()
         super(Content, self).save(*args, **kwargs)
 
     def content_save(self, request, *args, **kwargs):
@@ -250,7 +251,7 @@ class Content(models.Model):
         self.topic = Topic.objects.filter(name=request.GET.get("topic"))[0]
         self.tags = self.ready_tags()
         self.permlink = slugify(self.title.lower()) # TODO if permlink is not exists on steem share .
-        self.definition = self.prepare_definition(self.body)
+        self.definition = self.prepare_definition()
         steem_save = self.steemconnect_post(op_name="save")
         if steem_save.status_code == 200:
             super(Content, self).save(*args, **kwargs)
@@ -296,7 +297,7 @@ class Content(models.Model):
             old.update(
                 body=self.body,
                 topic=self.topic,
-                definition=self.prepare_definition(new.body),
+                definition=self.prepare_definition(),
                 title=self.title,
                 category=self.category,
                 language=self.language,
