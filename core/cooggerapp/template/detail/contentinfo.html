@@ -16,24 +16,30 @@
     </div>
   {% endif %}
     <div general="right">
+    {% if detail.language %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
         <a href="{% url 'filter' %}?username={{ content_user }}&language={{detail.language}}" general="c-dark" hover="c-white">
           <i class="fas fa-flag"></i>
           <span id="language">{{detail.language|title}}</span>
         </a>
       </div>
+    {% endif %}
+    {% if detail.category %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
         <a href="{% url 'filter' %}?username={{ content_user }}&category={{ detail.category }}" general="c-dark" hover="c-white">
           <i class="fa fa-list-alt" aria-hidden="true"></i>
           <span id="category">{{detail.category|title}}</span>
         </a>
       </div>
+      {% endif %}
+      {% if detail.topic %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
         <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'utopic' detail.topic content_user %}">
           <i class="fa fa-hashtag" aria-hidden="true"></i>
           <span id="topic">{{detail.topic|title}}</span>
         </a>
       </div>
+      {% endif %}
     </div>
   </div>
 <div general="c-secondary brc-muted bg-white" style="padding: 2px 0px;position: sticky;top: 0px;z-index: 1;" flex="ai-c">
@@ -56,14 +62,15 @@
           <i class="fas fa-reply"></i>
           reply <span id="reply"></span></div>
     </div>
+    {% if commits_count %}
     <div general="txt-s" flex="ai-c" class="duread-li">
-        <a href="{% url 'commits'  detail.user  detail.topic %}">
-          <div style="margin-left: 12px;">
-            <i class="fas fa-history"></i>
-            <span id="commits_count">{{ commits_count }} commits</span></div>
-        </a>
+      <a href="{% url 'commits'  detail.user  detail.topic %}">
+        <div style="margin-left: 12px;">
+          <i class="fas fa-history"></i>
+          <span id="commits_count">{{ commits_count }} commits</span></div>
+      </a>
     </div>
-
+    {% endif %}
     <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;">
         <i class="fas fa-chevron-circle-up"></i>

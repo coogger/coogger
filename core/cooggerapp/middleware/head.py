@@ -19,10 +19,7 @@ class HeadMiddleware(MiddlewareMixin):
             return None
         url_name = resolve(self.path_info).url_name
         self.kwargs = resolve(self.path_info).kwargs
-        try:
-            request.head = eval(f"self.{url_name}()")
-        except AttributeError:
-            pass
+        request.head = eval(f"self.{url_name}()")
 
     def detail(self):
         username = self.kwargs.get("username")
@@ -31,23 +28,21 @@ class HeadMiddleware(MiddlewareMixin):
         try:
             content = Content.objects.filter(user=user, permlink=permlink)[0]
         except IndexError:
+            # there isn't on coogger
             return dict(title="", keywords="", description="", image="")
         else:
             keywords = ""
             for key in content.tags.split():
                 keywords += key+", "
             return dict(
-                title=f"{content.topic.capitalize()} | {content.title.capitalize()}",
-                keywords=f"{keywords}{content.topic.lower()}",
-                description=self.get_soup(post.body).text[0:200].replace("\n"," ").capitalize(),
+                title=f"{content.topic.name.capitalize()} | {content.title.capitalize()}",
+                keywords=f"{keywords}{content.topic.name.lower()}",
+                description=self.get_soup(content.body).text[0:200].replace("\n"," ").capitalize(),
                 image=self.get_image(content),
             )
 
     def topic(self):
-        try:
-            topic = Topic.objects.filter(name=self.kwargs.get("topic"))[0]
-        except IndexError:
-            pass
+        topic = Topic.objects.filter(name=self.kwargs.get("topic"))[0]
         return dict(
             title=f"{topic.name} - Topic | Coogger".capitalize(),
             keywords=topic.name,
