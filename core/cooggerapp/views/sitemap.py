@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 # models
 from core.cooggerapp.models import Content, Topic, Category
+from steemconnect_auth.models import SteemConnectUser
 
 # choices
 from core.cooggerapp.choices import languages
@@ -18,7 +19,7 @@ class TopicSitemap(Sitemap):
 
     def lastmod(self, obj):
         try:
-            contents = Content.objects.filter(topic=obj.name, status="approved")
+            contents = Content.objects.filter(topic=obj, status="approved")
             return contents[0].last_update
         except IndexError:
             pass
@@ -81,7 +82,7 @@ class UtopicSitemap(Sitemap):
         return contents[int(contents.count()-1)].last_update
 
     def location(self, obj):
-        return "/"+obj.topic+"/@"+obj.user.username
+        return "/"+obj.topic.name+"/@"+obj.user.username
 
 
 class ContentSitemap(Sitemap):
@@ -101,13 +102,12 @@ class ContentSitemap(Sitemap):
 class UsersSitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.8
-    # limit = 50
 
     def items(self):
-        return User.objects.all()
+        return SteemConnectUser.objects.all()
 
     def lastmod(self, obj):
-        contents = Content.objects.filter(user=obj)
+        contents = Content.objects.filter(user=obj.user, status="approved")
         try:
             return contents[contents.count()-1].last_update
         except AssertionError:
@@ -115,11 +115,6 @@ class UsersSitemap(Sitemap):
 
     def location(self, obj):
         return "/@"+obj.username
-
-    # @property
-    # def paginator(self):
-    # from django.core.paginator import Paginator
-    #     return Paginator(self.items(), self.limit)
 
 
 def robots(request):
