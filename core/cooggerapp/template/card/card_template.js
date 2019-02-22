@@ -84,7 +84,7 @@ let card_output = `${card}
 </div>
 <div flex="ai-c" general="txt-s right c-white" class="content_list">
     <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary"
-     href="/filter/?username=${author}&category=${category}" id="category" style="padding: 2px 6px;">
+     href="/filter?username=${author}&category=${category}" id="category" style="padding: 2px 6px;">
      <i class="fa fa-list-alt" aria-hidden="true"></i>${category}</a>
 </div>
 </div>
@@ -103,7 +103,7 @@ let card_output = `${card}
   </div>
   <div flex="ai-c" general="txt-s right c-white" class="content_list">
   <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary"
-   href="/filter/?username=${author}&language=${language}" id="language" style="margin:0px 2px;padding: 2px 6px;">
+   href="/filter?username=${author}&language=${language}" id="language" style="margin:0px 2px;padding: 2px 6px;">
     <i class="fas fa-flag"></i>
     ${language}</a>
   </div>

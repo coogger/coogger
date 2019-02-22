@@ -18,7 +18,7 @@
     <div general="right">
     {% if detail.language %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a href="{% url 'filter' %}/?username={{ content_user }}&language={{detail.language}}" general="c-dark" hover="c-white">
+        <a href="{% url 'filter' %}?username={{ content_user }}&language={{detail.language}}" general="c-dark" hover="c-white">
           <i class="fas fa-flag"></i>
           <span id="language">{{detail.language|title}}</span>
         </a>
@@ -26,7 +26,7 @@
     {% endif %}
     {% if detail.category %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a href="{% url 'filter' %}/?username={{ content_user }}&category={{ detail.category }}" general="c-dark" hover="c-white">
+        <a href="{% url 'filter' %}?username={{ content_user }}&category={{ detail.category }}" general="c-dark" hover="c-white">
           <i class="fa fa-list-alt" aria-hidden="true"></i>
           <span id="category">{{detail.category|title}}</span>
         </a>
