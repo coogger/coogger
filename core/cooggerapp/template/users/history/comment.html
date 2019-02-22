@@ -17,7 +17,7 @@
         if (op.parent_author == ""){
           op.parent_author = op.author;
           op.parent_permlink = op.permlink;
-          type = `edit ${type}`;
+          type = `${type}`;
         }
         return (`
           <div class='history-op' flex='fd-c' general='b-1 br-6 brc-muted'>

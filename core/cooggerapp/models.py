@@ -189,7 +189,7 @@ class Content(models.Model):
 
     @property
     def get_absolute_url(self):
-        return f"/@{self.user.username}/{self.permlink}"
+        return f"/@{self.user.username}/{self.permlink}/"
 
     @property
     def next_post(self):
@@ -250,17 +250,24 @@ class Content(models.Model):
         self.user = request.user
         self.topic = Topic.objects.filter(name=request.GET.get("topic"))[0]
         self.tags = self.ready_tags()
-        self.permlink = slugify(self.title.lower()) # TODO if permlink is not exists on steem share .
+        self.permlink = slugify(self.title.lower()) # TODO if permlink is not exists on steem share.
         self.definition = self.prepare_definition()
-        steem_save = self.steemconnect_post(op_name="save")
-        if steem_save.status_code == 200:
+        steem_post = self.steemconnect_post(op_name="save")
+        if steem_post.status_code == 200:
             super(Content, self).save(*args, **kwargs)
             utopic = UTopic.objects.filter(user=self.user, name=self.topic)[0]
             get_msg = request.POST.get("msg")
             if get_msg == "Initial commit":
                 get_msg = f"{self.title} Published."
-            Commit(user=self.user, utopic=utopic, content=self, body=self.body, msg=get_msg).save()
-        return steem_save
+            Commit(
+                hash = steem_post["result"]["id"],
+                user=self.user,
+                utopic=utopic,
+                content=self,
+                body=self.body,
+                msg=get_msg
+                ).save()
+        return steem_post
 
     def content_update(self, request, old, new):
         self.user = old[0].user
@@ -305,7 +312,7 @@ class Content(models.Model):
             )
             if commit_context != dict():
                 Commit(
-                    # tx_id = steem_post["result"]["id"], # ="1b99579041b558af27334c1db22ad51923d47ce2" # DOTO
+                    hash = steem_post["result"]["id"],
                     user=self.user,
                     utopic=self.utopic,
                     content=Content.objects.get(user=self.user, permlink=self.permlink),
@@ -385,7 +392,6 @@ class Content(models.Model):
 
 
 class Commit(models.Model):
-    # TODO hash can be a post tx_id
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
