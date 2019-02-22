@@ -19,7 +19,10 @@ class HeadMiddleware(MiddlewareMixin):
             return None
         url_name = resolve(self.path_info).url_name
         self.kwargs = resolve(self.path_info).kwargs
-        request.head = eval(f"self.{url_name}()")
+        try:
+            request.head = eval(f"self.{url_name}()")
+        except AttributeError:
+            request.head = dict(title=url_name, keywords=url_name, description=url_name, image="")
 
     def detail(self):
         username = self.kwargs.get("username")
