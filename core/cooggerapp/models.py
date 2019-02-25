@@ -261,7 +261,7 @@ class Content(models.Model):
             if get_msg == "Initial commit":
                 get_msg = f"{self.title} Published."
             Commit(
-                hash=steem_post["result"]["id"],
+                hash=steem_post.json()["result"]["id"],
                 user=self.user,
                 utopic=utopic,
                 content=self,
@@ -313,7 +313,7 @@ class Content(models.Model):
             )
             if commit_context != dict():
                 Commit(
-                    hash=steem_post["result"]["id"],
+                    hash=steem_post.json()["result"]["id"],
                     user=self.user,
                     utopic=self.utopic,
                     content=Content.objects.get(user=self.user, permlink=self.permlink),
