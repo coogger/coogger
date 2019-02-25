@@ -65,11 +65,12 @@ class UTopic(models.Model):
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
-        try:
-            Topic(name=self.name).save()
-        except IntegrityError:
-            pass
-        super(UTopic, self).save(*args, **kwargs)
+        if not UTopic.objects.filter(user=self.user, name=self.name).exists():
+            try:
+                Topic(name=self.name).save()
+            except IntegrityError:
+                pass
+            super(UTopic, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -125,7 +126,7 @@ class Category(models.Model):
 
 
 class Content(models.Model):
-    user = models.ForeignKey("auth.user", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     permlink = models.SlugField(max_length=200)
     title = models.CharField(max_length=200, verbose_name="Title",
         help_text="Be sure to choose the best title related to your content."
@@ -260,7 +261,7 @@ class Content(models.Model):
             if get_msg == "Initial commit":
                 get_msg = f"{self.title} Published."
             Commit(
-                hash = steem_post["result"]["id"],
+                hash=steem_post["result"]["id"],
                 user=self.user,
                 utopic=utopic,
                 content=self,
@@ -312,7 +313,7 @@ class Content(models.Model):
             )
             if commit_context != dict():
                 Commit(
-                    hash = steem_post["result"]["id"],
+                    hash=steem_post["result"]["id"],
                     user=self.user,
                     utopic=self.utopic,
                     content=Content.objects.get(user=self.user, permlink=self.permlink),

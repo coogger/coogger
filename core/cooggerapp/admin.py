@@ -13,7 +13,7 @@ import datetime
 
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","permlink", "mod","cooggerup","status"]
+    list_ = ["user","permlink", "mod"]
     list_display = list_
     list_display_links = list_
     list_filter = ["status", "cooggerup"]
@@ -118,9 +118,40 @@ class TopicAdmin(ModelAdmin):
         }
 
 
+class CommitAdmin(ModelAdmin):
+    list_display = ["content", "utopic"]
+    list_display_links = ["content", "utopic"]
+    list_filter = ["created"]
+    search_fields = ["msg"]
+    fields = (
+        ("hash"),
+        ("body"),
+        ("msg"),
+        ("created"),
+    )
+
+    class Media:
+        css = {
+            "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css",),
+        }
+
+
+class UtopicAdmin(ModelAdmin):
+    list_display = ["user", "name"]
+    list_display_links = ["user", "name"]
+    search_fields = ["name"]
+    fields = (
+        ("name"),
+        ("image_address"),
+        ("definition"),
+        ("tags"),
+        ("address"),
+    )
+
+
 site.register(Content,ContentAdmin)
-site.register(Commit)
-site.register(UTopic)
+site.register(Commit, CommitAdmin)
+site.register(UTopic, UtopicAdmin)
 site.register(Category)
 site.register(Contentviews,ContentviewsAdmin)
 site.register(OtherAddressesOfUsers,OtherAddressesOfUsersAdmin)

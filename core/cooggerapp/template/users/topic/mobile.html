@@ -7,7 +7,7 @@
       <div hover="bg-red" general="br-2 bg-white">
         <a flex="jc-c" general="txt-s br-2 c-dark" hover="c-white brc-dark" href="{% url 'utopic' topic content_user %}" style="padding: 3px 6px;">
           <span>{{ topic|title }}</span>
-          <span class="utopic-m-count">{{ topic|topic_count:content_user }}</span>
+          <span class="utopic-m-count">{{ topic.name|topic_count:content_user }}</span>
         </a>
       </div>
       {% endfor %}

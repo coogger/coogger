@@ -10,7 +10,7 @@
               <img general="w-8" src="{{ topic.image_address }}" style="margin: 0px;height: 0%;">
             {% endif %}
             <span style="margin-left: 2px;">{{ topic.name |title }}</span>
-            <span general="txt-xs right">{{ topic|topic_count:"" }}</span>
+            <span general="txt-xs right">{{ topic.name|topic_count:content_user }}</span>
           </a>
         </li>
         {% endfor %}
