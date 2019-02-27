@@ -36,25 +36,30 @@
       let permlink = `re-${parentAuthor}-${parentPermlink}-${link_to_time}`;
       let author = "{{ request.user }}";
       let title = "";
-      let body = `${get_comment}\n\nPosted using [www.coogger.com](https://www.coogger.com)`;
-      let jsonMetadata = {
-          "format": "markdown",
-          "tags": "coogger",
-          "app": "coogger/1.4.1"
-      };
-      api.comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, comment_res) {
-        if (err == null){
-          document.getElementById("comment-text").value = ""
-          $(this).attr("animation-hover", "null");
-          steem.api.getContent(author, permlink, function(err, new_comment) {
-            let new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
-            $("#comment_template").append(new_comment_template);
-          });
-        }
-        else{
-          alert(err);
-        }
-      });
+      if (get_comment != ""){
+        let body = `${get_comment}\n\nPosted using [www.coogger.com](https://www.coogger.com)`;
+        let jsonMetadata = {
+            "format": "markdown",
+            "tags": "['coogger']",
+            "app": "coogger/1.4.1"
+        };
+        api.comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, comment_res) {
+          if (err == null){
+            document.getElementById("comment-text").value = ""
+            $(this).attr("animation-hover", "null");
+            steem.api.getContent(author, permlink, function(err, new_comment) {
+              let new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
+              $("#comment_template").append(new_comment_template);
+            });
+          }
+          else{
+            alert(err);
+          }
+        });
+      }
+      else{
+        alert("Empty comments cannot be published.")
+      }
     })
   });
 </script>
