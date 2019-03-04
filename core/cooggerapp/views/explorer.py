@@ -1,5 +1,6 @@
 # django
 from django.http import Http404
+from django.conf import settings
 
 # django class based
 from django.views.generic.base import TemplateView
@@ -8,7 +9,7 @@ from django.views.generic.base import TemplateView
 from core.cooggerapp.models import Content, Topic, Category
 
 # views
-from core.cooggerapp.utils import paginator, content_by_filter
+from core.cooggerapp.utils import content_by_filter
 
 # choices
 from core.cooggerapp.choices import languages
@@ -21,9 +22,8 @@ class TopicView(TemplateView):
         topic = Topic.objects.filter(name=topic)[0]
         queryset = Content.objects.filter(topic=topic, status="approved")
         if queryset.exists():
-            info_of_cards = paginator(self.request, queryset)
             context = super(TopicView, self).get_context_data(**kwargs)
-            context["content"] = info_of_cards
+            context["content"] = queryset[:settings.PAGE_SIZE]
             topic_query = Topic.objects.filter(name=topic)
             if topic_query.exists():
                 context["topic"] = topic_query[0]
@@ -49,9 +49,8 @@ class Hashtag(TemplateView):
     def get_context_data(self, hashtag, **kwargs):
         queryset = Content.objects.filter(tags__contains=hashtag, status="approved")
         if queryset.exists():
-            info_of_cards = paginator(self.request, queryset)
             context = super(Hashtag, self).get_context_data(**kwargs)
-            context["content"] = info_of_cards
+            context["content"] = queryset[:settings.PAGE_SIZE]
             context["nameofhashtag"] = hashtag
             return context
         raise Http404
@@ -63,9 +62,8 @@ class Languages(TemplateView):
     def get_context_data(self, lang_name, **kwargs):
         if lang_name in languages:
             queryset = Content.objects.filter(language=lang_name, status="approved")
-            info_of_cards = paginator(self.request, queryset)
             context = super(Languages, self).get_context_data(**kwargs)
-            context["content"] = info_of_cards
+            context["content"] = queryset[:settings.PAGE_SIZE]
             context["language"] = lang_name
             return context
         raise Http404
@@ -81,8 +79,7 @@ class Categories(TemplateView):
                 category=category[0], status="approved"
             )
             context = super(Categories, self).get_context_data(**kwargs)
-            info_of_cards = paginator(self.request, queryset)
-            context["content"] = info_of_cards
+            context["content"] = queryset[:settings.PAGE_SIZE]
             context["category"] = cat_name
             return context
         raise Http404
@@ -95,6 +92,6 @@ class Filter(TemplateView):
     def get_context_data(self, **kwargs):
         filtered = content_by_filter(self.request.GET.items(), self.queryset)
         context = super(Filter, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request, filtered.get("queryset"))
+        context["content"] = filtered.get("queryset")[settings.PAGE_SIZE]
         context["filter"] = filtered.get("filter")
         return context

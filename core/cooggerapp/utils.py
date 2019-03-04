@@ -40,15 +40,3 @@ def make_choices_slug(choice):
         cho = slugify(cho)
         slugs.append((cho, cho))
     return slugs
-
-
-def paginator(request, queryset, hmany=settings.PAGE_SIZE):
-    paginator = Paginator(queryset, hmany)
-    page = request.GET.get('page')
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-        contacts = paginator.page(1)
-    except EmptyPage:
-        contacts = paginator.page(paginator.num_pages)
-    return contacts

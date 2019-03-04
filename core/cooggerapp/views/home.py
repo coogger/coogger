@@ -15,9 +15,6 @@ from core.cooggerapp.forms import ReportsForm
 # models
 from core.cooggerapp.models import Content, SearchedWords, ReportModel
 
-# views
-from core.cooggerapp.utils import paginator
-
 
 class Home(TemplateView):
     template_name = "card/blogs.html"
@@ -38,7 +35,7 @@ class Home(TemplateView):
                     break
             context["introduction"] = True
             queryset = posts
-        context["content"] = paginator(self.request, queryset)
+        context["content"] = queryset[:settings.PAGE_SIZE]
         return context
 
 
@@ -49,7 +46,7 @@ class Review(TemplateView):
         context = super(Review, self).get_context_data(**kwargs)
         q = Q(status="shared") | Q(status="changed")
         queryset = Content.objects.filter(q)
-        context["content"] = paginator(self.request, queryset)
+        context["content"] = queryset[:settings.PAGE_SIZE]
         return context
 
 
@@ -86,7 +83,7 @@ class Search(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
-        context["content"] = paginator(self.request, self.search_algorithm())
+        context["content"] = self.search_algorithm()[settings.PAGE_SIZE]
         return context
 
     def get_form_data(self, name="query"):

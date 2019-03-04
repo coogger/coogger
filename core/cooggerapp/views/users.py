@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate
 from django.urls import reverse
+from django.conf import settings
 
 # class
 from django.views.generic.base import TemplateView
@@ -14,9 +15,6 @@ from core.cooggerapp.models import Topic as TopicModel
 # forms
 from core.cooggerapp.forms import AboutForm
 
-# views
-from core.cooggerapp.utils import paginator
-
 
 class Home(TemplateView):
     "user's home page"
@@ -25,9 +23,8 @@ class Home(TemplateView):
     def get_context_data(self, username, **kwargs):
         user = authenticate(username=username) # this line for creating new user
         queryset = Content.objects.filter(user=user, status="approved")
-        info_of_cards = paginator(self.request, queryset)
         context = super(Home, self).get_context_data(**kwargs)
-        context["content"] = info_of_cards
+        context["content"] = queryset[:settings.PAGE_SIZE]
         context["content_user"] = user
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["topics"] = UTopic.objects.filter(user=user)
