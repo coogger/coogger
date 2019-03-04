@@ -1,4 +1,4 @@
-{% load coogger_count %}
+{% load coogger_tags %}
 <div class="just-pc" flex="" general="w-20" laptop="w-30" style="position:  relative;top: 0px;margin-left: 5%;">
   <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">
       <ul general="bg-white brc-white" style="position: sticky;top: 16px;">
@@ -10,7 +10,7 @@
               <img general="w-8" src="{{ topic.image_address }}" style="margin: 0px;height: 0%;">
             {% endif %}
             <span style="margin-left: 2px;">{{ topic.name |title }}</span>
-            <span general="txt-xs right">{{ topic.name|topic_count:content_user }}</span>
+            <span general="txt-xs right">{{ topic|topic_count }}</span>
           </a>
         </li>
         {% endfor %}

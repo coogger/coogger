@@ -51,15 +51,12 @@ class Detail(TemplateView):
             urloftopic = permlink
             nameoflist = get_content.topic
             detail = get_content
-            utopic = UTopic.objects.filter(user=user, name=get_content.topic)[0]
-            commits_count = Commit.objects.filter(utopic=utopic).count()
         context = super(Detail, self).get_context_data(**kwargs)
         context["content_user"] = user
         context["nav_category"] = nav_category
         context["urloftopic"] = urloftopic
         context["nameoflist"] = nameoflist
         context["detail"] = detail
-        context["commits_count"] = commits_count
         return context
 
 
