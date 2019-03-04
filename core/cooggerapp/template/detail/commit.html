@@ -15,8 +15,43 @@
         <a general="c-primary" href="{{ commit.content.get_absolute_url }}">{{ commit.content|truncatechars:50 }}</a>
       </div>
       <div class="commit-detail" general="br-2">
-        {{ commit.body|markdown_to_html:"commit"|safe }}
-        </div>
+        <table general='w-100'>
+           <tbody>
+             {% if commit.previous_commit %}
+               {% for i in commit.body_change %}
+                {% if i.before != "" and i.after != "" and i.before != i.after %}
+                   <tr>
+                     <td class="index" onclick="idlink('{{i.index }}')"><span general="c-secondary">{{ i.index }}</span></td>
+                     {% if i.before != i.after %}
+                       {% if i.before == "" %}
+                         <td><span class="cd-s">{{ i.before }}</span></td>
+                       {% else %}
+                           <td><span class="cd-s" general='c-red'>{{ i.before }}</span></td>
+                       {% endif %}
+                     {% else %}
+                       <td><span class="cd-s">{{ i.before }}</span></td>
+                     {% endif %}
+                     <td id="{{i.index }}"><span general="c-secondary">{{ i.index }}</span></td>
+                     {% if i.before != i.after %}
+                       {% if i.before == "" %}
+                         <td><span general='c-blue' class="cd-s">{{ i.after }}</span></td>
+                       {% else %}
+                           <td><span general='c-blue' class="cd-s">{{ i.after }}</span></td>
+                       {% endif %}
+                     {% else %}
+                       <td><span class="cd-s">{{ i.after }}</span></td>
+                     {% endif %}
+                   </tr>
+                 {% endif %}
+               {% endfor %}
+             {% else %}
+                {{ commit.body|markdown_to_html:"commit"|safe }}
+             {% endif %}
+
+
+           </tbody>
+        </table>
+    </div>
   </div>
 </div>
 {% endblock %}

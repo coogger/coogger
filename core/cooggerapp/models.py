@@ -194,29 +194,21 @@ class Content(models.Model):
 
     @property
     def next_post(self):
-        obj = Content.objects.filter(user=self.user, topic=self.topic)
-        content_id = obj.filter(permlink=self.permlink)[0].id
-        index = 0
-        for i, content in zip(range(len(obj)), obj):
-            if content.id == content_id:
-                index = i
-                break
+        contents = Content.objects.filter(user=self.user, topic=self.topic)
+        content_list  = [content for content in contents]
+        index = content_list.index(contents.filter(id=self.id)[0])
         try:
-            return obj[index-1].get_absolute_url
+            return contents[index-1].get_absolute_url
         except (IndexError, AssertionError):
             return False
 
     @property
     def previous_post(self):
-        obj = Content.objects.filter(user=self.user, topic=self.topic)
-        content_id = obj.filter(permlink=self.permlink)[0].id
-        index = 0
-        for i, content in zip(range(len(obj)), obj):
-            if content.id == content_id:
-                index = i
-                break
+        contents = Content.objects.filter(user=self.user, topic=self.topic)
+        content_list  = [content for content in contents]
+        index = content_list.index(contents.filter(id=self.id)[0])
         try:
-            return obj[index+1].get_absolute_url
+            return contents[index+1].get_absolute_url
         except IndexError:
             return False
 
@@ -282,24 +274,6 @@ class Content(models.Model):
         self.category = new.category
         self.language = new.language
         self.tags = self.ready_tags()
-        commit_context = dict()
-        if self.topic != old[0].topic:
-            commit_context["from_topic"] = old[0].topic
-            commit_context["to_topic"] = self.topic
-        if self.title != old[0].title:
-            commit_context["from_title"] = old[0].title
-            commit_context["to_title"] = self.title
-        if self.category != old[0].category:
-            commit_context["from_category"] = old[0].category
-            commit_context["to_category"] = self.category
-        if self.language != old[0].language:
-            commit_context["from_language"] = old[0].language
-            commit_context["to_language"] = self.language
-        if self.tags != old[0].tags:
-            commit_context["from_tags"] = old[0].tags
-            commit_context["to_tags"] = self.tags
-        if self.body != old[0].body:
-            commit_context["body"] = self.body # TODO old[0].body - self.body
         steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
             old.update(
@@ -310,14 +284,15 @@ class Content(models.Model):
                 category=self.category,
                 language=self.language,
                 tags=self.tags,
+                last_update=now(),
             )
-            if commit_context != dict():
+            if self.body != old[0].body:
                 Commit(
                     hash=steem_post.json()["result"]["id"],
                     user=self.user,
                     utopic=self.utopic,
                     content=Content.objects.get(user=self.user, permlink=self.permlink),
-                    body=render_to_string("post/commit.html", commit_context),
+                    body=self.body,
                     msg=request.POST.get("msg"),
                     ).save()
         return steem_post
@@ -395,7 +370,7 @@ class Content(models.Model):
 class Commit(models.Model):
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
+    utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE) # is it necessary
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
@@ -406,6 +381,66 @@ class Commit(models.Model):
 
     def __str__(self):
         return f"<Commit(content='{self.content}', msg='{self.msg}')>"
+
+    @property
+    def previous_commit(self):
+        commits = Commit.objects.filter(user=self.user, utopic=self.utopic, content=self.content)
+        commits_list = [commit for commit in commits]
+        index = commits_list.index(commits.filter(id=self.id)[0])
+        try:
+            return commits[index+1]
+        except IndexError:
+            return False
+
+    @property
+    def body_change(self):
+        previous_commit = self.previous_commit
+        if not previous_commit:
+            return False
+        old = previous_commit.body.split("\n")
+        new = self.body.split("\n")
+        context = list()
+        last_index = 0
+        if len(old) >= len(new):
+            for index, line in zip(range(len(new)), new):
+                context.append(
+                    dict(
+                        index=index+1,
+                        before=old[index],
+                        after=line,
+                        )
+                    )
+                last_index = index+1
+            while last_index < len(old):
+                context.append(
+                    dict(
+                        index=last_index+1,
+                        before=old[last_index],
+                        after="",
+                        )
+                    )
+                last_index += 1
+        else:
+            for index, line in zip(range(len(old)), old):
+                context.append(
+                    dict(
+                        index=index+1,
+                        before=line,
+                        after=new[index],
+                        )
+                    )
+                last_index = index
+            last_index += 1
+            while last_index < len(new):
+                context.append(
+                    dict(
+                        index=last_index+1,
+                        before="",
+                        after=new[last_index],
+                        )
+                    )
+                last_index += 1
+        return context
 
 
 class OtherInformationOfUsers(models.Model):

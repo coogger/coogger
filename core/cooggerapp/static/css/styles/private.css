@@ -10,6 +10,18 @@ padding: 24px 0px;
 .utopic-query{
   padding: 6px 0px;
 }
+.commit-detail .index{
+  cursor:pointer;
+}
+.cd-s{
+  word-break: break-word;
+}
+.commit-detail tr{
+  height: 36px;
+}
+.commit-detail td {
+  border-bottom: 1px solid #eaecee;
+}
 .utopic-user{
   margin: 6px 0px;
 }
