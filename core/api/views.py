@@ -8,12 +8,12 @@ from rest_framework.serializers import ModelSerializer
 # api serializers
 from core.api.serializers import (
     ContentSerializer,
+    ContentSerializerToLoad,
     UserSerializer)
 
 # models
 from core.cooggerapp.models import (
     Content, OtherInformationOfUsers)
-# from steemconnect_auth.models import SteemConnectUser
 
 # views
 from core.cooggerapp.utils import model_filter
@@ -22,7 +22,7 @@ from core.cooggerapp.utils import model_filter
 class ListContent(ListCreateAPIView):
     queryset = Content.objects.all()
     serializer_class = ContentSerializer
-    permission_classes = []
+    permission_classes = [IsAdminUser, ]
 
     def get_object(self):
         queryset = self.get_queryset()
@@ -36,8 +36,14 @@ class ListContent(ListCreateAPIView):
 
     # def get_serializer_class(self):
     #     if self.request.user.is_staff:
-    #         return FullContentsSerializer
-    #     return BasicContentsSerializer
+    #         return ContentSerializer
+    #     return ContentSerializerToLoad
+
+
+class ListContentToLoad(ListContent):
+    queryset = Content.objects.all()
+    serializer_class = ContentSerializerToLoad
+    permission_classes = []
 
 
 class ListUser(ListContent):

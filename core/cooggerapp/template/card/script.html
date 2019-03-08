@@ -5,31 +5,31 @@
   let getApiUrl = function(url_resolve){
     let apiUrl = "";
     if (url_resolve == "user"){
-      apiUrl = `/api/filter-content/?status=approved&username={{ content_user }}`;
+      apiUrl = `/api/content-to-load/?status=approved&username={{ content_user }}`;
     }
     else if (url_resolve == "home" || url_resolve == "explorer_posts" ){
-      apiUrl = `/api/filter-content/?status=approved`;
+      apiUrl = `/api/content-to-load/?status=approved`;
     }
     else if (url_resolve == "language"){
-      apiUrl = `/api/filter-content/?status=approved&language={{ language }}`;
+      apiUrl = `/api/content-to-load/?status=approved&language={{ language }}`;
     }
     else if (url_resolve == "category"){
-      apiUrl = `/api/filter-content/?status=approved&category={{ category }}`;
+      apiUrl = `/api/content-to-load/?status=approved&category={{ category }}`;
     }
     else if (url_resolve == "review"){
-      apiUrl = `/api/filter-content/?status=shared`;
+      apiUrl = `/api/content-to-load/?status=shared`;
     }
     else if (url_resolve == "filter"){
-      apiUrl = `/api/filter-content/?status=approved{{filter|safe}}`;
+      apiUrl = `/api/content-to-load/?status=approved{{filter|safe}}`;
     }
     else if (url_resolve == "topic"){
-      apiUrl = `/api/filter-content/?status=approved&topic={{ topic.name }}`;
+      apiUrl = `/api/content-to-load/?status=approved&topic={{ topic.name }}`;
     }
     else if (url_resolve == "list"){
-      apiUrl = `/api/filter-content/?status=approved&topic={{nameofhashtag}}`;
+      apiUrl = `/api/content-to-load/?status=approved&topic={{nameofhashtag}}`;
     }
     else if (url_resolve == "hashtag"){
-      apiUrl = `/api/filter-content/?status=approved&tags={{ nameofhashtag }}`;
+      apiUrl = `/api/content-to-load/?status=approved&tags={{ nameofhashtag }}`;
     }
     return apiUrl;
   }

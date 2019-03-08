@@ -25,6 +25,18 @@ class ContentSerializer(ModelSerializer):
             "get_views", "get_commits")
 
 
+class ContentSerializerToLoad(ModelSerializer):
+
+    class Meta:
+        model = Content
+        fields = (
+            "id", 'username',
+            'title', 'permlink',
+            "definition", "category_name",
+            "language", "topic_name",
+            "views")
+
+
 class UserSerializer(ModelSerializer):
 
     class Meta:
