@@ -280,6 +280,16 @@ class Content(models.Model):
         self.tags = self.ready_tags()
         steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
+            print(f"self.body != old[0].body>> { self.body != old[0].body }")
+            if self.body != old[0].body:
+                Commit(
+                    hash=steem_post.json()["result"]["id"],
+                    user=self.user,
+                    utopic=self.utopic,
+                    content=Content.objects.get(user=self.user, permlink=self.permlink),
+                    body=self.body,
+                    msg=request.POST.get("msg"),
+                    ).save()
             old.update(
                 body=self.body,
                 topic=self.topic,
@@ -290,15 +300,6 @@ class Content(models.Model):
                 tags=self.tags,
                 last_update=now(),
             )
-            if self.body != old[0].body:
-                Commit(
-                    hash=steem_post.json()["result"]["id"],
-                    user=self.user,
-                    utopic=self.utopic,
-                    content=Content.objects.get(user=self.user, permlink=self.permlink),
-                    body=self.body,
-                    msg=request.POST.get("msg"),
-                    ).save()
         return steem_post
 
     def steemconnect_post(self, op_name):
