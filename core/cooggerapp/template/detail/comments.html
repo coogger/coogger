@@ -32,22 +32,21 @@
       let parentAuthor = this.dataset.parent_author;
       let parentPermlink = this.dataset.parent_permlink;
       let current_time = new Date();
-      let link_to_time = current_time.toISOString().replace(/[A-Z]+/g, '').replace(/[^a-z0-9]+/g, '');;
-      let permlink = `re-${parentAuthor}-${parentPermlink}-${link_to_time}`;
+      let commentPermlink = steem.formatter.commentPermlink(parentAuthor, parentPermlink);
       let author = "{{ request.user }}";
       let title = "";
       if (get_comment != ""){
         let body = `${get_comment}\n\nPosted using [www.coogger.com](https://www.coogger.com)`;
         let jsonMetadata = {
             "format": "markdown",
-            "tags": "['coogger']",
+            "tags": "coogger",
             "app": "coogger/1.4.1"
         };
-        api.comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function (err, comment_res) {
+        api.comment(parentAuthor, parentPermlink, author, commentPermlink, title, body, jsonMetadata, function (err, comment_res) {
           if (err == null){
             document.getElementById("comment-text").value = ""
             $(this).attr("animation-hover", "null");
-            steem.api.getContent(author, permlink, function(err, new_comment) {
+            steem.api.getContent(author, commentPermlink, function(err, new_comment) {
               let new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
               $("#comment_template").append(new_comment_template);
             });
