@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate
 from core.cooggerapp.models import Category, Topic
 
 
-def content_by_filter(items, queryset):
+def model_filter(items, queryset):
     filter = ""
     for attr, value in items:
         filter += f"&{attr}={value}"

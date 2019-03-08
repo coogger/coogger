@@ -1,51 +1,28 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import (
+    ModelSerializer)
 
 # models
 from core.cooggerapp.models import (
-    Content, OtherInformationOfUsers,
-    SearchedWords, OtherAddressesOfUsers,
-    Contentviews, Topic)
-from steemconnect_auth.models import SteemConnectUser
+    Content, OtherInformationOfUsers)
+
+from django.contrib.auth.models import User
 
 
-class TopicSerializer(ModelSerializer):
-
-    class Meta:
-        model = Topic
-        fields = ("name", "image_address", "definition", "tags", "address", "editable")
-
-
-class ContentviewsSerializer(ModelSerializer):
+class ContentSerializer(ModelSerializer):
 
     class Meta:
-        model = Contentviews
-        fields = ("content", "ip")
-
-
-class SearchedWordsSerializer(ModelSerializer):
-
-    class Meta:
-        model = SearchedWords
-        fields = ("word", "hmany")
-
-
-class OtherAddressesOfUsersSerializer(ModelSerializer):
-
-    class Meta:
-        model = OtherAddressesOfUsers
-        fields = ("username", "choices", "address")
-
-
-class SteemConnectUserSerializer(ModelSerializer):
-
-    class Meta:
-        model = SteemConnectUser
+        model = Content
         fields = (
-            "username",
-            "access_token",
-            "refresh_token",
-            "code",
-            )
+            "id", 'username',
+            'title', 'permlink',
+            'body', "tags",
+            "definition", "category_name",
+            "language", "topic_name",
+            "status", "views",
+            "mod", "modusername",
+            "cooggerup", "created",
+            "last_update", "get_report",
+            "get_views", "get_commits")
 
 
 class UserSerializer(ModelSerializer):
@@ -53,40 +30,9 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = OtherInformationOfUsers
         fields = (
-            "username",
-            "about",
-            "cooggerup_confirmation",
-            "cooggerup_percent",
-            "vote_percent",
-            "beneficiaries",
-            "sponsor",
-            "total_votes",
-            "total_vote_value",
-            "access_token",
-            )
-
-
-class ContentsSerializer(ModelSerializer):
-    class Meta:
-        model = Content
-        fields = (
-            "id",
-            'username',
-            'title',
-            'permlink',
-            'body',
-            "tags",
-            "definition",
-            "category",
-            "category_name",
-            "language",
-            "topic",
-            "topic_name",
-            "status",
-            "views",
-            "mod",
-            "modusername",
-            "cooggerup",
-            "created",
-            "last_update",
+            "username", "get_user", "get_user_address", "get_steemconnect", "about",
+            "cooggerup_confirmation", "sponsor",
+            "cooggerup_percent", "vote_percent",
+            "beneficiaries", "total_votes",
+            "total_vote_value", "access_token",
             )

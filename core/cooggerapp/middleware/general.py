@@ -9,7 +9,7 @@ from core.cooggerapp.models import Category, Content, Topic
 # coices
 from core.cooggerapp.choices import *
 
-from core.cooggerapp.utils import content_by_filter
+from core.cooggerapp.utils import model_filter
 
 class GeneralMiddleware(MiddlewareMixin):
 
@@ -44,7 +44,7 @@ class GeneralMiddleware(MiddlewareMixin):
         elif url_name == "language":
             content_queryset = content_queryset.filter(language=name)
         elif url_name == "filter":
-            content_queryset = content_by_filter(request.GET.items(), content_queryset).get("queryset")
+            content_queryset = model_filter(request.GET.items(), content_queryset).get("queryset")
         for category in category_queryset:
             querysets = content_queryset.filter(category=category)
             try:
@@ -123,7 +123,7 @@ class GeneralMiddleware(MiddlewareMixin):
         elif url_name == "language":
             content_queryset = content_queryset.filter(language=name)
         elif url_name == "filter":
-            content_queryset = content_by_filter(request.GET.items(), content_queryset).get("queryset")
+            content_queryset = model_filter(request.GET.items(), content_queryset).get("queryset")
         for language in languages:
             querysets = content_queryset.filter(language = language)
             try:

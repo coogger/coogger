@@ -9,7 +9,7 @@ from django.views.generic.base import TemplateView
 from core.cooggerapp.models import Content, Topic, Category
 
 # views
-from core.cooggerapp.utils import content_by_filter
+from core.cooggerapp.utils import model_filter
 
 # choices
 from core.cooggerapp.choices import languages
@@ -90,7 +90,7 @@ class Filter(TemplateView):
     queryset = Content.objects.filter(status="approved")
 
     def get_context_data(self, **kwargs):
-        filtered = content_by_filter(self.request.GET.items(), self.queryset)
+        filtered = model_filter(self.request.GET.items(), self.queryset)
         context = super(Filter, self).get_context_data(**kwargs)
         context["content"] = filtered.get("queryset")[settings.PAGE_SIZE]
         context["filter"] = filtered.get("filter")

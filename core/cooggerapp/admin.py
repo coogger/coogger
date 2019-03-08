@@ -85,11 +85,11 @@ class ContentviewsAdmin(ModelAdmin):
 
 
 class OtherInfoUsersAdmin(ModelAdmin):
-    list_ = ["user","cooggerup_confirmation","cooggerup_percent","sponsor", "beneficiaries"]
+    list_ = ["user", "cooggerup_confirmation", "cooggerup_percent", "sponsor", "beneficiaries"]
     list_display = list_
     list_display_links = list_
-    search_fields = ["cooggerup_confirmation","cooggerup_percent","sponsor", "beneficiaries"]
-    list_filter = ["cooggerup_confirmation", "cooggerup_percent" ,"sponsor", "beneficiaries"]
+    search_fields = ["cooggerup_confirmation", "cooggerup_percent", "sponsor", "beneficiaries"]
+    list_filter = ["cooggerup_confirmation", "cooggerup_percent", "sponsor", "beneficiaries"]
 
     def save_model(self, request, obj, form, change):
         if request.user.is_superuser:

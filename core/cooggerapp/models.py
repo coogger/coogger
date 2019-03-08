@@ -28,6 +28,7 @@ from steemconnect_auth.models import SteemConnectUser
 from hashlib import sha256
 import uuid
 
+# learn # ManyToManyField
 def get_new_hash():
     return sha256(
         str(uuid.uuid4().hex
@@ -62,6 +63,9 @@ class UTopic(models.Model):
         blank=True, null=True, max_length=150,
         help_text="Add an address if it have"
         )
+
+    class Meta:
+        verbose_name_plural = "User Topic"
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
@@ -192,25 +196,25 @@ class Content(models.Model):
     def get_absolute_url(self):
         return f"/@{self.user.username}/{self.permlink}/"
 
-    @property
-    def next_post(self):
+    def next_or_previous(self, next=True):
         contents = Content.objects.filter(user=self.user, topic=self.topic)
-        content_list  = [content for content in contents]
-        index = content_list.index(contents.filter(id=self.id)[0])
+        index = list(contents).index(contents.filter(id=self.id)[0])
+        if next:
+            index = index - 1
+        else:
+            index = index + 1
         try:
-            return contents[index-1].get_absolute_url
+            return contents[index].get_absolute_url
         except (IndexError, AssertionError):
             return False
 
     @property
+    def next_post(self):
+        return self.next_or_previous()
+
+    @property
     def previous_post(self):
-        contents = Content.objects.filter(user=self.user, topic=self.topic)
-        content_list  = [content for content in contents]
-        index = content_list.index(contents.filter(id=self.id)[0])
-        try:
-            return contents[index+1].get_absolute_url
-        except IndexError:
-            return False
+        return self.next_or_previous(False)
 
     @staticmethod
     def marktohtml(marktext):
@@ -366,6 +370,40 @@ class Content(models.Model):
         get_tag.insert(0, "coogger")
         return clearly_tags(get_tag)
 
+    @property
+    def get_commits(self): # to api
+        context = list()
+        fields = ("body", "msg",
+            "created", "body_change")
+        queryset = self.commit_set.filter(content=self)
+        for c in queryset:
+            hash_list = list()
+            for h in queryset.filter(hash=c.hash):
+                for f in fields:
+                    hash_list.append({f: c.__getattribute__(f)})
+            context.append({c.hash: hash_list})
+        return context
+
+    @property
+    def get_report(self): # to api
+        context = list()
+        fields = ("complaints", "add","date")
+        queryset = self.reportmodel_set.filter(content=self)
+        for c in queryset:
+            for f in fields:
+                context.append({f: c.__getattribute__(f)})
+        return context
+
+    @property
+    def get_views(self): # to api
+        context = list()
+        fields = ("ip", )
+        queryset = self.contentviews_set.filter(content=self)
+        for c in queryset:
+            for f in fields:
+                context.append({f: c.__getattribute__(f)})
+        return context
+
 
 class Commit(models.Model):
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
@@ -385,11 +423,10 @@ class Commit(models.Model):
     @property
     def previous_commit(self):
         commits = Commit.objects.filter(user=self.user, utopic=self.utopic, content=self.content)
-        commits_list = [commit for commit in commits]
-        index = commits_list.index(commits.filter(id=self.id)[0])
+        index = list(commits).index(commits.filter(id=self.id)[0]) + 1
         try:
-            return commits[index+1]
-        except IndexError:
+            return commits[index]
+        except (IndexError):
             return False
 
     @property
@@ -462,10 +499,6 @@ class OtherInformationOfUsers(models.Model):
     total_vote_value = models.FloatField(default=0, verbose_name="total vote value")
     access_token = models.CharField(max_length=500, default="no_permission")
 
-    @property
-    def username(self):
-        return self.user.username
-
     def save(self, *args, **kwargs):
         if self.access_token == "no_permission":
             self.access_token = self.get_new_access_token()
@@ -477,6 +510,41 @@ class OtherInformationOfUsers(models.Model):
         if sc_user.exists():
             return get_new_hash()
         return "no_permission"
+
+    @property
+    def username(self):
+        return self.user.username
+
+    @property
+    def get_user(self): # to api
+        context = list()
+        field = ("first_name", "last_name", "is_staff", "is_active", "id")
+        for f in field:
+            context.append(
+                {f: str(self.user.__getattribute__(f))}
+            )
+        return context
+
+    @property
+    def get_steemconnect(self):
+        context = list()
+        field = ("access_token", "refresh_token", "code")
+        for f in field:
+            context.append(
+                {f: str(self.user.steemconnectuser.__getattribute__(f))}
+            )
+        return context
+
+
+    @property
+    def get_user_address(self): # to api
+        context = list()
+        queryset = self.user.otheraddressesofusers_set.filter(user=self.user)
+        for u in queryset:
+            context.append(
+                {"choice": u.choices, "address": u.address}
+            )
+        return context
 
 
 class OtherAddressesOfUsers(models.Model):
