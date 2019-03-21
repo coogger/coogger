@@ -52,16 +52,6 @@
       <script type="text/javascript" src="{% static 'js/lib/jquery.flowchart.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'js/lib/sequence-diagram.min.js' %}"></script>
     {% endif %}
-    {% if request.user|hmanycontent:request.META.HTTP_HOST == 0 and detail %}
-      <!-- google ads in just detail page -->
-      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-           google_ad_client: "ca-pub-9215854020523450",
-        enable_page_level_ads: true
-       });
-     </script>
-   {% endif %}
     <!-- COOGGER'S css js -->
     <script src="{% static 'js/general.js' %}"></script>
     <script src="{% static 'js/sc2.min.js' %}"></script>
@@ -83,7 +73,6 @@
       </script>
     {% endif %}
     <!-- GOOGLE / YANDEX  -->
-    {% if not request.user.is_superuser %}
       <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ"/>
       <meta name="yandex-verification" content="d8be2feff15c1e50"/>
       <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -94,5 +83,12 @@
             gtag('js', new Date());
             gtag('config', 'UA-107674954-1');
       </script>
-    {% endif %}
+       <!-- google ads in just detail page -->
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-9215854020523450",
+              enable_page_level_ads: true
+         });
+     </script>
 </head>
