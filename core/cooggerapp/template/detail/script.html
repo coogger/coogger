@@ -111,8 +111,12 @@
           else{
             post_reward_total = pending_payout_value;
           }
-          let tags = JSON.parse(content.json_metadata).tags;
-          $("#tags").html(getTagsAsTemplate(tags));
+          let tags = JSON.parse(content.json_metadata).tags
+          if ((typeof tags) == "string"){
+            tags = [tags];
+          }
+          let tags_as_html = getTagsAsTemplate(tags);
+          $("#tags").html(tags_as_html);
           $("#reputation").html(reputation);
           $("#username").html(content.author);
           $("#lastmod").html(timeSince(content.last_update));
@@ -139,6 +143,8 @@
               htmlDecode: "html, iframe",
               markdown : editor_body,
               flowChart : true,
+              tex: true,
+              sequenceDiagram: true,
             });
           });
         });

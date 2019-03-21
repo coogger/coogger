@@ -39,7 +39,7 @@
         let body = `${get_comment}\n\nPosted using [www.coogger.com](https://www.coogger.com)`;
         let jsonMetadata = {
             "format": "markdown",
-            "tags": "coogger",
+            "tags": ["coogger"],
             "app": "coogger/1.4.1"
         };
         api.comment(parentAuthor, parentPermlink, author, commentPermlink, title, body, jsonMetadata, function (err, comment_res) {
