@@ -92,6 +92,6 @@ class Filter(TemplateView):
     def get_context_data(self, **kwargs):
         filtered = model_filter(self.request.GET.items(), self.queryset)
         context = super(Filter, self).get_context_data(**kwargs)
-        context["content"] = filtered.get("queryset")[settings.PAGE_SIZE]
+        context["content"] = filtered.get("queryset")[:settings.PAGE_SIZE]
         context["filter"] = filtered.get("filter")
         return context
