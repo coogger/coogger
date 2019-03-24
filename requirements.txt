@@ -7,3 +7,4 @@ whitenoise
 steem-connect
 django_md_editor
 django-environ==0.4.5
+django_ban==0.0.1
