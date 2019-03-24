@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     # coogger
     "core.cooggerapp",
     "core.api",
+    # ban
+    "django_ban",
 
 ]
 AUTHENTICATION_BACKENDS = [
@@ -48,6 +50,8 @@ MIDDLEWARE = [
     # coogger
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.general.GeneralMiddleware",
+    # ban
+    "django_ban.middleware.ip.IPBanMiddleware",
 ]
 ROOT_URLCONF = "coogger.urls"
 TEMPLATES = [
