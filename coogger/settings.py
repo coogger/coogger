@@ -39,6 +39,8 @@ REST_FRAMEWORK = dict(
     PAGE_SIZE=PAGE_SIZE,
 )
 MIDDLEWARE = [
+    # ban
+    "django_ban.middleware.ip.IPBanMiddleware",
     # django
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -50,8 +52,6 @@ MIDDLEWARE = [
     # coogger
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.general.GeneralMiddleware",
-    # ban
-    "django_ban.middleware.ip.IPBanMiddleware",
 ]
 ROOT_URLCONF = "coogger.urls"
 TEMPLATES = [

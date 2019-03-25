@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import authenticate
 from django.urls import reverse
 from django.conf import settings
+from django.http import Http404
 
 # class
 from django.views.generic.base import TemplateView
@@ -43,7 +44,10 @@ class Topic(TemplateView):
             contents = list()
         else:
             contents = Content.objects.filter(user=user, topic=global_topic, status="approved")
-        utopic = UTopic.objects.filter(user=user, name=topic)[0]
+        try:
+            utopic = UTopic.objects.filter(user=user, name=topic)[0]
+        except IndexError:
+            raise Http404("There is no such topic of this user.")
         commits = Commit.objects.filter(utopic=utopic)
         total_dor = 0
         for dor in [query.dor for query in contents]:
@@ -73,14 +77,17 @@ class About(View):
 
     def get(self, request, username, *args, **kwargs):
         user = authenticate(username=username)
-        query = OtherInformationOfUsers.objects.filter(user=user)[0]
-        if user == request.user:
-            about_form = self.form_class(request.GET or None, instance=query)
+        try:
+            query = OtherInformationOfUsers.objects.filter(user=user)[0]
+        except IndexError:
+            pass
         else:
-            about_form = query.about
+            if user == request.user:
+                context["about"] = self.form_class(request.GET or None, instance=query)
+            else:
+                context["about"] = query.about
         queryset = Content.objects.filter(user=user, status="approved")
         context = {}
-        context["about"] = about_form
         context["content_user"] = user
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["topics"] = UTopic.objects.filter(user=user)
