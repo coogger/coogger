@@ -76,18 +76,18 @@ class About(View):
     form_class = AboutForm
 
     def get(self, request, username, *args, **kwargs):
+        context = {}
         user = authenticate(username=username)
         try:
             query = OtherInformationOfUsers.objects.filter(user=user)[0]
         except IndexError:
-            pass
+            query = []
         else:
             if user == request.user:
                 context["about"] = self.form_class(request.GET or None, instance=query)
             else:
                 context["about"] = query.about
         queryset = Content.objects.filter(user=user, status="approved")
-        context = {}
         context["content_user"] = user
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["topics"] = UTopic.objects.filter(user=user)

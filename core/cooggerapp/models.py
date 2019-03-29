@@ -156,8 +156,8 @@ class Content(models.Model):
     views = models.IntegerField(default=0, verbose_name="Views")
     mod = models.ForeignKey("auth.user", on_delete=models.CASCADE,
         blank=True, null=True, related_name="moderator"
-        )
-    cooggerup = models.BooleanField(default=False, verbose_name="Was voting done")
+        ) # is it necessary
+    cooggerup = models.BooleanField(default=False, verbose_name="Was voting done") # is it necessary
     created = models.DateTimeField(default=now, verbose_name="Created")
     last_update = models.DateTimeField(default=now, verbose_name="Last update")
 
