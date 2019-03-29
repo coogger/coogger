@@ -22,7 +22,7 @@ from core.cooggerapp.utils import model_filter
 class ListContent(ListCreateAPIView):
     queryset = Content.objects.all()
     serializer_class = ContentSerializer
-    permission_classes = [IsAdminUser, ]
+    permission_classes = []
 
     def get_object(self):
         queryset = self.get_queryset()
@@ -34,10 +34,10 @@ class ListContent(ListCreateAPIView):
             self.request.query_params.items(),
             self.queryset).get("queryset")
 
-    # def get_serializer_class(self):
-    #     if self.request.user.is_staff:
-    #         return ContentSerializer
-    #     return ContentSerializerToLoad
+    def get_serializer_class(self):
+        if self.request.user.is_superuser:
+            return ContentSerializer
+        return ContentSerializerToLoad
 
 
 class ListContentToLoad(ListContent):
