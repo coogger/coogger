@@ -7,7 +7,16 @@ environ.Env.read_env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
-ALLOWED_HOSTS = ["*"]
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+    # steemconnect_auth
+    redirect_url = "http://127.0.0.1:8000/accounts/steemconnect/"
+else:
+    ALLOWED_HOSTS = [".coogger.com"]
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # steemconnect_auth
+    redirect_url = "https://www.coogger.com/accounts/steemconnect/"
 INSTALLED_APPS = [
     # django
     "django.contrib.admin",
@@ -27,7 +36,6 @@ INSTALLED_APPS = [
     "core.api",
     # ban
     "django_ban",
-
 ]
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
@@ -85,8 +93,6 @@ TIME_ZONE = "Europe/Istanbul"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-# SECURE_SSL_REDIRECT = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
@@ -98,11 +104,6 @@ MDEDITOR_CONFIGS = dict(
         "||", "preview", "watch", "fullscreen"
         ],
 )
-# steemconnect_auth
-if DEBUG:
-    redirect_url = "http://127.0.0.1:8000/accounts/steemconnect/"
-else:
-    redirect_url = "https://www.coogger.com/accounts/steemconnect/"
 STEEMCONNECT_AUTH_CONFIGS = dict(
     redirect_url=redirect_url,
     client_id=env("CLIENT_ID"),
