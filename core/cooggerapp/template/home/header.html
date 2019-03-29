@@ -108,7 +108,7 @@
       {% endif %} {% if request.user.is_staff %}
       <div flex="ai-c">
         <a hvr-animation="c-2 fadeIn" flex=""
-          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="/admin/">
+          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'admin:index' %}">
           <span>Admin</span>
         </a>
       </div>
