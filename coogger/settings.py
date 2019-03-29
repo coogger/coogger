@@ -40,6 +40,7 @@ REST_FRAMEWORK = dict(
 )
 MIDDLEWARE = [
     # ban
+    "django_ban.middleware.url.UrlBanMiddleware",
     "django_ban.middleware.ip.IPBanMiddleware",
     # django
     "django.middleware.security.SecurityMiddleware",
@@ -109,4 +110,9 @@ STEEMCONNECT_AUTH_CONFIGS = dict(
     scope="login,offline,vote,comment,delete_comment,comment_options,custom_json,claim_reward_balance",
     code=True,
     login_redirect="/",
+)
+DJANGO_BAN_CONFIGS = dict(
+    remove_ban_by_day=7,
+    increase_count_by_minute=1,
+    ban_count=20,
 )
