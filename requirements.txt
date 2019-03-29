@@ -4,7 +4,8 @@ django-js-asset==0.1.1
 djangorestframework==3.7.3
 beautifulsoup4==4.6.0
 whitenoise
-steem-connect
+steem-connect==0.7.6
 django_md_editor
 django-environ==0.4.5
 django_ban==0.0.4
+steemconnect_auth==0.0.6
