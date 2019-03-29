@@ -1,6 +1,7 @@
-from django.conf.urls import url
-
+# django
+from django.urls import path
 from django.contrib.sitemaps.views import sitemap
+
 # views
 from core.cooggerapp.views.sitemap import (
     TopicSitemap, UtopicSitemap,
@@ -9,11 +10,11 @@ from core.cooggerapp.views.sitemap import (
 )
 
 urlpatterns = [
-    url(r'^robots.txt/$', robots),
-    url(r'^sitemap/topic.xml/$', sitemap, {'sitemaps': {"topic": TopicSitemap()}}),
-    url(r'^sitemap/languages.xml/$', sitemap, {'sitemaps': {"languages": LanuagesSitemap()}}),
-    url(r'^sitemap/category.xml/$', sitemap, {'sitemaps': {"category": CategoriesSitemap()}}),
-    url(r'^sitemap/utopic.xml/$', sitemap, {'sitemaps': {"utopic": UtopicSitemap()}}),
-    url(r'^sitemap/content.xml/$', sitemap, {'sitemaps': {"content": ContentSitemap()}}),
-    url(r'^sitemap/users.xml/$', sitemap, {'sitemaps': {"users": UsersSitemap()}}),
+    path('robots.txt/', robots),
+    path('sitemap/topic.xml/', sitemap, {'sitemaps': {"topic": TopicSitemap()}}),
+    path('sitemap/languages.xml/', sitemap, {'sitemaps': {"languages": LanuagesSitemap()}}),
+    path('sitemap/category.xml/', sitemap, {'sitemaps': {"category": CategoriesSitemap()}}),
+    path('sitemap/utopic.xml/', sitemap, {'sitemaps': {"utopic": UtopicSitemap()}}),
+    path('sitemap/content.xml/', sitemap, {'sitemaps': {"content": ContentSitemap()}}),
+    path('sitemap/users.xml/', sitemap, {'sitemaps': {"users": UsersSitemap()}}),
     ]

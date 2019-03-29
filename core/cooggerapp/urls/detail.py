@@ -1,5 +1,5 @@
 # django
-from django.conf.urls import url
+from django.urls import path
 from django.shortcuts import redirect
 
 # views
@@ -11,9 +11,9 @@ def detail_redirect(request, category, username, permlink):
 
 
 urlpatterns = [
-    url(r'^@(?P<username>.+)/(?P<topic>.+)/commit/(?P<hash>.+)/$', CommitDetail.as_view(), name="commit"),
-    url(r'^@(?P<username>.+)/(?P<topic>.+)/commits/$', Commits.as_view(), name="commits"),
-    url(r'^embed/@(?P<username>.+)/(?P<permlink>.+)/$', Embed.as_view(), name="embed"),
-    url(r'^(?P<category>.+)/@(?P<username>.+)/(?P<permlink>.+)/$', detail_redirect, name="detail_redirect"),
-    url(r'^@(?P<username>.+)/(?P<permlink>.+)/$', Detail.as_view(), name="detail"),
+    path('@<username>/<topic>/commit/<hash>/', CommitDetail.as_view(), name="commit"),
+    path('@<username>/<topic>/commits/', Commits.as_view(), name="commits"),
+    path('embed/@<username>/<permlink>/', Embed.as_view(), name="embed"),
+    path('<category>/@<username>/<permlink>/', detail_redirect, name="detail_redirect"),
+    path('@<username>/<permlink>/', Detail.as_view(), name="detail"),
     ]

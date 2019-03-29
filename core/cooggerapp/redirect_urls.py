@@ -1,13 +1,17 @@
-from django.conf.urls import include, url
+# django
+from django.urls import path, include
+
+# views
+from core.cooggerapp.views import (csettings)
 
 # main project = coogger
 urlpatterns = [
-    url(r"^post/", include("core.cooggerapp.urls.post")),  # post
-    url(r"^settings", include("core.cooggerapp.urls.csettings")),  # settings
-    url(r"^delete", include("core.cooggerapp.urls.delete")),  # delete
-    url(r"^", include("core.cooggerapp.urls.explorer")),  # explorer
-    url(r"^", include("core.cooggerapp.urls.home")),  # home
-    url(r"^", include("core.cooggerapp.urls.detail")),  # post detail
-    url(r"^", include("core.cooggerapp.urls.users")),  # users
-    url(r"^", include("core.cooggerapp.urls.sitemap")),  # sitemap
+    path("post/", include("core.cooggerapp.urls.post")),  # post
+    path("settings", csettings.Settings.as_view(), name="settings"),
+    path("delete", include("core.cooggerapp.urls.delete")),  # delete
+    path("", include("core.cooggerapp.urls.explorer")),  # explorer
+    path("", include("core.cooggerapp.urls.home")),  # home
+    path("", include("core.cooggerapp.urls.detail")),  # post detail
+    path("", include("core.cooggerapp.urls.users")),  # users
+    path("", include("core.cooggerapp.urls.sitemap")),  # sitemap
 ]
