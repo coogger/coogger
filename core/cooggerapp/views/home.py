@@ -83,16 +83,12 @@ class Search(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Search, self).get_context_data(**kwargs)
-        context["content"] = self.search_algorithm()[settings.PAGE_SIZE]
+        context["content"] = self.search_algorithm()[:settings.PAGE_SIZE]
         return context
 
-    def get_form_data(self, name="query"):
-        name = self.request.GET[name].lower()
-        SearchedWords(word=name).save()
-        return name
-
     def search_algorithm(self):
-        searched_data = self.get_form_data()
-        q = Q(title__contains=searched_data) | Q(topic__contains=searched_data) | Q(body__contains=searched_data)
+        name = self.request.GET["query"].lower()
+        SearchedWords(word=name).save()
+        q = Q(title__contains=name) | Q(body__contains=name)
         queryset = Content.objects.filter(q, status="approved").order_by("-views")
         return queryset
