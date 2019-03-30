@@ -19,10 +19,10 @@
 ```
 DEBUG=on
 SECRET_KEY=django_secret_key
-DATABASES_ENGINE=django.db.backends.sqlite3
-DATABASES_NAME=coogger.db
 CLIENT_ID=your_steem_app_name
 APP_SECRET=your_steemconnect_app_key
+DEFAULT_DB_NAME=path/to/default_db.db
+DJANGO_BAN_DB_NAME=path/to/django_ban.db
 ```
 
 ##### After
@@ -31,7 +31,8 @@ APP_SECRET=your_steemconnect_app_key
 >>> pip install -r requirements.txt
 >>> python manage.py makemigrations cooggerapp
 >>> python manage.py makemigrations django_ban
->>> python manage.py migrate
+>>> python manage.py migrate --database default
+>>> python manage.py migrate --database django_ban
 >>> python manage.py runserver
 ```
 

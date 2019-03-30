@@ -84,11 +84,11 @@ WSGI_APPLICATION = "coogger.wsgi.application"
 DATABASES = dict(
     default=dict(
         ENGINE="django.db.backends.sqlite3",
-        NAME="db/coogger.db",
+        NAME=env("DEFAULT_DB_NAME"),
     ),
     django_ban=dict(
         ENGINE="django.db.backends.sqlite3",
-        NAME="db/django_ban.db",
+        NAME=env("DJANGO_BAN_DB_NAME"),
     ),
 )
 DATABASE_ROUTERS = [
