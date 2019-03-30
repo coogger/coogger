@@ -25,10 +25,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # editor
-    "django_md_editor",
     # rest
     "rest_framework",
+    # editor
+    "django_md_editor",
     # steemconnect
     "steemconnect_auth",
     # coogger
@@ -48,7 +48,7 @@ REST_FRAMEWORK = dict(
 )
 MIDDLEWARE = [
     # ban
-    "django_ban.middleware.url.UrlBanMiddleware",
+    # "django_ban.middleware.url.UrlBanMiddleware",
     "django_ban.middleware.ip.IPBanMiddleware",
     # django
     "django.middleware.security.SecurityMiddleware",
@@ -83,10 +83,17 @@ TEMPLATES = [
 WSGI_APPLICATION = "coogger.wsgi.application"
 DATABASES = dict(
     default=dict(
-        ENGINE=env("DATABASES_ENGINE"),
-        NAME=env("DATABASES_NAME"),
+        ENGINE="django.db.backends.sqlite3",
+        NAME="db/coogger.db",
+    ),
+    django_ban=dict(
+        ENGINE="django.db.backends.sqlite3",
+        NAME="db/django_ban.db",
     ),
 )
+DATABASE_ROUTERS = [
+    "core.cooggerapp.routers.DjangoBanRouter",
+    ]
 AUTH_PASSWORD_VALIDATORS = []
 LANGUAGE_CODE = "en"
 TIME_ZONE = "Europe/Istanbul"
