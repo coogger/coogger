@@ -30,6 +30,7 @@ APP_SECRET=your_steemconnect_app_key
 ```python
 >>> pip install -r requirements.txt
 >>> python manage.py makemigrations cooggerapp
+>>> python manage.py makemigrations django_ban
 >>> python manage.py migrate
 >>> python manage.py runserver
 ```
