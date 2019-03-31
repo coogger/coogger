@@ -92,7 +92,7 @@ DATABASES = dict(
     ),
 )
 DATABASE_ROUTERS = [
-    "core.cooggerapp.routers.DjangoBanRouter",
+    "core.routers.DBRouter",
     ]
 AUTH_PASSWORD_VALIDATORS = []
 LANGUAGE_CODE = "en"
