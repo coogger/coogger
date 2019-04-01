@@ -134,6 +134,9 @@ class HeadMiddleware(MiddlewareMixin):
             image=None,
         )
 
+    def filter(self):
+        pass # TODO
+
     def settings(self):
         return dict(
             title="settings",

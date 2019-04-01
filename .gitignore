@@ -3,7 +3,6 @@
 *.scssc
 *.map
 migrations
-settings.py
 
 # Created by https://www.gitignore.io/api/python
 

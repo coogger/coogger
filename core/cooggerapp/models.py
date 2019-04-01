@@ -435,8 +435,8 @@ class Commit(models.Model):
         previous_commit = self.previous_commit
         if not previous_commit:
             return False
-        old = previous_commit.body.split("\n")
-        new = self.body.split("\n")
+        old = previous_commit.body.splitlines()
+        new = self.body.splitlines()
         context = list()
         last_index = 0
         if len(old) >= len(new):
