@@ -36,7 +36,7 @@
             let count = parseInt($("#count").text());
             if($(this).hasClass("up")) {
               {% if request.user.is_authenticated %}
-                  const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
+                  const weight = {{ request.user.otherinformationofusers.vote_percent }} * 100
                   api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", weight, function (err, res) {
                       console.log(err,res,"voted"); // is it necessary to below codes
                       steem.api.getContent(author, permlink, function(err, content) {
@@ -59,7 +59,7 @@
               {% endif %}
             } else {
               {% if request.user.is_authenticated %}
-                  const weight = {{ request.user.otherinformationofusers.vote_percent }}*100
+                  const weight = {{ request.user.otherinformationofusers.vote_percent }} * 100
                   api.vote("{{ request.user }}", "{{ detail.user }}", "{{ detail.permlink }}", -weight, function (err, res) {
                       steem.api.getContent(author, permlink, function(err, content) {
                         let post_reward_total = 0;
@@ -135,11 +135,12 @@
           let editor_body = get_realy_content(content);
           $("#dor").html(dor(editor_body));
           {% load static %}
+          let Editor;
           $(function() { // editor md
-            let Editor = editormd.markdownToHTML("id_arg_editormd", {
+            Editor = editormd.markdownToHTML("id_arg_editormd", {
               atLink : false,
               emailLink : false,
-              path : "{% static  '/js/lib/' %}",
+              path : "{% static  '/mdeditor/lib/' %}",
               htmlDecode: "html, iframe",
               markdown : editor_body,
               flowChart : true,
