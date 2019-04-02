@@ -45,11 +45,25 @@
     <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}"/>
     <!-- RESPONSE -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <!-- jquery -->
+    <!-- js  -->
     <script src="{% static 'mdeditor/src/jquery.min.js'%}"></script>
+    <script src="{% static 'js/general.js' %}" async></script>
+    <script src="{% static 'js/steem.min.js' %}"></script>
+    {% if request.user.is_authenticated %}
+    <!-- STEEMCONNECT -->
+    <script src="{% static 'js/sc2.min.js' %}"></script>
+    <script>
+          let api = sc2.Initialize({
+            app: "{{ request.settings.STEEMCONNECT_AUTH_CONFIGS.client_id }}",
+            callbackURL: "{{ request.settings.STEEMCONNECT_AUTH_CONFIGS.redirect_url }}",
+            accessToken: "{{ request.user.steemconnectuser.access_token }}",
+            scope: "{{ request.settings.STEEMCONNECT_AUTH_CONFIGS.scope }}",
+          });
+    </script>
+    {% endif %}
     {% if detail or about or user_comment or commit %}
       <!-- editormd -->
-      <link href="{% static 'css/editormd.min.css' %}" type="text/css" media="all" rel="stylesheet">
+      <link href="{% static 'mdeditor/css/editormd.min.css' %}" type="text/css" media="all" rel="stylesheet">
       <script type="text/javascript" src="{% static 'mdeditor/editormd.min.js' %}" async></script>
       <script type="text/javascript" src="{% static 'mdeditor/lib/codemirror/codemirror.min.js' %}" async></script>
       <script type="text/javascript" src="{% static 'mdeditor/lib/codemirror/modes.min.js' %}" async></script>
@@ -62,41 +76,28 @@
       <script type="text/javascript" src="{% static 'mdeditor/lib/jquery.flowchart.min.js' %}" async></script>
       <script type="text/javascript" src="{% static 'mdeditor/lib/sequence-diagram.min.js' %}" async></script>
     {% endif %}
-    <!-- COOGGER'S css js -->
-    <script src="{% static 'js/general.js' %}" async></script>
-    <script src="{% static 'js/steem.min.js' %}"></script>
+    <!-- css -->
+    <link href="https://rawcdn.githack.com/coogger/coogger.css/e02ebdeeba7453626e1e2278148f52f17c254355/styles/coogger.css" rel="stylesheet">
     <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
     <!-- FONT -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <!-- STEEMCONNECT -->
-    {% if request.user.is_authenticated %}
-    <script src="{% static 'js/sc2.min.js' %}"></script>
-    <script>
-          let api = sc2.Initialize({
-            app: "{{ request.settings.CLIENT_ID }}",
-            callbackURL: "{{ request.settings.REDIRECT_URL }}",
-            accessToken: "{{ request.user.steemconnectuser.access_token }}",
-            scope: "{{ request.settings.SCOPE }}",
-          });
-    </script>
-    {% endif %}
     <!-- GOOGLE / YANDEX  -->
-      <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ"/>
-      <meta name="yandex-verification" content="d8be2feff15c1e50"/>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
-      <script>
-          window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-107674954-1');
-      </script>
-       <!-- google ads in just detail page -->
-      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
-      <script>
-         (adsbygoogle = window.adsbygoogle || []).push({
-              google_ad_client: "ca-pub-9215854020523450",
-              enable_page_level_ads: true
-         });
-     </script>
+    <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ"/>
+    <meta name="yandex-verification" content="d8be2feff15c1e50"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-107674954-1');
+    </script>
+     <!-- google ads in just detail page -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
+    <script>
+       (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9215854020523450",
+            enable_page_level_ads: true
+       });
+   </script>
 </head>

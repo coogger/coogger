@@ -15,9 +15,7 @@
       function comment(op, trx_id, type){
         // comment_body_md(op);
         if (op.parent_author == ""){
-          op.parent_author = op.author;
-          op.parent_permlink = op.permlink;
-          type = `${type}`;
+          return "";
         }
         return (`
           <div class='history-op' flex='fd-c' general='b-1 br-6 brc-muted'>
@@ -61,7 +59,6 @@
         let template = "";
         for (i in history){
           if ( history[i][1].op[0]  == "comment" ){
-            console.log(history[i][1].trx_id, history[i][1].op);
             const trx_id = history[i][1].trx_id;
             const type = history[i][1].op[0];
             const op = history[i][1].op[1];
