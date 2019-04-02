@@ -64,13 +64,13 @@
     {% endif %}
     <!-- COOGGER'S css js -->
     <script src="{% static 'js/general.js' %}" async></script>
-    <script src="{% static 'js/steem.min.js' %}" async></script>
+    <script src="{% static 'js/steem.min.js' %}"></script>
     <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
     <!-- FONT -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <!-- STEEMCONNECT -->
     {% if request.user.is_authenticated %}
-    <script src="{% static 'js/sc2.min.js' %}" async></script>
+    <script src="{% static 'js/sc2.min.js' %}"></script>
     <script>
           let api = sc2.Initialize({
             app: "{{ request.settings.CLIENT_ID }}",
