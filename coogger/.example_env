@@ -1,0 +1,6 @@
+DEBUG=on
+SECRET_KEY=your_django_app_secret_key
+CLIENT_ID=steemconnect_app_name
+APP_SECRET=steemconnect_app_secret
+DEFAULT_DB_NAME=default_db_name
+DJANGO_BAN_DB_NAME=db_name_to_django_app
