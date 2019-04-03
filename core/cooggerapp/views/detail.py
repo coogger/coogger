@@ -3,6 +3,8 @@ from django.db.models import F
 from django.contrib.auth import authenticate
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
+from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # django class based
 from django.views.generic.base import TemplateView
@@ -85,10 +87,21 @@ class Commits(TemplateView):
         context["utopic"] = utopic
         context["commits_count"] = commits.count()
         context["last_commit"] = commits[len(commits)-1]
-        context["commits"] = commits
+        context["commits"] = self.paginator(commits)
         context["total_views"] = total_views
         context["total_dor"] = f"{round(total_dor, 3)} min"
         return context
+
+    def paginator(self, queryset):
+        paginator = Paginator(queryset, settings.PAGE_SIZE)
+        page = self.request.GET.get('page')
+        try:
+            contacts = paginator.page(page)
+        except PageNotAnInteger:
+            contacts = paginator.page(1)
+        except EmptyPage:
+            contacts = paginator.page(paginator.num_pages)
+        return contacts
 
 class CommitDetail(TemplateView):
     template_name = "detail/commit.html"

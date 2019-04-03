@@ -1,7 +1,6 @@
 # django
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core.exceptions import FieldError
 from django.contrib.auth import authenticate
