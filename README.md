@@ -36,4 +36,9 @@ DJANGO_BAN_DB_NAME=path/to/django_ban.db
 >>> python manage.py runserver
 ```
 
+##### Docker
+```
+$ docker-compose up --env-file coogger/.env
+```
+
 #### [More Information - About coogger](https://www.coogger.com/about/@coogger)
