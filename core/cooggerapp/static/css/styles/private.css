@@ -16,9 +16,6 @@ padding: 24px 0px;
 .cd-s{
   word-break: break-word;
 }
-.commit-detail tr{
-  height: 36px;
-}
 .commit-detail td {
   border-bottom: 1px solid #eaecee;
 }

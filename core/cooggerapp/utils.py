@@ -30,7 +30,6 @@ def model_filter(items, queryset):
                 pass
     return dict(filter=filter, queryset=queryset)
 
-
 def make_choices_slug(choice):
     "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
     slugs = []

@@ -280,7 +280,6 @@ class Content(models.Model):
         self.tags = self.ready_tags()
         steem_post = self.steemconnect_post(op_name="update")
         if steem_post.status_code == 200:
-            print(f"self.body != old[0].body>> { self.body != old[0].body }")
             if self.body != old[0].body:
                 Commit(
                     hash=steem_post.json()["result"]["id"],
@@ -435,50 +434,27 @@ class Commit(models.Model):
         previous_commit = self.previous_commit
         if not previous_commit:
             return False
-        old = previous_commit.body.splitlines()
-        new = self.body.splitlines()
-        context = list()
-        last_index = 0
-        if len(old) >= len(new):
-            for index, line in zip(range(len(new)), new):
-                context.append(
-                    dict(
-                        index=index+1,
-                        before=old[index],
-                        after=line,
-                        )
-                    )
-                last_index = index+1
-            while last_index < len(old):
-                context.append(
-                    dict(
-                        index=last_index+1,
-                        before=old[last_index],
-                        after="",
-                        )
-                    )
-                last_index += 1
-        else:
-            for index, line in zip(range(len(old)), old):
-                context.append(
-                    dict(
-                        index=index+1,
-                        before=line,
-                        after=new[index],
-                        )
-                    )
-                last_index = index
-            last_index += 1
-            while last_index < len(new):
-                context.append(
-                    dict(
-                        index=last_index+1,
-                        before="",
-                        after=new[last_index],
-                        )
-                    )
-                last_index += 1
-        return context
+        after = list()
+        before = list()
+        from difflib import HtmlDiff
+        HtmlDiff._file_template = """<style type="text/css">%(styles)s</style>%(table)s"""
+        HtmlDiff._table_template = """
+        <table class="diff">
+            <tbody>%(data_rows)s</tbody>
+        </table>
+        """
+        HtmlDiff._styles = """
+        table.diff {font-family:Courier; border:medium;}
+        .diff_header {color:#99a3a4}
+        td.diff_header {text-align:center}
+        .diff tbody{display: block;}
+        .diff_next {background-color:#c0c0c0;display:none}
+        .diff_add {background-color:#aaffaa}
+        .diff_chg {background-color:#ffff77}
+        .diff_sub {background-color:#ffaaaa}
+        .diff [nowrap]{word-break: break-word;white-space: normal;width: 50%;}
+        """
+        return HtmlDiff().make_file(previous_commit.body.splitlines(), self.body.splitlines())
 
 
 class OtherInformationOfUsers(models.Model):

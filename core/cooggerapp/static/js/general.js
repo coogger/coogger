@@ -50,9 +50,9 @@ $(document).ready(function() {
       $(".filter-machine").toggle();
   });
 });
-function idlink(id_index){
-  window.location.href = `#${id_index}`;
-}
+// function idlink(id_index){
+//   window.location.href = `#${id_index}`;
+// }
 function replies(comments){
   let comment_index;
   for (comment_index = 0; comment_index < comments.length; comment_index++) {

@@ -3,10 +3,10 @@
 {% load django_md_editor %}
 <div general="center" class="commits">
   <div class="commit" flex="fd-c" general="w-60 b-1 br-2 brc-muted" mobile-l="w-100" tablet="w-80">
-      <h1 general="left">
+      <h1>
         {{ commit.msg|title }}
       </h1>
-      <div flex="ai-c">
+      <div flex="ai-c" general="w-100">
         <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ commit.content.user }}/avatar');">
         <span general="txt-s" style="margin-left: 6px;"><strong>@{{ commit.user }}</strong> committed {{ commit.created|timesince }}</span>
         <a general="c-primary right" href="{% url 'commit' commit.content.user commit.utopic commit.hash %}">{{ commit.hash|truncatechars:12 }}</a>
@@ -14,42 +14,7 @@
       <div flex style="margin-top: 12px;">
         <a general="c-primary" href="{{ commit.content.get_absolute_url }}">{{ commit.content|truncatechars:50 }}</a>
       </div>
-      <div class="commit-detail" general="br-2">
-        <table general='w-100'>
-           <tbody>
-             {% if commit.previous_commit %}
-               {% for i in commit.body_change %}
-                {% if i.before != "" and i.after != "" and i.before != i.after %}
-                   <tr>
-                     <td class="index" onclick="idlink('{{i.index }}')"><span general="c-secondary">{{ i.index }}</span></td>
-                     {% if i.before != i.after %}
-                       {% if i.before == "" %}
-                         <td><span class="cd-s">{{ i.before }}</span></td>
-                       {% else %}
-                           <td><span class="cd-s" general='c-red'>{{ i.before }}</span></td>
-                       {% endif %}
-                     {% else %}
-                       <td><span class="cd-s">{{ i.before }}</span></td>
-                     {% endif %}
-                     <td id="{{i.index }}"><span general="c-secondary">{{ i.index }}</span></td>
-                     {% if i.before != i.after %}
-                       {% if i.before == "" %}
-                         <td><span general='c-blue' class="cd-s">{{ i.after }}</span></td>
-                       {% else %}
-                           <td><span general='c-blue' class="cd-s">{{ i.after }}</span></td>
-                       {% endif %}
-                     {% else %}
-                       <td><span class="cd-s">{{ i.after }}</span></td>
-                     {% endif %}
-                   </tr>
-                 {% endif %}
-               {% endfor %}
-             {% else %}
-                {{ commit.body|markdown_to_html:"commit"|safe }}
-             {% endif %}
-           </tbody>
-        </table>
-    </div>
+      <div class="commit-detail" general="br-2 w-100">{{ commit.body_change|safe }}</div>
   </div>
 </div>
 {% endblock %}
