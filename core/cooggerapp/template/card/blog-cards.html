@@ -6,9 +6,7 @@
             {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
             <a href="{{ ct.get_absolute_url }}" general="c-dark">
                 <div general="txt-m" class="upshow">
-                    <div flex="ai-c">
-                        {{ ct.definition|safe }}
-                    </div>
+                    <div flex="ai-c">{{ ct.definition|safe }}</div>
                 </div>
             </a>
             {% include 'card/bottom.html' %}

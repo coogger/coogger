@@ -1,4 +1,8 @@
 $(document).ready(function() {
+  $(".report").click(function(event){
+    var content_id = this.getAttribute("data-content-id");
+    $("body").load(`{% url 'report' %}?content_id=${content_id}`);
+  });
   $(".b-edit-point").click(function() {
       let id = this.getAttribute("data-edit-id");
       $(`.data-edit-id-${id}`).toggle();
