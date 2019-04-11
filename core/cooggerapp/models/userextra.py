@@ -87,7 +87,7 @@ class OtherAddressesOfUsers(models.Model):
     @property
     def get_addresses(self):
         try:
-            return OtherAddressesOfUsers.objects.filter(user=self.user)
+            return self.__class__.objects.filter(user=self.user)
         except:
             return []
 
