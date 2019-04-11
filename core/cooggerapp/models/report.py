@@ -9,10 +9,10 @@ from .content import Content
 
 class ReportModel(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="şikayet eden kişi"
+        User, on_delete=models.CASCADE, verbose_name="reporter"
     )
     content = models.ForeignKey(
-        Content, on_delete=models.CASCADE, verbose_name="şikayet edilen içerik"
+        Content, on_delete=models.CASCADE, verbose_name="reported person"
     )
     complaints = models.CharField(
         choices=make_choices(reports), max_length=40, verbose_name="type of report"

@@ -9,6 +9,6 @@ class SearchedWords(models.Model):
         try:
             super().save(*args, **kwargs)
         except:
-            SearchedWords.objects.filter(word=self.word).update(
+            self.__class__.objects.filter(word=self.word).update(
                 hmany=models.F("hmany") + 1
             )
