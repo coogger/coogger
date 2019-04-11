@@ -18,7 +18,7 @@ def model_filter(items, queryset):
         elif attr == "tags":
             queryset = queryset.filter(tags__contains = value)
         elif attr == "category":
-            category = Category.objects.get(name=value)
+            category = Category.objects.filter(name=value)[0]
             queryset = queryset.filter(category = category)
         elif attr == "topic":
             topic = Topic.objects.filter(name=value)[0]
