@@ -4,7 +4,7 @@ from django_md_editor.models import EditorMdField
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50) # it must be unique=True
     template = EditorMdField(blank=True, null=True)
 
     def save(self, *args, **kwargs):

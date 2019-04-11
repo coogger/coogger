@@ -14,7 +14,7 @@
       <div default="paragraph pm"
       mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50"
        general="b-1 br-2 brc-muted" style="padding: 6px;">
-          {% load django_md_editor_tags %} {{ about|markdown_to_html:"about"|safe }}
+          {% load django_md_editor %} {{ about|markdown_to_html:"about"|safe }}
       </div>
       {% endif %}
   </div>
