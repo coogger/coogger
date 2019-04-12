@@ -3,6 +3,7 @@ from difflib import HtmlDiff
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
+from django.utils.text import slugify
 from django_md_editor.models import EditorMdField
 
 from bs4 import BeautifulSoup
