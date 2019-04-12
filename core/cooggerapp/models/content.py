@@ -14,7 +14,7 @@ from core.cooggerapp.choices import languages, make_choices, status_choices
 from .category import Category
 from .topic import Topic
 from .userextra import OtherAddressesOfUsers, OtherInformationOfUsers
-from .utils import get_new_hash
+from .utils import get_new_hash, format_tags
 from .utopic import UTopic
 
 
@@ -256,22 +256,9 @@ class Content(models.Model):
         return beneficiaries
 
     def ready_tags(self, limit=5):
-        def clearly_tags(get_tag):
-            clearly_tags = []
-            tags = ""
-            for i in get_tag:
-                if i not in clearly_tags:
-                    clearly_tags.append(i)
-            for i in clearly_tags:
-                if i == clearly_tags[-1]:
-                    tags += slugify(i.lower())
-                else:
-                    tags += slugify(i.lower()) + " "
-            return tags
-
         get_tag = self.tags.split(" ")[:limit]
         get_tag.insert(0, "coogger")
-        return clearly_tags(get_tag)
+        return format_tags(get_tag)
 
     @property
     def get_commits(self):  # to api
