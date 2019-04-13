@@ -206,7 +206,6 @@ class Content(models.Model):
         return steem_post
 
     def steemconnect_post(self, op_name):
-        return True
         context = dict(
             image=self.get_first_image(soup=self.marktohtml(self.body)),
             username=self.username,
