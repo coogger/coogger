@@ -20,7 +20,7 @@ class Home(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, **kwargs):
-        context = super(Home, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         queryset = Content.objects.filter(status="approved")
         url_name = resolve(self.request.path_info).url_name
         is_authenticated = self.request.user.is_authenticated
@@ -43,7 +43,7 @@ class Review(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, **kwargs):
-        context = super(Review, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         q = Q(status="shared") | Q(status="changed")
         queryset = Content.objects.filter(q)
         context["content"] = queryset[:settings.PAGE_SIZE]
@@ -82,7 +82,7 @@ class Search(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, **kwargs):
-        context = super(Search, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["content"] = self.search_algorithm()[:settings.PAGE_SIZE]
         return context
 

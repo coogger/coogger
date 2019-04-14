@@ -22,7 +22,7 @@ class TopicView(TemplateView):
         topic = Topic.objects.filter(name=topic)[0]
         queryset = Content.objects.filter(topic=topic, status="approved")
         if queryset.exists():
-            context = super(TopicView, self).get_context_data(**kwargs)
+            context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]
             topic_query = Topic.objects.filter(name=topic)
             if topic_query.exists():
@@ -49,7 +49,7 @@ class Hashtag(TemplateView):
     def get_context_data(self, hashtag, **kwargs):
         queryset = Content.objects.filter(tags__contains=hashtag, status="approved")
         if queryset.exists():
-            context = super(Hashtag, self).get_context_data(**kwargs)
+            context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]
             context["nameofhashtag"] = hashtag
             return context
@@ -62,7 +62,7 @@ class Languages(TemplateView):
     def get_context_data(self, lang_name, **kwargs):
         if lang_name in languages:
             queryset = Content.objects.filter(language=lang_name, status="approved")
-            context = super(Languages, self).get_context_data(**kwargs)
+            context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]
             context["language"] = lang_name
             return context
@@ -78,7 +78,7 @@ class Categories(TemplateView):
             queryset = Content.objects.filter(
                 category=category[0], status="approved"
             )
-            context = super(Categories, self).get_context_data(**kwargs)
+            context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]
             context["category"] = cat_name
             return context
@@ -91,7 +91,7 @@ class Filter(TemplateView):
 
     def get_context_data(self, **kwargs):
         filtered = model_filter(self.request.GET.items(), self.queryset)
-        context = super(Filter, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["content"] = filtered.get("queryset")[:settings.PAGE_SIZE]
         context["filter"] = filtered.get("filter")
         return context

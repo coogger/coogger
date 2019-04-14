@@ -53,7 +53,7 @@ class Detail(TemplateView):
             urloftopic = permlink
             nameoflist = get_content.topic
             detail = get_content
-        context = super(Detail, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["content_user"] = user
         context["nav_category"] = nav_category
         context["urloftopic"] = urloftopic
@@ -75,7 +75,7 @@ class Commits(TemplateView):
         global_topic = Topic.objects.filter(name=topic)[0]
         contents = Content.objects.filter(user=user, topic=global_topic, status="approved")
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
-        context = super(Commits, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         commits = Commit.objects.filter(utopic=utopic)
         total_dor = 0
         for dor in [query.dor for query in contents]:
@@ -107,7 +107,7 @@ class CommitDetail(TemplateView):
     template_name = "detail/commit.html"
 
     def get_context_data(self, username, topic, hash, **kwargs):
-        context = super(CommitDetail, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["content_user"] = authenticate(username=username)
         context["commit"] = Commit.objects.filter(hash=hash)[0]
         return context
