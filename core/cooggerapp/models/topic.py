@@ -28,7 +28,7 @@ class Topic(models.Model):
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
-        super(Topic, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

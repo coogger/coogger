@@ -25,7 +25,7 @@ class CreateUTopic(LoginRequiredMixin, View):
     model = UTopic
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {"form": self.form_class(initial=request.GET)})
+        return render(request, self.template_name, {"form": self.form_class(initial=dict(request.GET.items()))})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST)

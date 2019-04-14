@@ -24,7 +24,7 @@ class Home(TemplateView):
     def get_context_data(self, username, **kwargs):
         user = authenticate(username=username) # this line for creating new user
         queryset = Content.objects.filter(user=user, status="approved")
-        context = super(Home, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["content"] = queryset[:settings.PAGE_SIZE]
         context["content_user"] = user
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
@@ -59,7 +59,7 @@ class Topic(TemplateView):
             last_commit = commits[len(commits)-1]
         except AssertionError:
             last_commit = list()
-        context = super(Topic, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["content_user"] = user
         context["queryset"] = contents
         context["commits"] = commits
@@ -111,7 +111,7 @@ class Comment(TemplateView):
     template_name = "users/history/comment.html"
 
     def get_context_data(self, username, **kwargs):
-        context = super(Comment, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         user = authenticate(username=username)
         queryset = Content.objects.filter(user=user, status="approved")
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
@@ -127,7 +127,7 @@ class Wallet(Comment):
     template_name = "users/history/wallet.html"
 
     def get_context_data(self, username, **kwargs):
-        context = super(Wallet, self).get_context_data(username, **kwargs)
+        context = super().get_context_data(username, **kwargs)
         return context
 
 
@@ -136,5 +136,5 @@ class Activity(Comment):
     template_name = "users/history/activity.html"
 
     def get_context_data(self, username, **kwargs):
-        context = super(Activity, self).get_context_data(username, **kwargs)
+        context = super().get_context_data(username, **kwargs)
         return context
