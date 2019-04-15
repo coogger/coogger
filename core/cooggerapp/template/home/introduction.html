@@ -1,12 +1,14 @@
 {% extends "home/html.html" %}
 {% block body %}
-<div class="c-definition capitalize" general="ewcenter bg-dark-purple c-white w-100">
+<div class="c-definition" general="ewcenter bg-dark-purple c-white w-100">
+  {% load static %}
   <div flex="fd-c">
+    <img general="center" src="{% static 'logos/png/400.png' %}">
     <span general="center" style="margin-bottom:6px;">Coogger is an ecosystem where is knowledge sharing network, Share your experiences and knowledge and start earning money</span>
     <span general="center" style="margin-bottom:6px;">With Steem blockchain technology</span>
     <span style="margin:5% 0px;">
       <a hover="bg-success" general="bg-dark c-white br-2 w-60 center" href="/explorer/posts/" style="padding:6px 0px;">
-        Explorer posts
+        Explore posts
       </a>
     </span>
     <div general="center ewcenter txt-m" flex="">
