@@ -40,7 +40,7 @@ class Commit(models.Model):
     def body_change(self):
         previous_commit = self.previous_commit
         if not previous_commit:
-            return False
+            return self.body
         after = list()
         before = list()
 
