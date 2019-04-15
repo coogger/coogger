@@ -1,14 +1,27 @@
+# django
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
 from django.utils.text import slugify
 from django_md_editor.models import EditorMdField
+from django.template.loader import render_to_string
+from django.conf import settings
 
+# python
 from bs4 import BeautifulSoup
 from mistune import Markdown, Renderer
 
+# choices
 from core.cooggerapp.choices import languages, make_choices, status_choices
 
+# steemconnect
+from steemconnect.steemconnect import SteemConnect
+from steemconnect.operations import (Comment, CommentOptions)
+
+# steemconnect_auth
+from steemconnect_auth.models import SteemConnectUser
+
+# models
 from .category import Category
 from .topic import Topic
 from .userextra import OtherInformationOfUsers
