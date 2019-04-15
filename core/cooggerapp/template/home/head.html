@@ -84,19 +84,21 @@
     <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ"/>
     <meta name="yandex-verification" content="d8be2feff15c1e50"/>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107674954-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'UA-107674954-1');
-    </script> -->
-     <!-- google ads in just detail page -->
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
-    <script>
-       (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-9215854020523450",
-            enable_page_level_ads: true
-       });
-   </script>
+    </script> 
+    {% if not adblock %}
+        <!-- google auto ads  -->
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-9215854020523450",
+                enable_page_level_ads: true
+          });
+      </script>
+   {% endif %}
 </head>

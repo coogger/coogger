@@ -59,7 +59,7 @@
   let requests = [];
   function loadMore(apiUrl){
     let check = [];
-    let card = document.querySelectorAll('card')
+    let card = document.querySelectorAll('card');
     let last_content = card[card.length-1];
     let last_id = $(`#${last_content.id}`).attr("data-postid");
     if (!requests.includes(apiUrl)){

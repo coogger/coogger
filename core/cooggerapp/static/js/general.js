@@ -1,4 +1,16 @@
 $(document).ready(function() {
+  // google ads
+  let ads = document.getElementsByClassName("adsbygoogle");
+  let check_ads = [];
+  for (i in ads){
+    if (ads[i].offsetHeight == 0){
+      check_ads.push(i);
+    }
+  }
+  if (check_ads.length == ads.length  && check_ads.length != 0 && ads.length !=0 ){
+      window.location = "/adblock";
+  }
+  // google ads
   $(".report").click(function(event){
     var content_id = this.getAttribute("data-content-id");
     $("body").load(`{% url 'report' %}?content_id=${content_id}`);
