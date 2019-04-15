@@ -11,12 +11,14 @@ if DEBUG:
     ALLOWED_HOSTS = ["*"]
     # steemconnect_auth
     redirect_url = "http://127.0.0.1:8000/accounts/steemconnect/"
+    ban_count = 99999
 else:
     ALLOWED_HOSTS = [".coogger.com"]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     # steemconnect_auth
     redirect_url = "https://www.coogger.com/accounts/steemconnect/"
+    ban_count = 40
 INSTALLED_APPS = [
     # django
     "django.contrib.admin",
@@ -122,5 +124,5 @@ STEEMCONNECT_AUTH_CONFIGS = dict(
 DJANGO_BAN_CONFIGS = dict(
     remove_ban_by_day=7,
     increase_count_by_minute=1,
-    ban_count=20,
+    ban_count=ban_count,
 )

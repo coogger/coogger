@@ -1,16 +1,4 @@
 $(document).ready(function() {
-  // google ads
-  let ads = document.getElementsByClassName("adsbygoogle");
-  let check_ads = [];
-  for (i in ads){
-    if (ads[i].offsetHeight == 0){
-      check_ads.push(i);
-    }
-  }
-  if (check_ads.length == ads.length  && check_ads.length != 0 && ads.length !=0 ){
-      window.location = "/adblock";
-  }
-  // google ads
   $(".report").click(function(event){
     var content_id = this.getAttribute("data-content-id");
     $("body").load(`{% url 'report' %}?content_id=${content_id}`);
@@ -61,6 +49,29 @@ $(document).ready(function() {
   $(".run-filter").click(function() {
       $(".filter-machine").toggle();
   });
+  // ad deceted
+  let adBlockEnabled = false;
+  let ads = document.createElement('div');
+  ads.innerHTML = '&amp;nbsp;';
+  ads.className = 'adsbox';
+  document.body.appendChild(ads);
+  if (window.location.pathname != "/adblock/"){
+    window.setTimeout(function() {
+      if (ads.offsetHeight === 0) {adBlockEnabled = true;}
+      ads.remove();
+      if (adBlockEnabled) {window.location = "/adblock";}
+      }, 100
+    );
+  }
+  else{
+    window.setTimeout(function() {
+      if (ads.offsetHeight === 0) {adBlockEnabled = true;}
+      ads.remove();
+      if (!adBlockEnabled) {window.location = "/";}
+      }, 100
+    );
+  }
+  // ad deceted
 });
 // function idlink(id_index){
 //   window.location.href = `#${id_index}`;
