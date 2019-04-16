@@ -61,7 +61,7 @@
           });
     </script>
     {% endif %}
-    {% if detail or about or user_comment or commit %}
+    {% if md_editor %}
       <!-- editormd -->
       <link href="{% static 'mdeditor/css/editormd.min.css' %}" type="text/css" media="all" rel="stylesheet">
       <script type="text/javascript" src="{% static 'mdeditor/editormd.min.js' %}" async></script>

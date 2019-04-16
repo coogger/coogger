@@ -6,35 +6,39 @@
         {% include 'detail/userinfo.html' %}
         <div class="tags" id="tags" flex="jc-sa" general="right bg-dark-purple txt-s"></div>
         <h1 general="center txt-xl" id="title" style="margin: 12px auto;"></h1>
-        <!--ads-->
-        <br>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <ins class="adsbygoogle"
-          style="display:block; text-align:center;"
-          data-ad-layout="in-article"
-          data-ad-format="fluid"
-          data-ad-client="ca-pub-9215854020523450"
-          data-ad-slot="2610427022"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        <br>
-        <!--ads-->
+        {% if not adblock %}
+          <!--ads-->
+          <br>
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+            style="display:block; text-align:center;"
+            data-ad-layout="in-article"
+            data-ad-format="fluid"
+            data-ad-client="ca-pub-9215854020523450"
+            data-ad-slot="2610427022"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          <br>
+          <!--ads-->
+        {% endif %}
         <div style="padding: inherit;">
           <div style="width: auto;height:  auto;border: none;padding:0px;" class="editormd" id="id_arg_editormd">
               <textarea style="display:none;" id='editormd_content'></textarea>
           </div>
         </div>
-        <!--ads-->
-        <br>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <ins class="adsbygoogle"
-          style="display:block; text-align:center;"
-          data-ad-layout="in-article"
-          data-ad-format="fluid"
-          data-ad-client="ca-pub-9215854020523450"
-          data-ad-slot="2610427022"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        <br>
-        <!--ads-->
+        {% if not adblock %}
+          <!--ads-->
+          <br>
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+            style="display:block; text-align:center;"
+            data-ad-layout="in-article"
+            data-ad-format="fluid"
+            data-ad-client="ca-pub-9215854020523450"
+            data-ad-slot="2610427022"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          <br>
+          <!--ads-->
+        {% endif %}
         {% include 'detail/edit.html' %}
         {% include 'detail/share_social_site.html' %}
         <!-- vote button  -->

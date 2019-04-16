@@ -59,6 +59,7 @@ class Detail(TemplateView):
         context["urloftopic"] = urloftopic
         context["nameoflist"] = nameoflist
         context["detail"] = detail
+        context["md_editor"] = True
         return context
 
 

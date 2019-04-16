@@ -91,6 +91,7 @@ class About(View):
         context["content_user"] = user
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["topics"] = UTopic.objects.filter(user=user)
+        context["md_editor"] = True
         return render(request, self.template_name, context)
 
     def post(self, request, username, *args, **kwargs):

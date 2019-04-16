@@ -1,14 +1,17 @@
 # django
 from django.urls import path, include
 from django.shortcuts import render
+from django.urls import resolve
 
 # views
 from core.cooggerapp.views import (csettings)
 
 # main project = coogger
 
-def adblock(request):
-    template_name = "adblock.html"
+def just_redirect(request):
+    "No ads due to adblock=True"
+    url_name = resolve(request.path_info).url_name
+    template_name = f"{url_name}.html"
     return render(request, template_name, dict(adblock=True))
 
 urlpatterns = [
@@ -20,5 +23,6 @@ urlpatterns = [
     path("", include("core.cooggerapp.urls.detail")),  # post detail
     path("", include("core.cooggerapp.urls.users")),  # users
     path("", include("core.cooggerapp.urls.sitemap")),  # sitemap
-    path('adblock/', adblock, name="adblock"),
+    path('adblock/', just_redirect, name="adblock"),
+    path('privacy/', just_redirect, name="privacy"),
 ]
