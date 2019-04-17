@@ -1,0 +1,142 @@
+# django
+from django.utils.deprecation import MiddlewareMixin
+from django.urls import resolve
+from django.utils.text import slugify
+
+# models.
+from core.cooggerapp.models import Category, Content, Topic
+
+# coices
+from core.cooggerapp.choices import LANGUAGES
+
+# utils
+from core.cooggerapp.utils import model_filter
+
+
+class SortMiddleware(MiddlewareMixin):
+
+    def process_request(self, request):
+        request.sort_categories = self.sort_categories(request)
+        request.sort_languages = self.sort_languages(request)
+        request.categories = self.categories(request)
+        request.languages = self.languages(request)
+
+    @staticmethod
+    def get_url_name(request):
+        return resolve(request.path_info).url_name
+
+    def get_queryset(self, request):
+        try:
+            name = request.path_info.split("/")[2]
+        except IndexError:
+            return None
+        queryset = Content.objects.filter(status="approved")
+        url_name = self.get_url_name(request)
+        if url_name == "category":
+            category = Category.objects.filter(name=name)[0]
+            queryset = queryset.filter(category=category)
+        elif url_name == "topic":
+            topic = Topic.objects.filter(name=name)[0]
+            queryset = queryset.filter(topic=topic)
+        elif url_name == "language":
+            queryset = queryset.filter(language=name)
+        elif url_name == "filter":
+            queryset = model_filter(request.GET.items(), queryset).get("queryset")
+        else:
+            return None
+        return queryset
+
+    @staticmethod
+    def sort_list(queryset):
+        context = []
+        for query in sorted(queryset, key=len, reverse=True):
+            try:
+                context.append(
+                    (
+                        str(query[0].category).lower(),
+                        len(query)
+                        )
+                    )
+            except IndexError:
+                pass
+        return context
+
+    def sort_categories(self, request):
+        queryset = self.get_queryset(request)
+        if queryset is None:
+            return None
+        queryset_list = []
+        for category in Category.objects.all():
+            querysets = queryset.filter(category=category)
+            try:
+                querysets[0]
+            except:
+                pass
+            else:
+                queryset_list.append(querysets)
+        return self.sort_list(queryset_list)
+
+    def sort_languages(self, request):
+        queryset = self.get_queryset(request)
+        if queryset is None:
+            return None
+        queryset_list = []
+        for language in LANGUAGES:
+            querysets = queryset.filter(language=language)
+            try:
+                querysets[0]
+            except:
+                pass
+            else:
+                queryset_list.append(querysets)
+        return self.sort_list(queryset_list)
+
+    def languages(self, request):
+        url_name = self.get_url_name(request)
+        invalid_urls = ["home", "filter", "language", "category", "topic", "search"]
+        if url_name not in invalid_urls:
+            return None
+        querysets_list = []
+        content_queryset = Content.objects.filter(status="approved")
+        for language in LANGUAGES:
+            querysets = content_queryset.filter(language = language)
+            try:
+                querysets[0]
+            except:
+                pass
+            else:
+                querysets_list.append(querysets)
+        context = []
+        for contents in sorted(querysets_list, key=len, reverse=True):
+            try:
+                context.append((slugify(contents[0].language), str(contents[0].language).lower()))
+            except IndexError:
+                pass
+        return context
+
+    def categories(self, request):
+        url_name = self.get_url_name(request)
+        invalid_urls = ["home", "filter", "language", "category", "topic", "search"]
+        if url_name not in invalid_urls:
+            return None
+        category_queryset = Category.objects.all()
+        querysets_list = []
+        content_queryset = Content.objects.filter(status="approved")
+        for category in category_queryset:
+            querysets = content_queryset.filter(category=category)
+            try:
+                querysets[0]
+            except:
+                pass
+            else:
+                querysets_list.append(querysets)
+        context = []
+        for contents in sorted(querysets_list, key=len, reverse=True):
+            try:
+                context.append((slugify(contents[0].category),str(contents[0].category).lower()))
+            except IndexError:
+                pass
+        return context
+
+
+    

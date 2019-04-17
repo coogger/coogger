@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from mistune import Markdown, Renderer
 
 # choices
-from core.cooggerapp.choices import languages, make_choices, status_choices
+from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHAICES
 
 # steemconnect
 from steemconnect.steemconnect import SteemConnect
@@ -46,7 +46,7 @@ class Content(models.Model):
     )
     language = models.CharField(
         max_length=30,
-        choices=make_choices(languages),
+        choices=make_choices(LANGUAGES),
         help_text="The language of your content",
     )
     category = models.ForeignKey(
@@ -61,7 +61,7 @@ class Content(models.Model):
     status = models.CharField(
         default="approved",
         max_length=30,
-        choices=make_choices(status_choices),
+        choices=make_choices(STATUS_CHAICES),
         verbose_name="content's status",
     )
     views = models.IntegerField(default=0, verbose_name="Views")

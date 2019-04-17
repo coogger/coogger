@@ -1,4 +1,4 @@
-languages = [
+LANGUAGES = [
         "english",
         "korean",
         "spanish",
@@ -18,29 +18,28 @@ languages = [
         "vietnamese ",
         "arabic",
         "azerbaijani",
-    ]
-follow = [
+]
+FOLLOW = [
         "github",
         "linkedin",
         "instagram",
         "facebook",
         "youtube",
         "web site",
-    ]
-reports = [
+]
+REPORTS = [
     "Fraud or Plagiarism",
     "Hate Speech or Internet Trolling",
     "Intentional miss-categorized content or Spam",
     "This content is not tutorial content",
     "Wrong list name",
     "I think this content should not be at coogger",
-    ]
-status_choices = [
+]
+STATUS_CHAICES = [
     "shared",
     "rejected",
     "approved",
-    ]
-
+]
 def make_choices(choice):
     from django.utils.text import slugify
     slugs = []

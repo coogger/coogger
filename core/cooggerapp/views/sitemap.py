@@ -8,7 +8,7 @@ from core.cooggerapp.models import Content, Topic, Category
 from steemconnect_auth.models import SteemConnectUser
 
 # choices
-from core.cooggerapp.choices import languages
+from core.cooggerapp.choices import LANGUAGES
 
 class TopicSitemap(Sitemap):
     changefreq = "weekly"
@@ -33,7 +33,7 @@ class LanuagesSitemap(Sitemap):
     priority = 0.9
 
     def items(self):
-        return languages
+        return LANGUAGES
 
     def lastmod(self, obj):
         try:

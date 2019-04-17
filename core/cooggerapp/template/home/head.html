@@ -54,10 +54,10 @@
     <script src="{% static 'js/sc2.min.js' %}"></script>
     <script>
           let api = sc2.Initialize({
-            app: "{{ request.settings.STEEMCONNECT_AUTH_CONFIGS.client_id }}",
-            callbackURL: "{{ request.settings.STEEMCONNECT_AUTH_CONFIGS.redirect_url }}",
+            app: "{{ request.steemconnect_auth.client_id }}",
+            callbackURL: "{{ request.steemconnect_auth.redirect_url }}",
             accessToken: "{{ request.user.steemconnectuser.access_token }}",
-            scope: "{{ request.settings.STEEMCONNECT_AUTH_CONFIGS.scope }}",
+            scope: "{{ request.steemconnect_auth.scope }}",
           });
     </script>
     {% endif %}

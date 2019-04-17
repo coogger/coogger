@@ -49,7 +49,7 @@
       $(".query_count").html(data.count);
       return data.count;
     })
-  const PerLoadPostCount = "{{ request.settings.PAGE_SIZE }}";
+  const PerLoadPostCount = "{{ request.page_size }}";
   let contentsFromApi = function(apiUrl){
     return get_data(apiUrl).then(function(data){
       return data.results;

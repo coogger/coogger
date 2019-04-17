@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from core.cooggerapp.forms import ReportsForm
 
 # models
-from core.cooggerapp.models import Content, SearchedWords, ReportModel
+from core.cooggerapp.models import Content, SearchedWords, ReportModel, Topic
 
 
 class Home(TemplateView):
@@ -36,7 +36,30 @@ class Home(TemplateView):
             context["introduction"] = True
             queryset = posts
         context["content"] = queryset[:settings.PAGE_SIZE]
+        context["sort_topics"] = self.sort_topics(self.request)
         return context
+
+    @staticmethod
+    def sort_topics(request):
+        contents = Content.objects.filter(status="approved")
+        topic_querysets = [
+            Content.objects.filter(
+                topic = content.topic
+            ) for content in contents
+        ]
+        topics = dict()
+        check = []
+        for content in sorted(topic_querysets, key=len, reverse=True):
+            try:
+                topic = Topic.objects.filter(name=content[0].topic, editable=False)[0]
+                if len(topics) == 30:
+                    break
+                elif topic.name not in check:
+                    topics.__setitem__(topic, contents.filter(topic=content[0].topic).count())
+                    check.append(topic.name)
+            except IndexError:
+                pass
+        return topics
 
 
 class Review(TemplateView):

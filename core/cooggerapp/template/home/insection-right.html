@@ -72,7 +72,7 @@
       <div flex general="bg-white br-2" style="margin-top: 12px;">
         {% if not language %}
           <div flex="fd-c" general="b-1 brc-muted br-2" style="padding: 3px 3px;margin: 4px;">
-            {% for value, name, count in request.sort_languages %}
+            {% for name, count in request.sort_languages %}
               <div>
                 {% if category %}
                   <a class="capitalize" general="c-primary txt-s" href="/filter/?category={{ category }}&language={{ name }}">{{ name }}; {{ count }}</a>
@@ -87,7 +87,7 @@
         {% endif %}
         {% if not category %}
           <div flex="fd-c" general="b-1 brc-muted br-2" style="padding: 3px 3px;margin: 4px;">
-            {% for value, name, count in request.sort_categories %}
+            {% for name, count in request.sort_categories %}
               <div>
                 {% if language %}
                   <a class="capitalize" general="c-primary txt-s" href="/filter/?language={{ language }}&category={{ name }}">{{ name }}; {{ count }}</a>

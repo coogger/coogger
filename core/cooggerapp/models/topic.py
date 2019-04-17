@@ -5,7 +5,7 @@ from django.utils.text import slugify
 class Topic(models.Model):
     """ Global Topic Model """
 
-    name = models.SlugField(
+    name = models.CharField(
         unique=True, max_length=50, help_text="Please, write topic name."
     )
     image_address = models.URLField(max_length=400, blank=True, null=True)

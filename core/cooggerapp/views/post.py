@@ -66,7 +66,6 @@ class UpdateUTopic(CreateUTopic):
         )
         if form.is_valid():
             form = form.save(commit=False)
-            form.name = slugify(form.name)
             self.model.objects.filter(user=request.user, name=name).update(
                 name=form.name,
                 image_address=form.image_address,

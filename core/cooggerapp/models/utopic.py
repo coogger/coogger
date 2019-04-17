@@ -11,7 +11,7 @@ class UTopic(models.Model):
     """ Topic For Users """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.SlugField(
+    name = models.CharField(
         max_length=50, verbose_name="Name", help_text="Please, write topic name."
     )
     image_address = models.URLField(
@@ -39,7 +39,6 @@ class UTopic(models.Model):
         if not self.__class__.objects.filter(user=self.user, name=self.name).exists():
             with suppress(IntegrityError):
                 Topic(name=self.name).save()
-
             super().save(*args, **kwargs)
 
     def __str__(self):

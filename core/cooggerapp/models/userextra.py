@@ -3,7 +3,7 @@ from django.db import models
 from django_md_editor.models import EditorMdField
 from steemconnect_auth.models import SteemConnectUser
 
-from core.cooggerapp.choices import follow, make_choices
+from core.cooggerapp.choices import FOLLOW, make_choices
 
 
 class OtherInformationOfUsers(models.Model):
@@ -73,7 +73,7 @@ class OtherAddressesOfUsers(models.Model):
         blank=True,
         null=True,
         max_length=15,
-        choices=make_choices(follow),
+        choices=make_choices(FOLLOW),
         verbose_name="website",
     )
     address = models.CharField(

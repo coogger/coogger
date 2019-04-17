@@ -50,7 +50,6 @@ REST_FRAMEWORK = dict(
 )
 MIDDLEWARE = [
     # ban
-    # "django_ban.middleware.url.UrlBanMiddleware",
     "django_ban.middleware.ip.IPBanMiddleware",
     # django
     "django.middleware.security.SecurityMiddleware",
@@ -60,9 +59,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # steemconnect_auth
+    "steemconnect_auth.middleware.steemconnect_auth.SteemConnectAuthMiddleware",
     # coogger
     "core.cooggerapp.middleware.head.HeadMiddleware",
-    "core.cooggerapp.middleware.general.GeneralMiddleware",
+    "core.cooggerapp.middleware.sort.SortMiddleware",
+    "core.cooggerapp.middleware.settings.SettingsMiddleware",
 ]
 ROOT_URLCONF = "coogger.urls"
 TEMPLATES = [

@@ -12,7 +12,7 @@ from core.cooggerapp.models import Content, Topic, Category
 from core.cooggerapp.utils import model_filter
 
 # choices
-from core.cooggerapp.choices import languages
+from core.cooggerapp.choices import LANGUAGES
 
 
 class TopicView(TemplateView):
@@ -60,7 +60,7 @@ class Languages(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, lang_name, **kwargs):
-        if lang_name in languages:
+        if lang_name in LANGUAGES:
             queryset = Content.objects.filter(language=lang_name, status="approved")
             context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]

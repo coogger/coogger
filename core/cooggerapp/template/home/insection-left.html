@@ -3,7 +3,7 @@
 <div class="just-pc" flex="fw-nw" general="w-16">
   <ul general="bg-white brc-white" style="position: sticky;top: 16px;">
     <div general="center">Topics</div>
-    {% for topic, count in request.sort_topics.items %}
+    {% for topic, count in sort_topics.items %}
       <li general="txt-s c-yellow">
         <a hover="c-white bg-red" flex="ai-c" general="txt-s c-dark br-4" href="/topic/{{ topic.name }}" style="padding: 3px 6px;">
           {% if topic.image_address %}
