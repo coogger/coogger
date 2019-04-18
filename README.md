@@ -1,14 +1,4 @@
-[![MIT License](https://img.shields.io/github/license/coogger/coogger.svg?style=for-the-badge)](https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt) [![](https://img.shields.io/github/release/coogger/coogger.svg?style=for-the-badge)](https://github.com/coogger/coogger/releases) ![](https://img.shields.io/website-up-down-green-red/https/www.coogger.com.svg?style=for-the-badge)
-
- ![](https://img.shields.io/github/watchers/coogger/coogger.svg?style=for-the-badge) ![](https://img.shields.io/github/stars/coogger/coogger.svg?style=for-the-badge) ![](https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&style=for-the-badge)
-
-![](https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge)
-
-[![](https://img.shields.io/github/issues/coogger/coogger.svg?style=for-the-badge)](https://github.com/coogger/coogger/issues) [![](https://img.shields.io/github/issues-pr/coogger/coogger.svg?style=for-the-badge)](https://github.com/coogger/coogger/pulls)
-
-![](https://img.shields.io/github/languages/code-size/coogger/coogger.svg?style=for-the-badge) ![](https://img.shields.io/github/languages/top/coogger/coogger.svg?style=for-the-badge) ![](https://img.shields.io/github/languages/count/coogger/coogger.svg?style=for-the-badge)
-
-[![](https://img.shields.io/discord/465599004865200129.svg?label=Discord&style=for-the-badge)](https://discord.gg/avmdZJa)
+[![MIT License](https://img.shields.io/github/license/coogger/coogger.svg?style=for-the-badge)](https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt) [![](https://img.shields.io/github/release/coogger/coogger.svg?style=for-the-badge)](https://github.com/coogger/coogger/releases) ![](https://img.shields.io/website-up-down-green-red/https/www.coogger.com.svg?style=for-the-badge) ![](https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge) [![](https://img.shields.io/discord/465599004865200129.svg?label=Discord&style=for-the-badge)](https://discord.gg/avmdZJa)
 
 
 ### How to run coogger in my computer?
