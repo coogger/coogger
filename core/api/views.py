@@ -8,19 +8,24 @@ from rest_framework.serializers import ModelSerializer
 # api serializers
 from core.api.serializers import (
     ContentSerializer,
-    ContentSerializerToLoad,
-    UserSerializer)
+    UserSerializer,
+    CommitSerializer,
+    )
 
 # models
 from core.cooggerapp.models import (
-    Content, OtherInformationOfUsers)
+    Content,
+    OtherInformationOfUsers,
+    Commit,
+    )
 
 # views
 from core.cooggerapp.utils import model_filter
 
 
 class ListContent(ListCreateAPIView):
-    queryset = Content.objects.all()
+    model = Content
+    serializer_class = ContentSerializer
     permission_classes = []
 
     def get_object(self):
@@ -31,22 +36,27 @@ class ListContent(ListCreateAPIView):
     def filter_queryset(self, queryset):
         return model_filter(
             self.request.query_params.items(),
-            self.queryset).get("queryset")
+            self.get_queryset()).get("queryset")
 
-    def get_serializer_class(self):
-        if self.request.user.is_superuser:
-            return ContentSerializer
-        return ContentSerializerToLoad
-
-
-class ListContentToLoad(ListContent):
-    queryset = Content.objects.all()
-    permission_classes = []
-
-    def get_serializer_class(self):
-        return ContentSerializerToLoad
+    def get_queryset(self):
+        return self.model.objects.all()
 
 
 class ListUser(ListContent):
-    queryset = OtherInformationOfUsers.objects.all()
+    model = OtherInformationOfUsers
     serializer_class = UserSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return self.model.objects.filter(user=self.request.user)
+        return None
+
+
+class ListCommit(ListContent):
+    model = Commit
+    serializer_class = CommitSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return self.model.objects.filter(user=self.request.user)
+        return None

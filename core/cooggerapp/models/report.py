@@ -24,3 +24,13 @@ class ReportModel(models.Model):
         verbose_name="Can you give more information ?",
     )
     date = models.DateTimeField(default=now)
+
+    @property
+    def get_report(self):  # to api
+        context = list()
+        fields = ("complaints", "add", "date")
+        queryset = self.__class__.objects.filter(content=self.content)
+        for c in queryset:
+            for f in fields:
+                context.append({f: c.__getattribute__(f)})
+        return context

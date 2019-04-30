@@ -66,3 +66,15 @@ class Commit(models.Model):
         return HtmlDiff().make_file(
             previous_commit.body.splitlines(), self.body.splitlines()
         )
+    
+    @property
+    def content_absolute_url(self):
+        return self.content.get_absolute_url
+    
+    @property
+    def username(self):
+        return self.user.username
+
+    @property
+    def topic_name(self):
+        return self.utopic.name

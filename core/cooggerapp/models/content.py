@@ -271,40 +271,17 @@ class Content(models.Model):
         get_tag.insert(0, "coogger")
         return format_tags(get_tag)
 
-    @property
-    def get_commits(self):  # to api
-        context = list()
-        fields = ("body", "msg", "created", "body_change")
-        queryset = self.commit_set.filter(content=self)
-        for c in queryset:
-            hash_list = list()
-            for h in queryset.filter(hash=c.hash):
-                for f in fields:
-                    hash_list.append({f: c.__getattribute__(f)})
-            context.append({c.hash: hash_list})
-        return context
 
-    @property
-    def get_report(self):  # to api
-        context = list()
-        fields = ("complaints", "add", "date")
-        queryset = self.reportmodel_set.filter(content=self)
-        for c in queryset:
-            for f in fields:
-                context.append({f: c.__getattribute__(f)})
-        return context
+class Contentviews(models.Model):
+    content = models.ForeignKey(Content, on_delete=models.CASCADE)
+    ip = models.GenericIPAddressField()
 
     @property
     def get_views(self):  # to api
         context = list()
         fields = ("ip",)
-        queryset = self.contentviews_set.filter(content=self)
+        queryset = self.__class__.objects.filter(content=self.content)
         for c in queryset:
             for f in fields:
                 context.append({f: c.__getattribute__(f)})
         return context
-
-
-class Contentviews(models.Model):
-    content = models.ForeignKey(Content, on_delete=models.CASCADE)
-    ip = models.GenericIPAddressField()

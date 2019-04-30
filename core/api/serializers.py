@@ -3,29 +3,15 @@ from rest_framework.serializers import (
 
 # models
 from core.cooggerapp.models import (
-    Content, OtherInformationOfUsers)
+    Content,
+    OtherInformationOfUsers,
+    Commit,
+    )
 
 from django.contrib.auth.models import User
 
 
 class ContentSerializer(ModelSerializer):
-
-    class Meta:
-        model = Content
-        fields = (
-            "id", 'username',
-            'title', 'permlink',
-            'body', "tags",
-            "definition", "category_name",
-            "language", "topic_name",
-            "status", "views",
-            "mod", "modusername",
-            "cooggerup", "created",
-            "last_update", "get_report",
-            "get_views", "get_commits")
-
-
-class ContentSerializerToLoad(ModelSerializer):
 
     class Meta:
         model = Content
@@ -48,3 +34,18 @@ class UserSerializer(ModelSerializer):
             "beneficiaries", "total_votes",
             "total_vote_value", "access_token",
             )
+
+
+class CommitSerializer(ModelSerializer):
+
+    class Meta:
+        model = Commit
+        fields = [
+            "content_absolute_url",
+            "hash",
+            "username",
+            "topic_name",
+            "body",
+            "msg",
+            "created",
+        ]
