@@ -25,6 +25,10 @@ class Topic(models.Model):
     editable = models.BooleanField(
         default=True, verbose_name="Is it editable? | Yes/No"
     )
+    how_many = models.IntegerField(default=0, verbose_name="How many content in")
+
+    class Meta:
+        ordering = ["-how_many"]
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
