@@ -67,11 +67,11 @@
                   <span>Total views {{ total_views }}</span>
                 </div>
             </div>
-            {% if last_commit.created %}
+            {% if last_commit_created %}
             <div general="txt-s right" flex="ai-c" class="duread-li">
                 <div>
                   <i class="fas fa-clock"></i>
-                  <span>Last update | {{ last_commit.created|timesince }}</span>
+                  <span>Last update | {{ last_commit_created|timesince }}</span>
                 </div>
             </div>
             {% endif %}

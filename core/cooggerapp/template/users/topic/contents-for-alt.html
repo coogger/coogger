@@ -1,7 +1,7 @@
 {% extends "users/topic/home.html" %}
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
-    <div style="padding: 6px;">
+    <ol>
       {% if not queryset %}
         {% if request.user == content_user %}
           <div general="bg-dark-purple c-white br-2" class="utopic-nocontent">
@@ -14,13 +14,13 @@
         {% endif %}
       {% endif %}
       {% for query in queryset %}
-        <div class="utopic-query" flex="ai-c" general="w-100">
+        <li class="utopic-query" flex="ai-c" general="w-100">
           <i class="fa fa-file-alt"></i>
           <a general="c-primary w-90" href="{{ query.get_absolute_url }}">
             <span>{{ query.title|title }}</span>
           </a>
-        </div>
+        </li>
       {% endfor %}
-    </div>
+    </ol>
   </div>
 {% endblock %}

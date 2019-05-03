@@ -162,13 +162,15 @@ class Content(models.Model):
 
     def content_save(self, request, *args, **kwargs):
         self.user = request.user
-        self.topic = Topic.objects.filter(name=request.GET.get("topic"))[0]
+        topic_model = Topic.objects.filter(name=request.GET.get("topic"))
+        self.topic = topic_model[0]
         self.tags = self.ready_tags()
         self.permlink = slugify(self.title.lower())
         self.definition = self.prepare_definition()
         steem_post = self.steemconnect_post(op_name="save")
         if steem_post.status_code == 200:
             super().save(*args, **kwargs)
+            topic_model.update(how_many=f("how_many") + 1) # increae how_many in Topic model
             utopic = UTopic.objects.filter(user=self.user, name=self.topic)[0]
             get_msg = request.POST.get("msg")
             if get_msg == "Initial commit":
@@ -251,7 +253,7 @@ class Content(models.Model):
         steem_connect_user = SteemConnectUser.objects.filter(user=self.user)
         try:
             access_token = steem_connect_user[0].access_token
-            return SteemConnect(token=access_token, data=operation).run
+            return SteemConnect(token=access_token, data=operation).run 
         except:
             access_token = steem_connect_user.update_access_token(settings.APP_SECRET)
             return SteemConnect(token=access_token, data=operation).run
