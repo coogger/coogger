@@ -52,8 +52,6 @@ class Topic(TemplateView):
         context["commits_count"] = commits.count()
         context["last_commit_created"] = last_commit_created
         context["utopic"] = utopic
-        context["total_dor"] = self.calculate_dor(contents)
-        context["total_views"] = self.calculate_view(contents)
         return context
 
     def calculate_dor(self, contents):

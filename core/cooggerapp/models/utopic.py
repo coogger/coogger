@@ -30,9 +30,17 @@ class UTopic(models.Model):
     address = models.URLField(
         blank=True, null=True, max_length=150, help_text="Add an address if it have"
     )
+    total_dor = models.IntegerField(default=0, verbose_name="Total duration all contents")
+    total_view = models.IntegerField(default=0, verbose_name="Total views all contents")
 
     class Meta:
         verbose_name_plural = "User Topic"
+    
+    def __str__(self):
+        return self.name
+
+    def get_total_dor(self):
+        return f"{round(self.total_dor, 3)} min"
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
@@ -40,6 +48,3 @@ class UTopic(models.Model):
             with suppress(IntegrityError):
                 Topic(name=self.name).save()
             super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name

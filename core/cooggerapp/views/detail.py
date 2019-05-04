@@ -22,9 +22,24 @@ class Detail(TemplateView):
     def get_context_data(self, username, permlink, **kwargs):
         user = authenticate(username=username)
         content = Content.objects.filter(user=user, permlink=permlink)
-        try:
-            get_content = content[0]
-        except IndexError:
+        if content.exists():
+            if not Contentviews.objects.filter(
+                content=content[0], 
+                ip=self.get_ip_address()
+                ).exists() and self.is_increase_view():
+                content.update(views=F("views") + 1)
+                UTopic.objects.filter(
+                    user=content.user, 
+                    name=content.topic.name
+                ).update(total_view=F("total_view")+1)
+                Contentviews(content=content[0], ip=self.get_ip_address()).save()
+            nav_category = Content.objects.filter(
+                user=user, topic=content[0].topic, status="approved"
+                ).order_by("created")
+            urloftopic = permlink
+            nameoflist = content[0].topic
+            detail = content[0]
+        else:
             steem_post = dict(
                 language = False,
                 category = False,
@@ -41,21 +56,6 @@ class Detail(TemplateView):
             nameoflist = None
             detail = steem_post
             commits_count = None
-        else:
-            try:
-                ip = self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
-            except:
-                pass
-            else:
-                if not Contentviews.objects.filter(content=get_content, ip=ip).exists():
-                    content.update(views=F("views") + 1)
-                    Contentviews(content=get_content, ip=ip).save()
-            nav_category = Content.objects.filter(
-                user=user, topic=get_content.topic, status="approved"
-                ).order_by("created")
-            urloftopic = permlink
-            nameoflist = get_content.topic
-            detail = get_content
         context = super().get_context_data(**kwargs)
         context["content_user"] = user
         context["nav_category"] = nav_category
@@ -64,6 +64,17 @@ class Detail(TemplateView):
         context["detail"] = detail
         context["md_editor"] = True
         return context
+
+    def get_ip_address(self):
+        try:
+            return self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
+        except:
+            return None
+        
+    def is_increase_view(self):
+        if self.get_ip_address() is not None:
+            return True
+        return False
 
 
 @method_decorator(xframe_options_exempt, name="dispatch")

@@ -6,6 +6,7 @@ from django.utils.text import slugify
 from django_md_editor.models import EditorMdField
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.db.models import F
 
 # python
 from bs4 import BeautifulSoup
@@ -106,8 +107,10 @@ class Content(models.Model):
 
     @property
     def dor(self):
-        "duration of read"
-        return round(float((self.body.__len__() / 28) / 60), 3)
+        "duration of read -> second"
+        read_char_in_per_second = 28
+        body_len = self.body.__len__()
+        return body_len / per_second_read_char
 
     @property
     def get_absolute_url(self):
@@ -170,15 +173,16 @@ class Content(models.Model):
         steem_post = self.steemconnect_post(op_name="save")
         if steem_post.status_code == 200:
             super().save(*args, **kwargs)
-            topic_model.update(how_many=f("how_many") + 1) # increae how_many in Topic model
-            utopic = UTopic.objects.filter(user=self.user, name=self.topic)[0]
+            topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
+            utopic = UTopic.objects.filter(user=self.user, name=self.topic)
+            utopic.update(total_dor=F("total_dor") + self.dor()) # increase total dor in utopic
             get_msg = request.POST.get("msg")
             if get_msg == "Initial commit":
                 get_msg = f"{self.title} Published."
             self.commit_set.model(
                 hash=steem_post.json()["result"]["id"],
                 user=self.user,
-                utopic=utopic,
+                utopic=utopic[0],
                 content=self,
                 body=self.body,
                 msg=get_msg,
