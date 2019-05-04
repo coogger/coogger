@@ -29,8 +29,8 @@ class Detail(TemplateView):
                 ).exists() and self.is_increase_view():
                 content.update(views=F("views") + 1)
                 UTopic.objects.filter(
-                    user=content.user, 
-                    name=content.topic.name
+                    user=user, 
+                    name=content[0].topic.name
                 ).update(total_view=F("total_view")+1)
                 Contentviews(content=content[0], ip=self.get_ip_address()).save()
             nav_category = Content.objects.filter(
