@@ -110,7 +110,7 @@ class Content(models.Model):
         "duration of read -> second"
         read_char_in_per_second = 28
         body_len = self.body.__len__()
-        return body_len / per_second_read_char
+        return body_len / read_char_in_per_second
 
     @property
     def get_absolute_url(self):

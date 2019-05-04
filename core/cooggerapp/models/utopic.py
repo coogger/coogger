@@ -1,10 +1,13 @@
-from contextlib import suppress
-
+# django
 from django.contrib.auth.models import User
 from django.db import models, IntegrityError
 from django.utils.text import slugify
 
+# models
 from .topic import Topic
+
+# python
+from contextlib import suppress
 
 
 class UTopic(models.Model):
@@ -40,7 +43,23 @@ class UTopic(models.Model):
         return self.name
 
     def get_total_dor(self):
-        return f"{round(self.total_dor, 3)} min"
+        second = self.total_dor
+        def calculate(second):
+            second = int(second)
+            minutes = int(second / 60)
+            second -= minutes * 60
+            hours = int(second / (60 * 60))
+            second -= hours * (60 * 60)
+            days = int(second / (60 * 60 * 24))
+            second -= days * (60 * 60 * 24)
+            years = int(second / (60 * 60 * 24 * 365.25))
+            second -= years * (60 * 60 * 24 * 365.25)
+            return dict(years=years, days=days, hours=hours, minutes=minutes, second=int(second))
+        times = str()
+        for f, t in calculate(second).items():
+            if t != 0:
+                times += f" {t} {f} "
+        return times
 
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
