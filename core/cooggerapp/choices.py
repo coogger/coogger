@@ -35,10 +35,14 @@ REPORTS = [
     "Wrong list name",
     "I think this content should not be at coogger",
 ]
-STATUS_CHAICES = [
+STATUS_CHOICES = [
     "shared",
     "rejected",
     "approved",
+]
+ISSUE_CHOICES = [
+    "open",
+    "closed",
 ]
 def make_choices(choice):
     from django.utils.text import slugify

@@ -21,6 +21,7 @@ urlpatterns = [
     path("", include("core.cooggerapp.urls.explorer")),  # explorer
     path("", include("core.cooggerapp.urls.home")),  # home
     path("", include("core.cooggerapp.urls.detail")),  # post detail
+    path("", include("core.cooggerapp.urls.utopic")),  # user topic
     path("", include("core.cooggerapp.urls.users")),  # users
     path("", include("core.cooggerapp.urls.sitemap")),  # sitemap
     path('adblock/', just_redirect, name="adblock"),

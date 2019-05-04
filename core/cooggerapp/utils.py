@@ -4,10 +4,22 @@ from django.utils.text import slugify
 from django.conf import settings
 from django.core.exceptions import FieldError
 from django.contrib.auth import authenticate
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # models
 from core.cooggerapp.models import Category, Topic
 
+
+def paginator(request, queryset):
+    paginator = Paginator(queryset, settings.PAGE_SIZE)
+    page = request.GET.get('page')
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page(1)
+    except EmptyPage:
+        contacts = paginator.page(paginator.num_pages)
+    return contacts
 
 def model_filter(items, queryset):
     filter = ""

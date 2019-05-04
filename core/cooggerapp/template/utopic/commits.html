@@ -1,7 +1,7 @@
-{% extends "users/topic/home.html" %}
+{% extends "utopic/home.html" %}
 {% block alt_topic %}
   <div general="center w-100" class="commits">
-    {% for commit in commits %}
+    {% for commit in queryset %}
       <div general="w-100 b-1 br-2 brc-muted" style="margin: 2px 0px;">
         <div class="commit">
           <div flex="fd-c" general="w-100">
@@ -27,6 +27,6 @@
         </div>
       </div>
       {% endfor %}
-      {% include 'detail/paginator.html' %}
+      {% include 'paginator.html' %}
   </div>
 {% endblock %}

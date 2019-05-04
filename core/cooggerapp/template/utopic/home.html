@@ -51,10 +51,18 @@
               <div flex="ai-c">
                 <i class="fas fa-history"></i>
                 <span id="commits_count" general="txt-s">
-                  <strong>{{ commits_count }}</strong> commits
+                  <strong>{{utopic|commit_count}} </strong> commits
                 </span>
               </div>
             </a>
+            <a href="{% url 'issues' content_user utopic %}">
+                <div flex="ai-c">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <span id="" general="txt-s">
+                    <strong>0 </strong> issues
+                  </span>
+                </div>
+              </a>
             <div general="txt-s" flex="ai-c" class="duread-li">
               <div style="margin-left: 12px;">
                   <i class="fab fa-readme"></i>

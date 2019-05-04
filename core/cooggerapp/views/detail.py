@@ -4,16 +4,13 @@ from django.contrib.auth import authenticate
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
 from django.conf import settings
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import (Paginator, EmptyPage, PageNotAnInteger)
 
 # django class based
 from django.views.generic.base import TemplateView
 
 # core.cooggerapp models
-from core.cooggerapp.models import Content, Contentviews, Commit, Topic, UTopic
-
-# views
-from core.cooggerapp.views.users import Topic as UserTopicClass
+from core.cooggerapp.models import (Content, Contentviews, UTopic)
 
 
 class Detail(TemplateView):
@@ -80,36 +77,3 @@ class Detail(TemplateView):
 @method_decorator(xframe_options_exempt, name="dispatch")
 class Embed(Detail):
     template_name = "detail/embed.html"
-
-
-class Commits(UserTopicClass):
-    template_name = "detail/commits.html"
-
-    def get_context_data(self, username, topic, **kwargs):
-        context = super().get_context_data(
-            username, 
-            topic, 
-            **kwargs
-            )
-        del context["queryset"]
-        return context
-
-    def paginator(self, queryset):
-        paginator = Paginator(queryset, settings.PAGE_SIZE)
-        page = self.request.GET.get('page')
-        try:
-            contacts = paginator.page(page)
-        except PageNotAnInteger:
-            contacts = paginator.page(1)
-        except EmptyPage:
-            contacts = paginator.page(paginator.num_pages)
-        return contacts
-
-class CommitDetail(TemplateView):
-    template_name = "detail/commit.html"
-
-    def get_context_data(self, username, topic, hash, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["content_user"] = authenticate(username=username)
-        context["commit"] = Commit.objects.filter(hash=hash)[0]
-        return context

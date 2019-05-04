@@ -3,17 +3,23 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
 from django.utils.text import slugify
-from django_md_editor.models import EditorMdField
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.db.models import F
+
+# models
+from .category import Category
+from .topic import Topic
+from .userextra import OtherInformationOfUsers
+from .utils import format_tags
+from .utopic import UTopic
 
 # python
 from bs4 import BeautifulSoup
 from mistune import Markdown, Renderer
 
 # choices
-from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHAICES
+from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 
 # steemconnect
 from steemconnect.steemconnect import SteemConnect
@@ -22,12 +28,8 @@ from steemconnect.operations import (Comment, CommentOptions)
 # steemconnect_auth
 from steemconnect_auth.models import SteemConnectUser
 
-# models
-from .category import Category
-from .topic import Topic
-from .userextra import OtherInformationOfUsers
-from .utils import format_tags
-from .utopic import UTopic
+# editor md
+from django_md_editor.models import EditorMdField
 
 
 class Content(models.Model):
@@ -62,7 +64,7 @@ class Content(models.Model):
     status = models.CharField(
         default="approved",
         max_length=30,
-        choices=make_choices(STATUS_CHAICES),
+        choices=make_choices(STATUS_CHOICES),
         verbose_name="content's status",
     )
     views = models.IntegerField(default=0, verbose_name="Views")

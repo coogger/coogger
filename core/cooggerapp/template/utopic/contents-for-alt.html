@@ -1,4 +1,4 @@
-{% extends "users/topic/home.html" %}
+{% extends "utopic/home.html" %}
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
     <ol>
@@ -22,5 +22,6 @@
         </li>
       {% endfor %}
     </ol>
+    {% include 'paginator.html' %}
   </div>
 {% endblock %}
