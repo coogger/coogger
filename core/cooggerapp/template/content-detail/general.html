@@ -1,9 +1,9 @@
 <div animation="fadeIn" font="quicksand" style="padding: 12px;">
     <div class="data-post-id-{{detail.id}}" general="center w-100">
       <div mobile-s="w-100" mobile-m="w-99" mobile-l="w-98" tablet="w-98" max="w-50">
-        {% include 'detail/status.html' %}
-        {% include 'detail/contentinfo.html' %}
-        {% include 'detail/userinfo.html' %}
+        {% include 'content-detail/status.html' %}
+        {% include 'content-detail/contentinfo.html' %}
+        {% include 'content-detail/userinfo.html' %}
         <div class="tags" id="tags" flex="jc-sa" general="right bg-dark-purple txt-s"></div>
         <h1 general="center txt-xl" id="title" style="margin: 12px auto;"></h1>
         {% if not adblock %}
@@ -39,8 +39,8 @@
           <br>
           <!--ads-->
         {% endif %}
-        {% include 'detail/edit.html' %}
-        {% include 'detail/share_social_site.html' %}
+        {% include 'content-detail/edit.html' %}
+        {% include 'content-detail/share_social_site.html' %}
         <!-- vote button  -->
         <div general="center">
           <div class="vote circle">
@@ -50,13 +50,13 @@
           </div>
         </div>
         <!-- vote button  -->
-        {% include 'detail/donation.html' %}
+        {% include 'content-detail/donation.html' %}
         <div style="margin: 10% 0px;"></div>
-        {% include 'detail/comments.html' %}
+        {% include 'content-detail/comments.html' %}
       </div>
-      {% include 'detail/other_contents.html' %}
+      {% include 'content-detail/other_contents.html' %}
     </div>
   </div>
-  {% include 'detail/script.html' %}
+  {% include 'content-detail/script.html' %}
 </body>
 </html>

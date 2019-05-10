@@ -1,11 +1,11 @@
 {% include 'home/head.html' %}
-{% include 'detail/script.html' %}
+{% include 'content-detail/script.html' %}
 <div animation="fadeIn" font="quicksand" style="padding: 12px;">
-{% include 'detail/status.html' %}
+{% include 'content-detail/status.html' %}
 <div class="data-post-id-{{detail.id}}" flex="jc-c fw-nw">
   <div style="width: 100%;">
-    {% include 'detail/contentinfo.html' %}
-    {% include 'detail/userinfo.html' %}
+    {% include 'content-detail/contentinfo.html' %}
+    {% include 'content-detail/userinfo.html' %}
     <div>
       <h1 general="center txt-xl" id="title" style="margin: 12px auto;"></h1>
       <div style="padding: inherit;">
@@ -13,7 +13,7 @@
             <textarea style="display:none;" id='editormd_content'></textarea>
         </div>
       </div>
-      {% include 'detail/edit.html' %}
+      {% include 'content-detail/edit.html' %}
       <!-- vote button  -->
       <div general="center">
         <div class="vote circle">
@@ -25,7 +25,7 @@
       <!-- vote button  -->
     </div>
     <div style="margin: 10% 0px;"></div>
-    {% include 'detail/comments.html' %}
+    {% include 'content-detail/comments.html' %}
   </div>
 </div>
 </div>
