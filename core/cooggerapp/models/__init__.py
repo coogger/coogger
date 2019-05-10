@@ -6,3 +6,4 @@ from .topic import Topic
 from .userextra import OtherAddressesOfUsers, OtherInformationOfUsers
 from .utopic import UTopic
 from .commit import Commit
+from .issue import Issue
