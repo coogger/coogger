@@ -14,7 +14,7 @@ from core.cooggerapp.models import (Content, Contentviews, UTopic)
 
 
 class Detail(TemplateView):
-    template_name = "detail/detail.html"
+    template_name = "content-detail/detail.html"
 
     def get_context_data(self, username, permlink, **kwargs):
         user = authenticate(username=username)
@@ -67,7 +67,7 @@ class Detail(TemplateView):
             return self.request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
         except:
             return None
-        
+
     def is_increase_view(self):
         if self.get_ip_address() is not None:
             return True
@@ -76,4 +76,4 @@ class Detail(TemplateView):
 
 @method_decorator(xframe_options_exempt, name="dispatch")
 class Embed(Detail):
-    template_name = "detail/embed.html"
+    template_name = "content-detail/embed.html"
