@@ -1,0 +1,45 @@
+{% extends "home/html.html" %}
+{% block body %}
+  <div style="margin: auto;margin-top: 12px;" general="w-100" mobile-l="txt-s">
+    <div general="center" flex="fd-c">
+      <div class="utopic" general="center w-60" mobile-m="w-99" mobile-l="w-94" tablet="w-90" laptop="w-80" flex="fd-c">
+        <div general="b-1 brc-muted br-2 w-100" class="utopic-user">
+          <div style="padding: 6px;">
+            <div flex="ai-c">
+              {% if request.user == content_user %}
+                <div general="right" flex="fd-c">
+                  <a general="br-1 c-white bg-dark-purple txt-s right" 
+                  href="{% url 'new-issue' content_user utopic.name %}" style="padding: 6px;">
+                    Open issue
+                </a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div general="b-1 br-2 brc-muted w-100">
+          <div flex style="padding: 6px;">
+            <a href="{% url 'issues' content_user utopic %}">
+                <div flex="ai-c">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="" general="txt-s">
+                        <strong>0 </strong> Open
+                    </span>
+                </div>
+            </a>
+            <a href="{% url 'issues' content_user utopic %}">
+              <div flex="ai-c">
+                <i class="fas fa-check"></i>
+                <span id="" general="txt-s">
+                    <strong>0 </strong> Closed
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div general="b-1 br-2 brc-primary bg-primary c-white" style="margin-top: 3px;"></div>
+        {% block alt_topic %}{% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

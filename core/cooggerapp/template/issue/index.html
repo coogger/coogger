@@ -1,0 +1,31 @@
+{% extends "issue/top.html" %}
+{% block alt_topic %}
+  <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
+    <ol>
+      {% if not queryset %}
+        {% if request.user == content_user %}
+          <div general="bg-dark-purple c-white br-2" class="utopic-nocontent">
+            <a general="c-white txt-l center" href="{% url 'create' %}?topic={{ utopic }}">
+                Open issue your {{ utopic }} topic
+            </a>
+          </div>
+        {% else %}
+          <div general="bg-red c-white br-2" class="utopic-nocontent">
+            <span general="c-white txt-l center">
+              No issue has been open in {{ utopic }} topic yet
+            </span>
+          </div>
+        {% endif %}
+      {% endif %}
+      {% for issue in queryset %}
+        <li class="utopic-query" flex="ai-c" general="w-100">
+          <i class="fa fa-file-alt"></i>
+          <a general="c-primary w-90" href="{{ issue.get_absolute_url }}">
+            <span>{{ issue.title|title }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
+    {% include 'paginator.html' %}
+  </div>
+{% endblock %}
