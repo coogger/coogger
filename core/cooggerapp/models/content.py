@@ -6,7 +6,6 @@ from django.utils.text import slugify
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.db.models import F
-from django.shortcuts import redirect
 from django.urls import reverse
 
 # models
@@ -118,7 +117,7 @@ class Content(models.Model):
 
     @property
     def get_absolute_url(self):
-        return redirect(reverse("detail", kwargs=dict(username=self.user.username, permlink=self.permlink)))
+        return reverse("detail", kwargs=dict(username=self.user.username, permlink=self.permlink))
 
     def next_or_previous(self, next=True):
         contents = self.__class__.objects.filter(user=self.user, topic=self.topic)
