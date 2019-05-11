@@ -35,6 +35,8 @@ class UTopic(models.Model):
     )
     total_dor = models.IntegerField(default=0, verbose_name="Total duration all contents")
     total_view = models.IntegerField(default=0, verbose_name="Total views all contents")
+    open_issue = models.IntegerField(default=0, verbose_name="Total count open issue")
+    closed_issue = models.IntegerField(default=0, verbose_name="Total count closed issue")
 
     class Meta:
         verbose_name_plural = "User Topic"

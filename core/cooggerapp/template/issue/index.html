@@ -18,11 +18,17 @@
         {% endif %}
       {% endif %}
       {% for issue in queryset %}
-        <li class="utopic-query" flex="ai-c" general="w-100">
-          <i class="fa fa-file-alt"></i>
+        <li class="issue-query" general="w-100">
           <a general="c-primary w-90" href="{{ issue.get_absolute_url }}">
-            <span>{{ issue.title|title }}</span>
+            <div>
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ issue.title|title }}</span>
+            </div>
           </a>
+          <div general="txt-s c-secondary">
+              <span>#{{ issue.id }}</span>
+              <span>opened {{ issue.created|timesince }} by {{ issue.user }} </span>
+          </div>
         </li>
       {% endfor %}
     </ol>

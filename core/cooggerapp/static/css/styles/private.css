@@ -7,9 +7,6 @@ cards {
 margin-top: 5%;
 padding: 24px 0px;
 }
-.utopic-query{
-padding: 6px 0px;
-}
 .commit-detail .index{
 cursor:pointer;
 }
@@ -351,7 +348,14 @@ display: None;
 .just-pc{
 display: block;
 }
-.utopic-query{padding: 6px 0px;margin: 3px 0px;display: list-item;}
+.utopic-query, .issue-query{
+  padding: 6px 0px;
+  margin: 3px 0px;
+  display: list-item;
+}
+.issue-query{
+  list-style: none;
+}
 .utopic a, .his-json a ,.history-op a{
 overflow: hidden;
 white-space: nowrap;

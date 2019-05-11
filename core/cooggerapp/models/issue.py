@@ -3,6 +3,7 @@ from django.db.models import (Model, ForeignKey, CharField, DateTimeField, CASCA
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.urls import reverse
+from django.db.models import F
 
 # model
 from .utopic import UTopic
@@ -19,7 +20,7 @@ class Issue(Model):
     utopic = ForeignKey(UTopic, on_delete=CASCADE)
     title = CharField(max_length=55, help_text="Title")
     body = EditorMdField()
-    status = CharField(choices=make_choices(ISSUE_CHOICES), max_length=55, help_text="Status")
+    status = CharField(default="open", choices=make_choices(ISSUE_CHOICES), max_length=55, help_text="Status")
     created = DateTimeField(default=now, verbose_name="Created")
     last_update = DateTimeField(default=now, verbose_name="Last update")
 
@@ -33,4 +34,10 @@ class Issue(Model):
             id=self.id,
             ))
 
+    def save(self, *args, **kwargs):
+        UTopic.objects.filter(
+            user=self.user,
+            name=self.utopic.name,
+        ).update(open_issue=F("open_issue") + 1)
+        super().save(*args, **kwargs)
 

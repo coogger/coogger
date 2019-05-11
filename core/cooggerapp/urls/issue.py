@@ -11,6 +11,5 @@ from core.cooggerapp.views.issue import (
 urlpatterns = [
     path('@<username>/<topic>/issues/', IssueView.as_view(), name="issues"),
     path('@<username>/<topic>/issues/new/', NewIssue.as_view(), name="new-issue"),
-    path('@<username>/<topic>/issues/<id>/', DetailIssue.as_view(), name="detail-issues"),
-
+    path('@<username>/<topic>/issues/<id>/', DetailIssue.as_view(), name="detail-issue"),
     ]
