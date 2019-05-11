@@ -29,15 +29,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # rest
     "rest_framework",
-    # editor
-    "django_md_editor",
-    # steemconnect
-    "steemconnect_auth",
     # coogger
     "core.cooggerapp",
     "core.api",
-    # ban
+    # 3. p
+    "django_md_editor",
+    "steemconnect_auth",
     "django_ban",
+    "cooggerimages"
 ]
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
@@ -71,7 +70,7 @@ TEMPLATES = [
     dict(
         BACKEND='django.template.backends.django.DjangoTemplates',
         DIRS=[
-            os.path.join(BASE_DIR, "core", "cooggerapp", "template"),
+            os.path.join(BASE_DIR, "core", "cooggerapp", "templates"),
         ],
     APP_DIRS=True,
     OPTIONS=dict(
@@ -93,6 +92,10 @@ DATABASES = dict(
     django_ban=dict(
         ENGINE="django.db.backends.sqlite3",
         NAME=env("DJANGO_BAN_DB_NAME"),
+    ),
+    coogger_images=dict(
+        ENGINE="django.db.backends.sqlite3",
+        NAME=env("COOGGER_IMAGES_DB_NAME"),
     ),
 )
 DATABASE_ROUTERS = [

@@ -32,6 +32,7 @@ urlpatterns = [
     path("", include("core.cooggerapp.urls.issue")),  # issue pages
     path("", include("core.cooggerapp.urls.users")),  # users
     path("", include("core.cooggerapp.urls.sitemap")),  # sitemap
+    path("", include("cooggerimages.urls")), # images
 ]
 
 if settings.DEBUG:

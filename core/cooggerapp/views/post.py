@@ -25,7 +25,17 @@ class CreateUTopic(LoginRequiredMixin, View):
     model = UTopic
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {"form": self.form_class(initial=dict(request.GET.items()))})
+        return render(
+            request, 
+            self.template_name, 
+            dict(
+                form=self.form_class(
+                    initial=dict(
+                        request.GET.items()
+                    )
+                )
+            )
+        )
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST)
@@ -63,7 +73,7 @@ class UpdateUTopic(LoginRequiredMixin, View):
         name = slugify(name)
         form = self.form_class(data=request.POST)
         context = dict(
-            form=self.form_class(data=request.POST),
+            form=form,
             name=name,
         )
         if form.is_valid():

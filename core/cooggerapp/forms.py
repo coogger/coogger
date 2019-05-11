@@ -19,7 +19,11 @@ class UTopicForm(ModelForm):
 
 
 class ContentForm(ModelForm):
-    msg = CharField(max_length=150, label="Commit Message", help_text="What has changed with this update?")
+    msg = CharField(
+        max_length=150, 
+        label="Commit Message", 
+        help_text="What has changed with this update?"
+    )
 
     class Meta:
         model = Content

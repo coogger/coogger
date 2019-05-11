@@ -18,6 +18,8 @@ class HeadMixin:
         if self.path_info.split("/")[1] in invalid:
             return None
         url_name = resolve(self.path_info).url_name
+        if url_name is None:
+            return None
         self.kwargs = resolve(self.path_info).kwargs
         try:
             request.head = getattr(self, url_name.replace("-", "_"))
