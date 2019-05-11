@@ -42,8 +42,10 @@ class CreateUTopic(LoginRequiredMixin, View):
             return render(request, self.template_name, dict(form=form))
 
 
-class UpdateUTopic(CreateUTopic):
-    template_name = "post/updateutopic.html"
+class UpdateUTopic(LoginRequiredMixin, View):
+    template_name = "post/utopic.html"
+    form_class = UTopicForm
+    model = UTopic
 
     def get(self, request, name, *args, **kwargs):
         try:

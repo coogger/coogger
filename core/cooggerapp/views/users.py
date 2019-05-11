@@ -59,16 +59,16 @@ class About(View):
         return render(request, self.template_name, context)
 
     def post(self, request, username, *args, **kwargs):
-        if request.user.is_authenticated:
-            if request.user.username == username:
-                query = OtherInformationOfUsers.objects.filter(user=request.user)[0]
-                about_form = self.form_class(request.POST, instance=query)
-                if about_form.is_valid():
-                    about_form = about_form.save(commit=False)
-                    about_form.user = request.user
-                    about_form.about = "\n" + about_form.about
-                    about_form.save()
-                    return redirect(reverse("userabout", kwargs=dict(username=request.user.username)))
+        if request.user.is_authenticated and \
+            request.user.username == username:
+            query = OtherInformationOfUsers.objects.filter(user=request.user)[0]
+            about_form = self.form_class(request.POST, instance=query)
+            if about_form.is_valid():
+                about_form = about_form.save(commit=False)
+                about_form.user = request.user
+                about_form.about = "\n" + about_form.about
+                about_form.save()
+                return redirect(reverse("userabout", kwargs=dict(username=request.user.username)))
 
 
 class Wallet(TemplateView):
