@@ -113,10 +113,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # md eitor
 MDEDITOR_CONFIGS = dict(
-    toolbar=[
-        "help", "info",
-        "||", "preview", "watch", "fullscreen"
-        ],
+    emoji=True,
 )
 STEEMCONNECT_AUTH_CONFIGS = dict(
     redirect_url=redirect_url,

@@ -123,7 +123,7 @@ class Create(LoginRequiredMixin, View):
                 initial.__setitem__(key, value)
         if category is None:
             category_template = render_to_string(self.initial_template)
-        initial.__setitem__("content", category_template)
+        initial.__setitem__("body", category_template)
         initial.__setitem__("msg", "Initial commit")
         context = dict(
             form=self.form_class(initial=initial)
