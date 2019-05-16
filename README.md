@@ -13,6 +13,7 @@ CLIENT_ID=your_steem_app_name
 APP_SECRET=your_steemconnect_app_key
 DEFAULT_DB_NAME=path/to/default_db.db
 DJANGO_BAN_DB_NAME=path/to/django_ban.db
+COOGGER_IMAGES_DB_NAME=path/to/coogger_images.db
 ```
 
 ##### After
@@ -21,8 +22,10 @@ DJANGO_BAN_DB_NAME=path/to/django_ban.db
 >>> pip install -r requirements.txt
 >>> python manage.py makemigrations cooggerapp
 >>> python manage.py makemigrations django_ban
+>>> python manage.py makemigrations cooggerimages
 >>> python manage.py migrate --database default
 >>> python manage.py migrate --database django_ban
+>>> python manage.py migrate --database coogger_images
 >>> python manage.py runserver
 ```
 
