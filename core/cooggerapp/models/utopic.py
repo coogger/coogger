@@ -44,6 +44,14 @@ class UTopic(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.name = slugify(self.name)
+        if not self.__class__.objects.filter(user=self.user, name=self.name).exists():
+            with suppress(IntegrityError):
+                Topic(name=self.name).save()
+        super().save(*args, **kwargs)
+
+    @property
     def get_total_dor(self):
         second = self.total_dor
         def calculate(second):
@@ -62,10 +70,3 @@ class UTopic(models.Model):
             if t != 0:
                 times += f" {t} {f} "
         return times
-
-    def save(self, *args, **kwargs):
-        self.name = slugify(self.name)
-        if not self.__class__.objects.filter(user=self.user, name=self.name).exists():
-            with suppress(IntegrityError):
-                Topic(name=self.name).save()
-            super().save(*args, **kwargs)

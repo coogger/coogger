@@ -1,9 +1,12 @@
+# django
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
 
+# coices
 from core.cooggerapp.choices import make_choices, REPORTS
 
+# models
 from .content import Content
 
 

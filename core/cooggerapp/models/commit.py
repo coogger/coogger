@@ -1,13 +1,20 @@
-from difflib import HtmlDiff
-
+# django
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
+
+# 3.part
 from django_md_editor.models import EditorMdField
 
-from .utils import get_new_hash
+# models
 from .utopic import UTopic
 from .content import Content
+
+# utils
+from .utils import get_new_hash
+
+# python
+from difflib import HtmlDiff
 
 
 class Commit(models.Model):

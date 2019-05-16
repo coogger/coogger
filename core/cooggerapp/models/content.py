@@ -86,7 +86,7 @@ class Content(models.Model):
         ordering = ["-created"]
 
     def __str__(self):
-        return self.get_absolute_url()
+        return self.get_absolute_url
 
     @property
     def username(self):
