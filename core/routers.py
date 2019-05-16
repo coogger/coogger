@@ -7,7 +7,7 @@ class DBRouter:
     django_ban_apps = [
         "django_ban"
     ]
-    coogger_images = [
+    coogger_images_app = [
         "cooggerimages"
     ]
 
@@ -17,7 +17,7 @@ class DBRouter:
             return "default"
         elif app_label in self.django_ban_apps:
             return "django_ban"
-        elif app_label in self.coogger_images:
+        elif app_label in self.coogger_images_app:
             return "coogger_images"
 
     def db_for_write(self, model, **hints):
@@ -34,7 +34,7 @@ class DBRouter:
             if app_label in self.django_ban_apps:
                 return True
         elif db == "coogger_images":
-            if app_label in self.coogger_images:
+            if app_label in self.coogger_images_app:
                 return True
         return False
 
