@@ -1,13 +1,9 @@
 {% extends "issue/top.html" %}
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
-    <div general="b-1">
+      <a href="{{ queryset.id }} - {{ queryset.reply.id }}">
         <h1 general="center">{{ queryset.title|title }}</h1>
-        <div>
-            <p>
-                {{ queryset.body }}
-            </p>
-        </div>
-    </div>
+        <div><p>{{ queryset.body }}</p></div>
+      </a>
   </div>
 {% endblock %}

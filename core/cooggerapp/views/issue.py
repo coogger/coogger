@@ -21,10 +21,10 @@ class IssueView(TemplateView):
     def get_context_data(self, username, topic, **kwargs):
         user = authenticate(username=username)
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
-        issues = Issue.objects.filter(user=user, utopic=utopic, status="open")
+        issues = Issue(user=user, utopic=utopic)
         context = super().get_context_data(**kwargs)
         context["content_user"] = user
-        context["queryset"] = issues
+        context["queryset"] = issues.get_open_issues
         context["utopic"] = utopic
         return context
 
@@ -68,10 +68,10 @@ class DetailIssue(TemplateView):
 
     def get_context_data(self, username, topic, id, **kwargs):
         user = authenticate(username=username)
-        issue = Issue.objects.get(id=id)
-        utopic = UTopic.objects.filter(user=user, name=topic)[0]
+        utopic = UTopic.objects.get(user=user, name=topic)
+        issue = Issue.objects.get(user=user, utopic=utopic, id=id)
         context = super().get_context_data(**kwargs)
-        context["content_user"] = user
+        context["content_user"] = issue.user
         context["queryset"] = issue
         context["utopic"] = utopic
         return context

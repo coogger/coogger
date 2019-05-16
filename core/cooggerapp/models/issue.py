@@ -1,9 +1,17 @@
 # django
-from django.db.models import (Model, ForeignKey, CharField, DateTimeField, CASCADE)
+from django.db.models import (
+    Model, 
+    ForeignKey, 
+    CharField, 
+    DateTimeField, 
+    CASCADE, 
+    IntegerField
+)
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.urls import reverse
 from django.db.models import F
+from django.template.loader import render_to_string
 
 # model
 from .utopic import UTopic
@@ -18,12 +26,20 @@ from core.cooggerapp.choices import make_choices, ISSUE_CHOICES
 class Issue(Model):
     user = ForeignKey(User, on_delete=CASCADE)
     utopic = ForeignKey(UTopic, on_delete=CASCADE)
-    title = CharField(max_length=55, help_text="Title")
+    title = CharField(max_length=55, help_text="Title", null=True, blank=True)
     body = EditorMdField()
-    status = CharField(default="open", choices=make_choices(ISSUE_CHOICES), max_length=55, help_text="Status")
+    reply = ForeignKey("Issue", on_delete=CASCADE, null=True, blank=True)
+    status = CharField(
+        default="open", 
+        choices=make_choices(ISSUE_CHOICES), 
+        max_length=55, 
+        help_text="Status",
+        null=True, blank=True,
+    )
+    reply_count = IntegerField(default=0)
     created = DateTimeField(default=now, verbose_name="Created")
     last_update = DateTimeField(default=now, verbose_name="Last update")
-
+    
     def __str__(self):
         return self.get_absolute_url()
 
@@ -35,9 +51,20 @@ class Issue(Model):
             ))
 
     def save(self, *args, **kwargs):
-        UTopic.objects.filter(
-            user=self.user,
-            name=self.utopic.name,
-        ).update(open_issue=F("open_issue") + 1)
+        if self.reply is not None:
+            self.status = None
+        elif self.status == "open":
+            UTopic.objects.filter(
+                user=self.user,
+                name=self.utopic.name,
+            ).update(open_issue=F("open_issue") + 1)
         super().save(*args, **kwargs)
+    
+    @property
+    def get_open_issues(self):
+        return self.__class__.objects.filter(status="open", reply=None)
+
+    @property
+    def get_closed_issues(self):
+        return self.__class__.objects.filter(status="closed", reply=None)
 

@@ -2,8 +2,19 @@ from django.contrib.admin import ModelAdmin, site
 from django.http import Http404
 
 #models
-from core.cooggerapp.models import (Content, Contentviews, OtherAddressesOfUsers, SearchedWords,
-    ReportModel, OtherInformationOfUsers, Topic, Commit, UTopic, Category)
+from core.cooggerapp.models import (
+    Content, 
+    Contentviews, 
+    OtherAddressesOfUsers, 
+    SearchedWords,
+    ReportModel, 
+    OtherInformationOfUsers, 
+    Topic, 
+    Commit, 
+    UTopic, 
+    Category,
+    Issue,
+)
 
 #choices
 from core.cooggerapp.choices import *
@@ -146,6 +157,12 @@ class UtopicAdmin(ModelAdmin):
         ("definition"),
         ("tags"),
         ("address"),
+        (
+            "total_dor", 
+            "total_view", 
+            "open_issue", 
+            "closed_issue",
+        )
     )
 
 
@@ -159,3 +176,4 @@ site.register(SearchedWords,SearchedWordsAdmin)
 site.register(ReportModel)
 site.register(OtherInformationOfUsers,OtherInfoUsersAdmin)
 site.register(Topic, TopicAdmin)
+site.register(Issue)
