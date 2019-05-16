@@ -10,6 +10,7 @@ from core.api.serializers import (
     ContentSerializer,
     UserSerializer,
     CommitSerializer,
+    IssueSerializer,
     )
 
 # models
@@ -17,6 +18,7 @@ from core.cooggerapp.models import (
     Content,
     OtherInformationOfUsers,
     Commit,
+    Issue,
     )
 
 # views
@@ -60,3 +62,8 @@ class ListCommit(ListContent):
         if self.request.user.is_authenticated:
             return self.model.objects.filter(user=self.request.user)
         return None
+
+
+class ListIssue(ListContent):
+    model = Issue
+    serializer_class = IssueSerializer

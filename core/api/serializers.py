@@ -6,6 +6,7 @@ from core.cooggerapp.models import (
     Content,
     OtherInformationOfUsers,
     Commit,
+    Issue
     )
 
 from django.contrib.auth.models import User
@@ -47,5 +48,21 @@ class CommitSerializer(ModelSerializer):
             "topic_name",
             "body",
             "msg",
+            "created",
+        ]
+
+
+class IssueSerializer(ModelSerializer):
+    
+    class Meta:
+        model = Issue
+        fields = [
+            "user",
+            "utopic",
+            "title",
+            "body",
+            "reply",
+            "status",
+            "reply_count",
             "created",
         ]
