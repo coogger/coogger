@@ -21,8 +21,9 @@ class UserTopic(TemplateView):
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
         commits = Commit.objects.filter(utopic=utopic)
         context = super().get_context_data(**kwargs)
+        if commits.exists():
+            context["last_commit_created"] = commits[0].created        
         context["content_user"] = user
         context["queryset"] = paginator(self.request, contents)
-        context["last_commit_created"] = commits[0].created
         context["utopic"] = utopic
         return context
