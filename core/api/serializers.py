@@ -57,8 +57,9 @@ class IssueSerializer(ModelSerializer):
     class Meta:
         model = Issue
         fields = [
-            "user",
-            "utopic",
+            "id",
+            "username",
+            "topic_name",
             "title",
             "body",
             "reply",

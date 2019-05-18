@@ -5,7 +5,8 @@ from django.db.models import (
     CharField, 
     DateTimeField, 
     CASCADE, 
-    IntegerField
+    IntegerField,
+    SlugField
 )
 from django.contrib.auth.models import User
 from django.utils.timezone import now
@@ -26,6 +27,7 @@ from core.cooggerapp.choices import make_choices, ISSUE_CHOICES
 class Issue(Model):
     user = ForeignKey(User, on_delete=CASCADE)
     utopic = ForeignKey(UTopic, on_delete=CASCADE)
+    permlink = SlugField(max_length=200)
     title = CharField(max_length=55, help_text="Title", null=True, blank=True)
     body = EditorMdField()
     reply = ForeignKey("Issue", on_delete=CASCADE, null=True, blank=True)
@@ -51,7 +53,7 @@ class Issue(Model):
             ))
 
     def save(self, *args, **kwargs):
-        if self.reply is not None:
+        if self.reply is not None: # if make a comment
             self.status = None
         elif self.status == "open":
             UTopic.objects.filter(
@@ -67,4 +69,12 @@ class Issue(Model):
     @property
     def get_closed_issues(self):
         return self.__class__.objects.filter(status="closed", reply=None)
+    
+    @property
+    def username(self):
+        return self.user.username
+
+    @property
+    def topic_name(self):
+        return self.utopic.name
 

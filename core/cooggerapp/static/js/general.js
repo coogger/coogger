@@ -76,7 +76,56 @@ $(document).ready(function() {
 // function idlink(id_index){
 //   window.location.href = `#${id_index}`;
 // }
-function replies(comments){
+
+// coogger.js
+function get_data_from_cooggerapi(apiUrl){
+  return fetch(apiUrl)
+    .then((resp) => resp.json())
+    .then(function(data) {
+      return data;
+    })
+    .catch(function(error) {
+      console.log('request failed', error)
+    });
+}
+let get_result_from_cooggerapi = function(apiUrl){
+  return get_data_from_cooggerapi(apiUrl).then(function(data){
+    return data.results;
+  })
+}
+let getApiUrl = function(url_resolve){
+  let apiUrl = "";
+  if (url_resolve == "user"){
+    apiUrl = `/api/content/?status=approved&username={{ content_user }}`;
+  }
+  else if (url_resolve == "home" || url_resolve == "explorer_posts" ){
+    apiUrl = `/api/content/?status=approved`;
+  }
+  else if (url_resolve == "language"){
+    apiUrl = `/api/content/?status=approved&language={{ language }}`;
+  }
+  else if (url_resolve == "category"){
+    apiUrl = `/api/content/?status=approved&category={{ category }}`;
+  }
+  else if (url_resolve == "review"){
+    apiUrl = `/api/content/?status=shared`;
+  }
+  else if (url_resolve == "filter"){
+    apiUrl = `/api/content/?status=approved{{filter|safe}}`;
+  }
+  else if (url_resolve == "topic"){
+    apiUrl = `/api/content/?status=approved&topic={{ topic.name }}`;
+  }
+  else if (url_resolve == "list"){
+    apiUrl = `/api/content/?status=approved&topic={{nameofhashtag}}`;
+  }
+  else if (url_resolve == "hashtag"){
+    apiUrl = `/api/content/?status=approved&tags={{ nameofhashtag }}`;
+  }
+  return apiUrl;
+}
+// coogger.js
+function content_replies(comments){
   let comment_index;
   for (comment_index = 0; comment_index < comments.length; comment_index++) {
     let comment = comments[comment_index];
@@ -99,7 +148,7 @@ function replies(comments){
               children_comment_template += (`
                 <a general="center c-success"
                   href="/@${children_comment.author}/'${children_comment.permlink}">
-                  Show ${children_comment.children} more replies
+                  Show ${children_comment.children} more content_replies
                 </a></div>`);
             }
             else{
@@ -108,7 +157,7 @@ function replies(comments){
             $(`#${children_comment.parent_author}-${children_comment.parent_permlink}`).append(children_comment_template);
           }
         }
-        replies(children_comments);
+        content_replies(children_comments);
       });
     }
   }
@@ -127,16 +176,6 @@ function copyTextFromId(id) {
   let text = document.getElementById("embed-text");
   text.select();
   document.execCommand("copy");
-}
-// convert images url to steemitimages in cards
-function update_images(query){
-  let images = document.querySelectorAll(query);
-  images.forEach(changeImages);
-  function changeImages(images){
-    if (!images.src.startsWith("https://steemitimages.com/0x0/")){
-        images.src = `https://steemitimages.com/0x0/${images.src}`;
-      }
-  }
 }
 function get_scroll_bottom_location(){
   return $(window).scrollTop() + $(window).height()+500;
@@ -279,6 +318,66 @@ function comment_body(comment){
         </div>
         <div general='txt-s' flex='ai-c' class='duread-li'>
            <div style='margin-left: 12px;' general='c-success'> $ ${post_reward_total}</div>
+        </div>
+      </div>
+  `);
+}
+// issue reply
+function issue_reply_info(comment){
+  return (`
+  <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
+    <div>
+      <li flex='ai-c'>
+        <a href='/@${comment.username}/${comment.topic_name}/issues/${comment.id}' id='root_content' target='blank' general='txt-s'>
+        <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
+        </a>
+      </li>
+    </div>
+  </div>`);
+}
+function issue_reply_userinfo(comment){
+  return (`
+    <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
+      <div flex='ai-fs' general='bg-white'>
+      <a flex title='${comment.username}' href='/@${comment.username}'
+        style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
+          <img general='br-circle left' id='detail_profile_image' src='https://steemitimages.com/u/${comment.username}/avatar' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
+        </a>
+        <div general='txt-s' flex='fd-c' class='duread-li'>
+            <a flex title='${comment.username}' href='/@${comment.username}'
+              style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
+            @${comment.username}<span id='username'></span>
+        </a>
+            <div style='margin-left: 8px;' general='c-secondary'>${timeSince(comment.created)}</div>
+        </div>
+      </div>
+    </div>`
+  );
+}
+function issue_reply_body(comment){
+  let title = comment.title;
+  $(function() {
+    editormd.urls.atLinkBase ="https://www.coogger.com/@"
+    let Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
+      height: 670,
+      path : '/static/lib/',
+      htmlDecode: 'html, iframe',
+      markdown : comment.body,
+    });
+  });
+  return (`
+    <h1 general='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'>${title}</h1>
+    <div style='padding: inherit;'>
+      <div style='width: auto;height:  auto;border: none;' class='editormd' id='${comment.id}_arg_editormd'>
+          <textarea style='display:none;' id='editormd_content'></textarea>
+      </div>
+    </div>
+    <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
+        <div general='txt-s' flex='ai-c' class='duread-li'>
+            <div style='margin-left: 12px;'>reply ; ${comment.reply_count}</div>
+        </div>
+        <div general='txt-s' flex='ai-c' class='duread-li'>
+          <div style='margin-left: 12px;'>votes ; 0</div>
         </div>
       </div>
   `);

@@ -1,9 +1,18 @@
 {% extends "issue/top.html" %}
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
-      <a href="{{ queryset.id }} - {{ queryset.reply.id }}">
-        <h1 general="center">{{ queryset.title|title }}</h1>
-        <div><p>{{ queryset.body }}</p></div>
-      </a>
+    <h1 general="center">{{ queryset.title|title }}</h1>
+    <div><p>{{ queryset.body }}</p></div>
+    <div general="b-1 br-2 brc-muted">
+      <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
+          <textarea id="comment-text" placeholder="Reply ..."></textarea>
+          <button id="send-comment" general="b-1 br-2 brc-muted bg-success c-white" 
+          data-parent-author="{{ content_user }}" data-parent-ermlink="{{ detail.id }}">
+            Post
+          </button>
+          <div id="comment_template" class="comment_template"></div>
+      </div>
+    </div>
   </div>
+  {% include "issue/replies.html" %}
 {% endblock %}

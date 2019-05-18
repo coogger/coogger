@@ -74,4 +74,5 @@ class DetailIssue(TemplateView):
         context["content_user"] = issue.user
         context["queryset"] = issue
         context["utopic"] = utopic
+        context["md_editor"] = True
         return context

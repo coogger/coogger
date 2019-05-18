@@ -1,62 +1,15 @@
 {% load coogger_tags %}
 {% include "card/general_script.html" %}
 <script>
-  $(document).ready(function() {
-  let getApiUrl = function(url_resolve){
-    let apiUrl = "";
-    if (url_resolve == "user"){
-      apiUrl = `/api/content/?status=approved&username={{ content_user }}`;
-    }
-    else if (url_resolve == "home" || url_resolve == "explorer_posts" ){
-      apiUrl = `/api/content/?status=approved`;
-    }
-    else if (url_resolve == "language"){
-      apiUrl = `/api/content/?status=approved&language={{ language }}`;
-    }
-    else if (url_resolve == "category"){
-      apiUrl = `/api/content/?status=approved&category={{ category }}`;
-    }
-    else if (url_resolve == "review"){
-      apiUrl = `/api/content/?status=shared`;
-    }
-    else if (url_resolve == "filter"){
-      apiUrl = `/api/content/?status=approved{{filter|safe}}`;
-    }
-    else if (url_resolve == "topic"){
-      apiUrl = `/api/content/?status=approved&topic={{ topic.name }}`;
-    }
-    else if (url_resolve == "list"){
-      apiUrl = `/api/content/?status=approved&topic={{nameofhashtag}}`;
-    }
-    else if (url_resolve == "hashtag"){
-      apiUrl = `/api/content/?status=approved&tags={{ nameofhashtag }}`;
-    }
-    return apiUrl;
-  }
-  const currentUrl = "{{ request|url_resolve:"" }}"
-  const apiUrl = getApiUrl(currentUrl);
-  function get_data(apiUrl){
-    return fetch(apiUrl)
-      .then((resp) => resp.json())
-      .then(function(data) {
-        return data;
+  $(document).ready(function(){
+    const PerLoadPostCount = "{{ request.page_size }}";
+    const apiUrl = getApiUrl("{{ request|url_resolve:"" }}");
+    let dataCount = get_data_from_cooggerapi(apiUrl).then(function(data){
+        $(".query_count").html(data.count);
+        return data.count;
       })
-      .catch(function(error) {
-        console.log('request failed', error)
-      });
-  }
-  let dataCount = get_data(apiUrl).then(function(data){
-      $(".query_count").html(data.count);
-      return data.count;
-    })
-  const PerLoadPostCount = "{{ request.page_size }}";
-  let contentsFromApi = function(apiUrl){
-    return get_data(apiUrl).then(function(data){
-      return data.results;
-    })
-  }
-  let posts = [];
-  let requests = [];
+    let posts = [];
+    let requests = [];
   function loadMore(apiUrl){
     let check = [];
     let card = document.querySelectorAll('card');
@@ -64,7 +17,7 @@
     let last_id = $(`#${last_content.id}`).attr("data-postid");
     if (!requests.includes(apiUrl)){
       requests.push(apiUrl);
-      contentsFromApi(apiUrl).then(function(contents){
+      get_result_from_cooggerapi(apiUrl).then(function(contents){
         let index=0;
         let len_content=contents.length;
         for (index; index<len_content;index++){
@@ -100,7 +53,6 @@
               post_reward_total = post_reward_total.toFixed(2);
               {% include 'card/card_template.js' %}
               $(`cards`).append(card_output);
-              update_images(".definition-img");
             })
             if (check.length >= PerLoadPostCount){
               break
