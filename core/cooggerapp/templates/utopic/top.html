@@ -1,0 +1,41 @@
+{% load coogger_tags %}
+<div general="b-1 br-2 brc-muted w-100">
+    <div flex style="padding: 6px;">
+        <a href="{% url 'commits' content_user utopic %}">
+          <div flex="ai-c">
+            <i class="fas fa-history"></i>
+            <span id="commits_count" general="txt-s">
+              <strong>{{utopic|commit_count}} </strong><span general="c-secondary">commits</span>
+            </span>
+          </div>
+        </a>
+        <a href="{% url 'issues' content_user utopic %}">
+            <div flex="ai-c">
+              <i class="fas fa-exclamation-circle"></i>
+              <span id="" general="txt-s">
+                <strong>{{ utopic.open_issue }}</strong><span general="c-secondary"> issues</span>
+              </span>
+            </div>
+          </a>
+        <div general="txt-s" flex="ai-c" class="duread-li">
+          <div style="margin-left: 12px;">
+              <i class="fab fa-readme"></i>
+              <span>{{ utopic.get_total_dor|default:"0 min" }}</span>
+          </div>
+        </div>
+        <div general="txt-s" flex="ai-c" class="duread-li">
+            <div style="margin-left: 12px;">
+              <i class="fas fa-eye"></i>
+              <span>{{ utopic.total_view }}</span><span general="c-secondary"> views</span>
+            </div>
+        </div>
+        {% if last_commit_created %}
+        <div general="txt-s right" flex="ai-c" class="duread-li">
+            <div>
+              <i class="fas fa-clock"></i>
+              <span>Last update | {{ last_commit_created|timesince }}</span>
+            </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>

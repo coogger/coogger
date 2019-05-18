@@ -1,41 +1,29 @@
 {% extends "home/html.html" %}
+{% load coogger_tags %}
 {% block body %}
   <div style="margin: auto;margin-top: 12px;" general="w-100" mobile-l="txt-s">
     <div general="center" flex="fd-c">
       <div class="utopic" general="center w-60" mobile-m="w-99" mobile-l="w-94" tablet="w-90" laptop="w-80" flex="fd-c">
         <div general="b-1 brc-muted br-2 w-100" class="utopic-user">
           <div style="padding: 6px;">
-            <div>
-              <div general="right" flex="">
+            <div flex="ai-c">
+              <div flex="ai-c">
+                  <a general="c-primary txt-m" href="/@{{ content_user }}">
+                    <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ content_user }}/avatar');">
+                  </a>
+                  <i class="fas fa-book"></i>
+                  <a general="c-primary txt-m "  href="{% url 'utopic' utopic content_user %}">{{ utopic }}/@{{ content_user }}</a>
+              </div>
+              <div general="right">
                 <a general="br-1 c-white bg-green txt-s left" 
-                href="{% url 'new-issue' content_user utopic.name %}" style="padding: 6px;">
+                href="{% url 'new-issue' content_user utopic.name %}" style="padding: 6px;margin-right: 6px;">
                   Open new issue</a>
                   {% block closed_issue %}{% endblock %}
             </div>
             </div>
           </div>
         </div>
-        <div general="b-1 br-2 brc-muted w-100">
-          <div flex style="padding: 6px;">
-            <a href="{% url 'issues' content_user utopic %}">
-                <div flex="ai-c">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <span id="" general="txt-s">
-                        <strong>{{ utopic.open_issue }} </strong> Open
-                    </span>
-                </div>
-            </a>
-            <a href="{% url 'close-issues' content_user utopic %}">
-              <div flex="ai-c">
-                <i class="fas fa-check"></i>
-                <span id="" general="txt-s">
-                    <strong>{{ utopic.closed_issue }} </strong> Closed
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div general="b-1 br-2 brc-primary bg-primary c-white" style="margin-top: 3px;"></div>
+        {% include "utopic/top.html" %}
         {% block alt_topic %}{% endblock %}
       </div>
     </div>

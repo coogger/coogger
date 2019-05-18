@@ -1,9 +1,11 @@
 {% extends "issue/top.html" %}
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
-    <form default="form" method="POST" action="{% url 'new-issue' content_user utopic.name %}">
-         {% csrf_token %}{{ issue_form }} {{ issue_form.media }}
-        <input general="center" type="submit" value="Open" style="width: 30%;margin: auto;">
-    </form>
+    <div style="padding: 12px;">
+      <form default="form" method="POST" action="{% url 'new-issue' content_user utopic.name %}">
+        {% csrf_token %}{{ issue_form }} {{ issue_form.media }}
+       <input general="center" type="submit" value="Open" style="width: 30%;margin: auto;">
+      </form>
+    </div>
   </div>
 {% endblock %}

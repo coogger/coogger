@@ -19,12 +19,13 @@ from core.cooggerapp.choices import make_choices, ISSUE_CHOICES
 # python
 import random
 
+
 class Issue(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     permlink = models.SlugField(max_length=200)
-    title = models.CharField(max_length=55, help_text="Title", null=True, blank=True)
-    body = EditorMdField()
+    title = models.CharField(max_length=55, help_text="Title | Optional", null=True, blank=True)
+    body = EditorMdField(help_text="Your problem | question | or anything else")
     reply = models.ForeignKey("Issue", on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(
         default="open", 
@@ -34,19 +35,12 @@ class Issue(models.Model):
         null=True, blank=True,
     )
     reply_count = models.IntegerField(default=0)
+    issue_id = models.IntegerField(default=0)
     created = models.DateTimeField(default=now, verbose_name="Created")
     last_update = models.DateTimeField(default=now, verbose_name="Last update")
-    
-    def __str__(self):
-        return self.get_absolute_url()
 
-    @property
-    def get_absolute_url(self):
-        return reverse("detail-issue", kwargs=dict(
-            username=self.user.username, 
-            topic=self.utopic.name,
-            permlink=self.permlink,
-            ))
+    class Meta:
+        ordering = ["-created"]
 
     def save(self, *args, **kwargs):
         if self.reply is not None: # if make a comment
@@ -75,12 +69,13 @@ class Issue(models.Model):
             ).update(open_issue=F("open_issue") + 1)
         while True:
             if self.__class__.objects.filter(
-                user=self.user, 
+                utopic=self.utopic, 
                 permlink=self.permlink
                 ).exists():
                 self.permlink = self.permlink + "-" + str(random.randrange(9999999))
             else:
                 break
+        self.issue_id = self.__class__.objects.filter(reply=None).count() + 1
         super().save(*args, **kwargs)
 
     @property

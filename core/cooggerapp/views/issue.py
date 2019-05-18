@@ -59,24 +59,23 @@ class NewIssue(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request, username, topic):
-        if request.user.username == username:
-            user = authenticate(username=username)
-            utopic = UTopic.objects.filter(user=user, name=topic)[0]
-            issue_form = self.form_class(request.POST)
-            if issue_form.is_valid():
-                issue_form = issue_form.save(commit=False)
-                issue_form.user = user
-                issue_form.utopic = utopic
-                issue_form.save()
-                return redirect(
-                    reverse(
-                        "detail-issue", 
-                        kwargs=dict(
-                            username=username,
-                            topic=topic,
-                            permlink=issue_form.permlink)
-                        )
+        user = authenticate(username=username)
+        utopic = UTopic.objects.filter(user=user, name=topic)[0]
+        issue_form = self.form_class(request.POST)
+        if issue_form.is_valid():
+            issue_form = issue_form.save(commit=False)
+            issue_form.user = request.user
+            issue_form.utopic = utopic
+            issue_form.save()
+            return redirect(
+                reverse(
+                    "detail-issue", 
+                    kwargs=dict(
+                        username=username,
+                        topic=topic,
+                        permlink=issue_form.permlink)
                     )
+                )
 
 
 class DetailIssue(View):
@@ -86,9 +85,9 @@ class DetailIssue(View):
     def get(self, request, username, topic, permlink):
         user = authenticate(username=username)
         utopic = UTopic.objects.get(user=user, name=topic)
-        issue = Issue.objects.get(user=user, utopic=utopic, permlink=permlink)
+        issue = Issue.objects.get(utopic=utopic, permlink=permlink)
         context = dict(
-            content_user=issue.user,
+            content_user=user,
             queryset=issue,
             utopic=utopic,
             md_editor=True,
@@ -97,7 +96,7 @@ class DetailIssue(View):
 
     @method_decorator(login_required)
     def post(self, request, username, topic, permlink):
-        if request.user.username == username and request.is_ajax:
+        if request.is_ajax:
             user = authenticate(username=username)
             utopic = UTopic.objects.filter(user=user, name=topic)[0]
             issue = Issue.objects.get(user=user, utopic=utopic, permlink=permlink)
@@ -119,7 +118,6 @@ class DetailIssue(View):
                             topic_name=new_reply.topic_name,
                             parent_permlink=new_reply.parent_permlink,
                             parent_username=new_reply.parent_username,
-                            get_absolute_url=new_reply.get_absolute_url,
                             created=str(new_reply.created),
                             reply_count=new_reply.reply_count,
                             status=new_reply.status,
@@ -136,17 +134,17 @@ class OpenIssue(View):
 
     @method_decorator(login_required)
     def get(self, request, username, topic, permlink):
-        if request.user.username == username:
-            user = authenticate(username=username)
-            utopic_obj = UTopic.objects.filter(user=user, name=topic)
-            issue = Issue.objects.filter(
-                user=user, 
-                utopic=utopic_obj[0], 
-                permlink=permlink
-            ).update(
+        user = authenticate(username=username)
+        utopic_obj = UTopic.objects.filter(user=user, name=topic)
+        issue = Issue.objects.filter(
+            utopic=utopic_obj[0], 
+            permlink=permlink
+        )
+        if request.user == user or request.user == issue[0].user:
+            issue.update(
                 status=self.get_status,
                 last_update=now())
-            self.update_utopic()
+            self.update_utopic(utopic_obj)
             return redirect(
                 reverse(
                     "detail-issue", 

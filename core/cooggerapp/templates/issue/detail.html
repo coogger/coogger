@@ -26,7 +26,7 @@
   {% include "issue/replies.html" %}
 {% endblock %}
 {% block closed_issue %}
-  {% if request.user == content_user %}
+  {% if request.user == content_user or queryset.user == request.user %}
     {% if queryset.status == "open" %}
       <a general="br-1 c-white bg-red txt-s right" href="{% url 'closed-issue' content_user utopic.name queryset.permlink %}" style="padding: 6px;">
         Closed this issue
