@@ -328,7 +328,7 @@ function issue_reply_info(comment){
   <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
     <div>
       <li flex='ai-c'>
-        <a href='/@${comment.username}/${comment.topic_name}/issues/${comment.id}' id='root_content' target='blank' general='txt-s'>
+        <a href='/@${comment.username}/${comment.topic_name}/issues/${comment.permlink}' id='root_content' target='blank' general='txt-s'>
         <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
         </a>
       </li>
@@ -366,7 +366,6 @@ function issue_reply_body(comment){
     });
   });
   return (`
-    <h1 general='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'>${title}</h1>
     <div style='padding: inherit;'>
       <div style='width: auto;height:  auto;border: none;' class='editormd' id='${comment.id}_arg_editormd'>
           <textarea style='display:none;' id='editormd_content'></textarea>

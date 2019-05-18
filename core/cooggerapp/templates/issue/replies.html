@@ -8,14 +8,14 @@
               let children_reply = children_replies[ii];
               children_comment_template += `
                 <div class='comment_replies'
-                  id='${children_reply.username}-${children_reply.id}'>`
+                  id='${children_reply.username}-${children_reply.permlink}'>`
               children_comment_template += issue_reply_info(children_reply);
               children_comment_template += issue_reply_userinfo(children_reply);
               children_comment_template += issue_reply_body(children_reply);
               children_comment_template += "</div>";
-              $(`#${children_reply.username}-${children_reply.reply}`).append(children_comment_template);
+              $(`#${children_reply.parent_username}-${children_reply.parent_permlink}`).append(children_comment_template);
+              issue_replies(children_reply);
             }
-            issue_replies(children_replies);
           });
         }
       }
@@ -27,7 +27,7 @@
             for (i in replies){
               let reply = replies[i];
               let comment_template = "";
-              comment_template += `<div class='comment' id='${reply.username}-${reply.id}'>`
+              comment_template += `<div class='comment' id='${reply.username}-${reply.permlink}'>`
               comment_template += "<div class='comment_highlighted'>"
               comment_template += issue_reply_info(reply);
               comment_template += issue_reply_userinfo(reply);
@@ -38,5 +38,35 @@
             }
           });
         }
-    });
+
+      $("#send-reply-in-issue").click(function(){
+        $(this).attr("animation-hover", "i blink");
+        let get_comment = $("#issue-reply-text").val();
+        let parentAuthor = this.dataset.parent_author;
+        let parentPermlink = this.dataset.parent_permlink;
+        let current_time = new Date();
+        let commentPermlink = steem.formatter.commentPermlink(parentAuthor, parentPermlink);
+        let author = "{{ request.user }}";
+        let title = "";
+        if (get_comment != ""){
+          $.ajax({
+            type: "POST",
+            url: window.location.href,
+            data: {
+              "body": get_comment,
+              "csrfmiddlewaretoken": "{{ csrf_token }}",
+            },
+          }).done(function(new_reply) {
+            new_reply = JSON.parse(new_reply);
+            document.getElementById("issue-reply-text").value = ""
+            $(this).attr("animation-hover", "null");
+            let new_reply_template = issue_reply_info(new_reply) + issue_reply_userinfo(new_reply) + issue_reply_body(new_reply);
+            $("#comment_template").append(new_reply_template);
+          });
+        }
+        else{
+          alert("Empty comments cannot be published.")
+        }
+    })
+  });
 </script>

@@ -77,7 +77,13 @@ class ReportsForm(ModelForm):
         model = ReportModel
         fields = ["complaints", "add"]
 
-class IssueForm(ModelForm):
+class NewIssueForm(ModelForm):
     class Meta:
         model = Issue
         fields = ["title", "body"]
+
+
+class ReplyIssueForm(ModelForm):
+    class Meta:
+        model = Issue
+        fields = ["body"]

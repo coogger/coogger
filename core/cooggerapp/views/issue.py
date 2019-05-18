@@ -4,15 +4,21 @@ from django.views import View
 from django.contrib.auth import authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, reverse
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.http import HttpResponse
 
 # model
 from core.cooggerapp.models import (UTopic, Issue, Commit)
 
 # form
-from core.cooggerapp.forms import IssueForm
+from core.cooggerapp.forms import NewIssueForm, ReplyIssueForm
 
 # utils 
 from core.cooggerapp.utils import paginator
+
+# python
+import json
 
 
 class IssueView(TemplateView):
@@ -31,7 +37,7 @@ class IssueView(TemplateView):
 
 class NewIssue(LoginRequiredMixin, View):
     template_name = "issue/new.html"
-    form_class = IssueForm
+    form_class = NewIssueForm
     
     def get(self, request, username, topic):
         user = authenticate(username=username)
@@ -58,21 +64,59 @@ class NewIssue(LoginRequiredMixin, View):
                         kwargs=dict(
                             username=request.user.username,
                             topic=topic,
-                            id=issue_form.id)
+                            permlink=issue_form.permlink)
                         )
                     )
 
 
-class DetailIssue(TemplateView):
+class DetailIssue(View):
     template_name = "issue/detail.html"
+    form_class = ReplyIssueForm
 
-    def get_context_data(self, username, topic, id, **kwargs):
+    def get(self, request, username, topic, permlink):
         user = authenticate(username=username)
         utopic = UTopic.objects.get(user=user, name=topic)
-        issue = Issue.objects.get(user=user, utopic=utopic, id=id)
-        context = super().get_context_data(**kwargs)
-        context["content_user"] = issue.user
-        context["queryset"] = issue
-        context["utopic"] = utopic
-        context["md_editor"] = True
-        return context
+        issue = Issue.objects.get(user=user, utopic=utopic, permlink=permlink)
+        context = dict(
+            content_user=issue.user,
+            queryset=issue,
+            utopic=utopic,
+            md_editor=True,
+        )
+        return render(request, self.template_name, context)
+
+    @method_decorator(login_required)
+    def post(self, request, username, topic, permlink):
+        if request.user.username == username and request.is_ajax:
+            user = authenticate(username=username)
+            utopic = UTopic.objects.filter(user=user, name=topic)[0]
+            issue = Issue.objects.get(user=user, utopic=utopic, permlink=permlink)
+            issue_form = self.form_class(request.POST)
+            if issue_form.is_valid():
+                issue_form = issue_form.save(commit=False)
+                issue_form.user = user
+                issue_form.utopic = utopic
+                issue_form.reply = issue
+                issue_form.save()
+                new_reply = Issue.objects.get(
+                    user=user, 
+                    utopic=utopic, 
+                    permlink=issue_form.permlink)
+                return HttpResponse(
+                    json.dumps(
+                        dict(
+                            username=new_reply.username,
+                            topic_name=new_reply.topic_name,
+                            parent_permlink=new_reply.parent_permlink,
+                            parent_username=new_reply.parent_username,
+                            get_absolute_url=new_reply.get_absolute_url,
+                            created=str(new_reply.created),
+                            reply_count=new_reply.reply_count,
+                            status=new_reply.status,
+                            reply=new_reply.reply_id,
+                            body=new_reply.body,
+                            title=new_reply.title,
+                            permlink=new_reply.permlink,
+                            )
+                        )
+                    )
