@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
+from django.utils.timezone import now
+from django.db.models import F
 
 # model
 from core.cooggerapp.models import (UTopic, Issue, Commit)
@@ -27,12 +29,20 @@ class IssueView(TemplateView):
     def get_context_data(self, username, topic, **kwargs):
         user = authenticate(username=username)
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
-        issues = Issue(user=user, utopic=utopic)
         context = super().get_context_data(**kwargs)
         context["content_user"] = user
-        context["queryset"] = issues.get_open_issues
+        context["queryset"] = self.get_queryset(user, utopic)
         context["utopic"] = utopic
         return context
+
+    def get_queryset(self, user, utopic):
+        return Issue(user=user, utopic=utopic).get_open_issues
+
+
+class ClosedIssueView(IssueView):
+
+    def get_queryset(self, user, utopic):
+        return Issue(user=user, utopic=utopic).get_closed_issues
 
 
 class NewIssue(LoginRequiredMixin, View):
@@ -62,7 +72,7 @@ class NewIssue(LoginRequiredMixin, View):
                     reverse(
                         "detail-issue", 
                         kwargs=dict(
-                            username=request.user.username,
+                            username=username,
                             topic=topic,
                             permlink=issue_form.permlink)
                         )
@@ -120,3 +130,52 @@ class DetailIssue(View):
                             )
                         )
                     )
+
+
+class OpenIssue(View):
+
+    @method_decorator(login_required)
+    def get(self, request, username, topic, permlink):
+        if request.user.username == username:
+            user = authenticate(username=username)
+            utopic_obj = UTopic.objects.filter(user=user, name=topic)
+            issue = Issue.objects.filter(
+                user=user, 
+                utopic=utopic_obj[0], 
+                permlink=permlink
+            ).update(
+                status=self.get_status,
+                last_update=now())
+            self.update_utopic()
+            return redirect(
+                reverse(
+                    "detail-issue", 
+                    kwargs=dict(
+                        username=username,
+                        topic=topic,
+                        permlink=permlink)
+                    )
+                )
+    
+    def update_utopic(self, utopic_obj):
+        utopic_obj.update(
+            open_issue=(F("open_issue") + 1),
+            closed_issue=(F("closed_issue") - 1),
+        )
+
+    @property
+    def get_status(self):
+        return "open"
+
+
+class ClosedIssue(OpenIssue):
+
+    def update_utopic(self, utopic_obj):
+        utopic_obj.update(
+            open_issue=(F("open_issue") - 1),
+            closed_issue=(F("closed_issue") + 1),
+        )
+
+    @property
+    def get_status(self):
+        return "closed"

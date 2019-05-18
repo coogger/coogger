@@ -375,9 +375,6 @@ function issue_reply_body(comment){
         <div general='txt-s' flex='ai-c' class='duread-li'>
             <div style='margin-left: 12px;'>reply ; ${comment.reply_count}</div>
         </div>
-        <div general='txt-s' flex='ai-c' class='duread-li'>
-          <div style='margin-left: 12px;'>votes ; 0</div>
-        </div>
       </div>
   `);
 }

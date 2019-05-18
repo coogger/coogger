@@ -3,19 +3,11 @@
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
     <ol>
       {% if not queryset %}
-        {% if request.user == content_user %}
-          <div general="bg-dark-purple c-white br-2" class="utopic-nocontent">
-            <a general="c-white txt-l center" href="{% url 'create' %}?topic={{ utopic }}">
-                Open issue your {{ utopic }} topic
-            </a>
-          </div>
-        {% else %}
-          <div general="bg-red c-white br-2" class="utopic-nocontent">
-            <span general="c-white txt-l center">
-              No issue has been open in {{ utopic }} topic yet
-            </span>
-          </div>
-        {% endif %}
+      <div general="bg-dark-purple c-white br-2" class="utopic-nocontent">
+        <div general="c-white txt-l center">
+          There is no issue in opened | closed.
+        </div>
+      </div>
       {% endif %}
       <!-- issue list open or closed -->
       {% for issue in queryset %}
@@ -28,7 +20,13 @@
           </a>
           <div general="txt-s c-secondary">
               <span>#{{ issue.id }}</span>
-              <span>opened {{ issue.created|timesince }} by <a href="/@{{ issue.user }}">@{{ issue.user }}</a> </span>
+              <span>
+                opened {{ issue.created|timesince }} by 
+                <a href="/@{{ issue.user }}">@{{ issue.user }}</a>
+              </span>
+              <div>
+                last updated {{ issue.last_update|timesince }}
+              </div>
           </div>
         </li>
       {% endfor %}

@@ -5,15 +5,13 @@
       <div class="utopic" general="center w-60" mobile-m="w-99" mobile-l="w-94" tablet="w-90" laptop="w-80" flex="fd-c">
         <div general="b-1 brc-muted br-2 w-100" class="utopic-user">
           <div style="padding: 6px;">
-            <div flex="ai-c">
-              {% if request.user == content_user %}
-                <div general="right" flex="fd-c">
-                  <a general="br-1 c-white bg-dark-purple txt-s right" 
-                  href="{% url 'new-issue' content_user utopic.name %}" style="padding: 6px;">
-                    Open issue
-                </a>
-                </div>
-              {% endif %}
+            <div>
+              <div general="right" flex="">
+                <a general="br-1 c-white bg-green txt-s left" 
+                href="{% url 'new-issue' content_user utopic.name %}" style="padding: 6px;">
+                  Open new issue</a>
+                  {% block closed_issue %}{% endblock %}
+            </div>
             </div>
           </div>
         </div>
@@ -27,7 +25,7 @@
                     </span>
                 </div>
             </a>
-            <a href="{% url 'issues' content_user utopic %}">
+            <a href="{% url 'close-issues' content_user utopic %}">
               <div flex="ai-c">
                 <i class="fas fa-check"></i>
                 <span id="" general="txt-s">

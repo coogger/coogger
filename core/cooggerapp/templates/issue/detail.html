@@ -3,9 +3,13 @@
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
     <div style="padding: 6px;">
       <h1 general="center">{{ queryset.title|title }}</h1>
-      <div general="brc-muted b-1 br-2" style="padding: 6px;"><p>{{ queryset.body }}</p></div>
+      <div general="brc-muted b-1 br-2" style="padding: 6px;">
+        <p>{{ queryset.body }}</p>
+      </div>
       <div general="right">
-        <span general="txt-s c-secondary right" style="padding: 6px;">reply: {{ queryset.reply_count }}</span>
+        <span general="txt-s c-secondary right" style="padding: 6px;">
+          reply: {{ queryset.reply_count }}
+        </span>
       </div>
     </div>
     <div general="b-1 br-2 brc-muted">
@@ -20,4 +24,17 @@
     </div>
   </div>
   {% include "issue/replies.html" %}
+{% endblock %}
+{% block closed_issue %}
+  {% if request.user == content_user %}
+    {% if queryset.status == "open" %}
+      <a general="br-1 c-white bg-red txt-s right" href="{% url 'closed-issue' content_user utopic.name queryset.permlink %}" style="padding: 6px;">
+        Closed this issue
+      </a> 
+    {% elif queryset.status == "closed" %}
+      <a general="br-1 c-white bg-blue txt-s right" href="{% url 'open-issue' content_user utopic.name queryset.permlink %}" style="padding: 6px;">
+        Open this issue
+      </a> 
+    {% endif %}
+  {% endif %}
 {% endblock %}
