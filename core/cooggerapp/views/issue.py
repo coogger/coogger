@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.utils.timezone import now
 from django.db.models import F
+from django.contrib import messages
 
 # model
 from core.cooggerapp.models import (UTopic, Issue, Commit)
@@ -64,6 +65,9 @@ class NewIssue(LoginRequiredMixin, View):
         issue_form = self.form_class(request.POST)
         if issue_form.is_valid():
             issue_form = issue_form.save(commit=False)
+            if not issue_form.title:
+                messages.error(request, "You can not pass the title field")
+                return self.get(request, username, topic)
             issue_form.user = request.user
             issue_form.utopic = utopic
             issue_form.save()

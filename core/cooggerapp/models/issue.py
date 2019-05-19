@@ -24,7 +24,7 @@ class Issue(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     permlink = models.SlugField(max_length=200)
-    title = models.CharField(max_length=55, help_text="Title | Optional", null=True, blank=True)
+    title = models.CharField(max_length=55, help_text="Title", null=True, blank=True)
     body = EditorMdField(help_text="Your problem | question | or anything else")
     reply = models.ForeignKey("Issue", on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(
