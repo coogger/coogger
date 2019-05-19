@@ -48,8 +48,9 @@
     <!-- js  -->
     <script src="{% static 'mdeditor/src/jquery.min.js'%}"></script>
     <script src="{% static 'js/general.js' %}" async></script>
+    <script src="{% static 'js/coogger.js' %}" async></script>
     <script src="{% static 'js/steem.min.js' %}"></script>
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated and detail %}
     <!-- STEEMCONNECT -->
     <script src="{% static 'js/sc2.min.js' %}"></script>
     <script>
