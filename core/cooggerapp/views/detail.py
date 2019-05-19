@@ -1,6 +1,6 @@
 # django
 from django.db.models import F
-from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
 from django.conf import settings
@@ -18,7 +18,7 @@ class Detail(TemplateView):
     template_name = "content-detail/detail.html"
 
     def get_context_data(self, username, permlink, **kwargs):
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         content = Content.objects.filter(user=user, permlink=permlink)
         if not content.exists():
             raise Http404

@@ -1,6 +1,6 @@
 # django
 from django.views.generic.base import TemplateView
-from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 # model
 from core.cooggerapp.models import (Topic, UTopic, Content, Commit)
@@ -11,7 +11,7 @@ class UserTopic(TemplateView):
     template_name = "utopic/contents-for-alt.html"
 
     def get_context_data(self, username, topic, **kwargs):
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         global_topic = Topic.objects.filter(name=topic)[0]
         contents = Content.objects.filter(user=user, 
             topic=global_topic, status="approved").order_by("created")

@@ -1,7 +1,7 @@
 # django
 from django.views.generic.base import TemplateView
 from django.views import View
-from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
@@ -28,7 +28,7 @@ class IssueView(TemplateView):
     template_name = "issue/index.html"
 
     def get_context_data(self, username, topic, **kwargs):
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
         context = super().get_context_data(**kwargs)
         context["content_user"] = user
@@ -51,7 +51,7 @@ class NewIssue(LoginRequiredMixin, View):
     form_class = NewIssueForm
     
     def get(self, request, username, topic):
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         context = dict(
             issue_form=self.form_class,
             content_user=user,
@@ -60,7 +60,7 @@ class NewIssue(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request, username, topic):
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
         issue_form = self.form_class(request.POST)
         if issue_form.is_valid():
@@ -87,7 +87,7 @@ class DetailIssue(View):
     form_class = ReplyIssueForm
 
     def get(self, request, username, topic, permlink):
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         utopic = UTopic.objects.get(user=user, name=topic)
         issue = Issue.objects.get(utopic=utopic, permlink=permlink)
         context = dict(
@@ -101,7 +101,7 @@ class DetailIssue(View):
     @method_decorator(login_required)
     def post(self, request, username, topic, permlink):
         if request.is_ajax:
-            user = authenticate(username=username)
+            user = User.objects.get(username=username)
             utopic = UTopic.objects.filter(user=user, name=topic)[0]
             issue = Issue.objects.get(user=user, utopic=utopic, permlink=permlink)
             issue_form = self.form_class(request.POST)
@@ -138,7 +138,7 @@ class OpenIssue(View):
 
     @method_decorator(login_required)
     def get(self, request, username, topic, permlink):
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         utopic_obj = UTopic.objects.filter(user=user, name=topic)
         issue = Issue.objects.filter(
             utopic=utopic_obj[0], 

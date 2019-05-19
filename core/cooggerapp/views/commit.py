@@ -1,6 +1,6 @@
 # django
 from django.views.generic.base import TemplateView
-from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 # model
 from core.cooggerapp.models import (UTopic, Commit)
@@ -13,7 +13,7 @@ class Commits(TemplateView):
     template_name = "utopic/commits.html"
 
     def get_context_data(self, username, topic, **kwargs):
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         utopic = UTopic.objects.filter(user=user, name=topic)[0]
         commits = Commit.objects.filter(utopic=utopic)
         context = super().get_context_data(**kwargs)
@@ -28,6 +28,6 @@ class CommitDetail(TemplateView):
 
     def get_context_data(self, username, topic, hash, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["content_user"] = authenticate(username=username)
+        context["content_user"] = User.objects.get(username=username)
         context["commit"] = Commit.objects.filter(hash=hash)[0]
         return context
