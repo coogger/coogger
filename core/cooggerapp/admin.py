@@ -166,6 +166,27 @@ class UtopicAdmin(ModelAdmin):
     )
 
 
+class IssueAdmin(ModelAdmin):
+    list_display = ["user", "utopic", "title"]
+    list_display_links = list_display
+    search_fields = ["title", "body"]
+    list_filter = ["status", "created"]
+    fields = (
+        ("user"),
+        ("utopic"),
+        ("permlink"),
+        ("title"),
+        ("body"),
+        (
+            "reply", 
+            "status", 
+            "reply_count", 
+            "issue_id",
+            "created",
+        )
+    )
+
+
 site.register(Content,ContentAdmin)
 site.register(Commit, CommitAdmin)
 site.register(UTopic, UtopicAdmin)
@@ -176,4 +197,4 @@ site.register(SearchedWords,SearchedWordsAdmin)
 site.register(ReportModel)
 site.register(OtherInformationOfUsers,OtherInfoUsersAdmin)
 site.register(Topic, TopicAdmin)
-site.register(Issue)
+site.register(Issue, IssueAdmin)

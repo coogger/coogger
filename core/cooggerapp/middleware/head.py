@@ -1,11 +1,14 @@
+# django
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
 from django.contrib.auth import authenticate
+from django.http import Http404
 
 # models
 from core.cooggerapp.models import Content, Topic
 from django.contrib.auth.models import User
 
+# python
 from bs4 import BeautifulSoup
 import mistune
 
@@ -52,21 +55,19 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
         user = authenticate(username=username)
-        try:
-            content = Content.objects.filter(user=user, permlink=permlink)[0]
-        except IndexError:
-            # there isn't on coogger
-            return dict(title="", keywords="", description="", image="")
-        else:
-            keywords = ""
-            for key in content.tags.split():
-                keywords += key+", "
-            return dict(
-                title=f"{content.topic.name.capitalize()} | {content.title.capitalize()}",
-                keywords=f"{keywords}{content.topic.name.lower()}",
-                description=self.get_soup(content.body).text[0:200].replace("\n"," ").capitalize(),
-                image=self.get_image(content),
-            )
+        content = Content.objects.filter(user=user, permlink=permlink)
+        if content.exists():
+            raise Http404
+        content = content[0]
+        keywords = ""
+        for key in content.tags.split():
+            keywords += key+", "
+        return dict(
+            title=f"{content.topic.name.capitalize()} | {content.title.capitalize()}",
+            keywords=f"{keywords}{content.topic.name.lower()}",
+            description=self.get_soup(content.body).text[0:200].replace("\n"," ").capitalize(),
+            image=self.get_image(content),
+        )
 
     def topic(self):
         topic = Topic.objects.filter(name=self.kwargs.get("topic"))[0]
