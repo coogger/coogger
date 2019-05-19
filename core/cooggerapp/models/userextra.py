@@ -106,6 +106,5 @@ class OtherAddressesOfUsers(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_otherinformationofusers(sender, instance, created, **kwargs):
-    model = OtherInformationOfUsers
-    if not model.objects.filter(user=instance).exists():
-        model.objects.create(user=instance)
+    if created:
+        OtherInformationOfUsers(user=instance).save()
