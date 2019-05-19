@@ -1,7 +1,6 @@
 # django
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
-from django.contrib.auth import authenticate
 from django.http import Http404
 
 # models
@@ -54,7 +53,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def detail(self):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
-        user = authenticate(username=username)
+        user = User.objects.get(username=username)
         content = Content.objects.filter(user=user, permlink=permlink)
         if content.exists():
             raise Http404
