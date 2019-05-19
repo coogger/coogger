@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.conf import settings
 from django.core.exceptions import FieldError
-from django.contrib.auth import authenticate
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # models
@@ -26,7 +25,7 @@ def model_filter(items, queryset):
     for attr, value in items:
         filter += f"&{attr}={value}"
         if attr == "username":
-            queryset = queryset.filter(user = authenticate(username=value))
+            queryset = queryset.filter(user = User.objects.get(username=username))
         elif attr == "tags":
             queryset = queryset.filter(tags__contains = value)
         elif attr == "category":
