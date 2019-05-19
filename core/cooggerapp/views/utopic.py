@@ -5,9 +5,6 @@ from django.contrib.auth import authenticate
 # model
 from core.cooggerapp.models import (Topic, UTopic, Content, Commit)
 
-# utils 
-from core.cooggerapp.utils import paginator
-
 
 class UserTopic(TemplateView):
     "topic/@username"
@@ -24,6 +21,6 @@ class UserTopic(TemplateView):
         if commits.exists():
             context["last_commit_created"] = commits[0].created        
         context["content_user"] = user
-        context["queryset"] = paginator(self.request, contents)
+        context["queryset"] = contents
         context["utopic"] = utopic
         return context

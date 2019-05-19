@@ -6,22 +6,24 @@
       <div class="utopic" general="center w-60" mobile-m="w-99" mobile-l="w-94" tablet="w-90" laptop="w-80" flex="fd-c">
         <div general="b-1 brc-muted br-2 w-100" class="utopic-user">
           <div style="padding: 6px;">
-            <div flex>
+            <div flex="fd-c" general="b-1 brc-muted br-2" style="margin-bottom: 6px;padding: 4px;">
               {% if utopic.image_address %}
-                <div>
-                  <img general="w-10" src="{{ utopic.image_address }}">
+                <div general="w-100">
+                  <img general="w-10 br-2" src="{{ utopic.image_address }}" style="height: 10%;">
                 </div>
               {% endif %}
-              {% if utopic.address %}
-                <div general="right">
-                  <a general="c-primary" href="{{ utopic.address }}?ref=www.coogger.com">{{ utopic.address }}</a>
-                </div>
-              {% endif %}
-              {% if utopic.definition %}
-                <div>
-                  <span general="txt-s">{{ utopic.definition }}</span>
-                </div>
-              {% endif %}
+              <div flex>
+                {% if utopic.definition %}
+                  <div general="left">
+                    <span general="txt-s">{{ utopic.definition }}</span>
+                  </div>
+                {% endif %}
+                {% if utopic.address %}
+                  <div general="right">
+                    <a general="c-primary txt-s" href="{{ utopic.address }}?ref=www.coogger.com">{{ utopic.address }}</a>
+                  </div>
+                {% endif %}
+              </div>
             </div>
             <div flex="ai-c">
               <a general="c-primary txt-m" href="/@{{ content_user }}">
