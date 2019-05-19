@@ -2,7 +2,7 @@
     $(document).ready(function() {
       function issue_replies(reply){
         if (reply.reply_count != 0 && reply.reply_count != undefined){
-          get_result_from_cooggerapi(`http://127.0.0.1:8000/api/issue/?reply=${reply.id}`).then(function(children_replies){
+          get_result_from_cooggerapi(`https://www.coogger.com/api/issue/?reply=${reply.id}`).then(function(children_replies){
             for (ii in children_replies) {
               let children_comment_template = "";
               let children_reply = children_replies[ii];
@@ -22,7 +22,7 @@
       let load_comments = true;
       if (load_comments && scrolledbottom()){
           load_comments = false;
-          let issue_replies_api = "http://127.0.0.1:8000/api/issue/?reply={{ queryset.id }}";
+          let issue_replies_api = "https://www.coogger.com/api/issue/?reply={{ queryset.id }}";
           get_result_from_cooggerapi(issue_replies_api).then(function(replies){
             for (i in replies){
               let reply = replies[i];
