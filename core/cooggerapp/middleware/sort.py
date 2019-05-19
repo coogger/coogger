@@ -47,13 +47,17 @@ class SortMiddleware(MiddlewareMixin):
         return queryset
 
     @staticmethod
-    def sort_list(queryset):
+    def sort_list(queryset, category_or_language="category"):
         context = []
         for query in sorted(queryset, key=len, reverse=True):
+            if category_or_language == "category":
+                name = str(query[0].category).lower()
+            elif category_or_language == "language":
+                name = str(query[0].language).lower()
             try:
                 context.append(
                     (
-                        str(query[0].category).lower(),
+                        name,
                         len(query)
                         )
                     )
@@ -74,7 +78,7 @@ class SortMiddleware(MiddlewareMixin):
                 pass
             else:
                 queryset_list.append(querysets)
-        return self.sort_list(queryset_list)
+        return self.sort_list(queryset_list, "category")
 
     def sort_languages(self, request):
         queryset = self.get_queryset(request)
@@ -89,7 +93,7 @@ class SortMiddleware(MiddlewareMixin):
                 pass
             else:
                 queryset_list.append(querysets)
-        return self.sort_list(queryset_list)
+        return self.sort_list(queryset_list, "language")
 
     def languages(self, request):
         url_name = self.get_url_name(request)
