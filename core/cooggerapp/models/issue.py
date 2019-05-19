@@ -92,11 +92,21 @@ class Issue(models.Model):
     
     @property
     def get_open_issues(self):
-        return self.__class__.objects.filter(status="open", reply=None)
+        return self.__class__.objects.filter(
+            user=self.user, 
+            utopic=self.utopic, 
+            status="open", 
+            reply=None
+        )
 
     @property
     def get_closed_issues(self):
-        return self.__class__.objects.filter(status="closed", reply=None)
+        return self.__class__.objects.filter(
+            user=self.user, 
+            utopic=self.utopic, 
+            status="closed", 
+            reply=None
+        )
     
     @property
     def username(self):

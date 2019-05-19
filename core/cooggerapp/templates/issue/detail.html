@@ -1,10 +1,11 @@
 {% extends "issue/top.html" %}
+{% load django_md_editor %}
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
     <div style="padding: 6px;">
       <h1 general="center">{{ queryset.title|title }}</h1>
       <div general="brc-muted b-1 br-2" style="padding: 6px;">
-        <p>{{ queryset.body }}</p>
+        <p>{{ queryset.body|markdown_to_html:"issue" }}</p>
       </div>
       <div general="right">
         <span general="txt-s c-secondary right" style="padding: 6px;">
