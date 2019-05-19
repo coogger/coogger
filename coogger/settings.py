@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 ]
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "steemconnect_auth.auth.steemconnect.SteemConnectBackend",
 ]
 PAGE_SIZE = 10
 REST_FRAMEWORK = dict(
