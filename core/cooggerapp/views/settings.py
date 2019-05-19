@@ -18,7 +18,7 @@ from core.cooggerapp.forms import (OtherAddressesOfUsersForm,
 import os
 
 
-class Settings(View, LoginRequiredMixin):
+class Settings(LoginRequiredMixin, View):
     template_name = "settings/settings.html"
 
     def get(self, request, *args, **kwargs):

@@ -9,4 +9,4 @@ django_md_editor==0.1.4
 django-environ==0.4.5
 django_ban==0.0.5
 steemconnect_auth==0.0.7
-cooggerimages==0.0.1
+cooggerimages==0.0.4
