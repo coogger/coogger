@@ -75,7 +75,10 @@ class Issue(models.Model):
                 self.permlink = self.permlink + "-" + str(random.randrange(9999999))
             else:
                 break
-        self.issue_id = self.__class__.objects.filter(reply=None).count() + 1
+        self.issue_id = self.__class__.objects.filter(
+            user=self.user,
+            utopic=self.utopic,
+            reply=None).count() + 1
         super().save(*args, **kwargs)
 
     @property
