@@ -12,13 +12,10 @@ from django.db.models import F
 from django.contrib import messages
 
 # model
-from core.cooggerapp.models import (UTopic, Issue, Commit)
+from core.cooggerapp.models import (UTopic, Issue)
 
 # form
 from core.cooggerapp.forms import NewIssueForm, ReplyIssueForm
-
-# utils 
-from core.cooggerapp.utils import paginator
 
 # python
 import json

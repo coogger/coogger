@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from core.cooggerapp.models import (UTopic, Commit)
 
 # utils 
-from core.cooggerapp.utils import paginator
+from core.cooggerapp.views.utils import paginator
 
 
 class Commits(TemplateView):

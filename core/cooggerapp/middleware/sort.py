@@ -10,7 +10,7 @@ from core.cooggerapp.models import Category, Content, Topic
 from core.cooggerapp.choices import LANGUAGES
 
 # utils
-from core.cooggerapp.utils import model_filter
+from core.cooggerapp.views.utils import model_filter
 
 
 class SortMiddleware(MiddlewareMixin):

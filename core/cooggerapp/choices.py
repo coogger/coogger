@@ -1,3 +1,5 @@
+from django.utils.text import slugify
+
 LANGUAGES = [
         "english",
         "korean",
@@ -45,7 +47,6 @@ ISSUE_CHOICES = [
     "closed",
 ]
 def make_choices(choice):
-    from django.utils.text import slugify
     slugs = []
     for cho in choice:
         cho = str(cho).lower()

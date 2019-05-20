@@ -1,5 +1,8 @@
+# django
 from django.db import models
 from django.utils.text import slugify
+
+# 3.part
 from django_md_editor.models import EditorMdField
 
 

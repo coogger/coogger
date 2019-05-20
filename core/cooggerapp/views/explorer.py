@@ -9,7 +9,7 @@ from django.views.generic.base import TemplateView
 from core.cooggerapp.models import Content, Topic, Category
 
 # views
-from core.cooggerapp.utils import model_filter
+from core.cooggerapp.views.utils import model_filter
 
 # choices
 from core.cooggerapp.choices import LANGUAGES

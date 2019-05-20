@@ -1,13 +1,11 @@
 # django
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
-from django.utils.text import slugify
 from django.conf import settings
 from django.core.exceptions import FieldError
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # models
 from core.cooggerapp.models import Category, Topic
-
 
 def paginator(request, queryset):
     paginator = Paginator(queryset, settings.PAGE_SIZE)
@@ -40,12 +38,3 @@ def model_filter(items, queryset):
             except FieldError:
                 pass
     return dict(filter=filter, queryset=queryset)
-
-def make_choices_slug(choice):
-    "choice bir liste olacak gelen listeyi choices'e uygun hale getirir"
-    slugs = []
-    for cho in choice:
-        cho = cho.lower()
-        cho = slugify(cho)
-        slugs.append((cho, cho))
-    return slugs

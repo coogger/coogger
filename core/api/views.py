@@ -22,7 +22,7 @@ from core.cooggerapp.models import (
     )
 
 # views
-from core.cooggerapp.utils import model_filter
+from core.cooggerapp.views.utils import model_filter
 
 
 class ListContent(ListCreateAPIView):
