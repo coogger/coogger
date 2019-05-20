@@ -7,12 +7,8 @@ from django.shortcuts import render
 from django.conf import settings
 from django.conf.urls.static import static
 
-
-def just_redirect(request):
-    "No ads due to adblock=True"
-    url_name = resolve(request.path_info).url_name
-    template_name = f"{url_name}.html"
-    return render(request, template_name, dict(adblock=True))
+# utils
+from .utils import just_redirect_by_name
 
 # common addresses
 urlpatterns = [
@@ -21,8 +17,7 @@ urlpatterns = [
     path("api/", include("core.api.urls")),
     path("post/", include("core.cooggerapp.urls.post")),  # post
     path("delete/", include("core.cooggerapp.urls.delete")),  # delete
-    path('adblock/', just_redirect, name="adblock"), # if user use adblock
-    path('privacy/', just_redirect, name="privacy"),
+    path('privacy/', just_redirect_by_name, name="privacy"),
     path("settings/", include("core.cooggerapp.urls.settings")),
     path("", include("core.cooggerapp.urls.explorer")),  # explorer
     path("", include("core.cooggerapp.urls.home")),  # home

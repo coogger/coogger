@@ -1,7 +1,7 @@
 User-agent: *
 Disallow: /wallet
+Disallow: /activity
 Disallow: /post
-Disallow: /adblock
 Disallow: /privacy
 Disallow: /?page
 Sitemap: https://www.coogger.com/sitemap/topic.xml

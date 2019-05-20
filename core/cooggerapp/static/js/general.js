@@ -49,27 +49,4 @@ $(document).ready(function() {
   $(".run-filter").click(function() {
       $(".filter-machine").toggle();
   });
-  // ad deceted
-  let adBlockEnabled = false;
-  let ads = document.createElement('div');
-  ads.innerHTML = '&amp;nbsp;';
-  ads.className = 'adsbox';
-  document.body.appendChild(ads);
-  if (window.location.pathname != "/adblock/"){
-    window.setTimeout(function() {
-      if (ads.offsetHeight === 0) {adBlockEnabled = true;}
-      ads.remove();
-      if (adBlockEnabled) {window.location = "/adblock";}
-      }, 100
-    );
-  }
-  else{
-    window.setTimeout(function() {
-      if (ads.offsetHeight === 0) {adBlockEnabled = true;}
-      ads.remove();
-      if (!adBlockEnabled) {window.location = "/";}
-      }, 100
-    );
-  }
-  // ad deceted
 });
