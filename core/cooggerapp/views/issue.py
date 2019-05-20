@@ -67,7 +67,7 @@ class NewIssue(LoginRequiredMixin, View):
                 return self.get(request, username, topic)
             issue_form.user = request.user
             issue_form.utopic = utopic
-            issue_form.save()
+            issue_form.issue_save()
             return redirect(
                 reverse(
                     "detail-issue", 
@@ -107,7 +107,7 @@ class DetailIssue(View):
                 issue_form.user = user
                 issue_form.utopic = utopic
                 issue_form.reply = issue
-                issue_form.save()
+                issue_form.issue_save()
                 new_reply = Issue.objects.get(
                     user=user, 
                     utopic=utopic, 

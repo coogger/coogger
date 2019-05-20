@@ -42,7 +42,7 @@ class Issue(models.Model):
     class Meta:
         ordering = ["-created"]
 
-    def save(self, *args, **kwargs):
+    def issue_save(self):
         if self.reply is not None: # if make a comment
             self.status = None
             self.permlink = "re-" + self.user.username + "-re-" + \
