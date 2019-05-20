@@ -55,7 +55,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         permlink = self.kwargs.get("permlink")
         user = User.objects.get(username=username)
         content = Content.objects.filter(user=user, permlink=permlink)
-        if content.exists():
+        if not content.exists():
             raise Http404
         content = content[0]
         keywords = ""
