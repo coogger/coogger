@@ -23,7 +23,7 @@ def model_filter(items, queryset):
     for attr, value in items:
         filter += f"&{attr}={value}"
         if attr == "username":
-            queryset = queryset.filter(user = User.objects.get(username=username))
+            queryset = queryset.filter(user = User.objects.get(username=value))
         elif attr == "tags":
             queryset = queryset.filter(tags__contains = value)
         elif attr == "category":
