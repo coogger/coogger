@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "cooggerimages"
 ]
 AUTHENTICATION_BACKENDS = [
+    "steemconnect_auth.auth.steemconnect.SteemConnectBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 PAGE_SIZE = 10

@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 # class
 from django.views.generic.base import TemplateView
@@ -25,7 +26,7 @@ class Home(TemplateView):
     template_name = "users/user.html"
 
     def get_context_data(self, username, **kwargs):
-        user = User.objects.get(username=username)
+        user = authenticate(username=username)
         queryset = Content.objects.filter(user=user, status="approved")
         context = super().get_context_data(**kwargs)
         context["content"] = queryset[:settings.PAGE_SIZE]
@@ -41,7 +42,7 @@ class About(View):
 
     def get(self, request, username, *args, **kwargs):
         context = {}
-        user = User.objects.get(username=username)
+        user = authenticate(username=username)
         try:
             query = OtherInformationOfUsers.objects.filter(user=user)[0]
         except IndexError:
@@ -77,7 +78,7 @@ class Wallet(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = User.objects.get(username=username)
+        user = authenticate(username=username)
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["content_user"] = user
         return context

@@ -243,8 +243,8 @@ class Content(models.Model):
             json_metadata=dict(
                 format="markdown",
                 tags=self.tags.split(),
-                app="coogger/1.4.1",
-                ecosystem=dict(version="1.4.1", body=self.body),
+                app="coogger/1.7.1",
+                ecosystem=dict(version="1.7.1", body=self.body),
             ),
         )
         if op_name == "save":

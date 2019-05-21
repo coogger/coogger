@@ -1,7 +1,6 @@
 # django
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
-from django.http import Http404
 
 # models
 from core.cooggerapp.models import Content, Topic
@@ -56,7 +55,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         user = User.objects.get(username=username)
         content = Content.objects.filter(user=user, permlink=permlink)
         if not content.exists():
-            raise Http404
+            return dict(title="", keywords="", description="", image="")
         content = content[0]
         keywords = ""
         for key in content.tags.split():

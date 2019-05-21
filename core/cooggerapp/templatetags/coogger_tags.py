@@ -30,10 +30,10 @@ def json(value, arg):
     return value[arg]
 
 @register.filter(name="hmanycontent")
-def hmanycontent(user, host):
+def hmanycontent(user):
     if user.is_anonymous:
         return 0
-    return Content.objects.filter(user = user, status = "approved").count()
+    return Content.objects.filter(user=user, status="approved").count()
 
 @register.filter(name="twitter")
 def twitter(value, arg):

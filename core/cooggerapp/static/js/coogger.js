@@ -84,26 +84,16 @@ function get_data_from_cooggerapi(apiUrl){
   function get_realy_content(content){
     try{
       let json_metadata = JSON.parse(content.json_metadata);
-      try{
-        let ecosystem = json_metadata.ecosystem;
-        try{
-          let version = ecosystem.version;
-          if (version == "1.4.1"){
-            return ecosystem.body;
-          }
-          else{
-            return content.body;
-          }
-        }
-        catch(err){
-          return content.body;
-        }
+      let version = json_metadata.ecosystem.version;
+      if (version == "1.4.1" || version == "1.7.1"){
+        return json_metadata.ecosystem.body;
       }
-      catch(err){
+      else{
         return content.body;
       }
     }
     catch(err){
+      console.log(err);
       return content.body;
     }
   }
