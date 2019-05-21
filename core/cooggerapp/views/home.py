@@ -8,6 +8,7 @@ from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 
 # form
 from core.cooggerapp.forms import ReportsForm
@@ -66,18 +67,20 @@ class Report(LoginRequiredMixin, View):
     form_class = ReportsForm
     template_name = "home/report.html"
 
-    def get(self, request, *args, **kwargs):
-        report_form = self.form_class()
-        context = dict(
-            report_form=report_form,
-            content_id=request.GET["content_id"],
-        )
-        return render(request, self.template_name, context)
+    def get(self, request, content_id, *args, **kwargs):
+        if request.is_ajax():
+            report_form = self.form_class()
+            context = dict(
+                report_form=report_form,
+                content_id=content_id,
+            )
+            return render(request, self.template_name, context)
+        raise Http404
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, content_id, *args, **kwargs):
         report_form = self.form_class(request.POST)
         if report_form.is_valid():
-            content = Content.objects.filter(id=request.POST["content_id"])[0]
+            content = Content.objects.get(id=content_id)
             if ReportModel.objects.filter(user=request.user, content=content).exists():
                 messages.error(request, "Your complaint is in the evaluation process.")
                 return redirect(reverse("home"))
