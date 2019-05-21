@@ -1,4 +1,3 @@
-{% load coogger_tags %}
 <div flex="jc-fs" general="txt-l" style="margin: 12px 12px;">
     <a href="{{ ct.get_absolute_url }}">
     <strong id="title" general="c-dark"></strong>
@@ -35,7 +34,7 @@
         <a hover="c-white bg-primary" general="b-1 br-2 c-primary" id="topic"
           href="{% url 'utopic' ct.topic ct.user %}" style="padding: 2px 6px;">
           <i class="fa fa-hashtag" aria-hidden="true"></i>
-          <span>{{ct.topic}} - {{ct.utopic|topic_count}}</span>
+          <span>{{ct.topic}}</span>
         </a>
     </div>
     <div flex="ai-c" general="txt-s right c-white" class="content_list">

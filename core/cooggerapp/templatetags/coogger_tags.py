@@ -39,13 +39,6 @@ def hmanycontent(user):
 def twitter(value, arg):
     return quote_plus(value)
 
-@register.filter(name="topic_count")
-def topic_count(utopic):
-    topic_name, user = utopic.name, utopic.user
-    topic = Topic.objects.filter(name=topic_name)[0]
-    contents = Content.objects.filter(user=user, topic=topic, status="approved")
-    return contents.count()
-
 @register.filter(name="commit_count")
 def commit_count(utopic):
     return Commit.objects.filter(utopic=utopic).count()
