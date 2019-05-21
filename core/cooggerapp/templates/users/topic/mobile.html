@@ -4,7 +4,7 @@
     <div flex="fw-nw jc-c" general="txt-m wmax">
       {% for topic in topics %}
       <div hover="bg-red" general="br-2 bg-white">
-        <a flex="jc-c" general="txt-s br-2 c-dark" hover="c-white brc-dark" href="{% url 'utopic' topic content_user %}" style="padding: 3px 6px;">
+        <a flex="jc-c" general="txt-s br-2 c-dark" hover="c-white brc-dark" href="{% url 'utopic' topic.permlink content_user %}" style="padding: 3px 6px;">
           <span>{{ topic|title }}</span>
         </a>
       </div>

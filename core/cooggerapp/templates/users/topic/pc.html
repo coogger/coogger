@@ -4,7 +4,7 @@
         <li general="center">@{{content_user}}'s Topics</li>
         {% for topic in topics %}
         <li general="txt-s c-yellow">
-          <a hover="c-white bg-red" flex="ai-c" general="txt-s c-dark br-4" href="/{{ topic }}/@{{content_user}}" style="padding: 3px 6px;">
+          <a hover="c-white bg-red" flex="ai-c" general="txt-s c-dark br-4" href="/{{ topic.permlink }}/@{{content_user}}" style="padding: 3px 6px;">
             {% if topic.image_address %}
               <img general="w-8" src="{{ topic.image_address }}" style="margin: 0px;height: 0%;">
             {% endif %}
