@@ -18,8 +18,8 @@ from core.cooggerapp.choices import LANGUAGES
 class TopicView(TemplateView):
     template_name = "topic/index.html"
 
-    def get_context_data(self, topic, *args, **kwargs):
-        topic = Topic.objects.filter(name=topic)[0]
+    def get_context_data(self, permlink, *args, **kwargs):
+        topic = Topic.objects.filter(permlink=permlink)[0]
         queryset = Content.objects.filter(topic=topic, status="approved")
         if queryset.exists():
             context = super().get_context_data(**kwargs)

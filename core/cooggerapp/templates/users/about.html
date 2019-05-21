@@ -4,7 +4,7 @@
   {% if about %}
   <div general="center" style="margin-top:12px">
     {% if content_user == request.user %}
-    <div general="center">
+    <div general="center w-100">
         <form default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40"
             laptop-l="w-70" max="w-50" general="w-60"
             flex="fd-c" method="post" action="{% url 'userabout' content_user %}">

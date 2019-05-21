@@ -8,6 +8,6 @@ from core.cooggerapp.views.commit import (
     )
 
 urlpatterns = [
-    path('@<username>/<topic>/commits/', Commits.as_view(), name="commits"),
-    path('@<username>/<topic>/commit/<hash>/', CommitDetail.as_view(), name="commit"),
+    path('@<username>/<topic_permlink>/commits/', Commits.as_view(), name="commits"),
+    path('@<username>/<topic_permlink>/commit/<hash>/', CommitDetail.as_view(), name="commit"),
     ]

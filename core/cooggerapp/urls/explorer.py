@@ -6,7 +6,7 @@ from core.cooggerapp.views import explorer, home
 
 urlpatterns = [
     path('explorer/posts/', home.Home.as_view(), name="explorer_posts"),
-    path('topic/<topic>/', explorer.TopicView.as_view(), name="topic"),
+    path('topic/<permlink>/', explorer.TopicView.as_view(), name="topic"),
     path('tags/<hashtag>/', explorer.Hashtag.as_view(), name="hashtag"),
     path('language/<lang_name>/', explorer.Languages.as_view(), name="language"),
     path('category/<cat_name>/', explorer.Categories.as_view(), name="category"),

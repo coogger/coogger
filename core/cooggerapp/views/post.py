@@ -44,7 +44,15 @@ class CreateUTopic(LoginRequiredMixin, View):
             form.user = request.user
             if not self.model.objects.filter(user=request.user, name=form.name).exists():
                 save = form.save()
-                return redirect(reverse("utopic", kwargs={"topic": form.name, "username": form.user}))
+                return redirect(
+                    reverse(
+                        "utopic", 
+                        kwargs=dict(
+                            permlink=form.permlink, 
+                            username=form.user
+                        )
+                    )
+                )
             else:
                 messages.warning(request, f"{form.name} is already taken by yours" )
                 return render(request, self.template_name, dict(form=self.form_class(data=request.POST)))
@@ -57,28 +65,27 @@ class UpdateUTopic(LoginRequiredMixin, View):
     form_class = UTopicForm
     model = UTopic
 
-    def get(self, request, name, *args, **kwargs):
+    def get(self, request, permlink, *args, **kwargs):
         try:
-            instance = self.model.objects.filter(user=request.user, name=name)[0]
+            instance = self.model.objects.filter(user=request.user, permlink=permlink)[0]
         except IndexError:
             messages.warning(request, f"you need to create the {value} topic first.")
             return redirect(reverse("create-utopic")+"?name={value}")
         context = dict(
             form=self.form_class(instance=instance),
-            name=name
+            permlink=permlink
         )
         return render(request, self.template_name, context)
 
-    def post(self, request, name, *args, **kwargs):
-        name = slugify(name)
+    def post(self, request, permlink, *args, **kwargs):
         form = self.form_class(data=request.POST)
         context = dict(
             form=form,
-            name=name,
+            permlink=permlink,
         )
         if form.is_valid():
             form = form.save(commit=False)
-            self.model.objects.filter(user=request.user, name=name).update(
+            self.model.objects.filter(user=request.user, permlink=permlink).update(
                 name=form.name,
                 image_address=form.image_address,
                 definition=form.definition,
@@ -97,16 +104,11 @@ class Create(LoginRequiredMixin, View):
     form_class = ContentForm
     initial_template = "post/editor-note.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, utopic_name, *args, **kwargs):
         initial, category = dict(), None
-        topic_name = request.GET.get("topic", None)
-        if topic_name is None:
-            messages.warning(request, "you need to write like that /post/create/?topic={your_topic_name} or create the topic first.")
-            return redirect(reverse("create-utopic"))
-        else:
-            if not Topic.objects.filter(name=topic_name).exists():
-                messages.warning(request, f"you need to create the {topic_name} topic first.")
-                return redirect(reverse("create-utopic")+f"?name={topic_name}")
+        if not Topic.objects.filter(name=utopic_name).exists():
+            messages.warning(request, f"you need to create the {utopic_name} topic first.")
+            return redirect(reverse("create-utopic")+"?name={value}")
         for key, value in request.GET.items():
             if key == "category":
                 category = Category.objects.get(name=value)
@@ -130,11 +132,12 @@ class Create(LoginRequiredMixin, View):
         )
         return render(request, self.template_name, context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, utopic_name, *args, **kwargs):
         form = self.form_class(data=request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            save = form.content_save(request)  # save with steemconnect and get ms
+            form.user = request.user
+            save = form.content_save(request, form, utopic_name)  # save with steemconnect and get ms
             if save.status_code != 200:  # if any error show the error
                 messages.error(request, save.text)
                 return render(request, self.template_name, dict(form=ContentForm(data=request.POST)))
@@ -150,10 +153,17 @@ class Change(LoginRequiredMixin, View):
 
     def get(self, request, username, permlink, *args, **kwargs):
         if request.user.username == username:
-            topic_name = request.GET.get("topic", None)
-            if topic_name is not None and not Topic.objects.filter(name=topic_name).exists():
-                messages.warning(request, f"you need to create the {topic_name} topic first.")
-                return redirect(reverse("create-utopic")+f"?name={topic_name}")
+            utopic_name = request.GET.get("utopic_name", None)
+            if utopic_name is not None and not Topic.objects.filter(name=utopic_name).exists():
+                messages.warning(request, f"you need to create the {utopic_name} topic first.")
+                return redirect(
+                reverse(
+                    "create",
+                    kwargs=dict(
+                        utopic_name=utopic_name
+                        )
+                    )
+                )
             queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
                 content_id = queryset[0].id
@@ -182,7 +192,15 @@ class Change(LoginRequiredMixin, View):
                             username=username,
                             permlink=permlink)
                         )
-                    return redirect(reverse("detail", kwargs=dict(username=queryset[0].username, permlink=queryset[0].permlink)))
+                    return redirect(
+                        reverse(
+                            "detail", 
+                            kwargs=dict(
+                                username=queryset[0].username, 
+                                permlink=queryset[0].permlink
+                                )
+                            )
+                        )
                 else:
                     context = dict(
                         form=form,

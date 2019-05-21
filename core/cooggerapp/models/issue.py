@@ -79,7 +79,7 @@ class Issue(models.Model):
             user=self.user,
             utopic=self.utopic,
             reply=None).count() + 1
-        super().save(*args, **kwargs)
+        super().save()
 
     @property
     def get_parent(self):
@@ -116,5 +116,5 @@ class Issue(models.Model):
         return self.user.username
 
     @property
-    def topic_name(self):
-        return self.utopic.name
+    def topic_permlink(self):
+        return self.utopic.permlink

@@ -5,7 +5,7 @@
       {% if not queryset %}
         {% if request.user == content_user %}
           <div general="bg-dark-purple c-white br-2" class="utopic-nocontent">
-            <a general="c-white txt-l center" href="{% url 'create' %}?topic={{ utopic }}">Add content your {{ utopic }} topic</a>
+            <a general="c-white txt-l center" href="{% url 'create' utopic %}">Add content your {{ utopic }} topic</a>
           </div>
         {% else %}
           <div general="bg-red c-white br-2" class="utopic-nocontent">

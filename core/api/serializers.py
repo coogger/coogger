@@ -59,7 +59,7 @@ class IssueSerializer(ModelSerializer):
         fields = [
             "id",
             "username",
-            "topic_name",
+            "topic_permlink",
             "permlink",
             "parent_username",
             "parent_permlink",

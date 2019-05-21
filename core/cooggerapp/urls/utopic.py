@@ -7,5 +7,5 @@ from core.cooggerapp.views.utopic import (
     )
 
 urlpatterns = [
-    path('<topic>/@<username>/', UserTopic.as_view(), name="utopic"),
+    path('<permlink>/@<username>/', UserTopic.as_view(), name="utopic"),
     ]

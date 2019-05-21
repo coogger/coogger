@@ -10,7 +10,7 @@
           </div>
           {% endif %}
           <div general="center bg-muted" style="padding:12px;" flex="">
-              <a href="{% url 'issues' content_user utopic %}">
+              <a href="{% url 'issues' content_user utopic.permlink %}">
                   <div flex="ai-c">
                     <i general="c-green" class="fas fa-exclamation-circle"></i>
                     <span id="" general="txt-s">
@@ -18,7 +18,7 @@
                     </span>
                   </div>
                 </a>
-              <a href="{% url 'close-issues' content_user utopic %}">
+              <a href="{% url 'close-issues' content_user utopic.permlink %}">
                   <div flex="ai-c">
                     <i general="c-red" class="fas fa-check"></i>
                     <span id="" general="txt-s">
@@ -31,7 +31,7 @@
           <!-- issue list open or closed -->
           {% for issue in queryset %}
             <li class="issue-query" general="w-100">
-              <a general="c-primary w-90" href="{% url 'detail-issue' content_user utopic.name issue.permlink %}">
+              <a general="c-primary w-90" href="{% url 'detail-issue' content_user utopic.permlink issue.permlink %}">
                 <div>
                     {% if issue.status == "open" %}
                       <i general="c-green" class="fas fa-exclamation-circle"></i>

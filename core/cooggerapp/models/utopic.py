@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.db import models, IntegrityError
 from django.utils.text import slugify
+from django.urls import reverse
 
 # models
 from .topic import Topic
@@ -14,6 +15,7 @@ class UTopic(models.Model):
     """ Topic For Users """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    permlink = models.SlugField(max_length=200)
     name = models.CharField(
         max_length=50, verbose_name="Name", help_text="Please, write topic name."
     )
@@ -43,10 +45,21 @@ class UTopic(models.Model):
     
     def __str__(self):
         return self.name
+    
+    @property
+    def get_absolute_url(self):
+        return reverse(
+            "utopic", 
+            kwargs=dict(
+                username=self.user.username, 
+                permlink=self.permlink
+            )
+        )
+
 
     def save(self, *args, **kwargs):
-        self.name = slugify(self.name)
-        if not self.__class__.objects.filter(user=self.user, name=self.name).exists():
+        self.permlink = slugify(self.name)
+        if not self.__class__.objects.filter(user=self.user, permlink=self.permlink).exists():
             with suppress(IntegrityError):
                 Topic(name=self.name).save()
         super().save(*args, **kwargs)

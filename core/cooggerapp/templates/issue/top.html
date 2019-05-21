@@ -12,11 +12,11 @@
                     <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ content_user }}/avatar');">
                   </a>
                   <i class="fas fa-book"></i>
-                  <a general="c-primary txt-m "  href="{% url 'utopic' utopic content_user %}">{{ utopic }}/@{{ content_user }}</a>
+                  <a general="c-primary txt-m "  href="{% url 'utopic' utopic.permlink content_user %}">{{ utopic }}/@{{ content_user }}</a>
               </div>
               <div general="right">
                 <a general="br-1 c-white bg-green txt-s left" 
-                href="{% url 'new-issue' content_user utopic.name %}" style="padding: 6px;margin-right: 6px;">
+                href="{% url 'new-issue' content_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
                   Open new issue</a>
                   {% block closed_issue %}{% endblock %}
             </div>

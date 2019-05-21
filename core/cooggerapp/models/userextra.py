@@ -17,7 +17,7 @@ from .utils import get_new_hash
 
 class OtherInformationOfUsers(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = EditorMdField()
+    about = EditorMdField(blank=True, null=True)
     cooggerup_confirmation = models.BooleanField(
         default=False,
         verbose_name="Do you want to join in curation trails of the cooggerup bot with your account?",

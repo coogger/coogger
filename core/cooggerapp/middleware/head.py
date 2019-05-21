@@ -3,7 +3,7 @@ from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
 
 # models
-from core.cooggerapp.models import Content, Topic
+from core.cooggerapp.models import Content, Topic, UTopic
 from django.contrib.auth.models import User
 
 # python
@@ -68,7 +68,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         )
 
     def topic(self):
-        topic = Topic.objects.filter(name=self.kwargs.get("topic"))[0]
+        topic = Topic.objects.filter(permlink=self.kwargs.get("permlink"))[0]
         return dict(
             title=f"{topic.name} - Topic | Coogger".capitalize(),
             keywords=topic.name,
@@ -141,12 +141,22 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
 
     def utopic(self):
         username = self.kwargs.get("username")
-        topic = self.kwargs.get("topic")
+        permlink = self.kwargs.get("permlink")
+        user = User.objects.get(username=username)
+        utopic = UTopic.objects.filter(user=user, permlink=permlink)[0]
+        if utopic.definition:
+            definition = f"{utopic.definition.capitalize()} | {username}"
+        else:
+            definition = f"{username}'s contents about topic of {utopic}"
+        if utopic.image_address:
+            image = utopic.image_address
+        else:
+            image = f"https://steemitimages.com/u/{username}/avatar"
         return dict(
-            title=f"{topic} - {username}",
-            keywords=f"{username}, {topic}",
-            description=f"{username}'s contents about topic of {topic}",
-            image=f"https://steemitimages.com/u/{username}/avatar",
+            title=f"{utopic} - Topic | {username}".capitalize(),
+            keywords=utopic,
+            description=definition,
+            image=image,
         )
 
     def review(self):

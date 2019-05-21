@@ -32,6 +32,9 @@ from steemconnect_auth.models import SteemConnectUser
 # editor md
 from django_md_editor.models import EditorMdField
 
+# python 
+import random
+
 
 class Content(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -106,7 +109,7 @@ class Content(models.Model):
 
     @property
     def utopic(self):
-        return UTopic.objects.filter(user=self.user, name=self.topic)[0]
+        return UTopic.objects.filter(user=self.user, permlink=self.topic.permlink)[0]
 
     @property
     def dor(self):
@@ -166,20 +169,20 @@ class Content(models.Model):
         self.definition = self.prepare_definition()
         super().save(*args, **kwargs)
 
-    def content_save(self, request, *args, **kwargs):
-        self.user = request.user
-        topic_model = Topic.objects.filter(name=request.GET.get("topic"))
+    def content_save(self, request, form, utopic_name):
+        self.user = form.user
+        topic_model = Topic.objects.filter(name=utopic_name)
         self.topic = topic_model[0]
         self.tags = self.ready_tags()
-        self.permlink = slugify(self.title.lower())
+        self.permlink = self.get_new_permlink(slugify(self.title.lower()))
         self.definition = self.prepare_definition()
         steem_post = self.steemconnect_post(op_name="save")
         if steem_post.status_code == 200:
-            super().save(*args, **kwargs)
+            form.save()
             topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
             utopic = UTopic.objects.filter(user=self.user, name=self.topic)
-            utopic.update(total_dor=F("total_dor") + self.dor()) # increase total dor in utopic
-            get_msg = request.POST.get("msg")
+            utopic.update(total_dor=F("total_dor") + self.dor) # increase total dor in utopic
+            get_msg = request.POST.get("msg", None)
             if get_msg == "Initial commit":
                 get_msg = f"{self.title} Published."
             self.commit_set.model(
@@ -192,9 +195,21 @@ class Content(models.Model):
             ).save()
         return steem_post
 
+    def get_new_permlink(self, permlink):
+        while True:
+            if self.__class__.objects.filter(
+                user=self.user, 
+                permlink=permlink).exists():
+                permlink = permlink + "-" + str(random.randrange(9999999))
+            else:
+                break
+        return permlink
+
     def content_update(self, request, old, new):
+        # old is a content query
+        # new is response a content form
         self.user = old[0].user
-        get_topic_name = request.GET.get("topic", None)
+        get_topic_name = request.GET.get("utopic_name", None)
         if get_topic_name is None:
             get_topic_name = old[0].topic
         self.topic = Topic.objects.filter(name=get_topic_name)[0]
@@ -213,7 +228,7 @@ class Content(models.Model):
                     utopic=self.utopic,
                     content=Content.objects.get(user=self.user, permlink=self.permlink),
                     body=self.body,
-                    msg=request.POST.get("msg"),
+                    msg=request.POST.get("msg")
                 ).save()
             old.update(
                 body=self.body,
@@ -262,7 +277,7 @@ class Content(models.Model):
             access_token = steem_connect_user[0].access_token
             return SteemConnect(token=access_token, data=operation).run 
         except:
-            access_token = steem_connect_user.update_access_token(settings.APP_SECRET)
+            access_token = SteemConnectUser(user=self.user).update_access_token(settings.APP_SECRET)
             return SteemConnect(token=access_token, data=operation).run
 
     @property

@@ -208,7 +208,7 @@ function get_data_from_cooggerapi(apiUrl){
     <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
       <div>
         <li flex='ai-c'>
-          <a href='/@${comment.username}/${comment.topic_name}/issues/${comment.permlink}' id='root_content' target='blank' general='txt-s'>
+          <a href='/@${comment.username}/${comment.topic_permlink}/issues/${comment.permlink}' id='root_content' target='blank' general='txt-s'>
           <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
           </a>
         </li>
