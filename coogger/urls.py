@@ -12,22 +12,23 @@ from .utils import just_redirect_by_name
 
 # common addresses
 urlpatterns = [
-    path("accounts/", include('steemconnect_auth.urls')), # signup, login or create new user
-    path("admin/", admin.site.urls), # admin panel
+    path("accounts/github/", include('github_auth.urls')),
+    path("follow/", include("django_follow_system.urls")),
+    path("admin/", admin.site.urls),
     path("api/", include("core.api.urls")),
-    path("post/", include("core.cooggerapp.urls.post")),  # post
-    path("delete/", include("core.cooggerapp.urls.delete")),  # delete
+    path("post/", include("core.cooggerapp.urls.post")),
+    path("delete/", include("core.cooggerapp.urls.delete")),
     path('privacy/', just_redirect_by_name, name="privacy"),
     path("settings/", include("core.cooggerapp.urls.settings")),
-    path("", include("core.cooggerapp.urls.explorer")),  # explorer
-    path("", include("core.cooggerapp.urls.home")),  # home
-    path("", include("core.cooggerapp.urls.detail")),  # post detail
-    path("", include("core.cooggerapp.urls.utopic")),  # user topic
-    path("", include("core.cooggerapp.urls.commit")),  # commit pages
-    path("", include("core.cooggerapp.urls.issue")),  # issue pages
-    path("", include("core.cooggerapp.urls.users")),  # users
-    path("", include("core.cooggerapp.urls.sitemap")),  # sitemap
-    path("", include("cooggerimages.urls")), # images
+    path("", include("core.cooggerapp.urls.explorer")),
+    path("", include("core.cooggerapp.urls.home")),
+    path("", include("core.cooggerapp.urls.detail")),
+    path("", include("core.cooggerapp.urls.utopic")),
+    path("", include("core.cooggerapp.urls.commit")),
+    path("", include("core.cooggerapp.urls.issue")),
+    path("", include("core.cooggerapp.urls.users")),
+    path("", include("core.cooggerapp.urls.sitemap")),
+    path("", include("cooggerimages.urls")),
 ]
 
 if settings.DEBUG:

@@ -1,99 +1,21 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        steem.api.getAccounts(["{{ content_user }}"], function(err, users) {  // account
-          let user = users[0];
-          let coogger_post_count = $("#post-count").attr("data-post-count");
-          $("#post-count").html(`${coogger_post_count} + ${user.post_count-coogger_post_count}`);
-          let profile = JSON.parse(user.json_metadata).profile;
-          document.getElementById("useruserimg").setAttribute("src","https://steemitimages.com/u/{{ content_user }}/avatar");
-          $("#reputation").html(steem.formatter.reputation(user.reputation));
-          try{
-            if (profile.about != "about"){
-              $("#about").html(profile.about);
-            }
+  $(document).ready(function() {
+      $(".follow-op").click(function(event){
+        $("#follow-op").attr({'animation':"blink i"});
+        let follower_count = parseInt(document.getElementById("follower_count").innerHTML);
+        $.get("{% url 'follow' current_user %}", function(data, status){
+          if (data.status == "follow"){
+            $("#follower_count").html(follower_count+1);
+            $("#follow-op #follow").html("Unfollow");
+            $("#follow-op").attr({"hover":"bg-red"});
           }
-          catch(err){
-            console.log(err);
+          else if (data.status == "unfollow"){
+            $("#follower_count").html(follower_count-1);
+            $("#follow-op #follow").html("Follow");
+            $("#follow-op").attr({"hover":"bg-primary"});
           }
-          try{
-            if (profile.location != "location"){
-              $("#location").html(profile.location);
-            }
-          }
-          catch(err){
-            console.log(err);
-          }
-          steem.api.getFollowCount("{{ content_user }}", function(err, followcount) {
-            $("#follower_count").html(followcount.follower_count);
-            $("#following_count").html(followcount.following_count);
-            {% if request.user.is_authenticated and request.user != content_user %}
-            // if user is not authenticated, it should not check follow or following
-            let start = 0;
-            let do_while_stop = true;
-            let follower_count = followcount.follower_count;
-            if (follower_count > 1000){
-              let limit = 1000;
-            }
-            else{
-              let limit = follower_count;
-              do_while_stop = false;
-            }
-            do {
-              steem.api.getFollowers("{{ content_user }}", start, "blog", 1000, function(err, followers) {
-                console.log("error >>", err);
-                for (let i = 0; i < followers.length; i++) {
-                  if ("{{ request.user }}" == followers[i].follower){
-                    $("#is_follow").html("Unfollow");
-                    $("#follow").css({'display':"none"});
-                    $("#unfollow").css({'display':"flex"});
-                    do_while_stop = false;
-                    break;
-                  }
-                }
-              });
-              if (start>follower_count){
-                do_while_stop = false;
-              }
-              start += 1000;
-            } while (do_while_stop);
-            {% endif %}
-          });
-          $(".cover_image").css({"background-image":"url('"+profile.cover_image+"')"});
         });
-        {% if request.user.is_authenticated %}
-        $(".follow").click(function(event){
-          $("#is_follow").attr({'animation':"blink i"});
-          api.follow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
-            if (err == null){
-              $("#is_follow" ).html("Unfollow");
-              let follower_count = parseInt(document.getElementById("follower_count").innerHTML);
-              $("#follower_count" ).html(follower_count+1);
-              $("#follow").css({'display':"none"});
-              $("#unfollow").css({'display':"flex"});
-              $("#follow #is_follow").attr({'animation':""});
-            }
-            else{
-              alert(err);
-            }
-          });
-        });
-        $(".unfollow").click(function(event){
-          $("#is_unfollow").attr({'animation':"blink i"});
-          api.unfollow("{{ request.user.username }}", "{{ content_user  }}", function (err, res) {
-            if (err == null){
-              $("#is_follow").html("Follow");
-              let follower_count = parseInt(document.getElementById("follower_count").innerHTML);
-              $("#follower_count").html(follower_count-1);
-              $("#follow").css({'display':"flex"});
-              $("#unfollow").css({'display':"none"});
-              $("#unfollow #is_follow").attr({'animation':""});
-            }
-            else{
-              alert(err);
-            }
-          });
-        });
-        {% endif %}
-
+        $("#follow-op").attr({'animation':""});
       });
+    });
 </script>

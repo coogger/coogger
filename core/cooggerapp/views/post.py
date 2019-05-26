@@ -137,13 +137,9 @@ class Create(LoginRequiredMixin, View):
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
-            save = form.content_save(request, form, utopic_name)  # save with steemconnect and get ms
-            if save.status_code != 200:  # if any error show the error
-                messages.error(request, save.text)
-                return render(request, self.template_name, dict(form=ContentForm(data=request.POST)))
+            save = form.content_save(request, form, utopic_name)
             return redirect(reverse("detail", kwargs=dict(username=form.username, permlink=form.permlink)))
-        else:
-            return render(request, self.template_name, dict(form=form))
+        return render(request, self.template_name, dict(form=form))
 
 
 class Change(LoginRequiredMixin, View):
@@ -208,4 +204,3 @@ class Change(LoginRequiredMixin, View):
                         permlink=permlink
                     )
                     return render(request, self.template_name, context)
-        raise Http404

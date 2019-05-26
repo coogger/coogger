@@ -1,11 +1,10 @@
 {% load coogger_tags %}
-{% include "card/general_script.html" %}
 <script>
   $(document).ready(function(){
     let getApiUrl = function(url_resolve){
     let apiUrl = "";
     if (url_resolve == "user"){
-      apiUrl = `/api/content/?status=approved&username={{ content_user }}`;
+      apiUrl = `/api/content/?status=approved&username={{ current_user }}`;
     }
     else if (url_resolve == "home" || url_resolve == "explorer_posts" ){
       apiUrl = `/api/content/?status=approved`;
@@ -65,26 +64,14 @@
             let category = content.category_name;
             let language = content.language;
             let title = content.title;
-            steem.api.getContent(author, permlink, function(err, steem_content) {
-              let duration_of_read = dor(get_realy_content(steem_content));
-              let rep = steem.formatter.reputation(steem_content.author_reputation);
-              let reply = steem_content.children;
-              let votes = steem_content.active_votes.length;
-              let created = timeSince(steem_content.created);
-              let post_reward_total = 0;
-              let pending_payout_value = parseFloat(steem_content.pending_payout_value.replace(" SBD", ""));
-              if (pending_payout_value == 0){
-                let total_payout_value = parseFloat(steem_content.total_payout_value.replace(" SBD", ""))
-                let curator_payout_value = parseFloat(steem_content.curator_payout_value.replace(" SBD", ""));
-                post_reward_total = total_payout_value+curator_payout_value;
-              }
-              else{
-                post_reward_total = pending_payout_value;
-              }
-              post_reward_total = post_reward_total.toFixed(2);
-              {% include 'card/card_template.js' %}
+            let duration_of_read = dor(content.body);
+            let rep = 0;
+            let reply = 0;
+            let votes = 0;
+            let created = timeSince(content.created);
+            let post_reward_total = 0;
+            {% include 'card/card_template.js' %}
               $(`cards`).append(card_output);
-            })
             if (check.length >= PerLoadPostCount){
               break
             }

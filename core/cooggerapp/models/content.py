@@ -1,7 +1,6 @@
 # django
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.timezone import now
 from django.utils.text import slugify
 from django.template.loader import render_to_string
 from django.conf import settings
@@ -22,18 +21,14 @@ from mistune import Markdown, Renderer
 # choices
 from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 
-# steemconnect
-from steemconnect.steemconnect import SteemConnect
-from steemconnect.operations import (Comment, CommentOptions)
-
-# steemconnect_auth
-from steemconnect_auth.models import SteemConnectUser
-
 # editor md
 from django_md_editor.models import EditorMdField
 
 # python 
 import random
+
+# utils 
+from .utils import second_convert
 
 
 class Content(models.Model):
@@ -82,14 +77,14 @@ class Content(models.Model):
     cooggerup = models.BooleanField(
         default=False, verbose_name="Was voting done"
     )  # is it necessary
-    created = models.DateTimeField(default=now, verbose_name="Created")
-    last_update = models.DateTimeField(default=now, verbose_name="Last update")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
+    last_update = models.DateTimeField(auto_now_add=True, verbose_name="Last update")
 
     class Meta:
         ordering = ["-created"]
 
     def __str__(self):
-        return self.get_absolute_url
+        return str(self.get_absolute_url)
 
     @property
     def username(self):
@@ -117,6 +112,16 @@ class Content(models.Model):
         read_char_in_per_second = 28
         body_len = self.body.__len__()
         return body_len / read_char_in_per_second
+
+    @property
+    def get_dor(self):
+        times = "min"
+        for f, t in second_convert(self.dor).items():
+            if t != 0:
+                times += f" {t} {f} "
+        if times == "min":
+            return "min 0"
+        return times
 
     @property
     def get_absolute_url(self):
@@ -176,24 +181,21 @@ class Content(models.Model):
         self.tags = self.ready_tags()
         self.permlink = self.get_new_permlink(slugify(self.title.lower()))
         self.definition = self.prepare_definition()
-        steem_post = self.steemconnect_post(op_name="save")
-        if steem_post.status_code == 200:
-            form.save()
-            topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
-            utopic = UTopic.objects.filter(user=self.user, name=self.topic)
-            utopic.update(total_dor=F("total_dor") + self.dor) # increase total dor in utopic
-            get_msg = request.POST.get("msg", None)
-            if get_msg == "Initial commit":
-                get_msg = f"{self.title} Published."
-            self.commit_set.model(
-                hash=steem_post.json()["result"]["id"],
-                user=self.user,
-                utopic=utopic[0],
-                content=self,
-                body=self.body,
-                msg=get_msg,
-            ).save()
-        return steem_post
+        form.save()
+        topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
+        utopic = UTopic.objects.filter(user=self.user, name=self.topic)
+        utopic.update(total_dor=F("total_dor") + self.dor) # increase total dor in utopic
+        get_msg = request.POST.get("msg", None)
+        if get_msg == "Initial commit":
+            get_msg = f"{self.title} Published."
+        self.commit_set.model(
+            user=self.user,
+            utopic=utopic[0],
+            content=self,
+            body=self.body,
+            msg=get_msg,
+        ).save()
+        # return form
 
     def get_new_permlink(self, permlink):
         while True:
@@ -219,66 +221,24 @@ class Content(models.Model):
         self.category = new.category
         self.language = new.language
         self.tags = self.ready_tags()
-        steem_post = self.steemconnect_post(op_name="update")
-        if steem_post.status_code == 200:
-            if self.body != old[0].body:
-                self.commit_set.model(
-                    hash=steem_post.json()["result"]["id"],
-                    user=self.user,
-                    utopic=self.utopic,
-                    content=Content.objects.get(user=self.user, permlink=self.permlink),
-                    body=self.body,
-                    msg=request.POST.get("msg")
-                ).save()
-            old.update(
+        if self.body != old[0].body:
+            self.commit_set.model(
+                user=self.user,
+                utopic=self.utopic,
+                content=Content.objects.get(user=self.user, permlink=self.permlink),
                 body=self.body,
-                topic=self.topic,
-                definition=self.prepare_definition(),
-                title=self.title,
-                category=self.category,
-                language=self.language,
-                tags=self.tags,
-                last_update=now(),
-            )
-        return steem_post
-
-    def steemconnect_post(self, op_name):
-        context = dict(
-            image=self.get_first_image(soup=self.marktohtml(self.body)),
-            username=self.username,
-            permlink=self.permlink,
-        )
-        comment = Comment(
-            parent_author="",
-            parent_permlink="coogger",
-            author=str(self.user.username),
-            permlink=self.permlink,
+                msg=request.POST.get("msg")
+            ).save()
+        old.update(
+            body=self.body,
+            topic=self.topic,
+            definition=self.prepare_definition(),
             title=self.title,
-            body=render_to_string("post/steem-post-note.html", context),
-            json_metadata=dict(
-                format="markdown",
-                tags=self.tags.split(),
-                app="coogger/1.7.1",
-                ecosystem=dict(version="1.7.1", body=self.body),
-            ),
+            category=self.category,
+            language=self.language,
+            tags=self.tags,
+            last_update=now(),
         )
-        if op_name == "save":
-            if self.get_user_beneficiaries != []:
-                comment_options = CommentOptions(
-                    parent_comment=comment, beneficiaries=self.get_user_beneficiaries
-                )
-                operation = comment_options.operation
-            else:
-                operation = comment.operation
-        elif op_name == "update":
-            operation = comment.operation
-        steem_connect_user = SteemConnectUser.objects.filter(user=self.user)
-        try:
-            access_token = steem_connect_user[0].access_token
-            return SteemConnect(token=access_token, data=operation).run 
-        except:
-            access_token = SteemConnectUser(user=self.user).update_access_token(settings.APP_SECRET)
-            return SteemConnect(token=access_token, data=operation).run
 
     @property
     def get_user_beneficiaries(self):

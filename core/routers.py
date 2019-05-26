@@ -2,7 +2,8 @@ class DBRouter:
     default_apps = [
         "admin", "auth", 
         "contenttypes", "sessions", 
-        "steemconnect_auth", "cooggerapp", 
+        "cooggerapp", "github_auth", 
+        "django_follow_system",
     ]
     django_ban_apps = [
         "django_ban"
@@ -37,4 +38,3 @@ class DBRouter:
             if app_label in self.coogger_images_app:
                 return True
         return False
-

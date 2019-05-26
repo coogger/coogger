@@ -1,14 +1,12 @@
 <div general="b-1 br-2 brc-white" style="padding: 6px 12px;">
     <div flex="ai-c">
       <a general="txt-m c-dark" href="" id="author_href" flex="ai-c" animation-hover="c-private">
-        <img class="carduserimg" general="br-circle" width="40px" height="40px"></img>
+        <img src="{{ ct.user.githubauthuser.avatar_url }}" class="carduserimg" general="br-circle" width="40px" height="40px"></img>
         <div flex="fd-c">
-          <span flex="ai-c" class="carduser" style="margin-left:6px;">@{{ ct.user }} -
-            <span general="txt-s br-2 c-seconday" style="padding: 2px" id="reputation"></span>
-          </span>
+          <span flex="ai-c" class="carduser" style="margin-left:6px;">@{{ ct.user }}</span>
           <span general="txt-xs c-dark" style="margin-left:6px;">
             <i class="fas fa-clock"></i>
-            <span class="capitalize" id="created"></span>
+            <span class="capitalize" id="created">{{ ct.created|timesince }}</span>
         </span>
         </div>
       </a>

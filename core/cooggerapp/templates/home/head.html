@@ -49,19 +49,6 @@
     <script src="{% static 'mdeditor/src/jquery.min.js'%}"></script>
     <script src="{% static 'js/general.js' %}" async></script>
     <script src="{% static 'js/coogger.js' %}" async></script>
-    <script src="{% static 'js/steem.min.js' %}"></script>
-    {% if request.user.is_authenticated and detail %}
-    <!-- STEEMCONNECT -->
-    <script src="{% static 'js/sc2.min.js' %}"></script>
-    <script>
-          let api = sc2.Initialize({
-            app: "{{ request.steemconnect_auth.client_id }}",
-            callbackURL: "{{ request.steemconnect_auth.redirect_url }}",
-            accessToken: "{{ request.user.steemconnectuser.access_token }}",
-            scope: "{{ request.steemconnect_auth.scope }}",
-          });
-    </script>
-    {% endif %}
     {% if md_editor %}
       <!-- editormd -->
       <link href="{% static 'mdeditor/css/editormd.min.css' %}" type="text/css" media="all" rel="stylesheet">

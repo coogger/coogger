@@ -1,13 +1,13 @@
 <div flex="jc-fs" general="txt-l" style="margin: 12px 12px;">
     <a href="{{ ct.get_absolute_url }}">
-    <strong id="title" general="c-dark"></strong>
+    <strong id="title" general="c-dark">{{ ct.title }}</strong>
   </a>
 </div>
 <div general="br-2 c-secondary c-dark" flex="ai-fs" style="margin: 12px 0px;">
     <div general="txt-s" flex="ai-c" class="duread-li">
         <div class="capitalize" style="margin-left: 12px;" flex="ai-fe">
           <i class="fab fa-readme" style="margin: 0px 6px 0px 0px;"></i>
-          <span id="dor"></span>
+          <span id="dor">{{ ct.get_dor }}</span>
         </div>
     </div>
     <div general="txt-s" flex="ai-c" class="duread-li">

@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 # models
 from core.cooggerapp.models import Content, Topic, Category
-from steemconnect_auth.models import SteemConnectUser
 
 # choices
 from core.cooggerapp.choices import LANGUAGES

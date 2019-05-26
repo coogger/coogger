@@ -18,7 +18,7 @@
     <div general="right">
     {% if detail.language %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a href="{% url 'filter' %}?username={{ content_user }}&language={{detail.language}}" general="c-dark" hover="c-white">
+        <a href="{% url 'filter' %}?username={{ current_user }}&language={{detail.language}}" general="c-dark" hover="c-white">
           <i class="fas fa-flag"></i>
           <span id="language">{{detail.language|title}}</span>
         </a>
@@ -26,7 +26,7 @@
     {% endif %}
     {% if detail.category %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a href="{% url 'filter' %}?username={{ content_user }}&category={{ detail.category }}" general="c-dark" hover="c-white">
+        <a href="{% url 'filter' %}?username={{ current_user }}&category={{ detail.category }}" general="c-dark" hover="c-white">
           <i class="fa fa-list-alt" aria-hidden="true"></i>
           <span id="category">{{detail.category|title}}</span>
         </a>
@@ -34,7 +34,7 @@
       {% endif %}
       {% if detail.topic %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'utopic' detail.topic content_user %}">
+        <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'utopic' detail.topic current_user %}">
           <i class="fa fa-hashtag" aria-hidden="true"></i>
           <span id="topic">{{detail.topic|title}}</span>
         </a>
@@ -46,7 +46,7 @@
     <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;">
           <i class="fab fa-readme" style="margin: 0px 6px 0px 0px;"></i>
-          <span id="dor"></span>
+          <span id="dor">{{ detail.get_dor }}</span>
       </div>
     </div>
     {% if detail.views %}
@@ -60,21 +60,18 @@
     <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;">
           <i class="fas fa-reply"></i>
-          reply <span id="reply"></span></div>
+          reply <span id="reply">0</span></div>
     </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;">
         <i class="fas fa-chevron-circle-up"></i>
-        votes <span id="count">
+        votes <span id="count">0
       </div>
-    </div>
-    <div general="txt-s" flex="ai-c" class="duread-li">
-      <div style="margin-left: 12px;"><span general="c-success" id="post_reward_total"></div>
     </div>
     <div general="txt-s right" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;">
           <i class="fas fa-clock"></i>
-          Last update | <span id="lastmod"></span>
+          Last update | <span id="lastmod">{{ detail.last_update }}</span>
         </div>
     </div>
 </div>

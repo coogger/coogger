@@ -9,15 +9,15 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
-    # steemconnect_auth
-    redirect_url = "http://127.0.0.1:8000/accounts/steemconnect/"
+    # github_auth
+    redirect_url = "http://127.0.0.1:8000/accounts/github/login/"
     ban_count = 99999
 else:
     ALLOWED_HOSTS = [".coogger.com"]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # steemconnect_auth
-    redirect_url = "https://www.coogger.com/accounts/steemconnect/"
+    # github_auth
+    redirect_url = "https://www.coogger.com/accounts/github/login/"
     ban_count = 40
 INSTALLED_APPS = [
     # django
@@ -34,13 +34,10 @@ INSTALLED_APPS = [
     "core.api",
     # 3. p
     "django_md_editor",
-    "steemconnect_auth",
     "django_ban",
-    "cooggerimages"
-]
-AUTHENTICATION_BACKENDS = [
-    "steemconnect_auth.auth.steemconnect.SteemConnectBackend",
-    "django.contrib.auth.backends.ModelBackend",
+    "cooggerimages",
+    "github_auth",
+    "django_follow_system",
 ]
 PAGE_SIZE = 10
 REST_FRAMEWORK = dict(
@@ -58,8 +55,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # steemconnect_auth
-    "steemconnect_auth.middleware.steemconnect_auth.SteemConnectAuthMiddleware",
     # coogger
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.sort.SortMiddleware",
@@ -69,9 +64,7 @@ ROOT_URLCONF = "coogger.urls"
 TEMPLATES = [
     dict(
         BACKEND='django.template.backends.django.DjangoTemplates',
-        DIRS=[
-            os.path.join(BASE_DIR, "core", "cooggerapp", "templates"),
-        ],
+        DIRS=[],
     APP_DIRS=True,
     OPTIONS=dict(
         context_processors=[
@@ -102,8 +95,6 @@ DATABASE_ROUTERS = [
     "core.routers.DBRouter",
     ]
 AUTH_PASSWORD_VALIDATORS = []
-LANGUAGE_CODE = "en"
-TIME_ZONE = "Europe/Istanbul"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -111,20 +102,21 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-# md eitor
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+# 3. part confs
 MDEDITOR_CONFIGS = dict(
     emoji=True,
-)
-STEEMCONNECT_AUTH_CONFIGS = dict(
-    redirect_url=redirect_url,
-    client_id=env("CLIENT_ID"),
-    app_secret=env("APP_SECRET"),
-    scope="login,offline,vote,comment,delete_comment,comment_options,custom_json,claim_reward_balance",
-    code=True,
-    login_redirect="/",
 )
 DJANGO_BAN_CONFIGS = dict(
     remove_ban_by_day=7,
     increase_count_by_minute=1,
     ban_count=ban_count,
+)
+GITHUB_AUTH = dict(
+    redirect_uri=redirect_url,
+    scope="user",
+    client_secret=env("GITHUB_CLIENT_SECRET"),
+    client_id=env("GITHUB_CLIENT_ID"),
 )

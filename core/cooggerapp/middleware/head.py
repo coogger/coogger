@@ -26,9 +26,9 @@ class HeadMixin:
             request.head = getattr(self, url_name.replace("-", "_"))
         except AttributeError:
             request.head = dict(
-                title=url_name.title(), 
-                keywords=url_name, 
-                description=url_name, 
+                title=url_name.title(),
+                keywords=url_name,
+                description=url_name,
                 image="")
 
     @staticmethod
@@ -38,10 +38,9 @@ class HeadMixin:
         return BeautifulSoup(markdown(text), "html.parser")
 
     def get_image(self, content):
-        steemitimages = "https://steemitimages.com/0x0/"
-        coogger_icon_image = f"{steemitimages}https://cdn.steemitimages.com/DQmV7q45hYaS1TugkYDmR4NtUuLXjMGDEnN2roxGGXJeYgs"
+        coogger_icon_image = f"https://www.coogger.com/media/images/coogger_W56Ux33.png"
         try:
-            return steemitimages+self.get_soup(content.body).find('img').get('src')
+            return self.get_soup(content.body).find('img').get('src')
         except:
             return coogger_icon_image
 

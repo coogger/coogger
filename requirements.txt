@@ -1,12 +1,12 @@
 mistune
 django==2.0.12
 django-js-asset==0.1.1
-djangorestframework==3.7.3
+djangorestframework==3.9.1
 beautifulsoup4==4.6.0
 whitenoise
-steem-connect==0.7.6
 django_md_editor==0.1.4
 django-environ==0.4.5
 django_ban==0.0.5
-steemconnect_auth==0.1.2
 cooggerimages==0.0.4
+django-follow-system==0.0.2
+github_auth==0.0.1

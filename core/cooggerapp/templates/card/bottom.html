@@ -1,12 +1,12 @@
 <div flex="jc-fe" style="padding: 6px 12px;" general="br-2 c-secondary">
-    <div general="txt-s" flex="ai-c" class="duread-li" style="margin-right: auto;">
-        <div class="ctpayout" general="b-1 br-2 c-white bg-success" style="margin:0px 2px;padding: 2px 6px;">
-            $<span id="post_reward_total"></span>
-        </div>
-    </div>
-    <div flex="ai-c" general="txt-s right c-white" class="content_list">
+    <div flex="ai-c" general="txt-s left c-white" class="content_list">
         <a class="capitalize" hover="c-white bg-primary" general="b-1 br-2 c-primary"
         href="{% url 'filter' %}?username={{ ct.user }}&language={{ ct.language }}" id="language" style="margin:0px 2px;padding: 2px 6px;">
          <i class="fas fa-flag"></i>{{ct.language}}</a>
     </div>
+    <!-- <div general="txt-s" flex="ai-c" class="duread-li" style="margin-right: auto;">
+        <div class="ctpayout" general="b-1 br-2 c-white bg-success" style="margin:0px 2px;padding: 2px 6px;">
+            $<span id="post_reward_total"></span>
+        </div>
+    </div> -->
 </div>
