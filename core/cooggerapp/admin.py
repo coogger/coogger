@@ -1,5 +1,4 @@
 from django.contrib.admin import ModelAdmin, site
-from django.http import Http404
 
 #models
 from core.cooggerapp.models import (
@@ -24,9 +23,8 @@ import datetime
 
 
 class ContentAdmin(ModelAdmin):
-    list_ = ["user","permlink", "mod"]
-    list_display = list_
-    list_display_links = list_
+    list_display = ["user","permlink", "mod"]
+    list_display_links = list_display
     list_filter = ["status", "cooggerup"]
     search_fields = ["title", "body", "permlink"]
     fields = (
@@ -48,38 +46,21 @@ class ContentAdmin(ModelAdmin):
         }
 
     def save_model(self, request, obj, form, change):
-        if request.user.is_superuser:
-            obj.mod = request.user
-            super().save_model(request, obj, form, change)
-        else:
-            raise Http404
+        obj.mod = request.user
+        super().save_model(request, obj, form, change)
 
 
 class OtherAddressesOfUsersAdmin(ModelAdmin):
-    list_ = ["user","choices","address"]
-    list_display = list_
-    list_display_links = list_
+    list_display = ["user", "choices", "address"]
+    list_display_links = list_display
     list_filter = ["choices"]
-    search_fields = ["choices","address"]
-
-    def save_model(self, request, obj, form, change):
-        if request.user.is_superuser:
-            super().save_model(request, obj, form, change)
-        else:
-            raise Http404
+    search_fields = ["choices", "address"]
 
 
 class SearchedWordsAdmin(ModelAdmin):
-    list_ = ["word","hmany"]
-    list_display = list_
-    list_display_links = list_
-    search_fields = list_
-
-    def save_model(self, request, obj, form, change):
-        if request.user.is_superuser:
-            super().save_model(request, obj, form, change)
-        else:
-            raise Http404
+    list_display = ["word","hmany"]
+    list_display_links = list_display
+    search_fields = list_display
 
 
 class ContentviewsAdmin(ModelAdmin):
@@ -88,26 +69,11 @@ class ContentviewsAdmin(ModelAdmin):
     list_display_links = list_
     search_fields = list_
 
-    def save_model(self, request, obj, form, change):
-        if request.user.is_superuser:
-            super().save_model(request, obj, form, change)
-        else:
-            raise Http404 # mods or dapp leader cant change
 
-
-class OtherInfoUsersAdmin(ModelAdmin):
-    list_ = ["user", "cooggerup_confirmation", "cooggerup_percent", "sponsor", "beneficiaries"]
-    list_display = list_
-    list_display_links = list_
-    search_fields = ["cooggerup_confirmation", "cooggerup_percent", "sponsor", "beneficiaries"]
-    list_filter = ["cooggerup_confirmation", "cooggerup_percent", "sponsor", "beneficiaries"]
-
-    def save_model(self, request, obj, form, change):
-        if request.user.is_superuser:
-            super().save_model(request, obj, form, change)
-        else:
-            raise Http404 # mods or dapp leader cant change
-
+class OtherInformationOfUsersAdmin(ModelAdmin):
+    list_display = ["user"]
+    list_display_links = list_display
+    
 
 class TopicAdmin(ModelAdmin):
     list_ = ["name", "tags", "editable"]
@@ -195,6 +161,6 @@ site.register(Contentviews, ContentviewsAdmin)
 site.register(OtherAddressesOfUsers, OtherAddressesOfUsersAdmin)
 site.register(SearchedWords, SearchedWordsAdmin)
 site.register(ReportModel)
-site.register(OtherInformationOfUsers, OtherInfoUsersAdmin)
+site.register(OtherInformationOfUsers, OtherInformationOfUsersAdmin)
 site.register(Topic, TopicAdmin)
 site.register(Issue, IssueAdmin)
