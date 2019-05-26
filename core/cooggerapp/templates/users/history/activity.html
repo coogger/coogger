@@ -101,7 +101,7 @@
         console.log(type, op);
         return ""
       }
-      steem.api.getAccountHistory("{{content_user}}", -1, 200, (err, result) => {
+      steem.api.getAccountHistory("{{current_user}}", -1, 200, (err, result) => {
         for (i in result){
           console.log(result[i][1].trx_id, result[i][1].op);
         }

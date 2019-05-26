@@ -2,7 +2,7 @@
 {% if nav_category %}
   <div class="just-pc" flex="fw-nw" laptop="w-50" laptop-l="w-40" max="w-30" style="position:  relative;top: 0px;">
     <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 14px;">
-      Other contents of the {{detail.topic}} topic of the @{{content_user}} user.
+      Other contents of the {{detail.topic}} topic of the @{{current_user}} user.
     </div>
     <ol flex="fd-c" general="bg-white brc-white" style="position: sticky;top: 90px;margin-left: 20px;">
         {% for list in nav_category %}

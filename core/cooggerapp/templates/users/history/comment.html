@@ -55,7 +55,7 @@
             </div>
           </div>`);
       }
-      steem.api.getAccountHistory("{{content_user}}", -1, 200, (err, history) => {
+      steem.api.getAccountHistory("{{current_user}}", -1, 200, (err, history) => {
         let template = "";
         for (i in history){
           if ( history[i][1].op[0]  == "comment" ){

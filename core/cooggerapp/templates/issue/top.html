@@ -8,15 +8,15 @@
           <div style="padding: 6px;">
             <div flex="ai-c">
               <div flex="ai-c">
-                  <a general="c-primary txt-m" href="/@{{ content_user }}">
-                    <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ content_user }}/avatar');">
+                  <a general="c-primary txt-m" href="/@{{ current_user }}">
+                    <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ current_user }}/avatar');">
                   </a>
                   <i class="fas fa-book"></i>
-                  <a general="c-primary txt-m "  href="{% url 'utopic' utopic.permlink content_user %}">{{ utopic }}/@{{ content_user }}</a>
+                  <a general="c-primary txt-m "  href="{% url 'utopic' utopic.permlink current_user %}">{{ utopic }}/@{{ current_user }}</a>
               </div>
               <div general="right">
                 <a general="br-1 c-white bg-green txt-s left" 
-                href="{% url 'new-issue' content_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
+                href="{% url 'new-issue' current_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
                   Open new issue</a>
                   {% block closed_issue %}{% endblock %}
             </div>

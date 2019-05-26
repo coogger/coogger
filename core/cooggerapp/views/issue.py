@@ -20,6 +20,7 @@ from core.cooggerapp.forms import NewIssueForm, ReplyIssueForm
 # python
 import json
 
+# TODO if requests come same url, and query does then it should be an update
 
 class IssueView(TemplateView):
     template_name = "issue/index.html"
@@ -28,7 +29,7 @@ class IssueView(TemplateView):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.filter(user=user, permlink=topic_permlink)[0]
         context = super().get_context_data(**kwargs)
-        context["content_user"] = user
+        context["current_user"] = user
         context["queryset"] = self.get_queryset(user, utopic)
         context["utopic"] = utopic
         return context
@@ -51,7 +52,7 @@ class NewIssue(LoginRequiredMixin, View):
         user = User.objects.get(username=username)
         context = dict(
             issue_form=self.form_class,
-            content_user=user,
+            current_user=user,
             utopic=UTopic.objects.filter(user=user, permlink=topic_permlink)[0]
         )
         return render(request, self.template_name, context)
@@ -88,7 +89,7 @@ class DetailIssue(View):
         utopic = UTopic.objects.get(user=user, permlink=topic_permlink)
         issue = Issue.objects.get(utopic=utopic, permlink=permlink)
         context = dict(
-            content_user=user,
+            current_user=user,
             queryset=issue,
             utopic=utopic,
             md_editor=True,

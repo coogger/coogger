@@ -26,12 +26,12 @@
               </div>
             </div>
             <div flex="ai-c">
-              <a general="c-primary txt-m" href="/@{{ content_user }}">
-                <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ content_user }}/avatar');">
+              <a general="c-primary txt-m" href="/@{{ current_user }}">
+                <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ current_user }}/avatar');">
               </a>
               <i class="fas fa-book"></i>
-              <a general="c-primary txt-m" href="{% url 'utopic' utopic.permlink content_user %}">{{ utopic.name }}/@{{ content_user }}</a>
-              {% if request.user == content_user %}
+              <a general="c-primary txt-m" href="{% url 'utopic' utopic.permlink current_user %}">{{ utopic.name }}/@{{ current_user }}</a>
+              {% if request.user == current_user %}
                 <div general="right" flex="fd-c">
                   <a general="br-1 c-white bg-dark-purple txt-s right" href="{% url 'create' utopic %}" style="padding: 6px;">Add content your {{ utopic }} topic</a>
                   <a general="br-1 c-white bg-warning txt-s right" href="{% url  'update-utopic' utopic.permlink %}" style="margin-top:3px;padding: 6px;">Update</a>

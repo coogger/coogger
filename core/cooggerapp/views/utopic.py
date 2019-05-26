@@ -20,7 +20,7 @@ class UserTopic(TemplateView):
         context = super().get_context_data(**kwargs)
         if commits.exists():
             context["last_commit_created"] = commits[0].created        
-        context["content_user"] = user
+        context["current_user"] = user
         context["queryset"] = contents
         context["utopic"] = utopic
         return context

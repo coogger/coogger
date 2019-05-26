@@ -1,19 +1,19 @@
 <div style="border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;">
   <div flex="ai-fs" general="bg-white">
-    <img general="br-circle left" id="detail_profile_image" src="" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
+    <img general="br-circle left" id="detail_profile_image" src="{{ current_user.githubauthuser.avatar_url }}" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
     <div general="txt-s" flex="fd-c" class="duread-li">
-        <a flex title="{{ content_user  }}" href="/@{{ content_user  }}"
+        <a flex title="{{ current_user  }}" href="/@{{ current_user }}"
           style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-      @<span id="username"></span> - (<span id="reputation"></span>)
+      @<span id="username">{{ current_user  }}</span>
     </a>
         <div style="margin-left: 8px;" general="c-secondary">
           <i class="fas fa-clock"></i>
-          <span id="time"></span>
+          <span id="time">{{ detail.created }}</span>
         </div>
     </div>
   </div>
   <div flex="fd-s">
-    {% if request.user != content_user and request.user.is_authenticated %}
+    {% if request.user != current_user and request.user.is_authenticated %}
     <div general="br-2 b-1 bg-secondary brc-muted" class="follow" id="follow" flex="jc-c as-c" animation-hover="bg-primary" general="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;">
         <div general="txt-s c-white" id="is_follow">
             Follow

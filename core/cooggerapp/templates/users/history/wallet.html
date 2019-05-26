@@ -3,9 +3,9 @@
   {% include 'users/general.html' %}
   <script>
       $(document).ready(function() {
-        steem.api.getAccounts(["{{ content_user }}"], function(err, result) {  // account
+        steem.api.getAccounts(["{{ current_user }}"], function(err, result) {  // account
           let user = result[0];
-          if ("{{ request.user }}" == "{{ content_user }}"){
+          if ("{{ request.user }}" == "{{ current_user }}"){
             let reward_vesting_steem = user.reward_vesting_steem.replace(" STEEM","");
             let reward_steem_balance = user.reward_steem_balance.replace(" STEEM","");
             let reward_sbd_balance = user.reward_sbd_balance.replace(" SBD","");
@@ -332,7 +332,7 @@
         return json
       }
 
-      steem.api.getAccountHistory("{{content_user}}", -1, 200, (err, result) => {
+      steem.api.getAccountHistory("{{current_user}}", -1, 200, (err, result) => {
         let template = "";
         let history = result.filter(
           tx => (tx[1].op[0] == "curation_reward" ||

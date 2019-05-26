@@ -17,7 +17,7 @@
       <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
           <textarea id="issue-reply-text" placeholder="Reply ..."></textarea>
           <button id="send-reply-in-issue" general="right b-1 br-2 brc-muted bg-success c-white" 
-          data-parent_author="{{ content_user }}" data-parent_permlink="{{ queryset.permlink }}">
+          data-parent_author="{{ current_user }}" data-parent_permlink="{{ queryset.permlink }}">
             Reply
           </button>
           <div id="comment_template" class="comment_template"></div>
@@ -27,13 +27,13 @@
   {% include "issue/replies.html" %}
 {% endblock %}
 {% block closed_issue %}
-  {% if request.user == content_user or queryset.user == request.user %}
+  {% if request.user == current_user or queryset.user == request.user %}
     {% if queryset.status == "open" %}
-      <a general="br-1 c-white bg-red txt-s right" href="{% url 'closed-issue' content_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
+      <a general="br-1 c-white bg-red txt-s right" href="{% url 'closed-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
         Closed this issue
       </a> 
     {% elif queryset.status == "closed" %}
-      <a general="br-1 c-white bg-blue txt-s right" href="{% url 'open-issue' content_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
+      <a general="br-1 c-white bg-blue txt-s right" href="{% url 'open-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
         Open this issue
       </a> 
     {% endif %}
