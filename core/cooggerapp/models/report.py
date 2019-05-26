@@ -1,7 +1,6 @@
 # django
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.timezone import now
 
 # coices
 from core.cooggerapp.choices import make_choices, REPORTS
@@ -26,7 +25,7 @@ class ReportModel(models.Model):
         max_length=600,
         verbose_name="Can you give more information ?",
     )
-    date = models.DateTimeField(default=now)
+    date = models.DateTimeField(auto_now_add=True)
 
     @property
     def get_report(self):  # to api

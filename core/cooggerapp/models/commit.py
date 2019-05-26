@@ -1,7 +1,6 @@
 # django
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.timezone import now
 
 # 3.part
 from django_md_editor.models import EditorMdField
@@ -24,7 +23,7 @@ class Commit(models.Model):
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
-    created = models.DateTimeField(default=now, verbose_name="Created")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
 
     class Meta:
         ordering = ["-created"]

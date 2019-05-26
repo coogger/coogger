@@ -1,4 +1,3 @@
-{% include 'home/script.html' %}
 <header flex="ai-c" general="br-1 center bg-white" style="padding: 8px 0px;">
   <div style="overflow: auto;">
     <div flex="fw-nw jc-c" general="txt-m wmax ewcenter">
@@ -20,11 +19,7 @@
       {% if not request.user.is_authenticated %}
       <div flex="ai-c">
         <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex=""
-          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="https://signup.steemit.com/?ref=www.coogger.com">Sign up</a>
-      </div>
-      <div flex="ai-c">
-        <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex=""
-        hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'login' %}">Sign in</a>
+          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'redirect-github' %}">Login via github</a>
       </div>
       {% else%}
       <div flex="ai-c">
@@ -35,13 +30,11 @@
       </div>
       <div class="open_header_menu" general="right">
         <div style="padding: 6px 12px;" flex="ai-c" general="wmax txt-m c-secondary">
-          <img style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;background-image: url('https://steemitimages.com/u/{{ request.user }}/avatar');"
+          <img style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;background-image: url('{{ request.user.githubauthuser.avatar_url }});"
             general="br-circle c-muted" style="max-width: 100%;max-height: 36px;">
-          <span id="steem_power"></span>%
         </div>
         <!--  -->
         <ul class="header_menu" general="br-2 b-1 bg-white brc-muted">
-          <li class="title" general="center"> @{{ request.user }} </li>
           <li flex="">
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
             general="txt-m c-secondary w-100"
@@ -127,14 +120,11 @@
     </div>
   </div>
 </header>
-<div general="w-100">
-  <div general="br-2 bg-success c-white" flex="jc-c" id="steem_power_bar" style="width: 0%;"></div>
-</div>
 <div flex="ai-c" general="w-100 center" class="filter-machine" style="display: none;">
   <div flex="fd-c" general="center">
     <form default="form" method="GET" action="/filter/">
       <div flex="">
-        <div style="padding-right: 8px;">Username<input type="text" name="username" value="{{ content_user }}"></div>
+        <div style="padding-right: 8px;">Username<input type="text" name="username" value="{{ current_user }}"></div>
         {% if topic.name %}
           <div style="padding-left: 8px;">Topic<input type="text" name="topic" value="{{ topic.name }}"></div>
         {% elif detail.topic %}

@@ -1,7 +1,6 @@
 # django
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.timezone import now
 from django.urls import reverse
 from django.db.models import F
 from django.template.loader import render_to_string
@@ -36,8 +35,8 @@ class Issue(models.Model):
     )
     reply_count = models.IntegerField(default=0)
     issue_id = models.IntegerField(default=0)
-    created = models.DateTimeField(default=now, verbose_name="Created")
-    last_update = models.DateTimeField(default=now, verbose_name="Last update")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
+    last_update = models.DateTimeField(auto_now_add=True, verbose_name="Last update")
 
     class Meta:
         ordering = ["-created"]

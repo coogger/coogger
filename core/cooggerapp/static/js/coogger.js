@@ -174,12 +174,12 @@ function get_data_from_cooggerapi(apiUrl){
     post_reward_total = post_reward_total.toFixed(2);
     let title = comment.title;
     $(function() {
-      editormd.urls.atLinkBase ="https://www.coogger.com/@"
       let Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
         height: 670,
         path : '/static/lib/',
         htmlDecode: 'html, iframe',
         markdown : comment.body,
+        atLink: false,
       });
     });
     return (`
@@ -237,12 +237,12 @@ function get_data_from_cooggerapi(apiUrl){
   function issue_reply_body(comment){
     let title = comment.title;
     $(function() {
-      editormd.urls.atLinkBase ="https://www.coogger.com/@"
       let Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
         height: 670,
         path : '/static/lib/',
         htmlDecode: 'html, iframe',
         markdown : comment.body,
+        atLink: false,
       });
     });
     return (`

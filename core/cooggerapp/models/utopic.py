@@ -10,6 +10,9 @@ from .topic import Topic
 # python
 from contextlib import suppress
 
+# utils 
+from .utils import second_convert
+
 
 class UTopic(models.Model):
     """ Topic For Users """
@@ -66,20 +69,8 @@ class UTopic(models.Model):
 
     @property
     def get_total_dor(self):
-        second = self.total_dor
-        def calculate(second):
-            second = int(second)
-            minutes = int(second / 60)
-            second -= minutes * 60
-            hours = int(second / (60 * 60))
-            second -= hours * (60 * 60)
-            days = int(second / (60 * 60 * 24))
-            second -= days * (60 * 60 * 24)
-            years = int(second / (60 * 60 * 24 * 365.25))
-            second -= years * (60 * 60 * 24 * 365.25)
-            return dict(years=years, days=days, hours=hours, minutes=minutes, second=int(second))
         times = str()
-        for f, t in calculate(second).items():
+        for f, t in second_convert(self.total_dor).items():
             if t != 0:
                 times += f" {t} {f} "
         return times

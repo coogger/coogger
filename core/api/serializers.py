@@ -21,7 +21,7 @@ class ContentSerializer(ModelSerializer):
             'title', 'permlink',
             "definition", "category_name",
             "language", "topic_name",
-            "views")
+            "views", "body")
 
 
 class UserSerializer(ModelSerializer):
