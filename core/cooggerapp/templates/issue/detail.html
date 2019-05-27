@@ -15,8 +15,8 @@
     </div>
     <div general="b-1 br-2 brc-muted">
       <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
-          <textarea id="issue-reply-text" placeholder="Reply ..."></textarea>
-          <button id="send-reply-in-issue" general="right b-1 br-2 brc-muted bg-success c-white" 
+        {{ reply_form }}
+          <button id="send-reply" general="right b-1 br-2 brc-muted bg-success c-white" 
           data-parent_author="{{ current_user }}" data-parent_permlink="{{ queryset.permlink }}">
             Reply
           </button>

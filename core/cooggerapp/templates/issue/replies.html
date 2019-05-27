@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function() {
-      function issue_replies(reply){
+      function get_children_replies(reply){
         if (reply.reply_count != 0 && reply.reply_count != undefined){
           get_result_from_cooggerapi(`/api/issue/?reply=${reply.id}`).then(function(children_replies){
             for (ii in children_replies) {
@@ -9,45 +9,49 @@
               children_comment_template += `
                 <div class='comment_replies'
                   id='${children_reply.username}-${children_reply.permlink}'>`
-              children_comment_template += issue_reply_info(children_reply);
-              children_comment_template += issue_reply_userinfo(children_reply);
-              children_comment_template += issue_reply_body(children_reply);
+              children_comment_template += reply_info(`/@${children_reply.username}/${children_reply.utopic_permlink}/issues/${children_reply.permlink}`);
+              children_comment_template += reply_userinfo(children_reply);
+              children_comment_template += reply_body(children_reply);
               children_comment_template += "</div>";
               $(`#${children_reply.parent_username}-${children_reply.parent_permlink}`).append(children_comment_template);
-              issue_replies(children_reply);
+              get_children_replies(children_reply);
             }
           });
         }
       }
-      let load_comments = true;
-      if (load_comments && scrolledbottom()){
-          load_comments = false;
-          let issue_replies_api = "/api/issue/?reply={{ queryset.id }}";
-          get_result_from_cooggerapi(issue_replies_api).then(function(replies){
+      function load_replies(){
+        let replies_api = "/api/issue/?reply={{ queryset.id }}";
+          get_result_from_cooggerapi(replies_api).then(function(replies){
             for (i in replies){
               let reply = replies[i];
               let comment_template = "";
               comment_template += `<div class='comment' id='${reply.username}-${reply.permlink}'>`
               comment_template += "<div class='comment_highlighted'>"
-              comment_template += issue_reply_info(reply);
-              comment_template += issue_reply_userinfo(reply);
-              comment_template += issue_reply_body(reply);
+              comment_template += reply_info(`/@${reply.username}/${reply.utopic_permlink}/issues/${reply.permlink}`);
+              comment_template += reply_userinfo(reply);
+              comment_template += reply_body(reply);
               comment_template += "</div></div>"
               $("#comment_template").append(comment_template);
-              issue_replies(reply);
+              get_children_replies(reply);
             }
           });
+      }
+      let load_comments = true;
+        if (load_comments && scrolledbottom()){
+            load_comments = false;
+            load_replies()
         }
-
-      $("#send-reply-in-issue").click(function(){
+        else{
+          $(window).scroll(function() {
+              if (load_comments && scrolledbottom()){
+                load_comments = false;
+                load_replies()
+              }
+            });
+        }
+      $("#send-reply").click(function(){
         $(this).attr("animation-hover", "i blink");
-        let get_comment = $("#issue-reply-text").val();
-        let parentAuthor = this.dataset.parent_author;
-        let parentPermlink = this.dataset.parent_permlink;
-        let current_time = new Date();
-        let commentPermlink = steem.formatter.commentPermlink(parentAuthor, parentPermlink);
-        let author = "{{ request.user }}";
-        let title = "";
+        let get_comment = $("#id_body").val();
         if (get_comment != ""){
           $.ajax({
             type: "POST",
@@ -58,9 +62,9 @@
             },
           }).done(function(new_reply) {
             new_reply = JSON.parse(new_reply);
-            document.getElementById("issue-reply-text").value = ""
+            document.getElementById("id_body").value = ""
             $(this).attr("animation-hover", "null");
-            let new_reply_template = issue_reply_info(new_reply) + issue_reply_userinfo(new_reply) + issue_reply_body(new_reply);
+            let new_reply_template = reply_info(`/@${new_reply.username}/${new_reply.utopic_permlink}/issues/${new_reply.permlink}`) + reply_userinfo(new_reply) + reply_body(new_reply);
             $("#comment_template").append(new_reply_template);
           });
         }

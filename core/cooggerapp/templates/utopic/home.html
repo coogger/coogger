@@ -27,7 +27,8 @@
             </div>
             <div flex="ai-c">
               <a general="c-primary txt-m" href="/@{{ current_user }}">
-                <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ current_user }}/avatar');">
+                <img class="commit-user" general="br-4 c-muted" 
+                src="{{ current_user.githubauthuser.avatar_url }}">
               </a>
               <i class="fas fa-book"></i>
               <a general="c-primary txt-m" href="{% url 'utopic' utopic.permlink current_user %}">{{ utopic.name }}/@{{ current_user }}</a>

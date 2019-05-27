@@ -1,73 +1,86 @@
-<!-- <script type="text/javascript">
-  $(document).ready(function() {
-    let load_comments = true;
-    $(window).scroll(function(){
-      if (load_comments && scrolledbottom()){
-        load_comments = false;
-        steem.api.getContentReplies(parent="{{ current_user }}", parentPermlink="{{ detail.permlink }}", function (err, comments) {
-          let comment_index;
-          for (comment_index = 0; comment_index < comments.length; comment_index++) {
+<script type="text/javascript">
+    $(document).ready(function() {
+      function get_children_replies(reply){
+        if (reply.reply_count != 0 && reply.reply_count != undefined){
+          get_result_from_cooggerapi(`/api/content/?reply=${reply.id}`).then(function(children_replies){
+            for (ii in children_replies) {
+              let children_comment_template = "";
+              let children_reply = children_replies[ii];
+              children_comment_template += `
+                <div class='comment_replies'
+                  id='${children_reply.username}-${children_reply.permlink}'>`
+              children_comment_template += reply_info(`/@${children_reply.username}/${children_reply.permlink}`);
+              children_comment_template += reply_userinfo(children_reply);
+              children_comment_template += reply_body(children_reply);
+              children_comment_template += "</div>";
+              $(`#${children_reply.parent_username}-${children_reply.parent_permlink}`).append(children_comment_template);
+              get_children_replies(children_reply);
+            }
+          });
+        }
+      }
+      function load_replies(){
+        let replies_api = "/api/content/?reply={{ detail.id }}";
+        get_result_from_cooggerapi(replies_api).then(function(replies){
+          for (i in replies){
+            let reply = replies[i];
             let comment_template = "";
-            let comment = comments[comment_index];
-            comment_template += `<div class='comment' id='${comment.author}-${comment.permlink}'>`
+            comment_template += `<div class='comment' id='${reply.username}-${reply.permlink}'>`
             comment_template += "<div class='comment_highlighted'>"
-            comment_template += comment_info(comment);
-            comment_template += userinfo(comment);
-            comment_template += comment_body(comment);
+            comment_template += reply_info(`/@${reply.username}/${reply.permlink}`);
+            comment_template += reply_userinfo(reply);
+            comment_template += reply_body(reply);
             comment_template += "</div></div>"
             $("#comment_template").append(comment_template);
+            get_children_replies(reply);
           }
-          content_replies(comments);
         });
       }
-    });
-  });
-</script> -->
-<!-- <script>
-// to write a comments
-  $(document).ready(function() {
-    $("#send-comment").click(function(){
-      $(this).attr("animation-hover", "i blink");
-      let get_comment = $("#comment-text").val();
-      let parentAuthor = this.dataset.parent_author;
-      let parentPermlink = this.dataset.parent_permlink;
-      let current_time = new Date();
-      let commentPermlink = steem.formatter.commentPermlink(parentAuthor, parentPermlink);
-      let author = "{{ request.user }}";
-      let title = "";
-      if (get_comment != ""){
-        let body = `${get_comment}\n\nPosted using [www.coogger.com](https://www.coogger.com)`;
-        let jsonMetadata = {
-            "format": "markdown",
-            "tags": ["coogger"],
-            "app": "coogger/1.4.1"
-        };
-        api.comment(parentAuthor, parentPermlink, author, commentPermlink, title, body, jsonMetadata, function (err, comment_res) {
-          if (err == null){
-            document.getElementById("comment-text").value = ""
-            $(this).attr("animation-hover", "null");
-            steem.api.getContent(author, commentPermlink, function(err, new_comment) {
-              let new_comment_template = comment_info(new_comment)+userinfo(new_comment)+comment_body(new_comment);
-              $("#comment_template").append(new_comment_template);
+      let load_comments = true;
+        if (load_comments && scrolledbottom()){
+            load_comments = false;
+            load_replies()
+        }
+        else{
+          $(window).scroll(function() {
+              if (load_comments && scrolledbottom()){
+                load_comments = false;
+                load_replies()
+              }
             });
-          }
-          else{
-            alert(err);
-          }
-        });
-      }
-      else{
-        alert("Empty comments cannot be published.")
-      }
+        }
+      $("#send-reply").click(function(){
+        $(this).attr("animation-hover", "i blink");
+        let get_comment = $("#id_body").val();
+        if (get_comment != ""){
+          $.ajax({
+            type: "POST",
+            url: window.location.href,
+            data: {
+              "body": get_comment,
+              "csrfmiddlewaretoken": "{{ csrf_token }}",
+            },
+          }).done(function(new_reply) {
+            new_reply = JSON.parse(new_reply);
+            document.getElementById("id_body").value = ""
+            $(this).attr("animation-hover", "null");
+            let new_reply_template = reply_info(`/@${new_reply.username}/${new_reply.permlink}`) + reply_userinfo(new_reply) + reply_body(new_reply);
+            $("#comment_template").append(new_reply_template);
+          });
+        }
+        else{
+          alert("Empty comments cannot be published.")
+        }
     })
   });
-</script> -->
+</script>
 <div general="b-1 br-2 brc-muted">
-  <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
-      <textarea id="comment-text" placeholder="Reply ..."></textarea>
-      <button id="send-comment" general="b-1 br-2 brc-muted bg-success c-white" data-parent_author="{{ current_user }}" data-parent_permlink="{{ detail.permlink }}">
-        Post
-      </button>
-      <div id="comment_template" class="comment_template"></div>
+    <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
+        {{ reply_form }}
+        <button id="send-reply" general="right b-1 br-2 brc-muted bg-success c-white" 
+        data-parent_author="{{ detail.user }}" data-parent_permlink="{{ detail.permlink }}">
+          Reply
+        </button>
+        <div id="comment_template" class="comment_template"></div>
+    </div>
   </div>
-</div>

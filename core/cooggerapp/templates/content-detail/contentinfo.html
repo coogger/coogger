@@ -32,11 +32,11 @@
         </a>
       </div>
       {% endif %}
-      {% if detail.topic %}
+      {% if detail.utopic %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'utopic' detail.topic current_user %}">
+        <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'utopic' detail.utopic current_user %}">
           <i class="fa fa-hashtag" aria-hidden="true"></i>
-          <span id="topic">{{detail.topic|title}}</span>
+          <span id="topic">{{detail.utopic|title}}</span>
         </a>
       </div>
       {% endif %}
@@ -60,7 +60,7 @@
     <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;">
           <i class="fas fa-reply"></i>
-          reply <span id="reply">0</span></div>
+          reply <span id="reply">{{ detail.reply_count }}</span></div>
     </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;">
