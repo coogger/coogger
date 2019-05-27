@@ -26,7 +26,7 @@ class Home(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         user = User.objects.get(username=username)
-        queryset = Content.objects.filter(user=user, status="approved")
+        queryset = Content.objects.filter(user=user, status="approved", reply=None)
         context = super().get_context_data(**kwargs)
         context["content"] = queryset[:settings.PAGE_SIZE]
         context["current_user"] = user
@@ -51,7 +51,7 @@ class About(View):
                 context["about"] = self.form_class(request.GET or None, instance=query)
             else:
                 context["about"] = query.about
-        queryset = Content.objects.filter(user=user, status="approved")
+        queryset = Content.objects.filter(user=user, status="approved", reply=None)
         context["current_user"] = user
         context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
         context["topics"] = UTopic.objects.filter(user=user)
@@ -99,7 +99,7 @@ class Comment(Wallet):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        queryset = Content.objects.filter(user=user, status="approved")
+        queryset = Content.objects.filter(user=user, status="approved", reply=None)
         context["topics"] = UTopic.objects.filter(user=user)
         context["django_md_editor"] = True
         context["user_comment"] = True

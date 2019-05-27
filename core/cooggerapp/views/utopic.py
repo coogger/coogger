@@ -12,10 +12,12 @@ class UserTopic(TemplateView):
 
     def get_context_data(self, username, permlink, **kwargs):
         user = User.objects.get(username=username)
-        global_topic = Topic.objects.filter(permlink=permlink)[0]
-        contents = Content.objects.filter(user=user, 
-            topic=global_topic, status="approved").order_by("created")
-        utopic = UTopic.objects.filter(user=user, permlink=permlink)[0]
+        utopic = UTopic.objects.get(user=user, permlink=permlink)
+        contents = Content.objects.filter(
+            user=user, 
+            utopic=utopic, 
+            status="approved", 
+            reply=None).order_by("created")
         commits = Commit.objects.filter(utopic=utopic)
         context = super().get_context_data(**kwargs)
         if commits.exists():

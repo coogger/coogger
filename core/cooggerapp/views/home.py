@@ -22,7 +22,7 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset = Content.objects.filter(status="approved")
+        queryset = Content.objects.filter(status="approved", reply=None)
         url_name = resolve(self.request.path_info).url_name
         is_authenticated = self.request.user.is_authenticated
         if not is_authenticated and url_name == "home":
@@ -37,16 +37,15 @@ class Home(TemplateView):
             context["introduction"] = True
             queryset = posts
         context["content"] = queryset[:settings.PAGE_SIZE]
-        context["sort_topics"] = self.sort_topics(self.request)
+        context["sort_topics"] = self.sort_topics()
         return context
 
     @staticmethod
-    def sort_topics(request):
+    def sort_topics():
         topics = dict()
         check = list()
         for topic in Topic.objects.all():
-            if (topic not in topics) and (len(check) <= 30) \
-                and (topic.image_address):
+            if (topic not in topics) and (len(check) <= 30) and (topic.image_address):
                 topics.__setitem__(topic, topic.how_many)
                 check.append(None) # doesnt matter None
         return topics
@@ -57,7 +56,7 @@ class Review(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        q = Q(status="shared") | Q(status="changed")
+        q = Q(status="shared") | Q(status="changed") | Q(reply=None)
         queryset = Content.objects.filter(q)
         context["content"] = queryset[:settings.PAGE_SIZE]
         return context

@@ -1,3 +1,5 @@
+# TODO topic -> utopic etc
+
 # django
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import render
@@ -18,7 +20,7 @@ class TopicSitemap(Sitemap):
 
     def lastmod(self, obj):
         try:
-            contents = Content.objects.filter(topic=obj, status="approved")
+            contents = Content.objects.filter(topic=obj, status="approved", reply=None)
             return contents[0].last_update
         except IndexError:
             pass
@@ -36,7 +38,7 @@ class LanuagesSitemap(Sitemap):
 
     def lastmod(self, obj):
         try:
-            contents = Content.objects.filter(language=obj, status="approved")
+            contents = Content.objects.filter(language=obj, status="approved", reply=None)
             return contents[0].last_update
         except IndexError:
             pass
@@ -54,7 +56,7 @@ class CategoriesSitemap(Sitemap):
 
     def lastmod(self, obj):
         try:
-            contents = Content.objects.filter(category=obj.name, status="approved")
+            contents = Content.objects.filter(category=obj.name, status="approved", reply=None)
             return contents[0].last_update
         except IndexError:
             pass
@@ -70,14 +72,14 @@ class UtopicSitemap(Sitemap):
     def items(self):
         topics = []
         items_list = []
-        for i in Content.objects.filter(status="approved"):
+        for i in Content.objects.filter(status="approved", reply=None):
             if i.topic not in topics:
                 topics.append(i.topic)
                 items_list.append(i)
         return items_list
 
     def lastmod(self, obj):
-        contents = Content.objects.filter(topic=obj.topic, status="approved")
+        contents = Content.objects.filter(topic=obj.topic, status="approved", reply=None)
         return contents[int(contents.count()-1)].last_update
 
     def location(self, obj):
@@ -89,7 +91,7 @@ class ContentSitemap(Sitemap):
     priority = 1.0
 
     def items(self):
-        return Content.objects.filter(status="approved")
+        return Content.objects.filter(status="approved", reply=None)
 
     def lastmod(self, obj):
         return obj.last_update
@@ -106,7 +108,7 @@ class UsersSitemap(Sitemap):
         return SteemConnectUser.objects.all()
 
     def lastmod(self, obj):
-        contents = Content.objects.filter(user=obj.user, status="approved")
+        contents = Content.objects.filter(user=obj.user, status="approved", reply=None)
         try:
             return contents[contents.count()-1].last_update
         except AssertionError:

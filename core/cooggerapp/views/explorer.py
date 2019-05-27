@@ -20,7 +20,7 @@ class TopicView(TemplateView):
 
     def get_context_data(self, permlink, *args, **kwargs):
         topic = Topic.objects.filter(permlink=permlink)[0]
-        queryset = Content.objects.filter(topic=topic, status="approved")
+        queryset = Content.objects.filter(topic=topic, status="approved", reply=None)
         if queryset.exists():
             context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]
@@ -47,7 +47,7 @@ class Hashtag(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, hashtag, **kwargs):
-        queryset = Content.objects.filter(tags__contains=hashtag, status="approved")
+        queryset = Content.objects.filter(tags__contains=hashtag, status="approved", reply=None)
         if queryset.exists():
             context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]
@@ -61,7 +61,7 @@ class Languages(TemplateView):
 
     def get_context_data(self, lang_name, **kwargs):
         if lang_name in LANGUAGES:
-            queryset = Content.objects.filter(language=lang_name, status="approved")
+            queryset = Content.objects.filter(language=lang_name, status="approved", reply=None)
             context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]
             context["language"] = lang_name
@@ -76,7 +76,7 @@ class Categories(TemplateView):
         category = Category.objects.filter(name=cat_name)
         if category.exists():
             queryset = Content.objects.filter(
-                category=category[0], status="approved"
+                category=category[0], status="approved", reply=None
             )
             context = super().get_context_data(**kwargs)
             context["content"] = queryset[:settings.PAGE_SIZE]
@@ -87,7 +87,7 @@ class Categories(TemplateView):
 
 class Filter(TemplateView):
     template_name = "card/blogs.html"
-    queryset = Content.objects.filter(status="approved")
+    queryset = Content.objects.filter(status="approved", reply=None)
 
     def get_context_data(self, **kwargs):
         filtered = model_filter(self.request.GET.items(), self.queryset)
