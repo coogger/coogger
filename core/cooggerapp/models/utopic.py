@@ -59,12 +59,10 @@ class UTopic(models.Model):
             )
         )
 
-
     def save(self, *args, **kwargs):
         self.permlink = slugify(self.name)
-        if not self.__class__.objects.filter(user=self.user, permlink=self.permlink).exists():
-            with suppress(IntegrityError):
-                Topic(name=self.name).save()
+        if not Topic.objects.filter(permlink=self.permlink).exists():
+            Topic(name=self.name).save()
         super().save(*args, **kwargs)
 
     @property
