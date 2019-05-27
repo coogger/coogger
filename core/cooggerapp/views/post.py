@@ -104,10 +104,10 @@ class Create(LoginRequiredMixin, View):
     form_class = ContentForm
     initial_template = "post/editor-note.html"
 
-    def get(self, request, utopic_name, *args, **kwargs):
+    def get(self, request, utopic_permlink, *args, **kwargs):
         initial, category = dict(), None
-        if not Topic.objects.filter(name=utopic_name).exists():
-            messages.warning(request, f"you need to create the {utopic_name} topic first.")
+        if not Topic.objects.filter(name=utopic_permlink).exists():
+            messages.warning(request, f"you need to create the {utopic_permlink} topic first.")
             return redirect(reverse("create-utopic")+"?name={value}")
         for key, value in request.GET.items():
             if key == "category":
@@ -132,12 +132,11 @@ class Create(LoginRequiredMixin, View):
         )
         return render(request, self.template_name, context)
 
-    def post(self, request, utopic_name, *args, **kwargs):
+    def post(self, request, utopic_permlink, *args, **kwargs):
         form = self.form_class(data=request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            form.user = request.user
-            save = form.content_save(request, form, utopic_name)
+            save = form.content_save(request, form, utopic_permlink)
             return redirect(reverse("detail", kwargs=dict(username=form.username, permlink=form.permlink)))
         return render(request, self.template_name, dict(form=form))
 
@@ -181,13 +180,6 @@ class Change(LoginRequiredMixin, View):
                 if form.is_valid():
                     form = form.save(commit=False)
                     save = form.content_update(request=request, old=queryset, new=form)
-                    if save.status_code != 200:
-                        messages.error(request, save.text)
-                        return render(request, self.template_name, dict(
-                            form=self.form_class(data=request.POST),
-                            username=username,
-                            permlink=permlink)
-                        )
                     return redirect(
                         reverse(
                             "detail", 

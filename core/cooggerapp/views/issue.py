@@ -15,7 +15,7 @@ from django.contrib import messages
 from core.cooggerapp.models import (UTopic, Issue)
 
 # form
-from core.cooggerapp.forms import NewIssueForm, ReplyIssueForm
+from core.cooggerapp.forms import NewIssueForm, NewIssueReplyForm
 
 # python
 import json
@@ -25,9 +25,9 @@ import json
 class IssueView(TemplateView):
     template_name = "issue/index.html"
 
-    def get_context_data(self, username, topic_permlink, **kwargs):
+    def get_context_data(self, username, utopic_permlink, **kwargs):
         user = User.objects.get(username=username)
-        utopic = UTopic.objects.filter(user=user, permlink=topic_permlink)[0]
+        utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
         context = super().get_context_data(**kwargs)
         context["current_user"] = user
         context["queryset"] = self.get_queryset(user, utopic)
@@ -48,47 +48,48 @@ class NewIssue(LoginRequiredMixin, View):
     template_name = "issue/new.html"
     form_class = NewIssueForm
     
-    def get(self, request, username, topic_permlink):
+    def get(self, request, username, utopic_permlink):
         user = User.objects.get(username=username)
         context = dict(
-            issue_form=self.form_class,
+            issue_new_form=self.form_class,
             current_user=user,
-            utopic=UTopic.objects.filter(user=user, permlink=topic_permlink)[0]
+            utopic=UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
         )
         return render(request, self.template_name, context)
 
-    def post(self, request, username, topic_permlink):
+    def post(self, request, username, utopic_permlink):
         user = User.objects.get(username=username)
-        utopic = UTopic.objects.filter(user=user, permlink=topic_permlink)[0]
-        issue_form = self.form_class(request.POST)
-        if issue_form.is_valid():
-            issue_form = issue_form.save(commit=False)
-            if not issue_form.title:
+        utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
+        issue_new_form = self.form_class(request.POST)
+        if issue_new_form.is_valid():
+            issue_new_form = issue_new_form.save(commit=False)
+            if not issue_new_form.title:
                 messages.error(request, "You can not pass the title field")
-                return self.get(request, username, topic_permlink)
-            issue_form.user = request.user
-            issue_form.utopic = utopic
-            issue_form.issue_save()
+                return self.get(request, username, utopic_permlink)
+            issue_new_form.user = request.user
+            issue_new_form.utopic = utopic
+            issue_new_form.issue_save()
             return redirect(
                 reverse(
                     "detail-issue", 
                     kwargs=dict(
                         username=username,
-                        topic_permlink=topic_permlink,
-                        permlink=issue_form.permlink)
+                        utopic_permlink=utopic_permlink,
+                        permlink=issue_new_form.permlink)
                     )
                 )
 
 
 class DetailIssue(View):
     template_name = "issue/detail.html"
-    form_class = ReplyIssueForm
+    form_class = NewIssueReplyForm
 
-    def get(self, request, username, topic_permlink, permlink):
+    def get(self, request, username, utopic_permlink, permlink):
         user = User.objects.get(username=username)
-        utopic = UTopic.objects.get(user=user, permlink=topic_permlink)
+        utopic = UTopic.objects.get(user=user, permlink=utopic_permlink)
         issue = Issue.objects.get(utopic=utopic, permlink=permlink)
         context = dict(
+            reply_form=self.form_class,
             current_user=user,
             queryset=issue,
             utopic=utopic,
@@ -97,36 +98,33 @@ class DetailIssue(View):
         return render(request, self.template_name, context)
 
     @method_decorator(login_required)
-    def post(self, request, username, topic_permlink, permlink):
+    def post(self, request, username, utopic_permlink, permlink):
         if request.is_ajax:
             user = User.objects.get(username=username)
-            utopic = UTopic.objects.filter(user=user, permlink=topic_permlink)[0]
+            utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
             issue = Issue.objects.get(user=user, utopic=utopic, permlink=permlink)
-            issue_form = self.form_class(request.POST)
-            if issue_form.is_valid():
-                issue_form = issue_form.save(commit=False)
-                issue_form.user = user
-                issue_form.utopic = utopic
-                issue_form.reply = issue
-                issue_form.issue_save()
-                new_reply = Issue.objects.get(
-                    user=user, 
-                    utopic=utopic, 
-                    permlink=issue_form.permlink)
+            reply_form = self.form_class(request.POST)
+            if reply_form.is_valid():
+                reply_form = reply_form.save(commit=False)
+                reply_form.user = user
+                reply_form.utopic = utopic
+                reply_form.reply = issue
+                reply_form.issue_save()
                 return HttpResponse(
                     json.dumps(
                         dict(
-                            username=new_reply.username,
-                            topic_permlink=new_reply.topic_permlink,
-                            parent_permlink=new_reply.parent_permlink,
-                            parent_username=new_reply.parent_username,
-                            created=str(new_reply.created),
-                            reply_count=new_reply.reply_count,
-                            status=new_reply.status,
-                            reply=new_reply.reply_id,
-                            body=new_reply.body,
-                            title=new_reply.title,
-                            permlink=new_reply.permlink,
+                            username=reply_form.username,
+                            utopic_permlink=reply_form.utopic.permlink,
+                            parent_permlink=reply_form.parent_permlink,
+                            parent_username=reply_form.parent_username,
+                            created=str(reply_form.created),
+                            reply_count=reply_form.reply_count,
+                            status=reply_form.status,
+                            reply=reply_form.reply_id,
+                            body=reply_form.body,
+                            title=reply_form.title,
+                            permlink=reply_form.permlink,
+                            avatar_url=reply_form.avatar_url,
                             )
                         )
                     )
@@ -135,9 +133,9 @@ class DetailIssue(View):
 class OpenIssue(View):
 
     @method_decorator(login_required)
-    def get(self, request, username, topic_permlink, permlink):
+    def get(self, request, username, utopic_permlink, permlink):
         user = User.objects.get(username=username)
-        utopic_obj = UTopic.objects.filter(user=user, permlink=topic_permlink)
+        utopic_obj = UTopic.objects.filter(user=user, permlink=utopic_permlink)
         issue = Issue.objects.filter(
             utopic=utopic_obj[0], 
             permlink=permlink
@@ -152,7 +150,7 @@ class OpenIssue(View):
                     "detail-issue", 
                     kwargs=dict(
                         username=username,
-                        topic_permlink=topic_permlink,
+                        utopic_permlink=utopic_permlink,
                         permlink=permlink)
                     )
                 )
