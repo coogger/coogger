@@ -17,11 +17,23 @@ class ContentSerializer(ModelSerializer):
     class Meta:
         model = Content
         fields = (
-            "id", 'username',
-            'title', 'permlink',
-            "definition", "category_name",
-            "language", "topic_name",
-            "views", "body")
+            "id", 
+            'username',
+            'title', 
+            'permlink',
+            "definition", 
+            "category_name",
+            "language", 
+            "utopic_permlink",
+            "views", 
+            "body", 
+            "reply", 
+            "reply_count", 
+            "parent_username", 
+            "parent_permlink",
+            "avatar_url",
+            "created",
+            )
 
 
 class UserSerializer(ModelSerializer):
@@ -59,8 +71,9 @@ class IssueSerializer(ModelSerializer):
         fields = [
             "id",
             "username",
-            "topic_permlink",
             "permlink",
+            "utopic_permlink",
+            "avatar_url",
             "parent_username",
             "parent_permlink",
             "title",

@@ -23,27 +23,20 @@ import datetime
 
 
 class ContentAdmin(ModelAdmin):
-    list_display = ["user","permlink", "mod"]
+    list_display = ["user","permlink", "mod", "reply"]
     list_display_links = list_display
-    list_filter = ["status", "cooggerup"]
+    list_filter = ["status"]
     search_fields = ["title", "body", "permlink"]
     fields = (
-        ("category"),
-        ("language"),
-        ("topic"),
-        ("title"),
-        ("permlink"),
+        ("user", "views"),
+        ("category", "language", "utopic"),
+        ("title", "permlink"),
+        ("reply"),
         ("definition"),
         ("body"),
-        ("tags"),
-        ("cooggerup"),
-        ("status"),
+        ("tags", "status"),
+        ("reply_count"),
     )
-
-    class Media:
-        css = {
-            "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css",),
-        }
 
     def save_model(self, request, obj, form, change):
         obj.mod = request.user
@@ -118,6 +111,7 @@ class UtopicAdmin(ModelAdmin):
     list_display_links = ["user", "name"]
     search_fields = ["name"]
     fields = (
+        ("user"),
         ("name"),
         ("image_address"),
         ("definition"),
@@ -137,20 +131,6 @@ class IssueAdmin(ModelAdmin):
     list_display_links = list_display
     search_fields = ["title", "body"]
     list_filter = ["status", "created"]
-    fields = (
-        ("user"),
-        ("utopic"),
-        ("permlink"),
-        ("title"),
-        ("body"),
-        (
-            "reply", 
-            "status", 
-            "reply_count", 
-            "issue_id",
-            "created",
-        )
-    )
 
 
 site.register(Content, ContentAdmin)

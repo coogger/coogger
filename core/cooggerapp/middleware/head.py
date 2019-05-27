@@ -60,8 +60,8 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         for key in content.tags.split():
             keywords += key+", "
         return dict(
-            title=f"{content.topic.name.capitalize()} | {content.title.capitalize()}",
-            keywords=f"{keywords}{content.topic.name.lower()}",
+            title=f"{content.utopic.name.capitalize()} | {content.title.capitalize()}",
+            keywords=f"{keywords}{content.utopic.name.lower()}",
             description=self.get_soup(content.body).text[0:200].replace("\n"," ").capitalize(),
             image=self.get_image(content),
         )

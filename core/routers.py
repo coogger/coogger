@@ -4,6 +4,7 @@ class DBRouter:
         "contenttypes", "sessions", 
         "cooggerapp", "github_auth", 
         "django_follow_system",
+        "django_threadedcomments_system",
     ]
     django_ban_apps = [
         "django_ban"

@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.db.models import F
 from django.urls import reverse
+from django.utils import timezone
 
 # models
 from .category import Category
@@ -13,6 +14,7 @@ from .topic import Topic
 from .userextra import OtherInformationOfUsers
 from .utils import format_tags
 from .utopic import UTopic
+from core.django_threadedcomments_system.models import ThreadedComments
 
 # python
 from bs4 import BeautifulSoup
@@ -30,18 +32,15 @@ import random
 # utils 
 from .utils import second_convert
 
-
-class Content(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    permlink = models.SlugField(max_length=200)
-    title = models.CharField(
-        max_length=200,
-        verbose_name="Title",
-        help_text="Be sure to choose the best title related to your content.",
+class Content(ThreadedComments):
+    body = EditorMdField(
+        null=True, 
+        blank=True, 
+        verbose_name="",
+        help_text="Your content | problem | question | or anything else"
     )
-    body = EditorMdField()
-    topic = models.ForeignKey(
-        Topic,
+    utopic = models.ForeignKey(
+        UTopic,
         on_delete=models.CASCADE,
         verbose_name="Your topic",
         help_text="Please, write your topic about your contents.",
@@ -68,23 +67,22 @@ class Content(models.Model):
     )
     views = models.IntegerField(default=0, verbose_name="Views")
     mod = models.ForeignKey(
-        "auth.user",
+        User,
         on_delete=models.CASCADE,
         blank=True,
         null=True,
         related_name="moderator",
     )  # is it necessary
-    cooggerup = models.BooleanField(
-        default=False, verbose_name="Was voting done"
-    )  # is it necessary
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
-    last_update = models.DateTimeField(auto_now_add=True, verbose_name="Last update")
 
     class Meta:
         ordering = ["-created"]
 
     def __str__(self):
         return str(self.get_absolute_url)
+
+    @property
+    def get_absolute_url(self):
+        return reverse("detail", kwargs=dict(username=str(self.user), permlink=self.permlink))
 
     @property
     def username(self):
@@ -99,12 +97,12 @@ class Content(models.Model):
         return self.category.name
 
     @property
-    def topic_name(self):
-        return self.topic.name
+    def utopic_permlink(self):
+        return self.utopic.permlink
 
     @property
-    def utopic(self):
-        return UTopic.objects.filter(user=self.user, permlink=self.topic.permlink)[0]
+    def avatar_url(self):
+        return self.user.githubauthuser.avatar_url
 
     @property
     def dor(self):
@@ -123,12 +121,8 @@ class Content(models.Model):
             return "min 0"
         return times
 
-    @property
-    def get_absolute_url(self):
-        return reverse("detail", kwargs=dict(username=self.user.username, permlink=self.permlink))
-
     def next_or_previous(self, next=True):
-        contents = self.__class__.objects.filter(user=self.user, topic=self.topic)
+        contents = self.__class__.objects.filter(utopic=self.utopic)
         index = list(contents).index(contents.filter(id=self.id)[0])
         if next:
             index = index - 1
@@ -174,86 +168,58 @@ class Content(models.Model):
         self.definition = self.prepare_definition()
         super().save(*args, **kwargs)
 
-    def content_save(self, request, form, utopic_name):
-        self.user = form.user
-        topic_model = Topic.objects.filter(name=utopic_name)
-        self.topic = topic_model[0]
+    def content_save(self, request, form, utopic_permlink):
+        self.user = request.user
+        user_topic = UTopic.objects.filter(user=self.user, permlink=utopic_permlink)
+        self.utopic = user_topic[0]
         self.tags = self.ready_tags()
-        self.permlink = self.get_new_permlink(slugify(self.title.lower()))
         self.definition = self.prepare_definition()
         form.save()
+        topic_model = Topic.objects.filter(permlink=utopic_permlink)
         topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
-        utopic = UTopic.objects.filter(user=self.user, name=self.topic)
-        utopic.update(total_dor=F("total_dor") + self.dor) # increase total dor in utopic
+        user_topic.update(total_dor=F("total_dor") + self.dor) # increase total dor in utopic
         get_msg = request.POST.get("msg", None)
         if get_msg == "Initial commit":
             get_msg = f"{self.title} Published."
         self.commit_set.model(
             user=self.user,
-            utopic=utopic[0],
+            utopic=self.utopic,
             content=self,
             body=self.body,
             msg=get_msg,
         ).save()
-        # return form
-
-    def get_new_permlink(self, permlink):
-        while True:
-            if self.__class__.objects.filter(
-                user=self.user, 
-                permlink=permlink).exists():
-                permlink = permlink + "-" + str(random.randrange(9999999))
-            else:
-                break
-        return permlink
 
     def content_update(self, request, old, new):
         # old is a content query
         # new is response a content form
-        self.user = old[0].user
-        get_topic_name = request.GET.get("utopic_name", None)
-        if get_topic_name is None:
-            get_topic_name = old[0].topic
-        self.topic = Topic.objects.filter(name=get_topic_name)[0]
-        self.body = new.body
-        self.permlink = old[0].permlink
-        self.title = new.title
-        self.category = new.category
-        self.language = new.language
-        self.tags = self.ready_tags()
-        if self.body != old[0].body:
+        get_utopic_permlink = request.GET.get("utopic_name", None)
+        if get_utopic_permlink is None:
+            self.utopic = old[0].utopic
+        else:
+            self.utopic = UTopic.objects.filter(
+                user=old[0].user, 
+                permlink=get_utopic_permlink)[0]
+        if new.body != old[0].body:
             self.commit_set.model(
-                user=self.user,
+                user=old[0].user,
                 utopic=self.utopic,
-                content=Content.objects.get(user=self.user, permlink=self.permlink),
-                body=self.body,
+                content=Content.objects.get(user=old[0].user, permlink=old[0].permlink),
+                body=new.body,
                 msg=request.POST.get("msg")
             ).save()
         old.update(
-            body=self.body,
-            topic=self.topic,
+            utopic=self.utopic,
             definition=self.prepare_definition(),
-            title=self.title,
-            category=self.category,
-            language=self.language,
-            tags=self.tags,
-            last_update=now(),
+            category=new.category,
+            language=new.language,
+            tags=self.ready_tags(),
+            body=new.body,
+            title=new.title,
+            last_update=timezone.now(),
         )
 
-    @property
-    def get_user_beneficiaries(self):
-        beneficiaries = []
-        user_benefic = OtherInformationOfUsers.objects.filter(user=self.user)[
-            0
-        ].beneficiaries
-        if user_benefic != 0:
-            beneficiaries.append(dict(account="coogger", weight=user_benefic * 100))
-        return beneficiaries
-
     def ready_tags(self, limit=5):
-        get_tag = self.tags.split(" ")[:limit]
-        get_tag.insert(0, "coogger")
-        return format_tags(get_tag)
+        return format_tags(self.tags.split(" ")[:limit])
 
 
 class Contentviews(models.Model):

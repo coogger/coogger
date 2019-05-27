@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "cooggerimages",
     "github_auth",
     "django_follow_system",
+    "core.django_threadedcomments_system"
 ]
 PAGE_SIZE = 10
 REST_FRAMEWORK = dict(

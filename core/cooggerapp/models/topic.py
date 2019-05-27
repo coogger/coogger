@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 
+# TODO use proxy or abstract base model
 
 class Topic(models.Model):
     """ Global Topic Model """

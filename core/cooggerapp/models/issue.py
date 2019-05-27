@@ -8,6 +8,7 @@ from django.utils.text import slugify
 
 # model
 from .utopic import UTopic
+from core.django_threadedcomments_system.models import ThreadedComments
 
 # editor md
 from django_md_editor.models import EditorMdField
@@ -19,13 +20,15 @@ from core.cooggerapp.choices import make_choices, ISSUE_CHOICES
 import random
 
 
-class Issue(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
-    permlink = models.SlugField(max_length=200)
-    title = models.CharField(max_length=55, help_text="Title", null=True, blank=True)
-    body = EditorMdField(help_text="Your problem | question | or anything else")
-    reply = models.ForeignKey("Issue", on_delete=models.CASCADE, null=True, blank=True)
+class Issue(ThreadedComments):
+    utopic = models.ForeignKey(
+        UTopic, 
+        on_delete=models.CASCADE
+        )
+    body = EditorMdField(
+        null=True, 
+        blank=True, 
+        help_text="Your problem | question | or anything else")
     status = models.CharField(
         default="open", 
         choices=make_choices(ISSUE_CHOICES), 
@@ -33,65 +36,25 @@ class Issue(models.Model):
         help_text="Status",
         null=True, blank=True,
     )
-    reply_count = models.IntegerField(default=0)
     issue_id = models.IntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
-    last_update = models.DateTimeField(auto_now_add=True, verbose_name="Last update")
 
     class Meta:
         ordering = ["-created"]
 
-    def issue_save(self):
+    def issue_save(self, *args, **kwargs):
         if self.reply is not None: # if make a comment
             self.status = None
-            self.permlink = "re-" + self.user.username + "-re-" + \
-                self.reply.user.username + "-" + slugify(self.reply.title.lower())
-            self.title = self.reply.title
-            reply_id = self.reply_id
-            while True:
-                query = self.__class__.objects.filter(id=reply_id)
-                if query.exists():
-                    query.update(
-                            reply_count=(F("reply_count") + 1)
-                        )
-                    if query[0].reply is not None:
-                        reply_id = query[0].reply_id
-                    else:
-                        break
-                else:
-                    break
         elif self.status == "open":
-            self.permlink = slugify(self.title.lower())
             UTopic.objects.filter(
                 user=self.user,
                 name=self.utopic.name,
             ).update(open_issue=F("open_issue") + 1)
-        while True:
-            if self.__class__.objects.filter(
-                utopic=self.utopic, 
-                permlink=self.permlink
-                ).exists():
-                self.permlink = self.permlink + "-" + str(random.randrange(9999999))
-            else:
-                break
         self.issue_id = self.__class__.objects.filter(
             user=self.user,
             utopic=self.utopic,
             reply=None).count() + 1
-        super().save()
+        super().save(*args, **kwargs)
 
-    @property
-    def get_parent(self):
-        return self.__class__.objects.get(id=self.reply_id)
-
-    @property
-    def parent_username(self):
-        return self.get_parent.username
-
-    @property
-    def parent_permlink(self):
-        return self.get_parent.permlink
-    
     @property
     def get_open_issues(self):
         return self.__class__.objects.filter(
@@ -109,11 +72,15 @@ class Issue(models.Model):
             status="closed", 
             reply=None
         )
-    
-    @property
-    def username(self):
-        return self.user.username
 
     @property
-    def topic_permlink(self):
+    def username(self):
+        return str(self.user)
+    
+    @property
+    def utopic_permlink(self):
         return self.utopic.permlink
+
+    @property
+    def avatar_url(self):
+        return self.user.githubauthuser.avatar_url
