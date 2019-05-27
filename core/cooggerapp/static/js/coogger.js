@@ -68,7 +68,7 @@ function get_data_from_cooggerapi(apiUrl){
     document.execCommand("copy");
   }
   function get_scroll_bottom_location(){
-    return $(window).scrollTop() + $(window).height()+500;
+    return $(window).scrollTop() + $(window).height()+100;
   }
   function scrolledbottom(){
     if ( get_scroll_bottom_location() >= $(document).height()){
@@ -128,100 +128,26 @@ function get_data_from_cooggerapi(apiUrl){
     timesince.push(seconds + " seconds ");
     return timesince.slice(0, 2) + " ago";
   }
-  function comment_info(comment){
-    return (`
-    <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
-      <div>
-        <li flex='ai-c'>
-          <a href='/@${comment.author}/${comment.permlink}' id='root_content' target='blank' general='txt-s'>
-          <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
-          </a>
-        </li>
-      </div>
-    </div>`);
-  }
-  function userinfo(comment){
-    let reputation = steem.formatter.reputation(comment.author_reputation);
-    return (`
-      <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
-        <div flex='ai-fs' general='bg-white'>
-        <a flex title='${comment.author}' href='/@${comment.author}'
-          style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
-            <img general='br-circle left' id='detail_profile_image' src='https://steemitimages.com/u/${comment.author}/avatar' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
-          </a>
-          <div general='txt-s' flex='fd-c' class='duread-li'>
-              <a flex title='${comment.author}' href='/@${comment.author}'
-                style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
-              @${comment.author}<span id='username'></span> - (${reputation})
-          </a>
-              <div style='margin-left: 8px;' general='c-secondary'>${timeSince(comment.created)}</div>
-          </div>
-        </div>
-      </div>`
-    );
-  }
-  function comment_body(comment){
-    let pending_payout_value = parseFloat(comment.pending_payout_value.replace(" SBD", ""));
-    let post_reward_total = 0;
-    if (pending_payout_value == 0){
-      let total_payout_value = parseFloat(comment.total_payout_value.replace(" SBD", ""))
-      let curator_payout_value = parseFloat(comment.curator_payout_value.replace(" SBD", ""));
-      post_reward_total = total_payout_value+curator_payout_value;
-    }
-    else{
-      post_reward_total = pending_payout_value;
-    }
-    post_reward_total = post_reward_total.toFixed(2);
-    let title = comment.title;
-    $(function() {
-      let Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
-        height: 670,
-        path : '/static/lib/',
-        htmlDecode: 'html, iframe',
-        markdown : comment.body,
-        atLink: false,
-      });
-    });
-    return (`
-      <h1 general='center txt-xl' id='title' style='width: 96%;margin: 12px auto;'>${title}</h1>
-      <div style='padding: inherit;'>
-        <div style='width: auto;height:  auto;border: none;' class='editormd' id='${comment.id}_arg_editormd'>
-            <textarea style='display:none;' id='editormd_content'></textarea>
-        </div>
-      </div>
-      <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
-          <div general='txt-s' flex='ai-c' class='duread-li'>
-              <div style='margin-left: 12px;'>reply ; ${comment.children}</div>
-          </div>
-          <div general='txt-s' flex='ai-c' class='duread-li'>
-             <div style='margin-left: 12px;'>votes ; ${comment.net_votes}</div>
-          </div>
-          <div general='txt-s' flex='ai-c' class='duread-li'>
-             <div style='margin-left: 12px;' general='c-success'> $ ${post_reward_total}</div>
-          </div>
-        </div>
-    `);
-  }
   // issue reply
-  function issue_reply_info(comment){
+  function reply_info(address){
     return (`
     <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
       <div>
         <li flex='ai-c'>
-          <a href='/@${comment.username}/${comment.topic_permlink}/issues/${comment.permlink}' id='root_content' target='blank' general='txt-s'>
+          <a href='${address}' id='root_content' target='blank' general='txt-s'>
           <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
           </a>
         </li>
       </div>
     </div>`);
   }
-  function issue_reply_userinfo(comment){
+  function reply_userinfo(comment){
     return (`
       <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
         <div flex='ai-fs' general='bg-white'>
         <a flex title='${comment.username}' href='/@${comment.username}'
           style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
-            <img general='br-circle left' id='detail_profile_image' src='https://steemitimages.com/u/${comment.username}/avatar' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
+            <img general='br-circle left' id='detail_profile_image' src='${comment.avatar_url}' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
           </a>
           <div general='txt-s' flex='fd-c' class='duread-li'>
               <a flex title='${comment.username}' href='/@${comment.username}'
@@ -234,7 +160,7 @@ function get_data_from_cooggerapi(apiUrl){
       </div>`
     );
   }
-  function issue_reply_body(comment){
+  function reply_body(comment){
     let title = comment.title;
     $(function() {
       let Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {

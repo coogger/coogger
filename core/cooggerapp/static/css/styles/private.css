@@ -167,13 +167,13 @@ padding: 6px 8px;
 border-bottom: 1px solid #fafafa;
 padding: 12px 0px;
 }
-#comment-text, #issue-reply-text{
+#comment-text, textarea{
 max-width: 99%;
 max-height: 220px;
 height: 70px;
 width: 99%;
 }
-#send-comment, #send-reply-in-issue{
+#send-comment, #send-reply{
   cursor:pointer;
   padding: 8px 20px;
 }
