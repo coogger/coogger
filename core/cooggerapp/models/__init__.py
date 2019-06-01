@@ -6,3 +6,4 @@ from .topic import Topic, UTopic
 from .userextra import OtherAddressesOfUsers, OtherInformationOfUsers
 from .commit import Commit
 from .issue import Issue
+from .threaded_comments import ThreadedComments

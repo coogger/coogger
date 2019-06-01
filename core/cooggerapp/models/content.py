@@ -10,7 +10,7 @@ from .category import Category
 from .topic import Topic
 from .utils import format_tags
 from .topic import UTopic
-from core.django_threadedcomments_system.models import ThreadedComments
+from .threaded_comments import ThreadedComments
 
 # python
 from bs4 import BeautifulSoup
@@ -124,12 +124,16 @@ class Content(ThreadedComments):
         return times
 
     def next_or_previous(self, next=True):
-        contents = self.__class__.objects.filter(utopic=self.utopic)
-        index = list(contents).index(contents.filter(id=self.id)[0])
-        if next:
-            index = index - 1
+        contents = self.__class__.objects.filter(utopic=self.utopic, reply=None)
+        try:
+            index = list(contents).index(contents.filter(id=self.id)[0])
+        except IndexError:
+            return False
         else:
-            index = index + 1
+            if next:
+                index = index - 1
+            else:
+                index = index + 1
         try:
             return contents[index].get_absolute_url
         except (IndexError, AssertionError):

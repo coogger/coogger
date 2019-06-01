@@ -8,7 +8,7 @@ from django.utils.text import slugify
 
 # model
 from .topic import UTopic
-from core.django_threadedcomments_system.models import ThreadedComments
+from .threaded_comments import ThreadedComments
 
 # editor md
 from django_md_editor.models import EditorMdField

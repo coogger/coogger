@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "cooggerimages",
     "github_auth",
     "django_follow_system",
-    "core.django_threadedcomments_system",
     "djangoip",
 ]
 PAGE_SIZE = 10
