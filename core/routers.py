@@ -6,19 +6,22 @@ class DBRouter:
         "django_follow_system",
         "django_threadedcomments_system",
     ]
-    django_ban_apps = [
-        "django_ban"
-    ]
     coogger_images_app = [
         "cooggerimages"
+    ]
+    django_ip_apps = [
+        "contenttypes", 
+        "django_page_views", 
+        "djangoip",
+        "django_ban",
     ]
 
     def db_for_read(self, model, **hints):
         app_label = model._meta.app_label
         if app_label in self.default_apps:
             return "default"
-        elif app_label in self.django_ban_apps:
-            return "django_ban"
+        elif app_label in self.django_ip_apps:
+            return "django_ip"
         elif app_label in self.coogger_images_app:
             return "coogger_images"
 
@@ -32,8 +35,8 @@ class DBRouter:
         if db == "default":
             if app_label in self.default_apps:
                 return True
-        elif db == "django_ban":
-            if app_label in self.django_ban_apps:
+        elif db == "django_ip":
+            if app_label in self.django_ip_apps:
                 return True
         elif db == "coogger_images":
             if app_label in self.coogger_images_app:
