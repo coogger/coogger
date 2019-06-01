@@ -2,8 +2,7 @@ from .category import Category
 from .content import Content
 from .report import ReportModel
 from .search import SearchedWords
-from .topic import Topic
+from .topic import Topic, UTopic
 from .userextra import OtherAddressesOfUsers, OtherInformationOfUsers
-from .utopic import UTopic
 from .commit import Commit
 from .issue import Issue

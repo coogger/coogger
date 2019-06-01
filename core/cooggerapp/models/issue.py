@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.text import slugify
 
 # model
-from .utopic import UTopic
+from .topic import UTopic
 from core.django_threadedcomments_system.models import ThreadedComments
 
 # editor md

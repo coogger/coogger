@@ -1,9 +1,6 @@
 # django
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.text import slugify
-from django.template.loader import render_to_string
-from django.conf import settings
 from django.db.models import F
 from django.urls import reverse
 from django.utils import timezone
@@ -11,9 +8,8 @@ from django.utils import timezone
 # models
 from .category import Category
 from .topic import Topic
-from .userextra import OtherInformationOfUsers
 from .utils import format_tags
-from .utopic import UTopic
+from .topic import UTopic
 from core.django_threadedcomments_system.models import ThreadedComments
 
 # python
@@ -25,7 +21,6 @@ from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 
 # 3.part models
 from django_md_editor.models import EditorMdField
-from django_page_views.models import DjangoViews
 
 # 3.part tags
 from django_page_views.templatetags.django_page_views import views_count
@@ -182,6 +177,7 @@ class Content(ThreadedComments):
         self.tags = self.ready_tags()
         self.definition = self.prepare_definition()
         form.save()
+        user_topic.update(how_many=F("how_many") + 1)
         topic_model = Topic.objects.filter(permlink=utopic_permlink)
         topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
         user_topic.update(total_dor=F("total_dor") + self.dor) # increase total dor in utopic

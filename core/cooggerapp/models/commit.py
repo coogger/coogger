@@ -6,7 +6,7 @@ from django.db import models
 from django_md_editor.models import EditorMdField
 
 # models
-from .utopic import UTopic
+from .topic import UTopic
 from .content import Content
 
 # utils
