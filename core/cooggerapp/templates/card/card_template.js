@@ -31,7 +31,7 @@ let card_output = `${card}
 <div general="b-1 br-2 brc-white" style="padding: 6px 12px;">
   <div flex="ai-c">
     <a general="txt-m c-dark" href="/@${author}" id="author_href" flex="ai-c" animation-hover="c-private">
-      <img class="carduserimg" general="br-circle" width="40px" height="40px" src=https://steemitimages.com/u/${author}/avatar>
+      <img class="carduserimg" general="br-circle" width="40px" height="40px" src="${avatar_url}">
         <div flex="fd-c">
           <span flex="ai-c" class="carduser" style="margin-left:6px;">@${author} -
             <span general="txt-s br-2 c-seconday" style="padding: 2px" id="reputation">${rep}</span>

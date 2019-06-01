@@ -4,31 +4,31 @@
     let getApiUrl = function(url_resolve){
     let apiUrl = "";
     if (url_resolve == "user"){
-      apiUrl = `/api/content/?status=approved&username={{ current_user }}`;
+      apiUrl = `/api/content/?status=approved&username={{ current_user }}&reply=None`;
     }
     else if (url_resolve == "home" || url_resolve == "explorer_posts" ){
-      apiUrl = `/api/content/?status=approved`;
+      apiUrl = `/api/content/?status=approved&reply=None`;
     }
     else if (url_resolve == "language"){
-      apiUrl = `/api/content/?status=approved&language={{ language }}`;
+      apiUrl = `/api/content/?status=approved&language={{ language }}&reply=None`;
     }
     else if (url_resolve == "category"){
-      apiUrl = `/api/content/?status=approved&category={{ category }}`;
+      apiUrl = `/api/content/?status=approved&category={{ category }}&reply=None`;
     }
     else if (url_resolve == "review"){
-      apiUrl = `/api/content/?status=shared`;
+      apiUrl = `/api/content/?status=shared&reply=None`;
     }
     else if (url_resolve == "filter"){
-      apiUrl = `/api/content/?status=approved{{filter|safe}}`;
+      apiUrl = `/api/content/?status=approved{{filter|safe}}&reply=None`;
     }
     else if (url_resolve == "topic"){
-      apiUrl = `/api/content/?status=approved&topic={{ topic.name }}`;
+      apiUrl = `/api/content/?status=approved&topic={{ topic.name }}&reply=None`;
     }
     else if (url_resolve == "list"){
-      apiUrl = `/api/content/?status=approved&topic={{nameofhashtag}}`;
+      apiUrl = `/api/content/?status=approved&topic={{nameofhashtag}}&reply=None`;
     }
     else if (url_resolve == "hashtag"){
-      apiUrl = `/api/content/?status=approved&tags={{ nameofhashtag }}`;
+      apiUrl = `/api/content/?status=approved&tags={{ nameofhashtag }}&reply=None`;
     }
     return apiUrl;
   }
@@ -58,7 +58,6 @@
             check.push(content_id);
             let author = content.username;
             let permlink = content.permlink;
-            let views = content.views;
             let definition = content.definition;
             let topic = content.utopic_name;
             let category = content.category_name;
@@ -67,11 +66,13 @@
             let duration_of_read = dor(content.body);
             let rep = 0;
             let reply = 0;
+            let avatar_url = content.avatar_url;
             let votes = 0;
             let created = timeSince(content.created);
             let post_reward_total = 0;
+            let views = content.views;
             {% include 'card/card_template.js' %}
-              $(`cards`).append(card_output);
+            $(`cards`).append(card_output);
             if (check.length >= PerLoadPostCount){
               break
             }

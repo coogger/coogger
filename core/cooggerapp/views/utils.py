@@ -19,19 +19,22 @@ def paginator(request, queryset):
     return contacts
 
 def model_filter(items, queryset):
+    # TODO improved this function
     filter = ""
     for attr, value in items:
         filter += f"&{attr}={value}"
         if attr == "username":
             queryset = queryset.filter(user = User.objects.get(username=value))
         elif attr == "tags":
-            queryset = queryset.filter(tags__contains = value)
+            queryset = queryset.filter(tags__contains=value)
         elif attr == "category":
             category = Category.objects.filter(name=value)[0]
-            queryset = queryset.filter(category = category)
+            queryset = queryset.filter(category=category)
         elif attr == "topic":
             topic = Topic.objects.filter(name=value)[0]
-            queryset = queryset.filter(topic = topic)
+            queryset = queryset.filter(topic=topic)
+        elif attr == "reply" and value == "None":
+            queryset = queryset.filter(reply=None)
         else:
             try:
                 queryset = queryset.filter(**{attr: value})
