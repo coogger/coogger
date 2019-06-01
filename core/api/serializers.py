@@ -18,9 +18,9 @@ class ContentSerializer(ModelSerializer):
         model = Content
         fields = (
             "id", 
-            'username',
-            'title', 
-            'permlink',
+            "username",
+            "title", 
+            "permlink",
             "definition", 
             "category_name",
             "language", 

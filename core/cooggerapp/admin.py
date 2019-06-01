@@ -3,7 +3,6 @@ from django.contrib.admin import ModelAdmin, site
 #models
 from core.cooggerapp.models import (
     Content, 
-    Contentviews, 
     OtherAddressesOfUsers, 
     SearchedWords,
     ReportModel, 
@@ -28,7 +27,7 @@ class ContentAdmin(ModelAdmin):
     list_filter = ["status"]
     search_fields = ["title", "body", "permlink"]
     fields = (
-        ("user", "views"),
+        ("user"),
         ("category", "language", "utopic"),
         ("title", "permlink"),
         ("reply"),
@@ -54,13 +53,6 @@ class SearchedWordsAdmin(ModelAdmin):
     list_display = ["word","hmany"]
     list_display_links = list_display
     search_fields = list_display
-
-
-class ContentviewsAdmin(ModelAdmin):
-    list_ = ["content","ip"]
-    list_display = list_
-    list_display_links = list_
-    search_fields = list_
 
 
 class OtherInformationOfUsersAdmin(ModelAdmin):
@@ -137,7 +129,6 @@ site.register(Content, ContentAdmin)
 site.register(Commit, CommitAdmin)
 site.register(UTopic, UtopicAdmin)
 site.register(Category)
-site.register(Contentviews, ContentviewsAdmin)
 site.register(OtherAddressesOfUsers, OtherAddressesOfUsersAdmin)
 site.register(SearchedWords, SearchedWordsAdmin)
 site.register(ReportModel)

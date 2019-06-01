@@ -13,9 +13,14 @@ from django.views.generic.base import TemplateView
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.db.utils import IntegrityError
+from django.contrib.contenttypes.models import ContentType
 
 # core.cooggerapp models
-from core.cooggerapp.models import (Content, Contentviews, UTopic)
+from core.cooggerapp.models import (Content, UTopic)
+
+# 3.part models
+from django_page_views.models import DjangoViews
 
 # forms
 from core.cooggerapp.forms import NewContentReplyForm
@@ -34,18 +39,17 @@ class Detail(View):
         content = content_obj[0]
         if not content_obj.exists():
             raise Http404
-        content_views_obj = Contentviews.objects.filter(
-            content=content,
-            ip=self.get_ip_address(request)
+        dj_query, created = DjangoViews.objects.get_or_create(
+            content_type=ContentType.objects.get(
+                app_label="cooggerapp", 
+                model="content"
+            ), 
+            object_id=content.id
         )
-        if not content_views_obj.exists() and self.is_increase_view(request):
-            content_obj.update(views=F("views") + 1)
-            if not content.reply:
-                UTopic.objects.filter( # TODO content.utopic
-                    user=user, 
-                    permlink=content.utopic.permlink
-                ).update(total_view=F("total_view")+1)
-            Contentviews(content=content, ip=self.get_ip_address(request)).save()
+        try:
+            dj_query.ips.add(request.ip_model)
+        except IntegrityError:
+            pass
         nav_category = Content.objects.filter(
             user=user, 
             utopic=content.utopic, 
@@ -104,18 +108,6 @@ class Detail(View):
                             )
                         )
                     )
- 
-
-    def get_ip_address(self, request):
-        try:
-            return request.META["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip()
-        except:
-            return None
-
-    def is_increase_view(self, request):
-        if self.get_ip_address(request) is not None:
-            return True
-        return False
 
 
 @method_decorator(xframe_options_exempt, name="dispatch")

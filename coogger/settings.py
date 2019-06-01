@@ -33,12 +33,14 @@ INSTALLED_APPS = [
     "core.cooggerapp",
     "core.api",
     # 3. p
+    "django_page_views",
     "django_md_editor",
     "django_ban",
     "cooggerimages",
     "github_auth",
     "django_follow_system",
-    "core.django_threadedcomments_system"
+    "core.django_threadedcomments_system",
+    "djangoip",
 ]
 PAGE_SIZE = 10
 REST_FRAMEWORK = dict(
@@ -46,6 +48,7 @@ REST_FRAMEWORK = dict(
     PAGE_SIZE=PAGE_SIZE,
 )
 MIDDLEWARE = [
+    "djangoip.middleware.ip_middleware.IpMiddleware",
     # ban
     "django_ban.middleware.ip.IPBanMiddleware",
     # django
@@ -83,9 +86,9 @@ DATABASES = dict(
         ENGINE="django.db.backends.sqlite3",
         NAME=env("DEFAULT_DB_NAME"),
     ),
-    django_ban=dict(
+    django_ip=dict(
         ENGINE="django.db.backends.sqlite3",
-        NAME=env("DJANGO_BAN_DB_NAME"),
+        NAME=env("DJANGO_IP_DB_NAME"),
     ),
     coogger_images=dict(
         ENGINE="django.db.backends.sqlite3",

@@ -1,5 +1,5 @@
 from .category import Category
-from .content import Content, Contentviews
+from .content import Content
 from .report import ReportModel
 from .search import SearchedWords
 from .topic import Topic

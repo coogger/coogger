@@ -23,8 +23,12 @@ from mistune import Markdown, Renderer
 # choices
 from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 
-# editor md
+# 3.part models
 from django_md_editor.models import EditorMdField
+from django_page_views.models import DjangoViews
+
+# 3.part tags
+from django_page_views.templatetags.django_page_views import views_count
 
 # python 
 import random
@@ -65,7 +69,6 @@ class Content(ThreadedComments):
         choices=make_choices(STATUS_CHOICES),
         verbose_name="content's status",
     )
-    views = models.IntegerField(default=0, verbose_name="Views")
     mod = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -103,6 +106,10 @@ class Content(ThreadedComments):
     @property
     def avatar_url(self):
         return self.user.githubauthuser.avatar_url
+
+    @property
+    def views(self):
+        return views_count(self.__class__, self.id)
 
     @property
     def dor(self):
@@ -220,18 +227,3 @@ class Content(ThreadedComments):
 
     def ready_tags(self, limit=5):
         return format_tags(self.tags.split(" ")[:limit])
-
-
-class Contentviews(models.Model):
-    content = models.ForeignKey(Content, on_delete=models.CASCADE)
-    ip = models.GenericIPAddressField()
-
-    @property
-    def get_views(self):  # to api
-        context = list()
-        fields = ("ip",)
-        queryset = self.__class__.objects.filter(content=self.content)
-        for c in queryset:
-            for f in fields:
-                context.append({f: c.__getattribute__(f)})
-        return context
