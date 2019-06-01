@@ -15,25 +15,31 @@ urlpatterns = [
     path(
         '@<username>/<utopic_permlink>/issues/', 
         IssueView.as_view(), 
-        name="issues"),
+        name="issues"
+    ),
     path(
         '@<username>/<utopic_permlink>/issues/closed', 
         ClosedIssueView.as_view(), 
-        name="close-issues"),
+        name="close-issues"
+    ),
     path(
         '@<username>/<utopic_permlink>/issues/new/', 
         NewIssue.as_view(), 
-        name="new-issue"),
+        name="new-issue"
+    ),
     path(
         '@<username>/<utopic_permlink>/issues/<permlink>/', 
         DetailIssue.as_view(), 
-        name="detail-issue"),
+        name="detail-issue"
+    ),
     path(
         '@<username>/<utopic_permlink>/issues/closed/<permlink>/', 
         ClosedIssue.as_view(), 
-        name="closed-issue"),
+        name="closed-issue"
+    ),
     path(
         '@<username>/<utopic_permlink>/issues/open/<permlink>/', 
         OpenIssue.as_view(), 
-        name="open-issue"),
+        name="open-issue"
+    ),
     ]
