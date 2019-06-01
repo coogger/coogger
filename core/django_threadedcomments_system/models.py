@@ -3,8 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 
 #3.django
 from django_md_editor.models import EditorMdField
@@ -37,6 +35,7 @@ class ThreadedComments(models.Model):
 
     class Meta:
         ordering = ["-created"]
+        abstract = True
 
     def __str__(self):
         return f"@{self.user}/{self.permlink}"
