@@ -4,9 +4,6 @@ from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
 
-#3.django
-from django_md_editor.models import EditorMdField
-
 # python
 import random
 

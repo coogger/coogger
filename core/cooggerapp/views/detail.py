@@ -93,6 +93,7 @@ class Detail(View):
                 return HttpResponse(
                     json.dumps(
                         dict(
+                            id=reply_form.id,
                             username=reply_form.username,
                             utopic_permlink=reply_form.utopic.permlink,
                             parent_permlink=reply_form.parent_permlink,

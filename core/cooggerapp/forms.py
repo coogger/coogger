@@ -31,6 +31,13 @@ class ContentForm(forms.ModelForm):
         fields = ["category", "language", "title", "body", "tags"]
 
 
+class ReplyForm(forms.ModelForm):
+
+    class Meta:
+        model = Content
+        fields = ["title", "body"]
+
+
 class OtherAddressesOfUsersForm(forms.ModelForm):
     class Meta:
         model = OtherAddressesOfUsers

@@ -13,7 +13,7 @@ from django.db import IntegrityError
 from core.cooggerapp.models import Content, Category, UTopic, Topic
 
 # form
-from core.cooggerapp.forms import ContentForm, UTopicForm
+from core.cooggerapp.forms import ContentForm, UTopicForm, ReplyForm
 
 # choices
 from core.cooggerapp.choices import make_choices
@@ -96,6 +96,15 @@ class UpdateUTopic(LoginRequiredMixin, View):
                 Topic(name=form.name).save()
             except IntegrityError:
                 pass
+            return redirect(
+                    reverse(
+                        "utopic", 
+                        kwargs=dict(
+                            permlink=permlink, 
+                            username=str(request.user)
+                        )
+                    )
+                )
         return render(request, self.template_name, context)
 
 
@@ -108,7 +117,7 @@ class Create(LoginRequiredMixin, View):
         initial, category = dict(), None
         if not Topic.objects.filter(name=utopic_permlink).exists():
             messages.warning(request, f"you need to create the {utopic_permlink} topic first.")
-            return redirect(reverse("create-utopic")+"?name={value}")
+            return redirect(reverse("create-utopic")+f"?name={value}")
         for key, value in request.GET.items():
             if key == "category":
                 category = Category.objects.get(name=value)
@@ -119,7 +128,7 @@ class Create(LoginRequiredMixin, View):
                     utopic = UTopic.objects.filter(user=request.user, name=value)[0]
                 except IndexError:
                     messages.warning(request, f"you need to create the {value} topic first.")
-                    return redirect(reverse("create-utopic")+"?name={value}")
+                    return redirect(reverse("create-utopic")+f"?name={value}")
                 initial.__setitem__("topic", utopic)
             else:
                 initial.__setitem__(key, value)
@@ -144,29 +153,26 @@ class Create(LoginRequiredMixin, View):
 class Change(LoginRequiredMixin, View):
     template_name = "post/change.html"
     form_class = ContentForm
+    reply_form_class = ReplyForm
     model = Content
 
     def get(self, request, username, permlink, *args, **kwargs):
         if request.user.username == username:
-            utopic_name = request.GET.get("utopic_name", None)
-            if utopic_name is not None and not Topic.objects.filter(name=utopic_name).exists():
-                messages.warning(request, f"you need to create the {utopic_name} topic first.")
-                return redirect(
-                reverse(
-                    "create",
-                    kwargs=dict(
-                        utopic_name=utopic_name
-                        )
-                    )
-                )
+            utopic_permlink = request.GET.get("utopic_permlink", None)
+            if utopic_permlink is not None and not UTopic.objects.filter(
+                user=request.user, permlink=utopic_permlink).exists():
+                messages.warning(request, f"you need to create the {utopic_permlink} topic first.")
+                return redirect(reverse("create-utopic")+f"?name={utopic_permlink}")
             queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
-                content_id = queryset[0].id
-                queryset = self.model.objects.filter(user=request.user, permlink=permlink)[0]
+                if queryset[0].reply is not None:
+                    form_set = self.reply_form_class(instance=queryset[0])
+                else:
+                    form_set = self.form_class(instance=queryset[0], initial=dict(msg=f"Update {queryset[0].title.lower()}"))
                 context = dict(
                     username=username,
                     permlink=permlink,
-                    form=self.form_class(instance=queryset, initial=dict(msg=f"Update {queryset.title.lower()}")),
+                    form=form_set,
                 )
                 return render(request, self.template_name, context)
         raise Http404
@@ -175,8 +181,10 @@ class Change(LoginRequiredMixin, View):
         if request.user.username == username:
             queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
-                content_id = queryset[0].id
-                form = self.form_class(data=request.POST)
+                if queryset[0].reply is not None:
+                    form = self.reply_form_class(data=request.POST)
+                else:
+                    form = self.form_class(data=request.POST)
                 if form.is_valid():
                     form = form.save(commit=False)
                     save = form.content_update(request=request, old=queryset, new=form)

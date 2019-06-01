@@ -195,31 +195,42 @@ class Content(ThreadedComments):
     def content_update(self, request, old, new):
         # old is a content query
         # new is response a content form
-        get_utopic_permlink = request.GET.get("utopic_name", None)
-        if get_utopic_permlink is None:
-            self.utopic = old[0].utopic
+        if old[0].reply is not None:
+            "if its a comment"
+            self.body = new.body
+            old.update(
+                tite=new.title,
+                body=self.body,
+                definition=self.prepare_definition(),
+                last_update=timezone.now(),
+            )
         else:
-            self.utopic = UTopic.objects.filter(
-                user=old[0].user, 
-                permlink=get_utopic_permlink)[0]
-        if new.body != old[0].body:
-            self.commit_set.model(
-                user=old[0].user,
+            get_utopic_permlink = request.GET.get("utopic_permlink", None)
+            if get_utopic_permlink is None:
+                self.utopic = old[0].utopic
+            else:
+                self.utopic = UTopic.objects.filter(
+                    user=old[0].user, 
+                    permlink=get_utopic_permlink)[0]
+            if new.body != old[0].body:
+                self.commit_set.model(
+                    user=old[0].user,
+                    utopic=self.utopic,
+                    content=old[0],
+                    body=new.body,
+                    msg=request.POST.get("msg")
+                ).save()
+            self.body = new.body
+            old.update(
+                definition=self.prepare_definition(),
+                category=new.category,
+                language=new.language,
+                tags=self.ready_tags(),
+                body=self.body,
+                title=new.title,
+                last_update=timezone.now(),
                 utopic=self.utopic,
-                content=Content.objects.get(user=old[0].user, permlink=old[0].permlink),
-                body=new.body,
-                msg=request.POST.get("msg")
-            ).save()
-        old.update(
-            utopic=self.utopic,
-            definition=self.prepare_definition(),
-            category=new.category,
-            language=new.language,
-            tags=self.ready_tags(),
-            body=new.body,
-            title=new.title,
-            last_update=timezone.now(),
-        )
+            )
 
     def ready_tags(self, limit=5):
         return format_tags(self.tags.split(" ")[:limit])

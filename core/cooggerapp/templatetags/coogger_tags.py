@@ -33,7 +33,9 @@ def json(value, arg):
 def hmanycontent(user):
     if user.is_anonymous:
         return 0
-    return Content.objects.filter(user=user, status="approved").count()
+    obj = Content.objects.filter(user=user, status="approved")
+    replies_count = obj.filter(reply=None).count()
+    return f"{replies_count} + {obj.count() - replies_count}"
 
 @register.filter(name="twitter")
 def twitter(value, arg):

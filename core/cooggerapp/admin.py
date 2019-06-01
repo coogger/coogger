@@ -84,18 +84,7 @@ class CommitAdmin(ModelAdmin):
     list_display = ["content", "utopic"]
     list_display_links = ["content", "utopic"]
     list_filter = ["created"]
-    search_fields = ["msg"]
-    fields = (
-        ("hash"),
-        ("body"),
-        ("msg"),
-        ("created"),
-    )
-
-    class Media:
-        css = {
-            "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css",),
-        }
+    search_fields = ["msg", "body"]
 
 
 class UtopicAdmin(ModelAdmin):
