@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.models import User
+from .utils import paginator
 
 # class
 from django.views.generic.base import TemplateView
@@ -90,8 +91,15 @@ class Comment(Activity):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        queryset = Content.objects.filter(user=user, status="approved", reply=None)
+        queryset = Content.objects.filter(
+            status="approved"
+            ).exclude(
+                user=user
+                ).filter(
+                    reply__user=user
+                    )
         context["topics"] = UTopic.objects.filter(user=user)
-        context["django_md_editor"] = True
+        context["md_editor"] = True
         context["user_comment"] = True
+        context["queryset"] = paginator(self.request ,queryset)
         return context

@@ -1,51 +1,15 @@
 <script type="text/javascript">
     $(document).ready(function() {
-      function get_children_replies(reply){
-        if (reply.reply_count != 0 && reply.reply_count != undefined){
-          get_result_from_cooggerapi(`/api/content/?reply=${reply.id}`).then(function(children_replies){
-            for (ii in children_replies) {
-              let children_comment_template = "";
-              let children_reply = children_replies[ii];
-              children_comment_template += `
-                <div class='comment_replies'
-                  id='${children_reply.username}-${children_reply.permlink}'>`
-              children_comment_template += reply_info(`/@${children_reply.username}/${children_reply.permlink}`);
-              children_comment_template += reply_userinfo(children_reply);
-              children_comment_template += reply_body(children_reply);
-              children_comment_template += "</div>";
-              $(`#${children_reply.parent_username}-${children_reply.parent_permlink}`).append(children_comment_template);
-              get_children_replies(children_reply);
-            }
-          });
-        }
-      }
-      function load_replies(){
-        let replies_api = "/api/content/?reply={{ detail.id }}";
-        get_result_from_cooggerapi(replies_api).then(function(replies){
-          for (i in replies){
-            let reply = replies[i];
-            let comment_template = "";
-            comment_template += `<div class='comment' id='${reply.username}-${reply.permlink}'>`
-            comment_template += "<div class='comment_highlighted'>"
-            comment_template += reply_info(`/@${reply.username}/${reply.permlink}`);
-            comment_template += reply_userinfo(reply);
-            comment_template += reply_body(reply);
-            comment_template += "</div></div>"
-            $("#comment_template").append(comment_template);
-            get_children_replies(reply);
-          }
-        });
-      }
       let load_comments = true;
         if (load_comments && scrolledbottom()){
             load_comments = false;
-            load_replies()
+            load_replies("{{ detail.id }}")
         }
         else{
           $(window).scroll(function() {
               if (load_comments && scrolledbottom()){
                 load_comments = false;
-                load_replies()
+                load_replies("{{ detail.id }}")
               }
             });
         }
