@@ -51,17 +51,6 @@ class Home(TemplateView):
         return topics
 
 
-class Review(TemplateView):
-    template_name = "card/blogs.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        q = Q(status="shared") | Q(status="changed") | Q(reply=None)
-        queryset = Content.objects.filter(q)
-        context["content"] = queryset[:settings.PAGE_SIZE]
-        return context
-
-
 class Report(LoginRequiredMixin, View):
     form_class = ReportsForm
     template_name = "home/report.html"

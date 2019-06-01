@@ -155,14 +155,6 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=image,
         )
 
-    def review(self):
-        return dict(
-            title=f"latest posts pending approval on coogger",
-            keywords=f"review,coogger review,approval",
-            description=f"latest posts pending approval on coogger",
-            image=None,
-        )
-
     def settings(self):
         return dict(
             title="settings",
