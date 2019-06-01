@@ -71,9 +71,9 @@ class About(View):
                 return redirect(reverse("userabout", kwargs=dict(username=request.user.username)))
 
 
-class Wallet(TemplateView):
+class Activity(TemplateView):
     "History of users"
-    template_name = "users/history/wallet.html"
+    template_name = "users/history/activity.html"
 
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -83,16 +83,7 @@ class Wallet(TemplateView):
         return context
 
 
-class Activity(Wallet):
-    "History of users"
-    template_name = "users/history/activity.html"
-
-    def get_context_data(self, username, **kwargs):
-        context = super().get_context_data(username, **kwargs)
-        return context
-
-
-class Comment(Wallet):
+class Comment(Activity):
     "History of users"
     template_name = "users/history/comment.html"
 

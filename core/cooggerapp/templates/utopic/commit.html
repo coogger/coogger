@@ -7,7 +7,7 @@
         {{ commit.msg|title }}
       </h1>
       <div flex="ai-c" general="w-100">
-        <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ commit.content.user }}/avatar');">
+        <img class="commit-user" general="br-4 c-muted" src="{{ commit.user.githubauthuser.avatar_url }}">
         <span general="txt-s" style="margin-left: 6px;"><strong>@{{ commit.user }}</strong> committed {{ commit.created|timesince }}</span>
         <a general="c-primary right" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">{{ commit.hash|truncatechars:12 }}</a>
       </div>

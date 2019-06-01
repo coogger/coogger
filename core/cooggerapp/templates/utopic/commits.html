@@ -13,7 +13,7 @@
             <a general="txt-s c-primary w-30" href="{% url 'commit'  commit.content.user  commit.utopic.permlink commit.hash %}">{{ commit.hash }}</a>
             <div flex="fd-c" general="w-100">
               <div flex="ai-c">
-                <img class="commit-user" general="br-4 c-muted" style="background-image: url('https://steemitimages.com/u/{{ commit.content.user }}/avatar');">
+                <img class="commit-user" general="br-4 c-muted" src="{{ commit.user.githubauthuser.avatar_url }}">
                 <span general="txt-s" style="margin-left: 6px;">
                   <strong>@{{ commit.content.user }}</strong>
                 </span>

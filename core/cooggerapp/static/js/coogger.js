@@ -81,22 +81,6 @@ function get_data_from_cooggerapi(apiUrl){
     let reading_speed = 28;
     return `min ${((text.length/reading_speed)/60).toFixed(1)}`;
   }
-  function get_realy_content(content){
-    try{
-      let json_metadata = JSON.parse(content.json_metadata);
-      let version = json_metadata.ecosystem.version;
-      if (version == "1.4.1" || version == "1.7.1"){
-        return json_metadata.ecosystem.body;
-      }
-      else{
-        return content.body;
-      }
-    }
-    catch(err){
-      console.log(err);
-      return content.body;
-    }
-  }
   function timeSince(date) {
     let seconds = Math.floor((new Date() - new Date(date)) / 1000);
     let interval = Math.floor(seconds / 31536000);
