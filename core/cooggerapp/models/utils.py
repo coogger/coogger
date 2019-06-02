@@ -1,6 +1,11 @@
+# django
 from hashlib import sha256
 from uuid import uuid4
 from django.utils.text import slugify
+
+# python
+from bs4 import BeautifulSoup
+from mistune import Markdown, Renderer
 
 def get_new_hash():
     return sha256(str(uuid4().hex).encode("utf-8")).hexdigest()
@@ -19,3 +24,51 @@ def second_convert(second):
     years = int(second / (60 * 60 * 24 * 365.25))
     second -= years * (60 * 60 * 24 * 365.25)
     return dict(years=years, days=days, hours=hours, minutes=minutes, second=int(second))
+
+def marktohtml(marktext):
+    renderer = Renderer(escape=False, parse_block_html=True)
+    markdown = Markdown(renderer=renderer)
+    return BeautifulSoup(markdown(marktext), "html.parser")
+
+def get_first_image(soup):
+    img = soup.find("img")
+    context = dict(src="", alt="")
+    if img is not None:
+        context.update(src=img.get("src", ""))
+        context.update(alt=img.get("alt", ""))
+    return context
+
+def dor(body):
+    "duration of read -> second"
+    return body.__len__() / 28
+
+class NextOrPrevious:
+
+    def __init__(self, model, filter_field, id):
+        self.model = model
+        self.filter_field = filter_field
+        self.id = id
+
+    def next_or_previous(self, next=True):
+        queryset = self.model.objects.filter(**self.filter_field)
+        try:
+            index = list(queryset).index(queryset.filter(id=self.id)[0])
+        except IndexError:
+            return False
+        else:
+            if next:
+                index = index - 1
+            else:
+                index = index + 1
+        try:
+            return queryset[index]
+        except (IndexError, AssertionError):
+            return False
+
+    @property
+    def next_query(self):
+        return self.next_or_previous()
+
+    @property
+    def previous_query(self):
+        return self.next_or_previous(False)

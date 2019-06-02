@@ -94,7 +94,7 @@ class Detail(View):
                     json.dumps(
                         dict(
                             id=reply_form.id,
-                            username=reply_form.username,
+                            username=str(reply_form.user),
                             utopic_permlink=reply_form.utopic.permlink,
                             parent_permlink=reply_form.parent_permlink,
                             parent_username=reply_form.parent_username,
@@ -105,7 +105,7 @@ class Detail(View):
                             body=reply_form.body,
                             title=reply_form.title,
                             permlink=reply_form.permlink,
-                            avatar_url=reply_form.avatar_url,
+                            avatar_url=reply_form.user.githubauthuser.avatar_url,
                             )
                         )
                     )

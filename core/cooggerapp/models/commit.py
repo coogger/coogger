@@ -10,7 +10,7 @@ from .topic import UTopic
 from .content import Content
 
 # utils
-from .utils import get_new_hash
+from .utils import get_new_hash, NextOrPrevious
 
 # python
 from difflib import HtmlDiff
@@ -33,14 +33,11 @@ class Commit(models.Model):
 
     @property
     def previous_commit(self):
-        commits = self.__class__.objects.filter(
+        filter_field = dict(
             user=self.user, utopic=self.utopic, content=self.content
         )
-        index = list(commits).index(commits.filter(id=self.id)[0]) + 1
-        try:
-            return commits[index]
-        except (IndexError):
-            return False
+        n_or_p = NextOrPrevious(self.__class__, filter_field, self.id)
+        return n_or_p.previous_query
 
     @property
     def body_change(self):
@@ -49,7 +46,6 @@ class Commit(models.Model):
             return self.body
         after = list()
         before = list()
-
         HtmlDiff._file_template = (
             """<style type="text/css">%(styles)s</style>%(table)s"""
         )
@@ -72,15 +68,3 @@ class Commit(models.Model):
         return HtmlDiff().make_file(
             previous_commit.body.splitlines(), self.body.splitlines()
         )
-    
-    @property
-    def content_absolute_url(self):
-        return self.content.get_absolute_url
-    
-    @property
-    def username(self):
-        return self.user.username
-
-    @property
-    def topic_name(self):
-        return self.utopic.name

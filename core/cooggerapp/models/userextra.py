@@ -22,18 +22,6 @@ class OtherInformationOfUsers(models.Model):
     access_token = models.CharField(max_length=500, default=get_new_hash)
 
     @property
-    def username(self):
-        return str(self.user)
-
-    @property
-    def get_user(self):  # to api
-        context = list()
-        field = ("first_name", "last_name", "is_staff", "is_active", "id")
-        for f in field:
-            context.append({f: str(self.user.__getattribute__(f))})
-        return context
-
-    @property
     def get_user_address(self):  # to api
         context = list()
         queryset = self.user.otheraddressesofusers_set.filter(user=self.user)
@@ -68,7 +56,7 @@ class OtherAddressesOfUsers(models.Model):
             return []
 
     def __str__(self):
-        return self.user.username
+        return str(self.user)
 
 
 @receiver(post_save, sender=User)

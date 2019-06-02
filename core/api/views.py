@@ -1,9 +1,10 @@
 # rest_framework
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from rest_framework.generics import ListCreateAPIView
-from rest_framework.permissions import IsAdminUser
+# from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
-from rest_framework.serializers import ModelSerializer
+# from rest_framework.serializers import ModelSerializer
+# from rest_framework.views import APIView
 
 # api serializers
 from core.api.serializers import (

@@ -2,7 +2,6 @@ from django.utils.text import slugify
 
 LANGUAGES = [
         "english",
-        "korean",
         "spanish",
         "turkish",
         "chinese",

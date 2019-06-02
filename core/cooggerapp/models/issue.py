@@ -72,15 +72,3 @@ class Issue(ThreadedComments):
             status="closed", 
             reply=None
         )
-
-    @property
-    def username(self):
-        return str(self.user)
-    
-    @property
-    def utopic_permlink(self):
-        return self.utopic.permlink
-
-    @property
-    def avatar_url(self):
-        return self.user.githubauthuser.avatar_url

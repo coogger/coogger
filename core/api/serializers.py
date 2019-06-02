@@ -1,5 +1,4 @@
-from rest_framework.serializers import (
-    ModelSerializer)
+from rest_framework import serializers
 
 # models
 from core.cooggerapp.models import (
@@ -12,44 +11,62 @@ from core.cooggerapp.models import (
 from django.contrib.auth.models import User
 
 
-class ContentSerializer(ModelSerializer):
+class ContentSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(
+        source="user.username"
+    )
+    category_name = serializers.ReadOnlyField(
+        source="category.name"
+    )
+    utopic_permlink = serializers.ReadOnlyField(
+        source="utopic.permlink"
+    )
+    avatar_url = serializers.ReadOnlyField(
+        source="user.githubauthuser.avatar_url"
+    )
 
     class Meta:
         model = Content
-        fields = (
-            "id", 
-            "username",
-            "title", 
-            "permlink",
-            "definition", 
-            "category_name",
-            "language", 
-            "utopic_permlink",
-            "views", 
-            "body", 
-            "reply", 
-            "reply_count", 
-            "parent_username", 
-            "parent_permlink",
-            "avatar_url",
-            "created",
-            )
+        fields = ("__all__")
+        read_only_fields = ("__all__", )
 
 
-class UserSerializer(ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(
+        source="user.username"
+    )
+    first_name = serializers.ReadOnlyField(
+        source="user.first_name"
+    )
+    last_name = serializers.ReadOnlyField(
+        source="user.last_name"
+    )
+    id = serializers.ReadOnlyField(
+        source="user.id"
+    )
+
 
     class Meta:
         model = OtherInformationOfUsers
         fields = (
-            "username", "get_user", "get_user_address", "get_steemconnect", "about",
-            "cooggerup_confirmation", "sponsor",
-            "cooggerup_percent", "vote_percent",
-            "beneficiaries", "total_votes",
-            "total_vote_value", "access_token",
+            "username",
+            "first_name",
+            "last_name",
+            "id",
             )
+        read_only_fields = ("__all__", )
 
 
-class CommitSerializer(ModelSerializer):
+class CommitSerializer(serializers.ModelSerializer):
+    content_absolute_url = serializers.ReadOnlyField(
+        source="content.get_absolute_url"
+    )
+    username = serializers.ReadOnlyField(
+        source="user.username"
+    )
+    topic_name = serializers.ReadOnlyField(
+        source="utopic.name"
+    )
 
     class Meta:
         model = Commit
@@ -62,9 +79,19 @@ class CommitSerializer(ModelSerializer):
             "msg",
             "created",
         ]
+        read_only_fields = ("__all__", )
 
 
-class IssueSerializer(ModelSerializer):
+class IssueSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(
+        source="user.username"
+    )
+    utopic_permlink = serializers.ReadOnlyField(
+        source="utopic.permlink"
+    )
+    avatar_url = serializers.ReadOnlyField(
+        source="user.githubauthuser.avatar_url"
+    )
     
     class Meta:
         model = Issue
@@ -83,3 +110,4 @@ class IssueSerializer(ModelSerializer):
             "reply_count",
             "created",
         ]
+        read_only_fields = ("__all__", )

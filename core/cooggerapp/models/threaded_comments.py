@@ -83,7 +83,7 @@ class ThreadedComments(models.Model):
 
     @property
     def parent_username(self):
-        return self.get_parent.username
+        return str(self.get_parent.user)
 
     @property
     def parent_permlink(self):

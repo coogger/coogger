@@ -12,10 +12,6 @@ from .utils import format_tags
 from .topic import UTopic
 from .threaded_comments import ThreadedComments
 
-# python
-from bs4 import BeautifulSoup
-from mistune import Markdown, Renderer
-
 # choices
 from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 
@@ -29,7 +25,7 @@ from django_page_views.templatetags.django_page_views import views_count
 import random
 
 # utils 
-from .utils import second_convert
+from .utils import (second_convert, marktohtml, get_first_image, dor, NextOrPrevious)
 
 class Content(ThreadedComments):
     body = EditorMdField(
@@ -83,40 +79,13 @@ class Content(ThreadedComments):
         return reverse("detail", kwargs=dict(username=str(self.user), permlink=self.permlink))
 
     @property
-    def username(self):
-        return self.user.username
-
-    @property
-    def modusername(self):
-        return self.mod.username
-
-    @property
-    def category_name(self):
-        return self.category.name
-
-    @property
-    def utopic_permlink(self):
-        return self.utopic.permlink
-
-    @property
-    def avatar_url(self):
-        return self.user.githubauthuser.avatar_url
-
-    @property
     def views(self):
         return views_count(self.__class__, self.id)
 
     @property
-    def dor(self):
-        "duration of read -> second"
-        read_char_in_per_second = 28
-        body_len = self.body.__len__()
-        return body_len / read_char_in_per_second
-
-    @property
     def get_dor(self):
         times = "min"
-        for f, t in second_convert(self.dor).items():
+        for f, t in second_convert(dor(self.body)).items():
             if t != 0:
                 times += f" {t} {f} "
         if times == "min":
@@ -124,47 +93,31 @@ class Content(ThreadedComments):
         return times
 
     def next_or_previous(self, next=True):
-        contents = self.__class__.objects.filter(utopic=self.utopic, reply=None)
-        try:
-            index = list(contents).index(contents.filter(id=self.id)[0])
-        except IndexError:
-            return False
-        else:
-            if next:
-                index = index - 1
-            else:
-                index = index + 1
-        try:
-            return contents[index].get_absolute_url
-        except (IndexError, AssertionError):
-            return False
+        filter_field = dict(
+            user=self.user, utopic=self.utopic, reply=None
+        )
+        n_or_p = NextOrPrevious(self.__class__, filter_field, self.id)
+        if next:
+            return n_or_p.next_query
+        return n_or_p.previous_query
 
     @property
     def next_post(self):
-        return self.next_or_previous()
+        try:
+            return self.next_or_previous().get_absolute_url
+        except AttributeError:
+            return False
 
     @property
     def previous_post(self):
-        return self.next_or_previous(False)
-
-    @staticmethod
-    def marktohtml(marktext):
-        renderer = Renderer(escape=False, parse_block_html=True)
-        markdown = Markdown(renderer=renderer)
-        return BeautifulSoup(markdown(marktext), "html.parser")
-
-    @staticmethod
-    def get_first_image(soup):
-        img = soup.find("img")
-        context = dict(src="", alt="")
-        if img is not None:
-            context.update(src=img.get("src", ""))
-            context.update(alt=img.get("alt", ""))
-        return context
+        try:
+            return self.next_or_previous(next=False).get_absolute_url
+        except AttributeError:
+            return False
 
     def prepare_definition(self):
-        soup = self.marktohtml(self.body)
-        first_image = self.get_first_image(soup)
+        soup = marktohtml(self.body)
+        first_image = get_first_image(soup)
         src, alt = first_image.get("src"), first_image.get("alt")
         if src:
             return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[:200]}...</p>"
@@ -184,7 +137,7 @@ class Content(ThreadedComments):
         user_topic.update(how_many=F("how_many") + 1)
         topic_model = Topic.objects.filter(permlink=utopic_permlink)
         topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
-        user_topic.update(total_dor=F("total_dor") + self.dor) # increase total dor in utopic
+        user_topic.update(total_dor=F("total_dor") + dor(self.body)) # increase total dor in utopic
         get_msg = request.POST.get("msg", None)
         if get_msg == "Initial commit":
             get_msg = f"{self.title} Published."

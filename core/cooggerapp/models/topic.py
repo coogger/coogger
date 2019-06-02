@@ -61,7 +61,7 @@ class Topic(CommonTopicModel):
         return reverse(
             "topic", 
             kwargs=dict(
-                username=self.user.username, 
+                username=str(self.user), 
                 permlink=self.permlink
             )
         )
@@ -69,6 +69,7 @@ class Topic(CommonTopicModel):
 
 class UTopic(CommonTopicModel):
     """ Topic For Users """
+    # TODO if topic name is changed, then must change the permlink
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total_dor = models.IntegerField(default=0, verbose_name="Total duration all contents")
     total_view = models.IntegerField(default=0, verbose_name="Total views all contents")
@@ -83,7 +84,7 @@ class UTopic(CommonTopicModel):
         return reverse(
             "utopic", 
             kwargs=dict(
-                username=self.user.username, 
+                username=str(self.user), 
                 permlink=self.permlink
             )
         )
