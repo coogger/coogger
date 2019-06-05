@@ -3,27 +3,22 @@ from django.db.models import F
 from django.contrib.auth.models import User
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
-from django.conf import settings
-from django.core.paginator import (Paginator, EmptyPage, PageNotAnInteger)
-from django.contrib.auth import authenticate
 from django.http import Http404
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.base import TemplateView
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.db.utils import IntegrityError
 from django.contrib.contenttypes.models import ContentType
 
-# core.cooggerapp models
-from core.cooggerapp.models import (Content, UTopic)
-
 # 3.part models
 from django_page_views.models import DjangoViews
 
+# core.cooggerapp models
+from ..models import Content
+
 # forms
-from core.cooggerapp.forms import NewContentReplyForm
+from ..forms import NewContentReplyForm
 
 # python
 import json

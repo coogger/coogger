@@ -8,10 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
 # models
-from core.cooggerapp.models import Content, Category, UTopic, Topic
+from ..models import Content, Category, UTopic, Topic
 
 # form
-from core.cooggerapp.forms import ContentForm, ReplyForm
+from ..forms import ContentForm, ReplyForm
 
 
 class Create(LoginRequiredMixin, View):

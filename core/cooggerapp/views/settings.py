@@ -7,10 +7,10 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # models
-from core.cooggerapp.models import UserProfile, OtherAddressesOfUsers
+from ..models import UserProfile, OtherAddressesOfUsers
 
 # forms
-from core.cooggerapp.forms import AddressesForm
+from ..forms import AddressesForm
 
 # python
 import os

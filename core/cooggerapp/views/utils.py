@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.exceptions import FieldError
 
 # models
-from core.cooggerapp.models import Category, Topic
+from ..models import Category, Topic
 
 def paginator(request, queryset):
     paginator = Paginator(queryset, settings.PAGE_SIZE)

@@ -3,10 +3,10 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 
 # model
-from core.cooggerapp.models import (UTopic, Commit)
+from ..models import (UTopic, Commit)
 
 # utils 
-from core.cooggerapp.views.utils import paginator
+from .utils import paginator
 
 
 class Commits(TemplateView):

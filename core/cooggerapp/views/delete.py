@@ -6,7 +6,7 @@ from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # models
-from core.cooggerapp.models import UserProfile, OtherAddressesOfUsers
+from ..models import UserProfile, OtherAddressesOfUsers
 
 # python
 import json

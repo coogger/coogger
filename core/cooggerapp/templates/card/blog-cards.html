@@ -1,7 +1,7 @@
-{% if content %}
+{% if queryset %}
   <cards flex general="w-30" mobile-s="w-100" mobile-m="w-98" mobile-l="w-98"
    tablet="w-80" laptop="w-50" laptop-l="w-40" max="w-30" style="margin:0px">
-      {% for ct in content %}
+      {% for ct in queryset %}
         <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" general="br-2 bg-white">
             {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
             <a href="{{ ct.get_absolute_url }}" general="c-dark">
@@ -14,6 +14,6 @@
       {% endfor %}
   </cards>
   {% include "card/script.html" %}
-{% elif not content %}
+{% elif not queryset %}
   {% include 'home/we_are_sory.html' %}
 {% endif %}

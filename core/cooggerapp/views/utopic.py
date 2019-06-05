@@ -9,10 +9,10 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 
 # model
-from core.cooggerapp.models import (Topic, UTopic, Content, Commit)
+from ..models import (Topic, UTopic, Content, Commit)
 
 # form
-from core.cooggerapp.forms import UTopicForm
+from ..forms import UTopicForm
 
 
 class UserTopic(TemplateView):

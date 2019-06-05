@@ -6,10 +6,10 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 
 # models
-from core.cooggerapp.models import Content, Topic, Category
+from ..models import Content, Topic, Category
 
 # choices
-from core.cooggerapp.choices import LANGUAGES
+from ..choices import LANGUAGES
 
 class TopicSitemap(Sitemap):
     changefreq = "weekly"
