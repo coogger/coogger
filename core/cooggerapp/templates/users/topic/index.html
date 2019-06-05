@@ -1,0 +1,12 @@
+{% extends "home/html.html" %}
+{% block body %}
+  <div general="left w-100">
+    {% include 'users/tabs.html' %}
+    <div general="w-100" style="padding-bottom: 12px;"></div>
+    <div general="b-1 br-2 brc-muted w-100 center" flex>
+        {% include 'users/pp.html' %}
+        {% include 'users/topic/topic-list.html' %}
+    </div>
+    {% include 'users/script.html'%}
+  </div>
+{% endblock %}

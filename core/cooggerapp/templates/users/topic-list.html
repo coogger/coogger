@@ -1,0 +1,22 @@
+<div class="just-pc" flex="" general="w-50" laptop="w-30" style="position:  relative;top: 0px;margin-left: 6%;">
+  <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 90px;">
+      <div general="bg-white brc-white" style="position: sticky;top: 16px;">
+        {% for topic in topics %}
+        <div general="b-1 br-2 brc-muted" style="padding: 6px 12px;margin: 6px 0px;">
+          <a hover="c-primary" flex="ai-c" general="c-dark br-4" href="/{{ topic.permlink }}/@{{current_user}}" style="padding: 3px 6px;">
+            {% if topic.image_address %}
+              <img general="w-6 br-circle" src="{{ topic.image_address }}" style="margin: 0px;height: 0%;">
+            {% endif %}
+            <div style="margin-left: 2px;">
+              <span>{{ topic.name |title }}</span>
+              <span general="txt-s c-white bg-secondary br-4" style="padding: 0px 6px;">
+                  {{ topic.how_many }}
+              </span>
+            </div>
+          </a>
+          <span general="txt-s" style="margin-left: 2px;">{{ topic.definition }}</span>
+        </div>
+        {% endfor %}
+      </div>
+  </div>
+</div>
