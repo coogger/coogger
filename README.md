@@ -29,6 +29,7 @@ GITHUB_CLIENT_SECRET=your_github_client_secret
 # >>> python manage.py makemigrations django_page_views
 # >>> python manage.py makemigrations djangoip
 # >>> python manage.py makemigrations django_ban
+# >>> python manage.py makemigrations django_vote_system
 
 >>> python manage.py migrate --database default
 >>> python manage.py migrate --database django_ip

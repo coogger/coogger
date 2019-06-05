@@ -3,7 +3,7 @@ class DBRouter:
         "admin", "auth", 
         "contenttypes", "sessions", 
         "cooggerapp", "github_auth", 
-        "django_follow_system",
+        "django_follow_system", "django_vote_system",
         "django_threadedcomments_system",
     ]
     coogger_images_app = [

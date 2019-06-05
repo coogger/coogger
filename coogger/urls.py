@@ -14,6 +14,7 @@ from .utils import just_redirect_by_name
 urlpatterns = [
     path("accounts/github/", include('github_auth.urls')),
     path("follow/", include("django_follow_system.urls")),
+    path("vote/", include("django_vote_system.urls")),
     path("admin/", admin.site.urls),
     path("api/", include("core.api.urls")),
     path("post/", include("core.cooggerapp.urls.post")),

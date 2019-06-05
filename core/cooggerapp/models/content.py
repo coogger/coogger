@@ -20,6 +20,7 @@ from django_md_editor.models import EditorMdField
 
 # 3.part tags
 from django_page_views.templatetags.django_page_views import views_count
+from django_vote_system.templatetags.vote import upvote_count, downvote_count
 
 # python 
 import random
@@ -81,6 +82,14 @@ class Content(ThreadedComments):
     @property
     def views(self):
         return views_count(self.__class__, self.id)
+
+    @property
+    def upvote_count(self):
+        return upvote_count(self.__class__, self.id)
+
+    @property
+    def downvote_count(self):
+        return downvote_count(self.__class__, self.id)
 
     @property
     def get_dor(self):

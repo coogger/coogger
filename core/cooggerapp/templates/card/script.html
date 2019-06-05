@@ -57,17 +57,20 @@
             posts.push(content_id);
             check.push(content_id);
             let author = content.username;
+            let id = content.id;
             let permlink = content.permlink;
             let definition = content.definition;
-            let topic = content.utopic_name;
+            let topic = content.utopic_permlink;
             let category = content.category_name;
             let language = content.language;
             let title = content.title;
             let duration_of_read = dor(content.body);
-            let rep = 0;
-            let reply = 0;
+            let reply_count = content.reply_count;
             let avatar_url = content.avatar_url;
-            let votes = 0;
+            let upvote_count = content.upvote_count;
+            if (upvote_count == null){
+              upvote_count = 0;
+            }
             let created = timeSince(content.created);
             let post_reward_total = 0;
             let views = content.views;
@@ -99,5 +102,53 @@
         })
       }
   });
+  // is vote for every card ?
+    let cards = document.querySelectorAll("card");
+    cards.forEach(function(card) {
+      let status = $(card).find("#vote-section").data("vote-status");
+      if (status == "False"){
+        $(card).find("#vote-section").find("#downvote").attr("general", "c-danger");
+      }
+      else if (status == "True"){
+        $(card).find("#vote-section").find("#upvote").attr("general", "c-success");
+      }
+    });
+    // is vote for every card ?
 });
+
+// vote op function
+function vote(this_, id){
+  let status;
+  if (this_.id == "upvote"){
+    status = true;
+  }
+  else if (this_.id == "downvote"){
+    status = false;
+  }
+  $.ajax({
+      type: "POST",
+      url: `{% url 'vote' 'cooggerapp' 'content' '${id}' %}`
+      data: {
+          "status": status,
+          "csrfmiddlewaretoken": "{{ csrf_token }}",
+      },
+  }).done(function(r) {
+      r = JSON.parse(r);
+      if (r.error){
+          alert(r.error);
+      }
+      else{
+          if (r.status == true){
+              $(`.id-${id} #upvote`).attr("general", "c-success");
+              $(`.id-${id} #downvote`).attr("general", "c-secondary");
+          }
+          else if (r.status == false){
+              $(`.id-${id} #upvote`).attr("general", "c-secondary");
+              $(`.id-${id} #downvote`).attr("general", "c-danger");
+          }
+          $(`.id-${id} #upvote`).text(r.upvote_count);
+          $(`.id-${id} #downvote`).text(r.downvote_count);
+      } 
+  });
+} 
 </script>

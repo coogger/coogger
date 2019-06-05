@@ -13,3 +13,4 @@ django-page-views==0.0.2
 djangoip==0.0.2
 django-ban==0.0.6
 cooggerimages==0.0.4
+django_vote_system==0.0.1
