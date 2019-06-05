@@ -12,7 +12,7 @@
                     <img class="commit-user" general="br-4 c-muted" src="{{ current_user.githubauthuser.avatar_url }}">
                   </a>
                   <i class="fas fa-book"></i>
-                  <a general="c-primary txt-m "  href="{% url 'utopic' utopic.permlink current_user %}">{{ utopic }}/@{{ current_user }}</a>
+                  <a general="c-primary txt-m "  href="{% url 'detail-utopic' utopic.permlink current_user %}">{{ utopic }}/@{{ current_user }}</a>
               </div>
               <div general="right">
                 <a general="br-1 c-white bg-green txt-s left" 
@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        {% include "utopic/top.html" %}
+        {% include "users/detail-topic/top.html" %}
         {% block alt_topic %}{% endblock %}
       </div>
     </div>
