@@ -3,15 +3,11 @@ from django.urls import include, path
 
 from core.api.views import (
     ListContent, 
-    ListUser,
-    ListCommit,
     ListIssue,
     )
 
 
 urlpatterns = [
     path('content/', ListContent.as_view()),
-    path('user/', ListUser.as_view()),
-    path('commit/', ListCommit.as_view()),
     path('issue/', ListIssue.as_view()),
 ]
