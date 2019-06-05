@@ -14,18 +14,19 @@
     <div flex="fd-c" default="pm"
     mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50">
         {% for i in address_instance %}
-        <div flex="ai-c jc-fe" general="b-1 br-2 txt-l brc-muted" style="padding: 6px 6px;">
-            {{ i.choices }} {% if i.choices == "web-site" %}
-            <a general="bg-2 txt-l c-secondary" hover="c-primary" target="_blank" href="{{ i.adress }}" style="padding: 6px 16px;">
-        {{ i.adress}}
-      </a> {% else %}
-            <a general="bg-2 txt-l c-secondary" hover="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}" style="padding: 6px 16px;">
-        {{ i.adress}}
-      </a> {% endif %}
-            <div flex="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flex="ai-c as-c" animation-hover="bg-danger" hover="c-white" general="b-1 br-2 brc-muted txt-l" style="cursor:pointer;padding: 6px;">
-                <i class="fa fa-trash" aria-hidden="true"></i>
+            <div flex="ai-c jc-fe" general="b-1 br-2 txt-l brc-muted" style="padding: 6px 6px;">
+                {{ i.choices }} 
+            {% if i.choices == "web-site" %}
+                <a general="bg-2 txt-l c-secondary" hover="c-primary" target="_blank" href="{{ i.adress }}" style="padding: 6px 16px;">
+                    {{ i.adress}}
+                </a> {% else %}
+                <a general="bg-2 txt-l c-secondary" hover="c-primary" target="_blank" href="https://www.{{i.choices}}.com/{{i.adress}}" style="padding: 6px 16px;">
+                    {{ i.adress}}
+                </a> {% endif %}
+                <div flex="ai-c jc-fs" class="deladdress" data-deladdress="{{ i.id }}" flex="ai-c as-c" animation-hover="bg-danger" hover="c-white" general="b-1 br-2 brc-muted txt-l" style="cursor:pointer;padding: 6px;">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 </div>

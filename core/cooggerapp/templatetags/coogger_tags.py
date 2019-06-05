@@ -9,7 +9,7 @@ from urllib.parse import quote_plus
 
 # core.cooggerapp
 from core.cooggerapp.choices import *
-from core.cooggerapp.models import Content, Topic, Commit, OtherInformationOfUsers
+from core.cooggerapp.models import Content, Topic, Commit
 
 import requests
 

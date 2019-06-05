@@ -12,9 +12,8 @@ from django.views import View
 
 # models
 from core.cooggerapp.models import (
-    OtherInformationOfUsers, 
+    UserProfile, 
     Content, 
-    OtherAddressesOfUsers, 
     UTopic)
 
 # forms
@@ -31,7 +30,7 @@ class Home(TemplateView):
         context = super().get_context_data(**kwargs)
         context["content"] = queryset[:settings.PAGE_SIZE]
         context["current_user"] = user
-        context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
+        context["addresses"] = UserProfile.objects.get(user=user).address.all()
         context["topics"] = UTopic.objects.filter(user=user)
         return context
 
@@ -44,7 +43,7 @@ class About(View):
         context = {}
         user = User.objects.get(username=username)
         try:
-            query = OtherInformationOfUsers.objects.filter(user=user)[0]
+            query = UserProfile.objects.filter(user=user)[0]
         except IndexError:
             query = []
         else:
@@ -54,7 +53,7 @@ class About(View):
                 context["about"] = query.about
         queryset = Content.objects.filter(user=user, status="approved", reply=None)
         context["current_user"] = user
-        context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
+        context["addresses"] = UserProfile.objects.get(user=user).address.all()
         context["topics"] = UTopic.objects.filter(user=user)
         context["md_editor"] = True
         return render(request, self.template_name, context)
@@ -62,7 +61,7 @@ class About(View):
     def post(self, request, username, *args, **kwargs):
         if request.user.is_authenticated and \
             request.user.username == username:
-            query = OtherInformationOfUsers.objects.filter(user=request.user)[0]
+            query = UserProfile.objects.filter(user=request.user)[0]
             about_form = self.form_class(request.POST, instance=query)
             if about_form.is_valid():
                 about_form = about_form.save(commit=False)
@@ -79,7 +78,7 @@ class Activity(TemplateView):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(**kwargs)
         user = User.objects.get(username=username)
-        context["user_follow"] = OtherAddressesOfUsers(user=user).get_addresses
+        context["addresses"] = UserProfile.objects.get(user=user).address.all()
         context["current_user"] = user
         return context
 

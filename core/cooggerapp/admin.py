@@ -3,10 +3,9 @@ from django.contrib.admin import ModelAdmin, site
 #models
 from core.cooggerapp.models import (
     Content, 
-    OtherAddressesOfUsers, 
     SearchedWords,
     ReportModel, 
-    OtherInformationOfUsers, 
+    UserProfile, 
     Topic, 
     Commit, 
     UTopic, 
@@ -42,22 +41,16 @@ class ContentAdmin(ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
-class OtherAddressesOfUsersAdmin(ModelAdmin):
-    list_display = ["user", "choices", "address"]
-    list_display_links = list_display
-    list_filter = ["choices"]
-    search_fields = ["choices", "address"]
-
-
 class SearchedWordsAdmin(ModelAdmin):
     list_display = ["word","hmany"]
     list_display_links = list_display
     search_fields = list_display
 
 
-class OtherInformationOfUsersAdmin(ModelAdmin):
+class UserProfileAdmin(ModelAdmin):
     list_display = ["user"]
     list_display_links = list_display
+    filter_horizontal = ("address", )
     
 
 class TopicAdmin(ModelAdmin):
@@ -73,11 +66,6 @@ class TopicAdmin(ModelAdmin):
         ("address"),
         ("editable"),
     )
-
-    class Media:
-        css = {
-            "coogger.css": ("https://rawcdn.githack.com/coogger/coogger.css/11712e5084216bc25091db34e8796459736e2ae4/styles/coogger.css",),
-        }
 
 
 class CommitAdmin(ModelAdmin):
@@ -118,9 +106,8 @@ site.register(Content, ContentAdmin)
 site.register(Commit, CommitAdmin)
 site.register(UTopic, UtopicAdmin)
 site.register(Category)
-site.register(OtherAddressesOfUsers, OtherAddressesOfUsersAdmin)
 site.register(SearchedWords, SearchedWordsAdmin)
 site.register(ReportModel)
-site.register(OtherInformationOfUsers, OtherInformationOfUsersAdmin)
+site.register(UserProfile, UserProfileAdmin)
 site.register(Topic, TopicAdmin)
 site.register(Issue, IssueAdmin)

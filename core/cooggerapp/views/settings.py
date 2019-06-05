@@ -7,10 +7,10 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # models
-from core.cooggerapp.models import OtherAddressesOfUsers, OtherInformationOfUsers
+from core.cooggerapp.models import UserProfile, OtherAddressesOfUsers
 
 # forms
-from core.cooggerapp.forms import OtherAddressesOfUsersForm
+from core.cooggerapp.forms import AddressesForm
 
 # python
 import os
@@ -22,6 +22,7 @@ class Settings(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         address = self.address(request)
         context = dict(
+            # user_profile_form=
             address_form=address[1],
             address_instance=address[0],
         )
@@ -35,16 +36,16 @@ class Settings(LoginRequiredMixin, View):
         return redirect(request.META["PATH_INFO"])
 
     def address(self, request):
-        address_instance = OtherAddressesOfUsers.objects.filter(user=request.user)
-        address_form = OtherAddressesOfUsersForm(request.GET or None)
+        address_instance = UserProfile.objects.get(user=request.user).address.all()
+        address_form = AddressesForm(request.GET or None)
         return address_instance, address_form
 
     def post_address(self, request):
-        form = OtherAddressesOfUsersForm(request.POST)
+        form = AddressesForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
             if form.choices != None and form.address != None:
-                form.user = request.user
                 form.save()
+                UserProfile.objects.get(user=request.user).address.add(form)
                 messages.error(request, "Your website has added")
 

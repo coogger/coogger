@@ -6,7 +6,7 @@ from core.cooggerapp.choices import *
 
 # models
 from core.cooggerapp.models import (
-    Content, OtherAddressesOfUsers, OtherInformationOfUsers,
+    Content, OtherAddressesOfUsers, UserProfile,
     ReportModel, UTopic, Issue)
     
 from django.contrib.auth.models import User
@@ -38,7 +38,7 @@ class ReplyForm(forms.ModelForm):
         fields = ["title", "body"]
 
 
-class OtherAddressesOfUsersForm(forms.ModelForm):
+class AddressesForm(forms.ModelForm):
     class Meta:
         model = OtherAddressesOfUsers
         fields = ["choices", "address"]
@@ -58,7 +58,7 @@ class OtherAddressesOfUsersForm(forms.ModelForm):
 
 class AboutForm(forms.ModelForm):
     class Meta:
-        model = OtherInformationOfUsers
+        model = UserProfile
         fields = ["about"]
 
 
