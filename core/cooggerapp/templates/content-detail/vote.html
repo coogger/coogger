@@ -25,7 +25,7 @@
         }
         $.ajax({
             type: "POST",
-            url: `{% url 'vote' 'cooggerapp' 'content' detail.id %}`,
+            url: `/vote/cooggerapp/queryset/${id}`,
             data: {
                 "status": status,
                 "csrfmiddlewaretoken": "{{ csrf_token }}",
