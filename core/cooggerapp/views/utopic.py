@@ -14,8 +14,23 @@ from ..models import (Topic, UTopic, Content, Commit)
 # form
 from ..forms import UTopicForm
 
+# utils
+from .utils import paginator
+
 
 class UserTopic(TemplateView):
+    template_name = "users/topic/index.html"
+
+    def get_context_data(self, username, **kwargs):
+        user = User.objects.get(username=username)
+        utopic = UTopic.objects.filter(user=user)
+        context = super().get_context_data(**kwargs)
+        context["queryset"] = paginator(self.request, utopic)
+        context["current_user"] = user
+        return context
+
+
+class DetailUserTopic(TemplateView):
     "topic/@username"
     template_name = "utopic/contents-for-alt.html"
 
