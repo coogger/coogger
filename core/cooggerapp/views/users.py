@@ -2,7 +2,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.conf import settings
 from django.contrib.auth.models import User
 from .utils import paginator
 
@@ -11,13 +10,13 @@ from django.views.generic.base import TemplateView
 from django.views import View
 
 # models
-from core.cooggerapp.models import (
-    UserProfile, 
-    Content, 
-    UTopic)
+from ..models import (UserProfile, Content,  UTopic)
 
 # forms
-from core.cooggerapp.forms import AboutForm
+from ..forms import AboutForm
+
+# utils 
+from .utils import paginator
 
 
 class Home(TemplateView):
@@ -28,7 +27,7 @@ class Home(TemplateView):
         user = User.objects.get(username=username)
         queryset = Content.objects.filter(user=user, status="approved", reply=None)
         context = super().get_context_data(**kwargs)
-        context["content"] = queryset[:settings.PAGE_SIZE]
+        context["queryset"] = paginator(self.request, queryset)
         context["current_user"] = user
         context["addresses"] = UserProfile.objects.get(user=user).address.all()
         context["topics"] = UTopic.objects.filter(user=user)
@@ -51,7 +50,6 @@ class About(View):
                 context["about"] = self.form_class(request.GET or None, instance=query)
             else:
                 context["about"] = query.about
-        queryset = Content.objects.filter(user=user, status="approved", reply=None)
         context["current_user"] = user
         context["addresses"] = UserProfile.objects.get(user=user).address.all()
         context["topics"] = UTopic.objects.filter(user=user)
@@ -100,5 +98,5 @@ class Comment(Activity):
         context["topics"] = UTopic.objects.filter(user=user)
         context["md_editor"] = True
         context["user_comment"] = True
-        context["queryset"] = paginator(self.request ,queryset)
+        context["queryset"] = paginator(self.request, queryset)
         return context

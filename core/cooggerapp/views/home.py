@@ -11,10 +11,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 
 # form
-from core.cooggerapp.forms import ReportsForm
+from ..forms import ReportsForm
 
 # models
-from core.cooggerapp.models import Content, SearchedWords, ReportModel, Topic
+from ..models import Content, SearchedWords, ReportModel, Topic
+
+# utils
+from .utils import paginator
 
 
 class Home(TemplateView):
@@ -36,7 +39,7 @@ class Home(TemplateView):
                     break
             context["introduction"] = True
             queryset = posts
-        context["content"] = queryset[:settings.PAGE_SIZE]
+        context["queryset"] = paginator(self.request, queryset)
         context["sort_topics"] = self.sort_topics()
         return context
 
@@ -86,12 +89,12 @@ class Search(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["content"] = self.search_algorithm()[:settings.PAGE_SIZE]
+        context["queryset"] = paginator(self.request, self.search_algorithm())
         return context
 
     def search_algorithm(self):
         name = self.request.GET["query"].lower()
         SearchedWords(word=name).save()
         q = Q(title__contains=name) | Q(body__contains=name)
-        queryset = Content.objects.filter(q, status="approved").order_by("-views")
+        queryset = Content.objects.filter(q).filter(status="approved", reply=None)
         return queryset

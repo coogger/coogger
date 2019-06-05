@@ -1,107 +1,5 @@
-{% load coogger_tags %}
 <script>
   $(document).ready(function(){
-    let getApiUrl = function(url_resolve){
-    let apiUrl = "";
-    if (url_resolve == "user"){
-      apiUrl = `/api/content/?status=approved&username={{ current_user }}&reply=None`;
-    }
-    else if (url_resolve == "home" || url_resolve == "explorer_posts" ){
-      apiUrl = `/api/content/?status=approved&reply=None`;
-    }
-    else if (url_resolve == "language"){
-      apiUrl = `/api/content/?status=approved&language={{ language }}&reply=None`;
-    }
-    else if (url_resolve == "category"){
-      apiUrl = `/api/content/?status=approved&category={{ category }}&reply=None`;
-    }
-    else if (url_resolve == "review"){
-      apiUrl = `/api/content/?status=shared&reply=None`;
-    }
-    else if (url_resolve == "filter"){
-      apiUrl = `/api/content/?status=approved{{filter|safe}}&reply=None`;
-    }
-    else if (url_resolve == "topic"){
-      apiUrl = `/api/content/?status=approved&topic={{ topic.name }}&reply=None`;
-    }
-    else if (url_resolve == "list"){
-      apiUrl = `/api/content/?status=approved&topic={{nameofhashtag}}&reply=None`;
-    }
-    else if (url_resolve == "hashtag"){
-      apiUrl = `/api/content/?status=approved&tags={{ nameofhashtag }}&reply=None`;
-    }
-    return apiUrl;
-  }
-    const PerLoadPostCount = "{{ request.page_size }}";
-    const apiUrl = getApiUrl("{{ request|url_resolve:"" }}");
-    let dataCount = get_data_from_cooggerapi(apiUrl).then(function(data){
-        $(".query_count").html(data.count);
-        return data.count;
-      })
-    let posts = [];
-    let requests = [];
-  function loadMore(apiUrl){
-    let check = [];
-    let card = document.querySelectorAll('card');
-    let last_content = card[card.length-1];
-    let last_id = $(`#${last_content.id}`).attr("data-postid");
-    if (!requests.includes(apiUrl)){
-      requests.push(apiUrl);
-      get_result_from_cooggerapi(apiUrl).then(function(contents){
-        let index=0;
-        let len_content=contents.length;
-        for (index; index<len_content;index++){
-          let content = contents[index];
-          let content_id = content.id;
-          if (!posts.includes(content_id)){
-            posts.push(content_id);
-            check.push(content_id);
-            let author = content.username;
-            let id = content.id;
-            let permlink = content.permlink;
-            let definition = content.definition;
-            let topic = content.utopic_permlink;
-            let category = content.category_name;
-            let language = content.language;
-            let title = content.title;
-            let duration_of_read = dor(content.body);
-            let reply_count = content.reply_count;
-            let avatar_url = content.avatar_url;
-            let upvote_count = content.upvote_count;
-            if (upvote_count == null){
-              upvote_count = 0;
-            }
-            let created = timeSince(content.created);
-            let post_reward_total = 0;
-            let views = content.views;
-            {% include 'card/card_template.js' %}
-            $(`cards`).append(card_output);
-            if (check.length >= PerLoadPostCount){
-              break
-            }
-          }
-        }
-      })
-    }
-  }
-  let cards_length = function(){
-    return document.querySelectorAll('card').length
-  }
-  $(window).scroll(function() {
-      if (scrolledbottom()) {
-        $(".load-more").css({"display":"block"});
-        dataCount.then(function(post_count){
-          if (post_count > cards_length()){
-              let page = parseInt(((cards_length() / PerLoadPostCount) + 1).toFixed(1));
-              loadMore(`${apiUrl}&page=${page}`);
-          }
-          else{
-            $(".load-more").css({"display":"none"});
-            $(".end-of-the-posts").css({"display":"block"});
-          }
-        })
-      }
-  });
   // is vote for every card ?
     let cards = document.querySelectorAll("card");
     cards.forEach(function(card) {
@@ -115,7 +13,6 @@
     });
     // is vote for every card ?
 });
-
 // vote op function
 function vote(this_, id){
   let status;
@@ -127,7 +24,7 @@ function vote(this_, id){
   }
   $.ajax({
       type: "POST",
-      url: `{% url 'vote' 'cooggerapp' 'content' '${id}' %}`
+      url: `/vote/cooggerapp/content/${id}/`,
       data: {
           "status": status,
           "csrfmiddlewaretoken": "{{ csrf_token }}",

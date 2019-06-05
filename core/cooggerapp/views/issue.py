@@ -12,13 +12,16 @@ from django.db.models import F
 from django.contrib import messages
 
 # model
-from core.cooggerapp.models import (UTopic, Issue)
+from ..models import (UTopic, Issue)
 
 # form
-from core.cooggerapp.forms import NewIssueForm, NewIssueReplyForm
+from ..forms import NewIssueForm, NewIssueReplyForm
 
 # python
 import json
+
+# utils
+from .utils import paginator
 
 # TODO if requests come same url, and query does then it should be an update
 
@@ -30,7 +33,7 @@ class IssueView(TemplateView):
         utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
         context = super().get_context_data(**kwargs)
         context["current_user"] = user
-        context["queryset"] = self.get_queryset(user, utopic)
+        context["queryset"] = paginator(self.request ,self.get_queryset(user, utopic))
         context["utopic"] = utopic
         return context
 
