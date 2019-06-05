@@ -1,17 +1,22 @@
 # django 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.db.models.signals import m2m_changed
+from django.db.models.signals import m2m_changed, post_save
 from django.db.utils import IntegrityError
+
+# models
+from .topic import UTopic
 
 # 3.part 
 from django_md_editor.models import EditorMdField
+from django_follow_system.models import Follow
 
 # choices
 from core.cooggerapp.choices import FOLLOW, make_choices
 
+# python
+import requests
 
 class OtherAddressesOfUsers(models.Model):
     "maybe ManyToManyField in UserProfile"
@@ -40,10 +45,27 @@ class UserProfile(models.Model):
     email_permission = models.BooleanField(default=True)
 
 
+def save_github_follow(instance):
+    github_following_url = instance.githubauthuser.get_extra_data_as_dict.get("url") + "/following"
+    for f in requests.get(github_following_url).json():
+        user = User.objects.filter(username=f.get("login"))
+        if user.exists():
+            instance.follow.following.add(user[0])
+
+def save_github_repos(instance):
+    github_repos_url = instance.githubauthuser.get_extra_data_as_dict.get("repos_url")
+    for repo in requests.get(github_repos_url).json():
+        if repo.get("fork") == False:
+            UTopic(
+                user=instance, 
+                name=repo.get("name"), 
+                definition=repo.get("description"), 
+                address=repo.get("html_url"), 
+            ).save()
+
 @receiver(post_save, sender=User)
 def create_userprofile(sender, instance, created, **kwargs):
-    # TODO get follow and following list and save UserProfile 
     if created:
         UserProfile(user=instance).save()
-        # o = UserProfile.objects.get(user_id=1)
-        # o.follower.add(instance)
+    save_github_follow(instance)
+    save_github_repos(instance)
