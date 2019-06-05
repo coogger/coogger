@@ -30,7 +30,7 @@ class Home(TemplateView):
         context["queryset"] = paginator(self.request, queryset)
         context["current_user"] = user
         context["addresses"] = UserProfile.objects.get(user=user).address.all()
-        context["topics"] = UTopic.objects.filter(user=user)
+        context["topics"] = UTopic.objects.filter(user=user)[:6]
         return context
 
 
@@ -52,7 +52,7 @@ class About(View):
                 context["about"] = query.about
         context["current_user"] = user
         context["addresses"] = UserProfile.objects.get(user=user).address.all()
-        context["topics"] = UTopic.objects.filter(user=user)
+        context["topics"] = UTopic.objects.filter(user=user)[:6]
         context["md_editor"] = True
         return render(request, self.template_name, context)
 
@@ -78,6 +78,7 @@ class Activity(TemplateView):
         user = User.objects.get(username=username)
         context["addresses"] = UserProfile.objects.get(user=user).address.all()
         context["current_user"] = user
+        context["topics"] = UTopic.objects.filter(user=user)[:6]
         return context
 
 
@@ -95,7 +96,6 @@ class Comment(Activity):
                 ).filter(
                     reply__user=user
                     )
-        context["topics"] = UTopic.objects.filter(user=user)
         context["md_editor"] = True
         context["user_comment"] = True
         context["queryset"] = paginator(self.request, queryset)

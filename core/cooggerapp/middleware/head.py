@@ -135,7 +135,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=user.githubauthuser.avatar_url,
         )
 
-    def utopic(self):
+    def detail_utopic(self):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
         user = User.objects.get(username=username)
