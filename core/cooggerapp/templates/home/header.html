@@ -18,8 +18,10 @@
       </div>
       {% if not request.user.is_authenticated %}
       <div flex="ai-c">
-        <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex=""
-          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'redirect-github' %}">Login via github</a>
+        <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex="ai-c"
+          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'redirect-github' %}">
+          <i general="txt-xxl" class="fab fa-github-square"></i>Login via github
+        </a>
       </div>
       {% else%}
       <div flex="ai-c">
