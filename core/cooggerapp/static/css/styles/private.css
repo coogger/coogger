@@ -323,10 +323,7 @@ overflow: hidden;
 white-space: nowrap;
 text-overflow: ellipsis;
 }
-.useruserimg{
-max-width: 70px;
-max-height: 70px;
-}
+.useruserimg{max-width: 240px;max-height: 240px;}
 .headeruserimg{
 height: 30px;
 width: 30px;

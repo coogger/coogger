@@ -1,7 +1,7 @@
-<div style="margin: auto;margin-top: 12px;" general="w-100">
-  {% include 'users/pp.html' %}
-  {% include 'users/footer.html' %}
-  {% include 'users/tabs.html' %}
-  {% include 'users/topic/mobile.html' %}
-  {% include 'users/script.html'%}
+{% include 'users/tabs.html' %}
+<div general="w-100" style="padding-bottom: 12px;"></div>
+<div general="b-1 br-2 brc-muted w-100 center" flex>
+    {% include 'users/pp.html' %}
+    {% include 'users/topic-list.html' %}
 </div>
+{% include 'users/script.html'%}

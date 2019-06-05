@@ -1,28 +1,31 @@
-<u-footer flex="jc-c" general="txt-s" hover="c-private" style="padding: 6px 0px;">
+<u-footer general="txt-s w-100 center" hover="c-private" style="padding: 6px 0px;margin: 0px;">
     <div flex="fw-nw" style="overflow: auto;">
         {% for address in addresses %} 
-          {% with address.otheraddressesofusers as address %}
-            {% if address.choices == "web-site"%}
-            <div flex>
-                <a animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" target="_blank" href="{{address.address}}" style="padding: 3px 6px;">
-            <i class="fa fa-globe" aria-hidden="true" general="txt-s">
-              {{ address.choices|cut:"-" }}
+          {% if address.choices == "web-site"%}
+          <div flex>
+              <a animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" 
+              target="_blank" href="{{address.address}}" style="padding: 3px 6px;">
+          <i class="fa fa-globe" aria-hidden="true" general="txt-s">
+            {{ address.choices|cut:"-" }}
+          </i>
+        </a>
+          </div>
+          {% else %}
+          <div flex>
+              <a animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" 
+              target="_blank" href="https://www.{{address.choices}}.com/{{address.address}}" 
+              style="padding: 3px 6px;">
+            <i class="fab fa-{{address.choices}}" aria-hidden="true" general="txt-s">
+              {{address.address}}
             </i>
           </a>
-            </div>
-            {% else %}
-            <div flex>
-                <a animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" target="_blank" href="https://www.{{address.choices}}.com/{{address.address}}" style="padding: 3px 6px;">
-              <i class="fab fa-{{address.choices}}" aria-hidden="true" general="txt-s">
-                {{address.address}}
-              </i>
-            </a>
-            </div>
-            {% endif %} 
-          {% endwith %}
+          </div>
+          {% endif %} 
         {% endfor %}
         <div flex>
-          <a flex="ai-c" animation-hover="bg-primary" general="bg-2 br-2 c-dark" hover="c-white bg-white" target="_blank" href="https://www.github.com/@{{ current_user }}" style="padding: 3px 6px;">
+          <a flex="ai-c" animation-hover="bg-primary" general="bg-2 br-2 c-dark" 
+          hover="c-white bg-white" target="_blank" href="https://www.github.com/@{{ current_user }}" 
+          style="padding: 3px 6px;">
             <i flex="ai-c" class="fab fa-github"></i>
             <span>{{ current_user }}</span>
         </a>

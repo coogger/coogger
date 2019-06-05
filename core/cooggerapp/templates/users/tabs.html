@@ -1,22 +1,27 @@
-<div general="center">
-  <div flex="fw-nw" general="b-1 brc-muted" style="padding: 6px 0px;overflow: auto;">
-    <div flex="fd-c" class="utopic-open just-mobile" style="cursor:pointer;">
-      <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">TOPICS
-        <i class="fas fa-sitemap"></i>
-      </div>
+<div flex general="center w-100 b-1 brc-muted">
+  <div flex="fw-nw" style="padding: 6px 0px;overflow: auto;">
+    <div flex="fd-c" style="cursor:pointer;">
+      <a href="{% url 'utopic' current_user %}">
+          <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">TOPICS
+             <i class="fas fa-sitemap"></i>
+          </div>
+      </a>
     </div>
     <div flex="fd-c">
-      <a href="{% url 'userabout' current_user %}" flex="as-fs ai-c" general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">ABOUT
+      <a href="{% url 'userabout' current_user %}" flex="as-fs ai-c" 
+      general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">ABOUT
         <i class="fas fa-file-alt"></i>
       </a>
     </div>
     <div flex="fd-c">
-      <a href="{% url 'comment' current_user %}" flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">COMMENTS
+      <a href="{% url 'comment' current_user %}" flex="as-fs ai-c" 
+      general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">COMMENTS
         <i class="fas fa-comments"></i>
       </a>
     </div>
     <div flex="fd-c">
-      <a href="{% url 'activity' current_user %}" flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">ACTIVITY
+      <a href="{% url 'activity' current_user %}" flex="as-fs ai-c" 
+      general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">ACTIVITY
         <i class="fas fa-chart-line"></i>
       </a>
     </div>

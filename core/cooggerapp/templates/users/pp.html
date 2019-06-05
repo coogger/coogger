@@ -1,13 +1,14 @@
 {% load django_follow_system_tags %}
 {% load coogger_tags %}
-<div flex="jc-c fd-c ac-c" class="cover_image" style="background-repeat:no-repeat;background-position:center;background-size:contain;">
-    <div flex="jc-c" style="margin-top: 12px;">
+<div flex="fd-c" class="cover_image" style="margin: 0px;">
+    <div flex="jc-c">
         <div flex="fd-c" general="br-circle">
-            <img flex="jc-c" general="br-circle" src="{{ current_user.githubauthuser.avatar_url }}" class="useruserimg" style="padding: 2px;" id="useruserimg"></img>
+            <img flex="jc-c" general="br-circle" src="{{ current_user.githubauthuser.avatar_url }}" 
+            class="useruserimg" style="padding: 2px;" id="useruserimg"></img>
         </div>
     </div>
     <h1 flex="jc-c as-c" general="br-2 b-1 bg-white brc-white">
-        <a flex general="c-private" title="{{ current_user  }}" href="/@{{ current_user  }}"
+        <a flex general="c-private txt-m" title="{{ current_user  }}" href="/@{{ current_user  }}"
         style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
       @{{ current_user }}</a>
     </h1>
@@ -42,5 +43,6 @@
             </div>
         {% endif %}
     {% endif %}
+    {% include 'users/footer.html' %}
 </div>
-</script>
+

@@ -1,10 +1,11 @@
 {% extends "home/html.html" %}
 {% block body %}
-  {% include 'users/general.html' %}
-    <div general="center" style="margin-top:12px">
-      {% if queryset %}
-        {% include 'card/blog-cards.html' %}
-      {% endif %}
-      {% include 'users/topic/pc.html' %}
-    </div>
+  <div general="left w-100">
+    {% include 'users/general.html' %}
+  </div>
+  <div general="center" style="margin-top:12px">
+    {% if queryset %}
+      {% include 'card/blog-cards.html' %}
+    {% endif %}
+  </div>
 {% endblock %}
