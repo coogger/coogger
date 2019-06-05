@@ -25,7 +25,7 @@
         }
         $.ajax({
             type: "POST",
-            url: `/vote/cooggerapp/queryset/${id}`,
+            url: `/vote/cooggerapp/content/${id}/`,
             data: {
                 "status": status,
                 "csrfmiddlewaretoken": "{{ csrf_token }}",
