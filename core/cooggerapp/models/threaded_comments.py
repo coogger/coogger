@@ -23,6 +23,7 @@ class ThreadedComments(models.Model):
         blank=True, 
         related_name="children")
     reply_count = models.IntegerField(default=0)
+    # depth = models.IntegerField(default=0)
     created = models.DateTimeField(
         auto_now_add=True, 
         verbose_name="Created")
@@ -43,12 +44,12 @@ class ThreadedComments(models.Model):
             self.title = self.get_parent.title
             self.permlink = self.get_new_permlink(slugify(self.title.lower()))
             self.permlink = self.get_reply_permlink()
-            self.increase_reply_count(self.reply_id)
+            self.set_reply_count(self.reply_id)
         else:
             self.permlink = self.get_new_permlink(slugify(self.title.lower()))
         super().save(*args, **kwargs)
 
-    def increase_reply_count(self, reply_id):
+    def set_reply_count(self, reply_id):
         while True:
             query = self.__class__.objects.filter(id=reply_id)
             if query.exists():

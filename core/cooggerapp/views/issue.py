@@ -116,6 +116,7 @@ class DetailIssue(View):
                 return HttpResponse(
                     json.dumps(
                         dict(
+                            id=reply_form.id,
                             username=str(reply_form.user),
                             utopic_permlink=reply_form.utopic.permlink,
                             parent_permlink=reply_form.parent_permlink,
@@ -128,6 +129,7 @@ class DetailIssue(View):
                             title=reply_form.title,
                             permlink=reply_form.permlink,
                             avatar_url=reply_form.user.githubauthuser.avatar_url,
+                            get_absolute_url=reply_form.get_absolute_url
                             )
                         )
                     )

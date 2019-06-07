@@ -59,7 +59,7 @@ class Detail(View):
                 nav_category=nav_category,
                 urloftopic=permlink,
                 nameoflist=content.utopic,
-                detail=content,
+                queryset=content,
                 md_editor=True,
                 reply_form=self.form_class,
             )
@@ -101,6 +101,7 @@ class Detail(View):
                             title=reply_form.title,
                             permlink=reply_form.permlink,
                             avatar_url=reply_form.user.githubauthuser.avatar_url,
+                            get_absolute_url=reply_form.get_absolute_url
                             )
                         )
                     )

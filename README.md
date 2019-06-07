@@ -24,7 +24,6 @@ GITHUB_CLIENT_SECRET=your_github_client_secret
 >>> python manage.py makemigrations cooggerapp
 # >>> python manage.py makemigrations github_auth
 # >>> python manage.py makemigrations django_follow_system
-# >>> python manage.py makemigrations django_threadedcomments_system
 # >>> python manage.py makemigrations cooggerimages
 # >>> python manage.py makemigrations django_page_views
 # >>> python manage.py makemigrations djangoip

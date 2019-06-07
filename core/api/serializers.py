@@ -32,7 +32,7 @@ class ContentSerializer(serializers.ModelSerializer):
             "id", "username", "category_name", "utopic_permlink", "avatar_url",
             "get_absolute_url", "views", "upvote_count", "downvote_count", "body", "language",
             "tags", "definition", "status", "mod_username", "reply_count", 
-            "title", "created", "utopic_permlink", "permlink"
+            "title", "created", "utopic_permlink", "permlink", "get_absolute_url"
         ]
 
 
@@ -49,4 +49,11 @@ class IssueSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Issue
-        fields = ["__all__"]
+        fields = [
+            "id", "username", "permlink",
+            "utopic_permlink", "avatar_url", "body",
+            "status", "issue_id",
+            "title", "reply", "reply_count",
+            "created", "last_update",
+            "parent_username", "parent_permlink", "get_absolute_url"
+        ]

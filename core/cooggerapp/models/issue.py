@@ -41,6 +41,17 @@ class Issue(ThreadedComments):
     class Meta:
         ordering = ["-created"]
 
+    @property
+    def get_absolute_url(self):
+        return reverse(
+            "detail-issue", 
+            kwargs=dict(
+                username=str(self.user), 
+                utopic_permlink=self.utopic.permlink,
+                permlink=self.permlink
+            )
+        )
+
     def issue_save(self, *args, **kwargs):
         if self.reply is not None: # if make a comment
             self.status = None
