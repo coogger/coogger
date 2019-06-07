@@ -113,12 +113,12 @@ function get_data_from_cooggerapi(apiUrl){
     return timesince.slice(0, 2) + " ago";
   }
   // issue reply
-  function reply_info(address){
+  function reply_info(get_absolute_url){
     return (`
     <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
       <div>
         <li flex='ai-c'>
-          <a href='${address}' id='root_content' target='blank' general='txt-s'>
+          <a href='${get_absolute_url}' id='root_content' target='blank' general='txt-s'>
           <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
           </a>
         </li>
@@ -144,63 +144,93 @@ function get_data_from_cooggerapi(apiUrl){
       </div>`
     );
   }
-  function reply_body(comment){
-    let title = comment.title;
+  function reply_body(reply){
+    console.log(reply);
+    let title = reply.title;
     $(function() {
-      let Editor = editormd.markdownToHTML(comment.id+"_arg_editormd", {
+      let Editor = editormd.markdownToHTML(reply.id+"_arg_editormd", {
         height: 670,
         path : '/static/lib/',
         htmlDecode: 'html, iframe',
-        markdown : comment.body,
+        markdown : reply.body,
         atLink: false,
       });
     });
     return (`
       <div style='padding: inherit;'>
-        <div style='width: auto;height:  auto;border: none;' class='editormd' id='${comment.id}_arg_editormd'>
+        <div style='width: auto;height:  auto;border: none;' class='editormd' id='${reply.id}_arg_editormd'>
             <textarea style='display:none;' id='editormd_content'></textarea>
         </div>
       </div>
       <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
           <div general='txt-s' flex='ai-c' class='duread-li'>
-              <div style='margin-left: 12px;'>reply ; ${comment.reply_count}</div>
+              <div style='margin-left: 12px;'>reply ; ${reply.reply_count}</div>
           </div>
         </div>
     `);
   }
-  function get_children_replies(reply){
+  function get_children_replies(reply, api_name){
     if (reply.reply_count != 0 && reply.reply_count != undefined){
-      get_result_from_cooggerapi(`/api/content/?reply=${reply.id}`).then(function(children_replies){
+      get_result_from_cooggerapi(`/api/${api_name}/?reply=${reply.id}`).then(function(children_replies){
         for (ii in children_replies) {
-          let children_comment_template = "";
           let children_reply = children_replies[ii];
-          children_comment_template += `
-            <div class='comment_replies'
-              id='${children_reply.username}-${children_reply.permlink}'>`
-          children_comment_template += reply_info(`/@${children_reply.username}/${children_reply.permlink}`);
-          children_comment_template += reply_userinfo(children_reply);
-          children_comment_template += reply_body(children_reply);
-          children_comment_template += "</div>";
+          let children_comment_template = get_replies_template(children_reply);
           $(`#${children_reply.parent_username}-${children_reply.parent_permlink}`).append(children_comment_template);
-          get_children_replies(children_reply);
+          get_children_replies(children_reply, api_name);
         }
       });
     }
   }
-  function load_replies(id){
-    let replies_api = `/api/content/?reply=${id}`;
+  function load_replies(id, api_name){
+    let replies_api = `/api/${api_name}/?reply=${id}`;
     get_result_from_cooggerapi(replies_api).then(function(replies){
       for (i in replies){
         let reply = replies[i];
-        let comment_template = "";
-        comment_template += `<div class='comment' id='${reply.username}-${reply.permlink}'>`
-        comment_template += "<div class='comment_highlighted'>"
-        comment_template += reply_info(`/@${reply.username}/${reply.permlink}`);
-        comment_template += reply_userinfo(reply);
-        comment_template += reply_body(reply);
-        comment_template += "</div></div>"
-        $("#comment_template").append(comment_template);
-        get_children_replies(reply);
+        $("#comment_template").append(get_replies_template(reply));
+        get_children_replies(reply, api_name);
       }
     });
   }
+function get_replies_template(reply){
+  if (reply.parent_permlink.includes("re-")){
+    return (
+      `<div class='comment_replies' id='${reply.username}-${reply.permlink}'>
+      ${reply_info(reply.get_absolute_url)} ${reply_userinfo(reply)} ${reply_body(reply)}</div>`
+     );
+  }
+  else{
+    return (
+      `<div class='comment' id='${reply.username}-${reply.permlink}' <div class='comment_highlighted'>
+      ${reply_info(reply.get_absolute_url)} ${reply_userinfo(reply)} ${reply_body(reply)}</div></div>`
+     );
+  }
+ 
+}
+
+$(document).ready(function() {
+  $("#send-reply").click(function(){
+    $(this).attr("animation-hover", "i blink");
+    let csrf_token = $(this).data("csrf");
+    let get_comment = $("#id_body").val();
+    if (get_comment != ""){
+      $.ajax({
+        type: "POST",
+        url: window.location.href,
+        data: {
+          "body": get_comment,
+          "csrfmiddlewaretoken": csrf_token,
+        },
+      }).done(function(new_reply) {
+        new_reply = JSON.parse(new_reply);
+        document.getElementById("id_body").value = ""
+        $(this).attr("animation-hover", "null");
+        let new_reply_template = get_replies_template(new_reply);
+        $("#comment_template").append(new_reply_template);
+      });
+    }
+    else{
+      alert("Empty comments cannot be published.")
+    }
+  })
+});
+
