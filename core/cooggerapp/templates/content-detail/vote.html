@@ -1,10 +1,10 @@
 {% load vote %}
-<div general="center b-1 br-2 brc-secondary" id="vote-section" data-vote-status="{% is_vote request.user detail detail.id %}">
-    <i id="upvote" onclick="vote(this, '{{ detail.id }}')" general="c-secondary" hover="c-success" class="fas fa-heart">
-        {{ detail.upvote_count|default:"0" }}
+<div general="center b-1 br-2 brc-secondary" id="vote-section" data-vote-status="{% is_vote request.user detail queryset.id %}">
+    <i id="upvote" onclick="vote(this, '{{ queryset.id }}')" general="c-secondary" hover="c-success" class="fas fa-heart">
+        {{ queryset.upvote_count|default:"0" }}
     </i>
-    <i id="downvote" onclick="vote(this, '{{ detail.id }}')" general="c-secondary" hover="c-danger" class="fas fa-thumbs-down">
-        {{ detail.downvote_count|default:"0" }}
+    <i id="downvote" onclick="vote(this, '{{ queryset.id }}')" general="c-secondary" hover="c-danger" class="fas fa-thumbs-down">
+        {{ queryset.downvote_count|default:"0" }}
     </i>
 </div>
 <script>

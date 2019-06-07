@@ -1,14 +1,14 @@
 <div flex="ai-c">
   <div general="wmax left">
       {% if request.user.is_authenticated %}
-        {% if detail.user == request.user%}
-          <a general="b-1 br-1 brc-muted bg-warning" animation-hover="bg-secondary" href="{% url 'change' detail.user detail.permlink %}" flex="ai-c" style="padding: 6px 24px;">
+        {% if queryset.user == request.user%}
+          <a general="b-1 br-1 brc-muted bg-warning" animation-hover="bg-secondary" href="{% url 'change' queryset.user queryset.permlink %}" flex="ai-c" style="padding: 6px 24px;">
             <i general="c-white" class="fa fa-edit" aria-hidden="true"></i>
             <div general="txt-s c-white">Edit</div>
           </a>
         {% endif %}
-      {% if detail.user != request.user and detail.status == "approved"%}
-          <div class="report" data-content-id="{{ detail.id }}" style="padding: 6px 12px;cursor:pointer" general="b-1 br-1 bg-warning brc-muted" animation-hover="bg-danger" flex="ai-c">
+      {% if queryset.user != request.user and queryset.status == "approved"%}
+          <div class="report" data-content-id="{{ queryset.id }}" style="padding: 6px 12px;cursor:pointer" general="b-1 br-1 bg-warning brc-muted" animation-hover="bg-danger" flex="ai-c">
               <i general="c-white" class="fa fa-flag" aria-hidden="true"></i>
               <div general="txt-s c-white">Report</div>
           </div>

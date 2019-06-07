@@ -1,14 +1,14 @@
 {% extends "home/html.html" %}
 {% block body %}
   <div class="just-mobile">
-    {% if detail.next_post %}
+    {% if queryset.next_post %}
     <div style="z-index: 2;">
-      <a flex="jc-c" class="next_post" general="c-white br-1 txt-s" href="{{ detail.next_post }}">Next</a>
+      <a flex="jc-c" class="next_post" general="c-white br-1 txt-s" href="{{ queryset.next_post }}">Next</a>
     </div>
     {% endif %}
-    {% if detail.previous_post %}
+    {% if queryset.previous_post %}
     <div style="z-index: 2;">
-      <a flex="jc-c" class="previous_post" general="c-white br-1 txt-s" href="{{ detail.previous_post }}">Previous</a>
+      <a flex="jc-c" class="previous_post" general="c-white br-1 txt-s" href="{{ queryset.previous_post }}">Previous</a>
     </div>
     {% endif %}
   </div>

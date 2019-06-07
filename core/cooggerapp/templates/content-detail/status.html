@@ -1,11 +1,11 @@
-{% if detail.status != "approved" %}
-  {% if detail.status == "not-finised" %}
+{% if queryset.status != "approved" %}
+  {% if queryset.status == "not-finised" %}
     <div class="review-mod" general="flex center bg-warning c-white" flex="ai-c">
-        status of {{ detail.user }}'s content : {{ detail.status }}
+        status of {{ queryset.user }}'s content : {{ queryset.status }}
     </div>
-  {% elif detail.status == "rejected" %}
+  {% elif queryset.status == "rejected" %}
       <div class="review-mod" general="flex center bg-red c-white" flex="jc-c ai-c">
-          status of {{ detail.user }}'s content : {{ detail.status }} by <a general="c-white" href="/@{{ detail.mod }}">@{{ detail.mod }}</a>
+          status of {{ queryset.user }}'s content : {{ queryset.status }} by <a general="c-white" href="/@{{ queryset.mod }}">@{{ queryset.mod }}</a>
       </div>
     {% endif %}
 {% endif %}

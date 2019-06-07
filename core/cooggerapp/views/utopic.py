@@ -32,7 +32,7 @@ class UserTopic(TemplateView):
 
 class DetailUserTopic(TemplateView):
     "topic/@username"
-    template_name = "utopic/contents-for-alt.html"
+    template_name = "users/detail-topic/contents-for-alt.html"
 
     def get_context_data(self, username, permlink, **kwargs):
         user = User.objects.get(username=username)
