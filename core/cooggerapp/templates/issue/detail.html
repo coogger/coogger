@@ -13,18 +13,27 @@
         </span>
       </div>
     </div>
-    <div general="b-1 br-2 brc-muted">
-      <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
-        {{ reply_form }}
-          <button id="send-reply" general="right b-1 br-2 brc-muted bg-success c-white" 
-          data-parent_author="{{ current_user }}" data-parent_permlink="{{ queryset.permlink }}">
-            Reply
-          </button>
-          <div id="comment_template" class="comment_template"></div>
-      </div>
-    </div>
+    <!-- replies -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        let load_comments = true;
+          if (load_comments && scrolledbottom()){
+              load_comments = false;
+              load_replies("{{ queryset.id }}", "issue")
+          }
+          else{
+            $(window).scroll(function() {
+                if (load_comments && scrolledbottom()){
+                  load_comments = false;
+                  load_replies("{{ queryset.id }}", "issue")
+                }
+              });
+          }
+        });
+      </script>
+    {% include 'form/reply.html' %}
+    <!--  -->
   </div>
-  {% include "issue/replies.html" %}
 {% endblock %}
 {% block closed_issue %}
   {% if request.user == current_user or queryset.user == request.user %}

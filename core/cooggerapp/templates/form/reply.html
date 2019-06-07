@@ -1,0 +1,10 @@
+<div general="b-1 br-2 brc-muted">
+  <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
+    {{ reply_form }}
+      <button id="send-reply" data-csrf="{{ csrf_token }}" general="right b-1 br-2 brc-muted bg-success c-white" 
+      data-parent_author="{{ current_user }}" data-parent_permlink="{{ queryset.permlink }}">
+        Reply
+      </button>
+      <div id="comment_template" class="comment_template"></div>
+  </div>
+</div>
