@@ -50,12 +50,21 @@ class UserProfile(models.Model):
 
 
 def save_github_follow(user):
-    github_following_url = user.githubauthuser.get_extra_data_as_dict.get("url") + "/following"
-    for f in requests.get(github_following_url).json():
-        user = User.objects.filter(username=f.get("login"))
-        if user.exists():
+    url = user.githubauthuser.get_extra_data_as_dict.get("url")
+    following = [user.get("login") for user in requests.get(url + "/following").json()]
+    for following_username in following:
+        following_user = User.objects.filter(username=following_username)
+        if following_user.exists():
             try:
-                user.follow.following.add(user[0])
+                user.follow.following.add(following_user[0])
+            except IntegrityError:
+                pass
+    followers = [user.get("login") for user in requests.get(url + "/followers").json()]
+    for follower_username in followers:
+        follow_user = User.objects.filter(username=follower_username)
+        if follow_user.exists():
+            try:
+                follow_user[0].follow.following.add(user)
             except IntegrityError:
                 pass
 
