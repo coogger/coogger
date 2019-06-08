@@ -145,7 +145,6 @@ function get_data_from_cooggerapi(apiUrl){
     );
   }
   function reply_body(reply){
-    console.log(reply);
     let title = reply.title;
     $(function() {
       let Editor = editormd.markdownToHTML(reply.id+"_arg_editormd", {
@@ -198,13 +197,10 @@ function get_replies_template(reply){
       ${reply_info(reply.get_absolute_url)} ${reply_userinfo(reply)} ${reply_body(reply)}</div>`
      );
   }
-  else{
-    return (
-      `<div class='comment' id='${reply.username}-${reply.permlink}' <div class='comment_highlighted'>
-      ${reply_info(reply.get_absolute_url)} ${reply_userinfo(reply)} ${reply_body(reply)}</div></div>`
-     );
-  }
- 
+  return (
+    `<div class='comment' id='${reply.username}-${reply.permlink}' <div class='comment_highlighted'>
+    ${reply_info(reply.get_absolute_url)} ${reply_userinfo(reply)} ${reply_body(reply)}</div></div>`
+   );
 }
 
 $(document).ready(function() {
