@@ -1,6 +1,7 @@
 # django
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib import messages
 from django.urls import resolve
@@ -98,3 +99,17 @@ class Search(TemplateView):
         q = Q(title__contains=name) | Q(body__contains=name)
         queryset = Content.objects.filter(q).filter(status="approved", reply=None)
         return queryset
+
+
+class Feed(TemplateView):
+    # TODO this class must be improved
+    template_name = "card/blogs.html"
+
+    def get_context_data(self, username, **kwargs):
+        context = super().get_context_data(**kwargs)
+        following = list(User.objects.get(username=username).follow.following.all())
+        queryset = list()
+        for user in following:
+            queryset += Content.objects.filter(user=user, status="approved", reply=None)
+        context["queryset"] = paginator(self.request, queryset)
+        return context
