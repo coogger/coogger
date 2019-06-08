@@ -69,26 +69,12 @@ class About(View):
                 return redirect(reverse("userabout", kwargs=dict(username=request.user.username)))
 
 
-class Activity(TemplateView):
-    "History of users"
-    template_name = "users/history/activity.html"
-
-    def get_context_data(self, username, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = User.objects.get(username=username)
-        context["addresses"] = UserProfile.objects.get(user=user).address.all()
-        context["current_user"] = user
-        context["topics"] = UTopic.objects.filter(user=user)[:6]
-        return context
-
-
-class Comment(Activity):
+class Comment(TemplateView):
     "History of users"
     template_name = "users/history/comment.html"
 
     def get_context_data(self, username, **kwargs):
-        context = super().get_context_data(username, **kwargs)
-        user = context["current_user"]
+        user = User.objects.get(username=username)
         queryset = Content.objects.filter(
             status="approved"
             ).exclude(
@@ -96,7 +82,11 @@ class Comment(Activity):
                 ).filter(
                     reply__user=user
                     )
+        context = super().get_context_data(**kwargs)
+        context["addresses"] = UserProfile.objects.get(user=user).address.all()
+        context["topics"] = UTopic.objects.filter(user=user)[:6]
         context["md_editor"] = True
         context["user_comment"] = True
+        context["current_user"] = user
         context["queryset"] = paginator(self.request, queryset)
         return context
