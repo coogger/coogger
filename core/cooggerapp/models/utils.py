@@ -2,6 +2,10 @@
 from hashlib import sha256
 from uuid import uuid4
 from django.utils.text import slugify
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # python
 from bs4 import BeautifulSoup
@@ -72,3 +76,12 @@ class NextOrPrevious:
     @property
     def previous_query(self):
         return self.next_or_previous(False)
+
+def send_mail(subject, user, template_name, context):
+    from_email = settings.EMAIL_HOST_USER
+    to = [u.email for u in user.follow.following.all()]
+    html_content = render_to_string(template_name, context)
+    text_content = strip_tags(html_content)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

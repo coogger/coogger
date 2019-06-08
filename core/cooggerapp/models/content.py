@@ -26,7 +26,11 @@ from django_vote_system.templatetags.vote import upvote_count, downvote_count
 import random
 
 # utils 
-from .utils import (second_convert, marktohtml, get_first_image, dor, NextOrPrevious)
+from .utils import (
+    second_convert, marktohtml, 
+    get_first_image, dor, NextOrPrevious,
+    send_mail
+    )
 
 class Content(ThreadedComments):
     body = EditorMdField(
@@ -142,7 +146,7 @@ class Content(ThreadedComments):
         self.utopic = user_topic[0]
         self.tags = self.ready_tags()
         self.definition = self.prepare_definition()
-        form.save()
+        form.save() # content save
         user_topic.update(how_many=F("how_many") + 1)
         topic_model = Topic.objects.filter(permlink=utopic_permlink)
         topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
@@ -156,7 +160,17 @@ class Content(ThreadedComments):
             content=self,
             body=self.body,
             msg=get_msg,
-        ).save()
+        ).save() # commit save
+        # send mail
+        subject = f"{self.user} publish a new content | coogger".title()
+        context = dict(
+            get_absolute_url=self.get_absolute_url
+        )
+        send_mail(
+            subject=subject, user=self.user, 
+            template_name="email/post.html", 
+            context=context
+        )
 
     def content_update(self, request, old, new):
         # old is a content query
