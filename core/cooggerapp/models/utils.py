@@ -79,7 +79,7 @@ class NextOrPrevious:
 
 def send_mail(subject, user, template_name, context):
     from_email = settings.EMAIL_HOST_USER
-    to = [u.email for u in user.follow.following.all()]
+    to = [u.user.email for u in user.follow.follower if u.user.email]
     html_content = render_to_string(template_name, context)
     text_content = strip_tags(html_content)
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
