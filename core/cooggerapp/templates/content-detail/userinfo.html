@@ -1,3 +1,4 @@
+{% load django_follow_system_tags %}
 <div style="border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;">
   <div flex="ai-fs" general="bg-white">
     <img general="br-circle left" id="detail_profile_image" src="{{ current_user.githubauthuser.avatar_url }}" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
@@ -13,17 +14,37 @@
     </div>
   </div>
   <div flex="fd-s">
-    {% if request.user != current_user and request.user.is_authenticated %}
-    <div general="br-2 b-1 bg-secondary brc-muted" class="follow" id="follow" flex="jc-c as-c" animation-hover="bg-primary" general="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;">
-        <div general="txt-s c-white" id="is_follow">
-            Follow
-        </div>
-    </div>
-    <div general="br-2 b-1 bg-secondary brc-muted" class="unfollow" id="unfollow" flex="jc-c as-c" animation-hover="bg-primary" general="bg-secondary br-2 b-1 brc-muted" style="cursor:pointer;padding: 0px 12px;margin: 6px 0px;display:none">
-        <div general="txt-s c-white" id="is_unfollow">
-            Unfollow
-        </div>
-    </div>
-    {% endif %}
+      {% if request.user != current_user and request.user.is_authenticated %}
+      {% if request.user|is_follow:current_user %}
+          <div class="follow-op" id="follow-op" flex="jc-c as-c" hover="bg-red" 
+          general="br-2 b-1 brc-muted bg-secondary" style="cursor:pointer;padding: 2px 30px;">
+              <div general="txt-s c-white" id="follow">Unfollow</div>
+          </div>
+      {% else %}
+          <div class="follow-op" id="follow-op" flex="jc-c as-c" hover="bg-primary" 
+          general="br-2 b-1 brc-muted bg-secondary" style="cursor:pointer;padding: 3px 30px;">
+              <div general="txt-s c-white" id="follow">Follow</div>
+          </div>
+      {% endif %}
+  {% endif %}
   </div>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $(".follow-op").click(function(event){
+          $("#follow-op").attr({'animation':"blink i"});
+          $.get("{% url 'follow' current_user %}", function(data, status){
+            if (data.status == "follow"){
+              $("#follow-op #follow").html("Unfollow");
+              $("#follow-op").attr({"hover":"bg-red"});
+            }
+            else if (data.status == "unfollow"){
+              $("#follow-op #follow").html("Follow");
+              $("#follow-op").attr({"hover":"bg-primary"});
+            }
+          });
+          $("#follow-op").attr({'animation':""});
+        });
+      });
+  </script>
+  
 </div>

@@ -123,7 +123,7 @@ MDEDITOR_CONFIGS = dict(
     emoji=True,
 )
 DJANGO_BAN_CONFIGS = dict(
-    remove_ban_by_day=7,
+    remove_ban_by_day=1,
     increase_count_by_minute=1,
     ban_count=ban_count,
 )
