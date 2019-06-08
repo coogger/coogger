@@ -18,13 +18,13 @@
             <div general="b-1 br-2 txt-s brc-muted c-secondary" style="padding: 3px 6px;">Contents</div>
         </div>
         <div flex="fd-c" style="margin: 6px;" general="br-2 bg-white">
-            <a href="/follow/get/" flex="as-c fd-c">
+            <a href="{% url 'get_followers' %}?username={{ current_user }}" flex="as-c fd-c">
                 <div class="follownum" flex="as-c" id="follower_count">{{ current_user|followers_count}}</div>
                 <div general="b-1 br-2 txt-s brc-muted c-secondary" style="padding: 3px 6px;">Followers</div>
             </a>
         </div>
         <div flex="fd-c" style="margin: 6px;" general="br-2 bg-white">
-            <a href="/follow/get/" flex="as-c fd-c">
+            <a href="{% url 'get_followers' %}?username={{ current_user }}" flex="as-c fd-c">
                 <div class="follownum" flex="as-c" id="following_count">{{ current_user|following_count}}</div>
                 <div general="b-1 br-2 txt-s brc-muted c-secondary" style="padding: 3px 6px;">Following</div>
             </a>

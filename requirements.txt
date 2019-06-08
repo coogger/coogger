@@ -7,10 +7,10 @@ beautifulsoup4==4.6.0
 django-environ==0.4.5
 
 django-md-editor==0.1.4
-django-follow-system==0.0.2
+django-follow-system==0.0.3
 github-auth==0.0.5
 django-page-views==0.0.3
 djangoip==0.0.2
 django-ban==0.0.7
 cooggerimages==0.0.5
-django-vote-system==0.0.3
+django-vote-system==0.0.4
