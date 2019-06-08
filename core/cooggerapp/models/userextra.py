@@ -51,7 +51,10 @@ def save_github_follow(user):
     for f in requests.get(github_following_url).json():
         user = User.objects.filter(username=f.get("login"))
         if user.exists():
-            user.follow.following.add(user[0])
+            try:
+                user.follow.following.add(user[0])
+            except IntegrityError:
+                pass
 
 def save_github_repos(user):
     github_repos_url = user.githubauthuser.get_extra_data_as_dict.get("repos_url")
