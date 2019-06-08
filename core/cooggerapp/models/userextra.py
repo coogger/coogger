@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import m2m_changed, post_save
 from django.db.utils import IntegrityError
 
+
 # models
 from .topic import UTopic
 
@@ -20,7 +21,7 @@ from core.cooggerapp.choices import FOLLOW, make_choices
 import requests
 
 # utils
-from .utils import send_mail
+from .utils import send_mail, get_client_url
 
 class OtherAddressesOfUsers(models.Model):
     "maybe ManyToManyField in UserProfile"
@@ -51,7 +52,8 @@ class UserProfile(models.Model):
 
 def save_github_follow(user):
     url = user.githubauthuser.get_extra_data_as_dict.get("url")
-    following = [user.get("login") for user in requests.get(url + "/following").json()]
+    following = [following_user.get("login").lower() \
+        for following_user in requests.get(url + "/following" + get_client_url()).json()]
     for following_username in following:
         following_user = User.objects.filter(username=following_username)
         if following_user.exists():
@@ -59,7 +61,8 @@ def save_github_follow(user):
                 user.follow.following.add(following_user[0])
             except IntegrityError:
                 pass
-    followers = [user.get("login") for user in requests.get(url + "/followers").json()]
+    followers = [follower_user.get("login").lower() \
+        for follower_user in requests.get(url + "/followers" + get_client_url()).json()]
     for follower_username in followers:
         follow_user = User.objects.filter(username=follower_username)
         if follow_user.exists():
@@ -69,7 +72,7 @@ def save_github_follow(user):
                 pass
 
 def save_github_repos(user, github_repos_url):
-    for repo in requests.get(github_repos_url).json():
+    for repo in requests.get(github_repos_url + get_client_url()).json():
         if repo.get("fork") == False:
             UTopic(
                 user=user, 
@@ -80,7 +83,7 @@ def save_github_repos(user, github_repos_url):
 
 def save_github_org(user):
     organizations_url = user.githubauthuser.get_extra_data_as_dict.get("organizations_url")
-    for org in requests.get(organizations_url).json():
+    for org in requests.get(organizations_url + get_client_url()).json():
         save_github_repos(user, org.get("repos_url"))
 
 @receiver(post_save, sender=GithubAuthUser)
@@ -97,7 +100,7 @@ def follow_and_repos_update(sender, instance, created, **kwargs):
         )
         send_mail(
             subject=subject, user=user, 
-            template_name="email/post.html", 
+            template_name="email/first_login.html", 
             context=context
         )   
 

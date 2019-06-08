@@ -73,7 +73,7 @@ class UTopic(CommonTopicModel):
     """ Topic For Users """
     # TODO if topic name is changed, then must change the permlink
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    total_dor = models.IntegerField(default=0, verbose_name="Total duration all contents")
+    total_dor = models.FloatField(default=0, verbose_name="Total duration all contents")
     total_view = models.IntegerField(default=0, verbose_name="Total views all contents")
     open_issue = models.IntegerField(default=0, verbose_name="Total count open issue")
     closed_issue = models.IntegerField(default=0, verbose_name="Total count closed issue")
@@ -85,18 +85,18 @@ class UTopic(CommonTopicModel):
     @property
     def get_absolute_url(self):
         return reverse(
-            "utopic", 
+            "detail-utopic", 
             kwargs=dict(
                 username=str(self.user), 
                 permlink=self.permlink
             )
         )
 
-    def save(self, *args, **kwargs):
-        self.permlink = slugify(self.name)
-        if not self.__class__.objects.filter(user=self.user, permlink=self.permlink).exists():
-            super().save(*args, **kwargs)
-        Topic(name=self.name).save()
+    # def save(self, *args, **kwargs):
+    #     self.permlink = slugify(self.name)
+    #     if not self.__class__.objects.filter(user=self.user, permlink=self.permlink).exists():
+    #         super().save(*args, **kwargs)
+    #     Topic(name=self.name).save()
 
     @property
     def get_total_dor(self):

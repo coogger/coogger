@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
+from django.utils import timezone
 
 # python
 import random
@@ -25,10 +26,10 @@ class ThreadedComments(models.Model):
     reply_count = models.IntegerField(default=0)
     # depth = models.IntegerField(default=0)
     created = models.DateTimeField(
-        auto_now_add=True, 
+        default=timezone.now, 
         verbose_name="Created")
     last_update = models.DateTimeField(
-        auto_now_add=True, 
+        default=timezone.now, 
         verbose_name="Last update")
 
     class Meta:

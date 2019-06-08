@@ -85,3 +85,6 @@ def send_mail(subject, user, template_name, context):
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
+
+def get_client_url():
+    return f"?client_id={settings.GITHUB_AUTH.get('client_id')}&client_secret={settings.GITHUB_AUTH.get('client_secret')}"

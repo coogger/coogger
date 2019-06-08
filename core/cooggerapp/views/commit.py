@@ -10,7 +10,7 @@ from .utils import paginator
 
 
 class Commits(TemplateView):
-    template_name = "utopic/commits.html"
+    template_name = "users/detail-topic/commits.html"
 
     def get_context_data(self, username, topic_permlink, **kwargs):
         user = User.objects.get(username=username)
@@ -24,7 +24,7 @@ class Commits(TemplateView):
 
 
 class CommitDetail(TemplateView):
-    template_name = "utopic/commit.html"
+    template_name = "users/detail-topic/commit.html"
     # TODO
     # url '@username/topic_permlink/commit/hash/'
     # or url can be

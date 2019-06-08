@@ -96,7 +96,7 @@
 </strong>
 <div general="center">
   <cards flex="ai-b" general="w-100 center" style="margin:0px">
-   {% for ct in content %}
+   {% for ct in queryset %}
      <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" general="br-2 bg-white w-30" mobile-s="w-100" mobile-m="w-98" mobilel="w-98"
       tablet="w-80" laptop="w-40" laptop-l="w-30" max="w-30" style="margin:6px;">
          {% include "card/edit.html" %} {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
