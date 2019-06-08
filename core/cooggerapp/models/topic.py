@@ -48,7 +48,9 @@ class Topic(CommonTopicModel):
     )
 
     class Meta:
+        verbose_name_plural = "Global Topic"
         ordering = ["-how_many"]
+
 
     def save(self, *args, **kwargs):
         "name must be a uniqu"
@@ -78,6 +80,7 @@ class UTopic(CommonTopicModel):
 
     class Meta:
         verbose_name_plural = "User Topic"
+        ordering = ["-how_many"]
     
     @property
     def get_absolute_url(self):

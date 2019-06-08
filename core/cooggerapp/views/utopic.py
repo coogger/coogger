@@ -25,7 +25,7 @@ class UserTopic(TemplateView):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.filter(user=user)
         context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, utopic)
+        context["queryset"] = utopic
         context["current_user"] = user
         return context
 
