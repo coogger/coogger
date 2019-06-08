@@ -2,7 +2,7 @@
 from django.urls import path
 
 # views
-from core.cooggerapp.views import explorer, home
+from ..views import explorer, home
 
 urlpatterns = [
     path('explorer/posts/', home.Home.as_view(), name="explorer_posts"),

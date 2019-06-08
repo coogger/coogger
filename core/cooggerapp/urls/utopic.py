@@ -2,7 +2,7 @@
 from django.urls import path
 
 # views
-from core.cooggerapp.views.utopic import (
+from ..views.utopic import (
     DetailUserTopic, CreateUTopic, UpdateUTopic, UserTopic
     )
 

@@ -2,7 +2,7 @@
 from django.urls import path
 
 # views
-from core.cooggerapp.views.settings import Settings
+from ..views.settings import Settings
 
 
 urlpatterns = [

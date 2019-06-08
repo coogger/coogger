@@ -3,7 +3,7 @@ from django.urls import path
 from django.contrib.sitemaps.views import sitemap
 
 # views
-from core.cooggerapp.views.sitemap import (
+from ..views.sitemap import (
     TopicSitemap, UtopicSitemap,
     ContentSitemap, UsersSitemap,
     robots, LanuagesSitemap, CategoriesSitemap

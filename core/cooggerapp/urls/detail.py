@@ -3,7 +3,7 @@ from django.urls import path
 from django.shortcuts import redirect
 
 # views
-from core.cooggerapp.views.detail import Embed, Detail
+from ..views.detail import Embed, Detail
 
 urlpatterns = [
     path(

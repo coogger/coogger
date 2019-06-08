@@ -2,7 +2,7 @@
 from django.urls import path
 
 # views
-from core.cooggerapp.views.users import (About, Home, Comment, Activity)
+from ..views.users import (About, Home, Comment, Activity)
 
 urlpatterns = [
     path('u/@<username>/about/', About.as_view(), name="userabout"),

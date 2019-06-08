@@ -2,7 +2,7 @@
 from django.urls import path
 
 # views
-from core.cooggerapp.views.issue import (
+from ..views.issue import (
     IssueView,
     DetailIssue,
     NewIssue,

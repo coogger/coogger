@@ -2,7 +2,7 @@
 from django.urls import path
 
 # views
-from core.cooggerapp.views import delete
+from ..views import delete
 
 urlpatterns = [
     path('address/', delete.Address.as_view(), name="address_del"),

@@ -2,7 +2,7 @@
 from django.urls import path
 
 # views
-from core.cooggerapp.views.commit import (
+from ..views.commit import (
     Commits,
     CommitDetail,
     )
