@@ -19,6 +19,9 @@ from core.cooggerapp.choices import FOLLOW, make_choices
 # python
 import requests
 
+# utils
+from .utils import send_mail
+
 class OtherAddressesOfUsers(models.Model):
     "maybe ManyToManyField in UserProfile"
     choices = models.CharField(
@@ -78,9 +81,19 @@ def follow_and_repos_update(sender, instance, created, **kwargs):
     github_repos_url = user.githubauthuser.get_extra_data_as_dict.get("repos_url")
     save_github_repos(user, github_repos_url)
     save_github_org(user)
-    
+    if created:
+        subject = f"{user} has entered the coogger | coogger".title()
+        context = dict(
+            user=user
+        )
+        send_mail(
+            subject=subject, user=user, 
+            template_name="email/post.html", 
+            context=context
+        )   
 
 @receiver(post_save, sender=User)
 def create_userprofile(sender, instance, created, **kwargs):
     if created:
         UserProfile(user=instance).save()
+        
