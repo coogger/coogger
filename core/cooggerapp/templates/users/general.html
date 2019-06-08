@@ -2,6 +2,8 @@
 <div general="w-100" style="padding-bottom: 12px;"></div>
 <div general="b-1 br-2 brc-muted w-100 center" flex>
     {% include 'users/pp.html' %}
-    {% include 'users/topic-list.html' %}
+    {% with topics as queryset %}
+        {% include 'users/topic/topic-list.html' %}
+    {% endwith %}
 </div>
 {% include 'users/script.html'%}

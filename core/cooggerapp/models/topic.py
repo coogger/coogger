@@ -91,7 +91,7 @@ class UTopic(CommonTopicModel):
 
     def save(self, *args, **kwargs):
         self.permlink = slugify(self.name)
-        if not self.__class__.objects.filter(user=self.user, permlink=permlink).exists():
+        if not self.__class__.objects.filter(user=self.user, permlink=self.permlink).exists():
             super().save(*args, **kwargs)
         Topic(name=self.name).save()
 
