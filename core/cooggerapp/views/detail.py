@@ -15,7 +15,7 @@ from django.contrib.contenttypes.models import ContentType
 from django_page_views.models import DjangoViews
 
 # core.cooggerapp models
-from ..models import Content
+from ..models import Content, UTopic
 
 # forms
 from ..forms import NewContentReplyForm
@@ -45,12 +45,17 @@ class Detail(View):
             dj_query.ips.add(request.ip_model)
         except IntegrityError:
             pass
+        else:
+            UTopic.objects.filter(
+                user=user, 
+                permlink=content.utopic.permlink
+            ).update(total_view=(F("total_view") + 1))
         nav_category = Content.objects.filter(
             user=user, 
             utopic=content.utopic, 
             status="approved",
             reply=None
-            ).order_by("created")
+        ).order_by("created")
         return render(
             request, 
             self.template_name, 
