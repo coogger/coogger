@@ -1,4 +1,4 @@
-# django 
+# django
 from django.db import models, IntegrityError
 from django.utils.text import slugify
 from django.urls import reverse
@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # python
 from contextlib import suppress
 
-# utils 
+# utils
 from .utils import second_convert
 
 
@@ -33,7 +33,7 @@ class CommonTopicModel(models.Model):
         blank=True, null=True, max_length=150, help_text="Add an address if it have"
     )
     how_many = models.IntegerField(default=0, verbose_name="How many content in")
-    
+
     class Meta:
         abstract = True
 
@@ -61,9 +61,9 @@ class Topic(CommonTopicModel):
     @property
     def get_absolute_url(self):
         return reverse(
-            "topic", 
+            "topic",
             kwargs=dict(
-                username=str(self.user), 
+                username=str(self.user),
                 permlink=self.permlink
             )
         )
@@ -81,22 +81,22 @@ class UTopic(CommonTopicModel):
     class Meta:
         verbose_name_plural = "User Topic"
         ordering = ["-how_many"]
-    
+
     @property
     def get_absolute_url(self):
         return reverse(
-            "detail-utopic", 
+            "detail-utopic",
             kwargs=dict(
-                username=str(self.user), 
+                username=str(self.user),
                 permlink=self.permlink
             )
         )
 
-    # def save(self, *args, **kwargs):
-    #     self.permlink = slugify(self.name)
-    #     if not self.__class__.objects.filter(user=self.user, permlink=self.permlink).exists():
-    #         super().save(*args, **kwargs)
-    #     Topic(name=self.name).save()
+    def save(self, *args, **kwargs):
+        self.permlink = slugify(self.name)
+        if not self.__class__.objects.filter(user=self.user, permlink=self.permlink).exists():
+            super().save(*args, **kwargs)
+        Topic(name=self.name).save()
 
     @property
     def get_total_dor(self):

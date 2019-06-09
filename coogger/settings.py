@@ -18,7 +18,7 @@ else:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     # github_auth
     redirect_url = "https://www.coogger.com/accounts/github/login/"
-    ban_count = 40
+    ban_count = 100
 INSTALLED_APPS = [
     # django
     "django.contrib.admin",
