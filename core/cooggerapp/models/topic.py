@@ -3,13 +3,19 @@ from django.db import models, IntegrityError
 from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
+from django.db.models import F
+
+# models
+from django_page_views.models import DjangoViews
 
 # python
 from contextlib import suppress
 
 # utils
 from .utils import second_convert
-
 
 class CommonTopicModel(models.Model):
     name = models.CharField(
@@ -105,3 +111,17 @@ class UTopic(CommonTopicModel):
             if t != 0:
                 times += f" {t} {f} "
         return times
+
+@receiver(m2m_changed, sender=DjangoViews.ips.through)
+def increase_total_view(sender, **kwargs):
+    instance = kwargs.get("instance", None)
+    action = kwargs.get("action", None)
+    ips = kwargs.get("pk_set", None)
+    if action == "pre_add":
+        Content = ContentType.objects.get(app_label="cooggerapp", model="content").model_class()
+        content = Content.objects.get(id=instance.object_id)
+        for ip_id in ips:
+            UTopic.objects.filter(
+                user=content.user, 
+                permlink=content.utopic.permlink
+            ).update(total_view=(F("total_view") + 1))

@@ -1,5 +1,4 @@
 # django
-from django.db.models import F
 from django.contrib.auth.models import User
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
@@ -45,11 +44,6 @@ class Detail(View):
             dj_query.ips.add(request.ip_model)
         except IntegrityError:
             pass
-        else:
-            UTopic.objects.filter(
-                user=user, 
-                permlink=content.utopic.permlink
-            ).update(total_view=(F("total_view") + 1))
         nav_category = Content.objects.filter(
             user=user, 
             utopic=content.utopic, 
