@@ -52,7 +52,16 @@
                 <i flex="as-c" class="fas fa-stream"></i>
                 <span>Your Feed</span>
               </a>
-            </li>
+          </li>
+          <li flex="">
+            <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
+            general="txt-m c-secondary w-100"
+            href="{% url 'utopic' request.user %}">
+              <i flex="as-c" class="fas fa-hashtag"></i>
+              <span>Your Topics</span>
+            </a>
+        </li>
+          
           <li flex="">
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
             general="txt-m c-secondary w-100"
