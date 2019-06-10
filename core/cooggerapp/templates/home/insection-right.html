@@ -5,7 +5,7 @@
     <div general="right b-1 br-2 brc-muted bg-dark-purple" flex="fd-c" style="padding: 6px 10px;position: sticky;top: 30px;">
       {% if request|url_resolve:"" == "topic" %}
         <!-- to topic -->
-        <a hover="c-yellow" general="c-white txt-s" href="/post/create/?topic={{ topic.name }}" style="margin-bottom: 12px;">
+        <a hover="c-yellow" general="c-white txt-s" href="{% url 'create' topic.permlink %}"style="margin-bottom: 12px;">
           <div general="center">Click and write a post about a {{ topic.name }} topic</div>
         </a>
         {% if topic.image_address %}
@@ -19,7 +19,7 @@
         <div class="topic-users" style="margin: 4px 0px;">
           {% for user in topic_users %}
             <a href="/{{ topic.name }}/@{{ user }}">
-              <img general="w-6 br-circle b-1 brc-white" src="https://steemitimages.com/u/{{ user }}/avatar">
+              <img general="w-6 br-circle b-1 brc-white" src="{{ user.githubauthuser.avatar_url }}">
             </a>
           {% endfor %}
         </div>

@@ -79,7 +79,7 @@ class CreateUTopic(LoginRequiredMixin, View):
                 save = form.save()
                 return redirect(
                     reverse(
-                        "utopic", 
+                        "detail-utopic", 
                         kwargs=dict(
                             permlink=form.permlink, 
                             username=str(form.user)
@@ -131,7 +131,7 @@ class UpdateUTopic(LoginRequiredMixin, View):
                 pass
             return redirect(
                     reverse(
-                        "utopic", 
+                        "detail-utopic", 
                         kwargs=dict(
                             permlink=permlink, 
                             username=str(request.user)
