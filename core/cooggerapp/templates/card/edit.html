@@ -6,7 +6,7 @@
 </div>
 <div flex="jc-c ai-c" general="bg-success" class="b-edit-panel data-edit-id-{{ ct.id }}" style="display: none;">
     {% if ct.user == request.user %}
-    <a flex="ai-c" hover="c-white" general="c-white" href="{% url 'change' ct.user ct.permlink %}" flex="ai-c" style="height: 100%;">
+    <a flex="ai-c" hover="c-white" general="c-white" href="{% url 'update' ct.user ct.permlink %}" flex="ai-c" style="height: 100%;">
       <i class="fa fa-edit fa" aria-hidden="true" style="margin-left: 12px;"></i>
       <div general="txt-s" style="margin-left:6px;">Edit</div>
     </a>
