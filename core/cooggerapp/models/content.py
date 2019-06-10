@@ -75,6 +75,7 @@ class Content(ThreadedComments):
 
     class Meta:
         ordering = ["-created"]
+        unique_together = [["user", "permlink"]]
 
     def __str__(self):
         return str(self.get_absolute_url)
@@ -179,7 +180,7 @@ class Content(ThreadedComments):
             "if its a comment"
             self.body = new.body
             old.update(
-                tite=new.title,
+                title=new.title,
                 body=self.body,
                 definition=self.prepare_definition(),
                 last_update=timezone.now(),
