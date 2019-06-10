@@ -56,13 +56,12 @@ class Topic(CommonTopicModel):
     class Meta:
         verbose_name_plural = "Global Topic"
         ordering = ["-how_many"]
+        unique_together = ["permlink"]
 
 
     def save(self, *args, **kwargs):
-        "name must be a uniqu"
-        if not self.__class__.objects.filter(name=self.name).exists():
-            self.permlink = slugify(self.name)
-            super().save(*args, **kwargs)
+        self.permlink = slugify(self.name)
+        super().save(*args, **kwargs)
 
     @property
     def get_absolute_url(self):
@@ -86,6 +85,7 @@ class UTopic(CommonTopicModel):
     class Meta:
         verbose_name_plural = "User Topic"
         ordering = ["-how_many"]
+        unique_together = [["user", "permlink"]]
 
     @property
     def get_absolute_url(self):
@@ -98,10 +98,12 @@ class UTopic(CommonTopicModel):
         )
 
     def save(self, *args, **kwargs):
+        try:
+            Topic(name=self.name).save()
+        except IntegrityError:
+            pass
         self.permlink = slugify(self.name)
-        if not self.__class__.objects.filter(user=self.user, permlink=self.permlink).exists():
-            super().save(*args, **kwargs)
-        Topic(name=self.name).save()
+        super().save(*args, **kwargs)
 
     @property
     def get_total_dor(self):

@@ -75,22 +75,27 @@ class CreateUTopic(LoginRequiredMixin, View):
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
-            if not self.model.objects.filter(user=request.user, name=form.name).exists():
+            try:
                 save = form.save()
-                return redirect(
-                    reverse(
-                        "detail-utopic", 
-                        kwargs=dict(
-                            permlink=form.permlink, 
-                            username=str(form.user)
-                        )
+            except IntegrityError:
+                messages.warning(request, f"{form.name} is already taken by yours")
+                return render(
+                    request, 
+                    self.template_name, 
+                    dict(
+                        form=self.form_class(data=request.POST)
                     )
                 )
-            else:
-                messages.warning(request, f"{form.name} is already taken by yours" )
-                return render(request, self.template_name, dict(form=self.form_class(data=request.POST)))
-        else:
-            return render(request, self.template_name, dict(form=form))
+            return redirect(
+                reverse(
+                    "detail-utopic", 
+                    kwargs=dict(
+                        permlink=form.permlink, 
+                        username=str(form.user)
+                    )
+                )
+            )
+        return render(request, self.template_name, dict(form=form))
 
 
 class UpdateUTopic(LoginRequiredMixin, View):
@@ -99,13 +104,12 @@ class UpdateUTopic(LoginRequiredMixin, View):
     model = UTopic
 
     def get(self, request, permlink, *args, **kwargs):
-        try:
-            instance = self.model.objects.filter(user=request.user, permlink=permlink)[0]
-        except IndexError:
-            messages.warning(request, f"you need to create the {value} topic first.")
-            return redirect(reverse("create-utopic")+"?name={value}")
+        instance_query = self.model.objects.filter(user=request.user, permlink=permlink)
+        if not instance_query.exists():
+            messages.warning(request, f"you need to create the {permlink} topic first.")
+            return redirect(reverse("create-utopic")+f"?name={permlink}")
         context = dict(
-            form=self.form_class(instance=instance),
+            form=self.form_class(instance=instance_query[0]),
             permlink=permlink
         )
         return render(request, self.template_name, context)

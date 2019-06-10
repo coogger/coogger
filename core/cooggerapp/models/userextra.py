@@ -74,12 +74,15 @@ def save_github_follow(user):
 def save_github_repos(user, github_repos_url):
     for repo in requests.get(github_repos_url + get_client_url()).json():
         if repo.get("fork") == False:
-            UTopic(
-                user=user, 
-                name=repo.get("name"), 
-                definition=repo.get("description"), 
-                address=repo.get("html_url"), 
-            ).save()
+            try:
+                UTopic(
+                    user=user, 
+                    name=repo.get("name"), 
+                    definition=repo.get("description"), 
+                    address=repo.get("html_url"), 
+                ).save()
+            except IntegrityError:
+                pass
 
 def save_github_org(user):
     organizations_url = user.githubauthuser.get_extra_data_as_dict.get("organizations_url")
