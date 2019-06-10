@@ -20,7 +20,7 @@ class TopicView(TemplateView):
 
     def get_context_data(self, permlink, *args, **kwargs):
         topic = Topic.objects.filter(permlink=permlink)[0]
-        queryset = Content.objects.filter(topic=topic, status="approved", reply=None)
+        queryset = Content.objects.filter(utopic__permlink=permlink, status="approved", reply=None)
         if queryset.exists():
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
@@ -36,8 +36,8 @@ class TopicView(TemplateView):
     def get_users(self, queryset):
         users = []
         for query in queryset:
-            if query.username not in users:
-                users.append(query.username)
+            if query.user.username not in users:
+                users.append(query.user.username)
                 if len(users) == 30:
                     break
         return users

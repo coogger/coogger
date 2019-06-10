@@ -69,7 +69,6 @@ class Topic(CommonTopicModel):
         return reverse(
             "topic",
             kwargs=dict(
-                username=str(self.user),
                 permlink=self.permlink
             )
         )

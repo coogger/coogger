@@ -36,8 +36,8 @@ class SortMiddleware(MiddlewareMixin):
             category = Category.objects.filter(name=name)[0]
             queryset = queryset.filter(category=category)
         elif url_name == "topic":
-            topic = Topic.objects.filter(name=name)[0]
-            queryset = queryset.filter(topic=topic)
+            # utopic_permlink = Topic.objects.filter(permlink=name)[0]
+            queryset = queryset.filter(utopic__permlink=name)
         elif url_name == "language":
             queryset = queryset.filter(language=name)
         elif url_name == "filter":

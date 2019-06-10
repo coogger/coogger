@@ -72,10 +72,14 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
 
     def topic(self):
         topic = Topic.objects.filter(permlink=self.kwargs.get("permlink"))[0]
+        try:
+            description = topic.definition.capitalize()
+        except AttributeError:
+            description = topic.name
         return dict(
             title=f"{topic.name} - Topic | Coogger".capitalize(),
             keywords=topic.name,
-            description=topic.definition.capitalize(),
+            description=description,
             image=topic.image_address,
         )
 
