@@ -19,25 +19,20 @@ class TopicView(TemplateView):
     template_name = "topic/index.html"
 
     def get_context_data(self, permlink, *args, **kwargs):
-        topic = Topic.objects.filter(permlink=permlink)[0]
         queryset = Content.objects.filter(utopic__permlink=permlink, status="approved", reply=None)
         if queryset.exists():
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
-            topic_query = Topic.objects.filter(name=topic)
-            if topic_query.exists():
-                context["topic"] = topic_query[0]
-                context["topic_users"] = self.get_users(queryset)
-            else:
-                Topic(name=topic).save()
+            context["topic"] = Topic.objects.get(permlink=permlink)
+            context["topic_users"] = self.get_users(queryset)
             return context
         raise Http404
 
     def get_users(self, queryset):
         users = []
         for query in queryset:
-            if query.user.username not in users:
-                users.append(query.user.username)
+            if query.user not in users:
+                users.append(query.user)
                 if len(users) == 30:
                     break
         return users
@@ -51,7 +46,8 @@ class Hashtag(TemplateView):
         if queryset.exists():
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
-            context["nameofhashtag"] = hashtag
+            context["hashtag"] = hashtag
+            context["queryset_count"] = queryset.count()
             return context
         raise Http404
 
@@ -65,6 +61,7 @@ class Languages(TemplateView):
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
             context["language"] = lang_name
+            context["queryset_count"] = queryset.count()
             return context
         raise Http404
 
@@ -81,17 +78,22 @@ class Categories(TemplateView):
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
             context["category"] = cat_name
+            context["queryset_count"] = queryset.count()
             return context
         raise Http404
 
 
 class Filter(TemplateView):
     template_name = "card/blogs.html"
-    queryset = Content.objects.filter(status="approved", reply=None)
+    model = Content
+    
 
     def get_context_data(self, **kwargs):
-        filtered = model_filter(self.request.GET.items(), self.queryset)
+        queryset = self.model.objects.filter(status="approved", reply=None)
+        filtered = model_filter(self.request.GET.items(), queryset)
+        queryset = filtered.get("queryset")
         context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, filtered.get("queryset"))
+        context["queryset"] = paginator(self.request, queryset)
         context["filter"] = filtered.get("filter")
+        context["queryset_count"] = queryset.count()
         return context

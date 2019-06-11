@@ -1,9 +1,9 @@
 {% load coogger_tags %}
 <!-- to special -->
-{% if filter or category or language or topic %}
+{% if filter or category or language or topic or hashtag%}
   <div general="w-20" class="just-pc topic-info" style="margin-left: 12px;margin-top: 4px;">
     <div general="right b-1 br-2 brc-muted bg-dark-purple" flex="fd-c" style="padding: 6px 10px;position: sticky;top: 30px;">
-      {% if request|url_resolve:"" == "topic" %}
+      {% if topic %}
         <!-- to topic -->
         <a hover="c-yellow" general="c-white txt-s" href="{% url 'create' topic.permlink %}"style="margin-bottom: 12px;">
           <div general="center">Click and write a post about a {{ topic.name }} topic</div>
@@ -14,7 +14,7 @@
           </div>
         {% endif %}
         <span general="txt-s b-1 brc-white br-2 c-white wf center" style="padding: 2px 6px;">
-          <span>CONTENTS <span style="padding:3px;" class="query_count"></span></span>
+          <span>CONTENTS {{ topic.how_many }}</span>
         </span>
         <div class="topic-users" style="margin: 4px 0px;">
           {% for user in topic_users %}
@@ -23,19 +23,17 @@
             </a>
           {% endfor %}
         </div>
-      {% endif %}
       <!--  -->
-      {% if nameofhashtag %}
-        <div general="center c-white txt-s">Click and write a post about a {{ nameofhashtag }} hashtag</div>
+      {% elif hashtag %}
+        <div general="center c-white txt-s">Click and write a post about a {{ hashtag }} hashtag</div>
         <div general="center" flex="ai-c" style="margin-bottom: 12px;">
           <img general="w-30 br-circle bg-red" src="/static/media/topics/earth.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
           <img src="/static/media/icons/list.svg" general="w-12 bg-yellow" style="height: 0%;margin: 0px 6px;padding: 6px;">
         </div>
         <span general="txt-s b-1 brc-white br-2 c-white wf center" style="padding: 2px 6px;">
-          <span>CONTENTS <span style="padding:3px;" class="query_count"></span></span>
+          <span>CONTENTS {{ queryset_count }}</span>
         </span>
-      {% endif %}
-      {% if language %}
+      {% elif language %}
         <a hover="c-yellow" general="c-white txt-s" href="/post/create/?language={{ language }}" style="margin-bottom: 12px;">
           <div general="center">Click and write a post about a {{ language }} language</div>
         </a>
@@ -44,10 +42,9 @@
           <img general="w-12 br-circle bg-yellow" src="/static/media/topics/language.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
         </div>
         <span general="txt-s b-1 brc-white br-2 c-white wf center" style="padding: 2px 6px;">
-          <span>CONTENTS <span style="padding:3px;" class="query_count"></span></span>
+          <span>CONTENTS {{ queryset_count }}</span>
         </span>
-      {% endif %}
-      {% if category %}
+      {% elif category %}
         <a hover="c-yellow" general="c-white txt-s" href="/post/create/?category={{ category }}" style="margin-bottom: 12px;">
           <div general="center">Click and write a post about a {{ category }} category</div>
         </a>
@@ -55,17 +52,17 @@
           <img general="w-30 br-circle bg-red" src="/static/media/topics/earth.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
           <img general="w-12 br-circle bg-yellow" src="/static/media/topics/category.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
         </div>
+        <!-- TODO  contents count -->
         <span general="txt-s b-1 brc-white br-2 c-white wf center" style="padding: 2px 6px;">
-          <span>CONTENTS <span style="padding:3px;" class="query_count"></span></span>
+          <span>CONTENTS {{ queryset_count }}</span>
         </span>
-      {% endif %}
-      {% if filter %}
+      {% elif filter %}
         <div general="center" flex="ai-c" style="margin-bottom: 12px;">
           <img general="w-30 br-circle bg-red" src="/static/media/topics/earth.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
           <img general="w-12 br-circle bg-yellow" src="/static/media/topics/filter.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
         </div>
         <span general="txt-s b-1 brc-white br-2 c-white wf center" style="padding: 2px 6px;">
-          <span>CONTENTS <span style="padding:3px;" class="query_count"></span></span>
+          <span>CONTENTS {{ queryset_count }}</span>
         </span>
       {% endif %}
       <!--  -->
@@ -80,6 +77,8 @@
                   <a class="capitalize" general="c-primary txt-s" href="/filter/?topic={{ topic }}&language={{ name }}">{{ name }}; {{ count }}</a>
                 {% elif filter %}
                   <span class="capitalize" general="c-primary txt-s">{{ name }}; {{ count }}</span>
+                {% elif hashtag %}
+                  <a class="capitalize" general="c-primary txt-s" href="/filter/?tags={{ topic }}&language={{ name }}">{{ name }}; {{ count }}</a>
                 {% endif %}
               </div>
             {% endfor %}
@@ -95,6 +94,8 @@
                   <a class="capitalize" general="c-primary txt-s" href="/filter/?topic={{ topic }}&category={{ name }}">{{ name }}; {{ count }}</a>
                 {% elif filter %}
                   <span class="capitalize" general="c-primary txt-s">{{ name }}; {{ count }}</span>
+                {% elif hashtag %}
+                  <a class="capitalize" general="c-primary txt-s" href="/filter/?tags={{ topic }}&category={{ name }}">{{ name }}; {{ count }}</a>
                 {% endif %}
               </div>
             {% endfor %}
