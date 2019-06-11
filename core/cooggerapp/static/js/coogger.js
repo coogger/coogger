@@ -163,7 +163,16 @@ function get_data_from_cooggerapi(apiUrl){
       </div>
       <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
           <div general='txt-s' flex='ai-c' class='duread-li'>
-              <div style='margin-left: 12px;'>reply ; ${reply.reply_count}</div>
+              <i class="fas fa-heart"></i>
+              <div style='margin-left: 6px;'>${reply.upvote_count}</div>
+          </div>
+          <div general='txt-s' flex='ai-c' class='duread-li'>
+              <i class="fas fa-eye"></i>
+              <div style='margin-left: 6px;'>${reply.views}</div>
+          </div>
+          <div general='txt-s' flex='ai-c' class='duread-li'>
+              <i class="fas fa-reply-all"></i>
+              <div style='margin-left: 6px;'>${reply.reply_count}</div>
           </div>
         </div>
     `);
