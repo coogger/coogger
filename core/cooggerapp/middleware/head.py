@@ -168,7 +168,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         )
 
     def hashtag(self):
-        tag = self.self.kwargs.get("hashtag")
+        tag = self.kwargs.get("hashtag")
         return dict(
             title=f"coogger lates post from '{tag}' hashtag.",
             keywords=f"{tag}",

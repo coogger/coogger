@@ -12,6 +12,12 @@
         <div class="tags" id="tags" flex="jc-sa" general="right bg-dark-purple txt-s"></div>
         {% include 'content-detail/edit.html' %}
         {% include 'content-detail/share_social_site.html' %}
+        <!-- tags -->
+        <div flex general="right txt-s c-secondary">
+          {% for tag in queryset.tags %}
+            <span style="margin-left: 6px;">#{{ tag }}</span>
+          {% endfor %}
+        </div>
         <div style="margin: 10% 0px;"></div>
         <!-- replies -->
         <script type="text/javascript">

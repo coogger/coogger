@@ -39,6 +39,8 @@ class SortMiddleware(MiddlewareMixin):
             queryset = queryset.filter(utopic__permlink=name)
         elif url_name == "language":
             queryset = queryset.filter(language=name)
+        elif url_name == "hashtag":
+            queryset = queryset.filter(tags__contains=name)
         elif url_name == "filter":
             queryset = model_filter(request.GET.items(), queryset).get("queryset")
         else:
@@ -71,11 +73,7 @@ class SortMiddleware(MiddlewareMixin):
         queryset_list = []
         for category in Category.objects.all():
             querysets = queryset.filter(category=category)
-            try:
-                querysets[0]
-            except:
-                pass
-            else:
+            if querysets.exists():
                 queryset_list.append(querysets)
         return self.sort_list(queryset_list, "category")
 
@@ -140,6 +138,3 @@ class SortMiddleware(MiddlewareMixin):
             except IndexError:
                 pass
         return context
-
-
-    
