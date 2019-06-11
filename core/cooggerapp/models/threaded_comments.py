@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
-from django.utils import timezone
+from django.db import models
 
 # python
 import random
@@ -26,10 +26,10 @@ class ThreadedComments(models.Model):
     reply_count = models.IntegerField(default=0)
     # depth = models.IntegerField(default=0)
     created = models.DateTimeField(
-        default=timezone.now, 
+        auto_now_add=True, 
         verbose_name="Created")
     last_update = models.DateTimeField(
-        default=timezone.now, 
+        auto_now_add=True, 
         verbose_name="Last update")
 
     class Meta:
@@ -43,8 +43,7 @@ class ThreadedComments(models.Model):
         if self.reply is not None:
             "if it is a comment"
             self.title = self.get_parent.title
-            self.permlink = self.get_new_permlink(slugify(self.title.lower()))
-            self.permlink = self.get_reply_permlink()
+            self.permlink = self.get_new_permlink(self.get_reply_permlink())
             self.set_reply_count(self.reply_id)
         else:
             self.permlink = self.get_new_permlink(slugify(self.title.lower()))
@@ -66,14 +65,12 @@ class ThreadedComments(models.Model):
 
     def get_reply_permlink(self):
         return self.get_new_permlink(
-            f"re-{str(self.user)}-re-{str(self.reply.user)}-{self.permlink}"
+            f"re-{str(self.user)}-re-{str(self.reply.user)}-{slugify(self.title.lower())}"
         )
     
     def get_new_permlink(self, permlink):
         while True:
-            if self.__class__.objects.filter(
-                user=self.user, 
-                permlink=permlink).exists():
+            if self.__class__.objects.filter(user=self.user, permlink=permlink).exists():
                 permlink = permlink + "-" + str(random.randrange(9999999))
             else:
                 break

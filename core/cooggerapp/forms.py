@@ -1,5 +1,6 @@
-# form
+# django
 from django import forms
+from django.contrib.auth.models import User
 
 # choices
 from core.cooggerapp.choices import *
@@ -8,8 +9,8 @@ from core.cooggerapp.choices import *
 from core.cooggerapp.models import (
     Content, OtherAddressesOfUsers, UserProfile,
     ReportModel, UTopic, Issue)
-    
-from django.contrib.auth.models import User
+
+from .models.utils import send_mail
 
 
 class UTopicForm(forms.ModelForm):
@@ -29,6 +30,18 @@ class ContentForm(forms.ModelForm):
     class Meta:
         model = Content
         fields = ["category", "language", "title", "body", "tags"]
+    
+    @classmethod
+    def send_mail(cls, form):
+        subject = f"{form.user} publish a new content | coogger".title()
+        context = dict(
+            get_absolute_url=form.get_absolute_url
+        )
+        send_mail(
+            subject=subject, user=form.user, 
+            template_name="email/post.html", 
+            context=context
+        )
 
 
 class ReplyForm(forms.ModelForm):

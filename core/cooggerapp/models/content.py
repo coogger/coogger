@@ -1,16 +1,17 @@
 # django
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import F
 from django.urls import reverse
-from django.utils import timezone
 
 # models
 from .category import Category
-from .topic import Topic
-from .utils import format_tags
 from .topic import UTopic
 from .threaded_comments import ThreadedComments
+from .utils import (
+    second_convert, dor, 
+    NextOrPrevious, 
+    content_definition
+)
 
 # choices
 from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
@@ -25,12 +26,6 @@ from django_vote_system.templatetags.vote import upvote_count, downvote_count
 # python 
 import random
 
-# utils 
-from .utils import (
-    second_convert, marktohtml, 
-    get_first_image, dor, NextOrPrevious,
-    send_mail
-    )
 
 class Content(ThreadedComments):
     body = EditorMdField(
@@ -72,10 +67,6 @@ class Content(ThreadedComments):
         null=True,
         related_name="moderator",
     )  # is it necessary
-
-    class Meta:
-        ordering = ["-created"]
-        unique_together = [["user", "permlink"]]
 
     def __str__(self):
         return str(self.get_absolute_url)
@@ -129,89 +120,6 @@ class Content(ThreadedComments):
         except AttributeError:
             return False
 
-    def prepare_definition(self):
-        soup = marktohtml(self.body)
-        first_image = get_first_image(soup)
-        src, alt = first_image.get("src"), first_image.get("alt")
-        if src:
-            return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[:200]}...</p>"
-        return f"<p>{soup.text[0:200]}...</p>"
-
-    def save(self, *args, **kwargs):  # for admin.py
-        self.definition = self.prepare_definition()
+    def save(self, *args, **kwargs):
+        self.definition = content_definition(self.body)
         super().save(*args, **kwargs)
-
-    def content_save(self, request, form, utopic_permlink):
-        self.user = request.user
-        user_topic = UTopic.objects.filter(user=self.user, permlink=utopic_permlink)
-        self.utopic = user_topic[0]
-        self.tags = self.ready_tags()
-        self.definition = self.prepare_definition()
-        form.save() # content save
-        user_topic.update(how_many=F("how_many") + 1)
-        topic_model = Topic.objects.filter(permlink=utopic_permlink)
-        topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
-        user_topic.update(total_dor=F("total_dor") + dor(self.body)) # increase total dor in utopic
-        get_msg = request.POST.get("msg", None)
-        if get_msg == "Initial commit":
-            get_msg = f"{self.title} Published."
-        self.commit_set.model(
-            user=self.user,
-            utopic=self.utopic,
-            content=self,
-            body=self.body,
-            msg=get_msg,
-        ).save() # commit save
-        # send mail
-        subject = f"{self.user} publish a new content | coogger".title()
-        context = dict(
-            get_absolute_url=self.get_absolute_url
-        )
-        send_mail(
-            subject=subject, user=self.user, 
-            template_name="email/post.html", 
-            context=context
-        )
-
-    def content_update(self, request, old, new):
-        # old is a content query
-        # new is response a content form
-        if old[0].reply is not None:
-            "if its a comment"
-            self.body = new.body
-            old.update(
-                title=new.title,
-                body=self.body,
-                definition=self.prepare_definition(),
-                last_update=timezone.now(),
-            )
-        else:
-            get_utopic_permlink = request.GET.get("utopic_permlink", None)
-            if get_utopic_permlink is None:
-                self.utopic = old[0].utopic
-            else:
-                self.utopic = UTopic.objects.filter(
-                    user=old[0].user, 
-                    permlink=get_utopic_permlink)[0]
-            if new.body != old[0].body:
-                self.commit_set.model(
-                    user=old[0].user,
-                    utopic=self.utopic,
-                    content=old[0],
-                    body=new.body,
-                    msg=request.POST.get("msg")
-                ).save()
-            self.body = new.body
-            old.update(
-                definition=self.prepare_definition(),
-                category=new.category,
-                language=new.language,
-                tags=self.ready_tags(),
-                body=self.body,
-                title=new.title,
-                last_update=timezone.now(),
-                utopic=self.utopic,
-            )
-
-    def ready_tags(self, limit=5):
-        return format_tags(self.tags.split(" ")[:limit])

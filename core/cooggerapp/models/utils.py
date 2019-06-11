@@ -42,6 +42,14 @@ def get_first_image(soup):
         context.update(alt=img.get("alt", ""))
     return context
 
+def content_definition(body):
+    soup = marktohtml(body)
+    first_image = get_first_image(soup)
+    src, alt = first_image.get("src"), first_image.get("alt")
+    if src:
+        return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[:200]}...</p>"
+    return f"<p>{soup.text[0:200]}...</p>"
+
 def dor(body):
     "duration of read -> second"
     return body.__len__() / 28
@@ -88,3 +96,6 @@ def send_mail(subject, user, template_name, context):
 
 def get_client_url():
     return f"?client_id={settings.GITHUB_AUTH.get('client_id')}&client_secret={settings.GITHUB_AUTH.get('client_secret')}"
+
+def ready_tags(tags, limit=5):
+    return format_tags(tags.split(" ")[:limit])
