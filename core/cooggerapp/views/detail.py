@@ -10,11 +10,9 @@ from django.http import HttpResponse
 from django.db.utils import IntegrityError
 from django.contrib.contenttypes.models import ContentType
 
-# 3.part models
-from django_page_views.models import DjangoViews
-
 # core.cooggerapp models
 from ..models import Content, UTopic
+from django_page_views.models import DjangoViews
 
 # forms
 from ..forms import NewContentReplyForm
@@ -27,23 +25,26 @@ class Detail(View):
     template_name = "content-detail/detail.html"
     form_class = NewContentReplyForm
 
+    def save_view(self, request, id):
+        dj_query, created = DjangoViews.objects.get_or_create(
+            content_type=ContentType.objects.get(
+                app_label="cooggerapp", 
+                model="content"
+            ), 
+            object_id=id
+        )
+        try:
+            dj_query.ips.add(request.ip_model)
+        except IntegrityError:
+            pass
+
     def get(self, request, username, permlink):
         user = User.objects.get(username=username)
         content_obj = Content.objects.filter(user=user, permlink=permlink)
         content = content_obj[0]
         if not content_obj.exists():
             raise Http404
-        dj_query, created = DjangoViews.objects.get_or_create(
-            content_type=ContentType.objects.get(
-                app_label="cooggerapp", 
-                model="content"
-            ), 
-            object_id=content.id
-        )
-        try:
-            dj_query.ips.add(request.ip_model)
-        except IntegrityError:
-            pass
+        self.save_view(request, content.id)
         nav_category = Content.objects.filter(
             user=user, 
             utopic=content.utopic, 
