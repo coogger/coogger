@@ -56,5 +56,6 @@ class IssueSerializer(serializers.ModelSerializer):
             "status", "issue_id",
             "title", "reply", "reply_count",
             "created", "last_update",
-            "parent_username", "parent_permlink", "get_absolute_url"
+            "parent_username", "parent_permlink", "get_absolute_url",
+            "views", "upvote_count", "downvote_count",
         ]

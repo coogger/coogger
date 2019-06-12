@@ -10,9 +10,11 @@ from django.http import HttpResponse
 from django.utils.timezone import now
 from django.db.models import F
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 
 # model
 from ..models import (UTopic, Issue)
+from django_page_views.models import DjangoViews
 
 # form
 from ..forms import NewIssueForm, NewIssueReplyForm
@@ -87,10 +89,24 @@ class DetailIssue(View):
     template_name = "issue/detail.html"
     form_class = NewIssueReplyForm
 
+    def save_view(self, request, id):
+        dj_query, created = DjangoViews.objects.get_or_create(
+            content_type=ContentType.objects.get(
+                app_label="cooggerapp", 
+                model="issue"
+            ), 
+            object_id=id
+        )
+        try:
+            dj_query.ips.add(request.ip_model)
+        except IntegrityError:
+            pass
+
     def get(self, request, username, utopic_permlink, permlink):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.get(user=user, permlink=utopic_permlink)
         issue = Issue.objects.get(utopic=utopic, permlink=permlink)
+        self.save_view(request, issue.id)
         context = dict(
             reply_form=self.form_class,
             current_user=user,
@@ -103,13 +119,13 @@ class DetailIssue(View):
     @method_decorator(login_required)
     def post(self, request, username, utopic_permlink, permlink):
         if request.is_ajax:
-            user = User.objects.get(username=username)
-            utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
-            issue = Issue.objects.get(user=user, utopic=utopic, permlink=permlink)
             reply_form = self.form_class(request.POST)
             if reply_form.is_valid():
+                current_user = User.objects.get(username=username)
+                utopic = UTopic.objects.filter(user=current_user, permlink=utopic_permlink)[0]
+                issue = Issue.objects.get(user=current_user, utopic=utopic, permlink=permlink)
                 reply_form = reply_form.save(commit=False)
-                reply_form.user = user
+                reply_form.user = request.user
                 reply_form.utopic = utopic
                 reply_form.reply = issue
                 reply_form.issue_save()
