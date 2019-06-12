@@ -11,6 +11,10 @@ class VoteView(models.Model):
         abstract = True
 
     @property
+    def model_name(self):
+        return self.__class__.__name__.lower()
+
+    @property
     def views(self):
         return views_count(self.__class__, self.id)
 

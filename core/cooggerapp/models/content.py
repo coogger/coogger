@@ -22,7 +22,7 @@ from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 import random
 
 
-class Content(VoteView, ThreadedComments):
+class Content(ThreadedComments, VoteView):
     body = EditorMdField(
         null=True, 
         blank=True, 

@@ -21,7 +21,7 @@ from core.cooggerapp.choices import make_choices, ISSUE_CHOICES
 import random
 
 
-class Issue(VoteView, ThreadedComments):
+class Issue(ThreadedComments, VoteView):
     utopic = models.ForeignKey(
         UTopic, 
         on_delete=models.CASCADE

@@ -146,6 +146,19 @@ function get_data_from_cooggerapi(apiUrl){
   }
   function reply_body(reply){
     let title = reply.title;
+    let id = reply.id;
+    let upvote_count = reply.upvote_count;
+    if (upvote_count == null){
+      upvote_count = 0;
+    }
+    let views = reply.views;
+    if (views == null){
+      views = 0;
+    }
+    let reply_count = reply.reply_count;
+    if (reply_count == null){
+      reply_count = 0;
+    }
     $(function() {
       let Editor = editormd.markdownToHTML(reply.id+"_arg_editormd", {
         height: 670,
@@ -157,22 +170,22 @@ function get_data_from_cooggerapi(apiUrl){
     });
     return (`
       <div style='padding: inherit;'>
-        <div style='width: auto;height:  auto;border: none;' class='editormd' id='${reply.id}_arg_editormd'>
+        <div style='width: auto;height:  auto;border: none;' class='editormd' id='${id}_arg_editormd'>
             <textarea style='display:none;' id='editormd_content'></textarea>
         </div>
       </div>
       <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
           <div general='txt-s' flex='ai-c' class='duread-li'>
               <i class="fas fa-heart"></i>
-              <div style='margin-left: 6px;'>${reply.upvote_count}</div>
+              <div style='margin-left: 6px;'>${upvote_count}</div>
           </div>
           <div general='txt-s' flex='ai-c' class='duread-li'>
               <i class="fas fa-eye"></i>
-              <div style='margin-left: 6px;'>${reply.views}</div>
+              <div style='margin-left: 6px;'>${views}</div>
           </div>
           <div general='txt-s' flex='ai-c' class='duread-li'>
               <i class="fas fa-reply-all"></i>
-              <div style='margin-left: 6px;'>${reply.reply_count}</div>
+              <div style='margin-left: 6px;'>${reply_count}</div>
           </div>
         </div>
     `);
@@ -239,3 +252,37 @@ $(document).ready(function() {
   })
 });
 
+function vote(this_, id, model_name){
+  let status;
+  if (this_.id == "upvote"){
+      status = true;
+  }
+  else if (this_.id == "downvote"){
+      status = false;
+  }
+  $.ajax({
+      type: "POST",
+      url: $(this_).data("url"),
+      data: {
+          "status": status,
+          "csrfmiddlewaretoken": $(this_).data("csrf"),
+      },
+  }).done(function(r) {
+      r = JSON.parse(r);
+      if (r.error){
+          alert(r.error);
+      }
+      else{
+          if (r.status == true){
+              $(`#vote-section #upvote`).attr("general", "c-success");
+              $(`#vote-section #downvote`).attr("general", "c-secondary");
+          }
+          else if (r.status == false){
+              $(`#vote-section #upvote`).attr("general", "c-secondary");
+              $(`#vote-section #downvote`).attr("general", "c-danger");
+          }
+          $(`#vote-section #upvote`).text(r.upvote_count);
+          $(`#vote-section #downvote`).text(r.downvote_count);
+      } 
+  });
+}

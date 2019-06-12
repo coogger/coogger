@@ -8,6 +8,9 @@
         <p>{{ queryset.body|markdown_to_html:"issue" }}</p>
       </div>
       <div general="right">
+        <div general="right txt-s">
+            {% include 'vote.html' %}
+        </div>
         <div general='txt-s' flex='ai-c' class='duread-li'>
             <i class="fas fa-reply-all"></i>
             <div style='margin-left: 6px;'>{{ queryset.reply_count }}</div>
