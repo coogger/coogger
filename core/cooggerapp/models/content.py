@@ -12,22 +12,17 @@ from .utils import (
     NextOrPrevious, 
     content_definition
 )
+from .common.vote_view import VoteView
+from django_md_editor.models import EditorMdField
 
 # choices
 from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
-
-# 3.part models
-from django_md_editor.models import EditorMdField
-
-# 3.part tags
-from django_page_views.templatetags.django_page_views import views_count
-from django_vote_system.templatetags.vote import upvote_count, downvote_count
 
 # python 
 import random
 
 
-class Content(ThreadedComments):
+class Content(VoteView, ThreadedComments):
     body = EditorMdField(
         null=True, 
         blank=True, 
@@ -74,18 +69,6 @@ class Content(ThreadedComments):
     @property
     def get_absolute_url(self):
         return reverse("detail", kwargs=dict(username=str(self.user), permlink=self.permlink))
-
-    @property
-    def views(self):
-        return views_count(self.__class__, self.id)
-
-    @property
-    def upvote_count(self):
-        return upvote_count(self.__class__, self.id)
-
-    @property
-    def downvote_count(self):
-        return downvote_count(self.__class__, self.id)
 
     @property
     def get_dor(self):

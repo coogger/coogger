@@ -9,6 +9,7 @@ from django.utils.text import slugify
 # model
 from .topic import UTopic
 from .threaded_comments import ThreadedComments
+from .common.vote_view import VoteView
 
 # editor md
 from django_md_editor.models import EditorMdField
@@ -20,7 +21,7 @@ from core.cooggerapp.choices import make_choices, ISSUE_CHOICES
 import random
 
 
-class Issue(ThreadedComments):
+class Issue(VoteView, ThreadedComments):
     utopic = models.ForeignKey(
         UTopic, 
         on_delete=models.CASCADE
