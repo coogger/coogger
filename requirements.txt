@@ -14,3 +14,4 @@ djangoip==0.0.2
 django-ban==0.0.7
 cooggerimages==0.0.5
 django-vote-system==0.0.3
+django-bookmark==0.0.1

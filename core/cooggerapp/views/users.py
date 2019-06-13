@@ -11,6 +11,7 @@ from django.views import View
 
 # models
 from ..models import (UserProfile, Content,  UTopic)
+from django_bookmark.models import Bookmark as BookmarkModel
 
 # forms
 from ..forms import AboutForm
@@ -18,29 +19,36 @@ from ..forms import AboutForm
 # utils 
 from .utils import paginator
 
-
-class Home(TemplateView):
-    "user's home page"
-    template_name = "users/user.html"
+class Common(TemplateView):
 
     def get_context_data(self, username, **kwargs):
         user = User.objects.get(username=username)
-        queryset = Content.objects.filter(user=user, status="approved", reply=None)
         context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, queryset)
         context["current_user"] = user
         context["addresses"] = UserProfile.objects.get(user=user).address.all()
         context["topics"] = UTopic.objects.filter(user=user)[:6]
         return context
 
 
-class About(View):
+class Home(Common):
+    "user's home page"
+    template_name = "users/user.html"
+
+    def get_context_data(self, username, **kwargs):
+        context = super().get_context_data(username, **kwargs)
+        user = context["current_user"]
+        queryset = Content.objects.filter(user=user, status="approved", reply=None)
+        context["queryset"] = paginator(self.request, queryset)
+        return context
+
+
+class About(Common):
     template_name = "users/about.html"
     form_class = AboutForm
 
     def get(self, request, username, *args, **kwargs):
-        context = {}
-        user = User.objects.get(username=username)
+        context = super().get_context_data(username, **kwargs)
+        user = context["current_user"]
         try:
             query = UserProfile.objects.filter(user=user)[0]
         except IndexError:
@@ -50,9 +58,6 @@ class About(View):
                 context["about"] = self.form_class(request.GET or None, instance=query)
             else:
                 context["about"] = query.about
-        context["current_user"] = user
-        context["addresses"] = UserProfile.objects.get(user=user).address.all()
-        context["topics"] = UTopic.objects.filter(user=user)[:6]
         context["md_editor"] = True
         return render(request, self.template_name, context)
 
@@ -69,12 +74,13 @@ class About(View):
                 return redirect(reverse("userabout", kwargs=dict(username=request.user.username)))
 
 
-class Comment(TemplateView):
+class Comment(Common):
     "History of users"
     template_name = "users/history/comment.html"
 
     def get_context_data(self, username, **kwargs):
-        user = User.objects.get(username=username)
+        context = super().get_context_data(username, **kwargs)
+        user = context["current_user"]
         queryset = Content.objects.filter(
             status="approved"
             ).exclude(
@@ -82,11 +88,18 @@ class Comment(TemplateView):
                 ).filter(
                     reply__user=user
                     )
-        context = super().get_context_data(**kwargs)
-        context["addresses"] = UserProfile.objects.get(user=user).address.all()
-        context["topics"] = UTopic.objects.filter(user=user)[:6]
         context["md_editor"] = True
         context["user_comment"] = True
-        context["current_user"] = user
+        context["queryset"] = paginator(self.request, queryset)
+        return context
+
+
+class Bookmark(Common):
+    template_name = "users/bookmark/index.html"
+
+    def get_context_data(self, username, **kwargs):
+        context = super().get_context_data(username, **kwargs)
+        user = context["current_user"]
+        queryset = BookmarkModel.objects.filter(user=user)
         context["queryset"] = paginator(self.request, queryset)
         return context

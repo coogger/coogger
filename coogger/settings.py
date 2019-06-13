@@ -20,19 +20,13 @@ else:
     redirect_url = "https://www.coogger.com/accounts/github/login/"
     ban_count = 100
 INSTALLED_APPS = [
-    # django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # rest
     "rest_framework",
-    # coogger
-    "core.cooggerapp",
-    "core.api",
-    # 3. p
     "django_page_views",
     "django_md_editor",
     "django_ban",
@@ -40,7 +34,10 @@ INSTALLED_APPS = [
     "github_auth",
     "django_follow_system",
     "djangoip",
-    "django_vote_system"
+    "django_vote_system",
+    "django_bookmark",
+    "core.cooggerapp",
+    "core.api",
 ]
 PAGE_SIZE = 10
 REST_FRAMEWORK = dict(
@@ -117,7 +114,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
 # 3. part confs
 MDEDITOR_CONFIGS = dict(
     emoji=True,

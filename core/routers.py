@@ -4,7 +4,7 @@ class DBRouter:
         "contenttypes", "sessions", 
         "cooggerapp", "github_auth", 
         "django_follow_system", "django_vote_system",
-        "django_threadedcomments_system",
+        "django_threadedcomments_system", "django_bookmark"
     ]
     coogger_images_app = [
         "cooggerimages"
