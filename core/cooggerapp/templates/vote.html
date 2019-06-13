@@ -8,7 +8,7 @@ data-vote-status="{% is_vote request.user queryset queryset.id %}" >
         {{ queryset.upvote_count|default:"0" }}
     </i>
     <i id="downvote" onclick="vote(this, '{{ queryset.id }}', '{{ queryset.model_name }}')" 
-    general="c-secondary" hover="c-danger" class="fas fa-heart" 
+    general="c-secondary" hover="c-danger" class="fas fa-thumbs-down" 
     data-url="{% url 'vote' 'cooggerapp' queryset.model_name queryset.id %}"
     data-csrf="{{ csrf_token }}">
         {{ queryset.downvote_count|default:"0" }}

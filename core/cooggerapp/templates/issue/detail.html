@@ -3,12 +3,9 @@
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
     <div style="padding: 6px;">
-      <h1 general="center">{{ queryset.title|title }}</h1>
-      <div general="brc-muted b-1 br-2" style="padding: 6px;">
-        <p>{{ queryset.body|markdown_to_html:"issue" }}</p>
-      </div>
       <div general="right">
         <div general="right txt-s">
+            {% include 'issue/bookmark.html' %}
             {% include 'vote.html' %}
         </div>
         <div general='txt-s' flex='ai-c' class='duread-li'>
@@ -19,6 +16,10 @@
             <i class="fas fa-eye"></i>
             <div style='margin-left: 6px;'>{{ queryset.views }}</div>
         </div>
+      </div>
+      <h1 general="center">{{ queryset.title|title }}</h1>
+      <div general="brc-muted b-1 br-2" style="padding: 6px;">
+        <p>{{ queryset.body|markdown_to_html:"issue" }}</p>
       </div>
     </div>
     <!-- replies -->

@@ -1,0 +1,28 @@
+<div general="w-60 center" tablet="w-100" style="margin: 24px 0px;">
+    <div general="center w-100" tablet="w-100" flex="fd-c">
+        {% for bookmark in queryset %}
+        <div flex="ai-c" general="b-1 br-2 brc-muted w-100 txt-m" style="padding: 4px 0px; margin: 4px 0px; cursor:pointer" >
+                <div style="cursor: pointer" flex="ai-c" onclick="remove_or_add_bookmark(this)" 
+                data-app_label="{{ bookmark.content_type.app_label }}" 
+                data-model="{{ bookmark.model_name }}" 
+                data-object_id="{{ bookmark.model.id }}"
+                data-csrf="{{ csrf_token }}"
+                data-url="{% url 'django_bookmark:add_or_remove' %}"
+                data-bookmark-status="True">
+               <i general="c-success" class="fas fa-bookmark"></i>
+                <span general="left c-secondary">{{ bookmark.content_type|title }}</span>
+            </div>
+            <div general="right" flex="fd-c">
+                <a hover="bg-primary c-white" general="br-2 c-primary right" href="{{ bookmark.model.get_absolute_url }}" 
+                style="margin-right: 12px; padding: 4px;">
+                    {{ bookmark.model.title|title }}
+                </a>
+                <div general="txt-s right" flex>
+                    <i general="c-secondary" class="fas fa-eye">{{ bookmark.model.views }}</i>
+                    <i general="c-secondary" class="fas fa-reply-all">{{ bookmark.model.reply_count }}</i>    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

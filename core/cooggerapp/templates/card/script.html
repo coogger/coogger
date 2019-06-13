@@ -3,6 +3,7 @@
   // is vote for every card ?
     let cards = document.querySelectorAll("card");
     cards.forEach(function(card) {
+      // vote
       let status = $(card).find("#vote-section").data("vote-status");
       if (status == "False"){
         $(card).find("#vote-section").find("#downvote").attr("general", "c-danger");
@@ -10,6 +11,15 @@
       else if (status == "True"){
         $(card).find("#vote-section").find("#upvote").attr("general", "c-success");
       }
+      // bookmark
+      let bookmark_status = $(card).find(".bookmarkop").data("bookmark-status");
+      if (bookmark_status == "False"){
+        $(card).find(".bookmarkop").find(".bookmarkicon").attr("general", "c-secondary");
+      }
+      else if (bookmark_status == "True"){
+        $(card).find(".bookmarkop").find(".bookmarkicon").attr("general", "c-success");
+      }
+      
     });
     // is vote for every card ?
 });

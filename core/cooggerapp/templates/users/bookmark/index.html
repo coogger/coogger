@@ -1,0 +1,10 @@
+{% extends "home/html.html" %}
+{% block body %}
+  <div general="left w-100">
+    <div general="b-1 br-2 brc-muted w-100 center" flex>
+        {% include 'users/general.html' %}
+        {% include 'users/bookmark/bookmark-list.html' %}
+    </div>
+    {% include 'users/script.html'%}
+  </div>
+{% endblock %}

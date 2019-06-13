@@ -61,6 +61,12 @@
           <span id="reply">reply {{ queryset.reply_count }}</span>
         </div>
     </div>
+    <!-- bookmark -->
+    <div general="txt-s" flex="ai-c" class="duread-li">
+        <div style="margin-left: 12px;">
+          {% include 'content-detail/bookmark.html' %}
+        </div>
+      </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;">
         {% include 'vote.html' %}

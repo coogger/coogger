@@ -27,10 +27,10 @@
                   </div>
                 </a>
           </div>
-        <ul>
+        <ul class="issues">
           <!-- issue list open or closed -->
           {% for issue in queryset %}
-            <li class="issue-query" general="w-100">
+            <li flex class="issue-query" general="w-100">
               <a general="c-primary w-90" href="{% url 'detail-issue' current_user utopic.permlink issue.permlink %}">
                 <div>
                     {% if issue.status == "open" %}
@@ -58,3 +58,5 @@
       </div>
   </div>
 {% endblock %}
+
+
