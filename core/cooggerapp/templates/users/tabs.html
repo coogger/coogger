@@ -2,21 +2,27 @@
   <div flex="fw-nw" style="padding: 6px 0px;overflow: auto;">
     <div flex="fd-c" style="cursor:pointer;">
       <a href="{% url 'utopic' current_user %}">
-          <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">TOPICS
-             <i class="fas fa-sitemap"></i>
+          <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">
+             <i class="fas fa-sitemap">TOPICS</i>
           </div>
       </a>
     </div>
     <div flex="fd-c">
+      <a href="{% url 'bookmark' current_user %}" flex="as-fs ai-c" 
+      general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">
+        <i class="fas fa-bookmark">BOOKMARK</i>
+      </a>
+    </div>
+    <div flex="fd-c">
       <a href="{% url 'userabout' current_user %}" flex="as-fs ai-c" 
-      general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">ABOUT
-        <i class="fas fa-file-alt"></i>
+      general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">
+        <i class="fas fa-file-alt">ABOUT</i>
       </a>
     </div>
     <div flex="fd-c">
       <a href="{% url 'comment' current_user %}" flex="as-fs ai-c" 
-      general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">COMMENTS
-        <i class="fas fa-comments"></i>
+      general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">
+        <i class="fas fa-comments">COMMENTS</i>
       </a>
     </div>
   </div>

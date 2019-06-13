@@ -50,7 +50,7 @@
               general="txt-m c-secondary w-100"
               href="{% url 'feed' request.user %}">
                 <i flex="as-c" class="fas fa-stream"></i>
-                <span>Your Feed</span>
+                <span>Feed</span>
               </a>
           </li>
           <li flex="">
@@ -58,16 +58,15 @@
             general="txt-m c-secondary w-100"
             href="{% url 'utopic' request.user %}">
               <i flex="as-c" class="fas fa-hashtag"></i>
-              <span>Your Topics</span>
+              <span>Topics</span>
             </a>
-        </li>
-          
+          </li>
           <li flex="">
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
             general="txt-m c-secondary w-100"
-            href="{% url 'coogger-images' %}">
-              <i flex="as-c" class="fas fa-file-image"></i>
-              <span>Coogger Images</span>
+            href="{% url 'bookmark' request.user %}">
+              <i class="fas fa-bookmark"></i>
+              <span>Bookmark</span>
             </a>
           </li>
           <li flex="">
@@ -90,6 +89,14 @@
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2" general="txt-m c-secondary w-100" href="{% url 'settings' %}">
               <i flex="as-c" class="fa fa-cog" aria-hidden="true"></i>
               <span>Settings</span>
+            </a>
+          </li>
+          <li flex="">
+            <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
+            general="txt-m c-secondary w-100"
+            href="{% url 'coogger-images' %}">
+              <i flex="as-c" class="fas fa-file-image"></i>
+              <span>Coogger Images</span>
             </a>
           </li>
           <li hvr-animation="i tada" flex="">
