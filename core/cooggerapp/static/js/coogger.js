@@ -286,3 +286,27 @@ function vote(this_, id, model_name){
       } 
   });
 }
+function remove_or_add_bookmark(this_){
+  $.ajax({
+      type: "POST",
+      url: $(this_).data("url"),
+      data: {
+          "app_label": $(this_).data("app_label"),
+          "model": $(this_).data("model"),
+          "object_id": $(this_).data("object_id"),
+          "csrfmiddlewaretoken": $(this_).data("csrf"),
+      },
+  }).done(function(r) {
+      if (r.error){
+          alert(r.error);
+      }
+      else{
+          if (r.status == true){
+              $(this_).find($(".fa-bookmark")).attr("general", "c-success");
+          }
+          else if (r.status == false){
+            $(this_).find($(".fa-bookmark")).attr("general", "c-secondary");
+          }
+      } 
+  });
+}
