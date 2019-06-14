@@ -72,12 +72,12 @@ class Content(ThreadedComments, VoteView):
 
     @property
     def get_dor(self):
-        times = "min"
+        times = ""
         for f, t in second_convert(dor(self.body)).items():
             if t != 0:
-                times += f" {t} {f} "
-        if times == "min":
-            return "min 0"
+                times += f" {t}{f} "
+        if times == "":
+            return "0"
         return times
 
     def next_or_previous(self, next=True):

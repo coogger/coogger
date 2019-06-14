@@ -27,7 +27,7 @@ def second_convert(second):
     second -= days * (60 * 60 * 24)
     years = int(second / (60 * 60 * 24 * 365.25))
     second -= years * (60 * 60 * 24 * 365.25)
-    return dict(years=years, days=days, hours=hours, minutes=minutes, second=int(second))
+    return dict(y=years, d=days, h=hours, m=minutes, s=int(second))
 
 def marktohtml(marktext):
     renderer = Renderer(escape=False, parse_block_html=True)
