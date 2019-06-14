@@ -7,5 +7,6 @@
      data-url="{% url 'django_bookmark:add_or_remove' %}"
      data-bookmark-status="{% is_mark request.user ct ct.id %}">
     <i general="" class="bookmarkicon fas fa-bookmark"></i>
-     <span general="left c-secondary">{{ bookmark.content_type|title }}</span>
+     <span general="left c-secondary" style="margin-right: 6px;" id="how_many_mark">
+        {{ ct|how_many_mark:ct.id }}</span>
  </div>

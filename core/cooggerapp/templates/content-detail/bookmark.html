@@ -7,7 +7,8 @@
      data-url="{% url 'django_bookmark:add_or_remove' %}"
      data-bookmark-status="{% is_mark request.user queryset queryset.id %}">
     <i general="" class="bookmarkicon fas fa-bookmark"></i>
-     <span general="left c-secondary">{{ bookmark.content_type|title }}</span>
+     <span general="left c-secondary" style="margin-right: 6px;" id="how_many_mark">
+        {{ queryset|how_many_mark:queryset.id }}</span>
  </div>
  <script>
     let bookmark_status = $(".bookmarkop").data("bookmark-status");

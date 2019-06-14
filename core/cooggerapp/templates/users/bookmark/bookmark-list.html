@@ -1,3 +1,4 @@
+{% load django_bookmark %}
 <div general="w-60 center" tablet="w-100" style="margin: 24px 0px;">
     <div general="center w-100" tablet="w-100" flex="fd-c">
         {% for bookmark in queryset %}
@@ -8,8 +9,8 @@
                 data-object_id="{{ bookmark.model.id }}"
                 data-csrf="{{ csrf_token }}"
                 data-url="{% url 'django_bookmark:add_or_remove' %}"
-                data-bookmark-status="True">
-               <i general="c-success" class="fas fa-bookmark"></i>
+                data-bookmark-status="{% is_mark request.user bookmark.model bookmark.model.id %}">
+               <i general="c-secondary" class="bookmarkicon fas fa-bookmark" id="how_many_mark">{{ bookmark.how_many }}</i>
                 <span general="left c-secondary">{{ bookmark.content_type|title }}</span>
             </div>
             <div general="right" flex="fd-c">
@@ -26,3 +27,12 @@
         {% endfor %}
     </div>
 </div>
+<script>
+    let bookmark_status = $(".bookmarkop").data("bookmark-status");
+    if (bookmark_status == "False"){
+        $(".bookmarkop").find(".bookmarkicon").attr("general", "c-secondary");
+    }
+    else if (bookmark_status == "True"){
+        $(".bookmarkop").find(".bookmarkicon").attr("general", "c-success");
+    }
+</script>
