@@ -1,9 +1,10 @@
-<div class="main-messages close-ms" style="display:block;cursor:pointer" general="br-2 bg-danger c-white w-80 center">
+<div class="main-messages close-ms" style="display:block;cursor:pointer" 
+general="br-2 bg-success c-white w-80 center">
     <div flex="ai-c jc-c" style="height: 10vh;">
         {% if messages %}
         <div general="txt-m" flex="jc-c fd-c">
             {% for message in messages %}
-            <div>{{ message|safe }}</div>
+            <div>{{ message }}</div>
             {% endfor %}
         </div>
         {% endif %}

@@ -52,13 +52,13 @@
     <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-left: 12px;">
         <i class="fas fa-eye"></i>
-        views {{ queryset.views}}
+        {{ queryset.views}}
       </div>
     </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
         <div style="margin-left: 12px;">
           <i class="fas fa-reply-all"></i>
-          <span id="reply">reply {{ queryset.reply_count }}</span>
+          <span id="reply">{{ queryset.reply_count }}</span>
         </div>
     </div>
     <!-- bookmark -->
