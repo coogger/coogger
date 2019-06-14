@@ -304,11 +304,14 @@ function remove_or_add_bookmark(this_){
           alert(r.error);
       }
       else{
+          let how_many = parseInt($(this_).find($("#how_many_mark")).text());
           if (r.status == true){
               $(this_).find($(".fa-bookmark")).attr("general", "c-success");
+              $(this_).find($("#how_many_mark")).html(how_many + 1);
           }
           else if (r.status == false){
             $(this_).find($(".fa-bookmark")).attr("general", "c-secondary");
+            $(this_).find($("#how_many_mark")).html(how_many - 1);
           }
       } 
   });
