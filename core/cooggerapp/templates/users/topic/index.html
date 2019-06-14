@@ -5,7 +5,9 @@
     <div general="w-100" style="padding-bottom: 12px;"></div>
     <div general="b-1 br-2 brc-muted w-100 center" flex>
         {% include 'users/pp.html' %}
-        {% include 'users/topic/topic-list.html' %}
+        <div flex="" general="w-40" laptop="w-60" mobile-l="w-90" style="position:  relative;top: 0px;">
+            {% include 'users/topic/topic-list.html' %}
+        </div>
     </div>
     {% include 'users/script.html'%}
   </div>

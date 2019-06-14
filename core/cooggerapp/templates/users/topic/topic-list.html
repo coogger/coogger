@@ -1,36 +1,34 @@
-<div class="just-pc" flex="" general="w-50" laptop="w-30" style="position:  relative;top: 0px;margin-left: 6%;">
-    <div general="center" style="margin-bottom: 24px;">
-        <div general="bg-white brc-white w-100">
-          {% for topic in queryset %}
-          <div general="b-1 br-2 brc-muted" style="padding: 6px 12px;margin: 6px 0px;">
-            <a hover="c-primary" flex="ai-c" general="c-dark br-4" href="/{{ topic.permlink }}/@{{current_user}}" 
-            style="padding: 6px 0px;">
-              {% if topic.image_address %}
-                <img general="w-6 br-circle" src="{{ topic.image_address }}" style="margin: 0px;height: 0%;">
-              {% endif %}
-              <strong>{{ topic.name |title }}</strong>
-            </a>
-            <div flex="ai-c">
-                <div general="txt-s br-4" style="padding: 0px 6px;" class="fab fa-readme">
-                    {{ topic.get_total_dor|default:"0 second" }}
-                </div>
-                <div general="txt-s br-4 c-blue" style="padding: 0px 6px;" class="fas fa-eye">
-                    {{ topic.total_view }}
-                </div>
-                <div general="txt-s br-4 c-green" style="padding: 0px 6px;" class="fas fa-exclamation-circle">
-                    {{ topic.open_issue }}
-                </div>
-                <div general="txt-s br-4 c-red" style="padding: 0px 6px;" class="fas fa-check">
-                    {{ topic.closed_issue }}
-                </div>
-                <div general="txt-s br-4" style="padding: 0px 6px;" class="fas fa-indent">
-                    {{ topic.how_many }}
-                </div>
-              </div>
-            <div general="txt-s" style="margin-left: 2px;">{{ topic.definition }}</div>
+<div general="center" style="margin-bottom: 24px;">
+    <div general="bg-white brc-white w-100">
+      {% for topic in queryset %}
+      <div general="b-1 br-2 brc-muted" style="padding: 6px 12px;margin: 6px 0px;">
+        <a hover="c-primary" flex="ai-c" general="c-dark br-4" href="/{{ topic.permlink }}/@{{current_user}}" 
+        style="padding: 6px 0px;">
+          {% if topic.image_address %}
+            <img general="w-6 br-circle" src="{{ topic.image_address }}" style="margin: 0px;height: 0%;">
+          {% endif %}
+          <strong>{{ topic.name |title }}</strong>
+        </a>
+        <div flex="ai-c">
+            <div general="txt-s br-4" style="padding: 0px 6px;" class="fab fa-readme">
+                {{ topic.get_total_dor|default:"0 second" }}
+            </div>
+            <div general="txt-s br-4 c-blue" style="padding: 0px 6px;" class="fas fa-eye">
+                {{ topic.total_view }}
+            </div>
+            <div general="txt-s br-4 c-green" style="padding: 0px 6px;" class="fas fa-exclamation-circle">
+                {{ topic.open_issue }}
+            </div>
+            <div general="txt-s br-4 c-red" style="padding: 0px 6px;" class="fas fa-check">
+                {{ topic.closed_issue }}
+            </div>
+            <div general="txt-s br-4" style="padding: 0px 6px;" class="fas fa-indent">
+                {{ topic.how_many }}
+            </div>
           </div>
-          {% endfor %}
-        </div>
+        <div general="txt-s" style="margin-left: 2px;">{{ topic.definition }}</div>
+      </div>
+      {% endfor %}
     </div>
-  </div>
+</div>
         
