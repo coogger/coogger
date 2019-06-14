@@ -17,16 +17,18 @@ from ..forms import UTopicForm
 # utils
 from .utils import paginator
 
+# views
+from .users import Common
 
-class UserTopic(TemplateView):
+
+class UserTopic(Common):
     template_name = "users/topic/index.html"
 
     def get_context_data(self, username, **kwargs):
-        user = User.objects.get(username=username)
+        context = super().get_context_data(username, **kwargs)
+        user = context["current_user"]
         utopic = UTopic.objects.filter(user=user)
-        context = super().get_context_data(**kwargs)
         context["queryset"] = utopic
-        context["current_user"] = user
         return context
 
 
