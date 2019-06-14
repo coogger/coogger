@@ -7,8 +7,11 @@
           <span general="txt-xs c-dark" style="margin-left:6px;">
             <i class="fas fa-clock"></i>
             <span class="capitalize" id="created">{{ ct.created|timesince }}</span>
-        </span>
+          </span>
         </div>
       </a>
+      {% with ct.user as user %}
+        {% include 'github-redirect.html' %}
+      {% endwith %}
     </div>
 </div>

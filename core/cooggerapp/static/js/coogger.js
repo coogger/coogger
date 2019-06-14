@@ -140,6 +140,9 @@ function get_data_from_cooggerapi(apiUrl){
           </a>
               <div style='margin-left: 8px;' general='c-secondary'>${timeSince(comment.created)}</div>
           </div>
+          <a hover="c-primary" target="_blank" href="https://www.github.com/${comment.username}">
+            <i flex="ai-c" class="fab fa-github"></i>
+          </a>
         </div>
       </div>`
     );

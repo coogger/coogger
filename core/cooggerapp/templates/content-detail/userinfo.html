@@ -12,6 +12,9 @@
           <span id="time">{{ queryset.created|timesince }}</span>
         </div>
     </div>
+    {% with queryset.user as user %}
+        {% include 'github-redirect.html' %}
+      {% endwith %}
   </div>
   <div flex="fd-s">
       {% if request.user != current_user and request.user.is_authenticated %}
