@@ -57,10 +57,15 @@ class Create(LoginRequiredMixin, View):
             form.tags = ready_tags(form.tags) # make validation
             form.save()
             self.form_class.send_mail(form)
-            user_topic.update(how_many=F("how_many") + 1)
-            topic_model = Topic.objects.filter(permlink=utopic_permlink)
-            topic_model.update(how_many=F("how_many") + 1) # increae how_many in Topic model
-            user_topic.update(total_dor=F("total_dor") + dor(form.body)) # increase total dor in utopic
+            Topic.objects.filter(
+                permlink=utopic_permlink
+            ).update(
+                how_many=(F("how_many") + 1)
+            ) # increae how_many in Topic model
+            user_topic.update(
+                how_many=(F("how_many") + 1),
+                total_dor=(F("total_dor") + dor(form.body))
+            ) # increase total dor in utopic
             get_msg = request.POST.get("msg", None)
             if get_msg == "Initial commit":
                 get_msg = f"{form.title} Published."
@@ -140,6 +145,28 @@ class Update(LoginRequiredMixin, View):
                             utopic = UTopic.objects.get(
                                 user=queryset[0].user, 
                                 permlink=get_utopic_permlink
+                            )
+                            UTopic.objects.filter( # old utopic update
+                                user=queryset[0].user,
+                                permlink=queryset[0].utopic.permlink
+                            ).update(
+                                how_many=(F("how_many") - 1),
+                                total_dor=(F("total_dor") - dor(queryset[0].body)),
+                                total_view=(F("total_view") - queryset[0].views)
+                            )
+                            UTopic.objects.filter( # new utopic update
+                                user=queryset[0].user,
+                                permlink=queryset[0].utopic.permlink
+                            ).update(
+                                how_many=(F("how_many") + 1),
+                                total_dor=(F("total_dor") + dor(form.body)),
+                                total_view=(F("total_view") + queryset[0].views)
+                            )
+                            Commit.objects.filter( # commit update
+                                utopic=queryset[0].utopic,
+                                content=queryset[0]
+                            ).update(
+                                utopic=utopic
                             )
                         if form.body != queryset[0].body:
                             Commit(
