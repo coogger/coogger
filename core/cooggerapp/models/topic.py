@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-from django.db.models.signals import m2m_changed
+from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver
 from django.db.models import F
 
@@ -98,10 +98,6 @@ class UTopic(CommonTopicModel):
         )
 
     def save(self, *args, **kwargs):
-        try:
-            Topic(name=self.name).save()
-        except IntegrityError:
-            pass
         self.permlink = slugify(self.name)
         super().save(*args, **kwargs)
 
@@ -126,3 +122,12 @@ def increase_total_view(sender, **kwargs):
                 user=content.user, 
                 permlink=content.utopic.permlink
             ).update(total_view=(F("total_view") + 1))
+
+
+@receiver(post_save, sender=UTopic)
+def follow_and_repos_update(sender, instance, created, **kwargs):
+    if created:
+        try:
+            Topic(name=instance.name).save()
+        except IntegrityError:
+            pass
