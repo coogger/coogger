@@ -1,18 +1,10 @@
-<div flex="ai-c">
-  <div general="wmax left">
-      {% if request.user.is_authenticated %}
-        {% if queryset.user == request.user%}
-          <a general="b-1 br-1 brc-muted bg-warning" animation-hover="bg-secondary" href="{% url 'update' queryset.user queryset.permlink %}" flex="ai-c" style="padding: 6px 24px;">
-            <i general="c-white" class="fa fa-edit" aria-hidden="true"></i>
-            <div general="txt-s c-white">Edit</div>
-          </a>
-        {% endif %}
-      {% if queryset.user != request.user and queryset.status == "approved"%}
-          <div class="report" data-content-id="{{ queryset.id }}" style="padding: 6px 12px;cursor:pointer" general="b-1 br-1 bg-warning brc-muted" animation-hover="bg-danger" flex="ai-c">
-              <i general="c-white" class="fa fa-flag" aria-hidden="true"></i>
-              <div general="txt-s c-white">Report</div>
-          </div>
-      {% endif %}
+<div general="txt-s c-secondary right">
+    <a hover="c-dark-purple" general="c-secondary" href="{% url 'update' queryset.user queryset.permlink %}">
+      <i class="fa fa-edit fa" aria-hidden="true">Edit</i>
+    </a>
+    {% if queryset.user != request.user %}
+    <div hover="c-danger" class="report" data-content-id="{{ queryset.id }}" style="cursor:pointer;">
+        <i class="fa fa-flag fa" aria-hidden="true">Report</i>
+    </div>
     {% endif %}
-  </div>
 </div>

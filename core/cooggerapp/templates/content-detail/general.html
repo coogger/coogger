@@ -10,7 +10,6 @@
           {{ queryset.body|markdown_to_html:"detail-body"|safe }}
         </div>
         <div class="tags" id="tags" flex="jc-sa" general="right bg-dark-purple txt-s"></div>
-        {% include 'content-detail/edit.html' %}
         {% include 'content-detail/share_social_site.html' %}
         <!-- tags -->
         <div flex general="right txt-s c-secondary">

@@ -3,10 +3,6 @@ $(document).ready(function() {
     var content_id = this.getAttribute("data-content-id");
     $("body").load(`/report/${content_id}/`);
   });
-  $(".b-edit-point").click(function() {
-      let id = this.getAttribute("data-edit-id");
-      $(`.data-edit-id-${id}`).toggle();
-  });
   let off_target = [
     {target:".open_footer", hide:"footer"},
     {target:".open_header_menu", hide:".header_menu"},
