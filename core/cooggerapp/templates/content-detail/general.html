@@ -1,4 +1,5 @@
 {% load django_md_editor %}
+{% load coogger_tags %}
 <div animation="fadeIn" font="quicksand" style="padding: 12px;">
     <div class="data-post-id-{{queryset.id}}" general="center w-100">
       <div mobile-s="w-100" mobile-m="w-99" mobile-l="w-98" tablet="w-98" max="w-50">
@@ -13,7 +14,7 @@
         {% include 'content-detail/share_social_site.html' %}
         <!-- tags -->
         <div flex general="right txt-s c-secondary">
-          {% for tag in queryset.tags %}
+          {% for tag in queryset.tags|split:" " %}
             <span style="margin-left: 6px;">#{{ tag }}</span>
           {% endfor %}
         </div>
