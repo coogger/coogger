@@ -113,18 +113,6 @@ function get_data_from_cooggerapi(apiUrl){
     return timesince.slice(0, 2) + " ago";
   }
   // issue reply
-  function reply_info(get_absolute_url){
-    return (`
-    <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
-      <div>
-        <li flex='ai-c'>
-          <a href='${get_absolute_url}' id='root_content' target='blank' general='txt-s'>
-          <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
-          </a>
-        </li>
-      </div>
-    </div>`);
-  }
   function reply_userinfo(comment){
     return (`
       <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
@@ -178,6 +166,11 @@ function get_data_from_cooggerapi(apiUrl){
         </div>
       </div>
       <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
+          <div general='txt-s' flex='ai-c' class='duread-li'>    
+            <a href='${reply.get_absolute_url}' id='root_content' target='blank' general='txt-s'>
+              <span style='margin: 0px 6px' general='c-orange'>Reply</span>
+            </a>
+          </div>
           <div general='txt-s' flex='ai-c' class='duread-li'>
               <i class="fas fa-heart"></i>
               <div style='margin-left: 6px;'>${upvote_count}</div>
@@ -219,12 +212,12 @@ function get_replies_template(reply){
   if (reply.parent_permlink.includes("re-")){
     return (
       `<div class='comment_replies' id='${reply.username}-${reply.permlink}'>
-      ${reply_info(reply.get_absolute_url)} ${reply_userinfo(reply)} ${reply_body(reply)}</div>`
+      ${reply_userinfo(reply)} ${reply_body(reply)}</div>`
      );
   }
   return (
     `<div class='comment' id='${reply.username}-${reply.permlink}' <div class='comment_highlighted'>
-    ${reply_info(reply.get_absolute_url)} ${reply_userinfo(reply)} ${reply_body(reply)}</div></div>`
+    ${reply_userinfo(reply)} ${reply_body(reply)}</div></div>`
    );
 }
 
