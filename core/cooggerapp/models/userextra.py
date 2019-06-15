@@ -112,3 +112,19 @@ def create_userprofile(sender, instance, created, **kwargs):
     if created:
         UserProfile(user=instance).save()
         
+@receiver(m2m_changed, sender=Follow.following.through)
+def send_mail_to_follow(sender, **kwargs):
+    action = kwargs.get("action", None)
+    if action == "pre_add":
+        instance = kwargs.get("instance", None)
+        for follow_id in kwargs.get("pk_set", None):
+            subject = f"{instance.user} started to follow you | coogger".title()
+            context = dict(
+                user=instance.user
+            )
+            send_mail(
+                subject=subject, user=Follow.objects.get(id=follow_id).user, 
+                template_name="email/follow.html", 
+                context=context,
+                all=False
+            )

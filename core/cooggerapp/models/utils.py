@@ -85,9 +85,15 @@ class NextOrPrevious:
     def previous_query(self):
         return self.next_or_previous(False)
 
-def send_mail(subject, user, template_name, context):
+def send_mail(subject, user, template_name, context, all=True):
     from_email = settings.EMAIL_HOST_USER
-    to = [u.user.email for u in user.follow.follower if u.user.email]
+    if all:
+        to = [u.user.email for u in user.follow.follower if u.user.email]
+    else:
+        if user.email:
+            to = [user.email]
+        else:
+            to = []
     html_content = render_to_string(template_name, context)
     text_content = strip_tags(html_content)
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
