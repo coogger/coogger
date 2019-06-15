@@ -36,7 +36,7 @@ class ListContent(ListCreateAPIView):
         ).get("queryset")
 
     def get_queryset(self):
-        return self.model.objects.all()
+        return self.model.objects.all().order_by("created")
 
 
 class ListIssue(ListContent):
