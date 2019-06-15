@@ -142,9 +142,14 @@ class Update(LoginRequiredMixin, View):
                         if get_utopic_permlink is None:
                             utopic = queryset[0].utopic
                         else:
-                            utopic = UTopic.objects.get(
+                            utopic = UTopic.objects.filter( # new utopic
                                 user=queryset[0].user, 
                                 permlink=get_utopic_permlink
+                            )
+                            utopic.update( # new utopic update
+                                how_many=(F("how_many") + 1),
+                                total_dor=(F("total_dor") + dor(form.body)),
+                                total_view=(F("total_view") + queryset[0].views)
                             )
                             UTopic.objects.filter( # old utopic update
                                 user=queryset[0].user,
@@ -154,24 +159,16 @@ class Update(LoginRequiredMixin, View):
                                 total_dor=(F("total_dor") - dor(queryset[0].body)),
                                 total_view=(F("total_view") - queryset[0].views)
                             )
-                            UTopic.objects.filter( # new utopic update
-                                user=queryset[0].user,
-                                permlink=queryset[0].utopic.permlink
-                            ).update(
-                                how_many=(F("how_many") + 1),
-                                total_dor=(F("total_dor") + dor(form.body)),
-                                total_view=(F("total_view") + queryset[0].views)
-                            )
-                            Commit.objects.filter( # commit update
+                            Commit.objects.filter( # old utopic update to new utopic commit
                                 utopic=queryset[0].utopic,
                                 content=queryset[0]
                             ).update(
-                                utopic=utopic
+                                utopic=utopic[0]
                             )
                         if form.body != queryset[0].body:
                             Commit(
                                 user=queryset[0].user,
-                                utopic=utopic,
+                                utopic=utopic[0],
                                 content=queryset[0],
                                 body=form.body,
                                 msg=request.POST.get("msg")
@@ -184,7 +181,7 @@ class Update(LoginRequiredMixin, View):
                             body=form.body,
                             title=form.title,
                             last_update=timezone.now(),
-                            utopic=utopic,
+                            utopic=utopic[0],
                         )
                     return redirect(
                         reverse(
