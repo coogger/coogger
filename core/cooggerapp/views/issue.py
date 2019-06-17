@@ -74,7 +74,8 @@ class NewIssue(LoginRequiredMixin, View):
             issue_new_form.user = request.user
             issue_new_form.utopic = utopic
             issue_new_form.issue_save()
-            self.form_class.send_mail(issue_new_form)
+            if request.user != user:
+                self.form_class.send_mail(issue_new_form)
             return redirect(
                 reverse(
                     "detail-issue", 

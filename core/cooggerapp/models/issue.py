@@ -58,11 +58,10 @@ class Issue(ThreadedComments, VoteView):
             self.status = None
         elif self.status == "open":
             UTopic.objects.filter(
-                user=self.user,
+                user=self.utopic.user,
                 name=self.utopic.name,
             ).update(open_issue=F("open_issue") + 1)
         self.issue_id = self.__class__.objects.filter(
-            user=self.user,
             utopic=self.utopic,
             reply=None).count() + 1
         super().save(*args, **kwargs)
@@ -70,7 +69,6 @@ class Issue(ThreadedComments, VoteView):
     @property
     def get_open_issues(self):
         return self.__class__.objects.filter(
-            user=self.user, 
             utopic=self.utopic, 
             status="open", 
             reply=None
@@ -79,7 +77,6 @@ class Issue(ThreadedComments, VoteView):
     @property
     def get_closed_issues(self):
         return self.__class__.objects.filter(
-            user=self.user, 
             utopic=self.utopic, 
             status="closed", 
             reply=None
