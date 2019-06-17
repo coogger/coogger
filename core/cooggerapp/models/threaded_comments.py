@@ -43,18 +43,20 @@ class ThreadedComments(models.Model):
             "if it is a comment"
             self.title = self.get_parent.title
             self.permlink = self.get_new_permlink(self.get_reply_permlink())
-            self.set_reply_count(self.reply_id)
+            for obj in self.get_all_reply_obj():
+                obj.update(
+                        reply_count=(F("reply_count") + 1)
+                    )
         else:
             self.permlink = self.get_new_permlink(slugify(self.title.lower()))
         super().save(*args, **kwargs)
 
-    def set_reply_count(self, reply_id):
+    def get_all_reply_obj(self):
+        reply_id = self.reply_id
         while True:
             query = self.__class__.objects.filter(id=reply_id)
             if query.exists():
-                query.update(
-                        reply_count=(F("reply_count") + 1)
-                    )
+                yield query
                 if query[0].reply is not None:
                     reply_id = query[0].reply_id
                 else:
@@ -77,11 +79,13 @@ class ThreadedComments(models.Model):
 
     @property
     def get_parent(self):
+        if self.reply is None:
+            return self
         return self.__class__.objects.get(id=self.reply_id)
 
     @property
-    def parent_username(self):
-        return str(self.get_parent.user)
+    def parent_user(self):
+        return self.get_parent.user
 
     @property
     def parent_permlink(self):

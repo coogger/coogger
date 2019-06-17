@@ -97,14 +97,13 @@ def follow_and_repos_update(sender, instance, created, **kwargs):
     save_github_repos(user, github_repos_url)
     save_github_org(user)
     if created:
-        subject = f"{user} has entered the coogger | coogger".title()
-        context = dict(
-            user=user
-        )
         send_mail(
-            subject=subject, user=user, 
+            subject=f"{user} has entered the coogger | coogger".title(), 
             template_name="email/first_login.html", 
-            context=context
+            context=dict(
+                user=user
+            )
+            to=[user.email], 
         )   
 
 @receiver(post_save, sender=User)
@@ -118,13 +117,16 @@ def send_mail_to_follow(sender, **kwargs):
     if action == "pre_add":
         instance = kwargs.get("instance", None)
         for follow_id in kwargs.get("pk_set", None):
-            subject = f"{instance.user} started to follow you | coogger".title()
-            context = dict(
-                user=instance.user
-            )
+            to = list()
+            for u in Follow.objects.get(id=follow_id).user.follow.follower:
+                email = u.user.email
+                if email:
+                    to.append(email)
             send_mail(
-                subject=subject, user=Follow.objects.get(id=follow_id).user, 
+                subject=f"{instance.user} started to follow you | coogger".title(), 
                 template_name="email/follow.html", 
-                context=context,
-                all=False
+                context=dict(
+                    user=instance.user
+                ),
+                to=to
             )

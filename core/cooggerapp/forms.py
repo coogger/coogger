@@ -33,14 +33,13 @@ class ContentForm(forms.ModelForm):
     
     @classmethod
     def send_mail(cls, form):
-        subject = f"{form.user} publish a new content | coogger".title()
-        context = dict(
-            get_absolute_url=form.get_absolute_url
-        )
         send_mail(
-            subject=subject, user=form.user, 
+            subject = f"{form.user} publish a new content | coogger".title()
             template_name="email/post.html", 
-            context=context
+            context=dict(
+                get_absolute_url=form.get_absolute_url
+            )
+            to=[u.user.email for u in form.user.follow.follower if u.user.email], 
         )
 
 
@@ -87,15 +86,13 @@ class NewIssueForm(forms.ModelForm):
 
     @classmethod
     def send_mail(cls, form):
-        subject = f"{form.user} opened a new issue on your {form.utopic.name} topic | coogger".title()
-        context = dict(
-            form=form,
-        )
         send_mail(
-            subject=subject, user=form.utopic.user, 
+            subject=f"{form.user} opened a new issue on your {form.utopic.name} topic | coogger".title(), 
             template_name="email/new-issue.html", 
-            context=context,
-            all=False
+            context=dict(
+                form=form,
+            ),
+            to=[form.utopic.user.email]
         )
 
 

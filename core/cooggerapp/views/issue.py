@@ -137,7 +137,7 @@ class DetailIssue(View):
                             username=str(reply_form.user),
                             utopic_permlink=reply_form.utopic.permlink,
                             parent_permlink=reply_form.parent_permlink,
-                            parent_username=reply_form.parent_username,
+                            parent_user=reply_form.parent_user,
                             created=str(reply_form.created),
                             reply_count=reply_form.reply_count,
                             status=reply_form.status,

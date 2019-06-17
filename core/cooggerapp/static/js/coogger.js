@@ -192,7 +192,7 @@ function get_data_from_cooggerapi(apiUrl){
         for (ii in children_replies) {
           let children_reply = children_replies[ii];
           let children_comment_template = get_replies_template(children_reply);
-          $(`#${children_reply.parent_username}-${children_reply.parent_permlink}`).append(children_comment_template);
+          $(`#${children_reply.parent_user}-${children_reply.parent_permlink}`).append(children_comment_template);
           get_children_replies(children_reply, api_name);
         }
       });

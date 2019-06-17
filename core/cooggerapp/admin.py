@@ -38,7 +38,7 @@ class ContentAdmin(ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.mod = request.user
-        super().save_mode(request, obj, form, change)
+        super().save_model(request, obj, form, change)
 
 
 class SearchedWordsAdmin(ModelAdmin):
