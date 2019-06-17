@@ -85,6 +85,19 @@ class NewIssueForm(forms.ModelForm):
         model = Issue
         fields = ["title", "body"]
 
+    @classmethod
+    def send_mail(cls, form):
+        subject = f"{form.user} opened a new issue on your {form.utopic.name} topic | coogger".title()
+        context = dict(
+            form=form,
+        )
+        send_mail(
+            subject=subject, user=form.utopic.user, 
+            template_name="email/new-issue.html", 
+            context=context,
+            all=False
+        )
+
 
 class NewIssueReplyForm(forms.ModelForm):
     body = forms.CharField(

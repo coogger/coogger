@@ -1,0 +1,11 @@
+{% include 'email/head.html' %}
+
+<div flex="fd-c">
+    <div>
+        <strong>@{{ form.user }}</strong> opened a new issue on your <strong>{{ form.utopic }}</strong> topic.
+    </div>
+    <div>
+        <a href="https:///www.coogger.com{{ form.utopic.get_absolute_url }}">Click to visit this issue. </a>
+    </div>
+    <div>You can give us the greatest support by recommending Coogger to your friends.</div>
+</div>

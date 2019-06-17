@@ -159,16 +159,17 @@ class Update(LoginRequiredMixin, View):
                                 total_dor=(F("total_dor") - dor(queryset[0].body)),
                                 total_view=(F("total_view") - queryset[0].views)
                             )
+                            utopic = utopic[0]
                             Commit.objects.filter( # old utopic update to new utopic commit
                                 utopic=queryset[0].utopic,
                                 content=queryset[0]
                             ).update(
-                                utopic=utopic[0]
+                                utopic=utopic
                             )
                         if form.body != queryset[0].body:
                             Commit(
                                 user=queryset[0].user,
-                                utopic=utopic[0],
+                                utopic=utopic,
                                 content=queryset[0],
                                 body=form.body,
                                 msg=request.POST.get("msg")
@@ -181,7 +182,7 @@ class Update(LoginRequiredMixin, View):
                             body=form.body,
                             title=form.title,
                             last_update=timezone.now(),
-                            utopic=utopic[0],
+                            utopic=utopic,
                         )
                     return redirect(
                         reverse(
