@@ -102,7 +102,7 @@ def follow_and_repos_update(sender, instance, created, **kwargs):
             template_name="email/first_login.html", 
             context=dict(
                 user=user
-            )
+            ),
             to=[user.email], 
         )   
 

@@ -34,11 +34,11 @@ class ContentForm(forms.ModelForm):
     @classmethod
     def send_mail(cls, form):
         send_mail(
-            subject = f"{form.user} publish a new content | coogger".title()
+            subject = f"{form.user} publish a new content | coogger".title(),
             template_name="email/post.html", 
             context=dict(
                 get_absolute_url=form.get_absolute_url
-            )
+            ),
             to=[u.user.email for u in form.user.follow.follower if u.user.email], 
         )
 
