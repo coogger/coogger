@@ -128,10 +128,7 @@ width: 100%;
 text-transform: capitalize;
 }
 .comment_replies{margin-left: 40px;border-left: 1px solid #eaecee;}
-.c-definition{
-width: 100%;
-padding: 10% 0px;
-}
+.c-definition{width: 100%;}
 .f-address>li>a{padding: 6px;}
 footer{
 position: fixed;

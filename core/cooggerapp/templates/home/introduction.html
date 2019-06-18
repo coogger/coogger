@@ -1,94 +1,105 @@
 {% extends "home/html.html" %}
 {% block body %}
-<div class="c-definition" general="ewcenter bg-dark-purple c-white w-100">
+<div class="c-definition" general="ewcenter bg-dark c-white w-100">
   {% load static %}
   <div flex="fd-c">
-    <img general="center" src="{% static 'logos/png/400.png' %}">
-    <span general="center" style="margin-bottom:6px;">Coogger is an ecosystem where is knowledge sharing network</span>
-    <span style="margin:5% 0px;">
-      <a hover="bg-success" general="bg-dark c-white br-2 w-60 center" href="/explorer/posts/" style="padding:6px 0px;">
-        Explore posts
-      </a>
-    </span>
-    <div general="center ewcenter txt-m" flex="">
-      <div general="br-2" flex="fd-c">
-        <span general="center txt-xl" tablet="txt-m"><strong>About COOGGER</strong></span>
-        <div flex="ai-c" style="margin-bottom: 6px;">
-          <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
-          <div flex="fd-c">
-            <strong tablet="txt-s">SEO friendly</strong>
+    <div flex general="center">
+        <img style="height: 400px;width: 400px;margin: 0px;margin-right: 16px;" general="center" src="{% static 'logos/png/400.png' %}">
+        <div general="bg-dark" style="overflow: auto;height: 400px;margin-top: 12px;">
+          <div general="w-100 center" class="just-pc">
+            <a class="twitter-timeline" href="https://twitter.com/cooggercom?ref_src=twsrc%5Etfw">
+              Tweets by cooggercom
+            </a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
           </div>
         </div>
-        <div flex="ai-c" style="margin-bottom: 6px;">
-          <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
-          <div flex="fd-c">
-            <strong tablet="txt-s">Fully responsive</strong>
-            <span></span>
+    </div>
+    <div style="margin-top: 12px;">
+      <span general="center w-50" style="margin-bottom:6px;">
+          Coogger is a platform where developers can write their knowledge, 
+          experience, documentation and blogs about their projects or projects which love.
+      </span>
+      <div style="margin:5% 0px;">
+        <a hover="bg-primary c-white" general="bg-white c-dark br-2 w-60 center" href="/explorer/posts/" style="padding:6px 0px;">
+          Explore posts
+        </a>
+      </div>
+      <div general="center ewcenter txt-m" flex="">
+        <div general="br-2" flex="fd-c">
+          <span general="center txt-xl" tablet="txt-m"><strong>About COOGGER</strong></span>
+          <div flex="ai-c" style="margin-bottom: 6px;">
+            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
+            <div flex="fd-c">
+              <strong tablet="txt-s">SEO friendly</strong>
+            </div>
           </div>
-        </div>
-        <div flex="ai-c" style="margin-bottom: 6px;">
-          <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
-          <div flex="fd-c">
-            <strong tablet="txt-s">Cross-browser compatibility</strong>
-            <span tablet="txt-s">
-              Chrome, Firefox, IE, Safari, Opera, Edge - COOGGER works the same in all browsers.
-            </span>
+          <div flex="ai-c" style="margin-bottom: 6px;">
+            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
+            <div flex="fd-c">
+              <strong tablet="txt-s">Fully responsive</strong>
+              <span></span>
+            </div>
           </div>
-        </div>
-        <div flex="ai-c" style="margin-bottom: 6px;">
-          <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
-          <div flex="fd-c">
-            <strong tablet="txt-s">Frequent updates</strong>
-            <div flex="fd-c"></div>
+          <div flex="ai-c" style="margin-bottom: 6px;">
+            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
+            <div flex="fd-c">
+              <strong tablet="txt-s">Cross-browser compatibility</strong>
+              <span tablet="txt-s">
+                Chrome, Firefox, IE, Safari, Opera, Edge - COOGGER works the same in all browsers.
+              </span>
+            </div>
           </div>
-        </div>
-        <div flex="ai-c" style="margin-bottom: 6px;">
-          <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
-          <div flex="fd-c">
-            <strong tablet="txt-s">We are open-source</strong>
-            <span tablet="txt-s">Fork me on
-              <a general="c-blue" hover="c-success" href="https://www.github.com/coogger">
-                Github</a>
-            </span>
+          <div flex="ai-c" style="margin-bottom: 6px;">
+            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
+            <div flex="fd-c">
+              <strong tablet="txt-s">Frequent updates</strong>
+              <div flex="fd-c"></div>
+            </div>
           </div>
-        </div>
-        <div flex="ai-c fd-c" style="margin-bottom: 6px;">
-          <p>
-            <a href="https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt">
-              <img src="https://img.shields.io/github/license/coogger/coogger.svg?style=for-the-badge" alt="MIT License"></a>
-              <a href="https://github.com/coogger/coogger/releases">
-                <img src="https://img.shields.io/github/release/coogger/coogger.svg?style=for-the-badge" alt="">
+          <div flex="ai-c" style="margin-bottom: 6px;">
+            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-blue8 c-white" tablet="txt-s"></i>
+            <div flex="fd-c">
+              <strong tablet="txt-s">We are open-source</strong>
+              <span tablet="txt-s">Fork me on
+                <a general="c-blue" hover="c-success" href="https://www.github.com/coogger">
+                  Github</a>
+              </span>
+            </div>
+          </div>
+          <div flex="ai-c fd-c" style="margin-bottom: 6px;">
+            <p>
+              <a href="https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt">
+                <img src="https://img.shields.io/github/license/coogger/coogger.svg?style=for-the-badge" alt="MIT License"></a>
+                <a href="https://github.com/coogger/coogger/releases">
+                  <img src="https://img.shields.io/github/release/coogger/coogger.svg?style=for-the-badge" alt="">
+                </a>
+              </p>
+            <p>
+              <img src="https://img.shields.io/github/watchers/coogger/coogger.svg?style=for-the-badge" alt="">
+              <img src="https://img.shields.io/github/stars/coogger/coogger.svg?style=for-the-badge" alt="">
+              <img src="https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&amp;style=for-the-badge" alt="">
+            </p>
+            <p>
+              <img src="https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge" alt="">
+            </p>
+            <p>
+              <a href="https://github.com/coogger/coogger/issues">
+                <img src="https://img.shields.io/github/issues/coogger/coogger.svg?style=for-the-badge" alt="">
+              </a>
+              <a href="https://github.com/coogger/coogger/pulls">
+                <img src="https://img.shields.io/github/issues-pr/coogger/coogger.svg?style=for-the-badge" alt="">
               </a>
             </p>
-          <p>
-            <img src="https://img.shields.io/github/watchers/coogger/coogger.svg?style=for-the-badge" alt="">
-            <img src="https://img.shields.io/github/stars/coogger/coogger.svg?style=for-the-badge" alt="">
-            <img src="https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&amp;style=for-the-badge" alt="">
-          </p>
-          <p>
-            <img src="https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge" alt="">
-          </p>
-          <p>
-            <a href="https://github.com/coogger/coogger/issues">
-              <img src="https://img.shields.io/github/issues/coogger/coogger.svg?style=for-the-badge" alt="">
-            </a>
-            <a href="https://github.com/coogger/coogger/pulls">
-              <img src="https://img.shields.io/github/issues-pr/coogger/coogger.svg?style=for-the-badge" alt="">
-            </a>
-          </p>
-          <p>
-            <img src="https://img.shields.io/github/languages/code-size/coogger/coogger.svg?style=for-the-badge" alt="">
-            <img src="https://img.shields.io/github/languages/top/coogger/coogger.svg?style=for-the-badge" alt="">
-            <img src="https://img.shields.io/github/languages/count/coogger/coogger.svg?style=for-the-badge" alt="">
-          </p>
-          <p>
-            <a href="https://discord.gg/avmdZJa">
-              <img src="https://img.shields.io/discord/465599004865200129.svg?label=Discord&amp;style=for-the-badge" alt="">
-            </a>
-          </p>
+            <p>
+              <img src="https://img.shields.io/github/languages/count/coogger/coogger.svg?style=for-the-badge" alt="">
+              <a href="https://discord.gg/avmdZJa">
+                <img src="https://img.shields.io/discord/465599004865200129.svg?label=Discord&amp;style=for-the-badge" alt="">
+              </a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+  </div>
   </div>
 </div>
 <strong general="txt-xxl center c-dark-purple w-100" flex="ai-c" style="margin:24px 0px;">

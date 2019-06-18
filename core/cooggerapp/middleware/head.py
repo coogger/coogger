@@ -179,8 +179,10 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def home(self):
         return dict(
             title=f"coogger",
-            keywords=f"coogger",
-            description="Coogger is an ecosystem where is knowledge sharing network",
+            keywords=f"coogger, developers, experience, documentation, blogs, projects",
+            description="""
+                Coogger is a platform where developers can write their knowledge, 
+                experience, documentation and blogs about their projects or projects which love.""",
             image="https://www.coogger.com/static/logos/png/800.png",
         )
 
