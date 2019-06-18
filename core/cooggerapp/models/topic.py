@@ -43,9 +43,6 @@ class CommonTopicModel(models.Model):
     class Meta:
         abstract = True
 
-    def __str__(self):
-        return self.permlink
-
 
 class Topic(CommonTopicModel):
     """ Global Topic Model """
@@ -58,6 +55,8 @@ class Topic(CommonTopicModel):
         ordering = ["-how_many"]
         unique_together = ["permlink"]
 
+    def __str__(self):
+        return self.permlink
 
     def save(self, *args, **kwargs):
         self.permlink = slugify(self.name)
@@ -86,6 +85,9 @@ class UTopic(CommonTopicModel):
         verbose_name_plural = "User Topic"
         ordering = ["-how_many"]
         unique_together = [["user", "permlink"]]
+
+    def __str__(self):
+        return f"/@{self.user}/{self.permlink}"
 
     @property
     def get_absolute_url(self):
@@ -125,7 +127,8 @@ def increase_total_view(sender, **kwargs):
 
 
 @receiver(post_save, sender=UTopic)
-def follow_and_repos_update(sender, instance, created, **kwargs):
+def topic_create(sender, instance, created, **kwargs):
+    "if utopic is created"
     if created:
         try:
             Topic(name=instance.name).save()

@@ -34,9 +34,9 @@
       {% endif %}
       {% if queryset.utopic %}
       <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'detail-utopic' queryset.utopic current_user %}">
+        <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'detail-utopic' queryset.utopic.permlink current_user %}">
           <i class="fa fa-hashtag" aria-hidden="true"></i>
-          <span id="topic">{{queryset.utopic|title}}</span>
+          <span id="topic">{{queryset.utopic.permlink|title}}</span>
         </a>
       </div>
       {% endif %}
