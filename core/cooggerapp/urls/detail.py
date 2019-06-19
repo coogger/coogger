@@ -3,7 +3,7 @@ from django.urls import path
 from django.shortcuts import redirect
 
 # views
-from ..views.detail import Embed, Detail
+from ..views.detail import Embed, Detail, TreeDetail
 
 urlpatterns = [
     path(
@@ -16,4 +16,10 @@ urlpatterns = [
         Detail.as_view(), 
         name="detail"
     ),
+    path(
+        'tree/<hash>/', 
+        TreeDetail.as_view(), 
+        name="tree-detail"
+    ),
+    
 ]

@@ -9,9 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.db.utils import IntegrityError
 from django.contrib.contenttypes.models import ContentType
+from django.views.generic.base import TemplateView
 
 # core.cooggerapp models
-from ..models import Content, UTopic
+from ..models import Content, UTopic, Commit
 from django_page_views.models import DjangoViews
 
 # forms
@@ -123,3 +124,13 @@ class Detail(View):
 @method_decorator(xframe_options_exempt, name="dispatch")
 class Embed(Detail):
     template_name = "content-detail/embed.html"
+
+
+class TreeDetail(TemplateView):
+    template_name = "content-detail/tree.html"
+
+    def get_context_data(self, hash, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["queryset"] = Commit.objects.get(hash=hash)
+        context["md_editor"] = True
+        return context
