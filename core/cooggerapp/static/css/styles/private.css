@@ -350,6 +350,11 @@ text-overflow: ellipsis;
 .trans-memo, .json_metadata{
 word-break: break-word;
 }
+.text3{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 @media only screen and (max-width: 768px) {
   .sectionclosedmobile {
       display: none;

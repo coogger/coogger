@@ -1,10 +1,10 @@
 {% load coogger_tags %}
 {% if request|url_resolve:"" == "home" or request|url_resolve:"" == "explorer_posts"%}
 <div class="just-pc" flex="fw-nw" general="w-16">
-  <ul general="bg-white brc-white" style="position: sticky;top: 16px;">
+  <div general="bg-white brc-white" style="position: sticky;top: 16px;">
     <div general="center">Topics</div>
     {% for topic, count in sort_topics.items %}
-      <li general="txt-s c-yellow">
+      <div general="txt-s c-yellow">
         <a hover="c-white bg-red" flex="ai-c" general="txt-s c-dark br-4" href="/topic/{{ topic.name }}" style="padding: 3px 6px;">
           {% if topic.image_address %}
             <img general="w-8" src="{{ topic.image_address }}" style="margin: 0px;">
@@ -12,8 +12,8 @@
           <span style="margin-left: 2px;">{{ topic.name |title }}</span>
           <span general="txt-xs right">{{ count }}</span>
         </a>
-      </li>
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 </div>
 {% endif %}

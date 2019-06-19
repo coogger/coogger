@@ -4,6 +4,13 @@
   <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
     <div style="padding: 6px;">
       <div general="right">
+        <a href="/@{{ queryset.user }}" flex="ai-c">
+          <img general="br-circle" src="{{ queryset.user.githubauthuser.avatar_url }}" width="20" height="20">
+        </a>
+        <div general='txt-s' flex='ai-c' class='duread-li'>
+            <i class="fas fa-clock"></i>
+            <div style='margin-left: 6px;'>{{ queryset.created|timesince }}</div>
+        </div>
         <div general="right txt-s">
             {% include 'issue/bookmark.html' %}
             {% include 'vote.html' %}

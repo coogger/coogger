@@ -5,12 +5,12 @@
       <div general="w-100 b-1 br-2 brc-muted" style="margin: 2px 0px;">
         <div class="commit">
           <div flex="fd-c" general="w-100">
-            <a general="w-90" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
+            <a class="text3" general="w-90" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
               <span general="txt-l c-primary">
                 {{ commit.msg|title }}
               </span>
             </a>
-            <a general="txt-s c-primary w-30" href="{% url 'commit'  commit.content.user  commit.utopic.permlink commit.hash %}">{{ commit.hash }}</a>
+            <a class="text3" general="txt-s c-primary w-30" href="{% url 'commit'  commit.content.user  commit.utopic.permlink commit.hash %}">{{ commit.hash }}</a>
             <div flex="fd-c" general="w-100">
               <div flex="ai-c">
                 <img class="commit-user" general="br-4 c-muted" src="{{ commit.user.githubauthuser.avatar_url }}">
@@ -21,7 +21,7 @@
               <span>committed {{ commit.created|timesince }}</span>
             </div>
             <div flex style="margin-top: 6px;" general="w-100">
-              <a general="w-70" href="{{ commit.content.get_absolute_url }}">{{ commit.content }}</a>
+              <a class="text3" general="w-70" href="{{ commit.content.get_absolute_url }}">{{ commit.content }}</a>
             </div>
           </div>
         </div>

@@ -87,7 +87,7 @@ class UTopic(CommonTopicModel):
         unique_together = [["user", "permlink"]]
 
     def __str__(self):
-        return f"/@{self.user}/{self.permlink}"
+        return str(self.get_absolute_url)
 
     @property
     def get_absolute_url(self):

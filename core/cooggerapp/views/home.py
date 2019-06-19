@@ -15,7 +15,7 @@ from django.http import Http404
 from ..forms import ReportsForm
 
 # models
-from ..models import Content, SearchedWords, ReportModel, Topic
+from ..models import Content, SearchedWords, ReportModel, Topic, Issue
 
 # utils
 from .utils import paginator
@@ -23,27 +23,37 @@ from .utils import paginator
 
 class Home(TemplateView):
     template_name = "card/blogs.html"
+    introduction_template_name = "home/introduction.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset = Content.objects.filter(status="approved", reply=None)
-        url_name = resolve(self.request.path_info).url_name
-        is_authenticated = self.request.user.is_authenticated
-        if not is_authenticated and url_name == "home":
-            self.template_name = "home/introduction.html"
-            check, posts = [], []
-            for query in queryset:
-                if query.user not in check:
-                    check.append(query.user)
-                    posts.append(query)
-                if len(posts) == settings.PAGE_SIZE:
-                    break
+        self.url_name = resolve(self.request.path_info).url_name
+        self.is_authenticated = self.request.user.is_authenticated
+        if not self.is_authenticated and self.url_name == "home":
             context["introduction"] = True
-            queryset = posts
-        context["queryset"] = paginator(self.request, queryset)
+            context["issues"] = Issue.objects.filter(reply=None)[: settings.PAGE_SIZE]
+            self.template_name = self.introduction_template_name
         context["sort_topics"] = self.sort_topics()
+        context["queryset"] = paginator(self.request, self.get_queryset())
         return context
 
+    def get_queryset(self):
+        queryset = Content.objects.filter(status="approved", reply=None)
+        if not self.is_authenticated and self.url_name == "home":
+            return self.get_queryset_to_introduction(queryset)
+        return queryset
+
+    @staticmethod
+    def get_queryset_to_introduction(queryset):
+        check, posts = [], []
+        for query in queryset:
+            if query.user not in check:
+                check.append(query.user)
+                posts.append(query)
+            if len(posts) == settings.PAGE_SIZE:
+                break
+        return posts
+    
     @staticmethod
     def sort_topics():
         topics = dict()

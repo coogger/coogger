@@ -47,7 +47,7 @@ class Issue(ThreadedComments, VoteView):
         return reverse(
             "detail-issue", 
             kwargs=dict(
-                username=str(self.user), 
+                username=str(self.utopic.user), 
                 utopic_permlink=self.utopic.permlink,
                 permlink=self.permlink
             )

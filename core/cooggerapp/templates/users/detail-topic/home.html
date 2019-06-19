@@ -34,7 +34,7 @@
               <a general="c-primary txt-m" href="{% url 'detail-utopic' utopic.permlink current_user %}">{{ utopic.name }}/@{{ current_user }}</a>
               {% if request.user == current_user %}
                 <div general="right" flex="fd-c">
-                  <a general="br-1 c-white bg-dark-purple txt-s right" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">Add content your {{ utopic }} topic</a>
+                  <a general="br-1 c-white bg-dark-purple txt-s right" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">Add content your {{ utopic.name }} topic</a>
                   <a general="br-1 c-white bg-warning txt-s right" href="{% url  'update-utopic' utopic.permlink %}" style="margin-top:3px;padding: 6px;">Update</a>
                 </div>
               {% endif %}
