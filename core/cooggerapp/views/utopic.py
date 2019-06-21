@@ -40,7 +40,6 @@ class DetailUserTopic(TemplateView):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.get(user=user, permlink=permlink)
         contents = Content.objects.filter(
-            user=user, 
             utopic=utopic, 
             status="approved", 
             reply=None).order_by("created")
