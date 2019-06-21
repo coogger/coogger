@@ -28,6 +28,9 @@ class ContentSerializer(serializers.ModelSerializer):
     parent_user = serializers.ReadOnlyField(
         source="get_parent.username"
     )
+    parent_id = serializers.ReadOnlyField(
+        source="get_parent.id"
+    )
 
     class Meta:
         model = Content
@@ -36,7 +39,7 @@ class ContentSerializer(serializers.ModelSerializer):
             "get_absolute_url", "views", "upvote_count", "downvote_count", "body", "language",
             "tags", "definition", "status", "mod_username", "reply_count", 
             "title", "created", "utopic_permlink", "permlink", "get_absolute_url", 
-            "parent_permlink", "parent_user"
+            "parent_permlink", "parent_user", "parent_id"
         ]
 
 
@@ -53,7 +56,10 @@ class IssueSerializer(serializers.ModelSerializer):
     parent_user = serializers.ReadOnlyField(
         source="get_parent.username"
     )
-    
+    parent_id = serializers.ReadOnlyField(
+        source="get_parent.id"
+    )
+
     class Meta:
         model = Issue
         fields = [
@@ -63,5 +69,5 @@ class IssueSerializer(serializers.ModelSerializer):
             "title", "reply", "reply_count",
             "created", "last_update",
             "parent_user", "parent_permlink", "get_absolute_url",
-            "views", "upvote_count", "downvote_count",
+            "views", "upvote_count", "downvote_count", "parent_id",
         ]

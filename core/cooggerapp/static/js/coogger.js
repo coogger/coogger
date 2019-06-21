@@ -192,7 +192,7 @@ function get_data_from_cooggerapi(apiUrl){
         for (ii in children_replies) {
           let children_reply = children_replies[ii];
           let children_comment_template = get_replies_template(children_reply);
-          $(`#${children_reply.parent_user}-${children_reply.parent_permlink}`).append(children_comment_template);
+          $(`#reply-id-${children_reply.parent_id}`).append(children_comment_template);
           get_children_replies(children_reply, api_name);
         }
       });
@@ -211,12 +211,12 @@ function get_data_from_cooggerapi(apiUrl){
 function get_replies_template(reply){
   if (reply.parent_permlink.includes("re-")){
     return (
-      `<div class='comment_replies' id='${reply.username}-${reply.permlink}'>
+      `<div class='comment_replies' id='reply-id-${reply.id}'>
       ${reply_userinfo(reply)} ${reply_body(reply)}</div>`
      );
   }
   return (
-    `<div class='comment' id='${reply.username}-${reply.permlink}' <div class='comment_highlighted'>
+    `<div class='comment' id='reply-id-${reply.id}' <div class='comment_highlighted'>
     ${reply_userinfo(reply)} ${reply_body(reply)}</div></div>`
    );
 }
