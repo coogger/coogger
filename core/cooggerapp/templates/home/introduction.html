@@ -80,38 +80,43 @@
 <div general="center">
   <cards flex="" general="w-90" style="margin:0px">
    {% for ct in queryset %}
-     <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" general="br-2 bg-white w-30" mobile-s="w-100" mobile-m="w-98" mobilel="w-98"
+     <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}"
+      general="br-2 bg-white w-30" mobile-s="w-100" mobile-m="w-98" mobilel="w-98"
       tablet="w-80" laptop="w-40" laptop-l="w-30" max="w-30" style="margin:6px;">
-         {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
-         <a href="{{ ct.get_absolute_url }}" id="absolute_url_href" general="c-dark">
-             <div general="txt-m" class="upshow"><div flex="ai-c">{{ ct.definition|safe }}</div></div>
-         </a>
-         {% include 'card/bottom.html' %}
+         {% include "card/userinfo.html" %}
+         {% include "card/contentinfo.html" %}
      </card>
    {% endfor %}
   </cards>
-  <div flex="fd-c">
+  <div flex="fd-c" general="w-100" style="overflow: hidden;" class="text3">
       <strong general="txt-xxl center c-dark w-100" flex="ai-c" style="margin:24px 0px;">
         Most Written Topics and Issues
       </strong>
       <div flex general="w-90 center b-1 brc-muted br-2">
           {% include 'home/insection-left.html' %}
-          <div flex="fd-c" general="w-70" style="margin-left:24px">
-            <div general="center" style="margin: 0px;">Issues</div>
-            {% for issue in issues %}
-              <div flex="fd-c" general="left b-1 br-2 brc-muted w-100" style="padding: 4px 12px;margin:4px 0px;">
-                <span general="txt-s">Title: {{ issue.title }}</span>
-                <a flex="ai-c" general="c-blue" href="{{ issue.get_absolute_url }}" class="text3">
-                  <img style="margin: 0px;" general="br-circle txt-s" src="{{ issue.user.githubauthuser.avatar_url }}" width="20" height="20">
-                  {{ issue.get_absolute_url }}
-                </a>
-                <div flex>
-                    <span general="txt-s">Status: {{ issue.status }}</span>
-                    <span general="txt-s" class="fas fa-eye" style='margin-left: 6px;'>{{ issue.views }}</span>
-                    <span general="txt-s" class="fas fa-reply-all" style='margin-left: 6px;'>{{ issue.reply_count }}</span>
+          <div style="margin: 4px 12px;" general="w-70" tablet="w-100">
+            <div flex="fd-c" general="w-100">
+              <div general="center" style="margin: 0px;">Issues</div>
+              {% for issue in issues %}
+                <div general="left w-100 b-1 br-2 brc-muted">
+                  <div flex="fd-c" style="padding: 12px;" general="w-100">
+                      <span general="txt-s">Title: {{ issue.title }}</span>
+                      <a general="c-blue w-90" href="{{ issue.get_absolute_url }}" class="text3">
+                          <img style="margin: 0px;" general="br-circle txt-s" 
+                          src="{{ issue.user.githubauthuser.avatar_url }}" width="20" height="20">
+                        {{ issue.get_absolute_url }}
+                      </a>
+                      <div flex>
+                          <span general="txt-s">Status: {{ issue.status }}</span>
+                          <span general="txt-s" class="fas fa-eye" style='margin-left: 6px;'>
+                            {{ issue.views }}</span>
+                          <span general="txt-s" class="fas fa-reply-all" style='margin-left: 6px;'>
+                            {{ issue.reply_count }}</span>
+                      </div>
+                  </div>
                 </div>
-              </div>
-            {% endfor %}
+              {% endfor %}
+            </div>
           </div>
       </div>
     </div>

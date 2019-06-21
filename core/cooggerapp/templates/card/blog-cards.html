@@ -3,7 +3,7 @@
    tablet="w-80" laptop="w-50" laptop-l="w-40" max="w-30" style="margin:0px">
       {% for ct in queryset %}
         <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}" general="br-2 bg-white">
-            {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %}
+            {% include "card/userinfo.html" %} {% include "card/contentinfo.html" %} {% include 'card/top.html' %}
             <a href="{{ ct.get_absolute_url }}" general="c-dark">
                 <div general="txt-m" class="upshow">
                     <div flex="ai-c">{{ ct.definition|safe }}</div>
