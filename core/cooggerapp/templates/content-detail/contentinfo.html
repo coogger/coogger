@@ -1,12 +1,14 @@
-<div flex style="margin: 12px 0px;display:none" general="br-2 right c-white" class="root_content">
-  <div>
-    <li flex="ai-c">
-      <a id="root_content" general="txt-s c-secondary">
-      <span style="margin: 0px 6px" general="c-secondary">This is just comment, view the full context</span>
-      </a>
-    </li>
+{% if queryset.reply %}
+<div flex style="margin: 12px 0px" general="br-2 right c-white">
+    <div>
+      <li flex="ai-c">
+        <a href="{{ queryset.get_parent.get_absolute_url }}" general="txt-s c-dark">
+            This is just a comment, view the full context
+        </a>
+      </li>
+    </div>
   </div>
-</div>
+{% endif %}
 <div flex style="margin: 12px 0px;">
   {% if queryset.utopic.address %}
     <div mobile-l="w-100" tablet="w-80" general="w-50">
