@@ -84,18 +84,12 @@ def save_github_repos(user, github_repos_url):
             except IntegrityError:
                 pass
 
-def save_github_org(user):
-    organizations_url = user.githubauthuser.get_extra_data_as_dict.get("organizations_url")
-    for org in requests.get(organizations_url + get_client_url()).json():
-        save_github_repos(user, org.get("repos_url"))
-
 @receiver(post_save, sender=GithubAuthUser)
 def follow_and_repos_update(sender, instance, created, **kwargs):
     user = User.objects.get(username=instance.user.username)
     save_github_follow(user)
     github_repos_url = user.githubauthuser.get_extra_data_as_dict.get("repos_url")
     save_github_repos(user, github_repos_url)
-    save_github_org(user)
     if created:
         send_mail(
             subject=f"{user} has entered the coogger | coogger".title(), 
