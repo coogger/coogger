@@ -7,65 +7,29 @@
         <img style="height: 300px;width: 300px;margin: 0px;margin-right: 16px;" general="center" src="{% static 'logos/png/400.png' %}">
     </div>
     <div style="margin-top: 12px;">
-      <span general="center w-70" style="margin-bottom:6px;">
+      <span flex="ai-c" general="center w-70" style="margin-bottom:6px;">
           Coogger is a platform where developers can write their knowledge, experience, documentation and blogs
+          <strong tablet="txt-s">We are open-source</strong>
+          <span tablet="txt-s">
+            <a general="c-white" flex="ai-c" href="https://www.github.com/coogger">
+              <img general="br-2" src="https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&amp;style=for-the-badge" alt="coogger-fork" 
+              style="margin-left: 4px;margin-right: 4px;"> 
+              <span>me on Github</span>
+            </a>
+          </span>
       </span>
-      <div style="margin:5% 0px;">
+      <div style="margin:2% 0px;">
         <a hover="bg-primary c-white" general="bg-white c-dark br-2 w-60 center" href="/explorer/posts/" style="padding:6px 0px;">
           Explore posts
         </a>
       </div>
-      <div general="center ewcenter txt-m" flex="">
-        <div general="br-2" flex="fd-c">
-          <span general="center txt-xl" tablet="txt-m"><strong>About COOGGER</strong></span>
-          <div flex="ai-c" style="margin-bottom: 6px;">
-            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-white c-dark" tablet="txt-s"></i>
-            <div flex="fd-c">
-              <strong tablet="txt-s">SEO friendly</strong>
-            </div>
-          </div>
-          <div flex="ai-c" style="margin-bottom: 6px;">
-            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-white c-dark" tablet="txt-s"></i>
-            <div flex="fd-c">
-              <strong tablet="txt-s">Fully responsive</strong>
-              <span></span>
-            </div>
-          </div>
-          <div flex="ai-c" style="margin-bottom: 6px;">
-            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-white c-dark" tablet="txt-s"></i>
-            <div flex="fd-c">
-              <strong tablet="txt-s">Cross-browser compatibility</strong>
-              <span tablet="txt-s">
-                Chrome, Firefox, IE, Safari, Opera, Edge - COOGGER works the same in all browsers.
-              </span>
-            </div>
-          </div>
-          <div flex="ai-c" style="margin-bottom: 6px;">
-            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-white c-dark" tablet="txt-s"></i>
-            <div flex="fd-c">
-              <strong tablet="txt-s">Frequent updates</strong>
-              <div flex="fd-c"></div>
-            </div>
-          </div>
-          <div flex="ai-c" style="margin-bottom: 6px;">
-            <i class="fas fa-check" style="padding: 6px;margin-right: 6px;" general="br-circle bg-white c-dark" tablet="txt-s"></i>
-            <div flex="fd-c">
-              <strong tablet="txt-s">We are open-source</strong>
-              <span tablet="txt-s">
-                <a general="c-white" flex="ai-c" href="https://www.github.com/coogger">
-                  <img src="https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&amp;style=for-the-badge" 
-                  alt="coogger-fork" style="margin-right: 6px;"> 
-                  me on Github</a>
-              </span>
-            </div>
-          </div>
-          <div general="bg-dark" style="overflow: auto;height: 400px;margin-top: 12px;margin-bottom: 12px;">
-            <div general="w-100 center">
-              <a class="twitter-timeline" href="https://twitter.com/cooggercom?ref_src=twsrc%5Etfw">
-                Tweets by cooggercom
-              </a>
-              <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </div>
+      <div general="center ewcenter txt-m w-50 br-2" flex="fd-c">
+        <div general="bg-dark w-100" style="overflow: auto;height: 400px;margin-top: 12px;margin-bottom: 12px;">
+          <div general="w-100 center">
+            <a class="twitter-timeline" href="https://twitter.com/cooggercom?ref_src=twsrc%5Etfw">
+              Tweets by cooggercom
+            </a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
           </div>
         </div>
       </div>
@@ -78,7 +42,7 @@
   </strong>
 </div>
 <div general="center">
-  <cards flex="" general="w-90" style="margin:0px">
+  <cards flex="" general="w-90 center" style="margin:0px">
    {% for ct in queryset %}
      <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}"
       general="br-2 bg-white w-30" mobile-s="w-100" mobile-m="w-98" mobilel="w-98"
