@@ -12,7 +12,11 @@
     </div>
     {% endif %}
   </div>
-  <div general="w-100">
-    {% include 'content-detail/general.html' %}
+  <div general="w-100 center">
+      <div animation="fadeIn" font="quicksand" general="w-100 center">
+          {% include 'content-detail/left.html' %}
+          {% include 'content-detail/center.html' %}
+          {% include 'content-detail/right.html' %}
+      </div>
   </div>
 {% endblock %}

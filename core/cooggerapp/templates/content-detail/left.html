@@ -1,0 +1,23 @@
+<!-- other contents of topic  -->
+{% if nav_category %}
+  <div general="w-20" class="just-pc" style="position: sticky;top: 90px;border-right: 1px solid #ececec">
+    <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 14px;">
+        <strong>Other contents of the {{ queryset.utopic.name }} topic</strong>
+    </div>
+    <ol flex="fd-c" general="bg-white brc-white" style="position: sticky;top: 90px;padding:0px;">
+        {% for list in nav_category %}
+        {% if list.permlink == urloftopic %}
+        <li general="c-success txt-s">
+            <a flex general="txt-s c-success" href="{{ list.get_absolute_url }}" style="padding: 3px 6px;">
+             {{ list.title|title }}</a>
+      </li>
+        {% else%}
+        <li hover="txt-s c-success" general="txt-xs">
+            <a flex general="txt-s c-dark br-1" hover="c-success" href="{{list.get_absolute_url}}" style="padding: 3px 6px;">
+          {{ list.title|title }}</a>
+        </li>
+        {% endif %} {% endfor %}
+    </ol>
+  </div>
+{% endif %}
+
