@@ -11,18 +11,19 @@
             <i class="fas fa-clock"></i>
             <div style='margin-left: 6px;'>{{ queryset.created|timesince }}</div>
         </div>
-        <div general="right txt-s">
+        <div general="right txt-s bg-white brc-muted b-1 br-2" style="padding: 2px 6px;">
             {% include 'issue/bookmark.html' %}
             {% include 'vote.html' %}
+            <div general='txt-s c-secondary' flex='ai-c' class='duread-li'>
+              <i class="fas fa-reply-all"></i>
+              <div style='margin-left: 6px;'>{{ queryset.reply_count }}</div>
+          </div>
+          <div general='txt-s c-secondary' flex='ai-c' class='duread-li'>
+              <i class="fas fa-eye"></i>
+              <div style='margin-left: 6px;'>{{ queryset.views }}</div>
+          </div>
         </div>
-        <div general='txt-s' flex='ai-c' class='duread-li'>
-            <i class="fas fa-reply-all"></i>
-            <div style='margin-left: 6px;'>{{ queryset.reply_count }}</div>
-        </div>
-        <div general='txt-s' flex='ai-c' class='duread-li'>
-            <i class="fas fa-eye"></i>
-            <div style='margin-left: 6px;'>{{ queryset.views }}</div>
-        </div>
+        
       </div>
       <h1 general="center">{{ queryset.title|title }}</h1>
       <div general="brc-muted b-1 br-2" style="padding: 6px;">

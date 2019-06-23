@@ -9,73 +9,75 @@
     </div>
   </div>
 {% endif %}
-<div flex style="margin: 12px 0px;">
+<div flex="ai-c">
   {% if queryset.utopic.address %}
-    <div mobile-l="w-100" tablet="w-80" general="w-50">
-      <a class="content_list" style="height: 15px;margin-bottom: 2px;overflow: hidden;"
-      animation-hover="bg-primary" href="{{ queryset.utopic.address }}/?ref=www.coogger.com" target="blank"
-      general="c-white br-2 txt-s left bg-primary c-white">{{ queryset.utopic.address }}</a>
+    <div mobile-l="w-100" tablet="w-80" general="w-50 txt-s" class="text3">
+      <a style="height: 15px;margin-bottom: 2px;overflow: hidden;padding: 4px 2px;"
+      hover="c-primary" href="{{ queryset.utopic.address }}/?ref=www.coogger.com" target="blank"
+      general="c-dark w-100">
+      <i class="fa fa-globe" aria-hidden="true"></i>
+      {{ queryset.utopic.address }}</a>
     </div>
   {% endif %}
     <div general="right">
     {% if queryset.language %}
-      <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a href="{% url 'filter' %}?username={{ current_user }}&language={{queryset.language}}" general="c-dark" hover="c-white">
+      <div flex="ai-c" general="txt-s right" style="margin-right: 2px;padding: 4px 6px;">
+        <a href="{% url 'filter' %}?username={{ current_user }}&language={{queryset.language}}" general="c-dark" 
+        hover="c-primary">
           <i class="fas fa-flag"></i>
           <span id="language">{{queryset.language|title}}</span>
         </a>
       </div>
     {% endif %}
     {% if queryset.category %}
-      <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a href="{% url 'filter' %}?username={{ current_user }}&category={{ queryset.category }}" general="c-dark" hover="c-white">
+      <div flex="ai-c" general="txt-s right" style="margin-right: 2px;padding: 4px 6px;">
+        <a href="{% url 'filter' %}?username={{ current_user }}&category={{ queryset.category }}" general="c-dark" 
+        hover="c-primary">
           <i class="fa fa-list-alt" aria-hidden="true"></i>
           <span id="category">{{queryset.category|title}}</span>
         </a>
       </div>
       {% endif %}
       {% if queryset.utopic %}
-      <div flex="ai-c" class="content_list" general="txt-s right b-1 brc-muted" hover="bg-primary">
-        <a  general="c-dark" hover="c-white" flex="ai-c" href="{% url 'detail-utopic' queryset.utopic.permlink current_user %}">
-          <i class="fa fa-hashtag" aria-hidden="true"></i>
+      <div flex="ai-c" general="txt-s right" style="margin-right: 2px;padding: 4px 6px;">
+        <a  general="c-dark" hover="c-primary" flex="ai-c" href="{% url 'detail-utopic' queryset.utopic.permlink current_user %}">
+          <i class="fas fa-hashtag" aria-hidden="true"></i>
           <span id="topic">{{queryset.utopic.permlink|title}}</span>
         </a>
       </div>
       {% endif %}
     </div>
   </div>
-<div general="c-secondary brc-muted bg-white" style="padding: 2px 0px;position: sticky;top: 0px;z-index: 1;" flex="ai-c">
+<div general="center c-secondary brc-muted bg-white br-2 b-1" style="padding: 2px 0px;" flex="ai-c">
     <div general="txt-s" flex="ai-c" class="duread-li">
-      <div style="margin-left: 12px;">
+      <div style="margin-right: 12px;">
           <i class="fab fa-readme" style="margin: 0px 6px 0px 0px;"></i>
           <span id="dor">{{ queryset.get_dor }}</span>
       </div>
     </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
-      <div style="margin-left: 12px;">
+      <div style="margin-right: 12px;">
         <i class="fas fa-eye"></i>
         {{ queryset.views}}
       </div>
     </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
-        <div style="margin-left: 12px;">
+        <div style="margin-right: 12px;">
           <i class="fas fa-reply-all"></i>
           <span id="reply">{{ queryset.reply_count }}</span>
         </div>
     </div>
     <!-- bookmark -->
     <div general="txt-s" flex="ai-c" class="duread-li">
-        <div style="margin-left: 12px;">
-          {% include 'content-detail/bookmark.html' %}
-        </div>
+      {% include 'content-detail/bookmark.html' %}
       </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
-      <div style="margin-left: 12px;">
+      <div style="margin-right: 12px;">
         {% include 'vote.html' %}
       </div>
     </div>
-    <div general="txt-s right" flex="ai-c" class="duread-li">
-        <div style="margin-left: 12px;">
+    <div general="txt-s right" flex="ai-c" class="duread-li just-pc">
+        <div style="margin-right: 12px;">
           <i class="fas fa-clock"></i>
           Last update | <span id="lastmod">{{ queryset.last_update|timesince }}</span>
         </div>

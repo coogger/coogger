@@ -1,10 +1,12 @@
 <div general="txt-s c-secondary right">
+  {% if queryset.user == request.user %}
     <a hover="c-dark-purple" general="c-secondary" href="{% url 'update' queryset.user queryset.permlink %}">
       <i class="fa fa-edit fa" aria-hidden="true">Edit</i>
     </a>
-    {% if queryset.user != request.user %}
+  {% endif %}
+  {% if queryset.user != request.user and request.is_authenticated %}
     <div hover="c-danger" class="report" data-content-id="{{ queryset.id }}" style="cursor:pointer;">
         <i class="fa fa-flag fa" aria-hidden="true">Report</i>
     </div>
-    {% endif %}
+  {% endif %}
 </div>
