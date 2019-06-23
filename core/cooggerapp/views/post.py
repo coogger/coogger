@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.db.models import F
 from django.utils import timezone
+from django.http import HttpResponse
 
 # models
 from ..models import Content, Category, UTopic, Topic, Commit
@@ -117,6 +118,7 @@ class Update(LoginRequiredMixin, View):
                     form=form_set,
                 )
                 return render(request, self.template_name, context)
+        return HttpResponse(status=403)
 
     def post(self, request, username, permlink, *args, **kwargs):
         if request.user.username == username:
@@ -199,3 +201,4 @@ class Update(LoginRequiredMixin, View):
                     permlink=permlink
                 )
                 return render(request, self.template_name, context)
+        return HttpResponse(status=403)
