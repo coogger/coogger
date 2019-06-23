@@ -1,4 +1,5 @@
 {% include 'home/head.html' %}
+{% load django_md_editor %}
 <div animation="fadeIn" font="quicksand">
 {% include 'content-detail/status.html' %}
 <div flex="jc-c fw-nw">
@@ -8,9 +9,7 @@
     <div>
       <h1 general="center txt-xl" id="title" style="margin: 12px auto;"></h1>
       <div style="padding: inherit;">
-        <div style="width: auto;height:  auto;border: none;" class="editormd" id="id_arg_editormd">
-            <textarea style="display:none;" id='editormd_content'></textarea>
-        </div>
+        {{ queryset.body|markdown_to_html:"detail-body"|safe }}
       </div>
     </div>
     <div style="margin: 10% 0px;"></div>
