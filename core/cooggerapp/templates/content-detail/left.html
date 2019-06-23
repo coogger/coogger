@@ -4,7 +4,8 @@
     <div general="center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 14px;">
         <strong>Other contents of the {{ queryset.utopic.name }} topic</strong>
     </div>
-    <ol flex="fd-c" general="bg-white brc-white" style="position: sticky;top: 90px;padding:0px;">
+    <ol flex="fd-c fw-nw" general="bg-white brc-white" 
+    style="position: sticky;top: 90px;overflow: auto;height: 70vh;padding: 0px 0px 0px 16px;">
         {% for list in nav_category %}
         {% if list.permlink == urloftopic %}
         <li general="c-success txt-s">

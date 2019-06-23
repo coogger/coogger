@@ -3,47 +3,53 @@
 <script>
      $(document).ready(function(){
     var ToC = `
-    <div role='navigation' class='table-of-contents' style="position: sticky;top: 15px;">
+    <div role='navigation' general="w-100" class='table-of-contents' style="position: sticky;top: 15px;">
         <div general="center" style="padding: 6px;margin-bottom: 24px;">
             <strong>Table of Contents</strong>
         </div>
-        <div flex="fd-c" general="bg-white brc-white" style="position: sticky;top: 90px">
+        <div flex="fd-c fw-nw" general="bg-white brc-white w-100" 
+        style="position: sticky;top: 90px;overflow-y: auto;height: 70vh;overflow-x: hidden;">
         `;
 	$("h1,h2,h3,h4,h5,h6").each(function() {
         var title = $(this).text();
         var link = "#" + $(this).attr("id");
-        if ($(this).is("h2")) {
+        if ($(this).is("h1")) {
             ToC += `
                 <div hover="c-success" general="txt-xs">
                     <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
                 </div>`;
-        } else if ($(this).is("h3")) {
+        }
+        else if ($(this).is("h2")) {
             ToC += `
                 <div hover="c-success" general="txt-xs" style='margin-left:2em'>
                     <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
                 </div>`;
-        }
-        else if ($(this).is("h4")) {
+        } else if ($(this).is("h3")) {
             ToC += `
                 <div hover="c-success" general="txt-xs" style='margin-left:4em'>
                     <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
                 </div>`;
         }
-        else if ($(this).is("h5")) {
+        else if ($(this).is("h4")) {
             ToC += `
                 <div hover="c-success" general="txt-xs" style='margin-left:6em'>
                     <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
                 </div>`;
         }
-        else if ($(this).is("h6")) {
+        else if ($(this).is("h5")) {
             ToC += `
                 <div hover="c-success" general="txt-xs" style='margin-left:8em'>
                     <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
                 </div>`;
         }
+        else if ($(this).is("h6")) {
+            ToC += `
+                <div hover="c-success" general="txt-xs" style='margin-left:10em'>
+                    <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
+                </div>`;
+        }
 	});
 	ToC += "</div></div>";
-    console.log(ToC);
-    $("#content-toc").html(ToC);
+    $("#content-toc").append(ToC);
 });
 </script>
