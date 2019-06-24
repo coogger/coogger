@@ -138,7 +138,7 @@ class UpdateUTopic(LoginRequiredMixin, View):
                     reverse(
                         "detail-utopic", 
                         kwargs=dict(
-                            permlink=permlink, 
+                            permlink=slugify(form.name), 
                             username=str(request.user)
                         )
                     )
