@@ -7,6 +7,7 @@ from django.views.generic.base import TemplateView
 from django.views import View
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.utils.text import slugify
 
 # model
 from ..models import (Topic, UTopic, Content, Commit)
@@ -125,15 +126,14 @@ class UpdateUTopic(LoginRequiredMixin, View):
             form = form.save(commit=False)
             self.model.objects.filter(user=request.user, permlink=permlink).update(
                 name=form.name,
+                permlink=slugify(form.name),
                 image_address=form.image_address,
                 definition=form.definition,
                 tags=form.tags,
                 address=form.address,
             )
-            try:
-                Topic(name=form.name).save()
-            except IntegrityError:
-                pass
+            if permlink != slugify(form.name):
+                Topic.objects.filter(permlink=permlink).update(permlink=slugify(form.name))
             return redirect(
                     reverse(
                         "detail-utopic", 

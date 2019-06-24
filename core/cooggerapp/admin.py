@@ -70,7 +70,8 @@ class TopicAdmin(admin.ModelAdmin):
     list_filter = ["editable"]
     search_fields = ["name","definition"]
     fields = (
-        ("name", "tags"),
+        ("name", "permlink"),
+        ("tags"),
         ("definition"),
         ("image_address"),
         ("address"),
@@ -93,7 +94,7 @@ class UtopicAdmin(admin.ModelAdmin):
     search_fields = ["user__username", "name"]
     fields = (
         ("user"),
-        ("name"),
+        ("name", "permlink"),
         ("image_address"),
         ("definition"),
         ("tags"),

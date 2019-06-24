@@ -6,10 +6,12 @@
     <div flex general="center">
         <img style="height: 300px;width: 300px;margin: 0px;margin-right: 16px;" general="center" src="{% static 'logos/png/400.png' %}">
     </div>
-    <div style="margin-top: 12px;">
-      <span flex="ai-c" general="center w-70" style="margin-bottom:6px;">
+    <div general="w-100" style="margin-top: 12px;">
+      <div general="w-96 center" style="margin-bottom:6px;">
           Coogger is a platform where developers can write their knowledge, experience, documentation and blogs
-          <strong tablet="txt-s">We are open-source</strong>
+      </div>
+      <div flex="ai-c" general="center">
+        <strong tablet="txt-s">We are open-source</strong>
           <span tablet="txt-s">
             <a general="c-white" flex="ai-c" href="https://www.github.com/coogger">
               <img general="br-2" src="https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&amp;style=for-the-badge" alt="coogger-fork" 
@@ -17,13 +19,13 @@
               <span>me on Github</span>
             </a>
           </span>
-      </span>
+      </div>
       <div style="margin:2% 0px;">
         <a hover="bg-primary c-white" general="bg-white c-dark br-2 w-60 center" href="/explorer/posts/" style="padding:6px 0px;">
           Explore posts
         </a>
       </div>
-      <div general="center ewcenter txt-m w-50 br-2" flex="fd-c">
+      <div general="center ewcenter txt-m w-50 br-2" tablet="w-70" mobile-l="w-96" flex="fd-c">
         <div general="bg-dark w-100" style="overflow: auto;height: 400px;margin-top: 12px;margin-bottom: 12px;">
           <div general="w-100 center">
             <a class="twitter-timeline" href="https://twitter.com/cooggercom?ref_src=twsrc%5Etfw">
@@ -54,7 +56,7 @@
   </cards>
   <div flex="fd-c" general="w-100" style="overflow: hidden;" class="text3">
       <strong general="txt-xxl center c-dark w-100" flex="ai-c" style="margin:24px 0px;">
-        Most Written Topics and Issues
+        <span class="just-pc" style="margin-right: 6px;">Most Written Topics and </span>Issues
       </strong>
       <div flex general="w-90 center b-1 brc-muted br-2">
           {% include 'home/insection-left.html' %}
