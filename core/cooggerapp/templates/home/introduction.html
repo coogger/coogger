@@ -60,29 +60,8 @@
       </strong>
       <div flex general="w-90 center b-1 brc-muted br-2">
           {% include 'home/insection-left.html' %}
-          <div style="margin: 4px 12px;" general="w-70" tablet="w-100">
-            <div flex="fd-c" general="w-100">
-              <div general="center" style="margin: 0px;">Issues</div>
-              {% for issue in issues %}
-                <div general="left w-100 b-1 br-2 brc-muted">
-                  <div flex="fd-c" style="padding: 12px;" general="w-100">
-                      <span general="txt-s">Title: {{ issue.title }}</span>
-                      <a general="c-blue w-90" href="{{ issue.get_absolute_url }}" class="text3">
-                          <img style="margin: 0px;" general="br-circle txt-s" 
-                          src="{{ issue.user.githubauthuser.avatar_url }}" width="20" height="20">
-                        {{ issue.get_absolute_url }}
-                      </a>
-                      <div flex>
-                          <span general="txt-s">Status: {{ issue.status }}</span>
-                          <span general="txt-s" class="fas fa-eye" style='margin-left: 6px;'>
-                            {{ issue.views }}</span>
-                          <span general="txt-s" class="fas fa-reply-all" style='margin-left: 6px;'>
-                            {{ issue.reply_count }}</span>
-                      </div>
-                  </div>
-                </div>
-              {% endfor %}
-            </div>
+          <div general="w-70" tablet="w-100">
+              {% include 'home/issues-list.html' %}
           </div>
       </div>
     </div>

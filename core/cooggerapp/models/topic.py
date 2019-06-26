@@ -58,6 +58,10 @@ class Topic(CommonTopicModel):
     def __str__(self):
         return self.permlink
 
+    @property
+    def global_topic(self):
+        return True
+
     def save(self, *args, **kwargs):
         self.permlink = slugify(self.name)
         super().save(*args, **kwargs)
@@ -88,6 +92,10 @@ class UTopic(CommonTopicModel):
 
     def __str__(self):
         return str(self.get_absolute_url)
+
+    @property
+    def global_topic(self):
+        return False
 
     @property
     def get_absolute_url(self):

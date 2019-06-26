@@ -31,9 +31,9 @@ class Home(TemplateView):
         self.is_authenticated = self.request.user.is_authenticated
         if not self.is_authenticated and self.url_name == "home":
             context["introduction"] = True
-            context["issues"] = Issue.objects.filter(reply=None)[: settings.PAGE_SIZE]
             self.template_name = self.introduction_template_name
-        context["sort_topics"] = self.sort_topics()
+        context["sort_topics"] = self.sort_topics() # just pc
+        context["issues"] = Issue.objects.filter(reply=None, status="open")[: settings.PAGE_SIZE] #just pc
         context["queryset"] = paginator(self.request, self.get_queryset())
         return context
 
@@ -56,12 +56,10 @@ class Home(TemplateView):
     
     @staticmethod
     def sort_topics():
-        topics = dict()
-        check = list()
+        topics = list()
         for topic in Topic.objects.all():
-            if (topic not in topics) and (len(check) <= 30) and (topic.image_address):
-                topics.__setitem__(topic, topic.how_many)
-                check.append(None) # doesnt matter None
+            if (topic not in topics) and (len(topics) <= 30):
+                topics.append(topic)
         return topics
 
 
