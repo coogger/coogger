@@ -99,7 +99,7 @@ class UsersSitemap(Sitemap):
         contents = Content.objects.filter(user=obj, status="approved", reply=None)
         try:
             return contents[0].last_update
-        except AssertionError:
+        except IndexError:
             return None
 
     def location(self, obj):
