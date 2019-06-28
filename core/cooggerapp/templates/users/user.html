@@ -1,11 +1,12 @@
-{% extends "home/html.html" %}
-{% block body %}
-  <div general="left w-100">
-    {% include 'users/general.html' %}
-  </div>
-  <div general="center" style="margin-top:12px">
-    {% if queryset %}
-      {% include 'card/blog-cards.html' %}
-    {% endif %}
-  </div>
+{% extends "users/general.html" %}
+{% block useright %}
+  {% if queryset %}
+    <cards flex="" general="w-80" tablet="w-100 center">
+        {% for ct in queryset %}
+          {% include "card/card.html" %}
+        {% endfor %}
+    </cards>
+    {% include "card/script.html" %}
+  {% endif %}
 {% endblock %}
+

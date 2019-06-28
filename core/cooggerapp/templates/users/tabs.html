@@ -1,9 +1,16 @@
 <div flex general="center w-100 b-1 brc-muted">
   <div flex="fw-nw" style="padding: 6px 0px;overflow: auto;">
     <div flex="fd-c" style="cursor:pointer;">
-      <a href="{% url 'utopic' current_user %}">
+      <a href="{% url 'user' current_user %}">
           <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">
              <i class="fas fa-sitemap">TOPICS</i>
+          </div>
+      </a>
+    </div>
+    <div flex="fd-c" style="cursor:pointer;">
+      <a href="{% url 'usercontent' current_user %}">
+          <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">
+              <i class="fas fa-file-alt">CONTENTS</i>
           </div>
       </a>
     </div>
@@ -14,16 +21,16 @@
       </a>
     </div>
     <div flex="fd-c">
-      <a href="{% url 'userabout' current_user %}" flex="as-fs ai-c" 
-      general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">
-        <i class="fas fa-file-alt">ABOUT</i>
-      </a>
-    </div>
-    <div flex="fd-c">
       <a href="{% url 'comment' current_user %}" flex="as-fs ai-c" 
       general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">
         <i class="fas fa-comments">COMMENTS</i>
       </a>
     </div>
+    <div flex="fd-c">
+        <a href="{% url 'userabout' current_user %}" flex="as-fs ai-c" 
+        general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">
+          <i class="fas fa-file-alt">ABOUT</i>
+        </a>
+      </div>
   </div>
 </div>

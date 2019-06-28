@@ -28,8 +28,7 @@ class UserTopic(Common):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        utopic = UTopic.objects.filter(user=user)
-        context["queryset"] = utopic
+        context["queryset"] = paginator(self.request, UTopic.objects.filter(user=user))
         return context
 
 

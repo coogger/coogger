@@ -20,19 +20,18 @@ from ..forms import AboutForm
 from .utils import paginator
 
 class Common(TemplateView):
+    template_name = "users/user.html"
 
     def get_context_data(self, username, **kwargs):
         user = User.objects.get(username=username)
         context = super().get_context_data(**kwargs)
         context["current_user"] = user
         context["addresses"] = UserProfile.objects.get(user=user).address.all()
-        context["topics"] = UTopic.objects.filter(user=user)[:6]
         return context
 
 
-class Home(Common):
-    "user's home page"
-    template_name = "users/user.html"
+class UserContent(Common):
+    "user's content page"
 
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
@@ -82,12 +81,9 @@ class Comment(Common):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
         queryset = Content.objects.filter(
-            status="approved"
-            ).exclude(
-                user=user
-                ).filter(
-                    reply__user=user
-                    )
+            status="approved",
+            reply__user=user
+        )
         context["md_editor"] = True
         context["user_comment"] = True
         context["queryset"] = paginator(self.request, queryset)

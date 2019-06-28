@@ -1,9 +1,8 @@
-{% extends "home/html.html" %}
+{% extends "users/general.html" %}
 {% load django_md_editor %}
-{% block body %}
-  {% include 'users/general.html' %}
+{% block useright %}
   <div general="center bg-white w-100 txt-s" id="comment_template" class="comment_template">
-    <div id="comment-history" class="comment-history"  general="w-50"
+    <div id="comment-history" class="comment-history"  general="w-100"
      mobile-s="w-100" mobile-l="w-98" tablet="w-96" laptop="w-70" laptop-l="w-70">
     {% for comment in queryset %}
     <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
@@ -47,8 +46,12 @@
             <div style='margin-left: 6px;'>{{ comment.reply_count }}</div>
         </div>
       </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
-</div>
-
 {% endblock %}
+
+
+
+  
+
