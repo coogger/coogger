@@ -49,18 +49,11 @@ class Detail(View):
         if not content_obj.exists():
             raise Http404
         self.save_view(request, content.id)
-        nav_category = Content.objects.filter(
-            user=user, 
-            utopic=content.utopic, 
-            status="approved",
-            reply=None
-        ).order_by("created")
         return render(
             request, 
             self.template_name, 
             dict(
                 current_user=user,
-                nav_category=nav_category,
                 urloftopic=permlink,
                 nameoflist=content.utopic,
                 queryset=content,
@@ -71,8 +64,7 @@ class Detail(View):
 
     @method_decorator(login_required)
     def post(self, request, username, permlink, *args, **kwargs):
-        parent_user = User.objects.get(username=username)
-        parent_content = Content.objects.get(user=parent_user, permlink=permlink)
+        parent_content = Content.objects.get(user__username=username, permlink=permlink)
         reply_form = self.form_class(request.POST)
         if reply_form.is_valid():
             reply_form = reply_form.save(commit=False)

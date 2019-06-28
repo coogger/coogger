@@ -14,12 +14,11 @@ class Commits(TemplateView):
 
     def get_context_data(self, username, topic_permlink, **kwargs):
         user = User.objects.get(username=username)
-        utopic = UTopic.objects.filter(user=user, permlink=topic_permlink)[0]
-        commits = Commit.objects.filter(utopic=utopic)
+        commits = Commit.objects.filter(utopic__user=user, utopic__permlink=topic_permlink)
         context = super().get_context_data(**kwargs)
         context["current_user"] = user
         context["queryset"] = paginator(self.request, commits)
-        context["utopic"] = utopic
+        context["utopic"] = commits[0].utopic
         return context
 
 

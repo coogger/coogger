@@ -33,7 +33,9 @@ class Home(TemplateView):
             context["introduction"] = True
             self.template_name = self.introduction_template_name
         context["sort_topics"] = self.sort_topics() # just pc
-        context["issues"] = Issue.objects.filter(reply=None, status="open")[: settings.PAGE_SIZE] #just pc
+        context["issues"] = Issue.objects.filter(
+            reply=None, status="open"
+        )[: settings.PAGE_SIZE]
         context["queryset"] = paginator(self.request, self.get_queryset())
         return context
 
@@ -111,6 +113,7 @@ class Search(TemplateView):
 
 class Feed(TemplateView):
     # TODO this class must be improved
+    # make a new model for this op
     template_name = "card/blogs.html"
 
     def get_context_data(self, username, **kwargs):
@@ -118,6 +121,6 @@ class Feed(TemplateView):
         following = list(User.objects.get(username=username).follow.following.all())
         queryset = list()
         for user in following:
-            queryset += Content.objects.filter(user=user, status="approved", reply=None)
+            queryset += Content.objects.filter(user=user, status="approved")
         context["queryset"] = paginator(self.request, queryset)
         return context

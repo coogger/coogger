@@ -103,6 +103,16 @@ class Content(ThreadedComments, VoteView):
         except AttributeError:
             return False
 
+    @property
+    def other_content_of_this_topic(self):
+        "left of content detail page section"
+        return self.__class__.objects.filter(
+            user=self.user, 
+            utopic=self.utopic, 
+            status="approved", 
+            reply=None
+        ).order_by("created")
+
     def save(self, *args, **kwargs):
         self.definition = content_definition(self.body)
         super().save(*args, **kwargs)
