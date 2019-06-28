@@ -8,11 +8,11 @@
         <strong general="txt-l" class="capitalize" style="margin-left:6px">{{ topic.name }}</strong>
       </div>
       {% if topic.definition %}
-        <span general="txt-s" style="margin-left: 12px;margin-top: 12px;">{{ topic.definition }}</span>
+        <span general="txt-s" style="margin-top: 12px;margin-bottom: 12px;">{{ topic.definition }}</span>
       {% endif %}
       {% if topic.address %}
-        <a href="{{ topic.address }}/?ref=www.coogger.com"
-        general="c-primary right txt-s bg-muted br-2" style="padding:4px;">{{ topic.address }}</a>
+        <a href="{{ topic.address }}/?ref=www.coogger.com" class="fa fa-globe"
+        general="c-dark left txt-s" hover="c-primary" style="padding:4px;">{{ topic.address }}</a>
       {% endif %}
     </div>
   </div>

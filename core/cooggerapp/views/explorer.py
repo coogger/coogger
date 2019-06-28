@@ -47,7 +47,6 @@ class Hashtag(TemplateView):
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
             context["hashtag"] = hashtag
-            context["queryset_count"] = queryset.count()
             return context
         raise Http404
 
@@ -61,7 +60,6 @@ class Languages(TemplateView):
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
             context["language"] = lang_name
-            context["queryset_count"] = queryset.count()
             return context
         raise Http404
 
@@ -70,23 +68,18 @@ class Categories(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, cat_name, **kwargs):
-        category = Category.objects.filter(name=cat_name)
-        if category.exists():
-            queryset = Content.objects.filter(
-                category=category[0], status="approved", reply=None
-            )
-            context = super().get_context_data(**kwargs)
-            context["queryset"] = paginator(self.request, queryset)
-            context["category"] = cat_name
-            context["queryset_count"] = queryset.count()
-            return context
-        raise Http404
+        queryset = Content.objects.filter(
+            category__name=cat_name, status="approved", reply=None
+        )
+        context = super().get_context_data(**kwargs)
+        context["queryset"] = paginator(self.request, queryset)
+        context["category"] = cat_name
+        return context
 
 
 class Filter(TemplateView):
     template_name = "card/blogs.html"
     model = Content
-    
 
     def get_context_data(self, **kwargs):
         queryset = self.model.objects.filter(status="approved", reply=None)
@@ -95,5 +88,4 @@ class Filter(TemplateView):
         context = super().get_context_data(**kwargs)
         context["queryset"] = paginator(self.request, queryset)
         context["filter"] = filtered.get("filter")
-        context["queryset_count"] = queryset.count()
         return context
