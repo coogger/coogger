@@ -1,16 +1,30 @@
+{% load coogger_tags %}
 {% if queryset.has_previous or queryset.has_next %}
-<div flex="jc-c" general="txt-m br-1" style="margin-top: 60px;">
-    <span general="txt-m bg-secondary br-1" style="padding: 6px;">
-    {% if queryset.has_previous %}
-    <a general="bg-success c-white b-2" href="?page={{ queryset.previous_page_number }}" style="padding: 6px 12px;">
-      previous
-    </a>
-    {% endif %}
-    <span style="padding: 6px;">{{ queryset.number }} | {{ queryset.paginator.num_pages }}</span> 
-    {% if queryset.has_next %}
-    <a general="bg-primary c-white b-2" href="?page={{ queryset.next_page_number }}" style="padding: 6px 12px;">
-      Next
-    </a> {% endif %}
-    </span>
-</div>
+  <div flex="jc-c" general="txt-m br-1" style="margin-top: 60px;">
+      <span general="txt-m bg-secondary br-1" style="padding: 6px;">
+        {% if queryset.has_previous %}
+          {% if request|url_resolve:"" == "filter" %}
+            <a general="bg-success c-white b-2" href="{{ filter }}&page={{ queryset.previous_page_number }}" style="padding: 6px 12px;">
+              previous
+            </a>
+          {% else %}
+            <a general="bg-success c-white b-2" href="?page={{ queryset.previous_page_number }}" style="padding: 6px 12px;">
+              previous
+            </a>
+          {% endif %}
+        {% endif %}
+      <span style="padding: 6px;">{{ queryset.number }} | {{ queryset.paginator.num_pages }}</span> 
+        {% if queryset.has_next %}
+          {% if request|url_resolve:"" == "filter" %}
+            <a general="bg-primary c-white b-2" href="{{ filter }}&page={{ queryset.next_page_number }}" style="padding: 6px 12px;">
+              Next
+            </a>
+          {% else %}
+            <a general="bg-primary c-white b-2" href="?page={{ queryset.next_page_number }}" style="padding: 6px 12px;">
+              Next
+            </a>
+          {% endif %}
+        {% endif %}
+      </span>
+  </div>
 {% endif %}

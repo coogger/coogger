@@ -21,18 +21,23 @@ def paginator(request, queryset):
 def model_filter(items, queryset):
     # TODO improved this function
     filter = ""
+    first = True
     for attr, value in items:
-        filter += f"&{attr}={value}"
+        if attr == "page":
+            continue
+        if first:
+            first = False
+            filter += f"?{attr}={value}"
+        else:
+            filter += f"&{attr}={value}"
         if attr == "username":
-            queryset = queryset.filter(user = User.objects.get(username=value))
+            queryset = queryset.filter(user__username=value)
         elif attr == "tags":
             queryset = queryset.filter(tags__contains=value)
         elif attr == "category":
-            category = Category.objects.filter(name=value)[0]
-            queryset = queryset.filter(category=category)
+            queryset = queryset.filter(category__name=value)
         elif attr == "topic":
-            topic = Topic.objects.filter(name=value)[0]
-            queryset = queryset.filter(topic=topic)
+            queryset = queryset.filter(utopic__permlink=value)
         elif attr == "reply" and value == "None":
             queryset = queryset.filter(reply=None)
         else:
