@@ -34,21 +34,11 @@ def marktohtml(marktext):
     markdown = Markdown(renderer=renderer)
     return BeautifulSoup(markdown(marktext), "html.parser")
 
-def get_first_image(soup):
-    img = soup.find("img")
-    context = dict(src="", alt="")
-    if img is not None:
-        context.update(src=img.get("src", ""))
-        context.update(alt=img.get("alt", ""))
-    return context
-
-def content_definition(body):
+def get_first_image(body):
     soup = marktohtml(body)
-    first_image = get_first_image(soup)
-    src, alt = first_image.get("src"), first_image.get("alt")
-    if src:
-        return f"<img class='definition-img' src='{src}' alt='{alt}'></img><p>{soup.text[:200]}...</p>"
-    return f"<p>{soup.text[0:200]}...</p>"
+    img = soup.find("img")
+    if img is not None:
+        return img.get("src", "")
 
 def dor(body):
     "duration of read -> second"

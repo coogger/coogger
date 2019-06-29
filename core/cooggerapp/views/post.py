@@ -12,7 +12,7 @@ from django.http import HttpResponse
 
 # models
 from ..models import Content, Category, UTopic, Topic, Commit
-from ..models.utils import ready_tags, dor, content_definition
+from ..models.utils import ready_tags, dor, get_first_image
 
 # form
 from ..forms import ContentForm, ReplyForm
@@ -136,7 +136,7 @@ class Update(LoginRequiredMixin, View):
                         queryset.update(
                             title=form.title,
                             body=form.body,
-                            definition=content_definition(form.body),
+                            image_address=get_first_image(form.body),
                             last_update=timezone.now(),
                         )
                     else:
@@ -177,7 +177,7 @@ class Update(LoginRequiredMixin, View):
                                 msg=request.POST.get("msg")
                             ).save()
                         queryset.update(
-                            definition=content_definition(form.body),
+                            image_address=get_first_image(form.body),
                             category=form.category,
                             language=form.language,
                             tags=ready_tags(form.tags),

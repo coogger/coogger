@@ -10,7 +10,7 @@ from .threaded_comments import ThreadedComments
 from .utils import (
     second_convert, dor, 
     NextOrPrevious, 
-    content_definition
+    get_first_image
 )
 from .common.vote_view import VoteView
 from django_md_editor.models import EditorMdField
@@ -48,20 +48,16 @@ class Content(ThreadedComments, VoteView):
         verbose_name="Keywords",
         help_text="Write your tags using spaces, max:4",
     )
-    definition = models.CharField(max_length=400, verbose_name="Definition of content")
+    image_address = models.URLField(
+        null=True, 
+        blank=True,
+    )
     status = models.CharField(
         default="approved",
         max_length=30,
         choices=make_choices(STATUS_CHOICES),
         verbose_name="content's status",
     )
-    mod = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        related_name="moderator",
-    )  # is it necessary
 
     def __str__(self):
         return str(self.get_absolute_url)
@@ -114,5 +110,5 @@ class Content(ThreadedComments, VoteView):
         ).order_by("created")
 
     def save(self, *args, **kwargs):
-        self.definition = content_definition(self.body)
+        self.image_address = get_first_image(self.body)
         super().save(*args, **kwargs)

@@ -4,7 +4,12 @@
     {% include 'card/top.html' %}
     <a href="{{ ct.get_absolute_url }}" general="c-dark">
         <div general="txt-m" class="upshow">
-            <div flex="ai-c">{{ ct.definition|safe }}</div>
+            <div flex="ai-c">
+                {% if ct.image_address %}
+                    <img class='definition-img' src='{{ ct.image_address }}' alt='{{ ct.title }}'>
+                {% endif %}
+                <p>{{ ct.body|truncatechars:200 }}...</p>
+            </div>
         </div>
     </a>
     {% include 'card/bottom.html' %}

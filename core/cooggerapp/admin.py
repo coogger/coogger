@@ -26,7 +26,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Content)
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ["user","permlink", "mod", "reply"]
+    list_display = ["user","permlink","reply"]
     list_display_links = list_display
     list_filter = ["status"]
     search_fields = ["user__username", "permlink", "title", "body"]
@@ -36,15 +36,10 @@ class ContentAdmin(admin.ModelAdmin):
         ("category", "language", "utopic"),
         ("title", "permlink"),
         ("reply"),
-        ("definition"),
         ("body"),
         ("tags", "status"),
         ("reply_count"),
     )
-
-    def save_model(self, request, obj, form, change):
-        obj.mod = request.user
-        super().save_model(request, obj, form, change)
 
 
 @admin.register(SearchedWords)
