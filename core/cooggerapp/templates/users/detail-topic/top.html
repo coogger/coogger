@@ -1,6 +1,6 @@
 {% load coogger_tags %}
 <div general="b-1 br-2 brc-muted w-100">
-    <div flex style="padding: 6px;">
+    <div flex style="padding: 6px;" general="center">
         <a href="{% url 'commits' current_user utopic.permlink %}">
           <div flex="ai-c">
             <i class="fas fa-history"></i>
@@ -30,7 +30,7 @@
             </div>
         </div>
         {% if last_commit_created %}
-        <div general="txt-s right" flex="ai-c" class="duread-li">
+        <div general="txt-s right" flex="ai-c" class="duread-li just-pc">
             <div>
               <i class="fas fa-clock"></i>
               <span>Last update | {{ last_commit_created|timesince }}</span>

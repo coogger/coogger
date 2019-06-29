@@ -5,10 +5,8 @@
       <div general="w-100 b-1 br-2 brc-muted" style="margin: 2px 0px;">
         <div class="commit">
           <div flex="fd-c" general="w-100">
-            <a class="text3" general="w-100" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
-              <title general="txt-l c-primary">
-                  {{ commit.msg|title }}
-              </title>
+            <a class="text3" general="w-100 txt-l" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
+              {{ commit.msg|title }}
             </a>
             <div flex="fd-c" general="w-100">
               <div flex>

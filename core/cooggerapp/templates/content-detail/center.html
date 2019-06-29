@@ -1,7 +1,6 @@
 {% load django_md_editor %}
 {% load coogger_tags %}
-<div general="w-50" tablet="w-70" mobile-l="w-80" mobile-m="w-90">
-    {% include 'content-detail/status.html' %}
+<div general="w-50" tablet="w-80" mobile-l="w-80" mobile-m="w-90">
     {% include 'content-detail/contentinfo.html' %}
     {% include 'content-detail/userinfo.html' %}
     <h1 general="center txt-xl" id="title" style="margin: 12px auto;">{{ queryset.title|title }}</h1>

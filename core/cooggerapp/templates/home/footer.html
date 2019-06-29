@@ -3,7 +3,7 @@
     <div class="closed_footer" general="center txt-xxl right bg-red br-2">
       <div>x</div>
     </div>
-    <div style="margin-top: 10px;">
+    <div style="margin-top: 40px;">
       <ul>
         <li hover="c-success">
           <a href="/guide/@hakancelik96/">
@@ -21,6 +21,21 @@
           </a>
         </li>
       </ul>
+      <div flex="ai-c">
+        <a style="padding: 6px 3px;margin-top: 12px;" hvr-animation="c-2 fadeIn" flex=""
+          general="bg-white br-2 wmax txt-m c-dark" href="{% url 'create-utopic' %}">
+          <i flex="as-c" class="fa fa-plus-circle" aria-hidden="true">Create Topic</i>
+        </a>
+      </div>
+      <div flex="ai-c" class="search" general="w-100 center" style="margin-top: 12px;">
+        <form action="{% url 'search' %}" general="w-100">
+          <input name="query" style="padding: 6px 4px;" 
+          general="b-1 br-2 bg-white c-dark brc-muted w-100" type="text"
+          style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
+          placeholder="search content .."/>
+          <input type="submit" value="Search" style="display:  none;" />
+        </form>
+      </div>
       <ul class="f-address" class="capitalize" style="margin-top: 30px;"> 
         <span class="capitalize" general="center">SOCIAL</span>
         <li style="margin-top: 10px;" hover="c-success">

@@ -3,7 +3,7 @@
 {% load django_md_editor %}
 <div general="center" class="commits">
   <div class="commit" flex="fd-c" general="w-60 b-1 br-2 brc-muted" mobile-l="w-100" tablet="w-80">
-      <h1>
+      <h1 general="w-100">
         {{ commit.msg|title }}
       </h1>
       <div flex="ai-c" general="w-100">
@@ -11,7 +11,7 @@
         <span general="txt-s" style="margin-left: 6px;"><strong>@{{ commit.user }}</strong> committed {{ commit.created|timesince }}</span>
         <a general="c-primary right" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">{{ commit.hash|truncatechars:12 }}</a>
       </div>
-      <div flex style="margin-top: 12px;">
+      <div flex style="margin-top: 12px;width: 100%;">
         <a general="c-primary" href="{{ commit.content.get_absolute_url }}">{{ commit.content|truncatechars:50 }}</a>
       </div>
       <div class="commit-detail" general="br-2 w-100">{{ commit.body_change|safe }}</div>

@@ -1,7 +1,11 @@
-
+header{
+  padding: 6px 0px 0px 0px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ececee;
+}
 .utopic-nocontent{
   margin-top: 5%;
-  padding: 24px 0px;
+  padding: 12px;
   }
 .topic-list{
   border-top: 1px solid #eaecee;
@@ -33,7 +37,7 @@
   }
   ::-webkit-scrollbar {
     width: 4px;
-    height: 2px;
+    height: 4px;
   }
   ::-webkit-scrollbar-track {
     background: #f1f1f1; 
@@ -51,7 +55,6 @@
   margin-top: 6px;
   }
   .commit-detail{
-      padding: 12px 12px;
   }
   .commit{
   padding: 6px;
@@ -179,15 +182,16 @@
   }
   .closed_footer{
   padding: 0px 14px;
-    cursor: pointer;
+  cursor: pointer;
+  margin: 12px 0px;
   }
   .header_menu{
   position: absolute;
   z-index: 2;
-  top: 60px;
   display: none;
   min-width: 158px;
   padding: 6px 8px;
+  top: 70px;
   }
   .header_menu>.title{
   border-bottom: 1px solid #fafafa;
