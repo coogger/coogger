@@ -39,8 +39,9 @@ class Issue(ThreadedComments, VoteView):
     )
     issue_id = models.IntegerField(default=0)
 
-    class Meta:
-        ordering = ["-created"]
+    class Meta(ThreadedComments.Meta):
+        unique_together = [["utopic", "permlink"]]
+        # this line causes IntegrityError error during super() and then work create a new permlink
 
     @property
     def get_absolute_url(self):
@@ -53,7 +54,7 @@ class Issue(ThreadedComments, VoteView):
             )
         )
 
-    def issue_save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         if self.reply is not None: # if make a comment
             self.status = None
         elif self.status == "open":

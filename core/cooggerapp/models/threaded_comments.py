@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
+from django.db.utils import IntegrityError
 
 # python
 import random
@@ -42,14 +43,19 @@ class ThreadedComments(models.Model):
         if self.reply is not None:
             "if it is a comment"
             self.title = self.get_parent.title
-            self.permlink = self.get_new_permlink(self.get_reply_permlink())
+            self.permlink = f"re-{str(self.user)}-re-{str(self.reply.user)}-{slugify(self.title.lower())}"
             for obj in self.get_all_reply_obj():
                 obj.update(
                         reply_count=(F("reply_count") + 1)
                     )
         else:
-            self.permlink = self.get_new_permlink(slugify(self.title.lower()))
-        super().save(*args, **kwargs)
+            self.permlink = slugify(self.title.lower())
+        while True:
+            try:
+                super().save(*args, **kwargs)
+                break
+            except IntegrityError:
+                self.permlink = self.permlink + "-" + str(random.randrange(9999999))
 
     def get_all_reply_obj(self):
         reply_id = self.reply_id
@@ -63,19 +69,6 @@ class ThreadedComments(models.Model):
                     break
             else:
                 break
-
-    def get_reply_permlink(self):
-        return self.get_new_permlink(
-            f"re-{str(self.user)}-re-{str(self.reply.user)}-{slugify(self.title.lower())}"
-        )
-    
-    def get_new_permlink(self, permlink):
-        while True:
-            if self.__class__.objects.filter(user=self.user, permlink=permlink).exists():
-                permlink = permlink + "-" + str(random.randrange(9999999))
-            else:
-                break
-        return permlink
 
     @property
     def get_parent(self):

@@ -59,6 +59,10 @@ class Content(ThreadedComments, VoteView):
         verbose_name="content's status",
     )
 
+    class Meta(ThreadedComments.Meta):
+        unique_together = [["user", "permlink"]]
+        # this line causes IntegrityError error during super() and then work create a new permlink
+
     def __str__(self):
         return str(self.get_absolute_url)
 
