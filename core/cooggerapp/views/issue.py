@@ -38,7 +38,8 @@ class IssueView(TemplateView):
         context["current_user"] = user
         context["queryset"] = paginator(self.request, get_queryset)
         context["utopic"] = utopic
-        context["last_update"] = get_queryset[0].created
+        if get_queryset.exists():
+            context["last_update"] = get_queryset[0].created
         return context
 
     def get_queryset(self, user, utopic):

@@ -44,7 +44,8 @@ class DetailUserTopic(TemplateView):
             status="approved", 
             reply=None).order_by("created")
         context = super().get_context_data(**kwargs)
-        context["last_update"] = contents[0].created        
+        if contents.exists():
+            context["last_update"] = contents[0].created        
         context["current_user"] = user
         context["queryset"] = contents
         context["utopic"] = utopic
