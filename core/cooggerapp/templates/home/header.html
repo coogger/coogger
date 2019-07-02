@@ -22,7 +22,16 @@
           <i flex="as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
         </a>
       </div>
-      <div class="open_header_menu" general="right" style="margin: 0px;">
+      <div flex="ai-c" class="search" general="w-100 center" style="margin-top: 12px;margin: 0px 16px;">
+        <form action="{% url 'search' %}" general="w-100">
+          <input name="query" style="padding: 6px 4px;" 
+          general="b-1 br-2 bg-white c-dark brc-muted w-100" type="text"
+          style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
+          placeholder="search content .."/>
+          <input type="submit" value="Search" style="display:  none;" />
+        </form>
+      </div>
+      <div class="open_header_menu" general="center">
         <div flex="ai-c" general="wmax txt-m c-secondary">
           <img src="{{ request.user.githubauthuser.avatar_url }}" style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;"
             general="br-circle c-muted" style="max-width: 100%;max-height: 36px;">
@@ -54,6 +63,12 @@
             </a>
           </li>
           <li flex="">
+            <a hvr-animation="c-2 fadeIn" flex=""  hover="c-white bg-success br-2" general="txt-m c-secondary w-100" href="{% url 'usercontent' current_user %}">
+                <i flex="as-c" class="fas fa-file-alt"></i>
+                  Contents
+            </a>
+          </li>
+          <li flex="">
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
             general="txt-m c-secondary w-100"
             href="{% url 'bookmark' request.user %}">
@@ -61,6 +76,14 @@
               <span>Bookmark</span>
             </a>
           </li>
+          <li flex="">
+              <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
+              general="txt-m c-secondary w-100"
+              href="{% url 'comment' current_user %}">
+                <i flex="as-c" class="fas fa-comments" aria-hidden="true"></i>
+                <span>Comments</span>
+              </a>
+            </li>
           <li flex="">
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
             general="txt-m c-secondary w-100"

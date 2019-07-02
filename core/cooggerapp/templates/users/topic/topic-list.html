@@ -27,7 +27,9 @@
               {{ topic.how_many }}
           </div>
         </div>
-      <div general="txt-s" class="tld">{{ topic.definition }}</div>
+      {% if topic.definition %}
+        <div general="txt-s" class="tld">{{ topic.definition }}</div>
+      {% endif %}
     </div>
     {% endfor %}
   </div>

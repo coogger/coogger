@@ -29,11 +29,11 @@
               <span>{{ utopic.total_view }}</span><span general="c-secondary"> views</span>
             </div>
         </div>
-        {% if last_commit_created %}
+        {% if last_update %}
         <div general="txt-s right" flex="ai-c" class="duread-li just-pc">
             <div>
               <i class="fas fa-clock"></i>
-              <span>Last update | {{ last_commit_created|timesince }}</span>
+              <span>Last update | {{ last_update|timesince }}</span>
             </div>
         </div>
         {% endif %}

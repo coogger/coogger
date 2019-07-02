@@ -19,6 +19,7 @@ class Commits(TemplateView):
         context["current_user"] = user
         context["queryset"] = paginator(self.request, commits)
         context["utopic"] = commits[0].utopic
+        context["last_update"] = commits[0].created  
         return context
 
 

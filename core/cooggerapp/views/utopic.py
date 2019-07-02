@@ -43,10 +43,8 @@ class DetailUserTopic(TemplateView):
             utopic=utopic, 
             status="approved", 
             reply=None).order_by("created")
-        commits = Commit.objects.filter(utopic=utopic)
         context = super().get_context_data(**kwargs)
-        if commits.exists():
-            context["last_commit_created"] = commits[0].created        
+        context["last_update"] = contents[0].created        
         context["current_user"] = user
         context["queryset"] = contents
         context["utopic"] = utopic

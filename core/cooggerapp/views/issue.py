@@ -34,9 +34,11 @@ class IssueView(TemplateView):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
         context = super().get_context_data(**kwargs)
+        get_queryset = self.get_queryset(user, utopic)
         context["current_user"] = user
-        context["queryset"] = paginator(self.request ,self.get_queryset(user, utopic))
+        context["queryset"] = paginator(self.request, get_queryset)
         context["utopic"] = utopic
+        context["last_update"] = get_queryset[0].created
         return context
 
     def get_queryset(self, user, utopic):
@@ -73,7 +75,7 @@ class NewIssue(LoginRequiredMixin, View):
                 return self.get(request, username, utopic_permlink)
             issue_new_form.user = request.user
             issue_new_form.utopic = utopic
-            issue_new_form.issue_save()
+            issue_new_form.save()
             if request.user != user:
                 self.form_class.send_mail(issue_new_form)
             return redirect(
@@ -115,22 +117,24 @@ class DetailIssue(View):
             queryset=issue,
             utopic=utopic,
             md_editor=True,
+            last_update=issue.last_update
         )
         return render(request, self.template_name, context)
 
     @method_decorator(login_required)
     def post(self, request, username, utopic_permlink, permlink):
+        print(username, utopic_permlink, permlink)
         if request.is_ajax:
             reply_form = self.form_class(request.POST)
             if reply_form.is_valid():
                 current_user = User.objects.get(username=username)
                 utopic = UTopic.objects.filter(user=current_user, permlink=utopic_permlink)[0]
-                issue = Issue.objects.get(user=current_user, utopic=utopic, permlink=permlink)
+                issue = Issue.objects.get(utopic=utopic, permlink=permlink)
                 reply_form = reply_form.save(commit=False)
                 reply_form.user = request.user
                 reply_form.utopic = utopic
                 reply_form.reply = issue
-                reply_form.issue_save()
+                reply_form.save()
                 return HttpResponse(
                     json.dumps(
                         dict(
@@ -138,7 +142,7 @@ class DetailIssue(View):
                             username=str(reply_form.user),
                             utopic_permlink=reply_form.utopic.permlink,
                             parent_permlink=reply_form.parent_permlink,
-                            parent_user=reply_form.parent_user,
+                            parent_user=str(reply_form.parent_user),
                             created=str(reply_form.created),
                             reply_count=reply_form.reply_count,
                             status=reply_form.status,

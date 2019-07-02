@@ -73,7 +73,6 @@ class Detail(View):
             reply_form.language = parent_content.language
             reply_form.category = parent_content.category
             reply_form.tags = parent_content.tags
-            reply_form.definition = parent_content.definition
             reply_form.status = parent_content.status
             reply_form.reply = parent_content
             reply_form.save()
@@ -120,9 +119,14 @@ class Embed(Detail):
 
 class TreeDetail(TemplateView):
     template_name = "content-detail/tree.html"
+    # TODO
+    # url '@username/topic_permlink/tree/hash/'
+    # or url can be
+    # # url '/tree/hash/' because hash is unique
 
-    def get_context_data(self, hash, *args, **kwargs):
+    def get_context_data(self, username, topic_permlink, hash, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["current_user"] = User.objects.get(username=username)
         context["queryset"] = Commit.objects.get(hash=hash)
         context["md_editor"] = True
         return context

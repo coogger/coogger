@@ -22,7 +22,7 @@
                     </div>
                   </div>
                   <div general="right">
-                      <a flex="ai-c" href="{% url 'tree-detail' commit.hash %}">
+                      <a flex="ai-c" href="{% url 'tree-detail' commit.user commit.utopic.permlink commit.hash %}">
                           <i flex="ai-c" general="txt-s" class="fas fa-history">
                             <span class="just-pc">Browse the content at this point in the history</span>
                           </i>

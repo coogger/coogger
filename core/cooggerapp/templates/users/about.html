@@ -4,7 +4,7 @@
             <div general="center w-100" style="margin-top:12px">
             {% if current_user == request.user %}
                 <div general="center w-100">
-                    <form default="form" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" general="w-60" flex="fd-c" method="post" action="{% url 'userabout' current_user %}">
+                    <form default="form" general="w-100"  flex="fd-c" method="post" action="{% url 'userabout' current_user %}">
                         {% csrf_token %} {{ about }} {{ about.media }}
                         <input flex="jc-c as-c" default="input" type="submit" value="Share">
                     </form>

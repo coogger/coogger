@@ -17,7 +17,7 @@ urlpatterns = [
         name="detail"
     ),
     path(
-        'tree/<hash>/', 
+        '@<username>/<topic_permlink>/tree/<hash>/', 
         TreeDetail.as_view(), 
         name="tree-detail"
     ),

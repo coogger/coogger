@@ -9,6 +9,8 @@ header{
   }
 .topic-list{
   border-top: 1px solid #eaecee;
+  padding: 8px 0px;
+  margin: 8px 0px;
 }
 .cover_image{
   height: 100%;

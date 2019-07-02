@@ -60,7 +60,7 @@ class Home(TemplateView):
     def sort_topics():
         topics = list()
         for topic in Topic.objects.all():
-            if (topic not in topics) and (len(topics) <= 30):
+            if (topic not in topics) and (len(topics) <= 30) and (not topic.editable):
                 topics.append(topic)
         return topics
 
@@ -120,7 +120,8 @@ class Feed(TemplateView):
         context = super().get_context_data(**kwargs)
         following = list(User.objects.get(username=username).follow.following.all())
         queryset = list()
+        contents = Content.objects.filter(status="approved")
         for user in following:
-            queryset += Content.objects.filter(user=user, status="approved")
+            queryset += contents.filter(user=user)
         context["queryset"] = paginator(self.request, queryset)
         return context
