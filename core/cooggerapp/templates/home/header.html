@@ -63,7 +63,8 @@
             </a>
           </li>
           <li flex="">
-            <a hvr-animation="c-2 fadeIn" flex=""  hover="c-white bg-success br-2" general="txt-m c-secondary w-100" href="{% url 'usercontent' current_user %}">
+            <a hvr-animation="c-2 fadeIn" flex=""  hover="c-white bg-success br-2" general="txt-m c-secondary w-100"
+             href="{% url 'usercontent' request.user %}">
                 <i flex="as-c" class="fas fa-file-alt"></i>
                   Contents
             </a>
@@ -79,7 +80,7 @@
           <li flex="">
               <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
               general="txt-m c-secondary w-100"
-              href="{% url 'comment' current_user %}">
+              href="{% url 'comment' request.user %}">
                 <i flex="as-c" class="fas fa-comments" aria-hidden="true"></i>
                 <span>Comments</span>
               </a>
@@ -141,7 +142,7 @@
   <div flex="fd-c" general="center">
     <form default="form" method="GET" action="/filter/">
       <div flex="">
-        <div style="padding-right: 8px;">Username<input type="text" name="username" value="{{ current_user }}"></div>
+        <div style="padding-right: 8px;">Username<input type="text" name="username" value="{{ request.user }}"></div>
         {% if topic.name %}
           <div style="padding-left: 8px;">Topic<input type="text" name="topic" value="{{ topic.name }}"></div>
         {% elif detail.topic %}
