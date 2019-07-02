@@ -37,7 +37,7 @@ class ContentSerializer(serializers.ModelSerializer):
         fields = [
             "id", "username", "category_name", "utopic_permlink", "avatar_url",
             "get_absolute_url", "views", "upvote_count", "downvote_count", "body", "language",
-            "tags", "definition", "status", "mod_username", "reply_count", 
+            "tags", "image_address", "status", "mod_username", "reply_count", 
             "title", "created", "utopic_permlink", "permlink", "get_absolute_url", 
             "parent_permlink", "parent_user", "parent_id"
         ]
