@@ -1,15 +1,10 @@
 # django
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
-from django.http import Http404
 
 # models
 from core.cooggerapp.models import Content, Topic, UTopic, Commit
 from django.contrib.auth.models import User
-
-# python
-from bs4 import BeautifulSoup
-import mistune
 
 
 class HeadMixin:
@@ -32,20 +27,6 @@ class HeadMixin:
                 description=url_name,
                 image="")
 
-    @staticmethod
-    def get_soup(text):
-        renderer = mistune.Renderer(escape=False, parse_block_html=True)
-        markdown = mistune.Markdown(renderer=renderer)
-        return BeautifulSoup(markdown(text), "html.parser")
-
-    def get_image(self, content):
-        coogger_icon_image = f"https://www.coogger.com/media/images/coogger_W56Ux33.png"
-        try:
-            return self.get_soup(content.body).find('img').get('src')
-        except:
-            return coogger_icon_image
-
-
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
 
@@ -53,18 +34,15 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
         user = User.objects.get(username=username)
-        content = Content.objects.filter(user=user, permlink=permlink)
-        if not content.exists():
-           raise Http404("Content doesn't exists")
-        content = content[0]
+        content = Content.objects.get(user=user, permlink=permlink)
         keywords = ""
         for key in content.tags.split():
             keywords += key+", "
         return dict(
             title=f"{content.utopic.name.capitalize()} | {content.title.capitalize()}",
             keywords=f"{keywords}{content.utopic.name.lower()}",
-            description=self.get_soup(content.body).text[0:200].replace("\n"," ").capitalize(),
-            image=self.get_image(content),
+            description=content.description.capitalize(),
+            image=content.image_address or "https://www.coogger.com/media/images/coogger_W56Ux33.png",
         )
     
     def embed(self):
@@ -123,7 +101,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         username = self.kwargs.get("username")
         user = User.objects.get(username=username)
         return dict(
-            title=f"{username} • coogger knowledge content".capitalize(),
+            title=f"{username} • coogger".capitalize(),
             keywords=f"{username}, coogger {username}",
             description=f"The latest posts from {username} on coogger".capitalize(),
             image=user.githubauthuser.avatar_url,
@@ -233,6 +211,17 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         return dict(
             title=title,
             keywords=f"{topic_permlink}, {username}, {commit.msg}, commit",
+            description=title,
+            image=user.githubauthuser.avatar_url,
+        )
+
+    def feed(self):
+        username = self.kwargs.get("username")
+        user = User.objects.get(username=username)
+        title = f"{username}'s Feed".capitalize()
+        return dict(
+            title=title,
+            keywords=f"{username}, feed",
             description=title,
             image=user.githubauthuser.avatar_url,
         )

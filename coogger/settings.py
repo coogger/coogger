@@ -59,7 +59,6 @@ MIDDLEWARE = [
     # coogger
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.sort.SortMiddleware",
-    "core.cooggerapp.middleware.settings.SettingsMiddleware",
 ]
 ROOT_URLCONF = "coogger.urls"
 TEMPLATES = [

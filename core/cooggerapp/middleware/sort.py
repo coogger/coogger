@@ -16,6 +16,13 @@ from core.cooggerapp.views.utils import model_filter
 class SortMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
+        self.valid_urls = [
+            "home", "filter", 
+            "language", "category", 
+            "topic", "search", 
+            "explorer_posts",
+            "feed"
+        ]
         request.sort_categories = self.sort_categories(request)
         request.sort_languages = self.sort_languages(request)
         request.categories = self.categories(request)
@@ -94,8 +101,7 @@ class SortMiddleware(MiddlewareMixin):
 
     def languages(self, request):
         url_name = self.get_url_name(request)
-        invalid_urls = ["home", "filter", "language", "category", "topic", "search", "explorer_posts"]
-        if url_name not in invalid_urls:
+        if url_name not in self.valid_urls:
             return None
         querysets_list = []
         content_queryset = Content.objects.filter(status="approved", reply=None)
@@ -117,8 +123,7 @@ class SortMiddleware(MiddlewareMixin):
 
     def categories(self, request):
         url_name = self.get_url_name(request)
-        invalid_urls = ["home", "filter", "language", "category", "topic", "search", "explorer_posts"]
-        if url_name not in invalid_urls:
+        if url_name not in self.valid_urls:
             return None
         category_queryset = Category.objects.all()
         querysets_list = []
