@@ -1,5 +1,4 @@
-{% load coogger_tags %}
-{% if request|url_resolve:"" == "home" or request|url_resolve:"" == "explorer_posts"%}
+{% if insection_left %}
 <div class="just-pc topic-index" flex="fw-nw" general="bg-white brc-white w-20 br-4">
     <strong general="left txt-l" class="htt fas fa-hashtag">Most Remarkable Topics</strong>
     {% with sort_topics as queryset %}

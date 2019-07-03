@@ -6,36 +6,40 @@
     <div style="margin-top: 40px;">
       <ul>
         <li hover="c-success">
-          <a href="/guide/@hakancelik96/">
-            <span general="c-white txt-l">Guide</span>
+          <a general="c-white txt-l" href="/guide/@hakancelik96/">
+            Guide
           </a>
         </li>
         <li hover="c-success">
-          <a href="/privacy/">
-            <span general="c-white txt-l">Privacy Policy</span>
+          <a general="c-white txt-l" href="/privacy/">
+            Privacy Policy
           </a>
         </li>
         <li hover="c-success">
-          <a href="{% url 'coogger-images' %}">
-            <span general="c-white txt-l">Coogger Images</span>
+          <a general="c-white txt-l" href="{% url 'coogger-images' %}">
+              Coogger Images
           </a>
         </li>
+        <li hover="c-success">
+            <form action="{% url 'search' %}">
+                <input name="query" style="padding: 6px 4px;" 
+                general="b-1 br-2 muted w-max" type="text"
+                style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
+                placeholder="search content .."/>
+                <input type="submit" value="Search" style="display:  none;" />
+              </form>
+          </li>
+          <li hover="c-success">
+              <a general="c-white txt-l" href="{% url 'create-utopic' %}">
+                <i class="fa fa-plus-circle"></i>Create Topic
+              </a>
+            </li>
+            <li hover="c-success">
+                <a general="c-white txt-l" href="{% url 'explorer_posts' %}">
+                    <i class="fas fa-compass"></i>Explore posts
+                </a>
+            </li>
       </ul>
-      <div flex="ai-c">
-        <a style="padding: 6px 3px;margin-top: 12px;" hvr-animation="c-2 fadeIn" flex=""
-          general="bg-white br-2 wmax txt-m c-dark" href="{% url 'create-utopic' %}">
-          <i flex="as-c" class="fa fa-plus-circle" aria-hidden="true">Create Topic</i>
-        </a>
-      </div>
-      <div flex="ai-c" class="search" general="w-100 center" style="margin-top: 12px;">
-        <form action="{% url 'search' %}" general="w-100">
-          <input name="query" style="padding: 6px 4px;" 
-          general="b-1 br-2 bg-white c-dark brc-muted w-100" type="text"
-          style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
-          placeholder="search content .."/>
-          <input type="submit" value="Search" style="display:  none;" />
-        </form>
-      </div>
       <ul class="f-address" class="capitalize" style="margin-top: 30px;"> 
         <span class="capitalize" general="center">SOCIAL</span>
         <li style="margin-top: 10px;" hover="c-success">

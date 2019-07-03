@@ -1,140 +1,145 @@
 <header flex="ai-c" general="br-1 center bg-white">
-  <div style="overflow: auto;padding: 0px 0px 6px 0px;">
-    <div flex="fw-nw jc-c" general="txt-m wmax ewcenter ">
-      <a flex="jc-c ai-c fd-c" href="/" general="c-dark txt-m">
+  <div flex="fw-nw jc-c" general="wmax" style="overflow: auto;padding: 0px 0px 6px 0px;">
+      {% if request.user.is_authenticated %}
+      <a flex="jc-c ai-c fd-c" href="{% url 'feed' request.user %}" general="c-dark txt-m">
           <img src="/static/logos/png/48.png" general="br-circle" style="width: 36px;height: 36px;padding: 0px 6px;">
           <span general="txt-m">coogger</span>
       </a>
-      <div class="run-filter" flex="ai-c" hover="c-blue" general="br-2" style="cursor: pointer;">
-        <i class="fas fa-sliders-h"></i>
+    {% else %}
+      <a flex="jc-c ai-c fd-c" href="{% url 'explorer_posts' %}" general="c-dark txt-m">
+          <img src="/static/logos/png/48.png" general="br-circle" style="width: 36px;height: 36px;padding: 0px 6px;">
+          <span general="txt-m">coogger</span>
+      </a>
+    {% endif %}
+    <div class="run-filter" flex="ai-c" hover="c-blue" general="br-2" style="cursor: pointer;">
+      <i class="fas fa-sliders-h"></i>
+    </div>
+    {% if not request.user.is_authenticated %}
+    <div flex="ai-c">
+      <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex="ai-c"
+        hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'redirect-github' %}">
+        <i general="txt-xxl" class="fab fa-github-square"></i>Login via github
+      </a>
+    </div>
+    {% else%}
+    <div flex="ai-c" class="search just-pc" general="w-100 center" style="margin: 13px 16px;">
+      <form action="{% url 'search' %}" general="w-100">
+        <input name="query" style="padding: 6px 4px;" 
+        general="b-1 br-2 bg-white c-dark brc-muted w-100" type="text"
+        style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
+        placeholder="search content .."/>
+        <input type="submit" value="Search" style="display:  none;" />
+      </form>
+    </div>
+    <div flex="ai-c">
+      <a style="padding: 6px 3px;" hvr-animation="c-2 fadeIn" flex=""
+        hover="c-white bg-dark br-2" general="wmax txt-m c-dark" href="{% url 'create-utopic' %}">
+        <i flex="as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="open_header_menu" general="center">
+      <div flex="ai-c" general="wmax txt-m c-secondary">
+        <img src="{{ request.user.githubauthuser.avatar_url }}" style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;"
+          general="br-4 c-muted" style="max-width: 100%;max-height: 36px;">
       </div>
-      {% if not request.user.is_authenticated %}
-      <div flex="ai-c">
-        <a style="padding: 6px 12px;" hvr-animation="c-2 fadeIn" flex="ai-c"
-          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'redirect-github' %}">
-          <i general="txt-xxl" class="fab fa-github-square"></i>Login via github
-        </a>
-      </div>
-      {% else%}
-      <div flex="ai-c">
-        <a style="padding: 6px 3px;" hvr-animation="c-2 fadeIn" flex=""
-          hover="c-white bg-dark br-2" general="wmax txt-m c-dark" href="{% url 'create-utopic' %}">
-          <i flex="as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
-        </a>
-      </div>
-      <div flex="ai-c" class="search" general="w-100 center" style="margin-top: 12px;margin: 0px 16px;">
-        <form action="{% url 'search' %}" general="w-100">
-          <input name="query" style="padding: 6px 4px;" 
-          general="b-1 br-2 bg-white c-dark brc-muted w-100" type="text"
-          style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
-          placeholder="search content .."/>
-          <input type="submit" value="Search" style="display:  none;" />
-        </form>
-      </div>
-      <div class="open_header_menu" general="center">
-        <div flex="ai-c" general="wmax txt-m c-secondary">
-          <img src="{{ request.user.githubauthuser.avatar_url }}" style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;"
-            general="br-circle c-muted" style="max-width: 100%;max-height: 36px;">
-        </div>
-        <!--  -->
-        <ul class="header_menu" general="br-2 b-1 bg-white brc-muted">
-          <li flex="">
+      <!--  -->
+      <ul class="header_menu" general="br-2 b-1 bg-white brc-muted">
+        <li flex="">
+          <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
+          general="txt-m c-secondary w-100"
+          href="/@{{ request.user }}">
+            <i flex="as-c" class="fas fa-user" aria-hidden="true"></i>
+            <span>@{{ request.user }}</span>
+          </a>
+        </li>
+        <li flex="">
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
             general="txt-m c-secondary w-100"
-            href="/@{{ request.user }}">
-              <i flex="as-c" class="fas fa-user" aria-hidden="true"></i>
-              <span>@{{ request.user }}</span>
+            href="{% url 'explorer_posts' %}">
+              <i flex="as-c" class="fas fa-compass"></i>
+              <span>Explorer</span>
             </a>
-          </li>
-          <li flex="">
-              <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
-              general="txt-m c-secondary w-100"
-              href="{% url 'feed' request.user %}">
-                <i flex="as-c" class="fas fa-stream"></i>
-                <span>Feed</span>
-              </a>
-          </li>
-          <li flex="">
+        </li>
+        <li flex="">
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
             general="txt-m c-secondary w-100"
-            href="{% url 'user' request.user %}">
-              <i flex="as-c" class="fas fa-hashtag"></i>
-              <span>Topics</span>
+            href="{% url 'feed' request.user %}">
+              <i flex="as-c" class="fas fa-stream"></i>
+              <span>Feed</span>
             </a>
-          </li>
-          <li flex="">
-            <a hvr-animation="c-2 fadeIn" flex=""  hover="c-white bg-success br-2" general="txt-m c-secondary w-100"
-             href="{% url 'usercontent' request.user %}">
-                <i flex="as-c" class="fas fa-file-alt"></i>
-                  Contents
-            </a>
-          </li>
-          <li flex="">
-            <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
-            general="txt-m c-secondary w-100"
-            href="{% url 'bookmark' request.user %}">
-              <i class="fas fa-bookmark"></i>
-              <span>Bookmark</span>
-            </a>
-          </li>
-          <li flex="">
-              <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
-              general="txt-m c-secondary w-100"
-              href="{% url 'comment' request.user %}">
-                <i flex="as-c" class="fas fa-comments" aria-hidden="true"></i>
-                <span>Comments</span>
-              </a>
-            </li>
-          <li flex="">
-            <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
-            general="txt-m c-secondary w-100"
-            href="{% url 'userabout' request.user %}">
-              <i flex="as-c" class="fas fa-file-alt" aria-hidden="true"></i>
-              <span>About</span>
-            </a>
-          </li>
-          <li flex="">
+        </li>
+        <li flex="">
+          <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
+          general="txt-m c-secondary w-100"
+          href="{% url 'user' request.user %}">
+            <i flex="as-c" class="fas fa-hashtag"></i>
+            <span>Topics</span>
+          </a>
+        </li>
+        <li flex="">
+          <a hvr-animation="c-2 fadeIn" flex=""  hover="c-white bg-success br-2" general="txt-m c-secondary w-100"
+           href="{% url 'usercontent' request.user %}">
+              <i flex="as-c" class="fas fa-file-alt"></i>
+                Contents
+          </a>
+        </li>
+        <li flex="">
+          <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
+          general="txt-m c-secondary w-100"
+          href="{% url 'bookmark' request.user %}">
+            <i class="fas fa-bookmark"></i>
+            <span>Bookmark</span>
+          </a>
+        </li>
+        <li flex="">
             <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
             general="txt-m c-secondary w-100"
             href="{% url 'comment' request.user %}">
-              <i flex="as-c" class="fas fa-comments"></i>
+              <i flex="as-c" class="fas fa-comments" aria-hidden="true"></i>
               <span>Comments</span>
             </a>
           </li>
-          <li flex="">
-            <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2" general="txt-m c-secondary w-100" href="{% url 'settings' %}">
-              <i flex="as-c" class="fa fa-cog" aria-hidden="true"></i>
-              <span>Settings</span>
-            </a>
-          </li>
-          <li flex="">
-            <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
-            general="txt-m c-secondary w-100"
-            href="{% url 'coogger-images' %}">
-              <i flex="as-c" class="fas fa-file-image"></i>
-              <span>Coogger Images</span>
-            </a>
-          </li>
-          <li hvr-animation="i tada" flex="">
-            <a hover="c-white bg-danger br-2" flex="" general="txt-m c-secondary w-100" href="{% url 'logout' %}">
-              <i flex="as-c" class="fas fa-sign-out-alt"></i>
-              <span>Sign out</span>
-            </a>
-          </li>
-        </ul>
-        <!--  -->
-      </div>
-      {% endif %} {% if request.user.is_staff %}
-      <div flex="ai-c">
-        <a hvr-animation="c-2 fadeIn" flex=""
-          hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'admin:index' %}">
-          <span>Admin</span>
-        </a>
-      </div>
-      {% endif %}
-      <div class="open_footer" flex="ai-c fd-c">
-        <i class="fas fa-bars"></i>
-      </div>
+        <li flex="">
+          <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
+          general="txt-m c-secondary w-100"
+          href="{% url 'userabout' request.user %}">
+            <i flex="as-c" class="fas fa-file-alt" aria-hidden="true"></i>
+            <span>About</span>
+          </a>
+        </li>
+        <li flex="">
+          <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2" general="txt-m c-secondary w-100" href="{% url 'settings' %}">
+            <i flex="as-c" class="fa fa-cog" aria-hidden="true"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+        <li flex="">
+          <a hvr-animation="c-2 fadeIn" flex="" hover="c-white bg-success br-2"
+          general="txt-m c-secondary w-100"
+          href="{% url 'coogger-images' %}">
+            <i flex="as-c" class="fas fa-file-image"></i>
+            <span>Coogger Images</span>
+          </a>
+        </li>
+        <li hvr-animation="i tada" flex="">
+          <a hover="c-white bg-danger br-2" flex="" general="txt-m c-secondary w-100" href="{% url 'logout' %}">
+            <i flex="as-c" class="fas fa-sign-out-alt"></i>
+            <span>Sign out</span>
+          </a>
+        </li>
+      </ul>
+      <!--  -->
+    </div>
+    {% endif %} {% if request.user.is_staff %}
+    <div flex="ai-c">
+      <a hvr-animation="c-2 fadeIn" flex=""
+        hover="c-dark bg-white br-2" general="wmax txt-m c-dark" href="{% url 'admin:index' %}">
+        <span>Admin</span>
+      </a>
+    </div>
+    {% endif %}
+    <div class="open_footer" flex="ai-c">
+      <i class="fas fa-bars"></i>
     </div>
   </div>
 </header>

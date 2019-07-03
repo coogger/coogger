@@ -1,24 +1,21 @@
-{% load coogger_tags %}
-{% if request|url_resolve:"" == "home" or request|url_resolve:"" == "explorer_posts"%}
-  <div flex="fd-c" general="w-100">
-  <strong general="left txt-l" class="il fas fa-exclamation-circle">Open Issues</strong>
-  {% for issue in issues %}
-    <div general="left w-100" class="ic">
-      <div flex="fd-c" style="padding: 6px;" general="w-100">
-          <strong general="txt-s">{{ issue.title }}</strong>
-          <a general="c-blue w-90 txt-s" href="{{ issue.get_absolute_url }}" class="text3">
-              <img style="margin: 0px;" general="br-circle txt-s" 
-              src="{{ issue.user.githubauthuser.avatar_url }}" width="20" height="20">
-            {{ issue.get_absolute_url }}
-          </a>
-          <div flex>
-              <span general="txt-s" class="fas fa-eye" style='margin-left: 6px;'>
-                {{ issue.views }}</span>
-              <span general="txt-s" class="fas fa-reply-all" style='margin-left: 6px;'>
-                {{ issue.reply_count }}</span>
-          </div>
-      </div>
+<div flex="fd-c" general="w-100">
+<strong general="left txt-l" class="il fas fa-exclamation-circle">Open Issues</strong>
+{% for issue in issues %}
+  <div general="left w-100" class="ic">
+    <div flex="fd-c" style="padding: 6px;" general="w-100">
+        <strong general="txt-s">{{ issue.title }}</strong>
+        <a general="c-blue w-90 txt-s" href="{{ issue.get_absolute_url }}" class="text3">
+            <img style="margin: 0px;" general="br-circle txt-s" 
+            src="{{ issue.user.githubauthuser.avatar_url }}" width="20" height="20">
+          {{ issue.get_absolute_url }}
+        </a>
+        <div flex>
+            <span general="txt-s" class="fas fa-eye" style='margin-left: 6px;'>
+              {{ issue.views }}</span>
+            <span general="txt-s" class="fas fa-reply-all" style='margin-left: 6px;'>
+              {{ issue.reply_count }}</span>
+        </div>
     </div>
-  {% endfor %}
   </div>
-{% endif %}
+{% endfor %}
+</div>

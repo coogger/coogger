@@ -4,9 +4,6 @@ from django.contrib.auth.models import User
 from django import template
 register = template.Library()
 
-# python
-from urllib.parse import quote_plus
-
 # core.cooggerapp
 from core.cooggerapp.choices import *
 from core.cooggerapp.models import Content, Topic, Commit
@@ -36,10 +33,6 @@ def hmanycontent(user):
     obj = Content.objects.filter(user=user, status="approved")
     replies_count = obj.filter(reply=None).count()
     return f"{replies_count} + {obj.count() - replies_count}"
-
-@register.filter(name="twitter")
-def twitter(value, arg):
-    return quote_plus(value)
 
 @register.filter(name="commit_count")
 def commit_count(utopic):

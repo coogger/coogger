@@ -48,8 +48,8 @@
       {% endif %}
     </div>
   </div>
-<div general="center c-secondary brc-muted bg-white br-2 b-1" 
-style="padding: 2px 0px;position: sticky;top: 0px;z-index: 1;" flex="ai-c">
+<div general="center c-secondary brc-muted bg-white" 
+style="padding: 6px 0px;position: sticky;top: 0px;z-index: 1;" flex="ai-c">
     <div general="txt-s" flex="ai-c" class="duread-li">
       <div style="margin-right: 12px;">
           <i class="fab fa-readme" style="margin: 0px 6px 0px 0px;"></i>
@@ -73,9 +73,13 @@ style="padding: 2px 0px;position: sticky;top: 0px;z-index: 1;" flex="ai-c">
       {% include 'content-detail/bookmark.html' %}
       </div>
     <div general="txt-s" flex="ai-c" class="duread-li">
-      <div style="margin-right: 12px;">
-        {% include 'vote.html' %}
-      </div>
+      {% include 'vote.html' %}
+    </div>
+    <div onclick="copyTextFromId('embed-text')" general="b-1 br-2 txt-s brc-white c-secondary" hover="c-success" style="cursor:pointer;">
+      <i class="fas fa-code" general="center"></i>
+      <textarea id="embed-text" style="width: 0px;height: 0px;opacity: 0;position: absolute;">
+        <iframe scrolling="yes" frameborder="0" height="96%" width="100%" src="https://www.coogger.com/embed/@{{ queryset.user }}/{{ queryset.permlink }}"></iframe>
+      </textarea>
     </div>
     <div general="txt-s right" flex="ai-c" class="duread-li just-pc">
         <div style="margin-right: 12px;">

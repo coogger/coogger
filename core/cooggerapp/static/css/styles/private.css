@@ -17,6 +17,9 @@ header{
   position: sticky;
   top: 12px;
 }
+footer li{
+  margin: 6px 0px;
+}
 .ti{
   margin: 0px;
   height: 0%;
@@ -176,7 +179,6 @@ header{
   .open_footer{
   cursor: pointer;
   width: 30px;
-  height: 16px;
   margin: 0px 12px;
   }
   .open_header_menu{

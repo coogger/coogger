@@ -37,6 +37,8 @@ class Home(TemplateView):
             reply=None, status="open"
         )[: settings.PAGE_SIZE]
         context["queryset"] = paginator(self.request, self.get_queryset())
+        context["insection_left"] = True
+        context["insection_right"] = True
         return context
 
     def get_queryset(self):
@@ -95,15 +97,15 @@ class Report(LoginRequiredMixin, View):
         return HttpResponse(self.get(request, *args, **kwargs))
 
 
-class Search(TemplateView):
+class Search(Home):
     template_name = "card/blogs.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, self.search_algorithm())
+        context["queryset"] = paginator(self.request, self.get_queryset())
         return context
 
-    def search_algorithm(self):
+    def get_queryset(self):
         name = self.request.GET["query"].lower()
         SearchedWords(word=name).save()
         q = Q(title__contains=name) | Q(body__contains=name)
@@ -111,17 +113,21 @@ class Search(TemplateView):
         return queryset
 
 
-class Feed(TemplateView):
+class Feed(Home):
     # TODO this class must be improved
     # make a new model for this op
     template_name = "card/blogs.html"
 
     def get_context_data(self, username, **kwargs):
+        self.username = username
         context = super().get_context_data(**kwargs)
-        following = list(User.objects.get(username=username).follow.following.all())
+        return context
+
+    def get_queryset(self):
+        following = list(User.objects.get(username=self.username).follow.following.all())
         queryset = list()
         contents = Content.objects.filter(status="approved")
         for user in following:
             queryset += contents.filter(user=user)
-        context["queryset"] = paginator(self.request, queryset)
-        return context
+        queryset = sorted(queryset, reverse=True, key=lambda instance: instance.created)
+        return queryset

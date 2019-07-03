@@ -8,7 +8,7 @@
                 {% if ct.image_address %}
                     <img class='definition-img' src='{{ ct.image_address }}' alt='{{ ct.title }}'>
                 {% endif %}
-                <p>{{ ct.body|truncatechars:200 }}...</p>
+                <p>{{ ct.description }}...</p>
             </div>
         </div>
     </a>

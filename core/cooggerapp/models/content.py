@@ -20,6 +20,8 @@ from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 
 # python 
 import random
+from bs4 import BeautifulSoup
+import mistune
 
 
 class Content(ThreadedComments, VoteView):
@@ -116,3 +118,9 @@ class Content(ThreadedComments, VoteView):
     def save(self, *args, **kwargs):
         self.image_address = get_first_image(self.body)
         super().save(*args, **kwargs)
+
+    @property
+    def description(self):
+        renderer = mistune.Renderer(escape=False, parse_block_html=True)
+        markdown = mistune.Markdown(renderer=renderer)
+        return BeautifulSoup(markdown(self.body), "html.parser").text[0:200].replace("\n"," ")

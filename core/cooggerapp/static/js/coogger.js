@@ -66,6 +66,7 @@ function get_data_from_cooggerapi(apiUrl){
     let text = document.getElementById("embed-text");
     text.select();
     document.execCommand("copy");
+    alert("Copied");
   }
   function get_scroll_bottom_location(){
     return $(window).scrollTop() + $(window).height()+100;

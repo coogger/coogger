@@ -1,10 +1,9 @@
-{% load coogger_tags %}
 <!-- to special -->
 {% if filter or category or language or topic or hashtag%}
     {% include 'home/explorer.html' %}
   {% else %}
   <!-- issues -->
-  {% if request|url_resolve:"" == "home" or request|url_resolve:"" == "explorer_posts"%}
+  {% if insection_right %}
     <div general="w-20" class="just-pc hli">
         {% include 'home/issues-list.html' %}
     </div>

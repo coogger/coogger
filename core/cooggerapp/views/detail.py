@@ -45,9 +45,9 @@ class Detail(View):
     def get(self, request, username, permlink):
         user = User.objects.get(username=username)
         content_obj = Content.objects.filter(user=user, permlink=permlink)
-        content = content_obj[0]
         if not content_obj.exists():
-            raise Http404
+            raise Http404("Content doesnt'n exists")
+        content = content_obj[0]
         self.save_view(request, content.id)
         return render(
             request, 
