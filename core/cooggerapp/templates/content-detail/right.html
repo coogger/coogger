@@ -1,13 +1,13 @@
 <!-- other contents of topic  -->
-<div id="content-toc" general="w-20" class="just-pc"></div>
+<div id="content-toc" general="width:20" class="just-pc"></div>
 <script>
      $(document).ready(function(){
     var ToC = `
-    <div role='navigation' general="w-100" class='table-of-contents' style="position: sticky;top: 15px;">
-        <div general="center" style="padding: 6px;margin-bottom: 24px;">
+    <div role='navigation' general="width:100" class='table-of-contents' style="position: sticky;top: 15px;">
+        <div general="position:center" style="padding: 6px;margin-bottom: 24px;">
             <strong>Table of Contents</strong>
         </div>
-        <div flex="fd-c fw-nw" general="bg-white brc-white w-100" 
+        <div general="flex flex:fd-c flex:fw-nw bg:white brc:white width:100"  
         style="position: sticky;top: 90px;overflow-y: auto;height: 70vh;overflow-x: hidden;">
         `;
 	$("h1,h2,h3,h4,h5,h6").each(function() {
@@ -15,37 +15,37 @@
         var link = "#" + $(this).attr("id");
         if ($(this).is("h1")) {
             ToC += `
-                <div hover="c-success" general="txt-xs">
-                    <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
+                <div general="text:xs color:success:hover" >
+                    <a style="padding: 3px 6px;" general="flex text:s color:dark br:1 color:success:hover"   href='${link}'>${title}</a>
                 </div>`;
         }
         else if ($(this).is("h2")) {
             ToC += `
-                <div hover="c-success" general="txt-xs" style='margin-left:2em'>
-                    <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
+                <div general="text:xs color:success:hover"  style='margin-left:2em'>
+                    <a style="padding: 3px 6px;" general="flex text:s color:dark br:1 color:success:hover"   href='${link}'>${title}</a>
                 </div>`;
         } else if ($(this).is("h3")) {
             ToC += `
-                <div hover="c-success" general="txt-xs" style='margin-left:4em'>
-                    <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
+                <div general="text:xs color:success:hover"  style='margin-left:4em'>
+                    <a style="padding: 3px 6px;" general="flex text:s color:dark br:1 color:success:hover"   href='${link}'>${title}</a>
                 </div>`;
         }
         else if ($(this).is("h4")) {
             ToC += `
-                <div hover="c-success" general="txt-xs" style='margin-left:6em'>
-                    <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
+                <div general="text:xs color:success:hover"  style='margin-left:6em'>
+                    <a style="padding: 3px 6px;" general="flex text:s color:dark br:1 color:success:hover"   href='${link}'>${title}</a>
                 </div>`;
         }
         else if ($(this).is("h5")) {
             ToC += `
-                <div hover="c-success" general="txt-xs" style='margin-left:8em'>
-                    <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
+                <div general="text:xs color:success:hover"  style='margin-left:8em'>
+                    <a style="padding: 3px 6px;" general="flex text:s color:dark br:1 color:success:hover"   href='${link}'>${title}</a>
                 </div>`;
         }
         else if ($(this).is("h6")) {
             ToC += `
-                <div hover="c-success" general="txt-xs" style='margin-left:10em'>
-                    <a style="padding: 3px 6px;" flex general="txt-s c-dark br-1" hover="c-success" href='${link}'>${title}</a>
+                <div general="text:xs color:success:hover"  style='margin-left:10em'>
+                    <a style="padding: 3px 6px;" general="flex text:s color:dark br:1 color:success:hover"   href='${link}'>${title}</a>
                 </div>`;
         }
 	});

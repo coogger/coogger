@@ -1,7 +1,7 @@
 {% extends "users/general.html" %}
 {% block useright %}
   {% if queryset %}
-    <cards flex="" general="w-80" tablet="w-100 center">
+    <cards general=" width:80"  tablet="w-100 center">
         {% for ct in queryset %}
           {% include "card/card.html" %}
         {% endfor %}

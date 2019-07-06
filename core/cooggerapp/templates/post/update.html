@@ -1,11 +1,11 @@
 {% extends "home/html.html" %}
 {% block body %}
-  <div class="update" flex="jc-c ai-c fd-c" general="center w-100" style="margin-top:30px;">
-      <form flex="fd-c" class="c-update-form" action="" style="padding: 12px 6px"
-      default="form" method="post" mobile-s="w-100" mobile-l="w-98" tablet="w-60"
-      laptop="w-40" laptop-l="w-70" max="w-50">
+  <div class="update" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100"  style="margin-top:30px;">
+      <form general="flex flex:fd-c width:50 border:1 br:2 brc:muted" class="c-update-form" action="" style="padding: 12px 6px"
+      default="form" method="post" mobile-s="width:100" mobile-l="width:98" tablet="width:60"
+      laptop="width:40" laptop-l="width:70">
           {% csrf_token %} {{ form }} {{ form.media }}
-          <input flex="as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333" animation-hover="i bg-white">
+          <input general="flex flex:as-c" type="submit" value="Save edit" style="padding: 12px 42px;color:#333">
       </form>
   </div>
   <script type="text/javascript">

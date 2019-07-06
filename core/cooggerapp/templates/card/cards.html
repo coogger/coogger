@@ -1,6 +1,6 @@
 {% if queryset %}
-  <cards flex general="w-30" mobile-s="w-100" mobile-m="w-98" mobile-l="w-98"
-   tablet="w-80" laptop="w-40" laptop-l="w-30" max="w-30">
+  <cards general="flex width:30"  mobile-s="width:100" mobile-m="width:98" mobile-l="width:98"
+   tablet="width:80" laptop="width:40" laptop-l="width:30">
       {% for ct in queryset %}
         {% include "card/card.html" %}
       {% endfor %}

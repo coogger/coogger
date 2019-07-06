@@ -1,45 +1,45 @@
 {% load django_follow_system_tags %}
 {% load coogger_tags %}
-<div flex="fd-c" class="cover_image">
-    <div flex="jc-c">
-        <div flex="fd-c" general="br-circle">
-            <img flex="jc-c" general="br-circle" src="{{ current_user.githubauthuser.avatar_url }}" 
+<div general="flex flex:fd-c" class="cover_image">
+    <div general="flex flex:jc-c">
+        <div general="flex flex:fd-c br:circle" >
+            <img general="flex flex:jc-c br:4"  src="{{ current_user.githubauthuser.avatar_url }}" 
             class="useruserimg" style="padding: 2px;" id="useruserimg"></img>
         </div>
     </div>
-    <h1 flex="jc-c as-c" general="br-2 b-1 bg-white brc-white">
-        <a flex general="c-private txt-m" title="{{ current_user  }}" href="/@{{ current_user  }}"
+    <h1 general="flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white" >
+        <a general="flex color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}"
         style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
       @{{ current_user }}</a>
     </h1>
-    <div flex="jc-c">
-        <div flex="fd-c" style="margin: 6px;" general="br-2 bg-white">
-            <div flex="as-c" id="post-count">{{ current_user|hmanycontent}}</div>
-            <div general="b-1 br-2 txt-s brc-muted c-secondary" style="padding: 3px 6px;">Contents</div>
+    <div general="flex flex:jc-c">
+        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
+            <div general="flex flex:as-c" id="post-count">{{ current_user|hmanycontent}}</div>
+            <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Contents</div>
         </div>
-        <div flex="fd-c" style="margin: 6px;" general="br-2 bg-white">
-            <a href="{% url 'get_followers' %}?username={{ current_user }}" flex="as-c fd-c">
-                <div class="follownum" flex="as-c" id="follower_count">{{ current_user|followers_count}}</div>
-                <div general="b-1 br-2 txt-s brc-muted c-secondary" style="padding: 3px 6px;">Followers</div>
+        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
+            <a href="{% url 'get_followers' %}?username={{ current_user }}" general="flex flex:as-c flex:fd-c">
+                <div class="follownum" general="flex flex:as-c" id="follower_count">{{ current_user|followers_count}}</div>
+                <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Followers</div>
             </a>
         </div>
-        <div flex="fd-c" style="margin: 6px;" general="br-2 bg-white">
-            <a href="{% url 'get_followers' %}?username={{ current_user }}" flex="as-c fd-c">
-                <div class="follownum" flex="as-c" id="following_count">{{ current_user|following_count}}</div>
-                <div general="b-1 br-2 txt-s brc-muted c-secondary" style="padding: 3px 6px;">Following</div>
+        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
+            <a href="{% url 'get_followers' %}?username={{ current_user }}" general="flex flex:as-c flex:fd-c">
+                <div class="follownum" general="flex flex:as-c" id="following_count">{{ current_user|following_count}}</div>
+                <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Following</div>
             </a>
         </div>
     </div>
     {% if request.user != current_user and request.user.is_authenticated %}
         {% if request.user|is_follow:current_user %}
-            <div class="follow-op" id="follow-op" flex="jc-c as-c" hover="bg-red" 
-            general="br-2 b-1 brc-muted bg-secondary" style="cursor:pointer;padding: 3px 30px;">
-                <div general="txt-m c-white" id="follow">Unfollow</div>
+            <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover"   
+              style="cursor:pointer;padding: 3px 30px;">
+                <div general="text:m color:white" id="follow">Unfollow</div>
             </div>
         {% else %}
-            <div class="follow-op" id="follow-op" flex="jc-c as-c" hover="bg-primary" 
-            general="br-2 b-1 brc-muted bg-secondary" style="cursor:pointer;padding: 3px 30px;">
-                <div general="txt-m c-white" id="follow">Follow</div>
+            <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover"   
+              style="cursor:pointer;padding: 3px 30px;">
+                <div general="text:m color:white" id="follow">Follow</div>
             </div>
         {% endif %}
     {% endif %}

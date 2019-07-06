@@ -1,9 +1,9 @@
 {% load vote %}
-<div class="id-{{ ct.id }}" general="center b-1 br-2 brc-secondary" id="vote-section" data-vote-status="{% is_vote request.user ct ct.id %}">
-    <i id="upvote" onclick="vote(this, '{{ ct.id }}')" general="c-secondary" hover="c-success" class="fas fa-heart">
+<div class="id-{{ ct.id }}" general="position:center border:1 br:2 brc:secondary" id="vote-section" data-vote-status="{% is_vote request.user ct ct.id %}">
+    <i id="upvote" onclick="vote_on_card(this, '{{ ct.id }}')" general="color:secondary color:success:hover"  class="fas fa-heart">
         {{ ct.upvote_count|default:"0" }}
     </i>
-    <i id="downvote" onclick="vote(this, '{{ ct.id }}')" general="c-secondary" hover="c-danger" class="fas fa-thumbs-down">
+    <i id="downvote" onclick="vote_on_card(this, '{{ ct.id }}')" general="color:secondary color:danger:hover"  class="fas fa-thumbs-down">
         {{ ct.downvote_count|default:"0" }}
     </i>
 </div>

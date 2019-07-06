@@ -1,7 +1,7 @@
-<div general="b-1 br-2 brc-muted">
-  <div default="paragraph" general="bg-white" style="padding: 6px 4px;">
+<div general="border:1 br:2 brc:muted">
+  <div default="paragraph" general="bg:white" style="padding: 6px 4px;">
     {{ reply_form }}
-      <button id="send-reply" data-csrf="{{ csrf_token }}" general="right b-1 br-2 brc-muted bg-success c-white" 
+      <button id="send-reply" data-csrf="{{ csrf_token }}" general="position:right border:1 br:2 brc:muted bg:success color:white" 
       data-parent_author="{{ current_user }}" data-parent_permlink="{{ queryset.permlink }}">
         Reply
       </button>

@@ -1,26 +1,26 @@
-<div flex="jc-fs" general="txt-l" style="margin: 12px 0px;">
+<div general="flex flex:jc-fs text:l"  style="margin: 12px 0px;">
     <a href="{{ ct.get_absolute_url }}">
-    <strong id="title" general="c-dark">{{ ct.title }}</strong>
+    <strong id="title" general="color:dark">{{ ct.title }}</strong>
   </a>
 </div>
-<div flex="ai-fs" general="br-2 c-secondary c-dark" flex="ai-fs" style="margin: 12px 0px;">
-      <div general="txt-s" flex="ai-c" class="duread-li">
-        <div class="capitalize" style="margin-right: 12px;" flex="ai-fe">
-          <i general="c-secondary" class="fab fa-readme">
+<div general="flex flex:ai-fs flex:ai-fs" general="br:2 color:dark"  style="margin: 12px 0px;">
+      <div general="flex text:s flex:ai-c"  class="duread-li">
+        <div class="capitalize" style="margin-right: 12px;" general="flex flex:ai-fe">
+          <i general="color:secondary" class="fab fa-readme">
             <span>{{ ct.get_dor }}</span>
           </i>
         </div>
     </div>
-    <div general="txt-s" flex="ai-c" class="duread-li">
+    <div general="flex text:s flex:ai-c"  class="duread-li">
         <div class="capitalize" style="margin-right: 12px;">
-          <i general="c-secondary" class="fas fa-eye">
+          <i general="color:secondary" class="fas fa-eye">
             <span>{{ ct.views }}</span>
           </i>
         </div>
     </div>
-    <div general="txt-s" flex="ai-c" class="duread-li">
+    <div general="flex text:s flex:ai-c"  class="duread-li">
         <div class="capitalize" style="margin-right: 12px;">
-          <i general="c-secondary" class="fas fa-reply">
+          <i general="color:secondary" class="fas fa-reply">
             <span id="reply">{{ ct.reply_count }}</span>
           </i>
         </div>

@@ -1,10 +1,10 @@
-<div general="b-1 br-2 brc-white" style="padding: 6px 0x;">
-    <div flex="ai-c">
-      <a general="txt-m c-dark" href="/@{{ ct.user }}" id="author_href" flex="ai-c" animation-hover="c-private">
-        <img src="{{ ct.user.githubauthuser.avatar_url }}" class="carduserimg" general="br-circle" width="40px" height="40px"></img>
-        <div flex="fd-c">
-          <span flex="ai-c" class="carduser" style="margin-left:6px;">@{{ ct.user }}</span>
-          <span general="txt-xs c-dark" style="margin-left:6px;">
+<div general="border:1 br:2 brc:white" style="padding: 6px 0x;">
+    <div general="flex flex:ai-c">
+      <a general="flex text:m color:dark flex:ai-c" href="/@{{ ct.user }}" id="author_href" >
+        <img src="{{ ct.user.githubauthuser.avatar_url }}" class="carduserimg" general="br:circle" width="40px" height="40px"></img>
+        <div general="flex flex:fd-c">
+          <span general="flex flex:ai-c" class="carduser" style="margin-left:6px;">@{{ ct.user }}</span>
+          <span general="text:xs color:dark" style="margin-left:6px;">
             <i class="fas fa-clock"></i>
             <span class="capitalize" id="created">{{ ct.created|timesince }}</span>
           </span>

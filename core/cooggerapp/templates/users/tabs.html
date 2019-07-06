@@ -1,34 +1,34 @@
-<div flex general="center w-100 b-1 brc-muted">
-  <div flex="fw-nw" style="padding: 6px 0px;overflow: auto;">
-    <div flex="fd-c" style="cursor:pointer;">
+<div general="flex position:center width:100 border:1 brc:muted" >
+  <div general="flex flex:fw-nw" style="padding: 6px 0px;overflow: auto;">
+    <div>
       <a href="{% url 'user' current_user %}">
-          <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">
+          <div general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover"   style="padding: 3px 6px;">
              <i class="fas fa-sitemap">TOPICS</i>
           </div>
       </a>
     </div>
-    <div flex="fd-c" style="cursor:pointer;">
+    <div>
       <a href="{% url 'usercontent' current_user %}">
-          <div flex="as-fs ai-c" general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">
+          <div general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover"   style="padding: 3px 6px;">
               <i class="fas fa-file-alt">CONTENTS</i>
           </div>
       </a>
     </div>
-    <div flex="fd-c">
-      <a href="{% url 'bookmark' current_user %}" flex="as-fs ai-c" 
-      general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">
+    <div>
+      <a href="{% url 'bookmark' current_user %}" general="flex flex:as-fs flex:ai-c color:secondary text:m width:max color:primary:hover" 
+        style="padding: 3px 6px;">
         <i class="fas fa-bookmark">BOOKMARK</i>
       </a>
     </div>
-    <div flex="fd-c">
-      <a href="{% url 'comment' current_user %}" flex="as-fs ai-c" 
-      general="txt-m wmax c-secondary" hover="c-primary" style="padding: 3px 6px;">
+    <div>
+      <a href="{% url 'comment' current_user %}" general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover" 
+        style="padding: 3px 6px;">
         <i class="fas fa-comments">COMMENTS</i>
       </a>
     </div>
-    <div flex="fd-c">
-        <a href="{% url 'userabout' current_user %}" flex="as-fs ai-c" 
-        general="c-secondary txt-m wmax" hover="c-primary" style="padding: 3px 6px;">
+    <div>
+        <a href="{% url 'userabout' current_user %}" general="flex flex:as-fs flex:ai-c color:secondary text:m width:max color:primary:hover" 
+          style="padding: 3px 6px;">
           <i class="fas fa-file-alt">ABOUT</i>
         </a>
       </div>

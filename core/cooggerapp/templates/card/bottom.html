@@ -1,11 +1,11 @@
-<div flex="jc-fe" style="padding: 6px 0px;" general="br-2 c-secondary">
-    <div flex="ai-c" general="txt-s left c-white" class="content_list">
-        <a class="capitalize" hover="c-primary" general="c-secondary" 
+<div general="flex flex:jc-fe br:2 color:secondary" style="padding: 6px 0px;" >
+    <div general="flex flex:ai-c text:s position:left color:white"  class="content_list">
+        <a class="capitalize" general="color:secondary color:primary:hover"  
         href="{% url 'filter' %}?username={{ ct.user }}&language={{ ct.language }}"     id="language">
          <i class="fas fa-flag"></i>{{ct.language}}
         </a>
     </div>
-    <div general="txt-s" flex="ai-c" class="card-bottom">
+    <div general="flex text:s flex:ai-c"  class="card-bottom">
         {% include 'card/bookmark.html' %}
         {% include 'card/vote.html' %}
     </div>

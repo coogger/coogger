@@ -1,18 +1,18 @@
 {% if topic.name %}
-  <div general="center w-50" tablet="w-80" mobile-l="w-98" flex="fd-c" style="margin-top:12px;">
-    <div flex="ai-c" style="margin:12px;">
-      <div general="txt-m c-dark" flex="ai-c">
+  <div general="flex position:center width:50 flex:fd-c" tablet="width:80" mobile-l="width:98"  style="margin-top:12px;">
+    <div general="flex flex:ai-c" style="margin:12px;">
+      <div general="flex text:m color:dark flex:ai-c" >
         {% if topic.image_address %}
-          <img general="br-4 w-10 b-1 brc-muted" style="margin:0px;padding:4px" src="{{ topic.image_address }}">
+          <img general="br:4 width:10 border:1 brc:muted" style="margin:0px;padding:4px" src="{{ topic.image_address }}">
         {% endif %}
-        <strong general="txt-l" class="capitalize" style="margin-left:6px">{{ topic.name }}</strong>
+        <strong general="text:l" class="capitalize" style="margin-left:6px">{{ topic.name }}</strong>
       </div>
       {% if topic.definition %}
-        <span general="txt-s" style="margin-top: 12px;margin-bottom: 12px;">{{ topic.definition }}</span>
+        <span general="text:s" style="margin-top: 12px;margin-bottom: 12px;">{{ topic.definition }}</span>
       {% endif %}
       {% if topic.address %}
         <a href="{{ topic.address }}/?ref=www.coogger.com" class="fa fa-globe"
-        general="c-dark left txt-s" hover="c-primary" style="padding:4px;">{{ topic.address }}</a>
+        general="color:dark position:left text:s color:primary:hover"  style="padding:4px;">{{ topic.address }}</a>
       {% endif %}
     </div>
   </div>

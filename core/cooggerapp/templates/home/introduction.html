@@ -1,33 +1,33 @@
 {% extends "home/html.html" %}
 {% block body %}
-<div class="c-definition" general="ewcenter bg-dark c-white w-100">
+<div class="c-definition" general="ewposition:center bg:dark color:white width:100">
   {% load static %}
-  <div flex="fd-c">
-    <div flex general="center">
-        <img style="height: 300px;width: 300px;margin: 0px;margin-right: 16px;" general="center" src="{% static 'logos/png/400.png' %}">
+  <div general="flex flex:fd-c">
+    <div general="flex position:center" >
+        <img style="height: 300px;width: 300px;margin: 0px;margin-right: 16px;" general="position:center" src="{% static 'logos/png/400.png' %}">
     </div>
-    <div general="w-100" style="margin-top: 12px;">
-      <div general="w-96 center" style="margin-bottom:6px;">
+    <div general="width:100" style="margin-top: 12px;">
+      <div general="width:96 position:center" style="margin-bottom:6px;">
           Coogger is a platform where developers can write their knowledge, experience, documentation and blogs
       </div>
-      <div flex="ai-c" general="center">
+      <div general="flex flex:ai-c position:center" >
         <strong tablet="txt-s">We are open-source</strong>
           <span tablet="txt-s">
-            <a general="c-white" flex="ai-c" href="https://www.github.com/coogger">
-              <img general="br-2" src="https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&amp;style=for-the-badge" alt="coogger-fork" 
+            <a general="flex color:white flex:ai-c"  href="https://www.github.com/coogger">
+              <img general="br:2" src="https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&amp;style=for-the-badge" alt="coogger-fork" 
               style="margin-left: 4px;margin-right: 4px;"> 
               <span>me on Github</span>
             </a>
           </span>
       </div>
       <div style="margin:2% 0px;">
-        <a hover="bg-primary c-white" general="bg-white c-dark br-2 w-60 center" href="{% url 'explorer_posts' %}" style="padding:6px 0px;">
+        <a general="bg:white color:dark br:2 width:60 position:center bg:primary:hover color:white:hover"  href="{% url 'explorer_posts' %}" style="padding:6px 0px;">
             <i class="fas fa-compass">Explore posts</i> 
         </a>
       </div>
-      <div general="center ewcenter txt-m w-50 br-2" tablet="w-70" mobile-l="w-96" flex="fd-c">
-        <div general="bg-dark w-100" style="overflow: auto;height: 400px;margin-top: 12px;margin-bottom: 12px;">
-          <div general="w-100 center">
+      <div general="flex center ewposition:center text:m width:50 br:2 flex:fd-c" tablet="width:70" mobile-l="width:96" >
+        <div general="bg:dark width:100" style="overflow: auto;height: 400px;margin-top: 12px;margin-bottom: 12px;">
+          <div general="width:100 position:center">
             <a class="twitter-timeline" href="https://twitter.com/cooggercom?ref_src=twsrc%5Etfw">
               Tweets by cooggercom
             </a>
@@ -39,28 +39,28 @@
   </div>
 </div>
 <div>
-  <strong general="txt-xxl center c-dark w-100" flex="ai-c" style="margin:24px 0px;">
+  <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c"  style="margin:24px 0px;">
     Our Users and Their Posts
   </strong>
 </div>
-<div general="center">
-  <cards flex="" general="w-90 center" style="margin:0px">
+<div general="position:center">
+  <cards general=" width:90 position:center"  style="margin:0px">
    {% for ct in queryset %}
      <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}"
-      general="br-2 bg-white w-30" mobile-s="w-100" mobile-m="w-98" mobilel="w-98"
-      tablet="w-80" laptop="w-40" laptop-l="w-30" max="w-30" style="margin:6px;">
+      general="br:2 bg:white width:30" mobile-s="width:100" mobile-m="width:98" mobilel="width:98"
+      tablet="width:80" laptop="width:40" laptop-l="width:30" style="margin:6px;">
          {% include "card/userinfo.html" %}
          {% include "card/contentinfo.html" %}
      </card>
    {% endfor %}
   </cards>
-  <div flex="fd-c" general="w-100" style="overflow: hidden;" class="text3">
-      <strong general="txt-xxl center c-dark w-100" flex="ai-c" style="margin:24px 0px;">
+  <div general="flex flex:fd-c width:100"  style="overflow: hidden;" class="text3">
+      <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c"  style="margin:24px 0px;">
         <span class="just-pc" style="margin-right: 6px;">Most Written Topics and </span>Issues
       </strong>
-      <div flex general="w-90 center b-1 brc-muted br-2">
+      <div general="flex width:90 position:center border:1 brc:muted br:2" >
           {% include 'home/insection-left.html' %}
-          <div general="w-70" tablet="w-100">
+          <div general="width:70" tablet="width:100">
               {% include 'home/issues-list.html' %}
           </div>
       </div>

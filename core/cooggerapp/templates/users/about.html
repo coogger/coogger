@@ -1,22 +1,22 @@
 {% extends "users/general.html" %}
     {% block useright %}
         {% if about %}
-            <div general="center w-100" style="margin-top:12px">
+            <div general="position:center width:100" style="margin-top:12px">
             {% if current_user == request.user %}
-                <div general="center w-100">
-                    <form default="form" general="w-100"  flex="fd-c" method="post" action="{% url 'userabout' current_user %}">
+                <div general="position:center width:100">
+                    <form default="form" general="flex width:100 flex:fd-c"   method="post" action="{% url 'userabout' current_user %}">
                         {% csrf_token %} {{ about }} {{ about.media }}
-                        <input flex="jc-c as-c" default="input" type="submit" value="Share">
+                        <input general="flex flex:jc-c flex:as-c" default="input" type="submit" value="Share">
                     </form>
                 </div>
             {% else %}
-                <div default="paragraph pm" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" general="b-1 br-2 brc-muted w-100" style="padding: 6px;">
+                <div default="paragraph pm" mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70" general="border:1 br:2 brc:muted width:100" style="padding: 6px;">
                     {% load django_md_editor %} {{ about|markdown_to_html:"about"|safe }}
                 </div>
             {% endif %}
             {% else %}
-                <div general="txt-m center bg-white" flex="jc-c ai-c" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" style="height:20vh;">
-                    <div general="center" mobile-s="w-100" mobile-l="w-98" tablet="w-60" laptop="w-40" laptop-l="w-70" max="w-50" flex="jc-c">
+                <div general="flex text:m position:center bg:white flex:jc-c flex:ai-c"  mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70" style="height:20vh;">
+                    <div general="flex position:center flex:jc-c" mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70" >
                         Our user has not written an article about himself yet.
                     </div>
                 </div>

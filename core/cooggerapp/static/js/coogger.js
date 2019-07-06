@@ -36,7 +36,7 @@ function get_data_from_cooggerapi(apiUrl){
               children_comment_template += comment_body(children_comment);
               if (children_comment.depth == 8){
                 children_comment_template += (`
-                  <a general="center c-success"
+                  <a general="position:center color:success"
                     href="/@${children_comment.author}/'${children_comment.permlink}">
                     Show ${children_comment.children} more content_replies
                   </a></div>`);
@@ -57,7 +57,7 @@ function get_data_from_cooggerapi(apiUrl){
     for (const index in tags) {
       let tag = tags[index];
       template += `<div class="tag">
-        <a href="/tags/${tag}" general="c-white" hover="bg-dark-purple">#${tag}</a>
+        <a href="/tags/${tag}" general="color:white bg:dark-purple:hover" >#${tag}</a>
       </div>`
     }
     return template;
@@ -82,55 +82,24 @@ function get_data_from_cooggerapi(apiUrl){
     let reading_speed = 28;
     return `min ${((text.length/reading_speed)/60).toFixed(1)}`;
   }
-  function timeSince(date) {
-    let seconds = Math.floor((new Date() - new Date(date)) / 1000);
-    let interval = Math.floor(seconds / 31536000);
-    let timesince = [];
-    if (interval > 1) {
-      seconds = (seconds - (31536000 * interval));
-      timesince.push(interval + " years ");
-    }
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
-      seconds = (seconds - (2592000 * interval));
-      timesince.push(interval + " months ");
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
-      seconds = (seconds - (86400 * interval));
-      timesince.push(interval + " days ");
-    }
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-      seconds = (seconds - (3600 * interval));
-      timesince.push(interval + " hours ");
-    }
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-      seconds = (seconds - (60 * interval));
-      timesince.push(interval + " minutes ");
-    }
-    timesince.push(seconds + " seconds ");
-    return timesince.slice(0, 2) + " ago";
-  }
   // issue reply
   function reply_userinfo(comment){
     return (`
       <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
-        <div flex='ai-fs' general='bg-white'>
-        <a flex title='${comment.username}' href='/@${comment.username}'
+        <div general='flex flex:ai-fs bg:white'>
+        <a general="flex" title='${comment.username}' href='/@${comment.username}'
           style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
-            <img general='br-circle left' id='detail_profile_image' src='${comment.avatar_url}' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
+            <img general='br:circle position:left' id='detail_profile_image' src='${comment.avatar_url}' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
           </a>
-          <div general='txt-s' flex='fd-c' class='duread-li'>
-              <a flex title='${comment.username}' href='/@${comment.username}'
+          <div general='text:s' general='flex flex:fd-c' class='duread-li'>
+              <a general="flex" title='${comment.username}' href='/@${comment.username}'
                 style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
               @${comment.username}<span id='username'></span>
           </a>
-              <div style='margin-left: 8px;' general='c-secondary'>${timeSince(comment.created)}</div>
+              <div style='margin-left: 8px;' general='color:secondary'>${timeSince(comment.created)}</div>
           </div>
-          <a hover="c-primary" target="_blank" href="https://www.github.com/${comment.username}">
-            <i flex="ai-c" class="fab fa-github"></i>
+          <a general="color:primary:hover" target="_blank" href="https://www.github.com/${comment.username}">
+            <i general="flex flex:ai-c" class="fab fa-github"></i>
           </a>
         </div>
       </div>`
@@ -166,21 +135,21 @@ function get_data_from_cooggerapi(apiUrl){
             <textarea style='display:none;' id='editormd_content'></textarea>
         </div>
       </div>
-      <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
-          <div general='txt-s' flex='ai-c' class='duread-li'>    
-            <a href='${reply.get_absolute_url}' id='root_content' target='blank' general='txt-s'>
-              <span style='margin: 0px 6px' general='c-orange'>Reply</span>
+      <div general='flex flex:ai-c br:2 color:secondary br:2 brc:muted position:right' style='padding: 2px 4px;'>
+          <div general='text:s flex flex:ai-c' class='duread-li'>    
+            <a href='${reply.get_absolute_url}' id='root_content' target='blank' general='text:s'>
+              <span style='margin: 0px 6px' general='color:orange'>Reply</span>
             </a>
           </div>
-          <div general='txt-s' flex='ai-c' class='duread-li'>
+          <div general='text:s flex flex:ai-c' class='duread-li'>
               <i class="fas fa-heart"></i>
               <div style='margin-left: 6px;'>${upvote_count}</div>
           </div>
-          <div general='txt-s' flex='ai-c' class='duread-li'>
+          <div general='text:s flex flex:ai-c' class='duread-li'>
               <i class="fas fa-eye"></i>
               <div style='margin-left: 6px;'>${views}</div>
           </div>
-          <div general='txt-s' flex='ai-c' class='duread-li'>
+          <div general='text:s flex flex:ai-c' class='duread-li'>
               <i class="fas fa-reply-all"></i>
               <div style='margin-left: 6px;'>${reply_count}</div>
           </div>
@@ -221,10 +190,41 @@ function get_replies_template(reply){
     ${reply_userinfo(reply)} ${reply_body(reply)}</div></div>`
    );
 }
-
+function timeSince(date) {
+  let seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  let interval = Math.floor(seconds / 31536000);
+  let timesince = [];
+  if (interval > 1) {
+    seconds = (seconds - (31536000 * interval));
+    timesince.push(interval + " years ");
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    seconds = (seconds - (2592000 * interval));
+    timesince.push(interval + " months ");
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    seconds = (seconds - (86400 * interval));
+    timesince.push(interval + " days ");
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    seconds = (seconds - (3600 * interval));
+    timesince.push(interval + " hours ");
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    seconds = (seconds - (60 * interval));
+    timesince.push(interval + " minutes ");
+  }
+  timesince.push(seconds + " seconds ");
+  return timesince.slice(0, 2) + " ago";
+}
 $(document).ready(function() {
   $("#send-reply").click(function(){
-    $(this).attr("animation-hover", "i blink");
+    let general_property = $(this).attr("general");
+    $(this).attr("general", `${general_property} color:success:hover bg:white:hover`);
     let csrf_token = $(this).data("csrf");
     let get_comment = $("#id_body").val();
     if (get_comment != ""){
@@ -238,7 +238,7 @@ $(document).ready(function() {
       }).done(function(new_reply) {
         new_reply = JSON.parse(new_reply);
         document.getElementById("id_body").value = ""
-        $(this).attr("animation-hover", "null");
+        $(this).attr("general", `${general_property}`);
         let new_reply_template = get_replies_template(new_reply);
         $("#comment_template").append(new_reply_template);
       });
@@ -271,12 +271,12 @@ function vote(this_, id, model_name){
       }
       else{
           if (r.status == true){
-              $(`#vote-section #upvote`).attr("general", "c-success");
-              $(`#vote-section #downvote`).attr("general", "c-secondary");
+              $(`#vote-section #upvote`).attr("general", "color:success");
+              $(`#vote-section #downvote`).attr("general","color:secondary color:danger:hover");
           }
           else if (r.status == false){
-              $(`#vote-section #upvote`).attr("general", "c-secondary");
-              $(`#vote-section #downvote`).attr("general", "c-danger");
+              $(`#vote-section #upvote`).attr("general","color:secondary color:success:hover");
+              $(`#vote-section #downvote`).attr("general","color:danger");
           }
           $(`#vote-section #upvote`).text(r.upvote_count);
           $(`#vote-section #downvote`).text(r.downvote_count);
@@ -300,11 +300,11 @@ function remove_or_add_bookmark(this_){
       else{
           let how_many = parseInt($(this_).find($("#how_many_mark")).text());
           if (r.status == true){
-              $(this_).find($(".fa-bookmark")).attr("general", "c-success");
+              $(this_).find($(".fa-bookmark")).attr("general", "color:success");
               $(this_).find($("#how_many_mark")).html(how_many + 1);
           }
           else if (r.status == false){
-            $(this_).find($(".fa-bookmark")).attr("general", "c-secondary");
+            $(this_).find($(".fa-bookmark")).attr("general","color:secondary");
             $(this_).find($("#how_many_mark")).html(how_many - 1);
           }
       } 

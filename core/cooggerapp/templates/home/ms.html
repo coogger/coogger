@@ -1,8 +1,8 @@
 <div class="main-messages close-ms" style="display:block;cursor:pointer" 
-general="br-2 bg-success c-white w-80 center">
-    <div flex="ai-c jc-c" style="height: 10vh;">
+general="br:2 bg:success color:white width:80 position:center">
+    <div general="flex flex:ai-c flex:jc-c" style="height: 10vh;">
         {% if messages %}
-        <div general="txt-m" flex="jc-c fd-c">
+        <div general="flex text:m flex:jc-c flex:fd-c" >
             {% for message in messages %}
             <div>{{ message }}</div>
             {% endfor %}

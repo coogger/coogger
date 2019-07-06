@@ -67,8 +67,26 @@
     <!-- GOOGLE / YANDEX verification -->
     <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ"/>
     <meta name="yandex-verification" content="3695277528edfe07"/>
-    <!-- css -->
+    <!-- css files-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <link href="https://rawcdn.githack.com/coogger/coogger.css/e02ebdeeba7453626e1e2278148f52f17c254355/styles/coogger.css" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="{% static 'css/coogger-css/default.css' %}"> 
+    <!-- font -->
+    <link rel="stylesheet" href="{% static 'css/coogger-css/font.css' %}"> 
+    <!-- default css -->
+    <link rel="stylesheet" href="{% static 'css/coogger-css/general.css' %}" media="(min-width: 0px) and (max-width: 2560px)">
+    <!-- general -->
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/laptop-l.css' %}"  media="(min-width: 1025px) and (max-width: 1440px)">
+    <!-- laptop large -->
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/laptop.css' %}"  media="(min-width: 769px) and (max-width: 1024px)">
+    <!-- laptop -->
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/tablet.css' %}" media="(min-width: 426px) and (max-width: 768px)">
+    <!-- tablet -->
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-l.css' %}" media="(min-width: 376px) and (max-width: 425px)">
+    <!-- mobile large -->
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-m.css' %}" media="(min-width: 321px) and (max-width: 375px)">
+    <!-- mobile medium -->
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-s.css' %}" media="(min-width: 0px) and (max-width: 320px)">
+    <!-- mobile small -->
     <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
 </head>

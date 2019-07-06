@@ -1,34 +1,34 @@
-<div general="bg-white brc-white w-100">
+<div general="bg:white brc:white width:100">
     {% for topic in queryset %}
-    <div general="brc-muted" class="topic-list">
-      <a hover="c-primary" flex="ai-c" general="c-dark br-4" href="{{ topic.get_absolute_url }}" 
+    <div general="brc:muted" class="topic-list">
+      <a general="flex color:dark br:4 color:primary:hover flex:ai-c"   href="{{ topic.get_absolute_url }}" 
       style="padding: 6px 0px;">
         {% if topic.image_address %}
-          <img general="w-12 br-4" src="{{ topic.image_address }}" class="ti">
+          <img general="width:12 br:4" src="{{ topic.image_address }}" class="ti">
         {% endif %}
         <strong style="margin-left: 6px;">{{ topic.permlink }}</strong>
       </a>
-      <div flex="ai-c">
+      <div general="flex flex:ai-c">
           {% if not topic.global_topic %}
-            <div general="txt-s br-4" style="padding: 0px 6px;" class="fab fa-readme">
+            <div general="text:s br:4" style="padding: 0px 6px;" class="fab fa-readme">
                 {{ topic.get_total_dor|default:"0 second" }}
             </div>
-            <div general="txt-s br-4 c-blue" style="padding: 0px 6px;" class="fas fa-eye">
+            <div general="text:s br:4 color:blue" style="padding: 0px 6px;" class="fas fa-eye">
                 {{ topic.total_view }}
             </div>
-            <div general="txt-s br-4 c-green" style="padding: 0px 6px;" class="fas fa-exclamation-circle">
+            <div general="text:s br:4 color:green" style="padding: 0px 6px;" class="fas fa-exclamation-circle">
                 {{ topic.open_issue }}
             </div>
-            <div general="txt-s br-4 c-red" style="padding: 0px 6px;" class="fas fa-check">
+            <div general="text:s br:4 color:red" style="padding: 0px 6px;" class="fas fa-check">
                 {{ topic.closed_issue }}
             </div>
           {% endif %}
-          <div general="txt-s br-4" style="padding: 0px 6px;" class="fas fa-indent">
+          <div general="text:s br:4" style="padding: 0px 6px;" class="fas fa-indent">
               {{ topic.how_many }}
           </div>
         </div>
       {% if topic.definition %}
-        <div general="txt-s" class="tld">{{ topic.definition }}</div>
+        <div general="text:s" class="tld">{{ topic.definition }}</div>
       {% endif %}
     </div>
     {% endfor %}

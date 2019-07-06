@@ -1,21 +1,22 @@
 {% extends "home/html.html" %}
 {% load coogger_tags %}
 {% block body %}
-  <div style="margin: auto;margin-top: 12px;" general="w-100" mobile-l="txt-s">
-    <div general="center" flex="fd-c">
-      <div class="utopic" general="center w-60" mobile-m="w-99" mobile-l="w-94" tablet="w-90" laptop="w-80" flex="fd-c">
-        <div general="b-1 brc-muted br-2 w-100" class="utopic-user">
+  <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
+    <div general="flex position:center flex:fd-c" >
+      <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" >
+        <div general="border:1 brc:muted br:2 width:100" class="utopic-user">
           <div style="padding: 6px;">
-            <div flex="ai-c">
-              <div flex="ai-c">
-                  <a general="c-primary txt-m" href="/@{{ current_user }}">
-                    <img class="commit-user" general="br-4 c-muted" src="{{ current_user.githubauthuser.avatar_url }}">
+            <div general="flex flex:ai-c">
+              <div general="flex flex:ai-c">
+                  <a general="color:primary text:m" href="/@{{ current_user }}">
+                    <img class="commit-user" general="br:4 color:muted" src="{{ current_user.githubauthuser.avatar_url }}">
                   </a>
                   <i class="fas fa-book"></i>
-                  <a general="c-primary txt-m "  href="{% url 'detail-utopic' utopic.permlink current_user %}">{{ utopic.permlink }}</a>
+                  <a general="color:primary text:m" href="{% url 'detail-utopic' utopic.permlink current_user %}">
+                    {{ utopic.permlink }}/@{{ utopic.user }}</a>
               </div>
-              <div general="right">
-                <a general="br-1 c-white bg-green txt-s left" 
+              <div general="position:right">
+                <a general="br:1 color:white bg:green text:s position:left" 
                 href="{% url 'new-issue' current_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
                   Open new issue</a>
                   {% block closed_issue %}{% endblock %}

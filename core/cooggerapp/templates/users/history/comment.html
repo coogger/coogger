@@ -1,13 +1,13 @@
 {% extends "users/general.html" %}
 {% load django_md_editor %}
 {% block useright %}
-  <div general="center bg-white w-100 txt-s" id="comment_template" class="comment_template">
-    <div id="comment-history" class="comment-history"  general="w-100"
-     mobile-s="w-100" mobile-l="w-98" tablet="w-96" laptop="w-70" laptop-l="w-70">
+  <div general="position:center bg:white width:100 text:s" id="comment_template" class="comment_template">
+    <div id="comment-history" class="comment-history"  general="width:100"
+     mobile-s="width:100" mobile-l="width:98" tablet="width:96" laptop="width:70" laptop-l="width:70">
     {% for comment in queryset %}
-    <div flex style='margin: 12px 0px' general='c-white br-2' class='root_content'>
+    <div general="flex" style='margin: 12px 0px' general='c-white br-2' class='root_content'>
       <div>
-        <li flex='ai-c'>
+        <li general='flex flex:ai-c'>
           <a href='{{ comment.get_absolute_url }}' id='root_content' target='blank' general='txt-s'>
           <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
           </a>
@@ -15,33 +15,33 @@
       </div>
     </div>
     <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
-      <div flex='ai-fs' general='bg-white'>
-      <a flex title='{{ comment.user }}' href='/@{{ comment.user }}'
+      <div general='flex flex:ai-fs bg-white'>
+      <a general="flex" title='{{ comment.user }}' href='/@{{ comment.user }}'
         style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
-          <img general='br-circle left' id='detail_profile_image' src='{{ comment.user.githubauthuser.avatar_url }}' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
+          <img general='br:circle position:left' id='detail_profile_image' src='{{ comment.user.githubauthuser.avatar_url }}' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
         </a>
-        <div general='txt-s' flex='fd-c' class='duread-li'>
-            <a flex title='{{ comment.user }}' href='/@{{ comment.user }}'
+        <div general='text:s flex flex:fd-c' class='duread-li'>
+            <a general="flex" title='{{ comment.user }}' href='/@{{ comment.user }}'
               style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
             @{{ comment.user }}<span id='username'></span>
         </a>
-            <div style='margin-left: 8px;' general='c-secondary'>{{ comment.created|timesince }}</div>
+            <div style='margin-left: 8px;' general='color:secondary'>{{ comment.created|timesince }}</div>
         </div>
       </div>
     </div>
     <div style='padding: inherit;'>
       {{ comment.body|markdown_to_html:comment.id|safe }}
     </div>
-    <div general='br-2 c-secondary br-2 brc-muted right' style='padding: 2px 4px;' flex='ai-c'>
-        <div general='txt-s' flex='ai-c' class='duread-li'>
+    <div general='br:2 color:secondary br:2 brc:muted position:right flex flex:ai-c' style='padding: 2px 4px;'>
+        <div general='text:s flex flex:ai-c' class='duread-li'>
             <i class="fas fa-heart"></i>
             <div style='margin-left: 6px;'>{{ comment.upvote_count }}</div>
         </div>
-        <div general='txt-s' flex='ai-c' class='duread-li'>
+        <div general='text:s flex flex:ai-c' class='duread-li'>
             <i class="fas fa-eye"></i>
             <div style='margin-left: 6px;'>{{ comment.views }}</div>
         </div>
-        <div general='txt-s' flex='ai-c' class='duread-li'>
+        <div general='text:s flex flex:ai-c' class='duread-li'>
             <i class="fas fa-reply-all"></i>
             <div style='margin-left: 6px;'>{{ comment.reply_count }}</div>
         </div>

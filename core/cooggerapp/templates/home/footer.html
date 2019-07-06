@@ -1,64 +1,64 @@
-<footer general="bg-dark c-white" flex="ai-ba" style="display:none;padding: 0px 30px;">
-  <div flex="fd-c">
-    <div class="closed_footer" general="center txt-xxl right bg-red br-2">
+<footer general="flex bg:dark color:white flex:ai-ba"  style="display:none;padding: 0px 30px;">
+  <div general="flex flex:fd-c">
+    <div class="closed_footer" general="position:center text:xxl bg:red br:2">
       <div>x</div>
     </div>
     <div style="margin-top: 40px;">
       <ul>
-        <li hover="c-success">
-          <a general="c-white txt-l" href="/guide/@hakancelik96/">
+        <li general="color:success:hover">
+          <a general="color:white text:l" href="/guide/@hakancelik96/">
             Guide
           </a>
         </li>
-        <li hover="c-success">
-          <a general="c-white txt-l" href="/privacy/">
+        <li general="color:success:hover">
+          <a general="color:white text:l" href="/privacy/">
             Privacy Policy
           </a>
         </li>
-        <li hover="c-success">
-          <a general="c-white txt-l" href="{% url 'coogger-images' %}">
+        <li general="color:success:hover">
+          <a general="color:white text:l" href="{% url 'coogger-images' %}">
               Coogger Images
           </a>
         </li>
-        <li hover="c-success">
+        <li general="color:success:hover">
             <form action="{% url 'search' %}">
                 <input name="query" style="padding: 6px 4px;" 
-                general="b-1 br-2 muted w-max" type="text"
+                general="border:1 br:2 muted width:max" type="text"
                 style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
                 placeholder="search content .."/>
                 <input type="submit" value="Search" style="display:  none;" />
               </form>
           </li>
-          <li hover="c-success">
-              <a general="c-white txt-l" href="{% url 'create-utopic' %}">
+          <li general="color:success:hover">
+              <a general="color:white text:l" href="{% url 'create-utopic' %}">
                 <i class="fa fa-plus-circle"></i>Create Topic
               </a>
             </li>
-            <li hover="c-success">
-                <a general="c-white txt-l" href="{% url 'explorer_posts' %}">
+            <li general="color:success:hover">
+                <a general="color:white text:l" href="{% url 'explorer_posts' %}">
                     <i class="fas fa-compass"></i>Explore posts
                 </a>
             </li>
       </ul>
       <ul class="f-address" class="capitalize" style="margin-top: 30px;"> 
-        <span class="capitalize" general="center">SOCIAL</span>
-        <li style="margin-top: 10px;" hover="c-success">
-          <a flex="ai-c" general="c-white" href="https://www.instagram.com/coogger.dapp">
+        <span class="capitalize" general="position:center">SOCIAL</span>
+        <li style="margin-top: 10px;" general="color:success:hover">
+          <a general="flex flex:ai-c color:white"  href="https://www.instagram.com/coogger.dapp">
             <i class="fab fa-instagram"></i>
             <span>Instagram - @coogger.dapp</span>
           </a>
         </li>
-        <li style="margin-top: 10px;" hover="c-success">
-          <a flex="ai-c" general="c-white" href="https://discord.gg/avmdZJa">
+        <li style="margin-top: 10px;" general="color:success:hover">
+          <a general="flex flex:ai-c color:white"  href="https://discord.gg/avmdZJa">
             <i class="fab fa-discord"></i>
             <span>Discord</span>
           </a>
         </li>
       </ul>
     </div>
-    <div general="center" flex="fd-c">
-      <span general="center">© 13 Sep 2017</span>
-      <a general="c-blue8 center" href="https://www.coogger.com">
+    <div general="flex position:center flex:fd-c" >
+      <span general="position:center">© 13 Sep 2017</span>
+      <a general="color:blue8 position:center" href="https://www.coogger.com">
         <strong>COOGGER</strong>
       </a>
     </div>

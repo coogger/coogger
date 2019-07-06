@@ -1,13 +1,13 @@
 {% load django_follow_system_tags %}
-<div general="bg-white" style="border-bottom: 1px solid #eaecee;z-index: 1;position: sticky;top: 27px;padding: 8px 0px;">
-  <div flex="ai-fs" general="bg-white">
-    <img general="br-circle left" id="detail_profile_image" src="{{ current_user.githubauthuser.avatar_url }}" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
-    <div general="txt-s" flex="fd-c" class="duread-li">
-        <a flex title="{{ current_user  }}" href="/@{{ current_user }}"
+<div general="bg:white" style="border-bottom: 1px solid #eaecee;z-index: 1;position: sticky;top: 26px;padding: 8px 0px;">
+  <div general="flex flex:ai-fs bg:white" style="padding: 12px 0px;">
+    <img general="br:circle position:left" id="detail_profile_image" src="{{ current_user.githubauthuser.avatar_url }}" class="useruserimg" style="height:  40px;width:  40px;margin:  initial;"></a>
+    <div general="flex text:s flex:fd-c"  class="duread-li">
+        <a general="flex" title="{{ current_user  }}" href="/@{{ current_user }}"
           style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
       @<span id="username">{{ current_user  }}</span>
     </a>
-        <div style="margin-left: 8px;" general="c-secondary">
+        <div style="margin-left: 8px;" general="color:secondary">
           <i class="fas fa-clock"></i>
           <span id="time">{{ queryset.created|timesince }}</span>
         </div>
@@ -17,17 +17,17 @@
       {% endwith %}
       {% include 'content-detail/edit.html' %}
   </div>
-  <div flex="fd-s">
+  <div general="fd-s">
       {% if request.user != current_user and request.user.is_authenticated %}
       {% if request.user|is_follow:current_user %}
-          <div class="follow-op" id="follow-op" flex="jc-c as-c" hover="bg-red" 
-          general="br-2 b-1 brc-muted bg-secondary" style="cursor:pointer;padding: 2px 30px;">
-              <div general="txt-s c-white" id="follow">Unfollow</div>
+          <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover width:2"   
+            style="cursor:pointer;padding: 2px 30px;">
+              <div general="text:s color:white" id="follow">Unfollow</div>
           </div>
       {% else %}
-          <div class="follow-op" id="follow-op" flex="jc-c as-c" hover="bg-primary" 
-          general="br-2 b-1 brc-muted bg-secondary" style="cursor:pointer;padding: 3px 30px;">
-              <div general="txt-s c-white" id="follow">Follow</div>
+          <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover"   
+            style="cursor:pointer;padding: 3px 30px;">
+              <div general="text:s color:white" id="follow">Follow</div>
           </div>
       {% endif %}
   {% endif %}
@@ -39,11 +39,11 @@
           $.get("{% url 'follow' current_user %}", function(data, status){
             if (data.status == "follow"){
               $("#follow-op #follow").html("Unfollow");
-              $("#follow-op").attr({"hover":"bg-red"});
+              $("#follow-op").attr({"hover":"bg:red"});
             }
             else if (data.status == "unfollow"){
               $("#follow-op #follow").html("Follow");
-              $("#follow-op").attr({"hover":"bg-primary"});
+              $("#follow-op").attr({"hover":"bg:primary"});
             }
           });
           $("#follow-op").attr({'animation':""});

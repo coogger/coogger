@@ -1,48 +1,48 @@
 {% extends "home/html.html" %}
 {% load coogger_tags %}
 {% block body %}
-  <div style="margin: auto;margin-top: 12px;" general="w-100" mobile-l="txt-s">
-    <div general="center" flex="fd-c">
-      <div class="utopic" general="center w-60" mobile-m="w-99" mobile-l="w-94" tablet="w-90" laptop="w-80" flex="fd-c">
-        <div general="b-1 brc-muted br-2 w-100" class="utopic-user">
+  <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
+    <div general="flex position:center flex:fd-c" >
+      <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" >
+        <div general="border:1 brc:muted br:2 width:100" class="utopic-user">
           <div style="padding: 6px;">
-            <div flex="fd-c" general="b-1 brc-muted br-2" style="margin-bottom: 6px;padding: 4px;">
+            <div general="flex flex:fd-c border:1 brc:muted br:2"  style="margin-bottom: 6px;padding: 4px;">
               {% if utopic.image_address %}
-                <div general="w-100">
-                  <img general="w-10 br-2" src="{{ utopic.image_address }}" style="height: 10%;">
+                <div general="width:100">
+                  <img general="width:10 br:2" src="{{ utopic.image_address }}" style="height: 10%;">
                 </div>
               {% endif %}
               <div flex>
                 {% if utopic.definition %}
-                  <div general="left">
-                    <span general="txt-s">{{ utopic.definition }}</span>
+                  <div general="position:left">
+                    <span general="text:s">{{ utopic.definition }}</span>
                   </div>
                 {% endif %}
                 {% if utopic.address %}
-                  <div general="right">
-                    <a general="c-primary txt-s" href="{{ utopic.address }}?ref=www.coogger.com">{{ utopic.address }}</a>
+                  <div general="position:right">
+                    <a general="color:primary text:s" href="{{ utopic.address }}?ref=www.coogger.com">{{ utopic.address }}</a>
                   </div>
                 {% endif %}
               </div>
             </div>
-            <div flex="ai-c">
-              <a general="c-primary txt-m" href="/@{{ current_user }}">
-                <img class="commit-user" general="br-4 c-muted" 
+            <div general="flex flex:ai-c">
+              <a general="color:primary text:m" href="/@{{ current_user }}">
+                <img class="commit-user" general="br:4 color:muted" 
                 src="{{ current_user.githubauthuser.avatar_url }}">
               </a>
               <i class="fas fa-book"></i>
-              <a general="c-primary txt-m" href="{% url 'detail-utopic' utopic.permlink current_user %}">{{ utopic.permlink }}/@{{ current_user }}</a>
+              <a general="color:primary text:m" href="{% url 'detail-utopic' utopic.permlink current_user %}">{{ utopic.permlink }}/@{{ current_user }}</a>
               {% if request.user == current_user %}
-                <div general="right" flex="fd-c">
-                  <a general="br-1 c-white bg-dark-purple txt-s right" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">Add content your {{ utopic.name }} topic</a>
-                  <a general="br-1 c-white bg-warning txt-s right" href="{% url  'update-utopic' utopic.permlink %}" style="margin-top:3px;padding: 6px;">Update</a>
+                <div general="flex position:right flex:fd-c" >
+                  <a general="br:1 color:white bg:dark-purple text:s position:right" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">Add content your {{ utopic.name }} topic</a>
+                  <a general="br:1 color:white bg:warning text:s position:right" href="{% url  'update-utopic' utopic.permlink %}" style="margin-top:3px;padding: 6px;">Update</a>
                 </div>
               {% endif %}
             </div>
             {% if utopic.tags %}
-              <div general="" class="tags" flex>{{ tag }}
+              <div class="tags" general="flex">{{ tag }}
                 {% for tag in utopic.tags|split:" " %}
-                  <div general="txt-s" class="tag">#{{ tag }}</div>
+                  <div general="text:s" class="tag">#{{ tag }}</div>
                 {% endfor %}
               </div>
             {% endif %}

@@ -1,37 +1,37 @@
 {% extends "users/detail-topic/home.html" %}
 {% block alt_topic %}
-  <div general="center w-100" class="commits">
+  <div general="position:center width:100 flex flex:fd-c" class="commits">
     {% for commit in queryset %}
-      <div general="w-100 b-1 br-2 brc-muted" style="margin: 2px 0px;">
+      <div general="width:100 border:1 br:2 brc:muted" style="margin: 2px 0px;">
         <div class="commit">
-          <div flex="fd-c" general="w-100">
-            <a class="text3" general="w-100 txt-l" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
+          <div general="flex flex:fd-c width:100" >
+            <a class="text3" general="width:100 text:l" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
               {{ commit.msg|title }}
             </a>
-            <div flex="fd-c" general="w-100">
+            <div general="flex flex:fd-c width:100" >
               <div flex>
-                  <div flex="fd-c">
-                    <div flex="ai-c">
-                        <img class="commit-user" general="br-4 c-muted" src="{{ commit.user.githubauthuser.avatar_url }}">
-                        <div flex="fd-c">
-                            <span general="txt-s" style="margin-left: 6px;">
+                  <div general="flex flex:fd-c">
+                    <div general="flex flex:ai-c">
+                        <img class="commit-user" general="br:4 color:muted" src="{{ commit.user.githubauthuser.avatar_url }}">
+                        <div general="flex flex:fd-c">
+                            <span general="text:s" style="margin-left: 6px;">
                                 @{{ commit.content.user }}
                             </span>
-                            <span general="txt-s" class="fas fa-clock">{{ commit.created|timesince }}</span>
+                            <span general="text:s" class="fas fa-clock">{{ commit.created|timesince }}</span>
                         </div>
                     </div>
                   </div>
-                  <div general="right">
-                      <a flex="ai-c" href="{% url 'tree-detail' commit.user commit.utopic.permlink commit.hash %}">
-                          <i flex="ai-c" general="txt-s" class="fas fa-history">
+                  <div general="position:right">
+                      <a general="flex flex:ai-c" href="{% url 'tree-detail' commit.user commit.utopic.permlink commit.hash %}">
+                          <i general="flex flex:ai-c text:s"  class="fas fa-history">
                             <span class="just-pc">Browse the content at this point in the history</span>
                           </i>
                       </a>
                   </div>
               </div>
             </div>
-            <div flex style="margin-top: 6px;" general="w-100">
-              <a class="text3" general="w-70 txt-s" href="{{ commit.content.get_absolute_url }}">{{ commit.content }}</a>
+            <div general="flex width:100" style="margin-top: 6px;" >
+              <a class="text3" general="width:70 text:s" href="{{ commit.content.get_absolute_url }}">{{ commit.content }}</a>
             </div>
           </div>
         </div>

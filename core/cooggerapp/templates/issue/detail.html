@@ -1,32 +1,32 @@
 {% extends "issue/top.html" %}
 {% load django_md_editor %}
 {% block alt_topic %}
-  <div style="margin-top: 6px;" general="brc-muted b-1 br-2 w-100">
+  <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
     <div style="padding: 6px;">
-      <div general="right">
-        <a href="/@{{ queryset.user }}" flex="ai-c">
-          <img general="br-circle" src="{{ queryset.user.githubauthuser.avatar_url }}" width="20" height="20">
+      <div general="position:right">
+        <a href="/@{{ queryset.user }}" general="flex flex:ai-c">
+          <img general="br:circle" src="{{ queryset.user.githubauthuser.avatar_url }}" width="20" height="20">
         </a>
-        <div general='txt-s' flex='ai-c' class='duread-li'>
+        <div general='text:s flex flex:ai-c' class='duread-li'>
             <i class="fas fa-clock"></i>
             <div style='margin-left: 6px;'>{{ queryset.created|timesince }}</div>
         </div>
-        <div general="right txt-s bg-white brc-muted b-1 br-2" style="padding: 2px 6px;">
+        <div general="position:right text:s bg:white brc:muted border:1 br:2" style="padding: 2px 6px;">
             {% include 'issue/bookmark.html' %}
             {% include 'vote.html' %}
-            <div general='txt-s c-secondary' flex='ai-c' class='duread-li'>
+            <div general='text:s color:secondary flex flex:ai-c' class='duread-li'>
               <i class="fas fa-reply-all"></i>
               <div style='margin-left: 6px;'>{{ queryset.reply_count }}</div>
           </div>
-          <div general='txt-s c-secondary' flex='ai-c' class='duread-li'>
+          <div general='text:s color:secondary flex flex:ai-c' class='duread-li'>
               <i class="fas fa-eye"></i>
               <div style='margin-left: 6px;'>{{ queryset.views }}</div>
           </div>
         </div>
         
       </div>
-      <h1 general="center">{{ queryset.title|title }}</h1>
-      <div general="brc-muted b-1 br-2" style="padding: 6px;">
+      <h1 general="position:center">{{ queryset.title|title }}</h1>
+      <div general="brc:muted border:1 br:2" style="padding: 6px;">
         <p>{{ queryset.body|markdown_to_html:"issue" }}</p>
       </div>
     </div>
@@ -55,11 +55,11 @@
 {% block closed_issue %}
   {% if request.user == current_user or queryset.user == request.user %}
     {% if queryset.status == "open" %}
-      <a general="br-1 c-white bg-red txt-s right" href="{% url 'closed-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
+      <a general="br:1 color:white bg:red text:s position:right" href="{% url 'closed-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
         Closed this issue
       </a> 
     {% elif queryset.status == "closed" %}
-      <a general="br-1 c-white bg-blue txt-s right" href="{% url 'open-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
+      <a general="br:1 color:white bg:blue text:s position:right" href="{% url 'open-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
         Open this issue
       </a> 
     {% endif %}

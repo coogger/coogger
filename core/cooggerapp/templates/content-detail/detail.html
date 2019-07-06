@@ -3,17 +3,17 @@
   <div class="just-mobile">
     {% if queryset.next_post %}
     <div style="z-index: 2;">
-      <a flex="jc-c" class="next_post" general="c-white br-1 txt-s" href="{{ queryset.next_post }}">Next</a>
+      <a general="flex flex:jc-c color:white br:1 text:s" class="next_post"  href="{{ queryset.next_post }}">Next</a>
     </div>
     {% endif %}
     {% if queryset.previous_post %}
     <div style="z-index: 2;">
-      <a flex="jc-c" class="previous_post" general="c-white br-1 txt-s" href="{{ queryset.previous_post }}">Previous</a>
+      <a general="flex flex:jc-c color:white br:1 text:s" class="previous_post"  href="{{ queryset.previous_post }}">Previous</a>
     </div>
     {% endif %}
   </div>
-  <div general="w-100 center">
-      <div animation="fadeIn" font="quicksand" general="w-100 center">
+  <div general="width:100 position:center">
+      <div general="font:quicksand width:100 position:center">
           {% include 'content-detail/left.html' %}
           {% include 'content-detail/center.html' %}
           {% include 'content-detail/right.html' %}

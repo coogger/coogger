@@ -1,12 +1,13 @@
 {% extends "home/html.html" %}
 {% block body %}
-  <div general="w-100">
+  <div general="width:100">
       {% include 'users/tabs.html' %}
-      <div general="w-100" style="padding-bottom: 12px;"></div>
-      <div general="b-1 br-2 brc-muted w-100 center" flex>
+      <div general="width:100" style="padding-bottom: 12px;"></div>
+      <div general="border:1 br:2 brc:muted width:100 position:center flex">
         {% include 'users/pp.html' %}
         {% include 'users/script.html'%}
-        <div flex="" general="w-40" laptop="w-60" mobile-l="w-90" style="position:  relative;top: 0px;margin-left: 24px;" tablet="w-100">
+        <div general="width:40 bg:white" laptop-l="width:54" laptop="width:60" mobile-l="width:90" mobile-s="width:96" mobile-m="width:94" tablet="width:80"
+        style="position: relative;top: 0px;margin-left: 24px;" >
             {% block useright %}{% endblock %}
         </div>
       </div>

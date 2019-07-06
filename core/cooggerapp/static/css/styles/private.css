@@ -183,6 +183,7 @@ footer li{
   }
   .open_header_menu{
   cursor: pointer;
+  margin: 0px;
   }
   .closed_footer{
   padding: 0px 14px;

@@ -1,13 +1,13 @@
 {% include 'home/head.html' %}
 {% load django_md_editor %}
-<div animation="fadeIn" font="quicksand">
+<div general="font:quicksand">
 {% include 'content-detail/status.html' %}
-<div flex="jc-c fw-nw">
+<div general="flex flex:jc-c flex:fw-nw">
   <div style="width: 100%;">
     {% include 'content-detail/contentinfo.html' %}
     {% include 'content-detail/userinfo.html' %}
     <div>
-      <h1 general="center txt-xl" id="title" style="margin: 12px auto;"></h1>
+      <h1 general="position:center text:xl" id="title" style="margin: 12px auto;"></h1>
       <div style="padding: inherit;">
         {{ queryset.body|markdown_to_html:"detail-body"|safe }}
       </div>

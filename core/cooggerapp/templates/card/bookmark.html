@@ -1,12 +1,12 @@
 {% load django_bookmark %}
-<div class="bookmarkop" style="cursor: pointer" flex="ai-c" onclick="remove_or_add_bookmark(this)" 
+<div class="bookmarkop" style="cursor: pointer" general="flex flex:ai-c" onclick="remove_or_add_bookmark(this)" 
      data-app_label="cooggerapp" 
      data-model="content" 
      data-object_id="{{ ct.id }}"
      data-csrf="{{ csrf_token }}"
      data-url="{% url 'django_bookmark:add_or_remove' %}"
      data-bookmark-status="{% is_mark request.user ct ct.id %}">
-    <i general="" class="bookmarkicon fas fa-bookmark"></i>
-     <span general="left c-secondary" style="margin-right: 6px;" id="how_many_mark">
+    <i class="bookmarkicon fas fa-bookmark"></i>
+     <span general="position:left color:secondary" style="margin-right: 6px;" id="how_many_mark">
         {{ ct|how_many_mark:ct.id }}</span>
  </div>

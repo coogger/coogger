@@ -6,25 +6,25 @@
       // vote
       let status = $(card).find("#vote-section").data("vote-status");
       if (status == "False"){
-        $(card).find("#vote-section").find("#downvote").attr("general", "c-danger");
+        $(card).find("#vote-section").find("#downvote").attr("general","color:danger");
       }
       else if (status == "True"){
-        $(card).find("#vote-section").find("#upvote").attr("general", "c-success");
+        $(card).find("#vote-section").find("#upvote").attr("general", "color:success");
       }
       // bookmark
       let bookmark_status = $(card).find(".bookmarkop").data("bookmark-status");
       if (bookmark_status == "False"){
-        $(card).find(".bookmarkop").find(".bookmarkicon").attr("general", "c-secondary");
+        $(card).find(".bookmarkop").find(".bookmarkicon").attr("general","color:secondary");
       }
       else if (bookmark_status == "True"){
-        $(card).find(".bookmarkop").find(".bookmarkicon").attr("general", "c-success");
+        $(card).find(".bookmarkop").find(".bookmarkicon").attr("general", "color:success");
       }
       
     });
     // is vote for every card ?
 });
 // vote op function
-function vote(this_, id){
+function vote_on_card(this_, id){
   let status;
   if (this_.id == "upvote"){
     status = true;
@@ -46,12 +46,12 @@ function vote(this_, id){
       }
       else{
           if (r.status == true){
-              $(`.id-${id} #upvote`).attr("general", "c-success");
-              $(`.id-${id} #downvote`).attr("general", "c-secondary");
+              $(`.id-${id} #upvote`).attr("general", "color:success");
+              $(`.id-${id} #downvote`).attr("general","color:secondary color:danger:hover");
           }
           else if (r.status == false){
-              $(`.id-${id} #upvote`).attr("general", "c-secondary");
-              $(`.id-${id} #downvote`).attr("general", "c-danger");
+              $(`.id-${id} #upvote`).attr("general","color:secondary color:success:hover");
+              $(`.id-${id} #downvote`).attr("general","color:danger");
           }
           $(`.id-${id} #upvote`).text(r.upvote_count);
           $(`.id-${id} #downvote`).text(r.downvote_count);
