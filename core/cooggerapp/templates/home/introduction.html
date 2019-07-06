@@ -1,6 +1,6 @@
 {% extends "home/html.html" %}
 {% block body %}
-<div class="c-definition" general="ewposition:center bg:dark color:white width:100">
+<div class="c-definition" general="position:ewcenter bg:dark color:white width:100">
   {% load static %}
   <div general="flex flex:fd-c">
     <div general="flex position:center" >
@@ -11,8 +11,8 @@
           Coogger is a platform where developers can write their knowledge, experience, documentation and blogs
       </div>
       <div general="flex flex:ai-c position:center" >
-        <strong tablet="txt-s">We are open-source</strong>
-          <span tablet="txt-s">
+        <strong tablet="text:s">We are open-source</strong>
+          <span tablet="text:s">
             <a general="flex color:white flex:ai-c"  href="https://www.github.com/coogger">
               <img general="br:2" src="https://img.shields.io/github/forks/coogger/coogger.svg?label=Fork&amp;style=for-the-badge" alt="coogger-fork" 
               style="margin-left: 4px;margin-right: 4px;"> 
@@ -25,7 +25,7 @@
             <i class="fas fa-compass">Explore posts</i> 
         </a>
       </div>
-      <div general="flex center ewposition:center text:m width:50 br:2 flex:fd-c" tablet="width:70" mobile-l="width:96" >
+      <div general="flex center position:ewcenter text:m width:50 br:2 flex:fd-c" tablet="width:70" mobile-l="width:96" >
         <div general="bg:dark width:100" style="overflow: auto;height: 400px;margin-top: 12px;margin-bottom: 12px;">
           <div general="width:100 position:center">
             <a class="twitter-timeline" href="https://twitter.com/cooggercom?ref_src=twsrc%5Etfw">
@@ -43,8 +43,8 @@
     Our Users and Their Posts
   </strong>
 </div>
-<div general="position:center">
-  <cards general=" width:90 position:center"  style="margin:0px">
+<div general="position:center flex">
+  <cards general="width:90 position:center flex"  style="margin:0px">
    {% for ct in queryset %}
      <card data-postid="{{ct.id}}" id="{{ ct.user }}-{{ ct.permlink }}"
       general="br:2 bg:white width:30" mobile-s="width:100" mobile-m="width:98" mobilel="width:98"
