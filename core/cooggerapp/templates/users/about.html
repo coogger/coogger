@@ -1,7 +1,7 @@
 {% extends "users/general.html" %}
     {% block useright %}
         {% if about %}
-            <div general="position:center width:100" style="margin-top:12px">
+            <div general="position:center width:100">
             {% if current_user == request.user %}
                 <div general="position:center width:100">
                     <form default="form" general="flex width:100 flex:fd-c"   method="post" action="{% url 'userabout' current_user %}">
@@ -10,7 +10,10 @@
                     </form>
                 </div>
             {% else %}
-                <div default="paragraph pm" mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70" general="border:1 br:2 brc:muted width:100" style="padding: 6px;">
+                <div default="paragraph pm" 
+                mobile-l="width:98" tablet="width:80" 
+                laptop="width:40" laptop-l="width:70" 
+                general="width:100" style="padding: 6px;">
                     {% load django_md_editor %} {{ about|markdown_to_html:"about"|safe }}
                 </div>
             {% endif %}

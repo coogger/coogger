@@ -11,36 +11,50 @@
 {% endif %}
 <div general="flex flex:ai-c">
   {% if queryset.utopic.address %}
-    <div mobile-l="width:100" tablet="width:80" general="width:50 text:s" class="text3">
+    <div mobile-l="width:100" tablet="width:80" mobile-m="width:100" mobile-s="width:100"
+     general="width:50 text:s" class="text3" style="margin-bottom: 8px;">
       <a style="height: 15px;margin-bottom: 2px;overflow: hidden;padding: 4px 2px;"
-      general="color:dark width:100 color:primary:hover"  href="{{ queryset.utopic.address }}/?ref=www.coogger.com" target="blank"
+      general="color:dark width:100 color:primary:hover" href="{{ queryset.utopic.address }}/?ref=www.coogger.com" target="blank"
        >
       <i class="fa fa-globe" aria-hidden="true"></i>
       {{ queryset.utopic.address }}</a>
     </div>
   {% endif %}
-    <div general="position:right">
+    <div general="position:right" 
+    mobile-l="position:center"
+    mobile-m="position:center"
+    mobile-s="position:center">
     {% if queryset.language %}
-      <div general="flex flex:ai-c text:s position:right"  style="margin-right: 2px;padding: 4px 6px;">
-        <a href="{% url 'filter' %}?username={{ current_user }}&language={{queryset.language}}" general="color:primary:hover color:dark"  
-         >
+      <div general="flex flex:ai-c text:s position:right"
+      mobile-l="text:xs"
+      mobile-m="text:xs"
+      mobile-s="text:xs"
+       style="margin-right: 2px;padding: 4px 6px;">
+        <a href="{% url 'filter' %}?username={{ current_user }}&language={{queryset.language}}" general="color:primary:hover color:dark">
           <i class="fas fa-flag"></i>
           <span id="language">{{queryset.language|title}}</span>
         </a>
       </div>
     {% endif %}
     {% if queryset.category %}
-      <div general="flex flex:ai-c text:s position:right"  style="margin-right: 2px;padding: 4px 6px;">
-        <a href="{% url 'filter' %}?username={{ current_user }}&category={{ queryset.category }}" general="color:primary:hover color:dark"  
-         >
+      <div general="flex flex:ai-c text:s position:right"
+      mobile-l="text:xs"
+      mobile-m="text:xs"
+      mobile-s="text:xs"
+      style="margin-right: 2px;padding: 4px 6px;">
+        <a href="{% url 'filter' %}?username={{ current_user }}&category={{ queryset.category }}" general="color:primary:hover color:dark">
           <i class="fa fa-list-alt" aria-hidden="true"></i>
           <span id="category">{{queryset.category|title}}</span>
         </a>
       </div>
       {% endif %}
       {% if queryset.utopic %}
-      <div general="flex flex:ai-c text:s position:right"  style="margin-right: 2px;padding: 4px 6px;">
-        <a  general="flex color:dark color:primary:hover flex:ai-c"   href="{% url 'detail-utopic' queryset.utopic.permlink current_user %}">
+      <div general="flex flex:ai-c text:s position:right"  
+      mobile-l="text:xs"
+      mobile-m="text:xs"
+      mobile-s="text:xs" 
+      style="margin-right: 2px;padding: 4px 6px;">
+        <a  general="flex color:dark color:primary:hover flex:ai-c" href="{% url 'detail-utopic' queryset.utopic.permlink current_user %}">
           <i class="fas fa-hashtag" aria-hidden="true"></i>
           <span id="topic">{{queryset.utopic.permlink|title}}</span>
         </a>
@@ -50,22 +64,16 @@
   </div>
 <div general="flex position:center color:secondary brc:muted bg:white flex:ai-c" style="padding: 6px 0px;position: sticky;top: 0px;z-index: 1;" >
     <div general="flex text:s flex:ai-c"  class="duread-li">
-      <div style="margin-right: 12px;">
-          <i class="fab fa-readme" style="margin: 0px 6px 0px 0px;"></i>
-          <span id="dor">{{ queryset.get_dor }}</span>
-      </div>
+        <i class="fab fa-readme"></i>
+        <span id="dor">{{ queryset.get_dor }}</span>
     </div>
     <div general="flex text:s flex:ai-c"  class="duread-li">
-      <div style="margin-right: 12px;">
         <i class="fas fa-eye"></i>
         {{ queryset.views}}
-      </div>
     </div>
     <div general="flex text:s flex:ai-c"  class="duread-li">
-        <div style="margin-right: 12px;">
-          <i class="fas fa-reply-all"></i>
+        <i class="fas fa-reply-all"></i>
           <span id="reply">{{ queryset.reply_count }}</span>
-        </div>
     </div>
     <!-- bookmark -->
     <div general="flex text:s flex:ai-c"  class="duread-li">

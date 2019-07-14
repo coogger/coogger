@@ -3,7 +3,10 @@
 {% block body %}
   <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
     <div general="flex position:center flex:fd-c" >
-      <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" >
+      <div class="utopic" 
+      general="flex position:center width:60 flex:fd-c" 
+      mobile-m="width:99" mobile-l="width:94" 
+      tablet="width:90" laptop="width:80" mobile-s="width:98">
         <div general="border:1 brc:muted br:2 width:100" class="utopic-user">
           <div style="padding: 6px;">
             <div general="flex flex:fd-c border:1 brc:muted br:2"  style="margin-bottom: 6px;padding: 4px;">
@@ -15,12 +18,15 @@
               <div flex>
                 {% if utopic.definition %}
                   <div general="position:left">
-                    <span general="text:s">{{ utopic.definition }}</span>
+                    <span general="text:s width:90" class="text3">{{ utopic.definition }}</span>
                   </div>
                 {% endif %}
                 {% if utopic.address %}
-                  <div general="position:right">
-                    <a general="color:primary text:s" href="{{ utopic.address }}?ref=www.coogger.com">{{ utopic.address }}</a>
+                  <div general="position:right" mobile-s="position:left">
+                    <a general="color:primary text:s width:max" mobile-s="width:80 text:xs" class="text3" href="{{ utopic.address }}?ref=www.coogger.com">
+                      <span class="fa fa-globe"></span>
+                      {{ utopic.address }}
+                    </a>
                   </div>
                 {% endif %}
               </div>
@@ -31,7 +37,9 @@
                 src="{{ current_user.githubauthuser.avatar_url }}">
               </a>
               <i class="fas fa-book"></i>
-              <a general="color:primary text:m" href="{% url 'detail-utopic' utopic.permlink current_user %}">{{ utopic.permlink }}/@{{ current_user }}</a>
+              <a general="color:primary text:m width:80" class="text3" mobile-s="text:s" mobile-m="text:s" mobile-l="text:s" href="{% url 'detail-utopic' utopic.permlink current_user %}">
+                {{ utopic.permlink }}/@{{ current_user }}
+              </a>
               {% if request.user == current_user %}
                 <div general="flex position:right flex:fd-c" >
                   <a general="br:1 color:white bg:dark-purple text:s position:right" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">Add content your {{ utopic.name }} topic</a>

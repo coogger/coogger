@@ -15,12 +15,23 @@
         {% endif %}
       {% endif %}
       <div style="padding: 6px 6px;">
-      {% for issue in queryset %}
-        <div class="utopic-query text3" general="flex flex:ai-c width:96" >
-          <i class="fa fa-file-alt"></i>
-          <a class="text3" general="color:primary width:90" href="{{ issue.get_absolute_url }}">
-            <span>{{ issue.title|title }}</span>
-          </a>
+      {% for content in queryset %}
+        <div class="utopic-query text3" general="flex flex:ai-c width:100 text:m border:1 br:2 brc:muted" mobile-l="text:s" mobile-m="text:s" mobile-s="text:s">
+            <div>
+                <i class="fa fa-file-alt"></i>
+            </div>
+            <div general="width:90">
+                <div general="flex width:100 flex:ai-c">
+                    <a class="text3" general="color:primary width:50" href="{{ content.get_absolute_url }}">
+                        {{ content.title|title }}
+                   </a>
+                   <span general="width:50 text:s color:secondary" class="text3">{{ content.get_last_commit.msg }}</span>
+                   <div general="text:s color:secondary">
+                       <i class="fas fa-eye">{{ content.views}}</i>
+                       <i class="fas fa-reply-all">{{ content.reply_count }}</i>
+                   </div>
+                </div>
+            </div>
         </div>
       {% endfor %}
     </div>

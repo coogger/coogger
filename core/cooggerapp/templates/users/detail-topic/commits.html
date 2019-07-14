@@ -4,8 +4,12 @@
     {% for commit in queryset %}
       <div general="width:100 border:1 br:2 brc:muted" style="margin: 2px 0px;">
         <div class="commit">
-          <div general="flex flex:fd-c width:100" >
-            <a class="text3" general="width:100 text:l" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
+          <div general="flex flex:fd-c width:100">
+            <a class="text3" general="width:100 text:l"
+            mobile-l="text:m"
+            mobile-m="text:m"
+            mobile-s="text:m"
+            href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
               {{ commit.msg|title }}
             </a>
             <div general="flex flex:fd-c width:100" >
@@ -31,7 +35,10 @@
               </div>
             </div>
             <div general="flex width:100" style="margin-top: 6px;" >
-              <a class="text3" general="width:70 text:s" href="{{ commit.content.get_absolute_url }}">{{ commit.content }}</a>
+              <a class="text3" general="width:90 text:s" href="{{ commit.content.get_absolute_url }}">
+                <span class="fa fa-file-alt"></span>
+                {{ commit.content }}
+              </a>
             </div>
           </div>
         </div>

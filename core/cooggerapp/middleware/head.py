@@ -154,7 +154,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image="/static/media/icons/list.svg",
         )
 
-    def home(self):
+    def explorer_posts(self):
         return dict(
             title=f"coogger",
             keywords=f"coogger, developers, experience, documentation, blogs, projects",
@@ -163,6 +163,9 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
                 experience, documentation and blogs about their projects or projects which love.""",
             image="https://www.coogger.com/static/logos/png/800.png",
         )
+
+    def home(self):
+        return self.explorer_posts()
 
     def issues(self):
         username = self.kwargs.get("username")

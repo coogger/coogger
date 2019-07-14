@@ -124,3 +124,7 @@ class Content(ThreadedComments, VoteView):
         renderer = mistune.Renderer(escape=False, parse_block_html=True)
         markdown = mistune.Markdown(renderer=renderer)
         return BeautifulSoup(markdown(self.body), "html.parser").text[0:200].replace("\n"," ")
+
+    @property
+    def get_last_commit(self):
+        return self.commit_set.last()

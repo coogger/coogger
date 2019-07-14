@@ -2,7 +2,10 @@
 {% block body %}
 {% load django_md_editor %}
 <div general="position:center" class="commits">
-  <div class="commit" general="flex flex:fd-c width:60 border:1 br:2 brc:muted"  mobile-l="width:100" tablet="width:80">
+  <div class="commit" general="flex flex:fd-c width:60 border:1 br:2 brc:muted"  
+  mobile-l="width:100" tablet="width:80"
+  mobile-m="width:100"
+  mobile-s="width:100">
       <h1 general="width:100">
         {{ commit.msg|title }}
       </h1>
@@ -11,8 +14,9 @@
         <span general="text:s" style="margin-left: 6px;"><strong>@{{ commit.user }}</strong> committed {{ commit.created|timesince }}</span>
         <a general="color:primary position:right" href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">{{ commit.hash|truncatechars:12 }}</a>
       </div>
-      <div general="flex" style="margin-top: 12px;width: 100%;">
-        <a general="color:primary" href="{{ commit.content.get_absolute_url }}">{{ commit.content|truncatechars:50 }}</a>
+      <div general="flex width:100" style="margin-top: 12px">
+        <a general="color:primary" href="{{ commit.content.get_absolute_url }}">
+          <span class="fa fa-file-alt"></span>{{ commit.content|truncatechars:50 }}</a>
       </div>
       <div class="commit-detail" general="br:2 width:100">{{ commit.body_change|safe }}</div>
   </div>

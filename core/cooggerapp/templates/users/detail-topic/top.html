@@ -1,36 +1,36 @@
 {% load coogger_tags %}
-<div general="border:1 br:2 brc:muted width:100">
+<div general="border:1 br:2 brc:muted width:100 text:s ">
     <div general="flex position:center" style="padding: 6px;" >
         <a href="{% url 'commits' current_user utopic.permlink %}">
-          <div general="flex flex:ai-c">
+          <div general="flex flex:ai-c" mobile-s="text:xs">
             <i class="fas fa-history"></i>
-            <span id="commits_count" general="text:s">
+            <span id="commits_count">
               <strong>{{utopic|commit_count}} </strong><span general="color:secondary">commits</span>
             </span>
           </div>
         </a>
-        <a href="{% url 'issues' current_user utopic.permlink %}">
-            <div general="flex flex:ai-c">
+        <a href="{% url 'issues' current_user utopic.permlink %}" mobile-s="text:xs">
+            <div general="flex flex:ai-c text:s ">
               <i class="fas fa-exclamation-circle"></i>
-              <span id="" general="text:s">
+              <span id="">
                 <strong>{{ utopic.open_issue }}</strong><span general="color:secondary"> issues</span>
               </span>
             </div>
           </a>
-        <div general="flex text:s flex:ai-c"  class="duread-li">
+        <div general="flex text:s flex:ai-c" class="duread-li" mobile-s="text:xs">
           <div style="margin-left: 12px;">
               <i class="fab fa-readme"></i>
               <span>{{ utopic.get_total_dor|default:"0 min" }}</span>
           </div>
         </div>
-        <div general="flex text:s flex:ai-c"  class="duread-li">
+        <div general="flex text:s flex:ai-c"  class="duread-li" mobile-s="text:xs">
             <div style="margin-left: 12px;">
               <i class="fas fa-eye"></i>
               <span>{{ utopic.total_view }}</span><span general="color:secondary"> views</span>
             </div>
         </div>
         {% if last_update %}
-        <div general="flex text:s position:right flex:ai-c"  class="duread-li just-pc">
+        <div general="flex text:s position:right flex:ai-c" class="duread-li just-pc" mobile-s="text:xs">
             <div>
               <i class="fas fa-clock"></i>
               <span>Last update | {{ last_update|timesince }}</span>
