@@ -5,6 +5,8 @@ django-js-asset==0.1.1
 djangorestframework==3.9.1
 beautifulsoup4==4.6.0
 django-environ==0.4.5
+requests
+Pillow
 
 django-md-editor==0.1.6
 django-follow-system==0.0.4
