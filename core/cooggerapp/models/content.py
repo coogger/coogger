@@ -8,8 +8,8 @@ from .category import Category
 from .topic import UTopic
 from .threaded_comments import ThreadedComments
 from .utils import (
-    second_convert, dor, 
-    NextOrPrevious, 
+    second_convert, dor,
+    NextOrPrevious,
     get_first_image
 )
 from .common.vote_view import VoteView
@@ -18,7 +18,7 @@ from django_md_editor.models import EditorMdField
 # choices
 from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 
-# python 
+# python
 import random
 from bs4 import BeautifulSoup
 import mistune
@@ -26,8 +26,8 @@ import mistune
 
 class Content(ThreadedComments, VoteView):
     body = EditorMdField(
-        null=True, 
-        blank=True, 
+        null=True,
+        blank=True,
         verbose_name="",
         help_text="Your content | problem | question | or anything else"
     )
@@ -51,7 +51,7 @@ class Content(ThreadedComments, VoteView):
         help_text="Write your tags using spaces, max:4",
     )
     image_address = models.URLField(
-        null=True, 
+        null=True,
         blank=True,
     )
     status = models.CharField(
@@ -109,9 +109,9 @@ class Content(ThreadedComments, VoteView):
     def other_content_of_this_topic(self):
         "left of content detail page section"
         return self.__class__.objects.filter(
-            user=self.user, 
-            utopic=self.utopic, 
-            status="approved", 
+            user=self.user,
+            utopic=self.utopic,
+            status="approved",
             reply=None
         ).order_by("created")
 
@@ -127,4 +127,4 @@ class Content(ThreadedComments, VoteView):
 
     @property
     def get_last_commit(self):
-        return self.commit_set.last()
+        return self.commit_set.first()
