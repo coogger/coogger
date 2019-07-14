@@ -4,7 +4,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
 from django.http import Http404
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.db.utils import IntegrityError
@@ -44,10 +44,7 @@ class Detail(View):
 
     def get(self, request, username, permlink):
         user = User.objects.get(username=username)
-        content_obj = Content.objects.filter(user=user, permlink=permlink)
-        if not content_obj.exists():
-            raise Http404("Content doesnt'n exists")
-        content = content_obj[0]
+        content = get_object_or_404(Content, user=user, permlink=permlink)
         self.save_view(request, content.id)
         return render(
             request, 
@@ -57,7 +54,6 @@ class Detail(View):
                 urloftopic=permlink,
                 nameoflist=content.utopic,
                 queryset=content,
-                md_editor=True,
                 reply_form=self.form_class,
             )
         )
@@ -128,5 +124,4 @@ class TreeDetail(TemplateView):
         context = super().get_context_data(**kwargs)
         context["current_user"] = User.objects.get(username=username)
         context["queryset"] = Commit.objects.get(hash=hash)
-        context["md_editor"] = True
         return context

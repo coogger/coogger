@@ -117,7 +117,6 @@ class DetailIssue(View):
             current_user=user,
             queryset=issue,
             utopic=utopic,
-            md_editor=True,
             last_update=issue.last_update
         )
         return render(request, self.template_name, context)

@@ -57,7 +57,6 @@ class About(Common):
                 context["about"] = self.form_class(request.GET or None, instance=query)
             else:
                 context["about"] = query.about
-        context["md_editor"] = True
         return render(request, self.template_name, context)
 
     def post(self, request, username, *args, **kwargs):
@@ -84,7 +83,6 @@ class Comment(Common):
             status="approved",
             reply__user=user
         )
-        context["md_editor"] = True
         context["user_comment"] = True
         context["queryset"] = paginator(self.request, queryset)
         return context
