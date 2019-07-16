@@ -31,6 +31,7 @@ EMAIL_PASSWORD=*******
 # >>> python manage.py makemigrations djangoip
 # >>> python manage.py makemigrations django_ban
 # >>> python manage.py makemigrations django_vote_system
+# >>> python manage.py makemigrations djangobadge
 
 >>> python manage.py migrate --database default
 >>> python manage.py migrate --database django_ip

@@ -3,6 +3,21 @@ header{
   margin-bottom: 12px;
   border-bottom: 1px solid #ececee;
 }
+.badge-a{
+    margin-right: 12px;
+    box-shadow: -0.4px 3.4px 4px 0px #000000;
+    border-radius: 50%;
+}
+.badge-img{
+  margin-left: 0px;
+  margin-right: 0px;
+  cursor: pointer;
+  transition: all 3s;
+  transition-timing: ease-in-out;
+}
+.badge-img:hover {
+  transform: rotate(1080deg);
+}
 .utopic-nocontent{
   margin-top: 5%;
   padding: 12px;
@@ -188,7 +203,7 @@ footer li{
   .closed_footer{
   padding: 0px 14px;
   cursor: pointer;
-  margin: 12px 0px;
+  margin: 12px auto;
   }
   .header_menu{
   position: absolute;

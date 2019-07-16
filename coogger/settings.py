@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "djangoip",
     "django_vote_system",
     "django_bookmark",
+    "djangobadge",
     "core.cooggerapp",
     "core.api",
 ]
