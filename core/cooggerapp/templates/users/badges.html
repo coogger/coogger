@@ -16,10 +16,11 @@
           mobile-l="width:20"
           mobile-m="width:20"
           mobile-s="width:20"
-          style="margin-right: 12px;" href="/filter/?username={{ current_user }}&{{ badge.extra_data }}={{ badge }}">
+          style="margin-right: 12px;" 
+          href="/filter/?username={{ current_user }}&{{ badge.extra_data }}={{ badge }}">
               <img class="badge-img droplet" width="10%" height="10%" 
               general="width:100 height:100 br:circle opacity:0.8:hover bg:muted" 
-              src="{{ badge.image.url }}" 
+              src="{{ badge.image_address }}" 
               alt="{{ current_user }}-badge-{{ badge }}" title="{{ badge }}">
               <span general="color:secondary color:dark:hover">
                   ( {% content_count current_user badge.extra_data badge %} )
