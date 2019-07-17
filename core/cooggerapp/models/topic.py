@@ -3,13 +3,7 @@ from django.db import models, IntegrityError
 from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
-from django.db.models.signals import m2m_changed, post_save
-from django.dispatch import receiver
 from django.db.models import F
-
-# models
-from django_page_views.models import DjangoViews
 
 # python
 from contextlib import suppress
@@ -43,6 +37,10 @@ class CommonTopicModel(models.Model):
     class Meta:
         abstract = True
 
+    def save(self, *args, **kwargs):
+        self.permlink = slugify(self.name)
+        super().save(*args, **kwargs)
+
 
 class Topic(CommonTopicModel):
     """ Global Topic Model """
@@ -61,10 +59,6 @@ class Topic(CommonTopicModel):
     @property
     def global_topic(self):
         return True
-
-    def save(self, *args, **kwargs):
-        self.permlink = slugify(self.name)
-        super().save(*args, **kwargs)
 
     @property
     def get_absolute_url(self):
@@ -107,10 +101,6 @@ class UTopic(CommonTopicModel):
             )
         )
 
-    def save(self, *args, **kwargs):
-        self.permlink = slugify(self.name)
-        super().save(*args, **kwargs)
-
     @property
     def get_total_dor(self):
         times = str()
@@ -118,27 +108,3 @@ class UTopic(CommonTopicModel):
             if t != 0:
                 times += f" {t} {f} "
         return times
-
-@receiver(m2m_changed, sender=DjangoViews.ips.through)
-def increase_total_view(sender, **kwargs):
-    instance = kwargs.get("instance", None)
-    action = kwargs.get("action", None)
-    ips = kwargs.get("pk_set", None)
-    if action == "pre_add":
-        Content = ContentType.objects.get(app_label="cooggerapp", model="content").model_class()
-        content = Content.objects.get(id=instance.object_id)
-        for ip_id in ips:
-            UTopic.objects.filter(
-                user=content.user, 
-                permlink=content.utopic.permlink
-            ).update(total_view=(F("total_view") + 1))
-
-
-@receiver(post_save, sender=UTopic)
-def topic_create(sender, instance, created, **kwargs):
-    "if utopic is created"
-    if created:
-        try:
-            Topic(name=instance.name).save()
-        except IntegrityError:
-            pass
