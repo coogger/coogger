@@ -23,6 +23,7 @@ LANGUAGES = [
 FOLLOW = [
         "github",
         "linkedin",
+        "twitter",
         "instagram",
         "facebook",
         "youtube",
