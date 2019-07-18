@@ -2,6 +2,7 @@
 from django.dispatch import receiver
 from django.db.models.signals import m2m_changed, post_save
 from django.db import IntegrityError
+from django.db.models import F
 
 # django lib
 from django_page_views.models import DjangoViews

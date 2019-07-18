@@ -8,8 +8,10 @@
         {% endfor %}
       </ol>
     {% else %}
-    <form general="flex flex:fd-c" class="c-update-form" action="{% url 'create-utopic' %}" style="padding: 12px 6px"
-    default="form" method="post" mobile-s="width:100" mobile-l="width:98" tablet="width:60"
+    <form general="flex flex:fd-c width:40" class="c-update-form" 
+    action="{% url 'create-utopic' %}" style="padding: 12px 6px"
+    default="form" method="post" mobile-s="width:100" 
+    mobile-l="width:98" tablet="width:60"
     laptop="width:40" laptop-l="width:70">
         {% csrf_token %} {{ form }}
         <input general="flex flex:as-c" type="submit" value="Create your topic" style="padding: 12px 42px;color:#333">
