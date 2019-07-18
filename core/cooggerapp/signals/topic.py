@@ -1,6 +1,7 @@
 # django
 from django.dispatch import receiver
 from django.db.models.signals import m2m_changed, post_save
+from django.db import IntegrityError
 
 # django lib
 from django_page_views.models import DjangoViews
@@ -9,12 +10,8 @@ from django_page_views.models import DjangoViews
 from ..models.topic import UTopic, Topic
 from ..models.content import Content
 
-# TODO this signals is not working
-
 @receiver(post_save, sender=UTopic)
-def globel_topic_create(sender, instance, created, **kwargs):
-    print(instance, created)
-    "if utopic is created"
+def global_topic_create(sender, instance, created, **kwargs):
     if created:
         try:
             Topic(name=instance.name).save()

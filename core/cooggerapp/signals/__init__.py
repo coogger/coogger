@@ -1,1 +1,2 @@
-default_app_config = "cooggerapp.apps.CooggerappConfig"
+from .topic import *
+from .userextra import *

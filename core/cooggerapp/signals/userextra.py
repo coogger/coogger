@@ -72,9 +72,6 @@ def follow_and_repos_update(sender, instance, created, **kwargs):
 def create_userprofile(sender, instance, created, **kwargs):
     if created:
         UserProfile(user=instance).save()
-    else:
-        # update
-        UserProfile.objects.filter(id=instance.id).update(user=instance)
         
 @receiver(m2m_changed, sender=Follow.following.through)
 def send_mail_to_follow(sender, **kwargs):
