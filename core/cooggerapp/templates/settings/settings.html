@@ -19,7 +19,7 @@
                 {% endif %}
                 <i class="fab fa-{{address.choices}}" aria-hidden="true"></i>
                 {{ address.choices }} - <span general="color:secondary text:s">{{ address.address }}</span>
-                <div general="flex flex:ai-c flex:jc-fs flex:as-c border:1 br:2 brc:muted text:l color:danger:hover position:right" class="deladdress" data-deladdress="{{ i.id }}" style="cursor:pointer;padding: 6px;">
+                <div general="flex flex:ai-c flex:jc-fs flex:as-c border:1 br:2 brc:muted text:l color:danger:hover position:right" class="deladdress" data-deladdress="{{ address.id }}" style="cursor:pointer;padding: 6px;">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </div>
             </div>
