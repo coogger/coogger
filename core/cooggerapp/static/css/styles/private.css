@@ -213,6 +213,9 @@ footer li{
   padding: 6px 8px;
   top: 70px;
   }
+  .header_menu_a{
+    padding: 6px 0px;
+  }
   .header_menu>.title{
   border-bottom: 1px solid #fafafa;
   padding: 12px 0px;
