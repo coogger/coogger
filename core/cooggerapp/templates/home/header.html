@@ -8,7 +8,7 @@
       </a>
       </div>
     {% else %}
-      <div>
+      <div general="position:left">
         <a general="flex flex:jc-c flex:ai-c flex:fd-c color:dark text:m" href="{% url 'explorer_posts' %}" >
           <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
           <span general="text:m">coogger</span>
@@ -21,7 +21,7 @@
         <i general="text:xxl" class="fab fa-github-square"></i>Login via github
       </a>
     </div>
-    {% else%}
+    {% else %}
     <div general="flex flex:ai-c position:center" class="search just-pc"  style="margin: 13px 16px;">
       <form action="{% url 'search' %}">
         <input name="query" style="padding: 6px 4px;" 

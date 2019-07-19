@@ -2,6 +2,15 @@ header{
   padding: 6px 0px 0px 0px;
   margin-bottom: 12px;
   border-bottom: 1px solid #ececee;
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+}
+.p36{
+  padding:3px 6px;
+}
+.oc-l{
+  verflow: auto;height: 70vh;padding: 0px 0px 0px 16px;
 }
 .badge-a{
     margin-right: 12px;
@@ -30,7 +39,7 @@ header{
 .cover_image{
   height: 100%;
   position: sticky;
-  top: 12px;
+  top: 70px;
 }
 footer li{
   margin: 6px 0px;

@@ -1,20 +1,23 @@
-<div general="width:20" class="just-pc" style="position: sticky;top: 90px;border-right: 1px solid #ececec">
-  <div general="position:center" style="padding: 6px;position: sticky;margin-bottom: 24px;top: 14px;">
+<div general="width:20" class="just-pc" style="border-right: 1px solid #ececec">
+  <div general="position:center flex flex:fd-c" style="padding: 6px;margin-bottom: 24px;position: sticky;top: 70px;">
       <strong>Other contents of the {{ queryset.utopic.name }} topic</strong>
+      <ol general="flex flex:fd-c flex:fw-nw bg:white brc:white" class="oc-l">
+        {% for list in queryset.other_content_of_this_topic %}
+          {% if list.permlink == urloftopic %}
+          <li general="color:success text:s">
+              <a general="flex text:s color:success" class="p36" href="{{ list.get_absolute_url }}">
+              {{ list.title|title }}
+              </a>
+          </li>
+          {% else%}
+          <li general="text:xs text:s:hover color:success:hover" >
+            <a general="flex text:s color:dark br:1 color:success:hover" class="p36" href="{{list.get_absolute_url}}">
+              {{ list.title|title }}
+            </a>
+          </li>
+          {% endif %}
+        {% endfor %}
+    </ol>
   </div>
-  <ol general="flex flex:fd-c flex:fw-nw bg:white brc:white"  
-  style="position: sticky;top: 90px;overflow: auto;height: 70vh;padding: 0px 0px 0px 16px;">
-      {% for list in queryset.other_content_of_this_topic %}
-      {% if list.permlink == urloftopic %}
-      <li general="color:success text:s">
-          <a general="flex text:s color:success"  href="{{ list.get_absolute_url }}" style="padding: 3px 6px;">
-           {{ list.title|title }}</a>
-    </li>
-      {% else%}
-      <li general="text:xs text:s:hover color:success:hover" >
-          <a general="flex text:s color:dark br:1 color:success:hover"   href="{{list.get_absolute_url}}" style="padding: 3px 6px;">
-        {{ list.title|title }}</a>
-      </li>
-      {% endif %} {% endfor %}
-  </ol>
+  
 </div>
