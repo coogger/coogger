@@ -1,0 +1,23 @@
+{% extends "home/html.html" %}
+{% block body %}
+  <div general="width:100">
+        <div general="width:100" style="padding-bottom: 12px;"></div>
+        <div general="border:3 br:2 brc:muted width:60 position:center flex" 
+        mobile-l="width:96"
+        mobile-m="width:96"
+        mobile-s="width:96"
+        tablet="width:80"
+        style="padding: 12px;">
+            <h1 general="position:center width:100 text:xxl" 
+            style="margin-bottom:12px;font-size: calc(1.66vw + 23px);">
+                {{ queryset.title|title }}
+            </h1>
+            <p general="width:100" style="margin-bottom:12px;">
+                <img general="width:30 position:center" src="{{ queryset.image_address }}">
+            </p>
+            <h4 general="width:60 position:center">
+                <strong>{{ queryset.description|default:"" }}</strong>
+            </h4>
+        </div>
+  </div>
+{% endblock %}

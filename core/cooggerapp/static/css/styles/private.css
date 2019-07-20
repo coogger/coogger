@@ -13,19 +13,15 @@ header{
   verflow: auto;height: 70vh;padding: 0px 0px 0px 16px;
 }
 .badge-a{
-    margin-right: 12px;
-    box-shadow: -0.4px 3.4px 4px 0px #000000;
-    border-radius: 50%;
+   
 }
 .badge-img{
   margin-left: 0px;
   margin-right: 0px;
   cursor: pointer;
-  transition: all 3s;
-  transition-timing: ease-in-out;
 }
 .badge-img:hover {
-  transform: rotate(1080deg);
+  transform: rotate(20deg);
 }
 .utopic-nocontent{
   margin-top: 5%;

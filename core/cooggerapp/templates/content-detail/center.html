@@ -4,7 +4,9 @@
     <div style="padding: 12px;">
         {% include 'content-detail/contentinfo.html' %}
         {% include 'content-detail/userinfo.html' %}
-        <h1 general="position:center text:xl" id="title" style="margin: 12px auto;">{{ queryset.title|title }}</h1>
+        <h1 general="position:center text:xxl" id="title" style="margin: 12px auto;">
+          <strong>{{ queryset.title|title }}</strong>
+        </h1>
         <div style="padding: inherit;">
           {{ queryset.body|markdown_to_html:"detail-body"|safe }}
         </div>

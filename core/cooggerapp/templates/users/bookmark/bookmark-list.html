@@ -2,8 +2,8 @@
 <div general="flex position:center width:100 flex:fd-c" tablet="width:100" >
     {% for bookmark in queryset %}
     <div general="flex flex:ai-c border:1 br:2 brc:muted width:100 text:m"  style="padding: 4px 0px; margin: 4px 0px; cursor:pointer" >
-        <div general="flex flex:fd-c width:100" >
-            <div general="flex flex:ai-c">
+        <div general="flex flex:fd-c width:100">
+            <div general="flex flex:ai-c width:100">
                 <a general="width:60 br:2 color:dark text:m color:primary:hover" class="text3"  href="{{ bookmark.model.get_absolute_url }}" style="margin-right: 12px; padding: 4px;">
                     <strong>{{ bookmark.model.title|title }}</strong>
                 </a>
