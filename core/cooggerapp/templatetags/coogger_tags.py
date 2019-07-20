@@ -10,6 +10,7 @@ from ..models import Content, Topic, Commit
 from ..views.utils import model_filter
 
 import requests
+import random
 
 @register.filter
 def url_resolve(request, arg):
@@ -39,6 +40,10 @@ def hmanycontent(user):
 def content_count(username, value, key):
     obj = Content.objects.filter(user__username=username, status="approved", reply=None)
     return model_filter({str(value):key}.items(), obj).get("queryset").count()
+
+@register.simple_tag
+def get_random(start, stop, step):
+    return random.randrange(start, stop, step)
 
 @register.filter
 def commit_count(utopic):

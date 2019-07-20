@@ -29,6 +29,7 @@ urlpatterns = [
     path("", include("core.cooggerapp.urls.commit")),
     path("", include("core.cooggerapp.urls.issue")),
     path("", include("core.cooggerapp.urls.users")),
+    path("", include("core.cooggerapp.urls.badge")),
     path("", include("core.cooggerapp.urls.sitemap")),
     path("", include("cooggerimages.urls")),
 ]
