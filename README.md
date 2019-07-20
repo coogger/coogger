@@ -11,7 +11,10 @@
   </a>
   <img alt="last-commit" title="last-commit" src="https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge"/>
  <a href="https://discord.gg/avmdZJa" target="_blank">
-    <img alt="releases" title="releases" src="https://img.shields.io/discord/465599004865200129.svg?label=Discord&style=for-the-badge"/>
+    <img alt="discord" title="discord" src="https://img.shields.io/discord/465599004865200129.svg?label=Discord&style=for-the-badge"/>
+  </a>
+ <a href="https://t.me/coogger" target="_blank">
+ <img alt="telegram" title="telegram" src="https://img.shields.io/badge/chat-telegram-green.svg?style=for-the-badge"/>
   </a>
 </p>
 <h2 align="center">WHAT IS COOGGER</h2>
