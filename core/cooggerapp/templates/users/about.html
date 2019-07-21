@@ -2,21 +2,12 @@
     {% block useright %}
         {% if about %}
             <div general="position:center width:100">
-            {% if current_user == request.user %}
-                <div general="position:center width:100">
-                    <form default="form" general="flex width:100 flex:fd-c"   method="post" action="{% url 'userabout' current_user %}">
-                        {% csrf_token %} {{ about }} {{ about.media }}
-                        <input general="flex flex:jc-c flex:as-c" default="input" type="submit" value="Share">
-                    </form>
-                </div>
-            {% else %}
                 <div default="paragraph pm" 
                 mobile-l="width:98" tablet="width:80" 
                 laptop="width:40" laptop-l="width:70" 
                 general="width:100" style="padding: 6px;">
                     {% load django_md_editor %} {{ about|markdown_to_html:"about"|safe }}
                 </div>
-            {% endif %}
             {% else %}
                 <div general="flex text:m position:center bg:white flex:jc-c flex:ai-c"  mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70" style="height:20vh;">
                     <div general="flex position:center flex:jc-c" mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70" >

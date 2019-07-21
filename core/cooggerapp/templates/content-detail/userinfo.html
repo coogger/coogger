@@ -5,7 +5,13 @@
     <div general="flex text:s flex:fd-c"  class="duread-li">
         <a general="flex" title="{{ current_user  }}" href="/@{{ current_user }}"
           style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-      @<span id="username">{{ current_user  }}</span>
+      <span id="username">
+          {% if current_user.first_name %}
+            {{ current_user.first_name }} {{ current_user.last_name }}
+          {% else %}
+            @{{ current_user }}
+          {% endif %}
+      </span>
     </a>
         <div general="color:secondary">
           <i class="fas fa-clock"></i>

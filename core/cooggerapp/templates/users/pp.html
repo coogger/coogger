@@ -1,16 +1,23 @@
 {% load django_follow_system_tags %}
 {% load coogger_tags %}
-<div general="flex flex:fd-c" class="cover_image">
-    <div general="flex flex:jc-c">
-        <div general="flex flex:fd-c br:circle" >
-            <img general="flex flex:jc-c br:4"  src="{{ current_user.githubauthuser.avatar_url }}" 
-            class="useruserimg" style="padding: 2px;" id="useruserimg"></img>
-        </div>
+<div general="width:30 flex flex:fd-c flex:jc-c" class="cover_image"
+    mobile-l="width:100"
+    mobile-m="width:100"
+    mobile-s="width:100"
+    tablet="width:100"
+    laptop="width:36">
+    <div general="flex flex:fd-c br:circle" >
+        <img general="flex flex:jc-c br:4"  src="{{ current_user.githubauthuser.avatar_url }}" 
+        class="useruserimg" style="padding: 2px;" id="useruserimg"></img>
     </div>
     <h1 general="flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white" >
-        <a general="flex color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}"
-        style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-      @{{ current_user }}</a>
+        <a general="flex color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+            {% if current_user.first_name %}
+                {{ current_user.first_name }} {{ current_user.last_name }}
+            {% else %}
+                @{{ current_user }}
+            {% endif %}
+        </a>
     </h1>
     <div general="flex flex:jc-c">
         <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
@@ -33,16 +40,19 @@
     {% if request.user != current_user and request.user.is_authenticated %}
         {% if request.user|is_follow:current_user %}
             <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover"   
-              style="cursor:pointer;padding: 3px 30px;">
+            style="cursor:pointer;padding: 3px 30px;">
                 <div general="text:m color:white" id="follow">Unfollow</div>
             </div>
         {% else %}
             <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover"   
-              style="cursor:pointer;padding: 3px 30px;">
+            style="cursor:pointer;padding: 3px 30px;">
                 <div general="text:m color:white" id="follow">Follow</div>
             </div>
         {% endif %}
     {% endif %}
     {% include 'users/footer.html' %}
+    <h4 general="width:80 position:center flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
+        <span general="text:s">{{ current_user.userprofile.description|default:"" }}</span>
+    </h4>
 </div>
 

@@ -11,6 +11,7 @@ from django.utils.timezone import now
 from django.db.models import F
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
+from django.db.utils import IntegrityError
 
 # model
 from ..models import (UTopic, Issue)

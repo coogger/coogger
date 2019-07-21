@@ -27,10 +27,24 @@ class OtherAddressesOfUsers(models.Model):
 
     
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = EditorMdField(blank=True, null=True)
+    user = models.OneToOneField(
+        User, 
+        on_delete=models.CASCADE)
+    about = EditorMdField(
+        help_text="Write a long article about yourself, see; /u/@your_username/about/",
+        verbose_name="About Yourself",
+        blank=True, 
+        null=True)
+    description = models.CharField(
+        help_text="Write something short about yourself, this will appear in your profile.",
+        max_length=260, 
+        blank=True, 
+        null=True)
     address = models.ManyToManyField(
         OtherAddressesOfUsers,
         blank=True,
     )
-    email_permission = models.BooleanField(default=True)
+    email_permission = models.BooleanField(
+        help_text="Allow email notifications.",
+        default=True
+        )
