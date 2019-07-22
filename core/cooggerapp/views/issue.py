@@ -30,28 +30,37 @@ from .utils import paginator
 # TODO if requests come same url, and query does then it should be an update
 
 class IssueView(TemplateView):
+    model = Issue
     template_name = "issue/index.html"
 
     def get_context_data(self, username, utopic_permlink, **kwargs):
+        context = super().get_context_data(**kwargs)
         user = User.objects.get(username=username)
         utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
-        context = super().get_context_data(**kwargs)
-        get_queryset = self.get_queryset(user, utopic)
+        queryset = self.get_queryset(utopic)
         context["current_user"] = user
-        context["queryset"] = paginator(self.request, get_queryset)
+        context["queryset"] = paginator(self.request, queryset)
         context["utopic"] = utopic
-        if get_queryset.exists():
-            context["last_update"] = get_queryset[0].created
+        if queryset.exists():
+            context["last_update"] = queryset[0].created
         return context
 
-    def get_queryset(self, user, utopic):
-        return Issue(user=user, utopic=utopic).get_open_issues
+    def get_queryset(self, utopic):
+        return self.model.objects.filter(
+            utopic=utopic,
+            status="open", 
+            reply=None
+        )
 
 
 class ClosedIssueView(IssueView):
 
-    def get_queryset(self, user, utopic):
-        return Issue(user=user, utopic=utopic).get_closed_issues
+    def get_queryset(self, utopic):
+        return self.model.objects.filter(
+            utopic=utopic,
+            status="closed", 
+            reply=None
+        )
 
 
 class NewIssue(LoginRequiredMixin, View):
@@ -78,6 +87,10 @@ class NewIssue(LoginRequiredMixin, View):
                 return self.get(request, username, utopic_permlink)
             form.user = request.user
             form.utopic = utopic
+            form.issue_id = Issue.objects.filter(
+                utopic=form.utopic,
+                reply=None
+            ).count() + 1
             form.save()
             if request.user != user:
                 self.form_class.send_mail(form)
@@ -125,13 +138,35 @@ class UpdateIssue(LoginRequiredMixin, UpdateView):
         )
 
 
-
 class DetailIssue(View):
+    model = Issue
     template_name = "issue/detail.html"
-    form_class = IssueReplyForm
+    reply_form_class = IssueReplyForm
+    #fields that remain the same when commented.
+    same_fields = [
+        "title",
+        "utopic",
+    ]
+    #json respon fields after commented
+    response_field = [
+        "id",
+        "user.username",
+        "utopic.permlink",
+        "parent_permlink",
+        "parent_user",
+        "created",
+        "reply_count",
+        "status",
+        "reply_id",
+        "body",
+        "title",
+        "permlink",
+        "user.githubauthuser.avatar_url",
+        "get_absolute_url",
+    ]
 
     def save_view(self, request, id):
-        dj_query, created = DjangoViews.objects.get_or_create(
+        get_view, created = DjangoViews.objects.get_or_create(
             content_type=ContentType.objects.get(
                 app_label="cooggerapp", 
                 model="issue"
@@ -139,63 +174,58 @@ class DetailIssue(View):
             object_id=id
         )
         try:
-            dj_query.ips.add(request.ip_model)
+            get_view.ips.add(request.ip_model)
         except IntegrityError:
             pass
 
+    def get_object(self, username, utopic_permlink, permlink):
+        return get_object_or_404(
+            self.model, 
+            utopic__user__username=username,
+            utopic__permlink=utopic_permlink,
+            permlink=permlink
+        )
+
     def get(self, request, username, utopic_permlink, permlink):
-        user = User.objects.get(username=username)
-        utopic = UTopic.objects.get(user=user, permlink=utopic_permlink)
-        issue = Issue.objects.get(utopic=utopic, permlink=permlink)
+        issue = self.get_object(username, utopic_permlink, permlink)
         self.save_view(request, issue.id)
         context = dict(
-            reply_form=self.form_class,
-            current_user=user,
+            reply_form=self.reply_form_class,
+            current_user=issue.user,
             queryset=issue,
-            utopic=utopic,
+            utopic=issue.utopic,
             last_update=issue.last_update
         )
         return render(request, self.template_name, context)
 
     @method_decorator(login_required)
     def post(self, request, username, utopic_permlink, permlink):
-        print(username, utopic_permlink, permlink)
-        if request.is_ajax:
-            reply_form = self.form_class(request.POST)
-            if reply_form.is_valid():
-                current_user = User.objects.get(username=username)
-                utopic = UTopic.objects.filter(user=current_user, permlink=utopic_permlink)[0]
-                issue = Issue.objects.get(utopic=utopic, permlink=permlink)
-                reply_form = reply_form.save(commit=False)
-                reply_form.user = request.user
-                reply_form.utopic = utopic
-                reply_form.reply = issue
-                reply_form.save()
-                return HttpResponse(
-                    json.dumps(
-                        dict(
-                            id=reply_form.id,
-                            username=str(reply_form.user),
-                            utopic_permlink=reply_form.utopic.permlink,
-                            parent_permlink=reply_form.parent_permlink,
-                            parent_user=str(reply_form.parent_user),
-                            created=str(reply_form.created),
-                            reply_count=reply_form.reply_count,
-                            status=reply_form.status,
-                            reply=reply_form.reply_id,
-                            body=reply_form.body,
-                            title=reply_form.title,
-                            permlink=reply_form.permlink,
-                            avatar_url=reply_form.user.githubauthuser.avatar_url,
-                            get_absolute_url=reply_form.get_absolute_url
-                            )
-                        )
-                    )
+        reply_form = self.reply_form_class(request.POST)
+        if reply_form.is_valid():
+            issue = self.get_object(username, utopic_permlink, permlink)
+            reply_form = reply_form.save(commit=False)
+            reply_form.user = request.user
+            for field in self.same_fields:
+                setattr(reply_form, field, getattr(issue, field))
+            reply_form.reply = issue
+            reply_form.status = None
+            reply_form.save()
+            context = dict()
+            for field in self.response_field:
+                s = field.split(".")
+                if len(s) == 1:
+                    context[field] = str(getattr(reply_form, field))
+                else:
+                    obj = reply_form
+                    for f in s:
+                        obj = getattr(obj, f)
+                    value = str(obj)
+                    context[s[-1]] = value
+            return HttpResponse(json.dumps(context))
 
 
-class OpenIssue(View):
+class OpenIssue(LoginRequiredMixin, View):
 
-    @method_decorator(login_required)
     def get(self, request, username, utopic_permlink, permlink):
         user = User.objects.get(username=username)
         utopic_obj = UTopic.objects.filter(user=user, permlink=utopic_permlink)

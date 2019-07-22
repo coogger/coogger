@@ -53,7 +53,7 @@ class DetailUserTopic(TemplateView):
 
 
 class CreateUTopic(LoginRequiredMixin, View):
-    template_name = "post/utopic.html"
+    template_name = "users/topic/create_utopic.html"
     form_class = UTopicForm
     model = UTopic
 
@@ -99,7 +99,7 @@ class CreateUTopic(LoginRequiredMixin, View):
 
 
 class UpdateUTopic(LoginRequiredMixin, View):
-    template_name = "post/updateutopic.html"
+    template_name = "users/topic/update_utopic.html"
     form_class = UTopicForm
     model = UTopic
 

@@ -13,7 +13,7 @@ urlpatterns = [
     ),
     path(
         '@<username>/<permlink>/', 
-        ContentDetail.as_view(), 
+        Detail.as_view(), 
         name="content-detail"
     ),
     path(

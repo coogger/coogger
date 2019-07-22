@@ -33,12 +33,39 @@ from ..models.utils import send_mail
 #python
 import json
 
-class ContentDetail(View):
+class Detail(View):
+    model = Content
     template_name = "content/detail/detail.html"
-    form_class = ContentReplyForm
+    reply_form_class = ContentReplyForm
+    #fields that remain the same when commented.
+    same_fields = [
+        "title",
+        "utopic", 
+        "language", 
+        "category", 
+        "tags",
+        "status", 
+    ]
+    #json respon fields after commented
+    response_field = [
+        "id",
+        "user.username",
+        "utopic.permlink",
+        "parent_permlink",
+        "parent_user",
+        "created",
+        "reply_count",
+        "status",
+        "reply_id",
+        "body",
+        "title",
+        "permlink",
+        "user.githubauthuser.avatar_url",
+        "get_absolute_url",
+    ]
 
     def save_view(self, request, id):
-        dj_query, created = DjangoViews.objects.get_or_create(
+        get_view, created = DjangoViews.objects.get_or_create(
             content_type=ContentType.objects.get(
                 app_label="cooggerapp", 
                 model="content"
@@ -46,39 +73,36 @@ class ContentDetail(View):
             object_id=id
         )
         try:
-            dj_query.ips.add(request.ip_model)
+            get_view.ips.add(request.ip_model)
         except IntegrityError:
             pass
 
+    def get_object(self, username, permlink):
+        return get_object_or_404(Content, user__username=username, permlink=permlink)
+
     def get(self, request, username, permlink):
-        user = User.objects.get(username=username)
-        content = get_object_or_404(Content, user=user, permlink=permlink)
+        content = self.get_object(username, permlink)
         self.save_view(request, content.id)
-        return render(
-            request, 
-            self.template_name, 
-            dict(
-                current_user=user,
-                urloftopic=permlink,
-                nameoflist=content.utopic,
-                queryset=content,
-                reply_form=self.form_class,
-            )
+        context = dict(
+            current_user=content.user,
+            urloftopic=permlink,
+            nameoflist=content.utopic,
+            queryset=content,
+            reply_form=self.reply_form_class,
         )
+        return render(request, self.template_name, context)
 
     @method_decorator(login_required)
     def post(self, request, username, permlink, *args, **kwargs):
-        parent_content = Content.objects.get(user__username=username, permlink=permlink)
-        reply_form = self.form_class(request.POST)
+        "This function works when making a new comment/reply"
+        parent_content = self.get_object(username, permlink)
+        reply_form = self.reply_form_class(request.POST)
         if reply_form.is_valid():
             reply_form = reply_form.save(commit=False)
             reply_form.user = request.user
-            reply_form.utopic = parent_content.utopic
-            reply_form.language = parent_content.language
-            reply_form.category = parent_content.category
-            reply_form.tags = parent_content.tags
-            reply_form.status = parent_content.status
             reply_form.reply = parent_content
+            for field in self.same_fields:
+                setattr(reply_form, field, getattr(parent_content, field))
             reply_form.save()
             email_list = list()
             for obj in parent_content.get_all_reply_obj():
@@ -94,30 +118,22 @@ class ContentDetail(View):
                 ),
                 to=email_list
             )
-            return HttpResponse(
-                json.dumps(
-                    dict(
-                        id=reply_form.id,
-                        username=str(reply_form.user),
-                        utopic_permlink=reply_form.utopic.permlink,
-                        parent_permlink=reply_form.parent_permlink,
-                        parent_user=str(reply_form.parent_user),
-                        created=str(reply_form.created),
-                        reply_count=reply_form.reply_count,
-                        status=reply_form.status,
-                        reply=reply_form.reply_id,
-                        body=reply_form.body,
-                        title=reply_form.title,
-                        permlink=reply_form.permlink,
-                        avatar_url=reply_form.user.githubauthuser.avatar_url,
-                        get_absolute_url=reply_form.get_absolute_url
-                        )
-                    )
-                )
+            context = dict()
+            for field in self.response_field:
+                s = field.split(".")
+                if len(s) == 1:
+                    context[field] = str(getattr(reply_form, field))
+                else:
+                    obj = reply_form
+                    for f in s:
+                        obj = getattr(obj, f)
+                    value = str(obj)
+                    context[s[-1]] = value
+            return HttpResponse(json.dumps(context))
 
 
 @method_decorator(xframe_options_exempt, name="dispatch")
-class Embed(ContentDetail):
+class Embed(Detail):
     template_name = "content-detail/embed.html"
 
 
@@ -251,7 +267,6 @@ class Update(LoginRequiredMixin, View):
                     if queryset[0].reply is not None:
                         "if its a comment"
                         queryset.update(
-                            title=form.title,
                             body=form.body,
                             image_address=get_first_image(form.body),
                             last_update=timezone.now(),

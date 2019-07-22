@@ -89,7 +89,7 @@ function get_data_from_cooggerapi(apiUrl){
         <div general='flex flex:ai-fs bg:white'>
         <a general="flex" title='${comment.username}' href='/@${comment.username}'
           style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
-            <img general='br:circle position:left' id='detail_profile_image' src='${comment.avatar_url}' class='useruserimg' style='height:  40px;width:  40px;margin:  initial;'>
+            <img general='br:circle position:left' id='detail_profile_image' src='${comment.avatar_url}' style='height:  40px;width:  40px;margin:  initial;'>
           </a>
           <div general='text:s' general='flex flex:fd-c' class='duread-li'>
               <a general="flex" title='${comment.username}' href='/@${comment.username}'

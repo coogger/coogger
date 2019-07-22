@@ -39,7 +39,7 @@ class ContentForm(forms.ModelForm):
             context=dict(
                 get_absolute_url=form.get_absolute_url
             ),
-            to=[u.user.email for u in form.user.follow.follower if u.user.email], 
+            to=[u.user for u in form.user.follow.follower if u.user.email], 
         )
 
 
@@ -85,7 +85,7 @@ class IssueForm(forms.ModelForm):
             context=dict(
                 form=form,
             ),
-            to=[form.utopic.user.email]
+            to=[form.utopic.user]
         )
 
 

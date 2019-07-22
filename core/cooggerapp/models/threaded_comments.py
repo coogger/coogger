@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
-from django.db.utils import IntegrityError
 
 # python
 import random
@@ -39,23 +38,41 @@ class ThreadedComments(models.Model):
     def __str__(self):
         return f"@{self.user}/{self.permlink}"
 
+    def is_exists(self):
+        #check with unique_together
+        parameters = dict()
+        for field in self._meta.unique_together:
+            if isinstance(field, (tuple, list)):
+                for f in field:
+                    parameters[f] = getattr(self, f)
+            else:
+                parameters[field] = getattr(self, field)
+        return self.__class__.objects.filter(**parameters).exists()
+
+    def generate_permlink(self):
+        def new_permlink():
+            if self.reply is not None:
+                #if it is a comment
+                return f"re-{str(self.user)}-re-{str(self.reply.user)}-{slugify(self.title.lower())}"
+            return slugify(self.title.lower())
+        if not self.permlink:
+            self.permlink = new_permlink()
+            while True:
+                if self.is_exists():
+                    self.permlink = self.permlink + "-" + str(random.randrange(9999999))
+                else:
+                    return self.permlink
+        return self.permlink
+
     def save(self, *args, **kwargs):
         if self.reply is not None:
-            "if it is a comment"
-            self.title = self.get_parent.title
-            self.permlink = f"re-{str(self.user)}-re-{str(self.reply.user)}-{slugify(self.title.lower())}"
+            #if it is a comment
             for obj in self.get_all_reply_obj():
                 obj.update(
                         reply_count=(F("reply_count") + 1)
                     )
-        else:
-            self.permlink = slugify(self.title.lower())
-        while True:
-            try:
-                super().save(*args, **kwargs)
-                break
-            except IntegrityError:
-                self.permlink = self.permlink + "-" + str(random.randrange(9999999))
+        self.permlink = self.generate_permlink()
+        super().save(*args, **kwargs)
 
     def get_all_reply_obj(self):
         reply_id = self.reply_id
