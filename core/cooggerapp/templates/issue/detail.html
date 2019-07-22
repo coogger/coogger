@@ -12,16 +12,7 @@
             {{ queryset.created|timesince }}
         </div>
         <div general="position:right text:s bg:white brc:muted border:1 br:2" style="padding: 2px 6px;">
-            {% include 'issue/bookmark.html' %}
-            {% include 'vote.html' %}
-            <div general='text:s color:secondary flex flex:ai-c' class='duread-li'>
-              <i class="fas fa-reply-all"></i>
-              <div style='margin-left: 6px;'>{{ queryset.reply_count }}</div>
-          </div>
-          <div general='text:s color:secondary flex flex:ai-c' class='duread-li'>
-              <i class="fas fa-eye"></i>
-              <div style='margin-left: 6px;'>{{ queryset.views }}</div>
-          </div>
+            {% include "common/interaction_and_counter.html" %}
         </div>
         <div general="flex flex:ai-c">
           <i class="fa fa-edit fa"></i>

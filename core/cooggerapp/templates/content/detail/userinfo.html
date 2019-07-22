@@ -21,7 +21,7 @@
     {% with queryset.user as user %}
         {% include 'github-redirect.html' %}
       {% endwith %}
-      {% include 'content-detail/edit.html' %}
+      {% include 'content/detail/edit.html' %}
   </div>
   <div general="fd-s">
       {% if request.user != current_user and request.user.is_authenticated %}

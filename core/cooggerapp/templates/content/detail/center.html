@@ -2,8 +2,8 @@
 {% load coogger_tags %}
 <div general="width:50" tablet="width:80" mobile-l="width:80" mobile-m="width:90" mobile-s="width:98">
     <div style="padding: 12px;">
-        {% include 'content-detail/contentinfo.html' %}
-        {% include 'content-detail/userinfo.html' %}
+        {% include 'content/detail/contentinfo.html' %}
+        {% include 'content/detail/userinfo.html' %}
         <h1 general="position:center text:xxl" id="title" style="margin: 12px auto;">
           <strong>{{ queryset.title|title }}</strong>
         </h1>

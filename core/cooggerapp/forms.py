@@ -43,13 +43,6 @@ class ContentForm(forms.ModelForm):
         )
 
 
-class ReplyForm(forms.ModelForm):
-
-    class Meta:
-        model = Content
-        fields = ["title", "body"]
-
-
 class AddressesForm(forms.ModelForm):
     class Meta:
         model = OtherAddressesOfUsers
@@ -79,7 +72,7 @@ class ReportsForm(forms.ModelForm):
         model = ReportModel
         fields = ["complaints", "add"]
 
-class NewIssueForm(forms.ModelForm):
+class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
         fields = ["title", "body"]
@@ -96,7 +89,7 @@ class NewIssueForm(forms.ModelForm):
         )
 
 
-class NewIssueReplyForm(forms.ModelForm):
+class IssueReplyForm(forms.ModelForm):
     body = forms.CharField(
         widget=forms.Textarea,
         help_text="problem | question | or anything else")
@@ -106,15 +99,7 @@ class NewIssueReplyForm(forms.ModelForm):
         fields = ["body"]
 
 
-class NewContentReplyForm(forms.ModelForm):
-    body = forms.CharField(
-        widget=forms.Textarea,
-        help_text="Your content | problem | question | or anything else")
-        
-    class Meta:
+class ContentReplyForm(IssueReplyForm):
+
+    class Meta(IssueReplyForm.Meta):
         model = Content
-        fields = ["body"]
-
-    
-
-

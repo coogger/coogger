@@ -3,7 +3,7 @@ from django.urls import path
 from django.shortcuts import redirect
 
 # views
-from ..views.detail import Embed, Detail, TreeDetail
+from ..views.content import *
 
 urlpatterns = [
     path(
@@ -13,13 +13,22 @@ urlpatterns = [
     ),
     path(
         '@<username>/<permlink>/', 
-        Detail.as_view(), 
-        name="detail"
+        ContentDetail.as_view(), 
+        name="content-detail"
     ),
     path(
         '@<username>/<topic_permlink>/tree/<hash>/', 
         TreeDetail.as_view(), 
         name="tree-detail"
     ),
-    
+    path(
+        'post/create/<utopic_permlink>/', 
+        Create.as_view(), 
+        name="create"
+    ),
+    path(
+        'post/update/@<username>/<permlink>/', 
+        Update.as_view(), 
+        name="update"
+    ),
 ]

@@ -70,7 +70,7 @@ class Content(ThreadedComments, VoteView):
 
     @property
     def get_absolute_url(self):
-        return reverse("detail", kwargs=dict(username=str(self.user), permlink=self.permlink))
+        return reverse("content-detail", kwargs=dict(username=str(self.user), permlink=self.permlink))
 
     @property
     def get_dor(self):

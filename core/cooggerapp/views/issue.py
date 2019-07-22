@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView
 from django.views import View
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
@@ -19,7 +19,7 @@ from ..models import (UTopic, Issue)
 from django_page_views.models import DjangoViews
 
 # form
-from ..forms import NewIssueForm, NewIssueReplyForm
+from ..forms import IssueForm, IssueReplyForm
 
 # python
 import json
@@ -56,7 +56,7 @@ class ClosedIssueView(IssueView):
 
 class NewIssue(LoginRequiredMixin, View):
     template_name = "issue/new.html"
-    form_class = NewIssueForm
+    form_class = IssueForm
     
     def get(self, request, username, utopic_permlink):
         user = User.objects.get(username=username)
@@ -101,20 +101,20 @@ class UpdateIssue(LoginRequiredMixin, UpdateView):
         username = self.kwargs.get("username")
         utopic_permlink = self.kwargs.get("utopic_permlink")
         permlink = self.kwargs.get("permlink")
-        return self.model.objects.get(
+        return get_object_or_404(
+            self.model, 
             user=self.request.user, 
-            utopic=UTopic.objects.get(
-                user__username=username, 
-                permlink=utopic_permlink
-            ),
+            utopic__user__username=username,
+            utopic__permlink=utopic_permlink,
             permlink=permlink
         )
 
-    def render_to_response(self, context, **response_kwargs):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         object = context.get("object")
         context["current_user"] = object.utopic.user
         context["utopic"] = object.utopic
-        return super().render_to_response(context, **response_kwargs)
+        return context
 
     def get_success_url(self):
         return reverse("detail-issue", kwargs=dict(
@@ -128,7 +128,7 @@ class UpdateIssue(LoginRequiredMixin, UpdateView):
 
 class DetailIssue(View):
     template_name = "issue/detail.html"
-    form_class = NewIssueReplyForm
+    form_class = IssueReplyForm
 
     def save_view(self, request, id):
         dj_query, created = DjangoViews.objects.get_or_create(
