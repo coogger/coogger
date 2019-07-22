@@ -9,6 +9,7 @@ from ..views.issue import (
     ClosedIssue,
     OpenIssue,
     ClosedIssueView,
+    UpdateIssue
     )
 
 urlpatterns = [
@@ -26,6 +27,11 @@ urlpatterns = [
         '@<username>/<utopic_permlink>/issues/new/', 
         NewIssue.as_view(), 
         name="new-issue"
+    ),
+    path(
+        '@<username>/<utopic_permlink>/issues/<permlink>/update/', 
+        UpdateIssue.as_view(), 
+        name="update-issue"
     ),
     path(
         '@<username>/<utopic_permlink>/issues/<permlink>/', 

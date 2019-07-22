@@ -12,6 +12,7 @@ from django.db.models import F
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.db.utils import IntegrityError
+from django.views.generic.edit import UpdateView
 
 # model
 from ..models import (UTopic, Issue)
@@ -60,7 +61,7 @@ class NewIssue(LoginRequiredMixin, View):
     def get(self, request, username, utopic_permlink):
         user = User.objects.get(username=username)
         context = dict(
-            issue_new_form=self.form_class,
+            form=self.form_class,
             current_user=user,
             utopic=UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
         )
@@ -69,26 +70,60 @@ class NewIssue(LoginRequiredMixin, View):
     def post(self, request, username, utopic_permlink):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
-        issue_new_form = self.form_class(request.POST)
-        if issue_new_form.is_valid():
-            issue_new_form = issue_new_form.save(commit=False)
-            if not issue_new_form.title:
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            if not form.title:
                 messages.error(request, "You can not pass the title field")
                 return self.get(request, username, utopic_permlink)
-            issue_new_form.user = request.user
-            issue_new_form.utopic = utopic
-            issue_new_form.save()
+            form.user = request.user
+            form.utopic = utopic
+            form.save()
             if request.user != user:
-                self.form_class.send_mail(issue_new_form)
+                self.form_class.send_mail(form)
             return redirect(
                 reverse(
                     "detail-issue", 
                     kwargs=dict(
                         username=username,
                         utopic_permlink=utopic_permlink,
-                        permlink=issue_new_form.permlink)
+                        permlink=form.permlink)
                     )
                 )
+
+
+class UpdateIssue(LoginRequiredMixin, UpdateView):
+    model = Issue
+    fields = ["title", "body"]
+    template_name = "issue/new.html"
+
+    def get_object(self):
+        username = self.kwargs.get("username")
+        utopic_permlink = self.kwargs.get("utopic_permlink")
+        permlink = self.kwargs.get("permlink")
+        return self.model.objects.get(
+            user=self.request.user, 
+            utopic=UTopic.objects.get(
+                user__username=username, 
+                permlink=utopic_permlink
+            ),
+            permlink=permlink
+        )
+
+    def render_to_response(self, context, **response_kwargs):
+        object = context.get("object")
+        context["current_user"] = object.utopic.user
+        context["utopic"] = object.utopic
+        return super().render_to_response(context, **response_kwargs)
+
+    def get_success_url(self):
+        return reverse("detail-issue", kwargs=dict(
+                username=self.kwargs.get("username"),
+                utopic_permlink=self.kwargs.get("utopic_permlink"),
+                permlink=self.kwargs.get("permlink"),
+            )
+        )
+
 
 
 class DetailIssue(View):

@@ -23,7 +23,12 @@
               <div style='margin-left: 6px;'>{{ queryset.views }}</div>
           </div>
         </div>
-        
+        <div general="flex flex:ai-c">
+          <i class="fa fa-edit fa"></i>
+          <a href="{% url 'update-issue' request.user queryset.utopic.permlink queryset.permlink %}">
+            Edit
+          </a>
+        </div>
       </div>
       <h1 general="position:center">{{ queryset.title|title }}</h1>
       <div general="brc:muted border:1 br:2" style="padding: 6px;">
