@@ -65,7 +65,7 @@ def follow_and_repos_update(sender, instance, created, **kwargs):
             context=dict(
                 user=user
             ),
-            to=[user.email], 
+            to=[user], 
         )   
 
 @receiver(post_save, sender=User)
@@ -81,9 +81,8 @@ def send_mail_to_follow(sender, **kwargs):
         for follow_id in kwargs.get("pk_set", None):
             to = list()
             for u in Follow.objects.get(id=follow_id).user.follow.follower:
-                email = u.user.email
-                if email:
-                    to.append(email)
+                if u.user.email:
+                    to.append(u.user)
             send_mail(
                 subject=f"{instance.user} started to follow you | coogger".title(), 
                 template_name="email/follow.html", 
