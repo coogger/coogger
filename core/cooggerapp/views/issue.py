@@ -6,17 +6,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponse
 from django.utils.timezone import now
 from django.db.models import F
 from django.contrib import messages
-from django.contrib.contenttypes.models import ContentType
-from django.db.utils import IntegrityError
 from django.views.generic.edit import UpdateView
 
-# model
+#core.cooggerapp.model
 from ..models import (UTopic, Issue)
-from django_page_views.models import DjangoViews
+
+#core.cooggerapp.views 
+from ..views.generic.detail import DetailPostView
 
 # form
 from ..forms import IssueForm, IssueReplyForm
@@ -92,8 +91,6 @@ class NewIssue(LoginRequiredMixin, View):
                 reply=None
             ).count() + 1
             form.save()
-            if request.user != user:
-                self.form_class.send_mail(form)
             return redirect(
                 reverse(
                     "detail-issue", 
@@ -138,10 +135,11 @@ class UpdateIssue(LoginRequiredMixin, UpdateView):
         )
 
 
-class DetailIssue(View):
+class DetailIssue(DetailPostView, View):
     model = Issue
+    model_name = "issue"
     template_name = "issue/detail.html"
-    reply_form_class = IssueReplyForm
+    form_class = IssueReplyForm
     #fields that remain the same when commented.
     same_fields = [
         "title",
@@ -164,19 +162,9 @@ class DetailIssue(View):
         "user.githubauthuser.avatar_url",
         "get_absolute_url",
     ]
-
-    def save_view(self, request, id):
-        get_view, created = DjangoViews.objects.get_or_create(
-            content_type=ContentType.objects.get(
-                app_label="cooggerapp", 
-                model="issue"
-            ), 
-            object_id=id
-        )
-        try:
-            get_view.ips.add(request.ip_model)
-        except IntegrityError:
-            pass
+    update_field = dict(
+        status=None
+    )
 
     def get_object(self, username, utopic_permlink, permlink):
         return get_object_or_404(
@@ -186,58 +174,32 @@ class DetailIssue(View):
             permlink=permlink
         )
 
-    def get(self, request, username, utopic_permlink, permlink):
-        issue = self.get_object(username, utopic_permlink, permlink)
-        self.save_view(request, issue.id)
-        context = dict(
-            reply_form=self.reply_form_class,
-            current_user=issue.user,
-            queryset=issue,
-            utopic=issue.utopic,
-            last_update=issue.last_update
-        )
-        return render(request, self.template_name, context)
-
-    @method_decorator(login_required)
-    def post(self, request, username, utopic_permlink, permlink):
-        reply_form = self.reply_form_class(request.POST)
-        if reply_form.is_valid():
-            issue = self.get_object(username, utopic_permlink, permlink)
-            reply_form = reply_form.save(commit=False)
-            reply_form.user = request.user
-            for field in self.same_fields:
-                setattr(reply_form, field, getattr(issue, field))
-            reply_form.reply = issue
-            reply_form.status = None
-            reply_form.save()
-            context = dict()
-            for field in self.response_field:
-                s = field.split(".")
-                if len(s) == 1:
-                    context[field] = str(getattr(reply_form, field))
-                else:
-                    obj = reply_form
-                    for f in s:
-                        obj = getattr(obj, f)
-                    value = str(obj)
-                    context[s[-1]] = value
-            return HttpResponse(json.dumps(context))
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = context.get("queryset")
+        context["current_user"] = queryset.utopic.user
+        context["utopic"] = queryset.utopic
+        context["last_update"] = queryset.last_update
+        context["nameoflist"] = queryset.utopic
+        return context
 
 
 class OpenIssue(LoginRequiredMixin, View):
 
     def get(self, request, username, utopic_permlink, permlink):
-        user = User.objects.get(username=username)
-        utopic_obj = UTopic.objects.filter(user=user, permlink=utopic_permlink)
+        utopic = get_object_or_404(
+            UTopic, user__username=username, 
+            permlink=utopic_permlink)
         issue = Issue.objects.filter(
-            utopic=utopic_obj[0], 
+            utopic=utopic, 
             permlink=permlink
         )
-        if request.user == user or request.user == issue[0].user:
+        current_username = str(request.user)
+        if current_username == username or current_username == str(issue[0].user):
             issue.update(
                 status=self.get_status,
                 last_update=now())
-            self.update_utopic(utopic_obj)
+            self.update_utopic(utopic)
             return redirect(
                 reverse(
                     "detail-issue", 
@@ -248,11 +210,10 @@ class OpenIssue(LoginRequiredMixin, View):
                     )
                 )
     
-    def update_utopic(self, utopic_obj):
-        utopic_obj.update(
-            open_issue=(F("open_issue") + 1),
-            closed_issue=(F("closed_issue") - 1),
-        )
+    def update_utopic(self, utopic):
+        utopic.open_issue += 1
+        utopic.closed_issue -= 1
+        utopic.save()
 
     @property
     def get_status(self):
@@ -261,11 +222,10 @@ class OpenIssue(LoginRequiredMixin, View):
 
 class ClosedIssue(OpenIssue):
 
-    def update_utopic(self, utopic_obj):
-        utopic_obj.update(
-            open_issue=(F("open_issue") - 1),
-            closed_issue=(F("closed_issue") + 1),
-        )
+    def update_utopic(self, utopic):
+        utopic.open_issue -= 1
+        utopic.closed_issue += 1
+        utopic.save()
 
     @property
     def get_status(self):

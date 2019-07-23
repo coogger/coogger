@@ -17,7 +17,7 @@
         </div>
         <div general="flex flex:ai-c">
           <i class="fa fa-edit fa"></i>
-          <a href="{% url 'update-issue' request.user queryset.utopic.permlink queryset.permlink %}">
+          <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.permlink %}">
             Edit
           </a>
         </div>

@@ -4,12 +4,8 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.db.utils import IntegrityError
-from django.contrib.contenttypes.models import ContentType
 from django.views.generic.base import TemplateView
-from django.views.generic.detail import DetailView
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -21,22 +17,17 @@ from django.utils import timezone
 from ..models import Content, UTopic, Commit, Category, Topic
 from ..models.utils import ready_tags, dor, get_first_image
 
-#django libs
-from django_page_views.models import DjangoViews
+#core.cooggerapp.views 
+from ..views.generic.detail import DetailPostView
 
 #forms
-from ..forms import ContentReplyForm, ContentForm
+from ..forms import ContentReplyForm, ContentUpdateForm, ContentCreateForm
 
-#utils
-from ..models.utils import send_mail
-
-#python
-import json
-
-class Detail(View):
+class Detail(DetailPostView, View):
     model = Content
+    model_name = "content"
     template_name = "content/detail/detail.html"
-    reply_form_class = ContentReplyForm
+    form_class = ContentReplyForm
     #fields that remain the same when commented.
     same_fields = [
         "title",
@@ -64,72 +55,16 @@ class Detail(View):
         "get_absolute_url",
     ]
 
-    def save_view(self, request, id):
-        get_view, created = DjangoViews.objects.get_or_create(
-            content_type=ContentType.objects.get(
-                app_label="cooggerapp", 
-                model="content"
-            ), 
-            object_id=id
-        )
-        try:
-            get_view.ips.add(request.ip_model)
-        except IntegrityError:
-            pass
-
     def get_object(self, username, permlink):
         return get_object_or_404(Content, user__username=username, permlink=permlink)
 
-    def get(self, request, username, permlink):
-        content = self.get_object(username, permlink)
-        self.save_view(request, content.id)
-        context = dict(
-            current_user=content.user,
-            urloftopic=permlink,
-            nameoflist=content.utopic,
-            queryset=content,
-            reply_form=self.reply_form_class,
-        )
-        return render(request, self.template_name, context)
-
-    @method_decorator(login_required)
-    def post(self, request, username, permlink, *args, **kwargs):
-        "This function works when making a new comment/reply"
-        parent_content = self.get_object(username, permlink)
-        reply_form = self.reply_form_class(request.POST)
-        if reply_form.is_valid():
-            reply_form = reply_form.save(commit=False)
-            reply_form.user = request.user
-            reply_form.reply = parent_content
-            for field in self.same_fields:
-                setattr(reply_form, field, getattr(parent_content, field))
-            reply_form.save()
-            email_list = list()
-            for obj in parent_content.get_all_reply_obj():
-                email = obj[0].user.email
-                if (obj[0].user != request.user) and (email) and (email not in email_list):
-                    email_list.append(email)
-            send_mail(
-                subject=f"{ request.user } left a comment on your post | Coogger", 
-                template_name="email/reply.html", 
-                context=dict(
-                    user=request.user,
-                    get_absolute_url=reply_form.get_absolute_url,
-                ),
-                to=email_list
-            )
-            context = dict()
-            for field in self.response_field:
-                s = field.split(".")
-                if len(s) == 1:
-                    context[field] = str(getattr(reply_form, field))
-                else:
-                    obj = reply_form
-                    for f in s:
-                        obj = getattr(obj, f)
-                    value = str(obj)
-                    context[s[-1]] = value
-            return HttpResponse(json.dumps(context))
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = context.get("queryset")
+        context["current_user"] = queryset.user
+        context["urloftopic"] = queryset.utopic.permlink
+        context["nameoflist"] = queryset.utopic
+        return context
 
 
 @method_decorator(xframe_options_exempt, name="dispatch")
@@ -157,8 +92,9 @@ def redirect_utopic(request, utopic_permlink):
 
 
 class Create(LoginRequiredMixin, View):
+    #TODO use createview class as inherit
     template_name = "content/post/create.html"
-    form_class = ContentForm
+    form_class = ContentCreateForm
     initial_template = "content/post/editor-note.html"
 
     def get(self, request, utopic_permlink, *args, **kwargs):
@@ -190,26 +126,6 @@ class Create(LoginRequiredMixin, View):
             form.utopic = user_topic[0]
             form.tags = ready_tags(form.tags) # make validation
             form.save()
-            self.form_class.send_mail(form)
-            Topic.objects.filter(
-                permlink=utopic_permlink
-            ).update(
-                how_many=(F("how_many") + 1)
-            ) # increae how_many in Topic model
-            user_topic.update(
-                how_many=(F("how_many") + 1),
-                total_dor=(F("total_dor") + dor(form.body))
-            ) # increase total dor in utopic
-            get_msg = request.POST.get("msg", None)
-            if get_msg == "Initial commit":
-                get_msg = f"{form.title} Published."
-            Commit(
-                user=form.user,
-                utopic=form.utopic,
-                content=form,
-                body=form.body,
-                msg=get_msg,
-            ).save()
             return redirect(
                 reverse(
                     "content-detail", 
@@ -223,8 +139,9 @@ class Create(LoginRequiredMixin, View):
 
 
 class Update(LoginRequiredMixin, View):
+    # TODO use updateview class as inherit
     template_name = "content/post/update.html"
-    form_class = ContentForm
+    form_class = ContentUpdateForm
     reply_form_class = ContentReplyForm
     model = Content
 

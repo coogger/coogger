@@ -35,7 +35,8 @@ class Issue(ThreadedComments, VoteView):
         choices=make_choices(ISSUE_CHOICES), 
         max_length=55, 
         help_text="Status",
-        null=True, blank=True,
+        null=True, 
+        blank=True,
     )
     issue_id = models.IntegerField(default=0)
 

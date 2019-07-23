@@ -12,7 +12,8 @@
             <div general="flex flex:ai-c">
               <div general="flex flex:ai-c">
                   <a general="color:primary text:m" href="/@{{ current_user }}">
-                    <img class="commit-user" general="br:4 color:muted" src="{{ current_user.githubauthuser.avatar_url }}">
+                    <img class="commit-user" general="br:4 color:muted" 
+                    src="{{ current_user.githubauthuser.avatar_url }}">
                   </a>
                   <i class="fas fa-book"></i>
                   <a general="color:primary text:m" href="{% url 'detail-utopic' utopic.permlink current_user %}">

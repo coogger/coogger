@@ -30,11 +30,10 @@ class HeadMixin:
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
 
-    def detail(self):
+    def content_detail(self):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
-        user = User.objects.get(username=username)
-        content = Content.objects.get(user=user, permlink=permlink)
+        content = Content.objects.get(user__username=username, permlink=permlink)
         keywords = ""
         for key in content.tags.split():
             keywords += key+", "
@@ -59,15 +58,6 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             keywords=topic.name,
             description=description,
             image=topic.image_address,
-        )
-
-    def activity(self):
-        username = self.kwargs.get("username")
-        return dict(
-            title=f"{username} - activity".capitalize(),
-            keywords=f"{username}, activity {username}, activity",
-            description=f"activity {username}".capitalize(),
-            image=None,
         )
 
     def comment(self):
