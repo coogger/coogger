@@ -20,27 +20,18 @@ class UTopicForm(forms.ModelForm):
         fields = ["name", "image_address", "definition", "tags", "address"]
 
 
-class ContentForm(forms.ModelForm):
+class ContentCreateForm(forms.ModelForm):
+    class Meta:
+        model = Content
+        fields = ["category", "language", "title", "body", "tags"]
+
+
+class ContentUpdateForm(ContentCreateForm):
     msg = forms.CharField(
         max_length=150, 
         label="Commit Message", 
         help_text="What has changed with this update?"
     )
-
-    class Meta:
-        model = Content
-        fields = ["category", "language", "title", "body", "tags"]
-    
-    @classmethod
-    def send_mail(cls, form):
-        send_mail(
-            subject = f"{form.user} publish a new content | coogger".title(),
-            template_name="email/post.html", 
-            context=dict(
-                get_absolute_url=form.get_absolute_url
-            ),
-            to=[u.user for u in form.user.follow.follower if u.user.email], 
-        )
 
 
 class AddressesForm(forms.ModelForm):
@@ -76,17 +67,6 @@ class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
         fields = ["title", "body"]
-
-    @classmethod
-    def send_mail(cls, form):
-        send_mail(
-            subject=f"{form.user} opened a new issue on your {form.utopic.name} topic | coogger".title(), 
-            template_name="email/new-issue.html", 
-            context=dict(
-                form=form,
-            ),
-            to=[form.utopic.user]
-        )
 
 
 class IssueReplyForm(forms.ModelForm):

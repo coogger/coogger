@@ -17,7 +17,6 @@
  <img alt="telegram" title="telegram" src="https://img.shields.io/badge/chat-telegram-green.svg?style=for-the-badge"/>
   </a>
 </p>
-<h2 align="center">WHAT IS COOGGER</h2>
 
 ### 🚀 Installation
 #### Before
