@@ -405,7 +405,7 @@ border-top: 1px solid #eaecee;
     margin-bottom: 12px;
     background-color: white;
   }
-  .topic-index{
+  .topic-index, .hsri{
     height: 70vh;
     overflow-y: auto;
     overflow-x: hidden;
@@ -414,14 +414,12 @@ border-top: 1px solid #eaecee;
     margin-right: 4%;
     padding: 0px 12px 12px 12px;
   }
+  .hsri{
+    margin-right: 0px;
+    margin-left: 4%;
+  }
   .trans-memo, .json_metadata{
   word-break: break-word;
-  }
-  .hli{
-    position: sticky;
-    top: 10vh;
-    height: 70vh;
-    margin-left: 4%;
   }
   .text3{
       text-overflow: ellipsis;

@@ -52,8 +52,12 @@
         {% endif %}
       </div>
     </div>
-<div general="bg:white border:1 br:2 brc:muted width:100 text:s flex position:left" mobile-l="position:center" mobile-m="position:center" mobile-s="position:center" style="padding: 6px 0px;position: sticky;top: 68px;z-index: 1;" >
-    <div general="position:left text:s bg:white brc:muted border:1 br:2" style="padding: 2px 6px;">
+<div general="bg:white border:1 br:2 brc:muted width:100 text:s flex position:left" 
+style="padding: 6px 0px;position: sticky;top: 68px;z-index: 1;" >
+    <div general="position:left text:s bg:white brc:muted border:1 br:2" style="padding: 2px 6px;"
+    mobile-l="position:center" 
+  mobile-m="position:center" 
+  mobile-s="position:center" tablet="position:center">
         {% include "common/interaction_and_counter.html" %}
         <div onclick="copyTextFromId('embed-text')" general="border:1 br:2 text:s brc:white color:secondary color:success:hover"  style="cursor:pointer;">
             <i class="fas fa-code" general="position:center"></i>

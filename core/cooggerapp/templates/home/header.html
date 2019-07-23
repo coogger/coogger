@@ -159,3 +159,10 @@
     </form>
   </div>
 </div>
+{% if request.user.is_authenticated and not request.user.email %}
+  <div general="position:center width:100 bg:warning color:dark" style="padding:6px 0px;">
+    <strong>
+      Please go <a general="color:blue" href="{% url 'settings-user' %}">settings</a> to write your email address
+    </strong>
+  </div>
+{% endif %}
