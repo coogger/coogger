@@ -15,7 +15,7 @@ from django.utils import timezone
 
 #core.cooggerapp models
 from ..models import Content, UTopic, Commit, Category, Topic
-from ..models.utils import ready_tags, dor, get_first_image
+from ..models.utils import ready_tags, dor, get_first_image, is_comment
 
 #core.cooggerapp.views 
 from ..views.generic.detail import DetailPostView
@@ -153,7 +153,7 @@ class Update(LoginRequiredMixin, View):
                 return redirect_utopic(request, utopic_permlink)
             queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
-                if queryset[0].reply is not None:
+                if is_comment(queryset[0]):
                     form_set = self.reply_form_class(instance=queryset[0])
                 else:
                     form_set = self.form_class(
@@ -174,14 +174,14 @@ class Update(LoginRequiredMixin, View):
         if request.user.username == username:
             queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
-                if queryset[0].reply is not None:
+                if is_comment(queryset[0]):
                     form = self.reply_form_class(data=request.POST)
                 else:
                     form = self.form_class(data=request.POST)
                 if form.is_valid():
                     form = form.save(commit=False)
                     form.user = request.user
-                    if queryset[0].reply is not None:
+                    if is_comment(queryset[0]):
                         "if its a comment"
                         queryset.update(
                             body=form.body,

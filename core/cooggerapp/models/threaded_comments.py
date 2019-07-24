@@ -4,9 +4,11 @@ from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
 
+#models
+from .utils import is_comment
+
 # python
 import random
-
 
 class ThreadedComments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -38,6 +40,7 @@ class ThreadedComments(models.Model):
     def __str__(self):
         return f"@{self.user}/{self.permlink}"
 
+    @property
     def is_exists(self):
         #check with unique_together
         parameters = dict()
@@ -51,21 +54,21 @@ class ThreadedComments(models.Model):
 
     def generate_permlink(self):
         def new_permlink():
-            if self.reply is not None:
+            if is_comment(self):
                 #if it is a comment
                 return f"re-{str(self.user)}-re-{str(self.reply.user)}-{slugify(self.title.lower())}"
             return slugify(self.title.lower())
         if not self.permlink:
             self.permlink = new_permlink()
             while True:
-                if self.is_exists():
+                if self.is_exists:
                     self.permlink = self.permlink + "-" + str(random.randrange(9999999))
                 else:
                     return self.permlink
         return self.permlink
 
     def save(self, *args, **kwargs):
-        if self.reply is not None:
+        if is_comment(self) and not self.is_exists:
             #if it is a comment
             for obj in self.get_all_reply_obj():
                 obj.update(
@@ -80,7 +83,7 @@ class ThreadedComments(models.Model):
             query = self.__class__.objects.filter(id=reply_id)
             if query.exists():
                 yield query
-                if query[0].reply is not None:
+                if is_comment(query[0]):
                     reply_id = query[0].reply_id
                 else:
                     break

@@ -10,6 +10,7 @@ from ..models.utils import send_mail
 @receiver(post_save, sender=Issue)
 def issue_counter(sender, instance, created, **kwargs):
     if created and instance.reply is None:
+        #if is created and it is a issue not comment
         utopic = instance.utopic
         utopic = UTopic.objects.get(
             user=utopic.user, 

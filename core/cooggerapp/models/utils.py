@@ -89,3 +89,6 @@ def get_client_url():
 
 def ready_tags(tags, limit=5):
     return format_tags(tags.split(" ")[:limit])
+
+def is_comment(obj):
+    return obj.reply is not None

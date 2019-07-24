@@ -52,14 +52,14 @@ class DetailPostView(object):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        object = self.get_object(**kwargs)
+        obj = self.get_object(**kwargs)
         form = self.form_class(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
             form.user = request.user
-            form.reply = object
+            form.reply = obj
             for field in self.same_fields:
-                setattr(form, field, getattr(object, field))
+                setattr(form, field, getattr(obj, field))
             for up_value, up_key in self.update_field.items():
                 setattr(form, up_value, up_key)
             form.save()
