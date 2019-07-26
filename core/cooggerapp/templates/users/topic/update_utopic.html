@@ -1,9 +1,17 @@
 {% extends "home/html.html" %}
 {% block body %}
-  <div class="create" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100"  style="margin-top: 30px;">
-    <form action="{% url 'update-utopic' permlink %}" general="flex border:1 br:2 brc:muted flex:fd-c"  default="form"
-    mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70"
-     method="post" class="c-create-form" style="padding: 12px 6px">
+  <div class="create" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100"  
+  style="margin-top: 30px;">
+    <form action="{% url 'update-utopic' permlink %}" 
+    general="flex flex:fd-c width:40" 
+    mobile-l="width:96"
+    mobile-m="width:96"
+    mobile-s="width:96"
+    tablet="width:60"
+    laptop="width:40"
+    laptop-l="width:70"
+    default="form"
+    method="post" class="c-create-form" style="padding: 12px 6px">
         {% csrf_token %}  {{ form }}
         <input general="flex flex:as-c" type="submit" value="Save Edit" style="padding: 12px 42px;color:#333">
     </form>

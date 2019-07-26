@@ -20,7 +20,7 @@ def post_and_reply_created(sender, instance, created, **kwargs):
                 context=dict(
                     get_absolute_url=instance.get_absolute_url,
                 ),
-                to=[u.user for u in form.user.follow.follower if u.user.email], 
+                to=[u.user for u in instance.user.follow.follower if u.user.email], 
             )
             Topic.objects.filter(
                 permlink=instance.utopic.permlink
