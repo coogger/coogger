@@ -1,12 +1,13 @@
 # django
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.db.models import F
 
 # models
 from ..models.content import Content
 from ..models.commit import Commit
-from ..models.topic import UTopic
-from ..models.utils import send_mail
+from ..models.topic import UTopic, Topic
+from ..models.utils import send_mail, dor
 
 
 @receiver(post_save, sender=Content)
@@ -14,14 +15,6 @@ def post_and_reply_created(sender, instance, created, **kwargs):
     if created:
         if instance.reply is None:
             #if it is a content
-            send_mail(
-                subject=f"{ instance.user } publish a new content | coogger", 
-                template_name="email/post.html", 
-                context=dict(
-                    get_absolute_url=instance.get_absolute_url,
-                ),
-                to=[u.user for u in instance.user.follow.follower if u.user.email], 
-            )
             Topic.objects.filter(
                 permlink=instance.utopic.permlink
             ).update(
@@ -41,6 +34,14 @@ def post_and_reply_created(sender, instance, created, **kwargs):
                 body=instance.body,
                 msg=f"{instance.title} Published.",
             ).save()
+            send_mail(
+                subject=f"{ instance.user } publish a new content | coogger", 
+                template_name="email/post.html", 
+                context=dict(
+                    get_absolute_url=instance.get_absolute_url,
+                ),
+                to=[u.user for u in instance.user.follow.follower if u.user.email], 
+            )
         else:
             #if it is a reply
             email_list = list()
