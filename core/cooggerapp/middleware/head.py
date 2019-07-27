@@ -45,7 +45,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         )
     
     def embed(self):
-        return self.detail()
+        return self.content_detail()
 
     def topic(self):
         topic = Topic.objects.filter(permlink=self.kwargs.get("permlink"))[0]
