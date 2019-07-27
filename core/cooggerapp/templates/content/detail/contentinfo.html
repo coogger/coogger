@@ -52,8 +52,13 @@
         {% endif %}
       </div>
     </div>
+{% if embed %}
+<div general="bg:white border:1 br:2 brc:muted width:100 text:s flex position:left" 
+style="padding: 6px 0px;position: sticky;top: 0px;z-index: 1;" >
+{% else %}
 <div general="bg:white border:1 br:2 brc:muted width:100 text:s flex position:left" 
 style="padding: 6px 0px;position: sticky;top: 68px;z-index: 1;" >
+{% endif %}
     <div general="position:left text:s bg:white brc:muted border:1 br:2" style="padding: 2px 6px;"
     mobile-l="position:center" 
   mobile-m="position:center" 

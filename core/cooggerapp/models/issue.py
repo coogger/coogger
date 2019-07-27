@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from .topic import UTopic
 from .threaded_comments import ThreadedComments
 from .common.vote_view import VoteView
+from .utils import second_convert, dor
 
 # editor md
 from django_md_editor.models import EditorMdField
@@ -54,4 +55,15 @@ class Issue(ThreadedComments, VoteView):
                 permlink=self.permlink
             )
         )
+
+    @property
+    def get_dor(self):
+        #TODO this function same in content.py models
+        times = ""
+        for f, t in second_convert(dor(self.body)).items():
+            if t != 0:
+                times += f" {t}{f} "
+        if times == "":
+            return "0"
+        return times
 

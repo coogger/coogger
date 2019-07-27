@@ -91,7 +91,7 @@ function get_data_from_cooggerapi(apiUrl){
           style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
             <img general='br:circle position:left' id='detail_profile_image' src='${comment.avatar_url}' style='height:  40px;width:  40px;margin:  initial;'>
           </a>
-          <div general='text:s' general='flex flex:fd-c' class='duread-li'>
+          <div general='text:s' general='flex flex:fd-c'>
               <a general="flex" title='${comment.username}' href='/@${comment.username}'
                 style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
               @${comment.username}<span id='username'></span>
@@ -136,20 +136,20 @@ function get_data_from_cooggerapi(apiUrl){
         </div>
       </div>
       <div general='flex flex:ai-c br:2 color:secondary br:2 brc:muted position:right' style='padding: 2px 4px;'>
-          <div general='text:s flex flex:ai-c' class='duread-li'>    
+          <div general='text:s flex flex:ai-c'>    
             <a href='${reply.get_absolute_url}' id='root_content' target='blank' general='text:s'>
               <span style='margin: 0px 6px' general='color:orange'>Reply</span>
             </a>
           </div>
-          <div general='text:s flex flex:ai-c' class='duread-li'>
+          <div general='text:s flex flex:ai-c'>
               <i class="fas fa-heart"></i>
               <div style='margin-left: 6px;'>${upvote_count}</div>
           </div>
-          <div general='text:s flex flex:ai-c' class='duread-li'>
+          <div general='text:s flex flex:ai-c'>
               <i class="fas fa-eye"></i>
               <div style='margin-left: 6px;'>${views}</div>
           </div>
-          <div general='text:s flex flex:ai-c' class='duread-li'>
+          <div general='text:s flex flex:ai-c'>
               <i class="fas fa-reply-all"></i>
               <div style='margin-left: 6px;'>${reply_count}</div>
           </div>

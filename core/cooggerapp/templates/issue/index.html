@@ -38,10 +38,12 @@
                     {% elif issue.status == "closed" %}
                       <i general="color:red" class="fas fa-exclamation-circle"></i>
                     {% endif %}
-                    <span>{{ issue.title|title }}</span>
+                    <span mobile-l="text:s" mobile-m="text:s" mobile-s="text:s">
+                      {{ issue.title|title }}
+                    </span>
                 </div>
               </a>
-              <div general="text:s color:secondary">
+              <div general="text:s color:secondary"  mobile-l="text:xs" mobile-m="text:xs" mobile-s="text:xs">
                   <span>#{{ issue.issue_id }}</span>
                   <span>
                     opened {{ issue.created|timesince }} by 

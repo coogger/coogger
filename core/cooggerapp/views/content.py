@@ -69,7 +69,12 @@ class Detail(DetailPostView, View):
 
 @method_decorator(xframe_options_exempt, name="dispatch")
 class Embed(Detail):
-    template_name = "content-detail/embed.html"
+    template_name = "content/detail/embed.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["embed"] = True
+        return context
 
 
 class TreeDetail(TemplateView):

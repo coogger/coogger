@@ -8,7 +8,7 @@
         <a href="/@{{ queryset.user }}" general="flex flex:ai-c">
           <img title="{{ queryset.user }}" alt="{{ queryset.user }}" general="br:2" src="{{ queryset.user.githubauthuser.avatar_url }}" width="20" height="20">
         </a>
-        <div general='text:s flex flex:ai-c' class='duread-li'>
+        <div general='text:s flex flex:ai-c'>
             <i class="fas fa-clock"></i>
             {{ queryset.created|timesince }}
         </div>
