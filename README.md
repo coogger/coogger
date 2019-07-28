@@ -10,6 +10,10 @@
     <img alt="releases" title="releases" src="https://img.shields.io/github/release/coogger/coogger.svg?style=for-the-badge"/>
   </a>
   <img alt="last-commit" title="last-commit" src="https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge"/>
+  <a href="https://www.codacy.com/app/hakancelik96/coogger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=coogger/coogger&amp;utm_campaign=Badge_Grade" target="_blank">
+ <img alt="Codacy Badge" title="Codacy Badge" src="https://img.shields.io/codacy/grade/56b6c891028543d685564b78ab3431d2?style=for-the-badge"/>
+  </a>
+  <br>
  <a href="https://discord.gg/avmdZJa" target="_blank">
     <img alt="discord" title="discord" src="https://img.shields.io/discord/465599004865200129.svg?label=Discord&style=for-the-badge"/>
   </a>
