@@ -21,7 +21,7 @@ def post_and_reply_created(sender, instance, created, **kwargs):
                 how_many=(F("how_many") + 1)
             ) # increae how_many in Topic model
             UTopic.objects.filter(
-                user=instance.utopic.user, 
+                user=instance.utopic.user,
                 permlink=instance.utopic.permlink
             ).update(
                 how_many=(F("how_many") + 1),
@@ -35,27 +35,27 @@ def post_and_reply_created(sender, instance, created, **kwargs):
                 msg=f"{instance.title} Published.",
             ).save()
             send_mail(
-                subject=f"{ instance.user } publish a new content | coogger", 
-                template_name="email/post.html", 
+                subject=f"{ instance.user } publish a new content | coogger",
+                template_name="email/post.html",
                 context=dict(
                     get_absolute_url=instance.get_absolute_url,
                 ),
-                to=[u.user for u in instance.user.follow.follower if u.user.email], 
+                to=[u.user for u in instance.user.follow.follower if u.user.email],
             )
         else:
             #if it is a reply
-            email_list = list()
+            user_list_to_email = list()
             for obj in instance.get_all_reply_obj():
                 email = obj[0].user.email
-                if (obj[0].user != instance.user) and (email) and (email not in email_list):
-                    email_list.append(email)
+                if (obj[0].user != instance.user) and (email) and (email not in user_list_to_email):
+                    user_list_to_email.append(obj[0].user)
             send_mail(
-                subject=f"{ instance.user } left a comment on your post | Coogger", 
-                template_name="email/reply.html", 
+                subject=f"{ instance.user } left a comment on your post | Coogger",
+                template_name="email/reply.html",
                 context=dict(
                     user=instance.user,
                     get_absolute_url=instance.get_absolute_url,
                 ),
-                to=email_list
+                to=user_list_to_email
             )
         
