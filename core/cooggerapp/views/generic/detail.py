@@ -25,7 +25,7 @@ class DetailPostView(object):
     response_field = list() #json respon fields after commented
     update_field = dict() #dict to update fields
 
-    def save_view(self, request, id):
+    def save_view(self, request, id): #TODO use reqeust/response signals
         get_view, created = DjangoViews.objects.get_or_create(
             content_type=ContentType.objects.get(
                 app_label="cooggerapp",

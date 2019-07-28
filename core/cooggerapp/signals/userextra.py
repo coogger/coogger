@@ -78,16 +78,16 @@ def send_mail_to_follow(sender, **kwargs):
     action = kwargs.get("action", None)
     if action == "pre_add":
         instance = kwargs.get("instance", None)
+        to = list()
         for follow_id in kwargs.get("pk_set", None):
-            to = list()
             for u in Follow.objects.get(id=follow_id).user.follow.follower:
                 if u.user.email:
                     to.append(u.user)
-            send_mail(
-                subject=f"{instance.user} started to follow you | coogger".title(), 
-                template_name="email/follow.html", 
-                context=dict(
-                    user=instance.user
-                ),
-                to=to
-            )
+        send_mail(
+            subject=f"{instance.user} started to follow you | coogger".title(), 
+            template_name="email/follow.html", 
+            context=dict(
+                user=instance.user
+            ),
+            to=to
+        )
