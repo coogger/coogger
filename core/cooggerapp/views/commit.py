@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # model
 from ..models import (UTopic, Commit)
 
-# utils 
+# utils
 from .utils import paginator
 
 

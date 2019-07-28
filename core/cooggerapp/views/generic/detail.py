@@ -28,9 +28,9 @@ class DetailPostView(object):
     def save_view(self, request, id):
         get_view, created = DjangoViews.objects.get_or_create(
             content_type=ContentType.objects.get(
-                app_label="cooggerapp", 
+                app_label="cooggerapp",
                 model=self.model_name
-            ), 
+            ),
             object_id=id
         )
         try:
@@ -77,4 +77,4 @@ class DetailPostView(object):
                         context[s[-1]] = value
                 return context
             return HttpResponse(json.dumps(get_context_data()))
-    
+

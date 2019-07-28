@@ -13,10 +13,7 @@ from django.views import View
 from ..models import (UserProfile, Content,  UTopic)
 from django_bookmark.models import Bookmark as BookmarkModel
 
-# forms
-from ..forms import AboutForm
-
-# utils 
+# utils
 from .utils import paginator
 
 class Common(TemplateView):

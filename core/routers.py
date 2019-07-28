@@ -1,8 +1,8 @@
 class DBRouter:
     default_apps = [
-        "admin", "auth", 
-        "contenttypes", "sessions", 
-        "cooggerapp", "github_auth", 
+        "admin", "auth",
+        "contenttypes", "sessions",
+        "cooggerapp", "github_auth",
         "django_follow_system", "django_vote_system",
         "django_threadedcomments_system", "django_bookmark",
         "djangobadge",
@@ -11,8 +11,8 @@ class DBRouter:
         "cooggerimages"
     ]
     django_ip_apps = [
-        "contenttypes", 
-        "django_page_views", 
+        "contenttypes",
+        "django_page_views",
         "djangoip",
         "django_ban",
     ]

@@ -57,7 +57,7 @@ class Home(TemplateView):
             if len(posts) == settings.PAGE_SIZE:
                 break
         return posts
-    
+
     @staticmethod
     def sort_topics():
         topics = list()

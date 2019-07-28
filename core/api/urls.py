@@ -2,7 +2,7 @@ from rest_framework import routers
 from django.urls import include, path
 
 from core.api.views import (
-    ListContent, 
+    ListContent,
     ListIssue,
     )
 

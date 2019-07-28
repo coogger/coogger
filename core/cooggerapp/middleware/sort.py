@@ -17,9 +17,9 @@ class SortMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         self.valid_urls = [
-            "home", "filter", 
-            "language", "category", 
-            "topic", "search", 
+            "home", "filter",
+            "language", "category",
+            "topic", "search",
             "explorer_posts",
             "feed"
         ]

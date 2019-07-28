@@ -107,7 +107,7 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = "/accounts/github/"
 # email
-EMAIL_HOST = "smtp.gmail.com" 
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "cooggerapp@gmail.com"
 EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
 EMAIL_PORT = 587

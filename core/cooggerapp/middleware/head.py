@@ -43,7 +43,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             description=content.description.capitalize(),
             image=content.image_address or "https://www.coogger.com/media/images/coogger_W56Ux33.png",
         )
-    
+
     def embed(self):
         return self.content_detail()
 
@@ -149,7 +149,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=f"coogger",
             keywords=f"coogger, developers, experience, documentation, blogs, projects",
             description="""
-                Coogger is a platform where developers can write their knowledge, 
+                Coogger is a platform where developers can write their knowledge,
                 experience, documentation and blogs about their projects or projects which love.""",
             image="https://www.coogger.com/static/logos/png/800.png",
         )
@@ -193,7 +193,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             description=title,
             image=user.githubauthuser.avatar_url,
         )
-    
+
     def commit(self):
         username = self.kwargs.get("username")
         topic_permlink = self.kwargs.get("topic_permlink")

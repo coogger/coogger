@@ -11,7 +11,7 @@ from ..views.utils import model_filter
 # choices
 from ..choices import LANGUAGES
 
-# utils 
+# utils
 from .utils import paginator
 
 

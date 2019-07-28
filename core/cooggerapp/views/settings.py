@@ -31,7 +31,7 @@ class User(LoginRequiredMixin, UpdateView):
             "address"
         ]
         return context
-    
+
     def get_object(self):
         return self.model.objects.get(username=self.request.user.username)
 
@@ -45,7 +45,7 @@ class UserExtra(User):
     fields = ["description", "about", "email_permission"]
     template_name  = "settings/userextra.html"
     success_url = "/settings/user-extra/"
-    
+
     def get_object(self):
         return self.model.objects.get(user=self.request.user)
 

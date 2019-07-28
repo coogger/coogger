@@ -24,19 +24,19 @@ import random
 
 class Issue(ThreadedComments, VoteView):
     utopic = models.ForeignKey(
-        UTopic, 
+        UTopic,
         on_delete=models.CASCADE
         )
     body = EditorMdField(
-        null=True, 
-        blank=True, 
+        null=True,
+        blank=True,
         help_text="Your problem | question | or anything else")
     status = models.CharField(
-        default="open", 
-        choices=make_choices(ISSUE_CHOICES), 
-        max_length=55, 
+        default="open",
+        choices=make_choices(ISSUE_CHOICES),
+        max_length=55,
         help_text="Status",
-        null=True, 
+        null=True,
         blank=True,
     )
     issue_id = models.IntegerField(default=0)
@@ -48,9 +48,9 @@ class Issue(ThreadedComments, VoteView):
     @property
     def get_absolute_url(self):
         return reverse(
-            "detail-issue", 
+            "detail-issue",
             kwargs=dict(
-                username=str(self.utopic.user), 
+                username=str(self.utopic.user),
                 utopic_permlink=self.utopic.permlink,
                 permlink=self.permlink
             )

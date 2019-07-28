@@ -2,12 +2,12 @@ from django.contrib import admin
 
 #models
 from core.cooggerapp.models import (
-    Content, 
+    Content,
     SearchedWords,
-    UserProfile, 
-    Topic, 
-    Commit, 
-    UTopic, 
+    UserProfile,
+    Topic,
+    Commit,
+    UTopic,
     Category,
     Issue,
 )
@@ -55,7 +55,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display_links = list_display
     filter_horizontal = ("address", )
     search_fields = ["user__username"]
-    
+
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
@@ -95,9 +95,9 @@ class UtopicAdmin(admin.ModelAdmin):
         ("tags"),
         ("address"),
         (
-            "total_dor", 
-            "total_view", 
-            "open_issue", 
+            "total_dor",
+            "total_view",
+            "open_issue",
             "closed_issue",
         )
     )

@@ -14,23 +14,23 @@ class ThreadedComments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     permlink = models.SlugField(max_length=200)
     title = models.CharField(
-        max_length=200, 
-        help_text="Be sure to choose the best title", 
-        null=True, 
+        max_length=200,
+        help_text="Be sure to choose the best title",
+        null=True,
         blank=True)
     reply = models.ForeignKey(
-        "self", 
-        on_delete=models.CASCADE, 
-        null=True, 
-        blank=True, 
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
         related_name="children")
     reply_count = models.IntegerField(default=0)
     # depth = models.IntegerField(default=0)
     created = models.DateTimeField(
-        auto_now_add=True, 
+        auto_now_add=True,
         verbose_name="Created")
     last_update = models.DateTimeField(
-        auto_now_add=True, 
+        auto_now_add=True,
         verbose_name="Last update")
 
     class Meta:

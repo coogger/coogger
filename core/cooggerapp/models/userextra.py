@@ -1,4 +1,4 @@
-# django 
+# django
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -25,20 +25,20 @@ class OtherAddressesOfUsers(models.Model):
     def __str__(self):
         return f"{self.choices} - {self.address}"
 
-    
+
 class UserProfile(models.Model):
     user = models.OneToOneField(
-        User, 
+        User,
         on_delete=models.CASCADE)
     about = EditorMdField(
         help_text="Write a long article about yourself, see; /u/@your_username/about/",
         verbose_name="About Yourself",
-        blank=True, 
+        blank=True,
         null=True)
     description = models.CharField(
         help_text="Write something short about yourself, this will appear in your profile.",
-        max_length=260, 
-        blank=True, 
+        max_length=260,
+        blank=True,
         null=True)
     address = models.ManyToManyField(
         OtherAddressesOfUsers,
