@@ -223,8 +223,7 @@ function timeSince(date) {
 }
 $(document).ready(function() {
   $("#send-reply").click(function(){
-    let general_property = $(this).attr("general");
-    $(this).attr("general", `${general_property} color:success:hover bg:white:hover`);
+    $(this).attr("class", "make_reply_animation");
     let csrf_token = $(this).data("csrf");
     let get_comment = $("#id_body").val();
     if (get_comment != ""){
@@ -238,9 +237,9 @@ $(document).ready(function() {
       }).done(function(new_reply) {
         new_reply = JSON.parse(new_reply);
         document.getElementById("id_body").value = ""
-        $(this).attr("general", `${general_property}`);
         let new_reply_template = get_replies_template(new_reply);
         $("#comment_template").append(new_reply_template);
+        $(this).attr("class", "");
       });
     }
     else{

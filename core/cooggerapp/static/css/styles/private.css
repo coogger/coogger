@@ -6,6 +6,37 @@ header{
   top: 0px;
   z-index: 2;
 }
+
+/* make reply animation */
+.make_reply_animation{
+  background: linear-gradient(114deg, #ffffff, #000000, #ff0000);
+  background-size: 600% 600%;
+  -webkit-animation: make_reply 2s ease infinite;
+  -moz-animation: make_reply 2s ease infinite;
+  -o-animation: make_reply 2s ease infinite;
+  animation: make_reply 2s ease infinite;
+}
+@-webkit-keyframes make_reply {
+    0%{background-position:0% 43%}
+    50%{background-position:100% 58%}
+    100%{background-position:0% 43%}
+}
+@-moz-keyframes make_reply {
+    0%{background-position:0% 43%}
+    50%{background-position:100% 58%}
+    100%{background-position:0% 43%}
+}
+@-o-keyframes make_reply {
+    0%{background-position:0% 43%}
+    50%{background-position:100% 58%}
+    100%{background-position:0% 43%}
+}
+@keyframes make_reply { 
+    0%{background-position:0% 43%}
+    50%{background-position:100% 58%}
+    100%{background-position:0% 43%}
+}
+/* make reply animation */
 .p36{
   padding:3px 6px;
 }
