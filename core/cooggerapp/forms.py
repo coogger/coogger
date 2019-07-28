@@ -7,7 +7,7 @@ from core.cooggerapp.choices import *
 
 # models
 from core.cooggerapp.models import (
-    Content, OtherAddressesOfUsers, UserProfile,
+    Content, OtherAddressesOfUsers,
     ReportModel, UTopic, Issue)
 
 from .models.utils import send_mail
@@ -28,8 +28,8 @@ class ContentCreateForm(forms.ModelForm):
 
 class ContentUpdateForm(ContentCreateForm):
     msg = forms.CharField(
-        max_length=150, 
-        label="Commit Message", 
+        max_length=150,
+        label="Commit Message",
         help_text="What has changed with this update?"
     )
 
@@ -40,28 +40,11 @@ class AddressesForm(forms.ModelForm):
         fields = ["choices", "address"]
 
 
-class CSettingsUserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ["first_name", "last_name", "username", "email"]
-
-
-class OtherAddressesOfUsersForm(forms.ModelForm):
-    class Meta:
-        model = OtherAddressesOfUsers
-        fields = ["choices", "address"]
-
-
-class AboutForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ["about"]
-
-
 class ReportsForm(forms.ModelForm):
     class Meta:
         model = ReportModel
         fields = ["complaints", "add"]
+
 
 class IssueForm(forms.ModelForm):
     class Meta:
