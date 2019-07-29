@@ -24,8 +24,11 @@
     
     <div general="flex flex:jc-c width:max position:center">
         <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
-            <div general="flex flex:as-c" id="post-count">{{ current_user|hmanycontent}}</div>
-            <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Contents</div>
+            
+            <a href="{% url 'usercontent' current_user %}" general="flex flex:as-c flex:fd-c">
+                <div general="flex flex:as-c" id="post-count">{{ current_user|hmanycontent}}</div>
+                <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Contents</div>
+            </a>
         </div>
         <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
             <a href="{% url 'get_followers' %}?username={{ current_user }}" general="flex flex:as-c flex:fd-c">

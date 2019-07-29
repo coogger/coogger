@@ -1,6 +1,9 @@
 {% if insection_left %}
 <div class="just-pc topic-index" general="flex flex:fw-nw bg:white brc:white width:20 br:4" >
-    <strong general="position:left text:l" class="htt fas fa-hashtag">Most Remarkable Topics</strong>
+    <strong general="position:left text:l flex flex:ai-c" class="htt">
+      <i class="fas fa-hashtag"></i>
+        Most Remarkable Topics
+    </strong>
     {% with sort_topics as queryset %}
       {% include 'users/topic/topic-list.html' %}
     {% endwith %}

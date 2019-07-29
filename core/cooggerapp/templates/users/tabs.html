@@ -3,33 +3,34 @@
     <div>
       <a href="{% url 'user' current_user %}">
           <div general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover"   style="padding: 3px 6px;">
-             <i class="fas fa-sitemap">TOPICS</i>
+             <i class="fas fa-sitemap" style="margin-left: 8px;"></i>
+             TOPICS
           </div>
       </a>
     </div>
     <div>
       <a href="{% url 'usercontent' current_user %}">
           <div general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover"   style="padding: 3px 6px;">
-              <i class="fas fa-file-alt">CONTENTS</i>
+              <i class="fas fa-file-alt" style="margin-left: 8px;"></i>CONTENTS
           </div>
       </a>
     </div>
     <div>
       <a href="{% url 'bookmark' current_user %}" general="flex flex:as-fs flex:ai-c color:secondary text:m width:max color:primary:hover" 
         style="padding: 3px 6px;">
-        <i class="fas fa-bookmark">BOOKMARK</i>
+        <i class="fas fa-bookmark" style="margin-left: 8px;"></i>BOOKMARK
       </a>
     </div>
     <div>
       <a href="{% url 'comment' current_user %}" general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover" 
         style="padding: 3px 6px;">
-        <i class="fas fa-comments">COMMENTS</i>
+        <i class="fas fa-comments" style="margin-left: 8px;"></i>COMMENTS
       </a>
     </div>
     <div>
         <a href="{% url 'userabout' current_user %}" general="flex flex:as-fs flex:ai-c color:secondary text:m width:max color:primary:hover" 
           style="padding: 3px 6px;">
-          <i class="fas fa-file-alt">ABOUT</i>
+          <i class="fas fa-file-alt" style="margin-left: 8px;"></i>ABOUT
         </a>
       </div>
   </div>
