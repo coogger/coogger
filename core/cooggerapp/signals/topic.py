@@ -25,13 +25,12 @@ def increase_utopic_view(sender, **kwargs):
     instance = kwargs.get("instance", None)
     action = kwargs.get("action", None)
     ips = kwargs.get("pk_set", None)
-    if action == "pre_add":
-        if instance.get_model == Content:
-            content = Content.objects.get(id=instance.object_id)
-            if not is_comment(content)
-                for ip_id in ips:
-                    UTopic.objects.filter(
-                        user=content.user,
-                        permlink=content.utopic.permlink
-                    ).update(total_view=(F("total_view") + 1))
+    if action == "pre_add" and instance.get_model == "content":
+        content = Content.objects.get(id=instance.object_id)
+        if not is_comment(content):
+            for ip_id in ips:
+                UTopic.objects.filter(
+                    user=content.user,
+                    permlink=content.utopic.permlink
+                ).update(total_view=(F("total_view") + 1))
 
