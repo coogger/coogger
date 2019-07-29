@@ -1,7 +1,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
       $(".follow-op").click(function(event){
-        $("#follow-op").attr({'animation':"blink i"});
+        $(".follow-op").addClass("make_reply_animation");
         let follower_count = parseInt(document.getElementById("follower_count").innerHTML);
         $.get("{% url 'follow' current_user %}", function(data, status){
           if (data.status == "follow"){
@@ -14,8 +14,9 @@
             $("#follow-op #follow").html("Follow");
             $("#follow-op").attr({"hover":"bg:primary"});
           }
+        }).always(function(r){
+          $(".follow-op").removeClass("make_reply_animation");
         });
-        $("#follow-op").attr({'animation':""});
       });
     });
 </script>

@@ -6,11 +6,12 @@
     mobile-s="width:100"
     tablet="width:100"
     laptop="width:36">
+    {% include 'users/footer.html' %}
     <div general="flex flex:fd-c br:circle" >
         <img general="flex flex:jc-c br:4 width:60" mobile-l="width:60"
         mobile-m="width:50" mobile-s="width:46"
         tablet="width:36" laptop="width:56" laptop-l="width:60" alt="{{ current_user }}" title="{{ current_user }}" src="{{ current_user.githubauthuser.avatar_url }}" style="padding: 2px;"/>
-        <h1 general="flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white" style="position: absolute;">
+        <h1 general="flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
             <a general="flex color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
                 {% if current_user.first_name %}
                     {{ current_user.first_name }} {{ current_user.last_name }}
@@ -20,6 +21,7 @@
             </a>
         </h1>
     </div>
+    
     <div general="flex flex:jc-c width:max position:center">
         <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
             <div general="flex flex:as-c" id="post-count">{{ current_user|hmanycontent}}</div>
@@ -51,7 +53,6 @@
             </div>
         {% endif %}
     {% endif %}
-    {% include 'users/footer.html' %}
     <h4 general="width:80 position:center flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
         <span general="text:s">{{ current_user.userprofile.description|default:"" }}</span>
     </h4>

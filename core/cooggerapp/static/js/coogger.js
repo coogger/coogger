@@ -223,10 +223,11 @@ function timeSince(date) {
 }
 $(document).ready(function() {
   $("#send-reply").click(function(){
-    $(this).attr("class", "make_reply_animation");
+    this_ = this;
     let csrf_token = $(this).data("csrf");
     let get_comment = $("#id_body").val();
     if (get_comment != ""){
+      $(this_).attr("class", "make_reply_animation");
       $.ajax({
         type: "POST",
         url: window.location.href,
@@ -239,12 +240,14 @@ $(document).ready(function() {
         document.getElementById("id_body").value = ""
         let new_reply_template = get_replies_template(new_reply);
         $("#comment_template").append(new_reply_template);
-        $(this).attr("class", "");
+      }).always(function(){
+        $(this_).removeClass("make_reply_animation");
       });
     }
     else{
       alert("Empty comments cannot be published.")
     }
+    
   })
 });
 
