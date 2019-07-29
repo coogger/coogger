@@ -10,6 +10,7 @@ from django.utils.timezone import now
 from django.db.models import F
 from django.contrib import messages
 from django.views.generic.edit import UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
 
 #core.cooggerapp.model
 from ..models import (UTopic, Issue)
@@ -102,10 +103,11 @@ class NewIssue(LoginRequiredMixin, View):
                 )
 
 
-class UpdateIssue(LoginRequiredMixin, UpdateView):
+class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Issue
     fields = ["title", "body"]
     template_name = "issue/new.html"
+    success_message = "Your issue updated"
 
     def get_object(self):
         username = self.kwargs.get("username")

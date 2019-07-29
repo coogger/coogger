@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
 
 # models
 from ..models import UserProfile, OtherAddressesOfUsers
@@ -17,10 +18,11 @@ from ..forms import AddressesForm
 # python
 import os
 
-class User(LoginRequiredMixin, UpdateView):
+class User(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     fields = ["first_name", "last_name", "email"]
     template_name  = "settings/user.html"
+    success_message = "Your settings updated"
     success_url = "/settings/user/"
 
     def get_context_data(self, *args, **kwargs):
