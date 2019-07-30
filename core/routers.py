@@ -14,7 +14,6 @@ class DBRouter:
         "contenttypes",
         "django_page_views",
         "djangoip",
-        "django_ban",
     ]
 
     def db_for_read(self, model, **hints):

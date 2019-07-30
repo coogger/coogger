@@ -26,10 +26,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "rest_framework",
+
     "django_page_views",
     "django_md_editor",
-    "django_ban",
     "cooggerimages",
     "github_auth",
     "django_follow_system",
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     "django_vote_system",
     "django_bookmark",
     "djangobadge",
+    
     "core.cooggerapp",
     "core.api",
 ]
@@ -47,8 +49,6 @@ REST_FRAMEWORK = dict(
 )
 MIDDLEWARE = [
     "djangoip.middleware.ip_middleware.IpMiddleware",
-    # ban
-    "django_ban.middleware.ip.IPBanMiddleware",
     # django
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -117,11 +117,6 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # 3. part confs
 MDEDITOR_CONFIGS = dict(
     emoji=True,
-)
-DJANGO_BAN_CONFIGS = dict(
-    remove_ban_time=60,
-    permission_second=1,
-    permission_request_count=10,
 )
 GITHUB_AUTH = dict(
     redirect_uri=redirect_url,
