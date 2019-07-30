@@ -1,4 +1,4 @@
-# django
+#django
 from django.urls import resolve
 from django.shortcuts import render
 

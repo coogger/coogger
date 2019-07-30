@@ -9,14 +9,14 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
-    # github_auth
+    #github_auth
     redirect_url = "http://127.0.0.1:8000/accounts/github/login/"
     ban_count = 99999
 else:
     ALLOWED_HOSTS = [".coogger.com"]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # github_auth
+    #github_auth
     redirect_url = "https://www.coogger.com/accounts/github/login/"
     ban_count = 100
 INSTALLED_APPS = [
@@ -49,7 +49,7 @@ REST_FRAMEWORK = dict(
 )
 MIDDLEWARE = [
     "djangoip.middleware.ip_middleware.IpMiddleware",
-    # django
+    #django
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # coogger
+    #coogger
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.sort.SortMiddleware",
 ]
@@ -106,7 +106,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = "/accounts/github/"
-# email
+#email
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "cooggerapp@gmail.com"
 EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
@@ -114,7 +114,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# 3. part confs
+#3. part confs
 MDEDITOR_CONFIGS = dict(
     emoji=True,
 )

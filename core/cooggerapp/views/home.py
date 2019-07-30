@@ -1,4 +1,4 @@
-# django
+#django
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -11,13 +11,13 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 
-# form
+#form
 from ..forms import ReportsForm
 
-# models
+#models
 from ..models import Content, SearchedWords, ReportModel, Topic, Issue
 
-# utils
+#utils
 from .utils import paginator
 
 
@@ -32,7 +32,7 @@ class Home(TemplateView):
         if not self.is_authenticated and self.url_name == "home":
             context["introduction"] = True
             self.template_name = self.introduction_template_name
-        context["sort_topics"] = self.sort_topics() # just pc
+        context["sort_topics"] = self.sort_topics() #just pc
         context["issues"] = Issue.objects.filter(
             reply=None, status="open"
         )[: settings.PAGE_SIZE]
@@ -114,8 +114,8 @@ class Search(Home):
 
 
 class Feed(Home):
-    # TODO this class must be improved
-    # make a new model for this op
+    #TODO this class must be improved
+    #make a new model for this op
     template_name = "card/blogs.html"
 
     def get_context_data(self, username, **kwargs):

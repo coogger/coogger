@@ -1,10 +1,10 @@
-# django
+#django
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.exceptions import FieldError
 
-# models
+#models
 from ..models import Category, Topic
 
 def paginator(request, queryset):
@@ -19,7 +19,7 @@ def paginator(request, queryset):
     return contacts
 
 def model_filter(items, queryset):
-    # TODO improved this function
+    #TODO improved this function
     filter = ""
     first = True
     for attr, value in items:

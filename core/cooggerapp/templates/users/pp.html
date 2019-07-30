@@ -45,12 +45,12 @@
     </div>
     {% if request.user != current_user and request.user.is_authenticated %}
         {% if request.user|is_follow:current_user %}
-            <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover"   
+            <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover width:10"   
             style="cursor:pointer;padding: 3px 30px;">
                 <div general="text:m color:white" id="follow">Unfollow</div>
             </div>
         {% else %}
-            <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover"   
+            <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover width:10"   
             style="cursor:pointer;padding: 3px 30px;">
                 <div general="text:m color:white" id="follow">Follow</div>
             </div>

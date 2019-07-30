@@ -1,10 +1,10 @@
-# django
+#django
 from django.urls import resolve
 from django.contrib.auth.models import User
 from django import template
 register = template.Library()
 
-# core.cooggerapp
+#core.cooggerapp
 from ..choices import *
 from ..models import Content, Topic, Commit
 from ..views.utils import model_filter

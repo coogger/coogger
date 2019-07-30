@@ -1,11 +1,11 @@
-# django
+#django
 from django.contrib.auth.models import User
 from django.db import models
 
-# django lib
+#django lib
 from django_md_editor.models import EditorMdField
 
-# choices
+#choices
 from core.cooggerapp.choices import FOLLOW, make_choices
 
 

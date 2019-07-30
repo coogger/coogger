@@ -1,14 +1,14 @@
-# django
+#django
 from django.db import models, IntegrityError
 from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models import F
 
-# python
+#python
 from contextlib import suppress
 
-# utils
+#utils
 from .utils import second_convert
 
 class CommonTopicModel(models.Model):
@@ -72,7 +72,7 @@ class Topic(CommonTopicModel):
 
 class UTopic(CommonTopicModel):
     """ Topic For Users """
-    # TODO if topic name is changed, then must change the permlink
+    #TODO if topic name is changed, then must change the permlink
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total_dor = models.FloatField(default=0, verbose_name="Total duration all contents")
     total_view = models.IntegerField(default=0, verbose_name="Total views all contents")

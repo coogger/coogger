@@ -1,4 +1,4 @@
-# django
+#django
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
@@ -7,7 +7,7 @@ from django.utils.text import slugify
 #models
 from .utils import is_comment
 
-# python
+#python
 import random
 
 class ThreadedComments(models.Model):
@@ -25,7 +25,7 @@ class ThreadedComments(models.Model):
         blank=True,
         related_name="children")
     reply_count = models.IntegerField(default=0)
-    # depth = models.IntegerField(default=0)
+    #depth = models.IntegerField(default=0)
     created = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Created")

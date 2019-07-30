@@ -1,4 +1,4 @@
-# django
+#django
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
@@ -9,16 +9,16 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.utils.text import slugify
 
-# model
+#model
 from ..models import (Topic, UTopic, Content, Commit)
 
-# form
+#form
 from ..forms import UTopicForm
 
-# utils
+#utils
 from .utils import paginator
 
-# views
+#views
 from .users import Common
 
 
@@ -131,7 +131,7 @@ class UpdateUTopic(LoginRequiredMixin, View):
                 address=form.address,
             )
             if permlink != slugify(form.name):
-                # new global topic save
+                #new global topic save
                 if not Content.objects.filter(utopic__permlink=permlink).exists() and \
                     not UTopic.objects.filter(permlink=permlink).exists():
                     Topic.objects.filter(permlink=permlink).update(

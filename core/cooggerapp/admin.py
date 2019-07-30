@@ -15,7 +15,7 @@ from core.cooggerapp.models import (
 #choices
 from core.cooggerapp.choices import *
 
-# python
+#python
 import datetime
 
 

@@ -1,8 +1,8 @@
-# django
+#django
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
 
-# models
+#models
 from core.cooggerapp.models import Content, Topic, UTopic, Commit
 from django.contrib.auth.models import User
 

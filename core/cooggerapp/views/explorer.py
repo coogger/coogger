@@ -1,17 +1,17 @@
-# django
+#django
 from django.http import Http404
 from django.views.generic.base import TemplateView
 
-# models
+#models
 from ..models import Content, Topic, Category
 
-# views
+#views
 from ..views.utils import model_filter
 
-# choices
+#choices
 from ..choices import LANGUAGES
 
-# utils
+#utils
 from .utils import paginator
 
 

@@ -1,7 +1,7 @@
-# django
+#django
 from django.urls import path
 
-# views
+#views
 from ..views.home import Home, Search, Report, Feed
 
 urlpatterns = [

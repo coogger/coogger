@@ -1,8 +1,8 @@
-# django
+#django
 from django.urls import path
 from django.shortcuts import redirect
 
-# views
+#views
 from ..views.content import *
 
 urlpatterns = [

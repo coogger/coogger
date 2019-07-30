@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-# models
+#models
 from core.cooggerapp.models import (
     Content,
     Issue

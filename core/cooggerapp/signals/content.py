@@ -1,9 +1,9 @@
-# django
+#django
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.db.models import F
 
-# models
+#models
 from ..models.content import Content
 from ..models.commit import Commit
 from ..models.topic import UTopic, Topic
@@ -19,14 +19,14 @@ def post_and_reply_created(sender, instance, created, **kwargs):
                 permlink=instance.utopic.permlink
             ).update(
                 how_many=(F("how_many") + 1)
-            ) # increae how_many in Topic model
+            ) #increae how_many in Topic model
             UTopic.objects.filter(
                 user=instance.utopic.user,
                 permlink=instance.utopic.permlink
             ).update(
                 how_many=(F("how_many") + 1),
                 total_dor=(F("total_dor") + dor(instance.body))
-            ) # increase total dor in utopic
+            ) #increase total dor in utopic
             Commit(
                 user=instance.user,
                 utopic=instance.utopic,

@@ -1,4 +1,4 @@
-# django
+#django
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -6,19 +6,19 @@ from django.db.models import F
 from django.template.loader import render_to_string
 from django.utils.text import slugify
 
-# model
+#model
 from .topic import UTopic
 from .threaded_comments import ThreadedComments
 from .common.vote_view import VoteView
 from .utils import second_convert, dor
 
-# editor md
+#editor md
 from django_md_editor.models import EditorMdField
 
-# choices
+#choices
 from core.cooggerapp.choices import make_choices, ISSUE_CHOICES
 
-# python
+#python
 import random
 
 
@@ -43,7 +43,7 @@ class Issue(ThreadedComments, VoteView):
 
     class Meta(ThreadedComments.Meta):
         unique_together = [["utopic", "permlink"]]
-        # this line causes IntegrityError error during super() and then work create a new permlink
+        #this line causes IntegrityError error during super() and then work create a new permlink
 
     @property
     def get_absolute_url(self):

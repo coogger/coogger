@@ -1,11 +1,11 @@
-# django
+#django
 from django import forms
 from django.contrib.auth.models import User
 
-# choices
+#choices
 from core.cooggerapp.choices import *
 
-# models
+#models
 from core.cooggerapp.models import (
     Content, OtherAddressesOfUsers,
     ReportModel, UTopic, Issue)

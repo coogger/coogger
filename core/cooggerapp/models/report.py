@@ -1,11 +1,11 @@
-# django
+#django
 from django.contrib.auth.models import User
 from django.db import models
 
-# coices
+#coices
 from core.cooggerapp.choices import make_choices, REPORTS
 
-# models
+#models
 from .content import Content
 
 

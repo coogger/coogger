@@ -1,7 +1,7 @@
-# django
+#django
 from django.urls import path
 
-# views
+#views
 from ..views.users import (About, Comment, Bookmark, UserContent)
 from ..views.utopic import (UserTopic)
 

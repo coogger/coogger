@@ -1,8 +1,8 @@
-# django
+#django
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-# models
+#models
 from ..models.issue import Issue
 from ..models.topic import UTopic
 from ..models.utils import send_mail, is_comment

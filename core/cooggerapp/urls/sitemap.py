@@ -1,8 +1,8 @@
-# django
+#django
 from django.urls import path
 from django.contrib.sitemaps.views import sitemap
 
-# views
+#views
 from ..views.sitemap import (
     TopicSitemap, UtopicSitemap,
     ContentSitemap, UsersSitemap,

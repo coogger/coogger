@@ -1,21 +1,21 @@
-# django
+#django
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import m2m_changed, post_save
 from django.db.utils import IntegrityError
 
-# models
+#models
 from ..models.userextra import UserProfile
 from ..models.topic import UTopic
 
-# django lib
+#django lib
 from django_follow_system.models import Follow
 from github_auth.models import GithubAuthUser
 
-# utils
+#utils
 from ..models.utils import send_mail, get_client_url
 
-# python lib
+#python lib
 import requests
 
 def save_github_follow(user):

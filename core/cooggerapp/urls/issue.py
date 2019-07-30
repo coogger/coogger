@@ -1,7 +1,7 @@
-# django
+#django
 from django.urls import path
 
-# views
+#views
 from ..views.issue import (
     IssueView,
     DetailIssue,

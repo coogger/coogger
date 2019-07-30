@@ -1,16 +1,16 @@
-# django
+#django
 from django.urls import include, path, resolve
 from django.contrib import admin
 from django.shortcuts import render
 
-# django.conf
+#django.conf
 from django.conf import settings
 from django.conf.urls.static import static
 
-# utils
+#utils
 from .utils import just_redirect_by_name
 
-# common addresses
+#common addresses
 urlpatterns = [
     path("accounts/github/", include('github_auth.urls')),
     path("follow/", include("django_follow_system.urls")),

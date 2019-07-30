@@ -1,4 +1,4 @@
-# django
+#django
 from django.views.generic.base import TemplateView
 from django.views import View
 from django.contrib.auth.models import User
@@ -18,16 +18,16 @@ from ..models import (UTopic, Issue)
 #core.cooggerapp.views 
 from ..views.generic.detail import DetailPostView
 
-# form
+#form
 from ..forms import IssueForm, IssueReplyForm
 
-# python
+#python
 import json
 
-# utils
+#utils
 from .utils import paginator
 
-# TODO if requests come same url, and query does then it should be an update
+#TODO if requests come same url, and query does then it should be an update
 
 class IssueView(TemplateView):
     model = Issue

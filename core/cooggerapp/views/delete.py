@@ -1,14 +1,14 @@
-# django
+#django
 from django.http import HttpResponse
 
-# class
+#class
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# models
+#models
 from ..models import UserProfile, OtherAddressesOfUsers
 
-# python
+#python
 import json
 
 

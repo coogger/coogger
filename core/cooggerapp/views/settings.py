@@ -1,4 +1,4 @@
-# django
+#django
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic.base import TemplateView
@@ -9,13 +9,13 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 
-# models
+#models
 from ..models import UserProfile, OtherAddressesOfUsers
 
-# forms
+#forms
 from ..forms import AddressesForm
 
-# python
+#python
 import os
 
 class User(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -58,7 +58,7 @@ class Address(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         address = self.address(request)
         context = dict(
-            # user_profile_form=
+            #user_profile_form=
             address_form=address[1],
             address_instance=address[0],
         )

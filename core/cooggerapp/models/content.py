@@ -1,9 +1,9 @@
-# django
+#django
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
-# models
+#models
 from .category import Category
 from .topic import UTopic
 from .threaded_comments import ThreadedComments
@@ -15,10 +15,10 @@ from .utils import (
 from .common.vote_view import VoteView
 from django_md_editor.models import EditorMdField
 
-# choices
+#choices
 from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
 
-# python
+#python
 import random
 from bs4 import BeautifulSoup
 import mistune
@@ -63,7 +63,7 @@ class Content(ThreadedComments, VoteView):
 
     class Meta(ThreadedComments.Meta):
         unique_together = [["user", "permlink"]]
-        # this line causes IntegrityError error during super() and then work create a new permlink
+        #this line causes IntegrityError error during super() and then work create a new permlink
 
     def __str__(self):
         return str(self.get_absolute_url)
