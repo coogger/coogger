@@ -222,6 +222,31 @@ function timeSince(date) {
   return timesince.slice(0, 2) + " ago";
 }
 $(document).ready(function() {
+  // follow/unfollow operations
+  $(".follow-op").click(function(event){
+    $(".follow-op").addClass("make_reply_animation");
+    let url = this.getAttribute("data-url");
+    let follower_count = parseInt($("#follower_count").html());
+    $.get(url, function(data, status){
+      if (data.status == "follow"){
+        if ( !isNaN(follower_count) ){
+          $("#follower_count").html(follower_count + 1);
+        }
+        $("#follow-op #follow").html("Unfollow");
+        $("#follow-op").attr({"hover":"bg:red"});
+      }
+      else if (data.status == "unfollow"){
+        if ( !isNaN(follower_count) ){
+          $("#follower_count").html(follower_count - 1);
+        }
+        $("#follow-op #follow").html("Follow");
+        $("#follow-op").attr({"hover":"bg:primary"});
+      }
+    }).always(function(r){
+      $(".follow-op").removeClass("make_reply_animation");
+    });
+  });
+  // make reply
   $("#send-reply").click(function(){
     this_ = this;
     let csrf_token = $(this).data("csrf");
@@ -247,7 +272,6 @@ $(document).ready(function() {
     else{
       alert("Empty comments cannot be published.")
     }
-    
   })
 });
 

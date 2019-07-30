@@ -1,5 +1,5 @@
 {% load vote %}
-<div general="position:center" id="vote-section" 
+<div general="" id="vote-section" 
 data-vote-status="{% is_vote request.user queryset queryset.id %}" >
     <i id="upvote" onclick="vote(this, '{{ queryset.id }}', '{{ queryset.model_name }}')" 
     general="color:secondary color:success:hover"  class="fas fa-heart" 

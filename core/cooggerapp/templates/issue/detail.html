@@ -1,25 +1,40 @@
 {% extends "issue/top.html" %}
 {% load django_md_editor %}
+{% block closed_issue %}
+  {% if request.user == current_user or queryset.user == request.user %}
+    {% if queryset.status == "open" %}
+      <a general="br:1 color:white bg:red text:s position:right" href="{% url 'closed-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
+        Closed this issue
+      </a> 
+    {% elif queryset.status == "closed" %}
+      <a general="br:1 color:white bg:blue text:s position:right" href="{% url 'open-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
+        Open this issue
+      </a> 
+    {% endif %}
+  {% endif %}
+{% endblock %}
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
     <div style="padding: 6px;">
       {% include "common/reply_warning.html" %}
-      <div general="position:right">
+      <div general="position:right flex" mobile-l="position:left" mobile-m="position:left" mobile-s="position:left">
         <a href="/@{{ queryset.user }}" general="flex flex:ai-c">
           <img title="{{ queryset.user }}" alt="{{ queryset.user }}" general="br:2" src="{{ queryset.user.githubauthuser.avatar_url }}" width="20" height="20">
-        </a>
-        <div general='text:s flex flex:ai-c'>
+          <div general='text:s flex flex:ai-c'>
             <i class="fas fa-clock"></i>
             {{ queryset.created|timesince }}
         </div>
+        </a>
         <div general="position:right text:s bg:white brc:muted border:1 br:2" style="padding: 2px 6px;">
-            {% include "common/interaction_and_counter.html" %}
-        </div>
-        <div general="flex flex:ai-c">
-          <i class="fa fa-edit fa"></i>
-          <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.permlink %}">
-            Edit
-          </a>
+          {% include "common/interaction_and_counter.html" %}  
+          {% if queryset.user == request.user %}
+            <div general="flex flex:ai-c">
+              <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.permlink %}">
+                  <i class="fa fa-edit fa"></i>
+                  Edit
+              </a>
+            </div>
+          {% endif %}
         </div>
       </div>
       <h1 general="position:center">{{ queryset.title|title }}</h1>
@@ -48,17 +63,4 @@
     {% include 'form/reply.html' %}
     <!--  -->
   </div>
-{% endblock %}
-{% block closed_issue %}
-  {% if request.user == current_user or queryset.user == request.user %}
-    {% if queryset.status == "open" %}
-      <a general="br:1 color:white bg:red text:s position:right" href="{% url 'closed-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
-        Closed this issue
-      </a> 
-    {% elif queryset.status == "closed" %}
-      <a general="br:1 color:white bg:blue text:s position:right" href="{% url 'open-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
-        Open this issue
-      </a> 
-    {% endif %}
-  {% endif %}
 {% endblock %}

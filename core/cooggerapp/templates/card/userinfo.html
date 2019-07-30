@@ -20,7 +20,9 @@
         {% include 'github-redirect.html' %}
       {% endwith %}
       {% with ct as queryset %}
-        {% include 'content/detail/edit.html' %}
+        <div general="position:right">
+            {% include 'content/detail/edit.html' %}
+        </div>
       {% endwith %}
     </div>
 </div>

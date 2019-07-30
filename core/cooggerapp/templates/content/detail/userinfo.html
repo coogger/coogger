@@ -21,40 +21,20 @@
     {% with queryset.user as user %}
         {% include 'github-redirect.html' %}
       {% endwith %}
-      {% include 'content/detail/edit.html' %}
   </div>
   <div general="fd-s">
       {% if request.user != current_user and request.user.is_authenticated %}
       {% if request.user|is_follow:current_user %}
-          <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover width:2"   
+          <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover width:2"   
             style="cursor:pointer;padding: 2px 30px;">
               <div general="text:s color:white" id="follow">Unfollow</div>
           </div>
       {% else %}
-          <div class="follow-op" id="follow-op" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover"   
+          <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover width:2"   
             style="cursor:pointer;padding: 3px 30px;">
               <div general="text:s color:white" id="follow">Follow</div>
           </div>
       {% endif %}
   {% endif %}
   </div>
-  <script type="text/javascript">
-    $(document).ready(function() {
-        $(".follow-op").click(function(event){
-          $("#follow-op").attr({'animation':"blink i"});
-          $.get("{% url 'follow' current_user %}", function(data, status){
-            if (data.status == "follow"){
-              $("#follow-op #follow").html("Unfollow");
-              $("#follow-op").attr({"hover":"bg:red"});
-            }
-            else if (data.status == "unfollow"){
-              $("#follow-op #follow").html("Follow");
-              $("#follow-op").attr({"hover":"bg:primary"});
-            }
-          });
-          $("#follow-op").attr({'animation':""});
-        });
-      });
-  </script>
-  
 </div>

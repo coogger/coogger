@@ -200,9 +200,6 @@ footer li{
   font: inherit;
   margin: 0;
   }
-  #content-toc{
-    border-left: 1px solid #ececec;
-  }
   .lg button:focus, .ctg button:focus{
   outline: none;
   background-image: none;
@@ -217,7 +214,7 @@ footer li{
   .capitalize{
   text-transform: capitalize;
   }
-  .comment_replies{margin-left: 40px;border-left: 1px solid #eaecee;}
+  .comment_replies{margin-left: 30px;border-left: 1px solid #eaecee;}
   .c-definition{width: 100%;}
   .f-address>li>a{padding: 6px;}
   footer{
@@ -410,10 +407,10 @@ footer li{
   height: 80px;
   }
   .just-mobile{
-  display: None;
+  display: initial;
   }
   .just-pc{
-  display: block;
+  display: initial;
   }
   .utopic-query, .issue-query{
     padding: 6px 0px;
