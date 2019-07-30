@@ -78,11 +78,14 @@ class Embed(Detail):
 
 
 class TreeDetail(TemplateView):
-    template_name = "content-detail/tree.html"
-    # TODO
-    # url '@username/topic_permlink/tree/hash/'
-    # or url can be
-    # # url '/tree/hash/' because hash is unique
+    template_name = "content/detail/tree.html"
+    #TODO
+    #url '@username/topic_permlink/tree/hash/'
+    #or url can be
+    #url '/tree/hash/' because hash is unique
+
+    #TODO show all replies acording to commit date, 
+    #use Detail class but all data must be acording to commit date
 
     def get_context_data(self, username, topic_permlink, hash, *args, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -129,7 +132,7 @@ class Create(LoginRequiredMixin, View):
             user_topic = UTopic.objects.filter(user=request.user, permlink=utopic_permlink)
             form.user = request.user
             form.utopic = user_topic[0]
-            form.tags = ready_tags(form.tags) # make validation
+            form.tags = ready_tags(form.tags) #make validation
             form.save()
             return redirect(
                 reverse(
@@ -144,7 +147,7 @@ class Create(LoginRequiredMixin, View):
 
 
 class Update(LoginRequiredMixin, View):
-    # TODO use updateview class as inherit
+    #TODO use updateview class as inherit
     template_name = "content/post/update.html"
     form_class = ContentUpdateForm
     reply_form_class = ContentReplyForm
@@ -198,16 +201,16 @@ class Update(LoginRequiredMixin, View):
                         if get_utopic_permlink is None:
                             utopic = queryset[0].utopic
                         else:
-                            utopic = UTopic.objects.filter( # new utopic
+                            utopic = UTopic.objects.filter( #new utopic
                                 user=queryset[0].user, 
                                 permlink=get_utopic_permlink
                             )
-                            utopic.update( # new utopic update
+                            utopic.update( #new utopic update
                                 how_many=(F("how_many") + 1),
                                 total_dor=(F("total_dor") + dor(form.body)),
                                 total_view=(F("total_view") + queryset[0].views)
                             )
-                            UTopic.objects.filter( # old utopic update
+                            UTopic.objects.filter( #old utopic update
                                 user=queryset[0].user,
                                 permlink=queryset[0].utopic.permlink
                             ).update(
@@ -216,7 +219,7 @@ class Update(LoginRequiredMixin, View):
                                 total_view=(F("total_view") - queryset[0].views)
                             )
                             utopic = utopic[0]
-                            Commit.objects.filter( # old utopic update to new utopic commit
+                            Commit.objects.filter( #old utopic update to new utopic commit
                                 utopic=queryset[0].utopic,
                                 content=queryset[0]
                             ).update(
