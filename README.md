@@ -1,6 +1,6 @@
 <h1 align="center">COOGGER PROJECT</h1>
 <p align="left">
-  Coogger is a platform where developers can write their knowledge, experience, documentation and blogs.
+  Coogger is a platform for developers to publish their knowledge, experiences, documents or blogs in the best way.
  </p>
 <p align="center">
   <a href="https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt" target="_blank">
