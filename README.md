@@ -54,7 +54,6 @@ EMAIL_PASSWORD=*******
 # >>> python manage.py makemigrations cooggerimages
 # >>> python manage.py makemigrations django_page_views
 # >>> python manage.py makemigrations djangoip
-# >>> python manage.py makemigrations django_ban
 # >>> python manage.py makemigrations django_vote_system
 
 >>> python manage.py migrate --database default

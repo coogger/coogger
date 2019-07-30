@@ -119,9 +119,9 @@ MDEDITOR_CONFIGS = dict(
     emoji=True,
 )
 DJANGO_BAN_CONFIGS = dict(
-    remove_ban_by_day=1,
-    increase_count_by_minute=1,
-    ban_count=ban_count,
+    remove_ban_time=60,
+    permission_second=1,
+    permission_request_count=10,
 )
 GITHUB_AUTH = dict(
     redirect_uri=redirect_url,
