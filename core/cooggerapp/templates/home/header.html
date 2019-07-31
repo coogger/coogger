@@ -1,21 +1,11 @@
-{% load django_follow_system_tags %}
 <header general="flex flex:ai-c br:1 position:center bg:white" >
   <div general="flex flex:fw-nw flex:jc-c width:90"  style="overflow: auto;padding: 0px 0px 6px 0px;">
-    {% if request.user.is_authenticated and request.user|following_count %}
-        <div>
-          <a general="flex flex:jc-c flex:ai-c flex:fd-c color:dark text:m" href="{% url 'feed' request.user %}" >
-            <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
-            <span general="text:m">coogger</span>
-          </a>
-        </div>
-    {% else %}
       <div general="position:left">
-        <a general="flex flex:jc-c flex:ai-c flex:fd-c color:dark text:m" href="{% url 'explorer_posts' %}" >
+        <a general="flex flex:jc-c flex:ai-c flex:fd-c color:dark text:m" href="{% url 'home' %}" >
           <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
           <span general="text:m">coogger</span>
-      </a>
+        </a>
       </div>
-    {% endif %}
     {% if not request.user.is_authenticated %}
     <div general="flex flex:ai-c">
       <a style="padding: 6px 12px;" general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover"          href="{% url 'redirect-github' %}">
@@ -53,7 +43,7 @@
             </a>
           </div>
           <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'explorer_posts' %}">
+              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'home' %}">
                 <i general="flex flex:as-c" class="fas fa-compass"></i>
                 <span>Explorer</span>
               </a>
