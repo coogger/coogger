@@ -73,8 +73,16 @@ class CreateUTopic(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST)
         if form.is_valid():
+            form_fiels = form.fields
             form = form.save(commit=False)
             form.user = request.user
+            #issue 101
+            get_global_topic, created = Topic.objects.get_or_create(name=form.name)
+            if not get_global_topic.editable:
+                for field in form_fiels:
+                    if getattr(form, field, None) == None:
+                        setattr(form, field, getattr(get_global_topic, field))
+            #issue 101
             try:
                 save = form.save()
             except IntegrityError:

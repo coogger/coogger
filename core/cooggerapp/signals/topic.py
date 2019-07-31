@@ -8,17 +8,9 @@ from django.db.models import F
 from django_page_views.models import DjangoViews
 
 #models
-from ..models.topic import UTopic, Topic
+from ..models.topic import UTopic
 from ..models.content import Content
 from ..models.utils import is_comment
-
-@receiver(post_save, sender=UTopic)
-def global_topic_create(sender, instance, created, **kwargs):
-    if created:
-        try:
-            Topic(name=instance.name).save()
-        except IntegrityError:
-            pass
 
 @receiver(m2m_changed, sender=DjangoViews.ips.through)
 def increase_utopic_view(sender, **kwargs):
