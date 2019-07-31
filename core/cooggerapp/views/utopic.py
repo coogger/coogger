@@ -39,15 +39,16 @@ class DetailUserTopic(TemplateView):
     def get_context_data(self, username, permlink, **kwargs):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.get(user=user, permlink=permlink)
-        contents = Content.objects.filter(
-            utopic=utopic, 
-            status="approved", 
+        queryset = Content.objects.filter(
+            utopic=utopic,  
             reply=None).order_by("created")
+        if user != self.request.user:
+            queryset = queryset.filter(status="ready")
         context = super().get_context_data(**kwargs)
-        if contents.exists():
-            context["last_update"] = contents[0].created        
+        if queryset.exists():
+            context["last_update"] = queryset[0].created        
         context["current_user"] = user
-        context["queryset"] = contents
+        context["queryset"] = queryset
         context["utopic"] = utopic
         return context
 

@@ -15,7 +15,6 @@ from .utils import get_new_hash, NextOrPrevious
 #python
 from difflib import HtmlDiff
 
-
 class Commit(models.Model):
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
