@@ -48,17 +48,18 @@ class Content(ThreadedComments, VoteView):
     tags = models.CharField(
         max_length=200,
         verbose_name="Keywords",
-        help_text="Write your tags using spaces, max:4",
+        help_text="Write your tags using spaces, max:5",
     )
     image_address = models.URLField(
         null=True,
         blank=True,
     )
     status = models.CharField(
-        default="approved",
+        default="ready",
         max_length=30,
         choices=make_choices(STATUS_CHOICES),
-        verbose_name="content's status",
+        verbose_name="article's status",
+        help_text="if your article isn't ready to publish yet, select 'not ready to publish'.",
     )
 
     class Meta(ThreadedComments.Meta):
@@ -111,7 +112,7 @@ class Content(ThreadedComments, VoteView):
         return self.__class__.objects.filter(
             user=self.user,
             utopic=self.utopic,
-            status="approved",
+            status="ready",
             reply=None
         ).order_by("created")
 

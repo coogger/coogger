@@ -6,7 +6,15 @@ header{
   top: 0px;
   z-index: 2;
 }
-
+.cs{
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+  padding: 4px 6px;
+}
+.cards{
+  padding: 2px 4px;
+}
 /* make reply animation */
 .make_reply_animation{
   background: linear-gradient(114deg, #ffffff, #000000, #ff0000);
@@ -407,7 +415,7 @@ footer li{
   height: 80px;
   }
   .just-mobile{
-  display: initial;
+  display: none;
   }
   .just-pc{
   display: initial;
@@ -459,7 +467,7 @@ border-top: 1px solid #eaecee;
         display: none;
     }
     .just-mobile{
-      display: block;
+      display: initial;
     }
     .just-pc {
         display: none;

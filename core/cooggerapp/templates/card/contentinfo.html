@@ -1,6 +1,10 @@
 <div general="flex flex:jc-fs text:l"  style="margin: 12px 0px;">
     <a href="{{ ct.get_absolute_url }}">
-    <strong id="title" general="color:dark">{{ ct.title }}</strong>
+      {% if ct.status != "ready" %}
+        <strong id="title" general="color:white bg:danger br:2" class="cards">{{ ct.title }}</strong>
+      {% else %}
+        <strong id="title" general="color:dark">{{ ct.title }}</strong>
+      {% endif %}
   </a>
 </div>
 <div general="flex flex:ai-fs flex:ai-fs" style="margin: 12px 0px;">

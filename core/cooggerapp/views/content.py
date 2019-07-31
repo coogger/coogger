@@ -241,6 +241,7 @@ class Update(LoginRequiredMixin, View):
                             body=form.body,
                             title=form.title,
                             last_update=timezone.now(),
+                            status=form.status,
                             utopic=utopic,
                         )
                     return redirect(
