@@ -23,7 +23,7 @@ class UTopicForm(forms.ModelForm):
 class ContentCreateForm(forms.ModelForm):
     class Meta:
         model = Content
-        fields = ["category", "language", "title", "body", "tags", "status"]
+        fields = ["category", "language", "title", "body", "tags"]
 
 
 class ContentUpdateForm(ContentCreateForm):

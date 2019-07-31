@@ -9,12 +9,8 @@
             mobile-l="text:m"
             mobile-m="text:m"
             mobile-s="text:m"
-            href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}" style="margin-bottom: 6px;">
-              {% if commit.content.status != "ready" %}
-                <span general="bg:danger color:white br:2" class="cards" style="padding-bottom: 6px;">{{ commit.msg|title }}</span>
-              {% else %}
-                {{ commit.msg|title }}
-              {% endif %}
+            href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
+              {{ commit.msg|title }}
             </a>
             <div general="flex flex:fd-c width:100" >
               <div flex>

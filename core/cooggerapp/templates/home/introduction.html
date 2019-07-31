@@ -21,8 +21,8 @@
           </span>
       </div>
       <div style="margin:2% 0px;">
-        <a general="bg:white color:dark br:2 width:60 position:center bg:primary:hover color:white:hover flex flex:ai-c"  href="{% url 'explorer_posts' %}" style="padding:6px 0px;">
-            <i class="fas fa-compass"></i> Explore coogger
+        <a general="bg:white color:dark br:2 width:60 position:center bg:primary:hover color:white:hover"  href="{% url 'explorer_posts' %}" style="padding:6px 0px;">
+            <i class="fas fa-compass">Explore posts</i> 
         </a>
       </div>
       <div general="flex center position:ewcenter text:m width:60 br:2 flex:fd-c" 
@@ -61,7 +61,7 @@
       <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c"  style="margin:24px 0px;">
         <span class="just-pc" style="margin-right: 6px;">Most Written Topics and </span>Issues
       </strong>
-      <div general="flex width:90 position:center" >
+      <div general="flex width:90 position:center border:1 brc:muted br:2" >
           {% include 'home/insection-left.html' %}
           <div general="width:70" tablet="width:100">
               {% include 'home/issues-list.html' %}

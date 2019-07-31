@@ -68,7 +68,7 @@ $ docker-compose up --env-file coogger/.env
 ```
 
 ## 🤝 Contributing 🤝
-[CONTRIBUTING.md](https://github.com/coogger/coogger/blob/coogger-dev/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/coogger/coogger/blob/master/CONTRIBUTING.md)
 
 
 ## 💻📖🐛 Contributors 💻📖🐛

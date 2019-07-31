@@ -78,7 +78,6 @@ class UTopic(CommonTopicModel):
     total_view = models.IntegerField(default=0, verbose_name="Total views all contents")
     open_issue = models.IntegerField(default=0, verbose_name="Total count open issue")
     closed_issue = models.IntegerField(default=0, verbose_name="Total count closed issue")
-    #TODO create new field to commit_count
 
     class Meta:
         verbose_name_plural = "User Topic"

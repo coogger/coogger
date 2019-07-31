@@ -15,15 +15,13 @@ class Commits(TemplateView):
     def get_context_data(self, username, topic_permlink, **kwargs):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.get(user__username=username, permlink=topic_permlink)
-        queryset = Commit.objects.filter(utopic=utopic)
-        if user != self.request.user:
-            queryset = queryset.filter(content__status="ready")
+        commits = Commit.objects.filter(utopic=utopic)
         context = super().get_context_data(**kwargs)
         context["current_user"] = user
-        context["queryset"] = paginator(self.request, queryset)
+        context["queryset"] = paginator(self.request, commits)
         context["utopic"] = utopic
-        if queryset.exists():
-            context["last_update"] = queryset[0].created
+        if commits.exists():
+            context["last_update"] = commits[0].created
         return context
 
 

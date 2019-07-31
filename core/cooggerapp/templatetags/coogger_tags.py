@@ -32,13 +32,13 @@ def json(value, arg):
 def hmanycontent(user):
     if user.is_anonymous:
         return 0
-    obj = Content.objects.filter(user=user, status="ready")
+    obj = Content.objects.filter(user=user, status="approved")
     replies_count = obj.filter(reply=None).count()
     return f"{replies_count} + {obj.count() - replies_count}"
 
 @register.simple_tag
 def content_count(username, value, key):
-    obj = Content.objects.filter(user__username=username, status="ready", reply=None)
+    obj = Content.objects.filter(user__username=username, status="approved", reply=None)
     return model_filter({str(value):key}.items(), obj).get("queryset").count()
 
 @register.simple_tag

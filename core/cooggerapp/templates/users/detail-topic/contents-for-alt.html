@@ -23,11 +23,7 @@
             <div general="width:90">
                 <div general="flex width:100 flex:ai-c">
                     <a class="text3" general="color:primary width:50" href="{{ content.get_absolute_url }}">
-                      {% if content.status != "ready" %}
-                        <span general="bg:danger color:white br:2" class="cards">{{ content.title|title }}</span>  
-                      {% else %}
-                        <span>{{ content.title|title }}</span>  
-                      {% endif %}
+                        {{ content.title|title }}
                    </a>
                    <span general="width:50 text:s color:secondary" class="text3">{{ content.get_last_commit.msg }}</span>
                    <div general="text:s color:secondary">

@@ -42,7 +42,7 @@ class Home(TemplateView):
         return context
 
     def get_queryset(self):
-        queryset = Content.objects.filter(status="ready", reply=None)
+        queryset = Content.objects.filter(status="approved", reply=None)
         if not self.is_authenticated and self.url_name == "home":
             return self.get_queryset_to_introduction(queryset)
         return queryset
@@ -109,7 +109,7 @@ class Search(Home):
         name = self.request.GET["query"].lower()
         SearchedWords(word=name).save()
         q = Q(title__contains=name) | Q(body__contains=name)
-        queryset = Content.objects.filter(q).filter(status="ready", reply=None)
+        queryset = Content.objects.filter(q).filter(status="approved", reply=None)
         return queryset
 
 
@@ -126,7 +126,7 @@ class Feed(Home):
     def get_queryset(self):
         following = list(User.objects.get(username=self.username).follow.following.all())
         queryset = list()
-        contents = Content.objects.filter(status="ready")
+        contents = Content.objects.filter(status="approved")
         for user in following:
             queryset += contents.filter(user=user)
         queryset = sorted(queryset, reverse=True, key=lambda instance: instance.created)

@@ -37,8 +37,9 @@ REPORTS = [
     "Wrong list name",
 ]
 STATUS_CHOICES = [
-    "ready",
-    "not ready"
+    "approved",
+    "rejected",
+    "shared",
 ]
 ISSUE_CHOICES = [
     "open",

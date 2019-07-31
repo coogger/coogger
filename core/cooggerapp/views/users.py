@@ -33,9 +33,7 @@ class UserContent(Common):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        queryset = Content.objects.filter(user=user, reply=None)
-        if user != self.request.user:
-            queryset = queryset.filter(status="ready")
+        queryset = Content.objects.filter(user=user, status="approved", reply=None)
         context["queryset"] = paginator(self.request, queryset)
         return context
 
@@ -53,14 +51,14 @@ class About(Common):
 
 
 class Comment(Common):
-    "user's comment page"
+    "History of users"
     template_name = "users/history/comment.html"
 
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
         queryset = Content.objects.filter(
-            status="ready",
+            status="approved",
             reply__user=user
         )
         context["user_comment"] = True
