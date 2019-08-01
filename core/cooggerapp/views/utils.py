@@ -17,16 +17,16 @@ def paginator(request, queryset):
 
 def model_filter(items, queryset):
     # TODO improved this function
-    filter = ""
+    _filter = ""
     first = True
     for attr, value in items:
         if attr == "page":
             continue
         if first:
             first = False
-            filter += f"?{attr}={value}"
+            _filter += f"?{attr}={value}"
         else:
-            filter += f"&{attr}={value}"
+            _filter += f"&{attr}={value}"
         if attr == "username":
             queryset = queryset.filter(user__username=value)
         elif attr == "tags":
@@ -42,4 +42,4 @@ def model_filter(items, queryset):
                 queryset = queryset.filter(**{attr: value})
             except FieldError:
                 pass
-    return dict(filter=filter, queryset=queryset)
+    return dict(filter=_filter, queryset=queryset)
