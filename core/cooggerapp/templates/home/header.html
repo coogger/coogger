@@ -1,15 +1,31 @@
 <header general="flex flex:ai-c br:1 position:center bg:white" >
-    <div general="flex flex:fw-nw flex:jc-c width:90"  style="overflow: auto;padding: 0px 0px 6px 0px;">
-        <div general="position:left">
-          <a general="flex flex:jc-c flex:ai-c flex:fd-c color:dark text:m" href="{% url 'home' %}" >
-            <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
-            <span general="text:m">coogger</span>
-          </a>
-        </div>
-      {% if not request.user.is_authenticated %}
-      <div general="flex flex:ai-c">
-        <a style="padding: 6px 12px;" general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover"          href="{% url 'redirect-github' %}">
-          <i general="text:xxl" class="fab fa-github-square"></i>Login via github
+  <div general="flex flex:fw-nw flex:jc-c width:90"  style="overflow: auto;padding: 0px 0px 6px 0px;">
+      <div general="position:left">
+        <a general="flex flex:jc-c flex:ai-c flex:fd-c color:dark text:m" href="{% url 'home' %}" >
+          <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
+          <span general="text:m">coogger</span>
+        </a>
+      </div>
+    {% if not request.user.is_authenticated %}
+    <div general="flex flex:ai-c">
+      <a style="padding: 6px 12px;" general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover"          href="{% url 'redirect-github' %}">
+        <i general="text:xxl" class="fab fa-github-square"></i>Login via github
+      </a>
+    </div>
+    {% else %}
+    <div general="flex flex:ai-c position:center" class="search just-pc"  style="margin: 13px 16px;">
+      <form action="{% url 'search' %}">
+        <input name="query" style="padding: 6px 4px;" 
+        general="border:1 br:2 bg:white color:dark brc:muted width:100" type="text"
+        style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
+        placeholder="search content .."/>
+        <input type="submit" value="Search" style="display:  none;" />
+      </form>
+    </div>
+    <div general="position:right">
+      <div general="flex flex:ai-c" style="margin: 0px 12px;">
+        <a style="padding: 6px 3px;" general=" width:max text:m color:dark color:white:hover bg:dark:hover br:2:hover"          href="{% url 'create-utopic' %}">
+          <i general="flex flex:as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
         </a>
       </div>
       {% else %}
@@ -34,12 +50,19 @@
             style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;"
               general="br:4 color:muted opacity:0.8:hover" style="max-width: 100%;max-height: 36px;">
           </div>
+<<<<<<< HEAD
           <!--  -->
           <div class="header_menu" general="br:2 border:1 bg:white brc:muted">
             <div general="flex">
               <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="/@{{ request.user }}">
                 <i general="flex flex:as-c" class="fas fa-user" aria-hidden="true"></i>
                 <span>@{{ request.user }}</span>
+=======
+          <div general="flex">
+              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'home' %}">
+                <i general="flex flex:as-c" class="fas fa-compass"></i>
+                <span>Explorer</span>
+>>>>>>> master
               </a>
             </div>
             <div general="flex">

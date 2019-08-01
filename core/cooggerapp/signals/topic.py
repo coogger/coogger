@@ -12,13 +12,20 @@ from ..models.topic import UTopic, Topic
 from ..models.content import Content
 from ..models.utils import is_comment
 
-@receiver(post_save, sender=UTopic)
-def global_topic_create(sender, instance, created, **kwargs):
+#form
+from ..forms import UTopicForm
+
+@receiver(post_save, sender=UTopic)	
+def global_topic_create(instance, created, **kwargs):
     if created:
-        try:
-            Topic(name=instance.name).save()
-        except IntegrityError:
-            pass
+        #issue 101 and when utopic create, topic create too
+        get_global_topic, created = Topic.objects.get_or_create(name=instance.name)
+        if not get_global_topic.editable:
+            for field in UTopicForm._meta.fields:
+                if getattr(instance, field, None) == None:
+                    setattr(instance, field, getattr(get_global_topic, field))
+            instance.save()
+
 
 @receiver(m2m_changed, sender=DjangoViews.ips.through)
 def increase_utopic_view(sender, **kwargs):
