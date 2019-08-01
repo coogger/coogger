@@ -7,11 +7,7 @@
   mobile-m="width:100"
   mobile-s="width:100">
       <h1 general="width:100">
-        {% if commit.content.status != "ready" %}
-          <span general="br:2 bg:danger color:white" class="cards">{{ commit.msg|title }}</span>
-        {% else %}
           {{ commit.msg|title }}
-        {% endif %}
       </h1>
       <div general="flex flex:ai-c width:100" >
         <img class="commit-user" general="br:4 color:muted" src="{{ commit.user.githubauthuser.avatar_url }}">
@@ -20,7 +16,13 @@
       </div>
       <div general="flex width:100" style="margin-top: 12px">
         <a general="color:primary" href="{{ commit.content.get_absolute_url }}">
-          <span class="fa fa-file-alt"></span>{{ commit.content|truncatechars:50 }}</a>
+            {% if commit.content.status != "ready" %}
+              <span class="fa fa-file-alt" general="color:muted" title="{{commit.content.status}}"></span>
+            {% else %}
+              <span class="fa fa-file-alt" general="color:success" title="{{commit.content.status}}"></span>
+            {% endif %}
+          {{ commit.content|truncatechars:50 }}
+        </a>
       </div>
       <div class="commit-detail" general="br:2 width:100">{{ commit.body_change|safe }}</div>
   </div>

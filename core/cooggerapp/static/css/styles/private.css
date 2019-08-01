@@ -1,3 +1,8 @@
+/* font */
+@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
+.font-comfortaa *{
+  font-family: 'Comfortaa', cursive;
+}
 header{
   padding: 6px 0px 0px 0px;
   margin-bottom: 12px;
@@ -8,9 +13,8 @@ header{
 }
 .cs{
   position: sticky;
-  top: 0px;
+  top: 70px;
   z-index: 2;
-  padding: 4px 6px;
 }
 .cards{
   padding: 2px 4px;
@@ -48,16 +52,20 @@ header{
 .p36{
   padding:3px 6px;
 }
+.cdtitle{
+  margin: 30px auto;border-bottom: 12px solid #eeeeee7a;padding-bottom: 30px;
+}
 .oc-l{
   verflow: auto;height: 70vh;padding: 0px 0px 0px 16px;
 }
 .badge-a{
-   
+  margin: 0px 6px;
 }
 .badge-img{
   margin-left: 0px;
   margin-right: 0px;
   cursor: pointer;
+  width: 100%;
 }
 .badge-img:hover {
   transform: rotate(20deg);
