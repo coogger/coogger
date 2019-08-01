@@ -81,10 +81,13 @@ def post_and_reply_created(sender, instance, created, **kwargs):
             )
     else:
         update_fields = kwargs.get("update_fields")
-        for field in update_fields:
-            if field == "status":
-                if instance.status == "ready":
-                    update_topic(instance, + 1)
-                else:
-                    update_topic(instance, - 1)
-                break
+        try:
+            for field in update_fields:
+                if field == "status":
+                    if instance.status == "ready":
+                        update_topic(instance, + 1)
+                    else:
+                        update_topic(instance, - 1)
+                    break
+        except TypeError:
+            pass
