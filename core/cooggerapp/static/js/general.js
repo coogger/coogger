@@ -1,9 +1,9 @@
 $(document).ready(function() {
   $(".report").click(function(event){
-    var content_id = this.getAttribute("data-content-id");
-    $("body").load(`/report/${content_id}/`);
+    var contentId = this.getAttribute("data-content-id");
+    $("body").load(`/report/${contentId}/`);
   });
-  let off_target = [
+  let offTarget = [
     {target:".open_footer", hide:"footer"},
     {target:".open_header_menu", hide:".header_menu"},
     {target:".close-ms", hide:".main-messages"},
@@ -12,9 +12,10 @@ $(document).ready(function() {
     {target:".lists", hide:"nav"},
     {target:".run-filter", hide:".filter-machine"},
   ];
-  for (i in off_target) {
-    let target = off_target[i].target;
-    let hide = off_target[i].hide;
+  var i;
+  for (i in offTarget) {
+    let target = offTarget[i].target;
+    let hide = offTarget[i].hide;
     $("*").click(function(e){
       if ( !$(e.target).is(target) && !$(e.target).is(`${target} *`) && !$(e.target).is(hide) && !$(e.target).is(`${hide} *`) ){
         $(hide).hide();

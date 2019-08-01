@@ -1,5 +1,5 @@
 // coogger.js
-function get_data_from_cooggerapi(apiUrl){
+function getDataFromCooggerapi(apiUrl){
     return fetch(apiUrl)
       .then((resp) => resp.json())
       .then(function(data) {
@@ -9,48 +9,10 @@ function get_data_from_cooggerapi(apiUrl){
         console.log('request failed', error)
       });
   }
-  let get_result_from_cooggerapi = function(apiUrl){
-    return get_data_from_cooggerapi(apiUrl).then(function(data){
+  let getResultFromCooggerApi = function(apiUrl){
+    return getDataFromCooggerapi(apiUrl).then(function(data){
       return data.results;
-    })
-  }
-  // coogger.js
-  function content_replies(comments){
-    let comment_index;
-    for (comment_index = 0; comment_index < comments.length; comment_index++) {
-      let comment = comments[comment_index];
-      if (comment.children != 0){
-        steem.api.getContentReplies(parent=comment.author, parentPermlink=comment.permlink, function (err, children_comments) {
-          let children_comment_index;
-          let children_comments_len = children_comments.length;
-          for (children_comment_index = 0; children_comment_index < children_comments_len; children_comment_index++) {
-            let children_comment_template = "";
-            let children_comment = children_comments[children_comment_index];
-            if (children_comment.depth<9){
-              children_comment_template += `
-                <div class='comment_replies'
-                  id='${children_comment.author}-${children_comment.permlink}'>
-                `
-              children_comment_template += comment_info(children_comment);
-              children_comment_template += userinfo(children_comment);
-              children_comment_template += comment_body(children_comment);
-              if (children_comment.depth == 8){
-                children_comment_template += (`
-                  <a general="position:center color:success"
-                    href="/@${children_comment.author}/'${children_comment.permlink}">
-                    Show ${children_comment.children} more content_replies
-                  </a></div>`);
-              }
-              else{
-                children_comment_template += "</div>";
-              }
-              $(`#${children_comment.parent_author}-${children_comment.parent_permlink}`).append(children_comment_template);
-            }
-          }
-          content_replies(children_comments);
-        });
-      }
-    }
+    });
   }
   function getTagsAsTemplate(tags){
     let template = "";
@@ -68,22 +30,22 @@ function get_data_from_cooggerapi(apiUrl){
     document.execCommand("copy");
     alert("Copied");
   }
-  function get_scroll_bottom_location(){
+  function getScrollBottomLocation(){
     return $(window).scrollTop() + $(window).height()+100;
   }
   function scrolledbottom(){
-    if ( get_scroll_bottom_location() >= $(document).height()){
+    if ( getScrollBottomLocation() >= $(document).height()){
       return true;
     }
     return false;
   }
   function dor(text){
     // post duration of read
-    let reading_speed = 28;
-    return `min ${((text.length/reading_speed)/60).toFixed(1)}`;
+    let readingSpeed = 28;
+    return `min ${((text.length/readingSpeed)/60).toFixed(1)}`;
   }
   // issue reply
-  function reply_userinfo(comment){
+  function replyUserInfo(comment){
     return (`
       <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
         <div general='flex flex:ai-fs bg:white'>
@@ -108,17 +70,17 @@ function get_data_from_cooggerapi(apiUrl){
   function reply_body(reply){
     let title = reply.title;
     let id = reply.id;
-    let upvote_count = reply.upvote_count;
-    if (upvote_count == null){
-      upvote_count = 0;
+    let upvoteCount = reply.upvote_count;
+    if (upvoteCount == null){
+      upvoteCount = 0;
     }
     let views = reply.views;
     if (views == null){
       views = 0;
     }
-    let reply_count = reply.reply_count;
-    if (reply_count == null){
-      reply_count = 0;
+    let replyCount = reply.reply_count;
+    if (replyCount == null){
+      replyCount = 0;
     }
     $(function() {
       let Editor = editormd.markdownToHTML(reply.id+"_arg_editormd", {
@@ -143,7 +105,7 @@ function get_data_from_cooggerapi(apiUrl){
           </div>
           <div general='text:s flex flex:ai-c'>
               <i class="fas fa-heart"></i>
-              <div style='margin-left: 6px;'>${upvote_count}</div>
+              <div style='margin-left: 6px;'>${upvoteCount}</div>
           </div>
           <div general='text:s flex flex:ai-c'>
               <i class="fas fa-eye"></i>
@@ -151,26 +113,26 @@ function get_data_from_cooggerapi(apiUrl){
           </div>
           <div general='text:s flex flex:ai-c'>
               <i class="fas fa-reply-all"></i>
-              <div style='margin-left: 6px;'>${reply_count}</div>
+              <div style='margin-left: 6px;'>${replyCount}</div>
           </div>
         </div>
     `);
   }
   function get_children_replies(reply, api_name){
     if (reply.reply_count != 0 && reply.reply_count != undefined){
-      get_result_from_cooggerapi(`/api/${api_name}/?reply=${reply.id}`).then(function(children_replies){
+      getResultFromCooggerApi(`/api/${api_name}/?reply=${reply.id}`).then(function(children_replies){
         for (ii in children_replies) {
-          let children_reply = children_replies[ii];
-          let children_comment_template = get_replies_template(children_reply);
-          $(`#reply-id-${children_reply.parent_id}`).append(children_comment_template);
-          get_children_replies(children_reply, api_name);
+          let childrenReply = children_replies[ii];
+          let childrenCommentTemplate = get_replies_template(childrenReply);
+          $(`#reply-id-${childrenReply.parent_id}`).append(childrenCommentTemplate);
+          get_children_replies(childrenReply, api_name);
         }
       });
     }
   }
   function load_replies(id, api_name){
     let replies_api = `/api/${api_name}/?reply=${id}`;
-    get_result_from_cooggerapi(replies_api).then(function(replies){
+    getResultFromCooggerApi(replies_api).then(function(replies){
       for (i in replies){
         let reply = replies[i];
         $("#comment_template").append(get_replies_template(reply));
@@ -182,12 +144,12 @@ function get_replies_template(reply){
   if (reply.parent_permlink.includes("re-")){
     return (
       `<div class='comment_replies' id='reply-id-${reply.id}'>
-      ${reply_userinfo(reply)} ${reply_body(reply)}</div>`
+      ${replyUserInfo(reply)} ${reply_body(reply)}</div>`
      );
   }
   return (
     `<div class='comment' id='reply-id-${reply.id}' <div class='comment_highlighted'>
-    ${reply_userinfo(reply)} ${reply_body(reply)}</div></div>`
+    ${replyUserInfo(reply)} ${reply_body(reply)}</div></div>`
    );
 }
 function timeSince(date) {

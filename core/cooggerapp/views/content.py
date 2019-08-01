@@ -219,10 +219,18 @@ class Update(LoginRequiredMixin, View):
                     queryset.body = form.body
                     queryset.title = form.title
                     queryset.last_update = timezone.now()
-                    update_fields = []
+                    update_fields = [
+                        "image_address",
+                        "category",
+                        "language",
+                        "tags",
+                        "body",
+                        "title",
+                        "last_update",
+                    ]
                     if queryset.status != form.status:
                         queryset.status = form.status
-                        update_fields = ["status"]
+                        update_fields.append("status")
                     queryset.utopic = utopic
                     queryset.save(update_fields=update_fields)  # to content signals
                 return redirect(

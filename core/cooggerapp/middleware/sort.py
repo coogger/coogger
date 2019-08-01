@@ -3,7 +3,7 @@ from django.utils.deprecation import MiddlewareMixin
 from django.utils.text import slugify
 
 from ..choices import LANGUAGES
-from ..models import Content
+from ..models import Content, Category
 from ..views.utils import model_filter
 
 
