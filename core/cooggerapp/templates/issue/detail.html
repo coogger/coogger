@@ -43,7 +43,7 @@
       </div>
     </div>
     <!-- replies -->
-    {% with id=queryset.id model="issue" %}
+    {% with id=queryset.id model_name="issue" %}
       {% include 'common/load_replies.html' %}
     {% endwith %}
   </div>

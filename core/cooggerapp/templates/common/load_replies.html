@@ -1,15 +1,29 @@
 <!-- replies -->
 <script type="text/javascript">
     $(document).ready(function() {
+        function getScrollBottomLocation(){
+            return $(window).scrollTop() + $(window).height()+100;
+        }
+        function scrolledBottom(){
+            if ( getScrollBottomLocation() >= $(document).height()){
+            return true;
+            }
+            return false;
+        }
         let loadComments = true;
         function load(){
             if (loadComments && scrolledBottom()){
                 loadComments = false;
                 loadReplies("{{ id }}", "{{ model_name }}")
             }
+            else{
+                $(window).scroll(function(){
+                    load()
+                });
+            }
         }
         load();
-        else{$(window).scroll(function() {load()})}
+        
   });
 </script>
 {% include 'form/reply.html' %}

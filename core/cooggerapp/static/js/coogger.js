@@ -30,15 +30,6 @@ function getDataFromCooggerapi(apiUrl){
     document.execCommand("copy");
     alert("Copied");
   }
-  function getScrollBottomLocation(){
-    return $(window).scrollTop() + $(window).height()+100;
-  }
-  function scrolledBottom(){
-    if ( getScrollBottomLocation() >= $(document).height()){
-      return true;
-    }
-    return false;
-  }
   function dor(text){
     // post duration of read
     let readingSpeed = 28;
@@ -226,7 +217,7 @@ $(document).ready(function() {
       }).done(function(new_reply) {
         new_reply = JSON.parse(new_reply);
         document.getElementById("id_body").value = ""
-        let new_reply_template = get_replies_template(new_reply);
+        let new_reply_template = getRepliesTemplate(new_reply);
         $("#comment_template").append(new_reply_template);
       }).always(function(){
         $(this_).removeClass("make_reply_animation");
