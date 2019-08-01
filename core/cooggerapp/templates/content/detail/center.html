@@ -22,7 +22,7 @@ mobile-m="width:96" mobile-s="width:98" style="padding: 4px 6px">
   {% endif %}
   <div style="margin: 10% 0px;"></div>
   <!-- replies -->
-  {% with id = queryset.id model = "content" %}
+  {% with id=queryset.id model="content" %}
     {% include 'common/load_replies.html' %}
   {% endwith %}
 </div>

@@ -13,7 +13,7 @@
     </div>
     <div style="margin: 10% 0px;"></div>
     <!-- replies -->
-    {% with id = queryset.id model = "content" %}
+    {% with id=queryset.id model="content" %}
       {% include 'common/load_replies.html' %}
     {% endwith %}
   </div>
