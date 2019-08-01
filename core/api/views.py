@@ -1,6 +1,5 @@
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from core.api.serializers import ContentSerializer, IssueSerializer
 from core.cooggerapp.models import Content, Issue

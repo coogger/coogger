@@ -1,9 +1,6 @@
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.exceptions import FieldError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-
-from ..models import Category, Topic
 
 
 def paginator(request, queryset):

@@ -1,4 +1,3 @@
-from django.db import IntegrityError
 from django.db.models import F
 from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver

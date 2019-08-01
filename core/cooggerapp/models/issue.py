@@ -1,11 +1,5 @@
-import random
-
-from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import F
-from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils.text import slugify
 from django_md_editor.models import EditorMdField
 
 from core.cooggerapp.choices import ISSUE_CHOICES, make_choices

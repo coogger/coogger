@@ -1,11 +1,8 @@
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
-from django.urls import reverse
-from django.views import View
 from django.views.generic.base import TemplateView
 from django_bookmark.models import Bookmark as BookmarkModel
 
-from ..models import Content, UserProfile, UTopic
+from ..models import Content, UserProfile
 from .utils import paginator
 
 

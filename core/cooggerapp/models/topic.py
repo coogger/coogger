@@ -1,8 +1,5 @@
-from contextlib import suppress
-
 from django.contrib.auth.models import User
-from django.db import IntegrityError, models
-from django.db.models import F
+from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 

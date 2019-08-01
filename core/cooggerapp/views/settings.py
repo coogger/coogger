@@ -1,17 +1,13 @@
-import os
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
-from django.urls import reverse
 from django.views import View
-from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
 
 from ..forms import AddressesForm
-from ..models import OtherAddressesOfUsers, UserProfile
+from ..models import UserProfile
 
 
 class User(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

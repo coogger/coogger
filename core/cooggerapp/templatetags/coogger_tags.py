@@ -1,13 +1,11 @@
 # django
 import random
 
-import requests
 from django import template
-from django.contrib.auth.models import User
 from django.urls import resolve
 
 from ..choices import *
-from ..models import Commit, Content, Topic
+from ..models import Commit, Content
 from ..views.utils import model_filter
 
 register = template.Library()

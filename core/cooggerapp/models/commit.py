@@ -35,8 +35,6 @@ class Commit(models.Model):
         previous_commit = self.previous_commit
         if not previous_commit:
             return self.body
-        after = list()
-        before = list()
         HtmlDiff._file_template = (
             """<style type="text/css">%(styles)s</style>%(table)s"""
         )

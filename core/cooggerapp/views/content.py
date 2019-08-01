@@ -13,7 +13,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.base import TemplateView
 
 from ..forms import ContentCreateForm, ContentReplyForm, ContentUpdateForm
-from ..models import Category, Commit, Content, Topic, UTopic
+from ..models import Category, Commit, Content, UTopic
 from ..models.utils import dor, get_first_image, is_comment, ready_tags
 from ..views.generic.detail import DetailPostView
 
@@ -176,7 +176,6 @@ class Update(LoginRequiredMixin, View):
                 form = form.save(commit=False)
                 form.user = request.user
                 if is_comment(queryset):
-                    "if its a comment"
                     queryset.body = form.body
                     queryset.image_address = get_first_image(form.body)
                     queryset.last_update = timezone.now()

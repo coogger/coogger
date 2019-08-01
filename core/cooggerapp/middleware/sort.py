@@ -2,9 +2,9 @@ from django.urls import resolve
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.text import slugify
 
-from core.cooggerapp.choices import LANGUAGES
-from core.cooggerapp.models import Category, Content, Topic
-from core.cooggerapp.views.utils import model_filter
+from ..choices import LANGUAGES
+from ..models import Content
+from ..views.utils import model_filter
 
 
 class SortMiddleware(MiddlewareMixin):

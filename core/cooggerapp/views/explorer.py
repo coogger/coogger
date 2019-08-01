@@ -2,7 +2,7 @@ from django.http import Http404
 from django.views.generic.base import TemplateView
 
 from ..choices import LANGUAGES
-from ..models import Category, Content, Topic
+from ..models import Content, Topic
 from ..views.utils import model_filter
 from .utils import paginator
 

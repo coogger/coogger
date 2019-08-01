@@ -9,7 +9,7 @@ from django.views import View
 from django.views.generic.base import TemplateView
 
 from ..forms import UTopicForm
-from ..models import Commit, Content, Topic, UTopic
+from ..models import Content, Topic, UTopic
 from .users import Common
 from .utils import paginator
 
