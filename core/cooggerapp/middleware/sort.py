@@ -37,7 +37,7 @@ class SortMiddleware(MiddlewareMixin):
             name = request.path_info.split("/")[2]
         except IndexError:
             return None
-        queryset = Content.objects.filter(status="approved", reply=None)
+        queryset = Content.objects.filter(status="ready", reply=None)
         url_name = self.get_url_name(request)
         if url_name == "category":
             category = Category.objects.filter(name=name)[0]
@@ -104,7 +104,7 @@ class SortMiddleware(MiddlewareMixin):
         if url_name not in self.valid_urls:
             return None
         querysets_list = []
-        content_queryset = Content.objects.filter(status="approved", reply=None)
+        content_queryset = Content.objects.filter(status="ready", reply=None)
         for language in LANGUAGES:
             querysets = content_queryset.filter(language = language)
             try:
@@ -127,7 +127,7 @@ class SortMiddleware(MiddlewareMixin):
             return None
         category_queryset = Category.objects.all()
         querysets_list = []
-        content_queryset = Content.objects.filter(status="approved", reply=None)
+        content_queryset = Content.objects.filter(status="ready", reply=None)
         for category in category_queryset:
             querysets = content_queryset.filter(category=category)
             try:

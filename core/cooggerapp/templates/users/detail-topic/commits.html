@@ -9,7 +9,7 @@
             mobile-l="text:m"
             mobile-m="text:m"
             mobile-s="text:m"
-            href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}">
+            href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}" style="margin-bottom: 6px;">
               {{ commit.msg|title }}
             </a>
             <div general="flex flex:fd-c width:100" >
@@ -36,7 +36,11 @@
             </div>
             <div general="flex width:100" style="margin-top: 6px;" >
               <a class="text3" general="width:90 text:s" href="{{ commit.content.get_absolute_url }}">
-                <span class="fa fa-file-alt"></span>
+                {% if commit.content.status != "ready" %}
+                <span class="fa fa-file-alt" general="color:muted" title="{{ commit.content.status }}"></span>
+                {% else %}
+                <span class="fa fa-file-alt" general="color:success" title="{{ commit.content.status }}"></span>
+                {% endif %}
                 {{ commit.content }}
               </a>
             </div>

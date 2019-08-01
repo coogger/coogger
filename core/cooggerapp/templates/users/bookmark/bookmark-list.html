@@ -1,27 +1,34 @@
 {% load django_bookmark %}
 <div general="flex position:center width:100 flex:fd-c" tablet="width:100" >
     {% for bookmark in queryset %}
-    <div general="flex flex:ai-c border:1 br:2 brc:muted width:100 text:m"  style="padding: 4px 0px; margin: 4px 0px; cursor:pointer" >
-        <div general="flex flex:fd-c width:100">
-            <div general="flex flex:ai-c width:100">
-                <a general="width:60 br:2 color:dark text:m color:primary:hover" class="text3"  href="{{ bookmark.model.get_absolute_url }}" style="margin-right: 12px; padding: 4px;">
-                    <strong>{{ bookmark.model.title|title }}</strong>
-                </a>
-                <div general="text:s position:right" flex>
-                    <i general="color:secondary" class="fas fa-eye">{{ bookmark.model.views }}</i>
-                    <i general="color:secondary" class="fas fa-reply-all">{{ bookmark.model.reply_count }}</i>    
+    <div general="flex">
+        <div general="flex flex:ai-c border:1 br:2 brc:muted width:100 text:m"  style="padding: 12px 8px;margin: 4px 0px;cursor:pointer;" >
+            <div general="flex flex:fd-c width:100">
+                <div general="flex flex:ai-c width:100">
+                    <a general="width:60 br:2 color:dark text:m color:primary:hover" class="text3"  href="{{ bookmark.model.get_absolute_url }}" style="margin-right: 12px; padding: 4px;">
+                        <strong>{{ bookmark.model.title|title }}</strong>
+                    </a>
+                    <div general="text:s position:right" flex>
+                        <i general="color:secondary" class="fas fa-eye">{{ bookmark.model.views }}</i>
+                        <i general="color:secondary" class="fas fa-reply-all">{{ bookmark.model.reply_count }}</i>    
+                    </div>
                 </div>
             </div>
-        </div>
-        <div style="cursor: pointer" general="flex flex:ai-c" onclick="remove_or_add_bookmark(this)" 
+            <div style="cursor: pointer" general="flex flex:ai-c width:100" onclick="remove_or_add_bookmark(this)" 
                 data-app_label="{{ bookmark.content_type.app_label }}" 
                 data-model="{{ bookmark.model_name }}" 
                 data-object_id="{{ bookmark.model.id }}"
                 data-csrf="{{ csrf_token }}"
                 data-url="{% url 'django_bookmark:add_or_remove' %}"
                 data-bookmark-status="{% is_mark request.user bookmark.model bookmark.model.id %}">
-           <i general="color:secondary" class="bookmarkicon fas fa-bookmark" id="how_many_mark">{{ bookmark.how_many }}</i>
-            <span general="position:left color:secondary">{{ bookmark.content_type|title }}</span>
+                <div>
+                    <i general="color:secondary" class="bookmarkicon fas fa-bookmark" id="how_many_mark"></i>
+                    {{ bookmark.how_many }}
+                </div>
+                <div general="position:right color:secondary">
+                    {{ bookmark.content_type }}
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}

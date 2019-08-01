@@ -17,7 +17,7 @@
           mobile-s="width:20"
           href="{% url 'badge'  badge.permlink %}">
               <img class="badge-img" width="100%" height="100%" 
-              general="width:80 height:80 br:4 opacity:0.8:hover" 
+              general="width:80 height:80 opacity:0.8:hover" 
               src="{{ badge.image_address }}" 
               alt="{{ current_user }}-badge-{{ badge }}" title="{{ badge }}"
               style="transform: rotate({% get_random -50 50 10 %}deg);">

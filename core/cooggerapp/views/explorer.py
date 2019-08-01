@@ -19,14 +19,12 @@ class TopicView(TemplateView):
     template_name = "topic/index.html"
 
     def get_context_data(self, permlink, *args, **kwargs):
-        queryset = Content.objects.filter(utopic__permlink=permlink, status="approved", reply=None)
-        if queryset.exists():
-            context = super().get_context_data(**kwargs)
-            context["queryset"] = paginator(self.request, queryset)
-            context["topic"] = Topic.objects.get(permlink=permlink)
-            context["topic_users"] = self.get_users(queryset)
-            return context
-        raise Http404
+        queryset = Content.objects.filter(utopic__permlink=permlink, status="ready", reply=None)
+        context = super().get_context_data(**kwargs)
+        context["queryset"] = paginator(self.request, queryset)
+        context["topic"] = Topic.objects.get(permlink=permlink)
+        context["topic_users"] = self.get_users(queryset)
+        return context
 
     def get_users(self, queryset):
         users = []
@@ -42,7 +40,7 @@ class Hashtag(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, hashtag, **kwargs):
-        queryset = Content.objects.filter(tags__contains=hashtag, status="approved", reply=None)
+        queryset = Content.objects.filter(tags__contains=hashtag, status="ready", reply=None)
         if queryset.exists():
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
@@ -56,7 +54,7 @@ class Languages(TemplateView):
 
     def get_context_data(self, lang_name, **kwargs):
         if lang_name in LANGUAGES:
-            queryset = Content.objects.filter(language=lang_name, status="approved", reply=None)
+            queryset = Content.objects.filter(language=lang_name, status="ready", reply=None)
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
             context["language"] = lang_name
@@ -69,7 +67,7 @@ class Categories(TemplateView):
 
     def get_context_data(self, cat_name, **kwargs):
         queryset = Content.objects.filter(
-            category__name=cat_name, status="approved", reply=None
+            category__name=cat_name, status="ready", reply=None
         )
         context = super().get_context_data(**kwargs)
         context["queryset"] = paginator(self.request, queryset)
@@ -82,7 +80,7 @@ class Filter(TemplateView):
     model = Content
 
     def get_context_data(self, **kwargs):
-        queryset = self.model.objects.filter(status="approved", reply=None)
+        queryset = self.model.objects.filter(status="ready", reply=None)
         filtered = model_filter(self.request.GET.items(), queryset)
         queryset = filtered.get("queryset")
         context = super().get_context_data(**kwargs)

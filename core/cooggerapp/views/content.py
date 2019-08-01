@@ -62,7 +62,7 @@ class Detail(DetailPostView, View):
         context = super().get_context_data(**kwargs)
         queryset = context.get("queryset")
         context["current_user"] = queryset.user
-        context["urloftopic"] = queryset.utopic.permlink
+        context["current_page_permlink"] = queryset.permlink
         context["nameoflist"] = queryset.utopic
         return context
 
@@ -180,82 +180,82 @@ class Update(LoginRequiredMixin, View):
 
     def post(self, request, username, permlink, *args, **kwargs):
         if request.user.username == username:
-            queryset = self.model.objects.filter(user=request.user, permlink=permlink)
-            if queryset.exists():
-                if is_comment(queryset[0]):
-                    form = self.reply_form_class(data=request.POST)
-                else:
-                    form = self.form_class(data=request.POST)
-                if form.is_valid():
-                    form = form.save(commit=False)
-                    form.user = request.user
-                    if is_comment(queryset[0]):
+            queryset = get_object_or_404(self.model, user=request.user, permlink=permlink)
+            if is_comment(queryset):
+                form = self.reply_form_class(data=request.POST)
+            else:
+                form = self.form_class(data=request.POST)
+            if form.is_valid():
+                form = form.save(commit=False)
+                form.user = request.user
+                if is_comment(queryset):
                         "if its a comment"
-                        queryset.update(
-                            body=form.body,
-                            image_address=get_first_image(form.body),
-                            last_update=timezone.now(),
-                        )
+                        queryset.body = form.body
+                        queryset.image_address = get_first_image(form.body)
+                        queryset.last_update = timezone.now()
+                        queryset.save()
+                else:
+                    get_utopic_permlink = request.GET.get("utopic_permlink", None)
+                    if get_utopic_permlink is None:
+                        utopic = queryset.utopic
                     else:
-                        get_utopic_permlink = request.GET.get("utopic_permlink", None)
-                        if get_utopic_permlink is None:
-                            utopic = queryset[0].utopic
-                        else:
-                            utopic = UTopic.objects.filter( #new utopic
-                                user=queryset[0].user, 
-                                permlink=get_utopic_permlink
-                            )
-                            utopic.update( #new utopic update
-                                how_many=(F("how_many") + 1),
-                                total_dor=(F("total_dor") + dor(form.body)),
-                                total_view=(F("total_view") + queryset[0].views)
-                            )
-                            UTopic.objects.filter( #old utopic update
-                                user=queryset[0].user,
-                                permlink=queryset[0].utopic.permlink
-                            ).update(
-                                how_many=(F("how_many") - 1),
-                                total_dor=(F("total_dor") - dor(queryset[0].body)),
-                                total_view=(F("total_view") - queryset[0].views)
-                            )
-                            utopic = utopic[0]
-                            Commit.objects.filter( #old utopic update to new utopic commit
-                                utopic=queryset[0].utopic,
-                                content=queryset[0]
-                            ).update(
-                                utopic=utopic
-                            )
-                        if form.body != queryset[0].body:
-                            Commit(
-                                user=queryset[0].user,
-                                utopic=utopic,
-                                content=queryset[0],
-                                body=form.body,
-                                msg=request.POST.get("msg")
-                            ).save()
-                        queryset.update(
-                            image_address=get_first_image(form.body),
-                            category=form.category,
-                            language=form.language,
-                            tags=ready_tags(form.tags),
-                            body=form.body,
-                            title=form.title,
-                            last_update=timezone.now(),
+                        utopic = UTopic.objects.filter( #new utopic
+                            user=queryset.user, 
+                            permlink=get_utopic_permlink
+                        )
+                        utopic.update( #new utopic update
+                            how_many=(F("how_many") + 1),
+                            total_dor=(F("total_dor") + dor(form.body)),
+                            total_view=(F("total_view") + queryset.views)
+                        )
+                        UTopic.objects.filter( #old utopic update
+                            user=queryset.user,
+                            permlink=queryset.utopic.permlink
+                        ).update(
+                            how_many=(F("how_many") - 1),
+                            total_dor=(F("total_dor") - dor(queryset.body)),
+                            total_view=(F("total_view") - queryset.views)
+                        )
+                        utopic = utopic[0]
+                        Commit.objects.filter( #old utopic update to new utopic commit
+                            utopic=queryset.utopic,
+                            content=queryset
+                        ).update(
+                            utopic=utopic
+                        )
+                    if form.body != queryset.body:
+                        Commit(
+                            user=queryset.user,
                             utopic=utopic,
-                        )
-                    return redirect(
-                        reverse(
-                            "content-detail", 
-                            kwargs=dict(
-                                username=str(queryset[0].user), 
-                                permlink=queryset[0].permlink
-                                )
+                            content=queryset,
+                            body=form.body,
+                            msg=request.POST.get("msg")
+                        ).save()
+                    queryset.image_address = get_first_image(form.body)
+                    queryset.category = form.category
+                    queryset.language = form.language
+                    queryset.tags = ready_tags(form.tags)
+                    queryset.body = form.body
+                    queryset.title = form.title
+                    queryset.last_update = timezone.now()
+                    update_fields = []
+                    if queryset.status != form.status:
+                        queryset.status = form.status
+                        update_fields=["status"]
+                    queryset.utopic = utopic
+                    queryset.save(update_fields=update_fields) # to content signals
+                return redirect(
+                    reverse(
+                        "content-detail", 
+                        kwargs=dict(
+                            username=str(queryset.user), 
+                            permlink=queryset.permlink
                             )
                         )
-                context = dict(
-                    form=form,
-                    username=username,
-                    permlink=permlink
-                )
-                return render(request, self.template_name, context)
-        return HttpResponse(status=403)
+                    )
+            context = dict(
+                form=form,
+                username=username,
+                permlink=permlink
+            )
+            return render(request, self.template_name, context)

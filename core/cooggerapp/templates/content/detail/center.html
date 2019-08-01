@@ -2,21 +2,24 @@
 {% load coogger_tags %}
 <div general="width:50" tablet="width:80" mobile-l="width:90" 
 mobile-m="width:96" mobile-s="width:98" style="padding: 4px 6px">
-  {% include 'content/detail/contentinfo.html' %}  
+  {% include 'content/detail/status.html' %}  
   {% include 'content/detail/userinfo.html' %}
-  <h1 general="position:center text:xxl" id="title" style="margin: 12px auto;">
+  {% include 'content/detail/contentinfo.html' %}
+  <h1 general="position:center text:xxl" class="font-comfortaa cdtitle" id="title">
     <strong>{{ queryset.title|title }}</strong>
   </h1>
-  <div style="padding: inherit;">
+  <div style="padding: inherit;" class="font-comfortaa">
     {{ queryset.body|markdown_to_html:"detail-body"|safe }}
   </div>
   <div class="tags" id="tags" general="flex flex:jc-sa position:right bg:dark-purple text:s" ></div>
   <!-- tags -->
-  <div general="flex position:right text:s color:secondary" >
-    {% for tag in queryset.tags|split:" " %}
-      <span style="margin-left: 6px;">#{{ tag }}</span>
-    {% endfor %}
-  </div>
+  {% if not queryset.reply %}
+    <div general="flex position:right text:s color:secondary" >
+      {% for tag in queryset.tags|split:" " %}
+        <span style="margin-left: 6px;">#{{ tag }}</span>
+      {% endfor %}
+    </div>
+  {% endif %}
   <div style="margin: 10% 0px;"></div>
   <!-- replies -->
   <script type="text/javascript">
