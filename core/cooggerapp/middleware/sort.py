@@ -123,11 +123,7 @@ class SortMiddleware(MiddlewareMixin):
         content_queryset = Content.objects.filter(status="ready", reply=None)
         for category in category_queryset:
             querysets = content_queryset.filter(category=category)
-            try:
-                querysets[0]
-            except:
-                pass
-            else:
+            if querysets.exists():
                 querysets_list.append(querysets)
         context = []
         for contents in sorted(querysets_list, key=len, reverse=True):

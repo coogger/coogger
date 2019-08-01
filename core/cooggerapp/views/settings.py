@@ -10,7 +10,7 @@ from ..forms import AddressesForm
 from ..models import UserProfile
 
 
-class User(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class UserSetMixin(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     fields = ["first_name", "last_name", "email"]
     template_name = "settings/user.html"
@@ -26,11 +26,11 @@ class User(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return self.model.objects.get(username=self.request.user.username)
 
 
-class Settings(User):
+class Settings(UserSetMixin):
     pass
 
 
-class UserExtra(User):
+class UserExtra(UserSetMixin):
     model = UserProfile
     fields = ["description", "about", "email_permission"]
     template_name = "settings/userextra.html"
