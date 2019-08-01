@@ -1,0 +1,15 @@
+<!-- replies -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        let loadComments = true;
+        function load(){
+            if (loadComments && scrolledBottom()){
+                loadComments = false;
+                loadReplies("{{ id }}", "{{ model_name }}")
+            }
+        }
+        load();
+        else{$(window).scroll(function() {load()})}
+  });
+</script>
+{% include 'form/reply.html' %}

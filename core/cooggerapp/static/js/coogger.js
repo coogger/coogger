@@ -33,7 +33,7 @@ function getDataFromCooggerapi(apiUrl){
   function getScrollBottomLocation(){
     return $(window).scrollTop() + $(window).height()+100;
   }
-  function scrolledbottom(){
+  function scrolledBottom(){
     if ( getScrollBottomLocation() >= $(document).height()){
       return true;
     }
@@ -118,40 +118,41 @@ function getDataFromCooggerapi(apiUrl){
         </div>
     `);
   }
-  function get_children_replies(reply, api_name){
+  function getRepliesTemplate(reply){
+    if (reply.parent_permlink.includes("re-")){
+      return (
+        `<div class='comment_replies' id='reply-id-${reply.id}'>
+        ${replyUserInfo(reply)} ${reply_body(reply)}</div>`
+       );
+    }
+    return (
+      `<div class='comment' id='reply-id-${reply.id}' <div class='comment_highlighted'>
+      ${replyUserInfo(reply)} ${reply_body(reply)}</div></div>`
+     );
+  }
+  function getChildrenReplies(reply, api_name){
     if (reply.reply_count != 0 && reply.reply_count != undefined){
-      getResultFromCooggerApi(`/api/${api_name}/?reply=${reply.id}`).then(function(children_replies){
-        for (ii in children_replies) {
-          let childrenReply = children_replies[ii];
-          let childrenCommentTemplate = get_replies_template(childrenReply);
+      getResultFromCooggerApi(`/api/${api_name}/?reply=${reply.id}`).then(function(childrenReplies){
+        var ii;
+        for (ii in childrenReplies) {
+          let childrenReply = childrenReplies[ii];
+          let childrenCommentTemplate = getRepliesTemplate(childrenReply);
           $(`#reply-id-${childrenReply.parent_id}`).append(childrenCommentTemplate);
-          get_children_replies(childrenReply, api_name);
+          getChildrenReplies(childrenReply, api_name);
         }
       });
     }
   }
-  function load_replies(id, api_name){
+  function loadReplies(id, api_name){
     let replies_api = `/api/${api_name}/?reply=${id}`;
     getResultFromCooggerApi(replies_api).then(function(replies){
       for (i in replies){
         let reply = replies[i];
-        $("#comment_template").append(get_replies_template(reply));
-        get_children_replies(reply, api_name);
+        $("#comment_template").append(getRepliesTemplate(reply));
+        getChildrenReplies(reply, api_name);
       }
     });
   }
-function get_replies_template(reply){
-  if (reply.parent_permlink.includes("re-")){
-    return (
-      `<div class='comment_replies' id='reply-id-${reply.id}'>
-      ${replyUserInfo(reply)} ${reply_body(reply)}</div>`
-     );
-  }
-  return (
-    `<div class='comment' id='reply-id-${reply.id}' <div class='comment_highlighted'>
-    ${replyUserInfo(reply)} ${reply_body(reply)}</div></div>`
-   );
-}
 function timeSince(date) {
   let seconds = Math.floor((new Date() - new Date(date)) / 1000);
   let interval = Math.floor(seconds / 31536000);

@@ -22,23 +22,7 @@ mobile-m="width:96" mobile-s="width:98" style="padding: 4px 6px">
   {% endif %}
   <div style="margin: 10% 0px;"></div>
   <!-- replies -->
-  <script type="text/javascript">
-    $(document).ready(function() {
-      let load_comments = true;
-        if (load_comments && scrolledbottom()){
-            load_comments = false;
-            load_replies("{{ queryset.id }}", "content")
-        }
-        else{
-          $(window).scroll(function() {
-              if (load_comments && scrolledbottom()){
-                load_comments = false;
-                load_replies("{{ queryset.id }}", "content")
-              }
-            });
-        }
-  });
-  </script>
-  {% include 'form/reply.html' %}
-  <!-- replies -->
+  {% with id = queryset.id model = "content" %}
+    {% include 'common/load_replies.html' %}
+  {% endwith %}
 </div>
