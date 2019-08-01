@@ -1,18 +1,16 @@
-#django
+# django
 from django.contrib.auth.models import User
 from django.db import models
 
-#coices
+# coices
 from core.cooggerapp.choices import make_choices, REPORTS
 
-#models
+# models
 from .content import Content
 
 
 class ReportModel(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="reporter"
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="reporter")
     content = models.ForeignKey(
         Content, on_delete=models.CASCADE, verbose_name="reported person"
     )

@@ -1,4 +1,4 @@
-#django
+# django
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -6,11 +6,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.db import IntegrityError
 
-#django libs
+# django libs
 from django_page_views.models import DjangoViews
 
-#python
+# python
 import json
+
 
 class DetailPostView(object):
     """
@@ -22,17 +23,16 @@ class DetailPostView(object):
     model_name = None
     from_class = None
     template_name = None
-    same_fields = list() #fields that remain the same when commented.
-    response_field = list() #json respon fields after commented
-    update_field = dict() #dict to update fields
+    same_fields = list()  # fields that remain the same when commented.
+    response_field = list()  # json respon fields after commented
+    update_field = dict()  # dict to update fields
 
-    def save_view(self, request, id): #TODO use reqeust/response signals
+    def save_view(self, request, id):  # TODO use reqeust/response signals
         get_view, created = DjangoViews.objects.get_or_create(
             content_type=ContentType.objects.get(
-                app_label="cooggerapp",
-                model=self.model_name
+                app_label="cooggerapp", model=self.model_name
             ),
-            object_id=id
+            object_id=id,
         )
         try:
             get_view.ips.add(request.ip_model)
@@ -40,10 +40,7 @@ class DetailPostView(object):
             pass
 
     def get_context_data(self, **kwargs):
-        return dict(
-            queryset=self.get_object(**kwargs),
-            form=self.form_class,
-        )
+        return dict(queryset=self.get_object(**kwargs), form=self.form_class)
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -64,6 +61,7 @@ class DetailPostView(object):
             for up_value, up_key in self.update_field.items():
                 setattr(form, up_value, up_key)
             form.save()
+
             def get_context_data():
                 context = dict()
                 for field in self.response_field:
@@ -77,5 +75,5 @@ class DetailPostView(object):
                         value = str(obj)
                         context[s[-1]] = value
                 return context
-            return HttpResponse(json.dumps(get_context_data()))
 
+            return HttpResponse(json.dumps(get_context_data()))

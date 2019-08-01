@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-#models
+# models
 from core.cooggerapp.models import (
     Content,
     SearchedWords,
@@ -12,10 +12,10 @@ from core.cooggerapp.models import (
     Issue,
 )
 
-#choices
+# choices
 from core.cooggerapp.choices import *
 
-#python
+# python
 import datetime
 
 
@@ -26,7 +26,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Content)
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ["user","permlink","reply"]
+    list_display = ["user", "permlink", "reply"]
     list_display_links = list_display
     list_filter = ["status"]
     search_fields = ["user__username", "permlink", "title", "body"]
@@ -44,7 +44,7 @@ class ContentAdmin(admin.ModelAdmin):
 
 @admin.register(SearchedWords)
 class SearchedWordsAdmin(admin.ModelAdmin):
-    list_display = ["word","hmany"]
+    list_display = ["word", "hmany"]
     list_display_links = list_display
     search_fields = list_display
 
@@ -53,7 +53,7 @@ class SearchedWordsAdmin(admin.ModelAdmin):
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ["user"]
     list_display_links = list_display
-    filter_horizontal = ("address", )
+    filter_horizontal = ("address",)
     search_fields = ["user__username"]
 
 
@@ -63,7 +63,7 @@ class TopicAdmin(admin.ModelAdmin):
     list_display = list_
     list_display_links = list_
     list_filter = ["editable"]
-    search_fields = ["name","definition"]
+    search_fields = ["name", "definition"]
     fields = (
         ("name", "permlink"),
         ("tags"),
@@ -94,12 +94,7 @@ class UtopicAdmin(admin.ModelAdmin):
         ("definition"),
         ("tags"),
         ("address"),
-        (
-            "total_dor",
-            "total_view",
-            "open_issue",
-            "closed_issue",
-        )
+        ("total_dor", "total_view", "open_issue", "closed_issue"),
     )
 
 

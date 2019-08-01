@@ -1,4 +1,4 @@
-#django
+# django
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
@@ -9,16 +9,16 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.utils.text import slugify
 
-#model
-from ..models import (Topic, UTopic, Content, Commit)
+# model
+from ..models import Topic, UTopic, Content, Commit
 
-#form
+# form
 from ..forms import UTopicForm
 
-#utils
+# utils
 from .utils import paginator
 
-#views
+# views
 from .users import Common
 
 
@@ -39,14 +39,12 @@ class DetailUserTopic(TemplateView):
     def get_context_data(self, username, permlink, **kwargs):
         user = User.objects.get(username=username)
         utopic = UTopic.objects.get(user=user, permlink=permlink)
-        queryset = Content.objects.filter(
-            utopic=utopic,  
-            reply=None).order_by("created")
+        queryset = Content.objects.filter(utopic=utopic, reply=None).order_by("created")
         if user != self.request.user:
             queryset = queryset.filter(status="ready")
         context = super().get_context_data(**kwargs)
         if queryset.exists():
-            context["last_update"] = queryset[0].created        
+            context["last_update"] = queryset[0].created
         context["current_user"] = user
         context["queryset"] = queryset
         context["utopic"] = utopic
@@ -60,15 +58,9 @@ class CreateUTopic(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         return render(
-            request, 
-            self.template_name, 
-            dict(
-                form=self.form_class(
-                    initial=dict(
-                        request.GET.items()
-                    )
-                )
-            )
+            request,
+            self.template_name,
+            dict(form=self.form_class(initial=dict(request.GET.items()))),
         )
 
     def post(self, request, *args, **kwargs):
@@ -81,19 +73,14 @@ class CreateUTopic(LoginRequiredMixin, View):
             except IntegrityError:
                 messages.warning(request, f"{form.name} is already taken by yours")
                 return render(
-                    request, 
-                    self.template_name, 
-                    dict(
-                        form=self.form_class(data=request.POST)
-                    )
+                    request,
+                    self.template_name,
+                    dict(form=self.form_class(data=request.POST)),
                 )
             return redirect(
                 reverse(
-                    "detail-utopic", 
-                    kwargs=dict(
-                        permlink=form.permlink, 
-                        username=str(form.user)
-                    )
+                    "detail-utopic",
+                    kwargs=dict(permlink=form.permlink, username=str(form.user)),
                 )
             )
         return render(request, self.template_name, dict(form=form))
@@ -108,19 +95,15 @@ class UpdateUTopic(LoginRequiredMixin, View):
         instance_query = self.model.objects.filter(user=request.user, permlink=permlink)
         if not instance_query.exists():
             messages.warning(request, f"you need to create the {permlink} topic first.")
-            return redirect(reverse("create-utopic")+f"?name={permlink}")
+            return redirect(reverse("create-utopic") + f"?name={permlink}")
         context = dict(
-            form=self.form_class(instance=instance_query[0]),
-            permlink=permlink
+            form=self.form_class(instance=instance_query[0]), permlink=permlink
         )
         return render(request, self.template_name, context)
 
     def post(self, request, permlink, *args, **kwargs):
         form = self.form_class(data=request.POST)
-        context = dict(
-            form=form,
-            permlink=permlink,
-        )
+        context = dict(form=form, permlink=permlink)
         if form.is_valid():
             form = form.save(commit=False)
             self.model.objects.filter(user=request.user, permlink=permlink).update(
@@ -132,12 +115,13 @@ class UpdateUTopic(LoginRequiredMixin, View):
                 address=form.address,
             )
             if permlink != slugify(form.name):
-                #new global topic save
-                if not Content.objects.filter(utopic__permlink=permlink).exists() and \
-                    not UTopic.objects.filter(permlink=permlink).exists():
+                # new global topic save
+                if (
+                    not Content.objects.filter(utopic__permlink=permlink).exists()
+                    and not UTopic.objects.filter(permlink=permlink).exists()
+                ):
                     Topic.objects.filter(permlink=permlink).update(
-                        name=form.name, 
-                        permlink=slugify(form.name)
+                        name=form.name, permlink=slugify(form.name)
                     )
                 else:
                     try:
@@ -145,12 +129,11 @@ class UpdateUTopic(LoginRequiredMixin, View):
                     except IntegrityError:
                         pass
             return redirect(
-                    reverse(
-                        "detail-utopic", 
-                        kwargs=dict(
-                            permlink=slugify(form.name), 
-                            username=str(request.user)
-                        )
-                    )
+                reverse(
+                    "detail-utopic",
+                    kwargs=dict(
+                        permlink=slugify(form.name), username=str(request.user)
+                    ),
                 )
+            )
         return render(request, self.template_name, context)

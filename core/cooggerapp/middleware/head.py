@@ -1,14 +1,13 @@
-#django
+# django
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
 
-#models
+# models
 from core.cooggerapp.models import Content, Topic, UTopic, Commit
 from django.contrib.auth.models import User
 
 
 class HeadMixin:
-
     def process_request(self, request):
         self.path_info = request.path_info
         invalid = ["sitemap", "api", "robots.txt"]
@@ -25,23 +24,24 @@ class HeadMixin:
                 title=url_name.title(),
                 keywords=url_name,
                 description=url_name,
-                image="")
+                image="",
+            )
 
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
-
     def content_detail(self):
         username = self.kwargs.get("username")
         permlink = self.kwargs.get("permlink")
         content = Content.objects.get(user__username=username, permlink=permlink)
         keywords = ""
         for key in content.tags.split():
-            keywords += key+", "
+            keywords += key + ", "
         return dict(
             title=f"{content.utopic.name.capitalize()} | {content.title.capitalize()}",
             keywords=f"{keywords}{content.utopic.name.lower()}",
             description=content.description.capitalize(),
-            image=content.image_address or "https://www.coogger.com/media/images/coogger_W56Ux33.png",
+            image=content.image_address
+            or "https://www.coogger.com/media/images/coogger_W56Ux33.png",
         )
 
     def embed(self):
@@ -218,5 +218,3 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             description=title,
             image=user.githubauthuser.avatar_url,
         )
-
-

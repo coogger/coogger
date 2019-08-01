@@ -1,20 +1,19 @@
 class DBRouter:
     default_apps = [
-        "admin", "auth",
-        "contenttypes", "sessions",
-        "cooggerapp", "github_auth",
-        "django_follow_system", "django_vote_system",
-        "django_threadedcomments_system", "django_bookmark",
+        "admin",
+        "auth",
+        "contenttypes",
+        "sessions",
+        "cooggerapp",
+        "github_auth",
+        "django_follow_system",
+        "django_vote_system",
+        "django_threadedcomments_system",
+        "django_bookmark",
         "djangobadge",
     ]
-    coogger_images_app = [
-        "cooggerimages"
-    ]
-    django_ip_apps = [
-        "contenttypes",
-        "django_page_views",
-        "djangoip",
-    ]
+    coogger_images_app = ["cooggerimages"]
+    django_ip_apps = ["contenttypes", "django_page_views", "djangoip"]
 
     def db_for_read(self, model, **hints):
         app_label = model._meta.app_label

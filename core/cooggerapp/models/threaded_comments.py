@@ -1,14 +1,15 @@
-#django
+# django
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import F
 from django.utils.text import slugify
 
-#models
+# models
 from .utils import is_comment
 
-#python
+# python
 import random
+
 
 class ThreadedComments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -17,21 +18,15 @@ class ThreadedComments(models.Model):
         max_length=200,
         help_text="Be sure to choose the best title",
         null=True,
-        blank=True)
-    reply = models.ForeignKey(
-        "self",
-        on_delete=models.CASCADE,
-        null=True,
         blank=True,
-        related_name="children")
+    )
+    reply = models.ForeignKey(
+        "self", on_delete=models.CASCADE, null=True, blank=True, related_name="children"
+    )
     reply_count = models.IntegerField(default=0)
-    #depth = models.IntegerField(default=0)
-    created = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Created")
-    last_update = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Last update")
+    # depth = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
+    last_update = models.DateTimeField(auto_now_add=True, verbose_name="Last update")
 
     class Meta:
         ordering = ["-created"]
@@ -42,7 +37,7 @@ class ThreadedComments(models.Model):
 
     @property
     def is_exists(self):
-        #check with unique_together
+        # check with unique_together
         parameters = dict()
         for field in self._meta.unique_together:
             if isinstance(field, (tuple, list)):
@@ -55,9 +50,10 @@ class ThreadedComments(models.Model):
     def generate_permlink(self):
         def new_permlink():
             if is_comment(self):
-                #if it is a comment
+                # if it is a comment
                 return f"re-{str(self.user)}-re-{str(self.reply.user)}-{slugify(self.title.lower())}"
             return slugify(self.title.lower())
+
         if not self.permlink:
             self.permlink = new_permlink()
             while True:
@@ -69,11 +65,9 @@ class ThreadedComments(models.Model):
 
     def save(self, *args, **kwargs):
         if is_comment(self) and not self.is_exists:
-            #if it is a comment
+            # if it is a comment
             for obj in self.get_all_reply_obj():
-                obj.update(
-                        reply_count=(F("reply_count") + 1)
-                    )
+                obj.update(reply_count=(F("reply_count") + 1))
         self.permlink = self.generate_permlink()
         super().save(*args, **kwargs)
 

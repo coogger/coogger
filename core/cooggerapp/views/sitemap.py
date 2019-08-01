@@ -1,13 +1,14 @@
-#django
+# django
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import render
 from django.contrib.auth.models import User
 
-#models
+# models
 from ..models import Content, UTopic, Topic, Category
 
-#choices
+# choices
 from ..choices import LANGUAGES
+
 
 class TopicSitemap(Sitemap):
     changefreq = "weekly"
@@ -17,7 +18,7 @@ class TopicSitemap(Sitemap):
         return Topic.objects.all()
 
     def location(self, obj):
-        return "/topic/"+obj.name.lower()
+        return "/topic/" + obj.name.lower()
 
 
 class LanuagesSitemap(Sitemap):
@@ -35,7 +36,7 @@ class LanuagesSitemap(Sitemap):
             pass
 
     def location(self, obj):
-        return "/language/"+obj
+        return "/language/" + obj
 
 
 class CategoriesSitemap(Sitemap):
@@ -53,7 +54,7 @@ class CategoriesSitemap(Sitemap):
             pass
 
     def location(self, obj):
-        return "/category/"+obj.name
+        return "/category/" + obj.name
 
 
 class UtopicSitemap(Sitemap):
@@ -71,7 +72,7 @@ class UtopicSitemap(Sitemap):
             return None
 
     def location(self, obj):
-        return "/"+obj.name+"/@"+obj.user.username
+        return "/" + obj.name + "/@" + obj.user.username
 
 
 class ContentSitemap(Sitemap):
@@ -103,7 +104,7 @@ class UsersSitemap(Sitemap):
             return None
 
     def location(self, obj):
-        return "/@"+obj.username
+        return "/@" + obj.username
 
 
 def robots(request):

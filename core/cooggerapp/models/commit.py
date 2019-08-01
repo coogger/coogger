@@ -1,24 +1,25 @@
-#django
+# django
 from django.contrib.auth.models import User
 from django.db import models
 
-#3.part
+# 3.part
 from django_md_editor.models import EditorMdField
 
-#models
+# models
 from .topic import UTopic
 from .content import Content
 
-#utils
+# utils
 from .utils import get_new_hash, NextOrPrevious
 
-#python
+# python
 from difflib import HtmlDiff
+
 
 class Commit(models.Model):
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)  #is it necessary
+    utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)  # is it necessary
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
@@ -32,9 +33,7 @@ class Commit(models.Model):
 
     @property
     def previous_commit(self):
-        filter_field = dict(
-            user=self.user, utopic=self.utopic, content=self.content
-        )
+        filter_field = dict(user=self.user, utopic=self.utopic, content=self.content)
         n_or_p = NextOrPrevious(self.__class__, filter_field, self.id)
         return n_or_p.previous_query
 

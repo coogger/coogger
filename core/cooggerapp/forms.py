@@ -1,20 +1,23 @@
-#django
+# django
 from django import forms
 from django.contrib.auth.models import User
 
-#choices
+# choices
 from core.cooggerapp.choices import *
 
-#models
+# models
 from core.cooggerapp.models import (
-    Content, OtherAddressesOfUsers,
-    ReportModel, UTopic, Issue)
+    Content,
+    OtherAddressesOfUsers,
+    ReportModel,
+    UTopic,
+    Issue,
+)
 
 from .models.utils import send_mail
 
 
 class UTopicForm(forms.ModelForm):
-
     class Meta:
         model = UTopic
         fields = ["name", "image_address", "definition", "tags", "address"]
@@ -30,7 +33,7 @@ class ContentUpdateForm(ContentCreateForm):
     msg = forms.CharField(
         max_length=150,
         label="Commit Message",
-        help_text="What has changed with this update?"
+        help_text="What has changed with this update?",
     )
 
 
@@ -54,8 +57,8 @@ class IssueForm(forms.ModelForm):
 
 class IssueReplyForm(forms.ModelForm):
     body = forms.CharField(
-        widget=forms.Textarea,
-        help_text="problem | question | or anything else")
+        widget=forms.Textarea, help_text="problem | question | or anything else"
+    )
 
     class Meta:
         model = Issue
@@ -63,6 +66,5 @@ class IssueReplyForm(forms.ModelForm):
 
 
 class ContentReplyForm(IssueReplyForm):
-
     class Meta(IssueReplyForm.Meta):
         model = Content

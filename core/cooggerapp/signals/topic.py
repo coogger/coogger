@@ -1,24 +1,25 @@
-#django
+# django
 from django.dispatch import receiver
 from django.db.models.signals import m2m_changed, post_save
 from django.db import IntegrityError
 from django.db.models import F
 
-#django lib
+# django lib
 from django_page_views.models import DjangoViews
 
-#models
+# models
 from ..models.topic import UTopic, Topic
 from ..models.content import Content
 from ..models.utils import is_comment
 
-#form
+# form
 from ..forms import UTopicForm
 
-@receiver(post_save, sender=UTopic)	
+
+@receiver(post_save, sender=UTopic)
 def global_topic_create(instance, created, **kwargs):
     if created:
-        #issue 101 and when utopic create, topic create too
+        # issue 101 and when utopic create, topic create too
         get_global_topic, created = Topic.objects.get_or_create(name=instance.name)
         if not get_global_topic.editable:
             for field in UTopicForm._meta.fields:
@@ -37,7 +38,5 @@ def increase_utopic_view(sender, **kwargs):
         if not is_comment(content):
             for ip_id in ips:
                 UTopic.objects.filter(
-                    user=content.user,
-                    permlink=content.utopic.permlink
+                    user=content.user, permlink=content.utopic.permlink
                 ).update(total_view=(F("total_view") + 1))
-

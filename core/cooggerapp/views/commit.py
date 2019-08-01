@@ -1,11 +1,11 @@
-#django
+# django
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 
-#model
-from ..models import (UTopic, Commit)
+# model
+from ..models import UTopic, Commit
 
-#utils
+# utils
 from .utils import paginator
 
 
@@ -29,9 +29,9 @@ class Commits(TemplateView):
 
 class CommitDetail(TemplateView):
     template_name = "users/detail-topic/commit.html"
-    #TODO
-    #url '@username/topic_permlink/commit/hash/'
-    #or url can be
+    # TODO
+    # url '@username/topic_permlink/commit/hash/'
+    # or url can be
     ##url '/commit/hash/' because hash is unique
 
     def get_context_data(self, username, topic_permlink, hash, **kwargs):

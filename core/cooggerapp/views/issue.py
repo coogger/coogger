@@ -1,4 +1,4 @@
-#django
+# django
 from django.views.generic.base import TemplateView
 from django.views import View
 from django.contrib.auth.models import User
@@ -12,22 +12,23 @@ from django.contrib import messages
 from django.views.generic.edit import UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 
-#core.cooggerapp.model
-from ..models import (UTopic, Issue)
+# core.cooggerapp.model
+from ..models import UTopic, Issue
 
-#core.cooggerapp.views 
+# core.cooggerapp.views
 from ..views.generic.detail import DetailPostView
 
-#form
+# form
 from ..forms import IssueForm, IssueReplyForm
 
-#python
+# python
 import json
 
-#utils
+# utils
 from .utils import paginator
 
-#TODO if requests come same url, and query does then it should be an update
+# TODO if requests come same url, and query does then it should be an update
+
 
 class IssueView(TemplateView):
     model = Issue
@@ -46,33 +47,24 @@ class IssueView(TemplateView):
         return context
 
     def get_queryset(self, utopic):
-        return self.model.objects.filter(
-            utopic=utopic,
-            status="open", 
-            reply=None
-        )
+        return self.model.objects.filter(utopic=utopic, status="open", reply=None)
 
 
 class ClosedIssueView(IssueView):
-
     def get_queryset(self, utopic):
-        return self.model.objects.filter(
-            utopic=utopic,
-            status="closed", 
-            reply=None
-        )
+        return self.model.objects.filter(utopic=utopic, status="closed", reply=None)
 
 
 class NewIssue(LoginRequiredMixin, View):
     template_name = "issue/new.html"
     form_class = IssueForm
-    
+
     def get(self, request, username, utopic_permlink):
         user = User.objects.get(username=username)
         context = dict(
             form=self.form_class,
             current_user=user,
-            utopic=UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
+            utopic=UTopic.objects.filter(user=user, permlink=utopic_permlink)[0],
         )
         return render(request, self.template_name, context)
 
@@ -87,20 +79,20 @@ class NewIssue(LoginRequiredMixin, View):
                 return self.get(request, username, utopic_permlink)
             form.user = request.user
             form.utopic = utopic
-            form.issue_id = Issue.objects.filter(
-                utopic=form.utopic,
-                reply=None
-            ).count() + 1
+            form.issue_id = (
+                Issue.objects.filter(utopic=form.utopic, reply=None).count() + 1
+            )
             form.save()
             return redirect(
                 reverse(
-                    "detail-issue", 
+                    "detail-issue",
                     kwargs=dict(
                         username=username,
                         utopic_permlink=utopic_permlink,
-                        permlink=form.permlink)
-                    )
+                        permlink=form.permlink,
+                    ),
                 )
+            )
 
 
 class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -114,11 +106,11 @@ class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         utopic_permlink = self.kwargs.get("utopic_permlink")
         permlink = self.kwargs.get("permlink")
         return get_object_or_404(
-            self.model, 
-            user=self.request.user, 
+            self.model,
+            user=self.request.user,
             utopic__user__username=username,
             utopic__permlink=utopic_permlink,
-            permlink=permlink
+            permlink=permlink,
         )
 
     def get_context_data(self, **kwargs):
@@ -129,11 +121,13 @@ class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse("detail-issue", kwargs=dict(
+        return reverse(
+            "detail-issue",
+            kwargs=dict(
                 username=self.kwargs.get("username"),
                 utopic_permlink=self.kwargs.get("utopic_permlink"),
                 permlink=self.kwargs.get("permlink"),
-            )
+            ),
         )
 
 
@@ -142,12 +136,9 @@ class DetailIssue(DetailPostView, View):
     model_name = "issue"
     template_name = "issue/detail.html"
     form_class = IssueReplyForm
-    #fields that remain the same when commented.
-    same_fields = [
-        "title",
-        "utopic",
-    ]
-    #json respon fields after commented
+    # fields that remain the same when commented.
+    same_fields = ["title", "utopic"]
+    # json respon fields after commented
     response_field = [
         "id",
         "user.username",
@@ -164,16 +155,14 @@ class DetailIssue(DetailPostView, View):
         "user.githubauthuser.avatar_url",
         "get_absolute_url",
     ]
-    update_field = dict(
-        status=None
-    )
+    update_field = dict(status=None)
 
     def get_object(self, username, utopic_permlink, permlink):
         return get_object_or_404(
-            self.model, 
+            self.model,
             utopic__user__username=username,
             utopic__permlink=utopic_permlink,
-            permlink=permlink
+            permlink=permlink,
         )
 
     def get_context_data(self, **kwargs):
@@ -187,31 +176,26 @@ class DetailIssue(DetailPostView, View):
 
 
 class OpenIssue(LoginRequiredMixin, View):
-
     def get(self, request, username, utopic_permlink, permlink):
         utopic = get_object_or_404(
-            UTopic, user__username=username, 
-            permlink=utopic_permlink)
-        issue = Issue.objects.filter(
-            utopic=utopic, 
-            permlink=permlink
+            UTopic, user__username=username, permlink=utopic_permlink
         )
+        issue = Issue.objects.filter(utopic=utopic, permlink=permlink)
         current_username = str(request.user)
         if current_username == username or current_username == str(issue[0].user):
-            issue.update(
-                status=self.get_status,
-                last_update=now())
+            issue.update(status=self.get_status, last_update=now())
             self.update_utopic(utopic)
             return redirect(
                 reverse(
-                    "detail-issue", 
+                    "detail-issue",
                     kwargs=dict(
                         username=username,
                         utopic_permlink=utopic_permlink,
-                        permlink=permlink)
-                    )
+                        permlink=permlink,
+                    ),
                 )
-    
+            )
+
     def update_utopic(self, utopic):
         utopic.open_issue += 1
         utopic.closed_issue -= 1
@@ -223,7 +207,6 @@ class OpenIssue(LoginRequiredMixin, View):
 
 
 class ClosedIssue(OpenIssue):
-
     def update_utopic(self, utopic):
         utopic.open_issue -= 1
         utopic.closed_issue += 1

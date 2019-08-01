@@ -1,4 +1,4 @@
-#django
+# django
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views.generic.base import TemplateView
@@ -9,29 +9,26 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 
-#models
+# models
 from ..models import UserProfile, OtherAddressesOfUsers
 
-#forms
+# forms
 from ..forms import AddressesForm
 
-#python
+# python
 import os
+
 
 class User(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     fields = ["first_name", "last_name", "email"]
-    template_name  = "settings/user.html"
+    template_name = "settings/user.html"
     success_message = "Your settings updated"
     success_url = "/settings/user/"
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["settings_list"] = [
-            "user",
-            "user-extra",
-            "address"
-        ]
+        context["settings_list"] = ["user", "user-extra", "address"]
         return context
 
     def get_object(self):
@@ -45,7 +42,7 @@ class Settings(User):
 class UserExtra(User):
     model = UserProfile
     fields = ["description", "about", "email_permission"]
-    template_name  = "settings/userextra.html"
+    template_name = "settings/userextra.html"
     success_url = "/settings/user-extra/"
 
     def get_object(self):
@@ -58,15 +55,11 @@ class Address(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         address = self.address(request)
         context = dict(
-            #user_profile_form=
+            # user_profile_form=
             address_form=address[1],
             address_instance=address[0],
         )
-        context["settings_list"] = [
-            "user",
-            "user-extra",
-            "address"
-        ]
+        context["settings_list"] = ["user", "user-extra", "address"]
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -89,4 +82,3 @@ class Address(LoginRequiredMixin, View):
                 form.save()
                 UserProfile.objects.get(user=request.user).address.add(form)
                 messages.success(request, "Your website has added")
-

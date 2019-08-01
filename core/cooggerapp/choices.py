@@ -36,17 +36,13 @@ REPORTS = [
     "This content is not tutorial content",
     "Wrong list name",
 ]
-STATUS_CHOICES = [
-    "ready",
-    "not ready"
-]
-ISSUE_CHOICES = [
-    "open",
-    "closed",
-]
+STATUS_CHOICES = ["ready", "not ready"]
+ISSUE_CHOICES = ["open", "closed"]
+
+
 def make_choices(choice):
     slugs = []
     for cho in choice:
         cho = str(cho).lower()
-        slugs.append((slugify(cho),cho))
+        slugs.append((slugify(cho), cho))
     return slugs

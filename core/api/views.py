@@ -1,21 +1,15 @@
-#rest_framework
+# rest_framework
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-#api serializers
-from core.api.serializers import (
-    ContentSerializer,
-    IssueSerializer,
-    )
+# api serializers
+from core.api.serializers import ContentSerializer, IssueSerializer
 
-#models
-from core.cooggerapp.models import (
-    Content,
-    Issue,
-    )
+# models
+from core.cooggerapp.models import Content, Issue
 
-#views
+# views
 from core.cooggerapp.views.utils import model_filter
 
 
@@ -30,10 +24,9 @@ class ListContent(ListCreateAPIView):
         return Response(serializer.data)
 
     def filter_queryset(self, queryset):
-        return model_filter(
-            self.request.query_params.items(),
-            self.get_queryset()
-        ).get("queryset")
+        return model_filter(self.request.query_params.items(), self.get_queryset()).get(
+            "queryset"
+        )
 
     def get_queryset(self):
         return self.model.objects.all().order_by("created")

@@ -1,15 +1,16 @@
-#django
+# django
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.exceptions import FieldError
 
-#models
+# models
 from ..models import Category, Topic
+
 
 def paginator(request, queryset):
     paginator = Paginator(queryset, settings.PAGE_SIZE)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         contacts = paginator.page(page)
     except PageNotAnInteger:
@@ -18,8 +19,9 @@ def paginator(request, queryset):
         contacts = paginator.page(paginator.num_pages)
     return contacts
 
+
 def model_filter(items, queryset):
-    #TODO improved this function
+    # TODO improved this function
     filter = ""
     first = True
     for attr, value in items:

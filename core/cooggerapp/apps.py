@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
+
 class CooggerappConfig(AppConfig):
     name = "core.cooggerapp"
     label = "cooggerapp"

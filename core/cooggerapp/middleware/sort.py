@@ -1,27 +1,29 @@
-#django
+# django
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
 from django.utils.text import slugify
 
-#models.
+# models.
 from core.cooggerapp.models import Category, Content, Topic
 
-#coices
+# coices
 from core.cooggerapp.choices import LANGUAGES
 
-#utils
+# utils
 from core.cooggerapp.views.utils import model_filter
 
 
 class SortMiddleware(MiddlewareMixin):
-
     def process_request(self, request):
         self.valid_urls = [
-            "home", "filter",
-            "language", "category",
-            "topic", "search",
+            "home",
+            "filter",
+            "language",
+            "category",
+            "topic",
+            "search",
             "explorer_posts",
-            "feed"
+            "feed",
         ]
         request.sort_categories = self.sort_categories(request)
         request.sort_languages = self.sort_languages(request)
@@ -63,12 +65,7 @@ class SortMiddleware(MiddlewareMixin):
             elif category_or_language == "language":
                 name = str(query[0].language).lower()
             try:
-                context.append(
-                    (
-                        name,
-                        len(query)
-                        )
-                    )
+                context.append((name, len(query)))
             except IndexError:
                 pass
         return context
@@ -106,7 +103,7 @@ class SortMiddleware(MiddlewareMixin):
         querysets_list = []
         content_queryset = Content.objects.filter(status="ready", reply=None)
         for language in LANGUAGES:
-            querysets = content_queryset.filter(language = language)
+            querysets = content_queryset.filter(language=language)
             try:
                 querysets[0]
             except:
@@ -116,7 +113,9 @@ class SortMiddleware(MiddlewareMixin):
         context = []
         for contents in sorted(querysets_list, key=len, reverse=True):
             try:
-                context.append((slugify(contents[0].language), str(contents[0].language).lower()))
+                context.append(
+                    (slugify(contents[0].language), str(contents[0].language).lower())
+                )
             except IndexError:
                 pass
         return context
@@ -139,7 +138,9 @@ class SortMiddleware(MiddlewareMixin):
         context = []
         for contents in sorted(querysets_list, key=len, reverse=True):
             try:
-                context.append((slugify(contents[0].category),str(contents[0].category).lower()))
+                context.append(
+                    (slugify(contents[0].category), str(contents[0].category).lower())
+                )
             except IndexError:
                 pass
         return context

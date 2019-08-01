@@ -1,12 +1,12 @@
-#django
+# django
 from django.db import models
 
-#tags
+# tags
 from django_page_views.templatetags.django_page_views import views_count
 from django_vote_system.templatetags.vote import upvote_count, downvote_count
 
-class VoteView(models.Model):
 
+class VoteView(models.Model):
     class Meta:
         abstract = True
 

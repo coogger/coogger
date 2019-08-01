@@ -2,7 +2,7 @@
 <p align="left">
   Coogger is a platform for developers to publish their knowledge, experiences, documents or blogs in the best way.
  </p>
-<p align="center">
+<p>
   <a href="https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt" target="_blank">
     <img alt="MIT License" title="MIT License" src="https://img.shields.io/github/license/coogger/coogger.svg?style=for-the-badge"/>
   </a>
@@ -12,6 +12,9 @@
   <img alt="last-commit" title="last-commit" src="https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge"/>
   <a href="https://www.codacy.com/app/hakancelik96/coogger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=coogger/coogger&amp;utm_campaign=Badge_Grade" target="_blank">
  <img alt="Codacy Badge" title="Codacy Badge" src="https://img.shields.io/codacy/grade/56b6c891028543d685564b78ab3431d2?style=for-the-badge"/>
+  </a>
+  <a href="https://github.com/psf/black" target="_blank">
+ <img alt="Code style" title="Code style" src="https://img.shields.io/badge/Code%20style%3A-black-black?style=for-the-badge"/>
   </a>
   <br>
  <a href="https://discord.gg/avmdZJa" target="_blank">

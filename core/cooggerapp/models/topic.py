@@ -1,15 +1,16 @@
-#django
+# django
 from django.db import models, IntegrityError
 from django.utils.text import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models import F
 
-#python
+# python
 from contextlib import suppress
 
-#utils
+# utils
 from .utils import second_convert
+
 
 class CommonTopicModel(models.Model):
     name = models.CharField(
@@ -44,6 +45,7 @@ class CommonTopicModel(models.Model):
 
 class Topic(CommonTopicModel):
     """ Global Topic Model """
+
     editable = models.BooleanField(
         default=True, verbose_name="Is it editable? | Yes/No"
     )
@@ -62,23 +64,21 @@ class Topic(CommonTopicModel):
 
     @property
     def get_absolute_url(self):
-        return reverse(
-            "topic",
-            kwargs=dict(
-                permlink=self.permlink
-            )
-        )
+        return reverse("topic", kwargs=dict(permlink=self.permlink))
 
 
 class UTopic(CommonTopicModel):
     """ Topic For Users """
-    #TODO if topic name is changed, then must change the permlink
+
+    # TODO if topic name is changed, then must change the permlink
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total_dor = models.FloatField(default=0, verbose_name="Total duration all contents")
     total_view = models.IntegerField(default=0, verbose_name="Total views all contents")
     open_issue = models.IntegerField(default=0, verbose_name="Total count open issue")
-    closed_issue = models.IntegerField(default=0, verbose_name="Total count closed issue")
-    #TODO create new field to commit_count
+    closed_issue = models.IntegerField(
+        default=0, verbose_name="Total count closed issue"
+    )
+    # TODO create new field to commit_count
 
     class Meta:
         verbose_name_plural = "User Topic"
@@ -96,10 +96,7 @@ class UTopic(CommonTopicModel):
     def get_absolute_url(self):
         return reverse(
             "detail-utopic",
-            kwargs=dict(
-                username=str(self.user),
-                permlink=self.permlink
-            )
+            kwargs=dict(username=str(self.user), permlink=self.permlink),
         )
 
     @property

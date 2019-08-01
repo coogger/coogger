@@ -1,20 +1,21 @@
-#django
+# django
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth.models import User
 from .utils import paginator
 
-#class
+# class
 from django.views.generic.base import TemplateView
 from django.views import View
 
-#models
-from ..models import (UserProfile, Content,  UTopic)
+# models
+from ..models import UserProfile, Content, UTopic
 from django_bookmark.models import Bookmark as BookmarkModel
 
-#utils
+# utils
 from .utils import paginator
+
 
 class Common(TemplateView):
     template_name = "users/user.html"
@@ -59,10 +60,7 @@ class Comment(Common):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        queryset = Content.objects.filter(
-            status="ready",
-            reply__user=user
-        )
+        queryset = Content.objects.filter(status="ready", reply__user=user)
         context["user_comment"] = True
         context["queryset"] = paginator(self.request, queryset)
         return context

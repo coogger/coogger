@@ -1,17 +1,17 @@
-#django
+# django
 from django.http import Http404
 from django.views.generic.base import TemplateView
 
-#models
+# models
 from ..models import Content, Topic, Category
 
-#views
+# views
 from ..views.utils import model_filter
 
-#choices
+# choices
 from ..choices import LANGUAGES
 
-#utils
+# utils
 from .utils import paginator
 
 
@@ -19,7 +19,9 @@ class TopicView(TemplateView):
     template_name = "topic/index.html"
 
     def get_context_data(self, permlink, *args, **kwargs):
-        queryset = Content.objects.filter(utopic__permlink=permlink, status="ready", reply=None)
+        queryset = Content.objects.filter(
+            utopic__permlink=permlink, status="ready", reply=None
+        )
         context = super().get_context_data(**kwargs)
         context["queryset"] = paginator(self.request, queryset)
         context["topic"] = Topic.objects.get(permlink=permlink)
@@ -40,7 +42,9 @@ class Hashtag(TemplateView):
     template_name = "card/blogs.html"
 
     def get_context_data(self, hashtag, **kwargs):
-        queryset = Content.objects.filter(tags__contains=hashtag, status="ready", reply=None)
+        queryset = Content.objects.filter(
+            tags__contains=hashtag, status="ready", reply=None
+        )
         if queryset.exists():
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
@@ -54,7 +58,9 @@ class Languages(TemplateView):
 
     def get_context_data(self, lang_name, **kwargs):
         if lang_name in LANGUAGES:
-            queryset = Content.objects.filter(language=lang_name, status="ready", reply=None)
+            queryset = Content.objects.filter(
+                language=lang_name, status="ready", reply=None
+            )
             context = super().get_context_data(**kwargs)
             context["queryset"] = paginator(self.request, queryset)
             context["language"] = lang_name
