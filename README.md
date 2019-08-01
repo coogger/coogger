@@ -102,18 +102,6 @@ $ docker-compose up --env-file coogger/.env
       <a href="https://github.com/coogger/coogger/commits?author=furkanonder" title="Documentation">📖</a>
     </td>
     <td align="center">
-      <a href="https://github.com/Yutyo">
-        <img src="https://avatars2.githubusercontent.com/u/40173707?s=460&v=4" width="75px;" alt="Yutyo"/>
-        <br/>
-        <sub>
-          <b>Yutyo</b>
-        </sub>
-      </a>
-      <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=Yutyo" title="Documentation">📖</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%3AYutyo" title="Bug reports">🐛</a>
-    </td>
-    <td align="center">
       <a href="https://github.com/adilkhan8000">
         <img src="https://avatars0.githubusercontent.com/u/37472106?s=460&v=4" width="75px;" alt="alishannoor"/>
         <br/>
