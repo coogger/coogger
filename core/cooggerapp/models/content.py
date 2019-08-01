@@ -112,7 +112,6 @@ class Content(ThreadedComments, VoteView):
         return self.__class__.objects.filter(
             user=self.user,
             utopic=self.utopic,
-            status="ready",
             reply=None
         ).order_by("created")
 
