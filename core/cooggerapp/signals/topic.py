@@ -1,19 +1,13 @@
-# django
-from django.dispatch import receiver
-from django.db.models.signals import m2m_changed, post_save
 from django.db import IntegrityError
 from django.db.models import F
-
-# django lib
+from django.db.models.signals import m2m_changed, post_save
+from django.dispatch import receiver
 from django_page_views.models import DjangoViews
 
-# models
-from ..models.topic import UTopic, Topic
-from ..models.content import Content
-from ..models.utils import is_comment
-
-# form
 from ..forms import UTopicForm
+from ..models.content import Content
+from ..models.topic import Topic, UTopic
+from ..models.utils import is_comment
 
 
 @receiver(post_save, sender=UTopic)

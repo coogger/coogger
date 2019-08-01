@@ -1,16 +1,9 @@
-# django
-from django.urls import path
 from django.contrib.sitemaps.views import sitemap
+from django.urls import path
 
-# views
 from ..views.sitemap import (
-    TopicSitemap,
-    UtopicSitemap,
-    ContentSitemap,
-    UsersSitemap,
-    robots,
-    LanuagesSitemap,
-    CategoriesSitemap,
+    CategoriesSitemap, ContentSitemap, LanuagesSitemap, TopicSitemap,
+    UsersSitemap, UtopicSitemap, robots
 )
 
 urlpatterns = [

@@ -14,7 +14,10 @@
  <img alt="Codacy Badge" title="Codacy Badge" src="https://img.shields.io/codacy/grade/56b6c891028543d685564b78ab3431d2?style=for-the-badge"/>
   </a>
   <a href="https://github.com/psf/black" target="_blank">
- <img alt="Code style" title="Code style" src="https://img.shields.io/badge/Code%20style%3A-black-black?style=for-the-badge"/>
+ <img alt="Code style" title="Code style" src="https://img.shields.io/badge/Code%20style-black-black?style=for-the-badge"/>
+  </a>
+   <a href="https://github.com/timothycrosley/isort" target="_blank">
+ <img alt="Code style" title="Code style" src="https://img.shields.io/badge/code%20style-ishort-lightgrey?style=for-the-badge"/>
   </a>
   <br>
  <a href="https://discord.gg/avmdZJa" target="_blank">

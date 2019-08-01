@@ -1,11 +1,9 @@
-# django
-from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_delete
+from django.dispatch import receiver
 
-# models
 from ..models.issue import Issue
 from ..models.topic import UTopic
-from ..models.utils import send_mail, is_comment
+from ..models.utils import is_comment, send_mail
 
 
 @receiver(pre_delete, sender=Issue)

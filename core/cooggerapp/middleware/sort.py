@@ -1,15 +1,9 @@
-# django
-from django.utils.deprecation import MiddlewareMixin
 from django.urls import resolve
+from django.utils.deprecation import MiddlewareMixin
 from django.utils.text import slugify
 
-# models.
-from core.cooggerapp.models import Category, Content, Topic
-
-# coices
 from core.cooggerapp.choices import LANGUAGES
-
-# utils
+from core.cooggerapp.models import Category, Content, Topic
 from core.cooggerapp.views.utils import model_filter
 
 

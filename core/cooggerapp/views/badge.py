@@ -1,8 +1,5 @@
-# django
-from django.views.generic.base import TemplateView
 from django.shortcuts import get_object_or_404
-
-# django lib
+from django.views.generic.base import TemplateView
 from djangobadge.models import Badges
 
 

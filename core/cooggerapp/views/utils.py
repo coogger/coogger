@@ -1,10 +1,8 @@
-# django
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.models import User
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.exceptions import FieldError
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
-# models
 from ..models import Category, Topic
 
 

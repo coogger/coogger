@@ -1,14 +1,11 @@
-# django
-from django.db import models
+import random
+
 from django.contrib.auth.models import User
+from django.db import models
 from django.db.models import F
 from django.utils.text import slugify
 
-# models
 from .utils import is_comment
-
-# python
-import random
 
 
 class ThreadedComments(models.Model):

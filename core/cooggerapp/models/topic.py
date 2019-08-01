@@ -1,14 +1,11 @@
-# django
-from django.db import models, IntegrityError
-from django.utils.text import slugify
-from django.urls import reverse
-from django.contrib.auth.models import User
-from django.db.models import F
-
-# python
 from contextlib import suppress
 
-# utils
+from django.contrib.auth.models import User
+from django.db import IntegrityError, models
+from django.db.models import F
+from django.urls import reverse
+from django.utils.text import slugify
+
 from .utils import second_convert
 
 

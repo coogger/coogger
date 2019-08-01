@@ -1,17 +1,9 @@
-# django
 from django import forms
 from django.contrib.auth.models import User
 
-# choices
 from core.cooggerapp.choices import *
-
-# models
 from core.cooggerapp.models import (
-    Content,
-    OtherAddressesOfUsers,
-    ReportModel,
-    UTopic,
-    Issue,
+    Content, Issue, OtherAddressesOfUsers, ReportModel, UTopic
 )
 
 from .models.utils import send_mail

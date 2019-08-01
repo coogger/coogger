@@ -1,11 +1,7 @@
-# django
-from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
+from django.views.generic.base import TemplateView
 
-# model
-from ..models import UTopic, Commit
-
-# utils
+from ..models import Commit, UTopic
 from .utils import paginator
 
 

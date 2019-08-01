@@ -1,11 +1,10 @@
 # django
-from django.urls import include, path, resolve
-from django.contrib import admin
-from django.shortcuts import render
-
 # django.conf
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.shortcuts import render
+from django.urls import include, path, resolve
 
 # utils
 from .utils import just_redirect_by_name

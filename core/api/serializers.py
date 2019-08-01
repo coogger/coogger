@@ -1,9 +1,7 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
-# models
 from core.cooggerapp.models import Content, Issue
-
-from django.contrib.auth.models import User
 
 
 class ContentSerializer(serializers.ModelSerializer):

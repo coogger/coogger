@@ -1,15 +1,8 @@
-# django
 from django.urls import path
 
-# views
 from ..views.issue import (
-    IssueView,
-    DetailIssue,
-    NewIssue,
-    ClosedIssue,
-    OpenIssue,
-    ClosedIssueView,
-    UpdateIssue,
+    ClosedIssue, ClosedIssueView, DetailIssue, IssueView, NewIssue, OpenIssue,
+    UpdateIssue
 )
 
 urlpatterns = [

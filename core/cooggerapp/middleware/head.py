@@ -1,10 +1,8 @@
-# django
-from django.utils.deprecation import MiddlewareMixin
-from django.urls import resolve
-
-# models
-from core.cooggerapp.models import Content, Topic, UTopic, Commit
 from django.contrib.auth.models import User
+from django.urls import resolve
+from django.utils.deprecation import MiddlewareMixin
+
+from core.cooggerapp.models import Commit, Content, Topic, UTopic
 
 
 class HeadMixin:

@@ -1,8 +1,6 @@
-# django
 from django.urls import path
 
-# views
-from ..views.home import Home, Search, Report, Feed
+from ..views.home import Feed, Home, Report, Search
 
 urlpatterns = [
     path("", Home.as_view(), name="home"),

@@ -1,13 +1,9 @@
-# django
+from django.contrib.auth.models import User
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import render
-from django.contrib.auth.models import User
 
-# models
-from ..models import Content, UTopic, Topic, Category
-
-# choices
 from ..choices import LANGUAGES
+from ..models import Category, Content, Topic, UTopic
 
 
 class TopicSitemap(Sitemap):

@@ -1,6 +1,6 @@
 # django
-from django.urls import resolve
 from django.shortcuts import render
+from django.urls import resolve
 
 
 def just_redirect_by_name(request):

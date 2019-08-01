@@ -1,23 +1,19 @@
-# django
+import random
+
+import mistune
+from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-
-# models
-from .category import Category
-from .topic import UTopic
-from .threaded_comments import ThreadedComments
-from .utils import second_convert, dor, NextOrPrevious, get_first_image
-from .common.vote_view import VoteView
 from django_md_editor.models import EditorMdField
 
-# choices
-from core.cooggerapp.choices import LANGUAGES, make_choices, STATUS_CHOICES
+from core.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
 
-# python
-import random
-from bs4 import BeautifulSoup
-import mistune
+from .category import Category
+from .common.vote_view import VoteView
+from .threaded_comments import ThreadedComments
+from .topic import UTopic
+from .utils import NextOrPrevious, dor, get_first_image, second_convert
 
 
 class Content(ThreadedComments, VoteView):

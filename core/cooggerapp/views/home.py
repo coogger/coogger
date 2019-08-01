@@ -1,23 +1,16 @@
-# django
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.contrib import messages
-from django.urls import resolve
-from django.conf import settings
-from django.views.generic.base import TemplateView
-from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
+from django.shortcuts import redirect, render
+from django.urls import resolve, reverse
+from django.views import View
+from django.views.generic.base import TemplateView
 
-# form
 from ..forms import ReportsForm
-
-# models
-from ..models import Content, SearchedWords, ReportModel, Topic, Issue
-
-# utils
+from ..models import Content, Issue, ReportModel, SearchedWords, Topic
 from .utils import paginator
 
 

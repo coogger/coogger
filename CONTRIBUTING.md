@@ -17,7 +17,18 @@
 
 ## Styleguides
 ### Code Style
+#### Black
 We use black to code style, here is original repo [psf/black](https://github.com/psf/black) check and learn how to convert python files code style to black.
+
+when sending a pull request, make sure that the style of your code this style.
+
+#### Isort
+
+**.isort.cfg** isort config
+```
+[settings]
+multi_line_output=5
+```
 
 when sending a pull request, make sure that the style of your code this style.
 

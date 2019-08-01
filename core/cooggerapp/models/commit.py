@@ -1,19 +1,12 @@
-# django
+from difflib import HtmlDiff
+
 from django.contrib.auth.models import User
 from django.db import models
-
-# 3.part
 from django_md_editor.models import EditorMdField
 
-# models
-from .topic import UTopic
 from .content import Content
-
-# utils
-from .utils import get_new_hash, NextOrPrevious
-
-# python
-from difflib import HtmlDiff
+from .topic import UTopic
+from .utils import NextOrPrevious, get_new_hash
 
 
 class Commit(models.Model):

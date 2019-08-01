@@ -1,22 +1,12 @@
+import datetime
+
 from django.contrib import admin
 
-# models
-from core.cooggerapp.models import (
-    Content,
-    SearchedWords,
-    UserProfile,
-    Topic,
-    Commit,
-    UTopic,
-    Category,
-    Issue,
-)
-
-# choices
 from core.cooggerapp.choices import *
-
-# python
-import datetime
+from core.cooggerapp.models import (
+    Category, Commit, Content, Issue, SearchedWords, Topic, UserProfile,
+    UTopic
+)
 
 
 @admin.register(Category)

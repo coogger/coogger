@@ -1,13 +1,11 @@
-# django
-from django.dispatch import receiver
-from django.db.models.signals import post_save, pre_delete
 from django.db.models import F
+from django.db.models.signals import post_save, pre_delete
+from django.dispatch import receiver
 
-# models
-from ..models.content import Content
 from ..models.commit import Commit
-from ..models.topic import UTopic, Topic
-from ..models.utils import send_mail, dor, is_comment
+from ..models.content import Content
+from ..models.topic import Topic, UTopic
+from ..models.utils import dor, is_comment, send_mail
 
 
 def update_topic(instance, iord):

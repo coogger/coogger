@@ -1,8 +1,6 @@
-# django
 from django.urls import path
 
-# views
-from ..views.commit import Commits, CommitDetail
+from ..views.commit import CommitDetail, Commits
 
 urlpatterns = [
     path("@<username>/<topic_permlink>/commits/", Commits.as_view(), name="commits"),

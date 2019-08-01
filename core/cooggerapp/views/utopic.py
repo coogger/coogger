@@ -1,25 +1,17 @@
-# django
-from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
 from django.contrib import messages
-from django.views.generic.base import TemplateView
-from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.utils.text import slugify
+from django.views import View
+from django.views.generic.base import TemplateView
 
-# model
-from ..models import Topic, UTopic, Content, Commit
-
-# form
 from ..forms import UTopicForm
-
-# utils
-from .utils import paginator
-
-# views
+from ..models import Commit, Content, Topic, UTopic
 from .users import Common
+from .utils import paginator
 
 
 class UserTopic(Common):

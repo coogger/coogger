@@ -1,25 +1,19 @@
-# django
-from django.db import models
+import random
+
 from django.contrib.auth.models import User
-from django.urls import reverse
+from django.db import models
 from django.db.models import F
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.text import slugify
-
-# model
-from .topic import UTopic
-from .threaded_comments import ThreadedComments
-from .common.vote_view import VoteView
-from .utils import second_convert, dor
-
-# editor md
 from django_md_editor.models import EditorMdField
 
-# choices
-from core.cooggerapp.choices import make_choices, ISSUE_CHOICES
+from core.cooggerapp.choices import ISSUE_CHOICES, make_choices
 
-# python
-import random
+from .common.vote_view import VoteView
+from .threaded_comments import ThreadedComments
+from .topic import UTopic
+from .utils import dor, second_convert
 
 
 class Issue(ThreadedComments, VoteView):

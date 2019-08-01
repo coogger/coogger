@@ -1,27 +1,21 @@
-# django
-from django.contrib.auth.models import User
-from django.views.decorators.clickjacking import xframe_options_exempt
-from django.utils.decorators import method_decorator
-from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
-from django.views.generic.base import TemplateView
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.db.models import F
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import F
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.generic.base import TemplateView
 
-# core.cooggerapp models
-from ..models import Content, UTopic, Commit, Category, Topic
-from ..models.utils import ready_tags, dor, get_first_image, is_comment
-
-# core.cooggerapp.views
+from ..forms import ContentCreateForm, ContentReplyForm, ContentUpdateForm
+from ..models import Category, Commit, Content, Topic, UTopic
+from ..models.utils import dor, get_first_image, is_comment, ready_tags
 from ..views.generic.detail import DetailPostView
-
-# forms
-from ..forms import ContentReplyForm, ContentUpdateForm, ContentCreateForm
 
 
 class Detail(DetailPostView, View):

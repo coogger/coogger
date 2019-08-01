@@ -1,19 +1,11 @@
-# django
-from django.shortcuts import render
-from django.shortcuts import redirect
-from django.urls import reverse
 from django.contrib.auth.models import User
-from .utils import paginator
-
-# class
-from django.views.generic.base import TemplateView
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import View
-
-# models
-from ..models import UserProfile, Content, UTopic
+from django.views.generic.base import TemplateView
 from django_bookmark.models import Bookmark as BookmarkModel
 
-# utils
+from ..models import Content, UserProfile, UTopic
 from .utils import paginator
 
 

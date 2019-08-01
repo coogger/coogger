@@ -1,30 +1,21 @@
-# django
-from django.views.generic.base import TemplateView
-from django.views import View
-from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, reverse, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.utils.timezone import now
-from django.db.models import F
-from django.contrib import messages
-from django.views.generic.edit import UpdateView
-from django.contrib.messages.views import SuccessMessageMixin
-
-# core.cooggerapp.model
-from ..models import UTopic, Issue
-
-# core.cooggerapp.views
-from ..views.generic.detail import DetailPostView
-
-# form
-from ..forms import IssueForm, IssueReplyForm
-
-# python
 import json
 
-# utils
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import F
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils.decorators import method_decorator
+from django.utils.timezone import now
+from django.views import View
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView
+
+from ..forms import IssueForm, IssueReplyForm
+from ..models import Issue, UTopic
+from ..views.generic.detail import DetailPostView
 from .utils import paginator
 
 # TODO if requests come same url, and query does then it should be an update

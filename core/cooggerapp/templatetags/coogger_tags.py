@@ -1,17 +1,16 @@
 # django
-from django.urls import resolve
-from django.contrib.auth.models import User
-from django import template
-
-register = template.Library()
-
-# core.cooggerapp
-from ..choices import *
-from ..models import Content, Topic, Commit
-from ..views.utils import model_filter
+import random
 
 import requests
-import random
+from django import template
+from django.contrib.auth.models import User
+from django.urls import resolve
+
+from ..choices import *
+from ..models import Commit, Content, Topic
+from ..views.utils import model_filter
+
+register = template.Library()
 
 
 @register.filter
