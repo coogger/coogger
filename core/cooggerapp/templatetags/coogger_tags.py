@@ -57,7 +57,7 @@ def commit_count(utopic):
 
 @register.filter
 def calculate_percent_utopic(utopic, choice):
-    contents = Content.objects.filter(utopic=utopic)
+    contents = Content.objects.filter(utopic=utopic, reply=None)
     how_many_content = utopic.how_many
     corl = dict()
     for content in contents:
