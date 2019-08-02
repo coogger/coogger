@@ -25,8 +25,8 @@ class HeadMixin:
         for key, value in kwargs.items():
             setattr(self, key, value)
         if hasattr(self, "username"):
-            self.user = User.objects.get(username=self.username)
-            user_address = UserProfile.objects.get(user=self.user).address
+            self.user_obj = User.objects.get(username=self.username)
+            user_address = UserProfile.objects.get(user=self.user_obj).address
             try:
                 self.twitter_author = user_address.filter(choices="twitter")[0].address
             except IndexError:
@@ -56,7 +56,7 @@ class HeadMixin:
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def content_detail(self):
-        content = Content.objects.get(user=self.user, permlink=self.permlink)
+        content = Content.objects.get(user=self.user_obj, permlink=self.permlink)
         keywords = ""
         for key in content.tags.split():
             keywords += key + ", "
@@ -112,7 +112,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=f"{self.username} • coogger".capitalize(),
             keywords=f"{self.username}, coogger {self.username}",
             description=f"The latest posts from {self.username} on coogger".capitalize(),
-            image=self.user.githubauthuser.avatar_url or self.default_img,
+            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def userabout(self):
@@ -120,11 +120,11 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=f"{self.username} | About".capitalize(),
             keywords=f"about {self.username}, {self.username}, about",
             description=f"About of {self.username}".capitalize(),
-            image=self.user.githubauthuser.avatar_url or self.default_img,
+            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def detail_utopic(self):
-        utopic = UTopic.objects.filter(user=self.user, permlink=self.permlink)[0]
+        utopic = UTopic.objects.filter(user=self.user_obj, permlink=self.permlink)[0]
         if utopic.definition:
             definition = f"{utopic.definition.capitalize()} | {self.username}"
         else:
@@ -132,7 +132,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         if utopic.image_address:
             image = utopic.image_address
         else:
-            image = self.user.githubauthuser.avatar_url
+            image = self.user_obj.githubauthuser.avatar_url
         return dict(
             title=f"{utopic} - Topic | {self.username}".capitalize(),
             keywords=utopic,
@@ -175,7 +175,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=title,
             keywords=f"{self.utopic_permlink}, {self.username}",
             description=title,
-            image=self.user.githubauthuser.avatar_url or self.default_img,
+            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def detail_issue(self):
@@ -184,7 +184,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=title,
             keywords=f"{self.utopic_permlink}, {self.username}",
             description=title,
-            image=self.user.githubauthuser.avatar_url or self.default_img,
+            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def commits(self):
@@ -193,7 +193,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=title,
             keywords=f"{self.topic_permlink}, {self.username}",
             description=title,
-            image=self.user.githubauthuser.avatar_url or self.default_img,
+            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def commit(self):
@@ -203,7 +203,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=title,
             keywords=f"{self.topic_permlink}, {self.username}, {commit.msg}, commit",
             description=title,
-            image=self.user.githubauthuser.avatar_url or self.default_img,
+            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def feed(self):
@@ -212,5 +212,5 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=title,
             keywords=f"{self.username}, feed",
             description=title,
-            image=self.user.githubauthuser.avatar_url or self.default_img,
+            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
