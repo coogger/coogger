@@ -1,10 +1,6 @@
 {% load coogger_tags %}
 <div general="border:1 br:2 brc:muted width:100 text:s ">
-    <div general="flex position:left"
-    mobile-l="position:center"
-    mobile-m="position:center"
-    mobile-s="position:center"
-    style="padding: 6px 0px;" >
+    <div general="flex position:left" mobile-l="position:center" mobile-m="position:center" mobile-s="position:center" style="padding: 12px 8px;">
         <a href="{% url 'commits' current_user utopic.permlink %}">
           <div general="flex flex:ai-c" mobile-s="text:xs">
             <i class="fas fa-history"></i>
@@ -43,3 +39,25 @@
         {% endif %}
       </div>
     </div>
+    <!-- utopic info %? category, %? language -->
+  <div general="border:1 brc:muted br:2" style="padding: 6px 12px;margin-top: 6px;">
+      <div general="flex width:100 flex:ai-c" mobile-l="text:s" mobile-l="text:s" mobile-s="text:s">
+        <i class="fa fa-list-alt" title="categories"></i>
+      {% for category in utopic|calculate_percent_utopic:"category" %}
+        <div general="bg:blue color:white br:1" style="margin-right: 2px;padding: 2px 4px;">
+          {{ category.model.name }} | {{ category.count }} | {{ category.percent }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div general="border:1 brc:muted br:2" style="padding: 6px 12px;margin-top: 6px;">
+      <div general="flex width:100 flex:ai-c" mobile-l="text:s" mobile-l="text:s" mobile-s="text:s">
+        <i class="fas fa-language" title="language"></i>
+      {% for language in utopic|calculate_percent_utopic:"language" %}
+        <div general="bg:blue color:white br:1" style="margin-right: 2px;padding: 2px 4px;">
+          {{ language.model }} | {{ language.count }} | {{ language.percent }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>

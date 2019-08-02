@@ -54,3 +54,24 @@ def get_random(start, stop, step):
 @register.filter
 def commit_count(utopic):
     return Commit.objects.filter(utopic=utopic).count()
+
+@register.filter
+def calculate_percent_utopic(utopic, choice):
+    contents = Content.objects.filter(utopic=utopic)
+    how_many_content = utopic.how_many
+    corl = dict()
+    for content in contents:
+        try:
+            corl[getattr(content, choice)] += 1
+        except KeyError:
+            corl[getattr(content, choice)] = 1
+    context = list()
+    for model, count in corl.items():
+        context.append(
+            dict(
+                model=model,
+                count=count, 
+                percent=f"{round((100 * count) / how_many_content, 2)}%"
+            )
+        )
+    return context

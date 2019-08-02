@@ -1,6 +1,6 @@
 <div general="width:20" class="just-pc" style="margin-right: 1%">
-  <div general="position:center flex flex:fd-c" style="padding: 6px;margin-bottom: 24px;position: sticky;top: 70px;">
-      <strong>Other Contents of The Topic</strong>
+  <div general="flex flex:fd-c" style="padding: 6px;margin-bottom: 24px;position: sticky;top: 70px;">
+      <strong general="position:center">Other Contents of The Topic</strong>
       <ol general="flex flex:fd-c flex:fw-nw bg:white brc:white" class="oc-l">
         {% for list in queryset.other_content_of_this_topic %}
           {% if list.permlink == current_page_permlink %}

@@ -56,7 +56,9 @@ header{
   margin: 30px auto;border-bottom: 12px solid #eeeeee7a;padding-bottom: 30px;
 }
 .oc-l{
-  verflow: auto;height: 70vh;padding: 0px 0px 0px 16px;
+  overflow: auto;
+  height: 70vh;
+  padding: 0px 0px 0px 16px;
 }
 .badge-a{
   margin: 0px 6px;
