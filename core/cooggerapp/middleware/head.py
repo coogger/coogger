@@ -33,7 +33,7 @@ class HeadMixin:
             setattr(self, key, value)
         if hasattr(self, "username"):
             self.user_obj = get_object_or_404(User, username=self.username)
-            user_address = UserProfile.objects.get(user=self.user_obj).address
+            user_address = get_object_or_404(UserProfile, user=self.user_obj).address
             try:
                 self.twitter_author = user_address.filter(choices="twitter")[0].address
             except IndexError:
@@ -59,7 +59,7 @@ class HeadMixin:
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def content_detail(self):
-        content = Content.objects.get(user=self.user_obj, permlink=self.permlink)
+        content = get_object_or_404(Content, user=self.user_obj, permlink=self.permlink)
         keywords = ""
         for key in content.tags.split():
             keywords += key + ", "
@@ -74,7 +74,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         return self.content_detail()
 
     def topic(self):
-        topic = Topic.objects.get(permlink=self.permlink)
+        topic = get_object_or_404(Topic, permlink=self.permlink)
         try:
             description = topic.definition.capitalize()
         except AttributeError:
@@ -200,7 +200,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         )
 
     def commit(self):
-        commit = Commit.objects.get(hash=self.hash)
+        commit = get_object_or_404(Commit, hash=self.hash)
         title = f"{self.topic_permlink}/{self.username} - {commit.msg} | commit".capitalize()
         return dict(
             title=title,
