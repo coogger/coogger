@@ -40,7 +40,7 @@ class HeadMixin:
                 context["facebook_username"] = facebook_username
         make_f_name = url_name.replace("-", "_")
         try:
-            for key, value in getattr(self, make_f_name)().items():
+            for key, value in getattr(self, make_f_name).items():
                 context[key] = value
             request.meta = context
         except AttributeError:
@@ -55,6 +55,8 @@ class HeadMixin:
 
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
+
+    @property
     def content_detail(self):
         content = get_object_or_404(
             Content, user=self.user_obj, permlink=self.get_var("permlink")
@@ -69,9 +71,11 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=content.image_address or self.default_img,
         )
 
+    @property
     def embed(self):
-        return self.content_detail()
+        return self.content_detail
 
+    @property
     def topic(self):
         topic = get_object_or_404(Topic, permlink=self.get_var("permlink"))
         try:
@@ -84,7 +88,8 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             description=description,
             image=topic.image_address or self.default_img,
         )
-
+    
+    @property
     def comment(self):
         username = self.get_var("username")
         return dict(
@@ -94,6 +99,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.default_img,
         )
 
+    @property
     def category(self):
         cat_name = self.get_var("cat_name")
         return dict(
@@ -102,7 +108,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             description=f"Latest post on coogger from {cat_name} category".capitalize(),
             image=self.default_category_img,
         )
-
+    @property
     def language(self):
         lang_name = self.get_var("lang_name")
         return dict(
@@ -112,6 +118,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.default_language_img,
         )
 
+    @property
     def user(self):
         username = self.get_var("username")
         return dict(
@@ -121,6 +128,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
+    @property
     def userabout(self):
         username = self.get_var("username")
         return dict(
@@ -130,6 +138,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
+    @property
     def detail_utopic(self):
         permlink = self.get_var("permlink")
         username = self.get_var("username")
@@ -149,6 +158,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=image or self.default_img,
         )
 
+    @property
     def settings(self):
         return dict(
             title="settings",
@@ -157,6 +167,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.default_img,
         )
 
+    @property
     def hashtag(self):
         tag = self.get_var("tag")
         return dict(
@@ -166,6 +177,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.default_hashtag_img,
         )
 
+    @property
     def explorer_posts(self):
         return dict(
             title=f"coogger",
@@ -176,9 +188,11 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.default_img,
         )
 
+    @property
     def home(self):
-        return self.explorer_posts()
+        return self.explorer_posts
 
+    @property
     def issues(self):
         username = self.get_var("username")
         utopic_permlink = self.get_var("utopic_permlink")
@@ -190,6 +204,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
+    @property
     def detail_issue(self):
         utopic_permlink = self.get_var("utopic_permlink")
         username = self.get_var("username")
@@ -202,6 +217,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
+    @property
     def commits(self):
         topic_permlink = self.get_var("topic_permlink")
         username = self.get_var("username")
@@ -213,6 +229,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
+    @property
     def commit(self):
         hash = self.get_var("hash")
         topic_permlink = self.get_var("topic_permlink")
@@ -226,6 +243,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
+    @property
     def feed(self):
         username = self.get_var("username")
         title = f"{username}'s Feed".capitalize()
