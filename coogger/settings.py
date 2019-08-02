@@ -11,14 +11,12 @@ if DEBUG:
     ALLOWED_HOSTS = ["*"]
     # github_auth
     redirect_url = "http://127.0.0.1:8000/accounts/github/login/"
-    ban_count = 99999
 else:
     ALLOWED_HOSTS = [".coogger.com"]
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     # github_auth
     redirect_url = "https://www.coogger.com/accounts/github/login/"
-    ban_count = 100
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

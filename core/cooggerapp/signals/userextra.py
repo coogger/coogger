@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from django.db.models.signals import m2m_changed, post_save
 from django.db.utils import IntegrityError
 from django.dispatch import receiver
+from django.shortcuts import get_object_or_404
 from django_follow_system.models import Follow
 from github_auth.models import GithubAuthUser
-from django.shortcuts import get_object_or_404
 
 from ..models.topic import UTopic
 from ..models.userextra import UserProfile

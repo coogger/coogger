@@ -10,23 +10,23 @@
     <meta http-equiv="reply-to" content="cooggerapp@gmail.com"></meta>
     <meta charset="utf-8"></meta>
     <link rel="shortcut icon" href="/static/logos/png/48.png" type="image/x-icon"></meta>
-    <!-- SEO -->
-    <title>{{ request.head.title|truncatechars:55 }}</title>
-    <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}"></meta>
-    <meta name="twitter:title" content="{{ request.head.title|truncatechars:55 }}"></meta>
-    <meta itemprop="name" content="{{ request.head.title|truncatechars:55 }}"></meta>
-    <meta name="apple-mobile-web-app-title" content="{{ request.head.title|truncatechars:55 }}">
-    <meta name="keywords" content="{{ request.head.keywords }}"></meta>
-    <meta name="description" content="{{ request.head.description|truncatechars:150 }}"></meta>
-    <meta name="twitter:description" content="{{ request.head.description|truncatechars:150 }}"></meta>
-    <meta property="og:description" content="{{ request.head.description|truncatechars:150 }}"></meta>
-    <meta itemprop="description" content="{{ request.head.description|truncatechars:150 }}"></meta>
-    <meta property="og:image" content="{{ request.head.image }}"></meta>
-    <meta itemprop="image" content="{{ request.head.image }}"></meta>
-    <meta name="twitter:image:src" content="{{ request.head.image }}"></meta>
-    <meta name="twitter:creator" content="@{{ request.head.twitter_author }}">
+    <!-- request.meta -->
+    <title>{{ request.meta.title|truncatechars:55 }}</title>
+    <meta property="og:title" content="{{ request.meta.title|truncatechars:55 }}"></meta>
+    <meta name="twitter:title" content="{{ request.meta.title|truncatechars:55 }}"></meta>
+    <meta itemprop="name" content="{{ request.meta.title|truncatechars:55 }}"></meta>
+    <meta name="apple-mobile-web-app-title" content="{{ request.meta.title|truncatechars:55 }}">
+    <meta name="keywords" content="{{ request.meta.keywords }}"></meta>
+    <meta name="description" content="{{ request.meta.description|truncatechars:150 }}"></meta>
+    <meta name="twitter:description" content="{{ request.meta.description|truncatechars:150 }}"></meta>
+    <meta property="og:description" content="{{ request.meta.description|truncatechars:150 }}"></meta>
+    <meta itemprop="description" content="{{ request.meta.description|truncatechars:150 }}"></meta>
+    <meta property="og:image" content="{{ request.meta.image }}"></meta>
+    <meta itemprop="image" content="{{ request.meta.image }}"></meta>
+    <meta name="twitter:image:src" content="{{ request.meta.image }}"></meta>
+    <meta name="twitter:creator" content="@{{ request.meta.twitter_username }}">
     <meta name="author" content="{{ current_user.first_name }} {{ current_user.last_name }}"></meta>
-    <meta property="article:author" content="{{ request.head.facebook_author }}"></meta>
+    <meta property="article:author" content="{{ request.meta.facebook_username }}"></meta>
     <meta name="robots" content="index, follow"></meta>
     <meta name="revisit-after" content="2"></meta>
     <meta name="revisit-after" content="2 days"></meta>

@@ -1,65 +1,64 @@
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django.urls import resolve
 from django.utils.deprecation import MiddlewareMixin
-from django.shortcuts import get_object_or_404
 
 from ..models import Commit, Content, Topic, UserProfile, UTopic
 
 
 class HeadMixin:
+    invalid = ["sitemap", "api", "robots.txt", "admin", "static", "media"]
+    default_img = "https://www.coogger.com/static/logos/png/800.png"
+    default_hashtag_img = "/static/media/icons/list.svg"
+    default_category_img = "/static/media/topics/category.svg"
+    default_language_img = "/static/media/topics/language.svg"
+
     def process_request(self, request):
-        
         path_info = request.path_info
-        invalid = ["sitemap", "api", "robots.txt", "admin"]
-        if path_info.split("/")[1] in invalid:
-            return None
+        if path_info.split("/")[1] in self.invalid:
+            return
         url_name = resolve(path_info).url_name
         if url_name is None:
-            return None
-        # images
-        self.default_img = "https://www.coogger.com/static/logos/png/800.png"
-        self.default_hashtag_img = "/static/media/icons/list.svg"
-        self.default_category_img = "/static/media/topics/category.svg"
-        self.default_language_img = "/static/media/topics/language.svg"
-        self.context = dict(
-            title=url_name.title(),
-            keywords=url_name,
-            description=url_name,
-            image=self.default_img,
-        )
-        kwargs = resolve(path_info).kwargs
-        # all variable in kwargs
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-        if hasattr(self, "username"):
-            self.user_obj = get_object_or_404(User, username=self.username)
+            return
+        context = dict()
+        self.kwargs = resolve(path_info).kwargs
+        username = self.get_var("username")
+        if username:
+            self.user_obj = get_object_or_404(User, username=username)
             user_address = get_object_or_404(UserProfile, user=self.user_obj).address
             try:
-                self.twitter_author = user_address.filter(choices="twitter")[0].address
+                twitter_username = user_address.filter(choices="twitter")[0].address
             except IndexError:
-                self.twitter_author = ""
+                twitter_username = ""
             else:
-                self.context["twitter_author"] = self.twitter_author
+                context["twitter_username"] = twitter_username
             try:
-                self.facebook_author = user_address.filter(choices="facebook")[
-                    0
-                ].address
+                facebook_username = user_address.filter(choices="facebook")[0].address
             except IndexError:
-                self.facebook_author = ""
+                facebook_username = ""
             else:
-                self.context["facebook_author"] = self.facebook_author
+                context["facebook_username"] = facebook_username
+        make_f_name = url_name.replace("-", "_")
         try:
-            for key, value in getattr(self, url_name.replace("-", "_"))().items():
-                self.context[key] = value
+            for key, value in getattr(self, make_f_name)().items():
+                context[key] = value
+            request.meta = context
         except AttributeError:
-            pass
-        finally:
-            request.head = self.context
+            context["title"] = make_f_name
+            context["keywords"] = url_name
+            context["description"] = url_name
+            context["image"] = self.default_img
+            request.meta = context
+
+    def get_var(self, name):
+        return self.kwargs.get(name)
 
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def content_detail(self):
-        content = get_object_or_404(Content, user=self.user_obj, permlink=self.permlink)
+        content = get_object_or_404(
+            Content, user=self.user_obj, permlink=self.get_var("permlink")
+        )
         keywords = ""
         for key in content.tags.split():
             keywords += key + ", "
@@ -74,7 +73,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         return self.content_detail()
 
     def topic(self):
-        topic = get_object_or_404(Topic, permlink=self.permlink)
+        topic = get_object_or_404(Topic, permlink=self.get_var("permlink"))
         try:
             description = topic.definition.capitalize()
         except AttributeError:
@@ -87,57 +86,64 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         )
 
     def comment(self):
+        username = self.get_var("username")
         return dict(
-            title=f"{self.username} - comment".capitalize(),
-            keywords=f"{self.username}, comment {self.username}, comment",
-            description=f"comment {self.username}".capitalize(),
+            title=f"{username} - comment".capitalize(),
+            keywords=f"{username}, comment {username}, comment",
+            description=f"comment {username}".capitalize(),
             image=self.default_img,
         )
 
     def category(self):
+        cat_name = self.get_var("cat_name")
         return dict(
-            title=f"Latest post on coogger from {self.cat_name} category".capitalize(),
-            keywords=f"{self.cat_name}, {self.cat_name} category",
-            description=f"Latest post on coogger from {self.cat_name} category".capitalize(),
+            title=f"Latest post on coogger from {cat_name} category".capitalize(),
+            keywords=f"{cat_name}, {cat_name} category",
+            description=f"Latest post on coogger from {cat_name} category".capitalize(),
             image=self.default_category_img,
         )
 
     def language(self):
+        lang_name = self.get_var("lang_name")
         return dict(
-            title=f"{self.lang_name} language | coogger".capitalize(),
-            keywords=f"{self.lang_name}, language {self.lang_name}",
-            description=f"Latest post on coogger from {self.lang_name} language".capitalize(),
+            title=f"{lang_name} language | coogger".capitalize(),
+            keywords=f"{lang_name}, language {lang_name}",
+            description=f"Latest post on coogger from {lang_name} language".capitalize(),
             image=self.default_language_img,
         )
 
     def user(self):
+        username = self.get_var("username")
         return dict(
-            title=f"{self.username} • coogger".capitalize(),
-            keywords=f"{self.username}, coogger {self.username}",
-            description=f"The latest posts from {self.username} on coogger".capitalize(),
+            title=f"{username} • coogger".capitalize(),
+            keywords=f"{username}, coogger {username}",
+            description=f"The latest posts from {username} on coogger".capitalize(),
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def userabout(self):
+        username = self.get_var("username")
         return dict(
-            title=f"{self.username} | About".capitalize(),
-            keywords=f"about {self.username}, {self.username}, about",
-            description=f"About of {self.username}".capitalize(),
+            title=f"{username} | About".capitalize(),
+            keywords=f"about {username}, {username}, about",
+            description=f"About of {username}".capitalize(),
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def detail_utopic(self):
-        utopic = UTopic.objects.filter(user=self.user_obj, permlink=self.permlink)[0]
+        permlink = self.get_var("permlink")
+        username = self.get_var("username")
+        utopic = UTopic.objects.filter(user=self.user_obj, permlink=permlink)[0]
         if utopic.definition:
-            definition = f"{utopic.definition.capitalize()} | {self.username}"
+            definition = f"{utopic.definition.capitalize()} | {username}"
         else:
-            definition = f"{self.username}'s contents about topic of {utopic}"
+            definition = f"{username}'s contents about topic of {utopic}"
         if utopic.image_address:
             image = utopic.image_address
         else:
             image = self.user_obj.githubauthuser.avatar_url
         return dict(
-            title=f"{utopic} - Topic | {self.username}".capitalize(),
+            title=f"{utopic} - Topic | {username}".capitalize(),
             keywords=utopic,
             description=definition,
             image=image or self.default_img,
@@ -152,10 +158,11 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         )
 
     def hashtag(self):
+        tag = self.get_var("tag")
         return dict(
-            title=f"coogger lates post from '{self.tag}' hashtag.",
-            keywords=f"{self.tag}",
-            description=f"coogger lates post from '{self.tag}' hashtag.",
+            title=f"coogger lates post from '{tag}' hashtag.",
+            keywords=f"{tag}",
+            description=f"coogger lates post from '{tag}' hashtag.",
             image=self.default_hashtag_img,
         )
 
@@ -173,47 +180,58 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         return self.explorer_posts()
 
     def issues(self):
-        title = f"{self.utopic_permlink}/{self.username} | issues".capitalize()
+        username = self.get_var("username")
+        utopic_permlink = self.get_var("utopic_permlink")
+        title = f"{utopic_permlink}/{username} | issues".capitalize()
         return dict(
             title=title,
-            keywords=f"{self.utopic_permlink}, {self.username}",
+            keywords=f"{utopic_permlink}, {username}",
             description=title,
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def detail_issue(self):
-        title = f"{self.utopic_permlink}/{self.username} - {self.permlink} | issue".capitalize()
+        utopic_permlink = self.get_var("utopic_permlink")
+        username = self.get_var("username")
+        permlink = self.get_var("permlink")
+        title = f"{utopic_permlink}/{username} - {permlink} | issue".capitalize()
         return dict(
             title=title,
-            keywords=f"{self.utopic_permlink}, {self.username}",
+            keywords=f"{utopic_permlink}, {username}",
             description=title,
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def commits(self):
-        title = f"{self.topic_permlink}/{self.username} | commits".capitalize()
+        topic_permlink = self.get_var("topic_permlink")
+        username = self.get_var("username")
+        title = f"{topic_permlink}/{username} | commits".capitalize()
         return dict(
             title=title,
-            keywords=f"{self.topic_permlink}, {self.username}",
+            keywords=f"{topic_permlink}, {username}",
             description=title,
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def commit(self):
-        commit = get_object_or_404(Commit, hash=self.hash)
-        title = f"{self.topic_permlink}/{self.username} - {commit.msg} | commit".capitalize()
+        hash = self.get_var("hash")
+        topic_permlink = self.get_var("topic_permlink")
+        username = self.get_var("username")
+        commit = get_object_or_404(Commit, hash=hash)
+        title = f"{topic_permlink}/{username} - {commit.msg} | commit".capitalize()
         return dict(
             title=title,
-            keywords=f"{self.topic_permlink}, {self.username}, {commit.msg}, commit",
+            keywords=f"{topic_permlink}, {username}, {commit.msg}, commit",
             description=title,
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )
 
     def feed(self):
-        title = f"{self.username}'s Feed".capitalize()
+        username = self.get_var("username")
+        title = f"{username}'s Feed".capitalize()
         return dict(
             title=title,
-            keywords=f"{self.username}, feed",
+            keywords=f"{username}, feed",
             description=title,
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
         )

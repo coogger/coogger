@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django_bookmark.models import Bookmark as BookmarkModel
-from django.shortcuts import get_object_or_404
 
 from ..models import Content, UserProfile
 from .utils import paginator
