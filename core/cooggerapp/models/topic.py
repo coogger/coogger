@@ -33,7 +33,7 @@ class CommonTopicModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        self.permlink = slugify(self.name)
+        self.permlink = slugify(self.name.lower())
         super().save(*args, **kwargs)
 
 

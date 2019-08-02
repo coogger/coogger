@@ -5,7 +5,7 @@
         {% if topic.image_address %}
           <img general="width:12 br:4" src="{{ topic.image_address }}" class="ti">
         {% endif %}
-        <strong style="margin-left: 6px;">{{ topic.permlink }}</strong>
+        <strong style="margin-left: 6px;">{{ topic.name }}</strong>
       </a>
       <div general="flex flex:ai-c">
           {% if not topic.global_topic %}

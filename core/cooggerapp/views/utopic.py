@@ -63,7 +63,7 @@ class CreateUTopic(LoginRequiredMixin, View):
             try:
                 save = form.save()
             except IntegrityError:
-                messages.warning(request, f"{form.name} is already taken by yours")
+                messages.warning(request, f"{form.name.lower()} is already taken by yours")
                 return render(
                     request,
                     self.template_name,
@@ -100,31 +100,31 @@ class UpdateUTopic(LoginRequiredMixin, View):
             form = form.save(commit=False)
             self.model.objects.filter(user=request.user, permlink=permlink).update(
                 name=form.name,
-                permlink=slugify(form.name),
+                permlink=slugify(form.name.lower()),
                 image_address=form.image_address,
                 definition=form.definition,
                 tags=form.tags,
                 address=form.address,
             )
-            if permlink != slugify(form.name):
+            if permlink != slugify(form.name.lower()):
                 # new global topic save
                 if (
                     not Content.objects.filter(utopic__permlink=permlink).exists()
                     and not UTopic.objects.filter(permlink=permlink).exists()
                 ):
                     Topic.objects.filter(permlink=permlink).update(
-                        name=form.name, permlink=slugify(form.name)
+                        permlink=slugify(form.name.lower())
                     )
                 else:
                     try:
-                        Topic(name=form.name).save()
+                        Topic(name=form.name.lower()).save()
                     except IntegrityError:
                         pass
             return redirect(
                 reverse(
                     "detail-utopic",
                     kwargs=dict(
-                        permlink=slugify(form.name), username=str(request.user)
+                        permlink=slugify(form.name.lower()), username=str(request.user)
                     ),
                 )
             )

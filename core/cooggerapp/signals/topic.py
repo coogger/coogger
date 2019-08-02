@@ -13,7 +13,9 @@ from ..models.utils import is_comment
 def global_topic_create(instance, created, **kwargs):
     if created:
         # issue 101 and when utopic create, topic create too
-        get_global_topic, created = Topic.objects.get_or_create(name=instance.name)
+        get_global_topic, created = Topic.objects.get_or_create(
+            permlink=instance.permlink
+        )
         if not get_global_topic.editable:
             for field in UTopicForm._meta.fields:
                 if getattr(instance, field, None) == None:
