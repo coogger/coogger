@@ -14,7 +14,7 @@ def global_topic_create(instance, created, **kwargs):
     if created:
         # issue 101 and when utopic create, topic create too
         get_global_topic, created = Topic.objects.get_or_create(
-            permlink=instance.permlink
+            name=instance.name.lower()
         )
         if not get_global_topic.editable:
             for field in UTopicForm._meta.fields:

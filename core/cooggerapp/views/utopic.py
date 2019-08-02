@@ -100,20 +100,20 @@ class UpdateUTopic(LoginRequiredMixin, View):
             form = form.save(commit=False)
             self.model.objects.filter(user=request.user, permlink=permlink).update(
                 name=form.name,
-                permlink=slugify(form.name.lower()),
+                permlink=slugify(form.name),
                 image_address=form.image_address,
                 definition=form.definition,
                 tags=form.tags,
                 address=form.address,
             )
-            if permlink != slugify(form.name.lower()):
+            if permlink != slugify(form.name):
                 # new global topic save
                 if (
                     not Content.objects.filter(utopic__permlink=permlink).exists()
                     and not UTopic.objects.filter(permlink=permlink).exists()
                 ):
                     Topic.objects.filter(permlink=permlink).update(
-                        permlink=slugify(form.name.lower())
+                        permlink=slugify(form.name)
                     )
                 else:
                     try:
@@ -124,7 +124,7 @@ class UpdateUTopic(LoginRequiredMixin, View):
                 reverse(
                     "detail-utopic",
                     kwargs=dict(
-                        permlink=slugify(form.name.lower()), username=str(request.user)
+                        permlink=slugify(form.name), username=str(request.user)
                     ),
                 )
             )

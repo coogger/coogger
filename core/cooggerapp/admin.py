@@ -54,7 +54,7 @@ class TopicAdmin(admin.ModelAdmin):
     search_fields = ["name", "definition"]
     fields = (
         ("name", "permlink"),
-        ("tags"),
+        ("tags", "how_many"),
         ("definition"),
         ("image_address"),
         ("address"),
@@ -80,7 +80,7 @@ class UtopicAdmin(admin.ModelAdmin):
         ("name", "permlink"),
         ("image_address"),
         ("definition"),
-        ("tags"),
+        ("tags", "how_many"),
         ("address"),
         ("total_dor", "total_view", "open_issue", "closed_issue"),
     )
