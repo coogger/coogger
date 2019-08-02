@@ -40,3 +40,6 @@ class UserProfile(models.Model):
     email_permission = models.BooleanField(
         help_text="Allow email notifications.", default=True
     )
+
+    def __str__(self):
+        return str(self.user)

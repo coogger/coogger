@@ -63,7 +63,9 @@ class CreateUTopic(LoginRequiredMixin, View):
             try:
                 save = form.save()
             except IntegrityError:
-                messages.warning(request, f"{form.name.lower()} is already taken by yours")
+                messages.warning(
+                    request, f"{form.name.lower()} is already taken by yours"
+                )
                 return render(
                     request,
                     self.template_name,

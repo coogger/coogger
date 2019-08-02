@@ -5,44 +5,41 @@
 <html lang="en">
 <head>
     <!-- GENERAL  -->
-    <meta http-equiv="pragma" content="Cache-Control: max-age=31536000">
-    <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
-    <meta charset="utf-8">
-    <link rel="shortcut icon" href="/static/logos/png/48.png" type="image/x-icon"/>
+    <meta name="theme-color" content="#11381e"></meta>
+    <meta http-equiv="pragma" content="Cache-Control: max-age=31536000"></meta>
+    <meta http-equiv="reply-to" content="cooggerapp@gmail.com"></meta>
+    <meta charset="utf-8"></meta>
+    <link rel="shortcut icon" href="/static/logos/png/48.png" type="image/x-icon"></meta>
     <!-- SEO -->
-    {% if request.head.title %}
-      <title>{{ request.head.title|truncatechars:55 }}</title>
-      <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}"/>
-      <meta property="og:site_name" content="{{ request.head.title|truncatechars:55 }}"/>
-      <meta name="twitter:title" content="{{ request.head.title|truncatechars:55 }}"/>
-      <meta itemprop="name" content="{{ request.head.title|truncatechars:55 }}"/>
-    {% endif %}
-    {% if request.head.keywords %}
-      <meta name="keywords" content="{{ request.head.keywords }}"/>
-    {% endif %}
-    {% if request.head.description %}
-      <meta name="description" content="{{ request.head.description|truncatechars:150 }}"/>
-      <meta name="twitter:description" content="{{ request.head.description|truncatechars:150 }}"/>
-      <meta property="og:description" content="{{ request.head.description|truncatechars:150 }}"/>
-      <meta itemprop="description" content="{{ request.head.description|truncatechars:150 }}"/>
-    {% endif %}
-    {% if request.head.image %}
-      <meta property="og:image" content="{{ request.head.image }}"/>
-      <meta itemprop="image" content="{{ request.head.image }}"/>
-      <meta name="twitter:image:src" content="{{ request.head.image }}"/>
-    {% endif %}
-    {% if request.head.image %}
-      <meta name="author" content="{{ request.head.author }}"/>
-      <meta property="article:author" content="{{ request.head.author }}"/>
-      <meta property="article:publisher" content="{{ request.head.author }}"/>
-    {% endif %}
-    <meta name="robots" content="index, follow"/>
-    <meta name="revisit-after" content="2"/>
-    <meta name="revisit-after" content="2 days"/>
+    <title>{{ request.head.title|truncatechars:55 }}</title>
+    <meta property="og:title" content="{{ request.head.title|truncatechars:55 }}"></meta>
+    <meta name="twitter:title" content="{{ request.head.title|truncatechars:55 }}"></meta>
+    <meta itemprop="name" content="{{ request.head.title|truncatechars:55 }}"></meta>
+    <meta name="apple-mobile-web-app-title" content="{{ request.head.title|truncatechars:55 }}">
+    <meta name="keywords" content="{{ request.head.keywords }}"></meta>
+    <meta name="description" content="{{ request.head.description|truncatechars:150 }}"></meta>
+    <meta name="twitter:description" content="{{ request.head.description|truncatechars:150 }}"></meta>
+    <meta property="og:description" content="{{ request.head.description|truncatechars:150 }}"></meta>
+    <meta itemprop="description" content="{{ request.head.description|truncatechars:150 }}"></meta>
+    <meta property="og:image" content="{{ request.head.image }}"></meta>
+    <meta itemprop="image" content="{{ request.head.image }}"></meta>
+    <meta name="twitter:image:src" content="{{ request.head.image }}"></meta>
+    <meta name="twitter:creator" content="@{{ request.head.twitter_author }}">
+    <meta name="author" content="{{ current_user.first_name }} {{ current_user.last_name }}"></meta>
+    <meta property="article:author" content="{{ request.head.facebook_author }}"></meta>
+    <meta name="robots" content="index, follow"></meta>
+    <meta name="revisit-after" content="2"></meta>
+    <meta name="revisit-after" content="2 days"></meta>
+    <!-- device -->
+    <meta property="og:site_name" content="Coogger"></meta>
+    <meta name="application-name" content="coogger.com">
     <!-- SOCIAL -->
-    <meta name="twitter:card" content="summary">
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}"/>
+    <meta name="twitter:widgets:new-embed-design" content="on"></meta>
+    <meta name="twitter:site" content="@cooggercom"></meta>
+    <meta name="twitter:card" content="summary_large_image"></meta>
+    <meta property="og:type" content="website"></meta>
+    <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}"></meta>
+    <link rel="canonical" href="http://www.coogger.com{{ request.META.PATH_INFO }}"></meta>
     <!-- RESPONSE -->
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- js  -->
@@ -50,28 +47,28 @@
     <script src="{% static 'js/general.js' %}" async></script>
     <script src="{% static 'js/coogger.js' %}" async></script>
     <!-- GOOGLE / YANDEX verification -->
-    <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ"/>
-    <meta name="yandex-verification" content="3695277528edfe07"/>
+    <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ"></meta>
+    <meta name="yandex-verification" content="3695277528edfe07"></meta>
     <!-- css files-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous"></link>
     <!-- fontawesome -->
-    <link rel="stylesheet" href="{% static 'css/coogger-css/default.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/coogger-css/default.css' %}"></link>
     <!-- font -->
-    <link rel="stylesheet" href="{% static 'css/coogger-css/font.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/coogger-css/font.css' %}"></link>
     <!-- default css -->
-    <link rel="stylesheet" href="{% static 'css/coogger-css/general.css' %}" media="(min-width: 0px) and (max-width: 2560px)">
+    <link rel="stylesheet" href="{% static 'css/coogger-css/general.css' %}" media="(min-width: 0px) and (max-width: 2560px)"></link>
     <!-- general -->
-    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/laptop-l.css' %}"  media="(min-width: 1025px) and (max-width: 1440px)">
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/laptop-l.css' %}"  media="(min-width: 1025px) and (max-width: 1440px)"></link>
     <!-- laptop large -->
-    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/laptop.css' %}"  media="(min-width: 769px) and (max-width: 1024px)">
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/laptop.css' %}"  media="(min-width: 769px) and (max-width: 1024px)"></link>
     <!-- laptop -->
-    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/tablet.css' %}" media="(min-width: 426px) and (max-width: 768px)">
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/tablet.css' %}" media="(min-width: 426px) and (max-width: 768px)"></link>
     <!-- tablet -->
-    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-l.css' %}" media="(min-width: 376px) and (max-width: 425px)">
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-l.css' %}" media="(min-width: 376px) and (max-width: 425px)"></link>
     <!-- mobile large -->
-    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-m.css' %}" media="(min-width: 321px) and (max-width: 375px)">
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-m.css' %}" media="(min-width: 321px) and (max-width: 375px)"></link>
     <!-- mobile medium -->
-    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-s.css' %}" media="(min-width: 0px) and (max-width: 320px)">
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-s.css' %}" media="(min-width: 0px) and (max-width: 320px)"></link>
     <!-- mobile small -->
-    <link href="{% static 'css/styles/private.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles/private.css' %}" rel="stylesheet"></link>
 </head>

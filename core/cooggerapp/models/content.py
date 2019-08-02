@@ -1,5 +1,4 @@
 import mistune
-
 from bs4 import BeautifulSoup
 from django.db import models
 from django.urls import reverse

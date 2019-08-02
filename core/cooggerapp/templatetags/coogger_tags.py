@@ -71,8 +71,8 @@ def calculate_percent_utopic(utopic, choice):
         context.append(
             dict(
                 model=model,
-                count=count, 
-                percent=f"{round((100 * count) / how_many_content, 2)}%"
+                count=count,
+                percent=f"{round((100 * count) / how_many_content, 2)}%",
             )
         )
     return context

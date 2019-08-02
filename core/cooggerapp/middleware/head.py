@@ -2,35 +2,61 @@ from django.contrib.auth.models import User
 from django.urls import resolve
 from django.utils.deprecation import MiddlewareMixin
 
-from core.cooggerapp.models import Commit, Content, Topic, UTopic
+from ..models import Commit, Content, Topic, UserProfile, UTopic
 
 
 class HeadMixin:
     def process_request(self, request):
-        self.path_info = request.path_info
+        path_info = request.path_info
         invalid = ["sitemap", "api", "robots.txt"]
-        if self.path_info.split("/")[1] in invalid:
+        if path_info.split("/")[1] in invalid:
             return None
-        url_name = resolve(self.path_info).url_name
+        url_name = resolve(path_info).url_name
         if url_name is None:
             return None
-        self.kwargs = resolve(self.path_info).kwargs
+        self.context = dict()
+        kwargs = resolve(path_info).kwargs
+        # images
+        self.default_img = "https://www.coogger.com/static/logos/png/800.png"
+        self.default_hashtag_img = "/static/media/icons/list.svg"
+        self.default_category_img = "/static/media/topics/category.svg"
+        self.default_language_img = "/static/media/topics/language.svg"
+        # all variable in kwargs
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+        if hasattr(self, "username"):
+            self.user = User.objects.get(username=self.username)
+            user_address = UserProfile.objects.get(user=self.user).address
+            try:
+                self.twitter_author = user_address.filter(choices="twitter")[0].address
+            except IndexError:
+                self.twitter_author = ""
+            else:
+                self.context["twitter_author"] = self.twitter_author
+            try:
+                self.facebook_author = user_address.filter(choices="facebook")[
+                    0
+                ].address
+            except IndexError:
+                self.facebook_author = ""
+            else:
+                self.context["facebook_author"] = self.facebook_author
         try:
-            request.head = getattr(self, url_name.replace("-", "_"))
+            for key, value in getattr(self, url_name.replace("-", "_"))().items():
+                self.context[key] = value
+            request.head = self.context
         except AttributeError:
             request.head = dict(
                 title=url_name.title(),
                 keywords=url_name,
                 description=url_name,
-                image="",
+                image=self.default_img,
             )
 
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def content_detail(self):
-        username = self.kwargs.get("username")
-        permlink = self.kwargs.get("permlink")
-        content = Content.objects.get(user__username=username, permlink=permlink)
+        content = Content.objects.get(user=self.user, permlink=self.permlink)
         keywords = ""
         for key in content.tags.split():
             keywords += key + ", "
@@ -38,15 +64,14 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=f"{content.utopic.name.capitalize()} | {content.title.capitalize()}",
             keywords=f"{keywords}{content.utopic.name.lower()}",
             description=content.description.capitalize(),
-            image=content.image_address
-            or "https://www.coogger.com/media/images/coogger_W56Ux33.png",
+            image=content.image_address or self.default_img,
         )
 
     def embed(self):
         return self.content_detail()
 
     def topic(self):
-        topic = Topic.objects.filter(permlink=self.kwargs.get("permlink"))[0]
+        topic = Topic.objects.get(permlink=self.permlink)
         try:
             description = topic.definition.capitalize()
         except AttributeError:
@@ -55,74 +80,64 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=f"{topic.name} - Topic | Coogger".capitalize(),
             keywords=topic.name,
             description=description,
-            image=topic.image_address,
+            image=topic.image_address or self.default_img,
         )
 
     def comment(self):
-        username = self.kwargs.get("username")
         return dict(
-            title=f"{username} - comment".capitalize(),
-            keywords=f"{username}, comment {username}, comment",
-            description=f"comment {username}".capitalize(),
-            image=None,
+            title=f"{self.username} - comment".capitalize(),
+            keywords=f"{self.username}, comment {self.username}, comment",
+            description=f"comment {self.username}".capitalize(),
+            image=self.default_img,
         )
 
     def category(self):
-        cat_name = self.kwargs.get("cat_name")
         return dict(
-            title=f"Latest post on coogger from {cat_name} category".capitalize(),
-            keywords=f"{cat_name}, {cat_name} category",
-            description=f"Latest post on coogger from {cat_name} category".capitalize(),
-            image="/static/media/topics/category.svg",
+            title=f"Latest post on coogger from {self.cat_name} category".capitalize(),
+            keywords=f"{self.cat_name}, {self.cat_name} category",
+            description=f"Latest post on coogger from {self.cat_name} category".capitalize(),
+            image=self.default_category_img,
         )
 
     def language(self):
-        lang_name = self.kwargs.get("lang_name")
         return dict(
-            title=f"{lang_name} language | coogger".capitalize(),
-            keywords=f"{lang_name}, language {lang_name}",
-            description=f"Latest post on coogger from {lang_name} language".capitalize(),
-            image="/static/media/topics/language.svg",
+            title=f"{self.lang_name} language | coogger".capitalize(),
+            keywords=f"{self.lang_name}, language {self.lang_name}",
+            description=f"Latest post on coogger from {self.lang_name} language".capitalize(),
+            image=self.default_language_img,
         )
 
     def user(self):
-        username = self.kwargs.get("username")
-        user = User.objects.get(username=username)
         return dict(
-            title=f"{username} • coogger".capitalize(),
-            keywords=f"{username}, coogger {username}",
-            description=f"The latest posts from {username} on coogger".capitalize(),
-            image=user.githubauthuser.avatar_url,
+            title=f"{self.username} • coogger".capitalize(),
+            keywords=f"{self.username}, coogger {self.username}",
+            description=f"The latest posts from {self.username} on coogger".capitalize(),
+            image=self.user.githubauthuser.avatar_url or self.default_img,
         )
 
     def userabout(self):
-        username = self.kwargs.get("username")
-        user = User.objects.get(username=username)
         return dict(
-            title=f"{username} | About".capitalize(),
-            keywords=f"about {username}, {username}, about",
-            description=f"About of {username}".capitalize(),
-            image=user.githubauthuser.avatar_url,
+            title=f"{self.username} | About".capitalize(),
+            keywords=f"about {self.username}, {self.username}, about",
+            description=f"About of {self.username}".capitalize(),
+            image=self.user.githubauthuser.avatar_url or self.default_img,
         )
 
     def detail_utopic(self):
-        username = self.kwargs.get("username")
-        permlink = self.kwargs.get("permlink")
-        user = User.objects.get(username=username)
-        utopic = UTopic.objects.filter(user=user, permlink=permlink)[0]
+        utopic = UTopic.objects.filter(user=self.user, permlink=self.permlink)[0]
         if utopic.definition:
-            definition = f"{utopic.definition.capitalize()} | {username}"
+            definition = f"{utopic.definition.capitalize()} | {self.username}"
         else:
-            definition = f"{username}'s contents about topic of {utopic}"
+            definition = f"{self.username}'s contents about topic of {utopic}"
         if utopic.image_address:
             image = utopic.image_address
         else:
-            image = user.githubauthuser.avatar_url
+            image = self.user.githubauthuser.avatar_url
         return dict(
-            title=f"{utopic} - Topic | {username}".capitalize(),
+            title=f"{utopic} - Topic | {self.username}".capitalize(),
             keywords=utopic,
             description=definition,
-            image=image,
+            image=image or self.default_img,
         )
 
     def settings(self):
@@ -130,16 +145,15 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title="settings",
             keywords="settings,coogger settings",
             description="Coogger settings,",
-            image=None,
+            image=self.default_img,
         )
 
     def hashtag(self):
-        tag = self.kwargs.get("hashtag")
         return dict(
-            title=f"coogger lates post from '{tag}' hashtag.",
-            keywords=f"{tag}",
-            description=f"coogger lates post from '{tag}' hashtag.",
-            image="/static/media/icons/list.svg",
+            title=f"coogger lates post from '{self.tag}' hashtag.",
+            keywords=f"{self.tag}",
+            description=f"coogger lates post from '{self.tag}' hashtag.",
+            image=self.default_hashtag_img,
         )
 
     def explorer_posts(self):
@@ -149,70 +163,54 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             description="""
                 Coogger is a platform where developers can write their knowledge,
                 experience, documentation and blogs about their projects or projects which love.""",
-            image="https://www.coogger.com/static/logos/png/800.png",
+            image=self.default_img,
         )
 
     def home(self):
         return self.explorer_posts()
 
     def issues(self):
-        username = self.kwargs.get("username")
-        utopic_permlink = self.kwargs.get("utopic_permlink")
-        user = User.objects.get(username=username)
-        title = f"{utopic_permlink}/{username} | issues".capitalize()
+        title = f"{self.utopic_permlink}/{self.username} | issues".capitalize()
         return dict(
             title=title,
-            keywords=f"{utopic_permlink}, {username}",
+            keywords=f"{self.utopic_permlink}, {self.username}",
             description=title,
-            image=user.githubauthuser.avatar_url,
+            image=self.user.githubauthuser.avatar_url or self.default_img,
         )
 
     def detail_issue(self):
-        username = self.kwargs.get("username")
-        utopic_permlink = self.kwargs.get("utopic_permlink")
-        permlink = self.kwargs.get("permlink")
-        user = User.objects.get(username=username)
-        title = f"{utopic_permlink}/{username} - {permlink} | issue".capitalize()
+        title = f"{self.utopic_permlink}/{self.username} - {self.permlink} | issue".capitalize()
         return dict(
             title=title,
-            keywords=f"{utopic_permlink}, {username}",
+            keywords=f"{self.utopic_permlink}, {self.username}",
             description=title,
-            image=user.githubauthuser.avatar_url,
+            image=self.user.githubauthuser.avatar_url or self.default_img,
         )
 
     def commits(self):
-        username = self.kwargs.get("username")
-        topic_permlink = self.kwargs.get("topic_permlink")
-        user = User.objects.get(username=username)
-        title = f"{topic_permlink}/{username} | commits".capitalize()
+        title = f"{self.topic_permlink}/{self.username} | commits".capitalize()
         return dict(
             title=title,
-            keywords=f"{topic_permlink}, {username}",
+            keywords=f"{self.topic_permlink}, {self.username}",
             description=title,
-            image=user.githubauthuser.avatar_url,
+            image=self.user.githubauthuser.avatar_url or self.default_img,
         )
 
     def commit(self):
-        username = self.kwargs.get("username")
-        topic_permlink = self.kwargs.get("topic_permlink")
-        hash = self.kwargs.get("hash")
-        commit = Commit.objects.get(hash=hash)
-        user = User.objects.get(username=username)
-        title = f"{topic_permlink}/{username} - {commit.msg} | commit".capitalize()
+        commit = Commit.objects.get(hash=self.hash)
+        title = f"{self.topic_permlink}/{self.username} - {commit.msg} | commit".capitalize()
         return dict(
             title=title,
-            keywords=f"{topic_permlink}, {username}, {commit.msg}, commit",
+            keywords=f"{self.topic_permlink}, {self.username}, {commit.msg}, commit",
             description=title,
-            image=user.githubauthuser.avatar_url,
+            image=self.user.githubauthuser.avatar_url or self.default_img,
         )
 
     def feed(self):
-        username = self.kwargs.get("username")
-        user = User.objects.get(username=username)
-        title = f"{username}'s Feed".capitalize()
+        title = f"{self.username}'s Feed".capitalize()
         return dict(
             title=title,
-            keywords=f"{username}, feed",
+            keywords=f"{self.username}, feed",
             description=title,
-            image=user.githubauthuser.avatar_url,
+            image=self.user.githubauthuser.avatar_url or self.default_img,
         )
