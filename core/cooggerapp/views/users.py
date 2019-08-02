@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.views.generic.base import TemplateView
 from django_bookmark.models import Bookmark as BookmarkModel
+from django.shortcuts import get_object_or_404
 
 from ..models import Content, UserProfile
 from .utils import paginator
@@ -10,7 +11,7 @@ class Common(TemplateView):
     template_name = "users/user.html"
 
     def get_context_data(self, username, **kwargs):
-        user = User.objects.get(username=username)
+        user = get_object_or_404(User, username=username)
         context = super().get_context_data(**kwargs)
         context["current_user"] = user
         context["addresses"] = UserProfile.objects.get(user=user).address.all()

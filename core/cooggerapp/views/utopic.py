@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.utils.text import slugify
 from django.views import View
@@ -29,7 +29,7 @@ class DetailUserTopic(TemplateView):
     template_name = "users/detail-topic/contents-for-alt.html"
 
     def get_context_data(self, username, permlink, **kwargs):
-        user = User.objects.get(username=username)
+        user = get_object_or_404(User, username=username)
         utopic = UTopic.objects.get(user=user, permlink=permlink)
         queryset = Content.objects.filter(utopic=utopic, reply=None).order_by("created")
         if user != self.request.user:

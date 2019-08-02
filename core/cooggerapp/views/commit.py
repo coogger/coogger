@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.views.generic.base import TemplateView
+from django.shortcuts import get_object_or_404
 
 from ..models import Commit, UTopic
 from .utils import paginator
@@ -9,7 +10,7 @@ class Commits(TemplateView):
     template_name = "users/detail-topic/commits.html"
 
     def get_context_data(self, username, topic_permlink, **kwargs):
-        user = User.objects.get(username=username)
+        user = get_object_or_404(User, username=username)
         utopic = UTopic.objects.get(user__username=username, permlink=topic_permlink)
         queryset = Commit.objects.filter(utopic=utopic)
         if user != self.request.user:
@@ -32,6 +33,6 @@ class CommitDetail(TemplateView):
 
     def get_context_data(self, username, topic_permlink, hash, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_user"] = User.objects.get(username=username)
+        context["current_user"] = get_object_or_404(User, username=username)
         context["commit"] = Commit.objects.filter(hash=hash)[0]
         return context

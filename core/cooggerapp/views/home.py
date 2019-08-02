@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import resolve, reverse
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -115,7 +115,7 @@ class Feed(Home):
 
     def get_queryset(self):
         following = list(
-            User.objects.get(username=self.username).follow.following.all()
+            get_object_or_404(User, username=self.username).follow.following.all()
         )
         queryset = list()
         contents = Content.objects.filter(status="ready")

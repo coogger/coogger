@@ -77,7 +77,7 @@ class TreeDetail(TemplateView):
 
     def get_context_data(self, username, topic_permlink, hash, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_user"] = User.objects.get(username=username)
+        context["current_user"] = get_object_or_404(User, username=username)
         context["queryset"] = Commit.objects.get(hash=hash)
         return context
 

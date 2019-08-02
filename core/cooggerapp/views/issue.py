@@ -22,7 +22,7 @@ class IssueView(TemplateView):
 
     def get_context_data(self, username, utopic_permlink, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = User.objects.get(username=username)
+        user = get_object_or_404(User, username=username)
         utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
         queryset = self.get_queryset(utopic)
         context["current_user"] = user
@@ -46,7 +46,7 @@ class NewIssue(LoginRequiredMixin, View):
     form_class = IssueForm
 
     def get(self, request, username, utopic_permlink):
-        user = User.objects.get(username=username)
+        user = get_object_or_404(User, username=username)
         context = dict(
             form=self.form_class,
             current_user=user,
@@ -55,7 +55,7 @@ class NewIssue(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request, username, utopic_permlink):
-        user = User.objects.get(username=username)
+        user = get_object_or_404(User, username=username)
         utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
         form = self.form_class(request.POST)
         if form.is_valid():

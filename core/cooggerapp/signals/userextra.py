@@ -5,6 +5,7 @@ from django.db.utils import IntegrityError
 from django.dispatch import receiver
 from django_follow_system.models import Follow
 from github_auth.models import GithubAuthUser
+from django.shortcuts import get_object_or_404
 
 from ..models.topic import UTopic
 from ..models.userextra import UserProfile
@@ -53,7 +54,7 @@ def save_github_repos(user, github_repos_url):
 
 @receiver(post_save, sender=GithubAuthUser)
 def follow_and_repos_update(sender, instance, created, **kwargs):
-    user = User.objects.get(username=instance.user.username)
+    user = get_object_or_404(User, username=instance.user.username)
     save_github_follow(user)
     github_repos_url = user.githubauthuser.get_extra_data_as_dict.get("repos_url")
     save_github_repos(user, github_repos_url)

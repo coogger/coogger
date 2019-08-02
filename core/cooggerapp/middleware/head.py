@@ -1,31 +1,38 @@
 from django.contrib.auth.models import User
 from django.urls import resolve
 from django.utils.deprecation import MiddlewareMixin
+from django.shortcuts import get_object_or_404
 
 from ..models import Commit, Content, Topic, UserProfile, UTopic
 
 
 class HeadMixin:
     def process_request(self, request):
+        
         path_info = request.path_info
-        invalid = ["sitemap", "api", "robots.txt"]
+        invalid = ["sitemap", "api", "robots.txt", "admin"]
         if path_info.split("/")[1] in invalid:
             return None
         url_name = resolve(path_info).url_name
         if url_name is None:
             return None
-        self.context = dict()
-        kwargs = resolve(path_info).kwargs
         # images
         self.default_img = "https://www.coogger.com/static/logos/png/800.png"
         self.default_hashtag_img = "/static/media/icons/list.svg"
         self.default_category_img = "/static/media/topics/category.svg"
         self.default_language_img = "/static/media/topics/language.svg"
+        self.context = dict(
+            title=url_name.title(),
+            keywords=url_name,
+            description=url_name,
+            image=self.default_img,
+        )
+        kwargs = resolve(path_info).kwargs
         # all variable in kwargs
         for key, value in kwargs.items():
             setattr(self, key, value)
         if hasattr(self, "username"):
-            self.user_obj = User.objects.get(username=self.username)
+            self.user_obj = get_object_or_404(User, username=self.username)
             user_address = UserProfile.objects.get(user=self.user_obj).address
             try:
                 self.twitter_author = user_address.filter(choices="twitter")[0].address
@@ -44,14 +51,10 @@ class HeadMixin:
         try:
             for key, value in getattr(self, url_name.replace("-", "_"))().items():
                 self.context[key] = value
-            request.head = self.context
         except AttributeError:
-            request.head = dict(
-                title=url_name.title(),
-                keywords=url_name,
-                description=url_name,
-                image=self.default_img,
-            )
+            pass
+        finally:
+            request.head = self.context
 
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
