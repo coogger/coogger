@@ -7,7 +7,7 @@
                 <div general="flex flex:ai-c width:100">
                     <a general="width:60 br:2 color:dark text:m color:primary:hover" class="text3" 
                      href="{{ bookmark.model.get_absolute_url }}" style="margin-right: 12px; padding: 4px;">
-                        <strong>{{ bookmark.model.title|default:bookmark.model.msg }}</strong>
+                        <strong>{{ bookmark.model.title }}</strong>
                     </a>
                     <div general="text:s position:right" flex>
                         <i general="color:secondary" class="fas fa-eye">{{ bookmark.model.views }}</i>
@@ -24,7 +24,8 @@
             data-url="{% url 'django_bookmark:add_or_remove' %}"
             data-bookmark-status="{% is_mark request.user bookmark.model bookmark.object_id %}">
                 <div>
-                    <i general="color:secondary" class="bookmarkicon fas fa-bookmark" id="how_many_mark"></i>
+                    <i general="color:secondary" class="bookmarkicon fas fa-bookmark" 
+                    id="how_many_mark"></i>
                     {{ bookmark.how_many }}
                 </div>
                 <div general="position:right color:secondary">

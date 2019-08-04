@@ -38,6 +38,10 @@ class Commit(Common, View, Vote):
                 hash=self.hash,
             ),
         )
+    
+    @property
+    def title(self):
+        return self.msg
 
     @property
     def previous_commit(self):

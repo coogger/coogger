@@ -1,6 +1,7 @@
 mistune
 whitenoise
-django==2.0.12
+django==2.2.4
+
 django-js-asset==0.1.1
 djangorestframework==3.9.1
 beautifulsoup4==4.6.0
