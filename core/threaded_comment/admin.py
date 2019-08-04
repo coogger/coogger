@@ -5,4 +5,6 @@ from .models import ThreadedComments
 
 @admin.register(ThreadedComments)
 class ThreadedCommentsAdmin(admin.ModelAdmin):
-    pass
+    # pass
+    # def save_model(self, request, obj, form, change):
+    #        super().save_model(request, obj, form, change)

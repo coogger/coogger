@@ -36,8 +36,7 @@ def hmanycontent(user):
     if user.is_anonymous:
         return 0
     obj = Content.objects.filter(user=user, status="ready")
-    replies_count = obj.all().count()
-    return f"{replies_count} + {obj.count() - replies_count}"
+    return obj.count()
 
 
 @register.simple_tag
