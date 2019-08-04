@@ -16,7 +16,7 @@
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
     <div style="padding: 6px;">
-      {% include "common/reply_warning.html" %}
+      {% include "reply_warning.html" %}
       <div general="position:right flex" mobile-l="position:left" mobile-m="position:left" mobile-s="position:left">
         <a href="/@{{ queryset.user }}" general="flex flex:ai-c">
           <img title="{{ queryset.user }}" alt="{{ queryset.user }}" general="br:2" src="{{ queryset.user.githubauthuser.avatar_url }}" width="20" height="20">
@@ -43,8 +43,8 @@
       </div>
     </div>
     <!-- replies -->
-    {% with id=queryset.id model_name="issue" %}
-      {% include 'common/load_replies.html' %}
+    {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}
+      {% include 'load_replies.html' %}
     {% endwith %}
   </div>
 {% endblock %}

@@ -11,6 +11,7 @@ class DBRouter:
         "django_threadedcomments_system",
         "django_bookmark",
         "djangobadge",
+        "threaded_comment",
     ]
     coogger_images_app = ["cooggerimages"]
     django_ip_apps = ["contenttypes", "django_page_views", "djangoip"]

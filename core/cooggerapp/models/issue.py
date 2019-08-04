@@ -1,16 +1,26 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 from django_md_editor.models import EditorMdField
 
 from core.cooggerapp.choices import ISSUE_CHOICES, make_choices
 
-from .common.vote_view import VoteView
-from .threaded_comments import ThreadedComments
+from ...threaded_comment.models import AbstractThreadedComments
+from .common import Common, View, Vote
 from .topic import UTopic
 from .utils import dor, second_convert
 
 
-class Issue(ThreadedComments, VoteView):
+class Issue(AbstractThreadedComments, Common, View, Vote):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    permlink = models.SlugField(max_length=200)
+    title = models.CharField(
+        max_length=200,
+        help_text="Be sure to choose the best title",
+        null=True,
+        blank=True,
+    )
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     body = EditorMdField(
         null=True, blank=True, help_text="Your problem | question | or anything else"
@@ -25,9 +35,13 @@ class Issue(ThreadedComments, VoteView):
     )
     issue_id = models.IntegerField(default=0)
 
-    class Meta(ThreadedComments.Meta):
+    class Meta:
+        ordering = ["-created"]
         unique_together = [["utopic", "permlink"]]
-        # this line causes IntegrityError error during super() and then work create a new permlink
+
+    def save(self, *args, **kwargs):
+        self.permlink = slugify(self.title)
+        super().save(*args, **kwargs)
 
     @property
     def get_absolute_url(self):

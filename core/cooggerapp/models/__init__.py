@@ -7,4 +7,4 @@ from .topic import Topic, UTopic
 from .userextra import OtherAddressesOfUsers, UserProfile
 from .commit import Commit
 from .issue import Issue
-from .threaded_comments import ThreadedComments
+from .common import Common, View, Vote

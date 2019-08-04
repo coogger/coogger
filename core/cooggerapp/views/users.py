@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django_bookmark.models import Bookmark as BookmarkModel
 
+from ...threaded_comment.models import ThreadedComments
 from ..models import Content, UserProfile
 from .utils import paginator
 
@@ -24,7 +25,7 @@ class UserContent(Common):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        queryset = Content.objects.filter(user=user, reply=None)
+        queryset = Content.objects.filter(user=user)
         if user != self.request.user:
             queryset = queryset.filter(status="ready")
         context["queryset"] = paginator(self.request, queryset)
@@ -50,7 +51,7 @@ class Comment(Common):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        queryset = Content.objects.filter(status="ready", reply__user=user)
+        queryset = ThreadedComments.objects.filter(user=user)
         context["user_comment"] = True
         context["queryset"] = paginator(self.request, queryset)
         return context

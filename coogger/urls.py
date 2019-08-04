@@ -12,7 +12,7 @@ urlpatterns = [
     path("vote/", include("django_vote_system.urls")),
     path("bookmark/", include("django_bookmark.urls")),
     path("admin/", admin.site.urls),
-    path("api/", include("core.api.urls")),
+    path("reply/", include("core.threaded_comment.urls")),
     path("delete/", include("core.cooggerapp.urls.delete")),
     path("privacy/", just_redirect_by_name, name="privacy"),
     path("settings/", include("core.cooggerapp.urls.settings")),

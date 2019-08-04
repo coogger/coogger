@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from ..models.commit import Commit
 from ..models.content import Content
 from ..models.topic import Topic, UTopic
-from ..models.utils import dor, is_comment, send_mail
+from ..models.utils import dor, send_mail
 
 
 def update_topic(instance, iord):
@@ -37,42 +37,22 @@ def commit(instance):
 
 @receiver(pre_delete, sender=Content)
 def when_content_delete(sender, instance, **kwargs):
-    if not is_comment(instance):
-        update_topic(instance, -1)
-        update_utopic(instance, -1)
+    update_topic(instance, -1)
+    update_utopic(instance, -1)
 
 
 @receiver(post_save, sender=Content)
 def post_and_reply_created(sender, instance, created, **kwargs):
     if created:
-        if not is_comment(instance):
-            update_utopic(instance, +1)
-            commit(instance)
-            if instance.status == "ready":
-                update_topic(instance, +1)
-                send_mail(
-                    subject=f"{ instance.user } publish a new content | coogger",
-                    template_name="email/post.html",
-                    context=dict(get_absolute_url=instance.get_absolute_url),
-                    to=[u.user for u in instance.user.follow.follower if u.user.email],
-                )
-        else:
-            user_list_to_email = list()
-            for obj in instance.get_all_reply_obj():
-                email = obj[0].user.email
-                if (
-                    (obj[0].user != instance.user)
-                    and (email)
-                    and (email not in user_list_to_email)
-                ):
-                    user_list_to_email.append(obj[0].user)
+        update_utopic(instance, +1)
+        commit(instance)
+        if instance.status == "ready":
+            update_topic(instance, +1)
             send_mail(
-                subject=f"{ instance.user } left a comment on your post | Coogger",
-                template_name="email/reply.html",
-                context=dict(
-                    user=instance.user, get_absolute_url=instance.get_absolute_url
-                ),
-                to=user_list_to_email,
+                subject=f"{ instance.user } publish a new content | coogger",
+                template_name="email/post.html",
+                context=dict(get_absolute_url=instance.get_absolute_url),
+                to=[u.user for u in instance.user.follow.follower if u.user.email],
             )
     else:
         update_fields = kwargs.get("update_fields")

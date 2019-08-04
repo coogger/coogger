@@ -2,7 +2,7 @@ from django import forms
 
 from core.cooggerapp.choices import *
 from core.cooggerapp.models import (
-    Content, Issue, OtherAddressesOfUsers, ReportModel, UTopic
+    Commit, Content, Issue, OtherAddressesOfUsers, ReportModel, UTopic
 )
 
 
@@ -42,18 +42,3 @@ class IssueForm(forms.ModelForm):
     class Meta:
         model = Issue
         fields = ["title", "body"]
-
-
-class IssueReplyForm(forms.ModelForm):
-    body = forms.CharField(
-        widget=forms.Textarea, help_text="problem | question | or anything else"
-    )
-
-    class Meta:
-        model = Issue
-        fields = ["body"]
-
-
-class ContentReplyForm(IssueReplyForm):
-    class Meta(IssueReplyForm.Meta):
-        model = Content

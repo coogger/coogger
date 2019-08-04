@@ -1,19 +1,29 @@
 import mistune
 from bs4 import BeautifulSoup
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 from django_md_editor.models import EditorMdField
 
 from core.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
 
+from ...threaded_comment.models import AbstractThreadedComments
 from .category import Category
-from .common.vote_view import VoteView
-from .threaded_comments import ThreadedComments
+from .common import Common, View, Vote
 from .topic import UTopic
 from .utils import NextOrPrevious, dor, get_first_image, second_convert
 
 
-class Content(ThreadedComments, VoteView):
+class Content(AbstractThreadedComments, Common, View, Vote):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    permlink = models.SlugField(max_length=200)
+    title = models.CharField(
+        max_length=200,
+        help_text="Be sure to choose the best title",
+        null=True,
+        blank=True,
+    )
     body = EditorMdField(
         null=True,
         blank=True,
@@ -48,9 +58,9 @@ class Content(ThreadedComments, VoteView):
         help_text="if your article isn't ready to publish yet, select 'not ready to publish'.",
     )
 
-    class Meta(ThreadedComments.Meta):
+    class Meta:
+        ordering = ["-created"]
         unique_together = [["user", "permlink"]]
-        # this line causes IntegrityError error during super() and then work create a new permlink
 
     def __str__(self):
         return str(self.get_absolute_url)
@@ -73,7 +83,7 @@ class Content(ThreadedComments, VoteView):
         return times
 
     def next_or_previous(self, next=True):
-        filter_field = dict(user=self.user, utopic=self.utopic, reply=None)
+        filter_field = dict(user=self.user, utopic=self.utopic)
         n_or_p = NextOrPrevious(self.__class__, filter_field, self.id)
         if next:
             return n_or_p.next_query
@@ -97,11 +107,12 @@ class Content(ThreadedComments, VoteView):
     def other_content_of_this_topic(self):
         "left of content detail page section"
         return self.__class__.objects.filter(
-            user=self.user, utopic=self.utopic, reply=None
+            user=self.user, utopic=self.utopic
         ).order_by("created")
 
     def save(self, *args, **kwargs):
         self.image_address = get_first_image(self.body)
+        self.permlink = slugify(self.title)
         super().save(*args, **kwargs)
 
     @property

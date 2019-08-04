@@ -13,16 +13,24 @@
         let loadComments = true;
         if (loadComments && scrolledBottom()){
             loadComments = false;
-            loadReplies("{{ id }}", "{{ model_name }}")
+            loadReplies(
+                object_id="{{ object_id }}", 
+                content_type="{{ content_type }}",
+                request_url="{% url 'reply-api' %}"
+            );
         }
         else{
             $(window).scroll(function(){
                 if (loadComments && scrolledBottom()){
                     loadComments = false;
-                    loadReplies("{{ id }}", "{{ model_name }}")
+                    loadReplies(
+                        object_id="{{ object_id }}", 
+                        content_type="{{ content_type }}",
+                        request_url="{% url 'reply-api' %}"
+                    );
                 }
             });
         }
   });
 </script>
-{% include 'form/reply.html' %}
+{% include 'reply.html' %}

@@ -3,25 +3,23 @@ from django.dispatch import receiver
 
 from ..models.issue import Issue
 from ..models.topic import UTopic
-from ..models.utils import is_comment, send_mail
+from ..models.utils import send_mail
 
 
 @receiver(pre_delete, sender=Issue)
 def when_content_delete(sender, instance, **kwargs):
-    if not is_comment(instance):
-        utopic = instance.utopic
-        utopic = UTopic.objects.get(user=utopic.user, permlink=utopic.permlink)
-        if utopic.status == "open":
-            utopic.open_issue = utopic.open_issue - 1
-        else:
-            utopic.closed_issue = utopic.closed_issue - 1
-        utopic.save()
+    utopic = instance.utopic
+    utopic = UTopic.objects.get(user=utopic.user, permlink=utopic.permlink)
+    if utopic.status == "open":
+        utopic.open_issue = utopic.open_issue - 1
+    else:
+        utopic.closed_issue = utopic.closed_issue - 1
+    utopic.save()
 
 
 @receiver(post_save, sender=Issue)
 def issue_counter(sender, instance, created, **kwargs):
-    if created and not is_comment(instance):
-        # if is created and it is a issue not issue comment
+    if created:
         utopic = instance.utopic
         utopic = UTopic.objects.get(user=utopic.user, permlink=utopic.permlink)
         utopic.open_issue = utopic.open_issue + 1

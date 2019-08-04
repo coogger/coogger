@@ -55,7 +55,6 @@ class HeadMixin:
 
 
 class HeadMiddleware(MiddlewareMixin, HeadMixin):
-
     @property
     def content_detail(self):
         content = get_object_or_404(
@@ -88,7 +87,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             description=description,
             image=topic.image_address or self.default_img,
         )
-    
+
     @property
     def comment(self):
         username = self.get_var("username")
@@ -108,6 +107,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             description=f"Latest post on coogger from {cat_name} category".capitalize(),
             image=self.default_category_img,
         )
+
     @property
     def language(self):
         lang_name = self.get_var("lang_name")

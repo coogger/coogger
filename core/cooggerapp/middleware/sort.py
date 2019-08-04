@@ -8,17 +8,18 @@ from ..views.utils import model_filter
 
 
 class SortMiddleware(MiddlewareMixin):
+    valid_urls = [
+        "home",
+        "filter",
+        "language",
+        "category",
+        "topic",
+        "search",
+        "explorer_posts",
+        "feed",
+    ]
+
     def process_request(self, request):
-        self.valid_urls = [
-            "home",
-            "filter",
-            "language",
-            "category",
-            "topic",
-            "search",
-            "explorer_posts",
-            "feed",
-        ]
         request.sort_categories = self.sort_categories(request)
         request.sort_languages = self.sort_languages(request)
         request.categories = self.categories(request)
@@ -33,7 +34,7 @@ class SortMiddleware(MiddlewareMixin):
             name = request.path_info.split("/")[2]
         except IndexError:
             return None
-        queryset = Content.objects.filter(status="ready", reply=None)
+        queryset = Content.objects.filter(status="ready")
         url_name = self.get_url_name(request)
         if url_name == "category":
             category = Category.objects.filter(name=name)[0]
@@ -95,7 +96,7 @@ class SortMiddleware(MiddlewareMixin):
         if url_name not in self.valid_urls:
             return None
         querysets_list = []
-        content_queryset = Content.objects.filter(status="ready", reply=None)
+        content_queryset = Content.objects.filter(status="ready")
         for language in LANGUAGES:
             querysets = content_queryset.filter(language=language)
             try:
@@ -120,7 +121,7 @@ class SortMiddleware(MiddlewareMixin):
             return None
         category_queryset = Category.objects.all()
         querysets_list = []
-        content_queryset = Content.objects.filter(status="ready", reply=None)
+        content_queryset = Content.objects.filter(status="ready")
         for category in category_queryset:
             querysets = content_queryset.filter(category=category)
             if querysets.exists():

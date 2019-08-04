@@ -1,5 +1,4 @@
-{% include "common/reply_warning.html" %}
-{% if not queryset.reply %}
+{% if not queryset.is_reply %}
   <div general="flex flex:ai-c">
     {% if queryset.utopic.address %}
       <div general="position:left text:s" class="text3">

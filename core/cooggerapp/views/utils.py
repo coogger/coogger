@@ -35,8 +35,6 @@ def model_filter(items, queryset):
             queryset = queryset.filter(category__name=value)
         elif attr == "topic":
             queryset = queryset.filter(utopic__permlink=value)
-        elif attr == "reply" and value == "None":
-            queryset = queryset.filter(reply=None)
         else:
             try:
                 queryset = queryset.filter(**{attr: value})

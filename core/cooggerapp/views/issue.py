@@ -8,9 +8,10 @@ from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
 
-from ..forms import IssueForm, IssueReplyForm
+from ...threaded_comment.forms import ReplyForm
+from ..forms import IssueForm
 from ..models import Issue, UTopic
-from ..views.generic.detail import DetailPostView
+from ..views.generic.detail import CommonDetailView
 from .utils import paginator
 
 # TODO if requests come same url, and query does then it should be an update
@@ -33,12 +34,12 @@ class IssueView(TemplateView):
         return context
 
     def get_queryset(self, utopic):
-        return self.model.objects.filter(utopic=utopic, status="open", reply=None)
+        return self.model.objects.filter(utopic=utopic, status="open")
 
 
 class ClosedIssueView(IssueView):
     def get_queryset(self, utopic):
-        return self.model.objects.filter(utopic=utopic, status="closed", reply=None)
+        return self.model.objects.filter(utopic=utopic, status="closed")
 
 
 class NewIssue(LoginRequiredMixin, View):
@@ -65,9 +66,7 @@ class NewIssue(LoginRequiredMixin, View):
                 return self.get(request, username, utopic_permlink)
             form.user = request.user
             form.utopic = utopic
-            form.issue_id = (
-                Issue.objects.filter(utopic=form.utopic, reply=None).count() + 1
-            )
+            form.issue_id = Issue.objects.filter(utopic=form.utopic).count() + 1
             form.save()
             return redirect(
                 reverse(
@@ -117,31 +116,11 @@ class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         )
 
 
-class DetailIssue(DetailPostView, View):
+class DetailIssue(CommonDetailView, TemplateView):
     model = Issue
     model_name = "issue"
     template_name = "issue/detail.html"
-    form_class = IssueReplyForm
-    # fields that remain the same when commented.
-    same_fields = ["title", "utopic"]
-    # json respon fields after commented
-    response_field = [
-        "id",
-        "user.username",
-        "utopic.permlink",
-        "parent_permlink",
-        "parent_user",
-        "created",
-        "reply_count",
-        "status",
-        "reply_id",
-        "body",
-        "title",
-        "permlink",
-        "user.githubauthuser.avatar_url",
-        "get_absolute_url",
-    ]
-    update_field = dict(status=None)
+    form_class = ReplyForm
 
     def get_object(self, username, utopic_permlink, permlink):
         return get_object_or_404(

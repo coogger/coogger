@@ -6,7 +6,6 @@ from django_page_views.models import DjangoViews
 from ..forms import UTopicForm
 from ..models.content import Content
 from ..models.topic import Topic, UTopic
-from ..models.utils import is_comment
 
 
 @receiver(post_save, sender=UTopic)
@@ -30,8 +29,7 @@ def increase_utopic_view(sender, **kwargs):
     ips = kwargs.get("pk_set", None)
     if action == "pre_add" and instance.get_model == "content":
         content = Content.objects.get(id=instance.object_id)
-        if not is_comment(content):
-            for ip_id in ips:
-                UTopic.objects.filter(
-                    user=content.user, permlink=content.utopic.permlink
-                ).update(total_view=(F("total_view") + 1))
+        for ip_id in ips:
+            UTopic.objects.filter(
+                user=content.user, permlink=content.utopic.permlink
+            ).update(total_view=(F("total_view") + 1))

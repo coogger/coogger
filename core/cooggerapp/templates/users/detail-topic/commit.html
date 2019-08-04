@@ -1,12 +1,13 @@
 {% extends "home/html.html" %}
 {% block body %}
 {% load django_md_editor %}
+
 <div general="position:center" class="commits">
-  <div class="commit" general="flex flex:fd-c width:60 border:1 br:2 brc:muted"  
-  mobile-l="width:100" tablet="width:80"
-  mobile-m="width:100"
-  mobile-s="width:100">
-      <h1 general="width:100">
+  <div class="commit" general="flex flex:fd-c width:60 border:1 br:2 brc:muted" mobile-l="width:100" tablet="width:80" mobile-m="width:100" mobile-s="width:100">  
+      <div general="text:s bg:white brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
+          {% include "common/interaction_and_counter.html" %}
+      </div>
+    <h1 general="width:100">
           {{ commit.msg|title }}
       </h1>
       <div general="flex flex:ai-c width:100" >
@@ -25,6 +26,12 @@
         </a>
       </div>
       <div class="commit-detail" general="br:2 width:100">{{ commit.body_change|safe }}</div>
+    <!-- sadece js leri yüklemek için -->
+      {{ ""|markdown_to_html:"load"|safe }} 
+    <!-- replies -->
+    {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}
+      {% include 'load_replies.html' %}
+    {% endwith %}
   </div>
 </div>
 {% endblock %}

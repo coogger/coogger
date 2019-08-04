@@ -14,7 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Content)
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ["user", "permlink", "reply"]
+    list_display = ["user", "permlink"]
     list_display_links = list_display
     list_filter = ["status"]
     search_fields = ["user__username", "permlink", "title", "body"]
@@ -23,10 +23,8 @@ class ContentAdmin(admin.ModelAdmin):
         ("user"),
         ("category", "language", "utopic"),
         ("title", "permlink"),
-        ("reply"),
         ("body"),
-        ("tags", "status"),
-        ("reply_count"),
+        ("tags", "status", "reply_count"),
     )
 
 

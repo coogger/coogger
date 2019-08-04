@@ -2,14 +2,17 @@ from difflib import HtmlDiff
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from django_md_editor.models import EditorMdField
 
+from ...threaded_comment.models import AbstractThreadedComments
+from .common import Common, View, Vote
 from .content import Content
 from .topic import UTopic
 from .utils import NextOrPrevious, get_new_hash
 
 
-class Commit(models.Model):
+class Commit(Common, View, Vote):
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)  # is it necessary
@@ -17,12 +20,24 @@ class Commit(models.Model):
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
+    reply_count = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ["-created"]
 
     def __str__(self):
         return f"<Commit(content='{self.content}', msg='{self.msg}')>"
+
+    @property
+    def get_absolute_url(self):
+        return reverse(
+            "commit",
+            kwargs=dict(
+                username=str(self.user),
+                topic_permlink=self.utopic.permlink,
+                hash=self.hash,
+            ),
+        )
 
     @property
     def previous_commit(self):

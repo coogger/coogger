@@ -36,13 +36,13 @@ def hmanycontent(user):
     if user.is_anonymous:
         return 0
     obj = Content.objects.filter(user=user, status="ready")
-    replies_count = obj.filter(reply=None).count()
+    replies_count = obj.all().count()
     return f"{replies_count} + {obj.count() - replies_count}"
 
 
 @register.simple_tag
 def content_count(username, value, key):
-    obj = Content.objects.filter(user__username=username, status="ready", reply=None)
+    obj = Content.objects.filter(user__username=username, status="ready")
     return model_filter({str(value): key}.items(), obj).get("queryset").count()
 
 
@@ -58,7 +58,7 @@ def commit_count(utopic):
 
 @register.filter
 def calculate_percent_utopic(utopic, choice):
-    contents = Content.objects.filter(utopic=utopic, status="ready", reply=None)
+    contents = Content.objects.filter(utopic=utopic, status="ready")
     how_many_content = utopic.how_many
     corl = dict()
     for content in contents:

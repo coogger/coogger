@@ -26,16 +26,14 @@ class Home(TemplateView):
             context["introduction"] = True
             self.template_name = self.introduction_template_name
         context["sort_topics"] = self.sort_topics()  # just pc
-        context["issues"] = Issue.objects.filter(reply=None, status="open")[
-            : settings.PAGE_SIZE
-        ]
+        context["issues"] = Issue.objects.filter(status="open")[: settings.PAGE_SIZE]
         context["queryset"] = paginator(self.request, self.get_queryset())
         context["insection_left"] = True
         context["insection_right"] = True
         return context
 
     def get_queryset(self):
-        queryset = Content.objects.filter(status="ready", reply=None)
+        queryset = Content.objects.filter(status="ready")
         if not self.is_authenticated and self.url_name == "home":
             return self.get_queryset_to_introduction(queryset)
         return queryset
@@ -99,7 +97,7 @@ class Search(Home):
         name = self.request.GET["query"].lower()
         SearchedWords(word=name).save()
         q = Q(title__contains=name) | Q(body__contains=name)
-        queryset = Content.objects.filter(q).filter(status="ready", reply=None)
+        queryset = Content.objects.filter(q).filter(status="ready")
         return queryset
 
 

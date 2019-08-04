@@ -12,36 +12,18 @@ from django.views import View
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.generic.base import TemplateView
 
-from ..forms import ContentCreateForm, ContentReplyForm, ContentUpdateForm
+from ...threaded_comment.forms import ReplyForm
+from ..forms import ContentCreateForm, ContentUpdateForm
 from ..models import Category, Commit, Content, UTopic
-from ..models.utils import dor, get_first_image, is_comment, ready_tags
-from ..views.generic.detail import DetailPostView
+from ..models.utils import dor, get_first_image, ready_tags  # is_comment,
+from ..views.generic.detail import CommonDetailView
 
 
-class Detail(DetailPostView, View):
+class Detail(CommonDetailView, TemplateView):
     model = Content
     model_name = "content"
     template_name = "content/detail/detail.html"
-    form_class = ContentReplyForm
-    # fields that remain the same when commented.
-    same_fields = ["title", "utopic", "language", "category", "tags", "status"]
-    # json respon fields after commented
-    response_field = [
-        "id",
-        "user.username",
-        "utopic.permlink",
-        "parent_permlink",
-        "parent_user",
-        "created",
-        "reply_count",
-        "status",
-        "reply_id",
-        "body",
-        "title",
-        "permlink",
-        "user.githubauthuser.avatar_url",
-        "get_absolute_url",
-    ]
+    form_class = ReplyForm
 
     def get_object(self, username, permlink):
         return get_object_or_404(Content, user__username=username, permlink=permlink)
@@ -67,11 +49,6 @@ class Embed(Detail):
 
 class TreeDetail(TemplateView):
     template_name = "content/detail/tree.html"
-    # TODO
-    # url '@username/topic_permlink/tree/hash/'
-    # or url can be
-    # url '/tree/hash/' because hash is unique
-
     # TODO show all replies acording to commit date,
     # use Detail class but all data must be acording to commit date
 
@@ -137,7 +114,7 @@ class Update(LoginRequiredMixin, View):
     # TODO use updateview class as inherit
     template_name = "content/post/update.html"
     form_class = ContentUpdateForm
-    reply_form_class = ContentReplyForm
+    # reply_form_class = ReplyForm
     model = Content
 
     def get(self, request, username, permlink, *args, **kwargs):
@@ -152,13 +129,13 @@ class Update(LoginRequiredMixin, View):
                 return redirect_utopic(request, utopic_permlink)
             queryset = self.model.objects.filter(user=request.user, permlink=permlink)
             if queryset.exists():
-                if is_comment(queryset[0]):
-                    form_set = self.reply_form_class(instance=queryset[0])
-                else:
-                    form_set = self.form_class(
-                        instance=queryset[0],
-                        initial=dict(msg=f"Update {queryset[0].title.lower()}"),
-                    )
+                # if is_comment(queryset[0]):
+                #     form_set = self.reply_form_class(instance=queryset[0])
+                # else:
+                form_set = self.form_class(
+                    instance=queryset[0],
+                    initial=dict(msg=f"Update {queryset[0].title.lower()}"),
+                )
                 context = dict(username=username, permlink=permlink, form=form_set)
                 return render(request, self.template_name, context)
         return HttpResponse(status=403)
@@ -168,71 +145,71 @@ class Update(LoginRequiredMixin, View):
             queryset = get_object_or_404(
                 self.model, user=request.user, permlink=permlink
             )
-            if is_comment(queryset):
-                form = self.reply_form_class(data=request.POST)
-            else:
-                form = self.form_class(data=request.POST)
+            # if is_comment(queryset):
+            #     form = self.reply_form_class(data=request.POST)
+            # else:
+            form = self.form_class(data=request.POST)
             if form.is_valid():
                 form = form.save(commit=False)
                 form.user = request.user
-                if is_comment(queryset):
-                    queryset.body = form.body
-                    queryset.image_address = get_first_image(form.body)
-                    queryset.last_update = timezone.now()
-                    queryset.save()
+                # if is_comment(queryset):
+                #     queryset.body = form.body
+                #     queryset.image_address = get_first_image(form.body)
+                #     queryset.last_update = timezone.now()
+                #     queryset.save()
+                # else:
+                get_utopic_permlink = request.GET.get("utopic_permlink", None)
+                if get_utopic_permlink is None:
+                    utopic = queryset.utopic
                 else:
-                    get_utopic_permlink = request.GET.get("utopic_permlink", None)
-                    if get_utopic_permlink is None:
-                        utopic = queryset.utopic
-                    else:
-                        utopic = UTopic.objects.filter(  # new utopic
-                            user=queryset.user, permlink=get_utopic_permlink
-                        )
-                        utopic.update(  # new utopic update
-                            how_many=(F("how_many") + 1),
-                            total_dor=(F("total_dor") + dor(form.body)),
-                            total_view=(F("total_view") + queryset.views),
-                        )
-                        UTopic.objects.filter(  # old utopic update
-                            user=queryset.user, permlink=queryset.utopic.permlink
-                        ).update(
-                            how_many=(F("how_many") - 1),
-                            total_dor=(F("total_dor") - dor(queryset.body)),
-                            total_view=(F("total_view") - queryset.views),
-                        )
-                        utopic = utopic[0]
-                        Commit.objects.filter(  # old utopic update to new utopic commit
-                            utopic=queryset.utopic, content=queryset
-                        ).update(utopic=utopic)
-                    if form.body != queryset.body:
-                        Commit(
-                            user=queryset.user,
-                            utopic=utopic,
-                            content=queryset,
-                            body=form.body,
-                            msg=request.POST.get("msg"),
-                        ).save()
-                    queryset.image_address = get_first_image(form.body)
-                    queryset.category = form.category
-                    queryset.language = form.language
-                    queryset.tags = ready_tags(form.tags)
-                    queryset.body = form.body
-                    queryset.title = form.title
-                    queryset.last_update = timezone.now()
-                    update_fields = [
-                        "image_address",
-                        "category",
-                        "language",
-                        "tags",
-                        "body",
-                        "title",
-                        "last_update",
-                    ]
-                    if queryset.status != form.status:
-                        queryset.status = form.status
-                        update_fields.append("status")
-                    queryset.utopic = utopic
-                    queryset.save(update_fields=update_fields)  # to content signals
+                    utopic = UTopic.objects.filter(  # new utopic
+                        user=queryset.user, permlink=get_utopic_permlink
+                    )
+                    utopic.update(  # new utopic update
+                        how_many=(F("how_many") + 1),
+                        total_dor=(F("total_dor") + dor(form.body)),
+                        total_view=(F("total_view") + queryset.views),
+                    )
+                    UTopic.objects.filter(  # old utopic update
+                        user=queryset.user, permlink=queryset.utopic.permlink
+                    ).update(
+                        how_many=(F("how_many") - 1),
+                        total_dor=(F("total_dor") - dor(queryset.body)),
+                        total_view=(F("total_view") - queryset.views),
+                    )
+                    utopic = utopic[0]
+                    Commit.objects.filter(  # old utopic update to new utopic commit
+                        utopic=queryset.utopic, content=queryset
+                    ).update(utopic=utopic)
+                if form.body != queryset.body:
+                    Commit(
+                        user=queryset.user,
+                        utopic=utopic,
+                        content=queryset,
+                        body=form.body,
+                        msg=request.POST.get("msg"),
+                    ).save()
+                queryset.image_address = get_first_image(form.body)
+                queryset.category = form.category
+                queryset.language = form.language
+                queryset.tags = ready_tags(form.tags)
+                queryset.body = form.body
+                queryset.title = form.title
+                queryset.last_update = timezone.now()
+                update_fields = [
+                    "image_address",
+                    "category",
+                    "language",
+                    "tags",
+                    "body",
+                    "title",
+                    "last_update",
+                ]
+                if queryset.status != form.status:
+                    queryset.status = form.status
+                    update_fields.append("status")
+                queryset.utopic = utopic
+                queryset.save(update_fields=update_fields)  # to content signals
                 return redirect(
                     reverse(
                         "content-detail",

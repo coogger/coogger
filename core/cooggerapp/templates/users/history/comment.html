@@ -5,15 +5,6 @@
     <div id="comment-history" class="comment-history"  general="width:100"
      mobile-s="width:100" mobile-l="width:98" tablet="width:96" laptop="width:70" laptop-l="width:70">
     {% for comment in queryset %}
-    <div general="flex" style='margin: 12px 0px' general='c-white br-2' class='root_content'>
-      <div>
-        <li general='flex flex:ai-c'>
-          <a href='{{ comment.get_absolute_url }}' id='root_content' target='blank' general='txt-s'>
-          <span style='margin: 0px 6px' general='c-secondary'>Open in new tab to view more detailed</span>
-          </a>
-        </li>
-      </div>
-    </div>
     <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
       <div general='flex flex:ai-fs bg-white'>
       <a general="flex" title='{{ comment.user }}' href='/@{{ comment.user }}'
@@ -29,22 +20,32 @@
         </div>
       </div>
     </div>
-    <div style='padding: inherit;'>
-      {{ comment.body|markdown_to_html:comment.id|safe }}
-    </div>
     <div general='br:2 color:secondary br:2 brc:muted position:right flex flex:ai-c' style='padding: 2px 4px;'>
         <div general='text:s flex flex:ai-c'>
             <i class="fas fa-heart"></i>
-            <div style='margin-left: 6px;'>{{ comment.upvote_count }}</div>
+            <div style='margin-left: 6px;'>{{ comment.upvote_count|default:"0" }}</div>
         </div>
         <div general='text:s flex flex:ai-c'>
             <i class="fas fa-eye"></i>
-            <div style='margin-left: 6px;'>{{ comment.views }}</div>
+            <div style='margin-left: 6px;'>{{ comment.views|default:"0" }}</div>
         </div>
         <div general='text:s flex flex:ai-c'>
             <i class="fas fa-reply-all"></i>
-            <div style='margin-left: 6px;'>{{ comment.reply_count }}</div>
+            <div style='margin-left: 6px;'>{{ comment.reply_count|default:"0" }}</div>
         </div>
+      </div>
+    <div style='padding: inherit;'>
+      {{ comment.body|markdown_to_html:comment.id|safe }}
+    </div>
+      <div general="flex" style='margin: 12px 0px' general='c-white br-2' class='root_content'>
+          <div general="flex br:2 position:right width:100">
+            <div general="border:2 br:2 brc:yellow flex flex:ai-c position:right bg:yellow width:max"
+            style="padding: 0px 4px;">
+                <a href="{{ comment.get_absolute_url }}" general="text:s color:dark">
+                    This is just a comment, view the full content
+                </a>
+              </div>
+          </div>
       </div>
       {% endfor %}
     </div>

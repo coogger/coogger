@@ -1,0 +1,10 @@
+{% if queryset.is_reply %}
+  <div general="flex br:2 position:right width:100">
+    <div general="border:2 br:2 brc:yellow flex flex:ai-c position:right bg:yellow width:max"
+    style="padding: 4px;margin: 12px 0px;">
+        <a href="{{ queryset.get_top_obj.get_absolute_url }}" general="text:s color:dark">
+            This is just a comment, view the full content
+        </a>
+      </div>
+  </div>
+{% endif %}

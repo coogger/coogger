@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     "django_bookmark",
     "djangobadge",
     "core.cooggerapp",
-    "core.api",
+    "core.threaded_comment",
 ]
 PAGE_SIZE = 10
 REST_FRAMEWORK = dict(
