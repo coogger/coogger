@@ -6,6 +6,9 @@
 .topic_percent{
   margin-right: 2px;padding: 2px 4px;white-space: nowrap;    overflow-x: auto;
 }
+.vote{
+  cursor: pointer;
+}
 header{
   padding: 6px 0px 0px 0px;
   margin-bottom: 12px;

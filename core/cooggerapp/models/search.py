@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.utils import IntegrityError
 
 
 class SearchedWords(models.Model):
@@ -8,7 +9,7 @@ class SearchedWords(models.Model):
     def save(self, *args, **kwargs):
         try:
             super().save(*args, **kwargs)
-        except:
+        except IntegrityError:
             self.__class__.objects.filter(word=self.word).update(
                 hmany=models.F("hmany") + 1
             )

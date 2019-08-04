@@ -4,7 +4,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import F
 from django.urls import reverse
-from django.utils.text import slugify
 
 from ..cooggerapp.models.common import Common, View, Vote
 from ..cooggerapp.models.utils import get_first_image

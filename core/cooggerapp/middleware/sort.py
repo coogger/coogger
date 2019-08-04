@@ -83,11 +83,7 @@ class SortMiddleware(MiddlewareMixin):
         queryset_list = []
         for language in LANGUAGES:
             querysets = queryset.filter(language=language)
-            try:
-                querysets[0]
-            except:
-                pass
-            else:
+            if querysets.exists():
                 queryset_list.append(querysets)
         return self.sort_list(queryset_list, "language")
 
@@ -99,11 +95,7 @@ class SortMiddleware(MiddlewareMixin):
         content_queryset = Content.objects.filter(status="ready")
         for language in LANGUAGES:
             querysets = content_queryset.filter(language=language)
-            try:
-                querysets[0]
-            except:
-                pass
-            else:
+            if querysets.exists():
                 querysets_list.append(querysets)
         context = []
         for contents in sorted(querysets_list, key=len, reverse=True):

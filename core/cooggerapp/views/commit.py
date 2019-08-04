@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 
 from ...threaded_comment.forms import ReplyForm
-from ..models import Commit, Content, UTopic
+from ..models import Commit, UTopic
 from ..views.generic.detail import CommonDetailView
 from .utils import paginator
 

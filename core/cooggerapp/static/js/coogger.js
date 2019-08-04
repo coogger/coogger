@@ -1,10 +1,9 @@
 // coogger.js
   function getTagsAsTemplate(tags){
     let template = "";
-    for (const index in tags) {
-      let tag = tags[index];
+    for (let index in tags) {
       template += `<div class="tag">
-        <a href="/tags/${tag}" general="color:white bg:dark-purple:hover" >#${tag}</a>
+        <a href="/tags/${tags[index]}" general="color:white bg:dark-purple:hover" >#${tags[index]}</a>
       </div>`
     }
     return template;
@@ -20,54 +19,24 @@
     let readingSpeed = 28;
     return `min ${((text.length/readingSpeed)/60).toFixed(1)}`;
   }
-function timeSince(date) {
-  let seconds = Math.floor((new Date() - new Date(date)) / 1000);
-  let interval = Math.floor(seconds / 31536000);
-  let timesince = [];
-  if (interval > 1) {
-    seconds = (seconds - (31536000 * interval));
-    timesince.push(interval + " years ");
-  }
-  interval = Math.floor(seconds / 2592000);
-  if (interval > 1) {
-    seconds = (seconds - (2592000 * interval));
-    timesince.push(interval + " months ");
-  }
-  interval = Math.floor(seconds / 86400);
-  if (interval > 1) {
-    seconds = (seconds - (86400 * interval));
-    timesince.push(interval + " days ");
-  }
-  interval = Math.floor(seconds / 3600);
-  if (interval > 1) {
-    seconds = (seconds - (3600 * interval));
-    timesince.push(interval + " hours ");
-  }
-  interval = Math.floor(seconds / 60);
-  if (interval > 1) {
-    seconds = (seconds - (60 * interval));
-    timesince.push(interval + " minutes ");
-  }
-  timesince.push(seconds + " seconds ");
-  return timesince.slice(0, 2) + " ago";
-}
+
 $(document).ready(function() {
   // follow/unfollow operations
   $(".follow-op").click(function(event){
     $(".follow-op").addClass("make_reply_animation");
     let url = this.getAttribute("data-url");
-    let follower_count = parseInt($("#follower_count").html());
+    let followerCount = parseInt($("#follower_count").html());
     $.get(url, function(data, status){
-      if (data.status == "follow"){
-        if ( !isNaN(follower_count) ){
-          $("#follower_count").html(follower_count + 1);
+      if (data.status === "follow"){
+        if ( !isNaN(followerCount) ){
+          $("#follower_count").html(followerCount + 1);
         }
         $("#follow-op #follow").html("Unfollow");
         $("#follow-op").attr({"hover":"bg:red"});
       }
-      else if (data.status == "unfollow"){
-        if ( !isNaN(follower_count) ){
-          $("#follower_count").html(follower_count - 1);
+      else if (data.status === "unfollow"){
+        if ( !isNaN(followerCount) ){
+          $("#follower_count").html(followerCount - 1);
         }
         $("#follow-op #follow").html("Follow");
         $("#follow-op").attr({"hover":"bg:primary"});
@@ -76,15 +45,42 @@ $(document).ready(function() {
       $(".follow-op").removeClass("make_reply_animation");
     });
   });
+  let votes = document.querySelectorAll("#vote-section");
+    votes.forEach(function(vote) {
+      console.log(vote);
+      // vote
+      let status = $(vote).data("vote-status");
+      if (status == "False"){
+        $(vote).find("#downvote").attr("general","color:danger");
+      }
+      else if (status == "True"){
+        $(vote).find("#upvote").attr("general", "color:success");
+      }
+    });
+    // bookmark
+    let bookmarks = document.querySelectorAll(".bookmarkop");
+      bookmarks.forEach(function(bookmark) {
+      let bookmark_status = $(bookmark).data("bookmark-status");
+      if (bookmark_status == "False"){
+        $(bookmark).find(".bookmarkicon").attr("general","color:secondary");
+      }
+      else if (bookmark_status == "True"){
+        $(bookmark).find(".bookmarkicon").attr("general", "color:success");
+      }
+    });
+    
 });
-
-function vote(this_, id, model_name){
-  let status;
-  if (this_.id == "upvote"){
+function vote(this_){
+  let status, upvote, downvote;
+  if (this_.id.includes("upvote")){
       status = true;
+      upvote = this_;
+      downvote = this_.parentElement.lastElementChild;
   }
-  else if (this_.id == "downvote"){
+  else if (this_.id.includes("downvote")){
       status = false;
+      upvote = this_.parentElement.firstElementChild;
+      downvote = this_;
   }
   $.ajax({
       type: "POST",
@@ -99,20 +95,20 @@ function vote(this_, id, model_name){
           alert(r.error);
       }
       else{
-          if (r.status == true){
-              $(`#vote-section #upvote`).attr("general", "color:success");
-              $(`#vote-section #downvote`).attr("general","color:secondary color:danger:hover");
+          if (r.status === true){
+              $(upvote).attr("general", "color:success");
+              $(downvote).attr("general","color:secondary color:danger:hover");
+            }
+          else if (r.status === false){
+              $(upvote).attr("general","color:secondary color:success:hover");
+              $(downvote).attr("general","color:danger");
           }
-          else if (r.status == false){
-              $(`#vote-section #upvote`).attr("general","color:secondary color:success:hover");
-              $(`#vote-section #downvote`).attr("general","color:danger");
-          }
-          $(`#vote-section #upvote`).text(r.upvote_count);
-          $(`#vote-section #downvote`).text(r.downvote_count);
+          $(upvote).text(r.upvote_count);
+          $(downvote).text(r.downvote_count);
       } 
   });
 }
-function remove_or_add_bookmark(this_){
+function removeOrAddBookmark(this_){
   $.ajax({
       type: "POST",
       url: $(this_).data("url"),
@@ -127,14 +123,14 @@ function remove_or_add_bookmark(this_){
           alert(r.error);
       }
       else{
-          let how_many = parseInt($(this_).find($("#how_many_mark")).text());
-          if (r.status == true){
+          let howMany = parseInt($(this_).find($("#how_many_mark")).text());
+          if (r.status === true){
               $(this_).find($(".fa-bookmark")).attr("general", "color:success");
-              $(this_).find($("#how_many_mark")).html(how_many + 1);
+              $(this_).find($("#how_many_mark")).html(howMany + 1);
           }
-          else if (r.status == false){
+          else if (r.status === false){
             $(this_).find($(".fa-bookmark")).attr("general","color:secondary");
-            $(this_).find($("#how_many_mark")).html(how_many - 1);
+            $(this_).find($("#how_many_mark")).html(howMany - 1);
           }
       } 
   });

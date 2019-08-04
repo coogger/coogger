@@ -29,7 +29,6 @@ def increase_utopic_view(sender, **kwargs):
     ips = kwargs.get("pk_set", None)
     if action == "pre_add" and instance.get_model == "content":
         content = Content.objects.get(id=instance.object_id)
-        for ip_id in ips:
-            UTopic.objects.filter(
-                user=content.user, permlink=content.utopic.permlink
-            ).update(total_view=(F("total_view") + 1))
+        UTopic.objects.filter(
+            user=content.user, permlink=content.utopic.permlink
+        ).update(total_view=(F("total_view") + len(ips)))

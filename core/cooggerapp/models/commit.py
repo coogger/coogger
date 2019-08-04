@@ -5,7 +5,6 @@ from django.db import models
 from django.urls import reverse
 from django_md_editor.models import EditorMdField
 
-from ...threaded_comment.models import AbstractThreadedComments
 from .common import Common, View, Vote
 from .content import Content
 from .topic import UTopic
@@ -38,7 +37,7 @@ class Commit(Common, View, Vote):
                 hash=self.hash,
             ),
         )
-    
+
     @property
     def title(self):
         return self.msg

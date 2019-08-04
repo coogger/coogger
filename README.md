@@ -20,12 +20,6 @@
  <img alt="Code style" title="Code style" src="https://img.shields.io/badge/code%20style-ishort-lightgrey?style=for-the-badge"/>
   </a>
   <br>
- <a href="https://discord.gg/avmdZJa" target="_blank">
-    <img alt="discord" title="discord" src="https://img.shields.io/discord/465599004865200129.svg?label=Discord&style=for-the-badge"/>
-  </a>
- <a href="https://t.me/coogger" target="_blank">
- <img alt="telegram" title="telegram" src="https://img.shields.io/badge/chat-telegram-green.svg?style=for-the-badge"/>
-  </a>
 </p>
 
 ### 🚀 Installation 🚀

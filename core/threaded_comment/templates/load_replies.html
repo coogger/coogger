@@ -14,9 +14,9 @@
         if (loadComments && scrolledBottom()){
             loadComments = false;
             loadReplies(
-                object_id="{{ object_id }}", 
-                content_type="{{ content_type }}",
-                request_url="{% url 'reply-api' %}"
+                objectId="{{ object_id }}", 
+                contentType="{{ content_type }}",
+                requestUrl="{% url 'reply-api' %}"
             );
         }
         else{
@@ -24,9 +24,9 @@
                 if (loadComments && scrolledBottom()){
                     loadComments = false;
                     loadReplies(
-                        object_id="{{ object_id }}", 
-                        content_type="{{ content_type }}",
-                        request_url="{% url 'reply-api' %}"
+                        objectId="{{ object_id }}", 
+                        contentType="{{ content_type }}",
+                        requestUrl="{% url 'reply-api' %}"
                     );
                 }
             });
