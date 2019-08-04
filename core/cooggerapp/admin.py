@@ -3,12 +3,17 @@ from django.contrib import admin
 from core.cooggerapp.choices import *
 from core.cooggerapp.models import (
     Category, Commit, Content, Issue, SearchedWords, Topic, UserProfile,
-    UTopic
+    UTopic, ReportModel
 )
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ReportModel)
+class ReportModelAdmin(admin.ModelAdmin):
     pass
 
 

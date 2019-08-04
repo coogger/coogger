@@ -2,11 +2,14 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.db import IntegrityError
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views.generic.base import TemplateView
 from django_page_views.models import DjangoViews
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from core.cooggerapp.views.utils import model_filter
 
@@ -28,6 +31,31 @@ class ReplyView(TemplateView):
             user__username=username, permlink=permlink
         )
         return context
+
+
+class ReplyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = ThreadedComments
+    fields = ["body"]
+    template_name = "content/post/update.html"
+    success_message = "Your reply updated"
+
+    def get_object(self):
+        username = self.kwargs.get("username")
+        permlink = self.kwargs.get("permlink")
+        return get_object_or_404(
+            self.model,
+            user=self.request.user,
+            permlink=permlink,
+        )
+
+    def get_success_url(self):
+        return reverse(
+            "reply-detail",
+            kwargs=dict(
+                username=self.kwargs.get("username"),
+                permlink=self.kwargs.get("permlink"),
+            ),
+        )
 
 
 # rest api

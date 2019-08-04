@@ -6,6 +6,7 @@ from core.cooggerapp.choices import REPORTS, make_choices
 from .content import Content
 
 
+# TODO use content_type
 class ReportModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="reporter")
     content = models.ForeignKey(
