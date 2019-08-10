@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.clickjacking import xframe_options_exempt
-from django.views.generic.base import TemplateView
+from django.views.generic import TemplateView
 
 from ...threaded_comment.forms import ReplyForm
 from ..forms import ContentCreateForm, ContentUpdateForm

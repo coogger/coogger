@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from django.views.generic.base import TemplateView
+from django.views.generic import TemplateView
 from django_bookmark.models import Bookmark as BookmarkModel
 
 from ...threaded_comment.models import ThreadedComments

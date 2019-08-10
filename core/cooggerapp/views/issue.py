@@ -5,8 +5,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.timezone import now
 from django.views import View
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import UpdateView
+from django.views.generic import TemplateView, UpdateView
 
 from ...threaded_comment.forms import ReplyForm
 from ..forms import IssueForm

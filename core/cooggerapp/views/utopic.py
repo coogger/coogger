@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import slugify
 from django.views import View
-from django.views.generic.base import TemplateView
+from django.views.generic import TemplateView
 
 from ..forms import UTopicForm
 from ..models import Content, Topic, UTopic

@@ -2,8 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, reverse
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import UpdateView
+from django.views.generic import TemplateView, UpdateView
 from django_page_views.models import DjangoViews
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response

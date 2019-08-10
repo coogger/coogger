@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.views import View
-from django.views.generic.edit import UpdateView
+from django.views.generic import UpdateView
 
 from ..forms import AddressesForm
 from ..models import UserProfile

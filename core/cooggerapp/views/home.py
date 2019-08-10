@@ -7,7 +7,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import resolve, reverse
 from django.views import View
-from django.views.generic.base import TemplateView
+from django.views.generic import TemplateView
 
 from ..forms import ReportsForm
 from ..models import Content, Issue, ReportModel, SearchedWords, Topic
