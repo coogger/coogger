@@ -165,10 +165,6 @@ function replyUserInfo(comment){
               <i class="fas fa-reply-all"></i>
               <div style="margin-left: 6px;">${replyCount}</div>
           </div>
-          <div general="text:s flex flex:ai-c">
-              <i class="fas fa-reply-all"></i>
-              <div style="margin-left: 6px;">${reply.depth}</div>
-          </div>
         </div>
     `);
   }
