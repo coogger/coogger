@@ -6,7 +6,9 @@
         </a>
     </div>
     <div general="flex text:s flex:ai-c"  class="card-bottom">
-        {% include 'card/bookmark.html' %}
+        {% with queryset=ct %}
+            {% include 'common/bookmark.html' %}
+        {% endwith %}
         {% with queryset=ct %}
             {% include 'common/vote.html' %}
         {% endwith %}

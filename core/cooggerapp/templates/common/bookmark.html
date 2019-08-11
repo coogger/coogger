@@ -12,12 +12,3 @@
         {{ queryset|how_many_mark:queryset.id }}
     </span>
  </div>
- <script>
-    let bookmark_status = $(".bookmarkop").data("bookmark-status");
-    if (bookmark_status == "False"){
-        $(".bookmarkop").find(".bookmarkicon").attr("general","color:secondary");
-    }
-    else if (bookmark_status == "True"){
-        $(".bookmarkop").find(".bookmarkicon").attr("general", "color:success");
-    }
-</script>
