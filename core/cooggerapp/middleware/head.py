@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import resolve
 from django.utils.deprecation import MiddlewareMixin
 
+from ...threaded_comment.models import ThreadedComments
 from ..models import Commit, Content, Topic, UserProfile, UTopic
 
 
@@ -67,7 +68,9 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=f"{content.utopic.name.capitalize()} | {content.title.capitalize()}",
             keywords=f"{keywords}{content.utopic.name.lower()}",
             description=content.description.capitalize(),
-            image=content.image_address or self.default_img,
+            image=content.utopic.image_address
+            or content.image_address
+            or self.default_img,
         )
 
     @property
@@ -147,15 +150,11 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             definition = f"{utopic.definition.capitalize()} | {username}"
         else:
             definition = f"{username}'s contents about topic of {utopic}"
-        if utopic.image_address:
-            image = utopic.image_address
-        else:
-            image = self.user_obj.githubauthuser.avatar_url
         return dict(
             title=f"{utopic} - Topic | {username}".capitalize(),
             keywords=utopic,
             description=definition,
-            image=image or self.default_img,
+            image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
@@ -181,10 +180,8 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def explorer_posts(self):
         return dict(
             title=f"coogger",
-            keywords=f"coogger, developers, experience, documentation, blogs, projects",
-            description="""
-                Coogger is a platform where developers can write their knowledge,
-                experience, documentation and blogs about their projects or projects which love.""",
+            keywords=f"coogger, developers, experience, documentation, blogs, projects, publish",
+            description="""Coogger is a platform for developers to publish their knowledge, experiences, documents or blogs in the best way.""",
             image=self.default_img,
         )
 
@@ -196,12 +193,13 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def issues(self):
         username = self.get_var("username")
         utopic_permlink = self.get_var("utopic_permlink")
-        title = f"{utopic_permlink}/{username} | issues".capitalize()
+        title = f"{username}/{utopic_permlink} | issues".capitalize()
+        utopic = UTopic.objects.filter(user=self.user_obj, permlink=utopic_permlink)[0]
         return dict(
             title=title,
             keywords=f"{utopic_permlink}, {username}",
             description=title,
-            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
+            image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
@@ -209,24 +207,26 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         utopic_permlink = self.get_var("utopic_permlink")
         username = self.get_var("username")
         permlink = self.get_var("permlink")
-        title = f"{utopic_permlink}/{username} - {permlink} | issue".capitalize()
+        title = f"{username}/{utopic_permlink} - {permlink} | issue".capitalize()
+        utopic = UTopic.objects.filter(user=self.user_obj, permlink=utopic_permlink)[0]
         return dict(
             title=title,
             keywords=f"{utopic_permlink}, {username}",
             description=title,
-            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
+            image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
     def commits(self):
         topic_permlink = self.get_var("topic_permlink")
         username = self.get_var("username")
-        title = f"{topic_permlink}/{username} | commits".capitalize()
+        title = f"{username}/{topic_permlink} | commits".capitalize()
+        utopic = UTopic.objects.filter(user=self.user_obj, permlink=topic_permlink)[0]
         return dict(
             title=title,
             keywords=f"{topic_permlink}, {username}",
             description=title,
-            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
+            image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
@@ -235,12 +235,13 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         topic_permlink = self.get_var("topic_permlink")
         username = self.get_var("username")
         commit = get_object_or_404(Commit, hash=hash)
-        title = f"{topic_permlink}/{username} - {commit.msg} | commit".capitalize()
+        title = f"{username}/{topic_permlink} - {commit.msg} | commit".capitalize()
         return dict(
             title=title,
             keywords=f"{topic_permlink}, {username}, {commit.msg}, commit",
             description=title,
-            image=self.user_obj.githubauthuser.avatar_url or self.default_img,
+            image=commit.utopic.image_address
+            or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
@@ -252,4 +253,16 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             keywords=f"{username}, feed",
             description=title,
             image=self.user_obj.githubauthuser.avatar_url or self.default_img,
+        )
+
+    @property
+    def reply_detail(self):
+        username = self.get_var("username")
+        permlink = self.get_var("permlink")
+        reply = ThreadedComments.objects.get(user__username=username, permlink=permlink)
+        return dict(
+            title=f"{reply.body[: 55]} | reply",
+            keywords=reply.body[:55].replace(" ", ", "),
+            description=f"{reply.body[: 55]}",
+            image=self.user_obj.githubauthuser.avatar_url,
         )
