@@ -1,5 +1,30 @@
-class DBRouter:
-    default_apps = [
+class Common:
+    apps_label = None
+    db_name = None
+
+    def db_for_read(self, model, **hints):
+        if model._meta.app_label in self.apps_label:
+            return self.db_name
+        return None
+
+    def db_for_write(self, model, **hints):
+        if model._meta.app_label in self.apps_label:
+            return self.db_name
+        return None
+
+    def allow_relation(self, obj1, obj2, **hints):
+        if (obj1._meta.app_label in self.apps_label or obj2._meta.app_label in self.apps_label):
+            return True
+        return None
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        if app_label in self.apps_label:
+            return db == self.db_name
+        return None
+
+
+class DefaultRouter(Common):
+    apps_label = [
         "admin",
         "auth",
         "contenttypes",
@@ -13,32 +38,14 @@ class DBRouter:
         "djangobadge",
         "threaded_comment",
     ]
-    coogger_images_app = ["cooggerimages"]
-    django_ip_apps = ["contenttypes", "django_page_views", "djangoip"]
+    db_name = "default"
 
-    def db_for_read(self, model, **hints):
-        app_label = model._meta.app_label
-        if app_label in self.default_apps:
-            return "default"
-        elif app_label in self.django_ip_apps:
-            return "django_ip"
-        elif app_label in self.coogger_images_app:
-            return "coogger_images"
+        
+class CooggerImagesRouter(Common):
+    apps_label = ["cooggerimages"]
+    db_name = "coogger_images"
 
-    def db_for_write(self, model, **hints):
-        return self.db_for_read(model, **hints)
+class DjangoIpRouter(Common):
+    apps_label = ["django_page_views", "djangoip"]
+    db_name = "django_ip"
 
-    def allow_relation(self, obj1, obj2, **hints):
-        return True
-
-    def allow_migrate(self, db, app_label, model_name=None, **hints):
-        if db == "default":
-            if app_label in self.default_apps:
-                return True
-        elif db == "django_ip":
-            if app_label in self.django_ip_apps:
-                return True
-        elif db == "coogger_images":
-            if app_label in self.coogger_images_app:
-                return True
-        return False

@@ -80,7 +80,11 @@ DATABASES = dict(
         ENGINE="django.db.backends.sqlite3", NAME=env("COOGGER_IMAGES_DB_NAME")
     ),
 )
-DATABASE_ROUTERS = ["core.routers.DBRouter"]
+DATABASE_ROUTERS = [
+    "core.routers.DefaultRouter",
+    "core.routers.CooggerImagesRouter",
+    "core.routers.DjangoIpRouter",
+]
 AUTH_PASSWORD_VALIDATORS = []
 USE_I18N = True
 USE_L10N = True
@@ -108,3 +112,4 @@ GITHUB_AUTH = dict(
     client_secret=env("GITHUB_CLIENT_SECRET"),
     client_id=env("GITHUB_CLIENT_ID"),
 )
+
