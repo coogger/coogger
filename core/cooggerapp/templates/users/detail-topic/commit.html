@@ -1,14 +1,13 @@
 {% extends "home/html.html" %}
 {% block body %}
 {% load django_md_editor %}
-
 <div general="position:center" class="commits">
   <div class="commit" general="flex flex:fd-c width:60 border:1 br:2 brc:muted" mobile-l="width:100" tablet="width:80" mobile-m="width:100" mobile-s="width:100">  
       <div general="text:s bg:white brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
           {% include "common/interaction_and_counter.html" %}
       </div>
     <h1 general="width:100">
-          {{ commit.msg|title }}
+          {{ commit.msg|title }} | {{ commit.status }}
       </h1>
       <div general="flex flex:ai-c width:100" >
         <img class="commit-user" general="br:4 color:muted" src="{{ commit.user.githubauthuser.avatar_url }}">

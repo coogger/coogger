@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import slugify
 from django_md_editor.models import EditorMdField
 
@@ -12,7 +13,9 @@ from ...threaded_comment.models import AbstractThreadedComments
 from .category import Category
 from .common import Common, View, Vote
 from .topic import UTopic
-from .utils import NextOrPrevious, dor, get_first_image, second_convert
+from .utils import (
+    NextOrPrevious, dor, get_first_image, ready_tags, second_convert
+)
 
 
 class Content(AbstractThreadedComments, Common, View, Vote):
@@ -113,6 +116,8 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     def save(self, *args, **kwargs):
         self.image_address = get_first_image(self.body)
         self.permlink = slugify(self.title)
+        self.tags = ready_tags(self.tags)
+        self.last_update = timezone.now()
         super().save(*args, **kwargs)
 
     @property

@@ -2,7 +2,6 @@
     <a href="{{ ct.get_absolute_url }}">
         {% if ct.status != "ready" %}
         <span class="fa fa-file-alt" general="color:muted" title="{{ ct.status }}"></span>
-    
         {% endif %}
         <strong id="title" general="color:dark">{{ ct.title }}</strong>
   </a>
