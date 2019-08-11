@@ -13,7 +13,10 @@ class Common:
         return None
 
     def allow_relation(self, obj1, obj2, **hints):
-        if (obj1._meta.app_label in self.apps_label or obj2._meta.app_label in self.apps_label):
+        if (
+            obj1._meta.app_label in self.apps_label
+            or obj2._meta.app_label in self.apps_label
+        ):
             return True
         return None
 
@@ -40,12 +43,12 @@ class DefaultRouter(Common):
     ]
     db_name = "default"
 
-        
+
 class CooggerImagesRouter(Common):
     apps_label = ["cooggerimages"]
     db_name = "coogger_images"
 
+
 class DjangoIpRouter(Common):
     apps_label = ["django_page_views", "djangoip"]
     db_name = "django_ip"
-

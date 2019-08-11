@@ -4,8 +4,8 @@ from django.dispatch import receiver
 from ...cooggerapp.models.utils import send_mail
 from ..models import ThreadedComments
 
+# TODO when_content_deleted pre_delete
 
-# TODO when_content_deleted pre_delete 
 
 @receiver(post_save, sender=ThreadedComments)
 def when_create_comment(sender, instance, created, **kwargs):

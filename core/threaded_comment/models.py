@@ -107,17 +107,17 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
             "It is not working when update"
             for obj in self.get_all_reply_obj():
                 obj.update(reply_count=(F("reply_count") + 1))
-            
+
         self.image_address = get_first_image(self.body)
         self.permlink = self.generate_permlink()
         self.to = self.get_to()
         self.depth = self.get_parent_count()
         super().save(*args, **kwargs)
-        
+
     def get_all_reply_obj(self):
         reply_id = self.reply_id
         while True:
-            query = self.__class__.objects.filter(id=reply_id) # get parent
+            query = self.__class__.objects.filter(id=reply_id)  # get parent
             if query.exists():
                 yield query
                 if self.is_threaded_comments(query[0]):
@@ -126,7 +126,7 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
                     break
             else:
                 break
-        
+
     def get_parent_count(self):
         reply_id = self.reply_id
         parent_count = 0
@@ -149,7 +149,7 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
     @property
     def is_reply(self):
         return True
-    
+
     def get_to(self):
         model_name = self.content_type.model
         app_label = self.content_type.app_label
