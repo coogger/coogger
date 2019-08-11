@@ -1,7 +1,9 @@
 <header general="flex flex:ai-c br:1 position:center bg:white" >
-    <div general="flex flex:fw-nw flex:jc-c width:90"  style="overflow: auto;padding: 0px 0px 6px 0px;">
+    <div general="flex flex:fw-nw flex:jc-c width:90"  
+      mobile-l="width:96" mobile-m="width:96" mobile-s="width:96"
+    style="overflow: auto;padding: 0px 0px 6px 0px;">
         <div general="position:left">
-          <a general="flex flex:jc-c flex:ai-c flex:fd-c color:dark text:m" href="{% url 'home' %}" >
+          <a general="flex flex:jc-c flex:ai-c color:dark text:m" href="{% url 'home' %}" >
             <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
             <span general="text:m">coogger</span>
           </a>
@@ -13,19 +15,22 @@
         </a>
       </div>
       {% else %}
-      <div general="flex flex:ai-c position:center" class="search just-pc"  style="margin: 13px 16px;">
+      <div general="flex flex:ai-c position:center width:60" class="search just-pc">
         <form action="{% url 'search' %}">
           <input name="query" style="padding: 6px 4px;" 
-          general="border:1 br:2 bg:white color:dark brc:muted width:100" type="text"
+          general="border:1 br:2 brc:muted bg:white color:orange width:100" type="text"
           style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
-          placeholder="search content .."/>
+          placeholder="search content / article .."/>
           <input type="submit" value="Search" style="display:  none;" />
         </form>
       </div>
       <div general="position:right">
-        <div general="flex flex:ai-c" style="margin: 0px 12px;">
-          <a style="padding: 6px 3px;" general=" width:max text:m color:dark color:white:hover bg:dark:hover br:2:hover"          href="{% url 'create-utopic' %}">
+        <div general="flex flex:ai-c" style="margin-right: 16px;">
+          <a style="padding: 10px 12px;" 
+          general="flex width:max text:m color:dark color:white:hover bg:success:hover br:2:hover" 
+          href="{% url 'create-utopic' %}">
             <i general="flex flex:as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
+            <span class="just-pc">Create Topic</span>
           </a>
         </div>
         <div class="open_header_menu" general="position:center">

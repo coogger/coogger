@@ -170,10 +170,24 @@ footer li{
   margin-left: 6px;
   }
   .next_post{
-  position: fixed;top: 20%;right: 0%;height: 60%;background: #80808042;z-index: 2;writing-mode: tb-rl;text-orientation: upright;
+  position: fixed;
+  top: 30%;
+  right: 0%;
+  height: 40%;
+  background: #17202a;
+  z-index: 2;
+  writing-mode: tb-rl;
+  text-orientation: upright;
   }
   .previous_post{
-  position: fixed;top: 20%;left: 0%;height: 60%;background: #80808042;z-index: 2;writing-mode: tb-rl;text-orientation: upright;
+  position: fixed;
+  top: 30%;
+  left: 0%;
+  height: 40%;
+  background: #17202a;
+  z-index: 2;
+  writing-mode: tb-rl;
+  text-orientation: upright;
   }
   body{
   margin-bottom: 60px;
@@ -268,7 +282,7 @@ footer li{
   display: none;
   min-width: 158px;
   padding: 6px 8px;
-  top: 70px;
+  top: 52px;
   }
   .header_menu_a{
     padding: 6px 0px;

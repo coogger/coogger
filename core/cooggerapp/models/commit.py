@@ -52,7 +52,10 @@ class Commit(Common, View, Vote):
     def body_change(self):
         previous_commit = self.previous_commit
         if not previous_commit:
-            return self.body
+            previous_body = ""
+        else:
+            previous_body = previous_commit.body
+            # return self.body
         HtmlDiff._file_template = (
             """<style type="text/css">%(styles)s</style>%(table)s"""
         )
@@ -73,5 +76,5 @@ class Commit(Common, View, Vote):
         .diff [nowrap]{word-break: break-word;white-space: normal;width: 50%;}
         """
         return HtmlDiff().make_file(
-            previous_commit.body.splitlines(), self.body.splitlines()
+            previous_body.splitlines(), self.body.splitlines()
         )

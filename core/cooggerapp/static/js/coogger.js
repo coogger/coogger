@@ -47,7 +47,6 @@ $(document).ready(function() {
   });
   let votes = document.querySelectorAll("#vote-section");
     votes.forEach(function(vote) {
-      console.log(vote);
       // vote
       let status = $(vote).data("vote-status");
       if (status == "False"){
