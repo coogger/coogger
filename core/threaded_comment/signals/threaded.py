@@ -11,7 +11,6 @@ from ..models import ThreadedComments
 def when_create_comment(sender, instance, created, **kwargs):
     if created:
         obj = instance.get_top_obj
-        print("signal obj", obj)
         obj.reply_count += 1
         obj.save()
         # send mail

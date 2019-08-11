@@ -32,8 +32,6 @@ class DetailUserTopic(TemplateView):
         user = get_object_or_404(User, username=username)
         utopic = UTopic.objects.get(user=user, permlink=permlink)
         queryset = Content.objects.filter(utopic=utopic).order_by("created")
-        if user != self.request.user:
-            queryset = queryset.filter(status="ready")
         context = super().get_context_data(**kwargs)
         if queryset.exists():
             context["last_update"] = queryset[0].created

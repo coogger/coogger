@@ -15,8 +15,6 @@ class Commits(TemplateView):
         user = get_object_or_404(User, username=username)
         utopic = UTopic.objects.get(user__username=username, permlink=topic_permlink)
         queryset = Commit.objects.filter(utopic=utopic)
-        if user != self.request.user:
-            queryset = queryset.filter(content__status="ready")
         context = super().get_context_data(**kwargs)
         context["current_user"] = user
         context["queryset"] = paginator(self.request, queryset)
