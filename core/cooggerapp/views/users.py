@@ -51,7 +51,7 @@ class Comment(Common):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        queryset = ThreadedComments.objects.filter(user=user)
+        queryset = ThreadedComments.objects.filter(to=user).exclude(user=user)
         context["user_comment"] = True
         context["queryset"] = paginator(self.request, queryset)
         return context

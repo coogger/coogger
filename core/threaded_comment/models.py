@@ -64,14 +64,15 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
     reply = models.ForeignKey(
         "self", on_delete=models.CASCADE, null=True, blank=True, related_name="children"
     )
-    # depth = models.PositiveIntegerField(default=0)
+    depth = models.PositiveIntegerField(default=0)
+    to = models.ForeignKey(User, on_delete=models.CASCADE, related_name="to")
 
     class Meta:
         ordering = ["-created"]
         unique_together = [["user", "permlink"]]
 
     def __str__(self):
-        return f"@{self.user}/{self.permlink}"
+        return f"/@{self.user}/{self.permlink}"
 
     @property
     def get_absolute_url(self):
@@ -102,17 +103,21 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
         return self.permlink
 
     def save(self, *args, **kwargs):
-        self.image_address = get_first_image(self.body)
         if self.is_threaded_comments() and not self.is_exists:
+            "It is not working when update"
             for obj in self.get_all_reply_obj():
                 obj.update(reply_count=(F("reply_count") + 1))
+            
+        self.image_address = get_first_image(self.body)
         self.permlink = self.generate_permlink()
+        self.to = self.get_to()
+        self.depth = self.get_parent_count()
         super().save(*args, **kwargs)
-
+        
     def get_all_reply_obj(self):
         reply_id = self.reply_id
         while True:
-            query = self.__class__.objects.filter(id=reply_id)
+            query = self.__class__.objects.filter(id=reply_id) # get parent
             if query.exists():
                 yield query
                 if self.is_threaded_comments(query[0]):
@@ -121,7 +126,32 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
                     break
             else:
                 break
+        
+    def get_parent_count(self):
+        reply_id = self.reply_id
+        parent_count = 0
+        while reply_id:
+            try:
+                parent = ThreadedComments.objects.get(id=reply_id)
+            except IndexError:
+                break
+            else:
+                if parent:
+                    parent_count += 1
+                    if parent.is_threaded_comments():
+                        reply_id = parent.reply_id
+                    else:
+                        break
+                else:
+                    break
+        return parent_count
 
     @property
     def is_reply(self):
         return True
+    
+    def get_to(self):
+        model_name = self.content_type.model
+        app_label = self.content_type.app_label
+        model = ContentType.objects.get(app_label=app_label, model=model_name)
+        return model.get_object_for_this_type(id=self.object_id).user

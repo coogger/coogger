@@ -33,12 +33,16 @@ function getRepliesTemplate(reply){
   if (reply.reply){
     return (
       `<div class="comment_replies" id="reply-id-${reply.id}">
-      ${replyUserInfo(reply)} ${replyBody(reply)}</div>`
+        ${replyUserInfo(reply)} ${replyBody(reply)}
+      </div>`
      );
   }
   return (
-    `<div class="comment" id="reply-id-${reply.id}" <div class="comment_highlighted">
-    ${replyUserInfo(reply)} ${replyBody(reply)}</div></div>`
+    `<div class="comment" id="reply-id-${reply.id}"> 
+      <div class="comment_highlighted">
+        ${replyUserInfo(reply)} ${replyBody(reply)}
+      </div>
+    </div>`
    );
 }
 $(document).ready(function() {
@@ -139,7 +143,7 @@ function replyUserInfo(comment){
     });
     return (`
       <div style="padding: inherit;">
-        <div style="width: auto;height:  auto;border: none;" class="editormd" id="${id}_arg_editormd">
+        <div style="width: auto;height: auto;border: none;" class="editormd font-comfortaa" id="${id}_arg_editormd">
             <textarea style="display:none;" id="editormd_content"></textarea>
         </div>
       </div>
@@ -161,19 +165,31 @@ function replyUserInfo(comment){
               <i class="fas fa-reply-all"></i>
               <div style="margin-left: 6px;">${replyCount}</div>
           </div>
+          <div general="text:s flex flex:ai-c">
+              <i class="fas fa-reply-all"></i>
+              <div style="margin-left: 6px;">${reply.depth}</div>
+          </div>
         </div>
     `);
   }
   
-  function getChildrenReplies(reply, requestUrl){
-    if (reply.reply_count !== 0 && reply.reply_count !== undefined){
+  function getChildrenReplies(reply, requestUrl, depth){
+    if (reply.reply_count !== 0 && reply.reply_count !== undefined ){
       getResultFromCooggerApi(`${requestUrl}?reply=${reply.id}`).then(function(childrenReplies){
         var ii;
         for (ii in childrenReplies) {
           let childrenReply = childrenReplies[ii];
-          let childrenCommentTemplate = getRepliesTemplate(childrenReply);
-          $(`#reply-id-${childrenReply.parent_id}`).append(childrenCommentTemplate);
-          getChildrenReplies(childrenReply, requestUrl);
+          console.log((childrenReply.depth - depth));
+          $(`#reply-id-${childrenReply.parent_id}`).append(getRepliesTemplate(childrenReply));
+          if ( (childrenReply.depth - depth) > 5 ){
+            $(`#reply-id-${childrenReply.parent_id}`).append(
+              `<a general="color:primary position:right" href="${reply.get_absolute_url}"> 
+                Show ${childrenReply.reply_count} more replies
+              </a>`
+              );
+            break
+          }
+          getChildrenReplies(childrenReply, requestUrl, depth);
         }
       });
     }
@@ -184,7 +200,7 @@ function replyUserInfo(comment){
       for (let i in replies){
         let reply = replies[i];
         $("#comment_template").append(getRepliesTemplate(reply));
-        getChildrenReplies(reply, requestUrl);
+        getChildrenReplies(reply, requestUrl, reply.depth);
       }
     });
   }

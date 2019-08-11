@@ -27,6 +27,7 @@ class ReplySerializer(serializers.ModelSerializer):
             "image_address",
             "permlink",
             "reply_count",
+            "depth",
             "get_absolute_url",
             "views",
             "upvote_count",
