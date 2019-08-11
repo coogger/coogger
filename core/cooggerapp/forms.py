@@ -26,6 +26,12 @@ class ContentUpdateForm(ContentCreateForm):
     )
 
 
+class ContentContributeForm(ContentUpdateForm):
+    class Meta:
+        model = Content
+        fields = ["body"]
+
+
 class AddressesForm(forms.ModelForm):
     class Meta:
         model = OtherAddressesOfUsers

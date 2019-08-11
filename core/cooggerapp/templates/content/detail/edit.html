@@ -4,9 +4,13 @@
       <i class="fa fa-edit fa" aria-hidden="true"></i>Edit
     </a>
   {% else %}
-    {% if queryset.user == request.user %}
+    {% if request.user == queryset.user %}
       <a general="color:secondary color:dark-purple:hover" href="{% url 'update' queryset.user queryset.permlink %}">
         <i class="fa fa-edit fa" aria-hidden="true"></i>Edit
+      </a>
+    {% else %}
+    <a general="color:secondary color:dark-purple:hover" href="{% url 'content-contribute' queryset.user queryset.permlink %}">
+        <i class="fa fa-edit fa" aria-hidden="true"></i>Contribute
       </a>
     {% endif %}
     {% if queryset.user != request.user and request.user.is_authenticated %}

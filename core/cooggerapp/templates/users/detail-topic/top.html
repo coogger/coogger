@@ -19,6 +19,15 @@
               </span>
             </div>
           </a>
+          <a href="{% url 'utopic-contribution' current_user utopic.permlink %}" mobile-s="text:xs">
+              <div general="flex flex:ai-c text:s ">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="">
+                  <strong>{{ utopic.open_contribution }}</strong>
+                  <span general="color:secondary" class="just-pc"> contributions</span>
+                </span>
+              </div>
+            </a>
         <div general="flex text:s flex:ai-c" mobile-s="text:xs">
           <div style="margin-left: 12px;">
               <i class="fab fa-readme"></i>

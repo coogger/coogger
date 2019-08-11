@@ -37,6 +37,7 @@ REPORTS = [
     "Wrong list name",
 ]
 STATUS_CHOICES = ["ready", "not ready"]
+COMMIT_STATUS_CHOICES = ["approved", "rejected", "waiting"]
 ISSUE_CHOICES = ["open", "closed"]
 
 

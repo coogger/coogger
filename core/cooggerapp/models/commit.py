@@ -5,8 +5,10 @@ from django.db import models
 from django.urls import reverse
 from django_md_editor.models import EditorMdField
 
+from ..choices import COMMIT_STATUS_CHOICES, make_choices
 from .common import Common, View, Vote
 from .content import Content
+from .managers.commit import CommitManager
 from .topic import UTopic
 from .utils import NextOrPrevious, get_new_hash
 
@@ -20,6 +22,11 @@ class Commit(Common, View, Vote):
     msg = models.CharField(max_length=150, default="Initial commit")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
     reply_count = models.PositiveIntegerField(default=0)
+    status = models.CharField(
+        max_length=100, default="approved", choices=make_choices(COMMIT_STATUS_CHOICES)
+    )
+
+    objects = CommitManager()
 
     class Meta:
         ordering = ["-created"]
@@ -75,6 +82,4 @@ class Commit(Common, View, Vote):
         .diff_sub {background-color:#ffaaaa}
         .diff [nowrap]{word-break: break-word;white-space: normal;width: 50%;}
         """
-        return HtmlDiff().make_file(
-            previous_body.splitlines(), self.body.splitlines()
-        )
+        return HtmlDiff().make_file(previous_body.splitlines(), self.body.splitlines())

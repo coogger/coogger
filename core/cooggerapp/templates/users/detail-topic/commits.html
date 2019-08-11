@@ -10,7 +10,7 @@
             mobile-m="text:m"
             mobile-s="text:m"
             href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}" style="margin-bottom: 6px;">
-              {{ commit.msg|title }}
+              {{ commit.msg|title }} | {{ commit.status }}
             </a>
             <div general="flex flex:fd-c width:100" >
               <div flex>
@@ -19,7 +19,7 @@
                         <img class="commit-user" general="br:4 color:muted" src="{{ commit.user.githubauthuser.avatar_url }}">
                         <div general="flex flex:fd-c">
                             <span general="text:s" style="margin-left: 6px;">
-                                @{{ commit.content.user }}
+                                @{{ commit.user }}
                             </span>
                             <span general="text:s" class="fas fa-clock">{{ commit.created|timesince }}</span>
                         </div>

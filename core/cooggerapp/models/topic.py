@@ -72,6 +72,12 @@ class UTopic(CommonTopicModel):
     closed_issue = models.IntegerField(
         default=0, verbose_name="Total count closed issue"
     )
+    open_contribution = models.IntegerField(
+        default=0, verbose_name="Total count open contributions"
+    )
+    closed_contribution = models.IntegerField(
+        default=0, verbose_name="Total count closed contributions"
+    )
     # TODO create new field to commit_count
 
     class Meta:
