@@ -4,8 +4,7 @@ from django.dispatch import receiver
 from django_page_views.models import DjangoViews
 
 from ..forms import UTopicForm
-from ..models.content import Content
-from ..models.topic import Topic, UTopic
+from ..models import Content, Topic, UTopic
 
 
 @receiver(post_save, sender=UTopic)

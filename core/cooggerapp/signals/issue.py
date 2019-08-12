@@ -1,10 +1,7 @@
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
-from ..models.issue import Issue
-from ..models.topic import UTopic
-from ..models.utils import send_mail
-
+from ..models import Issue, UTopic, send_mail
 
 @receiver(pre_delete, sender=Issue)
 def when_content_delete(sender, instance, **kwargs):

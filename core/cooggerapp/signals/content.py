@@ -2,11 +2,10 @@ from django.db.models import F
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
-from ..models.commit import Commit
-from ..models.content import Content
-from ..models.topic import Topic, UTopic
-from ..models.utils import dor, send_mail
-
+from ..models import (
+    Commit, Content, Topic, 
+    UTopic, dor, send_mail
+)
 
 def update_topic(instance, iord):
     Topic.objects.filter(permlink=instance.utopic.permlink).update(

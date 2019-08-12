@@ -7,9 +7,7 @@ from django.shortcuts import get_object_or_404
 from django_follow_system.models import Follow
 from github_auth.models import GithubAuthUser
 
-from ..models.topic import UTopic
-from ..models.userextra import UserProfile
-from ..models.utils import get_client_url, send_mail
+from ..models import UTopic, UserProfile, get_client_url, send_mail
 
 
 def save_github_follow(user):
