@@ -72,12 +72,17 @@ class UTopic(CommonTopicModel):
     closed_issue = models.IntegerField(
         default=0, verbose_name="Total count closed issue"
     )
-    open_contribution = models.IntegerField(
+    open_contribution = models.IntegerField( # TODO approved
         default=0, verbose_name="Total count open contributions"
     )
-    closed_contribution = models.IntegerField(
+    closed_contribution = models.IntegerField( # TODO rejected
         default=0, verbose_name="Total count closed contributions"
     )
+    contributors = models.ManyToManyField(User, related_name="contributors")
+    commit_count = models.IntegerField(
+        default=0, verbose_name="Total commit count"
+    )
+
     # TODO create new field to commit_count
 
     class Meta:

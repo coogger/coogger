@@ -17,13 +17,13 @@ class CommitManager(models.Manager):
         return StatusQuerySet(self.model, using=self._db)
 
     @property
-    def get_approved_commits(self):
+    def approved_commits(self):
         return self.get_queryset().approved()
 
     @property
-    def get_waiting_commits(self):
+    def waiting_commits(self):
         return self.get_queryset().waiting()
 
     @property
-    def get_rejected_commits(self):
+    def rejected_commits(self):
         return self.get_queryset().rejected()

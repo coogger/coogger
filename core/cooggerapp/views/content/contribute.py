@@ -1,7 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from ...forms import ContentContributeForm
 from ...models import Category, Commit, Content, UTopic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .update import Update
+from django.views import View
+from django.urls import reverse
 
 
 class Contribute(Update):
@@ -41,3 +44,57 @@ class Contribute(Update):
                 )
             context = dict(form=form, username=username, permlink=permlink)
             return render(request, self.template_name, context)
+
+
+class ApproveContribute(LoginRequiredMixin, View):
+    get_status = "approved"
+
+    def get(self, request, username, topic_permlink, hash):
+        commit = get_object_or_404(
+            Commit, hash=hash
+        )
+        if str(request.user) == commit.utopic.user:
+            content = Content.objects.get(id=commit.content.id)
+            content.body = commit.body
+            content.save()
+            if commit.status != self.get_status:
+                commit.status = self.get_status
+                commit.save()
+                self.update_utopic(UTopic.objects.get(id=commit.utopic.id))
+            return redirect(
+                reverse(
+                    "content-detail",
+                    kwargs=dict(
+                        username=content.user,
+                        permlink=content.permlink,
+                    ),
+                )
+            )
+
+    def update_utopic(self, utopic):
+        utopic.closed_contribution += 1
+        utopic.open_contribution -= 1
+        utopic.save()
+
+
+class RejectContribute(ApproveContribute):
+    get_status = "rejected"
+
+    def get(self, request, username, topic_permlink, hash):
+        commit = get_object_or_404(
+            Commit, hash=hash
+        )
+        if str(request.user) == commit.utopic.user:
+            if commit.status != self.get_status:
+                commit.status = self.get_status
+                commit.save()
+                self.update_utopic(utopic = UTopic.objects.get(id=commit.utopic.id))
+            return redirect(
+                reverse(
+                    "content-detail",
+                    kwargs=dict(
+                        username=commit.content.user,
+                        permlink=commit.content.permlink,
+                    ),
+                )
+            )

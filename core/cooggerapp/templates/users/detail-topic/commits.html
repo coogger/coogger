@@ -9,8 +9,8 @@
             mobile-l="text:m"
             mobile-m="text:m"
             mobile-s="text:m"
-            href="{% url 'commit' commit.content.user commit.utopic.permlink commit.hash %}" style="margin-bottom: 6px;">
-              {{ commit.msg|title }} | {{ commit.status }}
+            href="{% url 'commit' commit.user commit.utopic.permlink commit.hash %}" style="margin-bottom: 6px;">
+              {{ commit.msg|title }}
             </a>
             <div general="flex flex:fd-c width:100" >
               <div flex>

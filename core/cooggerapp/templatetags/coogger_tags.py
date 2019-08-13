@@ -52,7 +52,7 @@ def get_random(start, stop, step):
 
 @register.filter
 def commit_count(utopic):
-    return Commit.objects.filter(utopic=utopic).count()
+    return Commit.objects.approved_commits.filter(utopic=utopic).count()
 
 
 @register.filter

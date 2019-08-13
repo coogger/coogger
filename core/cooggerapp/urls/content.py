@@ -1,7 +1,9 @@
 from django.urls import path
 
 from ..views.content import (
-    Contribute, Create, Detail, Embed, TreeDetail, Update
+    Contribute, Create, Detail, Embed, 
+    TreeDetail, Update, ApproveContribute, 
+    RejectContribute
 )
 
 urlpatterns = [
@@ -18,5 +20,15 @@ urlpatterns = [
         "post/contribute/@<username>/<permlink>/",
         Contribute.as_view(),
         name="content-contribute",
+    ),
+    path(
+        "@<username>/<topic_permlink>/commit/approved/<hash>/",
+        ApproveContribute.as_view(),
+        name="approved-contribute",
+    ),
+    path(
+        "@<username>/<topic_permlink>/commit/rejected/<hash>/",
+        RejectContribute.as_view(),
+        name="rejected-contribute",
     ),
 ]
