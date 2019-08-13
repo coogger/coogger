@@ -49,37 +49,6 @@ def dor(body):
     return body.__len__() / 28
 
 
-class NextOrPrevious:
-    def __init__(self, model, filter_field, id):
-        self.model = model
-        self.filter_field = filter_field
-        self.id = id
-
-    def next_or_previous(self, next=True):
-        queryset = self.model.objects.filter(**self.filter_field)
-        try:
-            index = list(queryset).index(queryset.filter(id=self.id)[0])
-        except IndexError:
-            return False
-        else:
-            if next:
-                index = index - 1
-            else:
-                index = index + 1
-        try:
-            return queryset[index]
-        except (IndexError, AssertionError):
-            return False
-
-    @property
-    def next_query(self):
-        return self.next_or_previous()
-
-    @property
-    def previous_query(self):
-        return self.next_or_previous(False)
-
-
 def send_mail(subject, template_name, context, to):
     to = [user.email for user in to if user.userprofile.email_permission]
     html_content = render_to_string(template_name, context)
