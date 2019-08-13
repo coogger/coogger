@@ -10,6 +10,6 @@ from .issue import Issue
 from .common import Common, View, Vote
 from .utils import (
     get_new_hash, format_tags, second_convert, 
-    marktohtml, get_first_image, dor, NextOrPrevious, 
+    marktohtml, get_first_image, dor, 
     send_mail, get_client_url, ready_tags
 )

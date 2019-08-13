@@ -1,7 +1,8 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from ...cooggerapp.models.utils import send_mail
+
+from ...cooggerapp.models import send_mail
 from ..models import ThreadedComments
 
 # TODO when_content_deleted pre_delete
