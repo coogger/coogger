@@ -1,6 +1,6 @@
 from django.urls import path
 
-from ..views.utopic.commit import CommitDetail, Commits
+from ..views.utopic.commit import CommitDetail, Commits, CommitUpdate
 from ..views.utopic.contribution import Contribution
 from ..views.utopic.issue import (
     ClosedIssue, ClosedIssueView, DetailIssue, IssueView, NewIssue, OpenIssue,
@@ -14,6 +14,11 @@ urlpatterns = [
         "@<username>/<topic_permlink>/commit/<hash>/",
         CommitDetail.as_view(),
         name="commit",
+    ),
+    path(
+        "commit/update/<hash>/",
+        CommitUpdate.as_view(),
+        name="commit-update",
     ),
     path(
         "@<username>/<topic_permlink>/contributions/",

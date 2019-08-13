@@ -10,7 +10,7 @@ from .common import Common, View, Vote
 from .content import Content
 from .managers.commit import CommitManager
 from .topic import UTopic
-from .utils import NextOrPrevious, get_new_hash
+from .utils import get_new_hash
 
 
 class Commit(Common, View, Vote):
@@ -50,19 +50,14 @@ class Commit(Common, View, Vote):
         return self.msg
 
     @property
-    def previous_commit(self):
-        filter_field = dict(user=self.user, utopic=self.utopic, content=self.content)
-        n_or_p = NextOrPrevious(self.__class__, filter_field, self.id)
-        return n_or_p.previous_query
-
-    @property
     def body_change(self):
-        previous_commit = self.previous_commit
-        if not previous_commit:
+        previous_body = self.__class__.objects.filter(
+            utopic=self.utopic, 
+            content=self.content, 
+            status="approved"
+        ).reverse()[0].body
+        if previous_body == self.body:
             previous_body = ""
-        else:
-            previous_body = previous_commit.body
-            # return self.body
         HtmlDiff._file_template = (
             """<style type="text/css">%(styles)s</style>%(table)s"""
         )
