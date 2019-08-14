@@ -1,6 +1,13 @@
-{% extends "users/detail-topic/home.html" %}
+{% extends "users/topic/detail/top-info.html" %}
 {% block alt_topic %}
   <div general="position:center width:100 flex flex:fd-c" class="commits">
+    {% if not queryset %}
+      <div general="bg:dark-purple color:white br:2" class="utopic-nocontent">
+        <div general="color:white text:l position:center">
+          There is no data
+        </div>
+      </div>
+    {% endif %}
     {% for commit in queryset %}
       <div general="width:100 border:1 br:2 brc:muted" style="margin: 2px 0px;">
         <div class="commit">

@@ -1,4 +1,4 @@
-{% extends "issue/top.html" %}
+{% extends "users/topic/issue/top.html" %}
 {% load django_md_editor %}
 {% block closed_issue %}
   {% if request.user == current_user or queryset.user == request.user %}

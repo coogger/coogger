@@ -5,12 +5,18 @@
     <a style="margin-bottom: 12px;display:none;" general="color:success" target="blank" id="category_help_page" href="">
       Need help? check this address for <span general="color:dark" id="category_help_name"></span> category
     </a>
-    <form general="flex border:1 br:2 brc:muted flex:fd-c width:50"  default="form"
-    mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70"
-     method="post" class="c-create-form" action="" style="padding: 12px 6px">
-        {% csrf_token %} {{ form.media }} {{ form }}
-        <input general="flex flex:as-c" type="submit" value="Share" style="padding: 12px 42px;color:#333">
-    </form>
+    {% include 'forms/create_form.html' %}
   </div>
-  {% include 'content/post/script.html' %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      let location = window.location.href;
+      $("select#id_category").change(function(e){
+        let value = e.target.value;
+        let option = $( `[name='category'] [value='${value}']` ).text();
+        $("#category_help_name").html(option);
+        $("#category_help_page").css("display", "block");
+        $("#category_help_page").attr("href", `${location}&category=${option}`);
+      });
+    });
+</script>
 {% endblock %}

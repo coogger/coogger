@@ -45,7 +45,9 @@
                   <a general="br:1 color:white bg:success text:s position:right" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">
                     Add content
                   </a>
-                  <a general="br:1 color:white bg:warning text:s position:right" href="{% url  'update-utopic' utopic.permlink %}" style="margin-top:3px;padding: 6px;">Update</a>
+                  <a general="br:1 color:white bg:warning text:s position:right" href="{% url  'update-utopic' utopic.permlink %}" style="margin-top:3px;padding: 6px;">
+                    Update
+                  </a>
                 </div>
               {% endif %}
             </div>
@@ -58,7 +60,7 @@
             {% endif %}
           </div>
         </div>
-        {% include "users/detail-topic/top.html" %}
+        {% include "users/topic/detail/bottom-info.html" %}
         {% block alt_topic %}{% endblock %}
       </div>
     </div>
