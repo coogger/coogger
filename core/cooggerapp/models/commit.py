@@ -12,6 +12,24 @@ from .managers.commit import CommitManager
 from .topic import UTopic
 from .utils import get_new_hash
 
+HtmlDiff._file_template = """<style type="text/css">%(styles)s</style>%(table)s"""
+HtmlDiff._table_template = """
+<table class="diff">
+    <tbody>%(data_rows)s</tbody>
+</table>
+"""
+HtmlDiff._styles = """
+table.diff {font-family:Courier; border:medium;}
+.diff_header {color:#99a3a4}
+td.diff_header {text-align:center}
+.diff tbody{display: block;}
+.diff_next {background-color:#c0c0c0;display:none}
+.diff_add {background-color:#aaffaa}
+.diff_chg {background-color:#ffff77}
+.diff_sub {background-color:#ffaaaa}
+.diff [nowrap]{word-break: break-word;white-space: normal;width: 50%;}
+"""
+
 
 class Commit(Common, View, Vote):
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
@@ -51,30 +69,17 @@ class Commit(Common, View, Vote):
 
     @property
     def body_change(self):
-        previous_body = self.__class__.objects.filter(
-            utopic=self.utopic, 
-            content=self.content, 
-            status="approved"
-        ).reverse()[0].body
+        previous_query = self.__class__.objects.filter(
+            utopic=self.utopic, content=self.content, status="approved"
+        )
+        if self.status == "approved":
+            # to commits page
+            index = list(previous_query).index(previous_query.get(id=self.id))
+            previous_query = previous_query[index + 1]
+            previous_body = previous_query.body
+        elif self.status == "waiting":
+            # to contribute page
+            previous_body = previous_query[0].body
         if previous_body == self.body:
             previous_body = ""
-        HtmlDiff._file_template = (
-            """<style type="text/css">%(styles)s</style>%(table)s"""
-        )
-        HtmlDiff._table_template = """
-        <table class="diff">
-            <tbody>%(data_rows)s</tbody>
-        </table>
-        """
-        HtmlDiff._styles = """
-        table.diff {font-family:Courier; border:medium;}
-        .diff_header {color:#99a3a4}
-        td.diff_header {text-align:center}
-        .diff tbody{display: block;}
-        .diff_next {background-color:#c0c0c0;display:none}
-        .diff_add {background-color:#aaffaa}
-        .diff_chg {background-color:#ffff77}
-        .diff_sub {background-color:#ffaaaa}
-        .diff [nowrap]{word-break: break-word;white-space: normal;width: 50%;}
-        """
         return HtmlDiff().make_file(previous_body.splitlines(), self.body.splitlines())
