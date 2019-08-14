@@ -26,7 +26,7 @@ class UserTopic(Common):
 
 class DetailUserTopic(TemplateView):
     "topic/@username"
-    template_name = "users/detail-topic/contents-for-alt.html"
+    template_name = "users/topic/detail/contents.html"
 
     def get_context_data(self, username, permlink, **kwargs):
         user = get_object_or_404(User, username=username)
@@ -42,7 +42,7 @@ class DetailUserTopic(TemplateView):
 
 
 class CreateUTopic(LoginRequiredMixin, View):
-    template_name = "users/topic/create_utopic.html"
+    template_name = "users/topic/create.html"
     form_class = UTopicForm
     model = UTopic
 
@@ -79,7 +79,7 @@ class CreateUTopic(LoginRequiredMixin, View):
 
 
 class UpdateUTopic(LoginRequiredMixin, View):
-    template_name = "users/topic/update_utopic.html"
+    template_name = "forms/create.html"
     form_class = UTopicForm
     model = UTopic
 

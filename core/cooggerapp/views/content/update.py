@@ -9,7 +9,7 @@ from .utils import redirect_utopic
 
 class Update(LoginRequiredMixin, View):
     # TODO use updateview class as inherit
-    template_name = "content/post/update.html"
+    template_name = "content/post/create.html"
     form_class = ContentUpdateForm
     model = Content
     fields = form_class._meta.fields.remove("status")

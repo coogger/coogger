@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.views import View
 
 from ...forms import ContentCreateForm

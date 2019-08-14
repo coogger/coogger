@@ -3,6 +3,7 @@ from django.dispatch import receiver
 
 from ..models import Issue, UTopic, send_mail
 
+
 @receiver(pre_delete, sender=Issue)
 def when_content_delete(sender, instance, **kwargs):
     utopic = instance.utopic

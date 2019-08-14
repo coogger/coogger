@@ -1,9 +1,9 @@
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
-from django.contrib.auth.models import User
 
 from ....threaded_comment.forms import ReplyForm
-from ...models import Content, Commit
+from ...models import Commit, Content
 from ..generic.detail import CommonDetailView
 
 

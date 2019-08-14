@@ -13,9 +13,7 @@ from ...threaded_comment.models import AbstractThreadedComments
 from .category import Category
 from .common import Common, View, Vote
 from .topic import UTopic
-from .utils import (
-    dor, get_first_image, ready_tags, second_convert
-)
+from .utils import dor, get_first_image, ready_tags, second_convert
 
 
 class Content(AbstractThreadedComments, Common, View, Vote):
@@ -86,10 +84,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         return times
 
     def next_or_previous(self, next=True):
-        queryset = self.__class__.objects.filter(
-            user=self.user, 
-            utopic=self.utopic
-        )
+        queryset = self.__class__.objects.filter(user=self.user, utopic=self.utopic)
         if next:
             obj = queryset.reverse()[0]
         else:

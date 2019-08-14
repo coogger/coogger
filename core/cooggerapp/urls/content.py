@@ -1,9 +1,8 @@
 from django.urls import path
 
 from ..views.content import (
-    Contribute, Create, Detail, Embed, 
-    TreeDetail, Update, ApproveContribute, 
-    RejectContribute
+    ApproveContribute, Contribute, Create, Detail, Embed, RejectContribute,
+    TreeDetail, Update
 )
 
 urlpatterns = [

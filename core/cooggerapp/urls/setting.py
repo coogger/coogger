@@ -1,8 +1,7 @@
 from django.urls import path
 
 from ..views.setting import (
-    DeleteAddress, Address, Settings, 
-    UserExtra, UserSetMixin
+    Address, DeleteAddress, Settings, UserExtra, UserSetMixin
 )
 
 urlpatterns = [

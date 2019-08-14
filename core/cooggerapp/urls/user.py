@@ -1,9 +1,6 @@
 from django.urls import path
 
-from ..views.user import (
-    BadgeView, About, Bookmark, 
-    Comment, UserContent
-)
+from ..views.user import About, BadgeView, Bookmark, Comment, UserContent
 from ..views.utopic import UserTopic
 
 urlpatterns = [

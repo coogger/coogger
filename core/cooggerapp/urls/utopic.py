@@ -15,11 +15,7 @@ urlpatterns = [
         CommitDetail.as_view(),
         name="commit",
     ),
-    path(
-        "commit/update/<hash>/",
-        CommitUpdate.as_view(),
-        name="commit-update",
-    ),
+    path("commit/update/<hash>/", CommitUpdate.as_view(), name="commit-update"),
     path(
         "@<username>/<topic_permlink>/contributions/",
         Contribution.as_view(),

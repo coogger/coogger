@@ -18,7 +18,7 @@ from ..utils import paginator
 
 class IssueView(TemplateView):
     model = Issue
-    template_name = "issue/index.html"
+    template_name = "users/topic/detail/issues.html"
 
     def get_context_data(self, username, utopic_permlink, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,7 +42,7 @@ class ClosedIssueView(IssueView):
 
 
 class NewIssue(LoginRequiredMixin, View):
-    template_name = "issue/new.html"
+    template_name = "users/topic/issue/new.html"
     form_class = IssueForm
 
     def get(self, request, username, utopic_permlink):
@@ -82,7 +82,7 @@ class NewIssue(LoginRequiredMixin, View):
 class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Issue
     fields = ["title", "body"]
-    template_name = "issue/new.html"
+    template_name = "users/topic/issue/new.html"
     success_message = "Your issue updated"
 
     def get_object(self):
@@ -118,7 +118,7 @@ class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class DetailIssue(CommonDetailView, TemplateView):
     model = Issue
     model_name = "issue"
-    template_name = "issue/detail.html"
+    template_name = "users/topic/issue/detail.html"
     form_class = ReplyForm
 
     def get_object(self, username, utopic_permlink, permlink):
