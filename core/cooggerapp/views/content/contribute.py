@@ -1,10 +1,12 @@
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.views import View
+
 from ...forms import ContentContributeForm
 from ...models import Category, Commit, Content, UTopic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from .update import Update
-from django.views import View
-from django.urls import reverse
 
 
 class Contribute(Update):
@@ -50,24 +52,21 @@ class ApproveContribute(LoginRequiredMixin, View):
     get_status = "approved"
 
     def get(self, request, username, topic_permlink, hash):
-        commit = get_object_or_404(
-            Commit, hash=hash
-        )
-        if str(request.user) == commit.utopic.user:
-            content = Content.objects.get(id=commit.content.id)
-            content.body = commit.body
-            content.save()
+        commit = get_object_or_404(Commit, hash=hash)
+        if str(request.user) == commit.utopic.user and commit.status == "waiting":
             if commit.status != self.get_status:
+                content = Content.objects.get(id=commit.content.id)
+                content.body = commit.body
+                content.save()
                 commit.status = self.get_status
                 commit.save()
                 self.update_utopic(UTopic.objects.get(id=commit.utopic.id))
+            else:
+                messages.warning(request, "You can not change this commit")
             return redirect(
                 reverse(
                     "content-detail",
-                    kwargs=dict(
-                        username=content.user,
-                        permlink=content.permlink,
-                    ),
+                    kwargs=dict(username=content.user, permlink=content.permlink),
                 )
             )
 
@@ -81,20 +80,17 @@ class RejectContribute(ApproveContribute):
     get_status = "rejected"
 
     def get(self, request, username, topic_permlink, hash):
-        commit = get_object_or_404(
-            Commit, hash=hash
-        )
-        if str(request.user) == commit.utopic.user:
+        commit = get_object_or_404(Commit, hash=hash)
+        if str(request.user) == commit.utopic.user and commit.status == "waiting":
             if commit.status != self.get_status:
                 commit.status = self.get_status
                 commit.save()
-                self.update_utopic(utopic = UTopic.objects.get(id=commit.utopic.id))
+                self.update_utopic(utopic=UTopic.objects.get(id=commit.utopic.id))
             return redirect(
                 reverse(
                     "content-detail",
                     kwargs=dict(
-                        username=commit.content.user,
-                        permlink=commit.content.permlink,
+                        username=commit.content.user, permlink=commit.content.permlink
                     ),
                 )
             )

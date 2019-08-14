@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.views.generic import TemplateView, UpdateView
 
 from ....threaded_comment.forms import ReplyForm
 from ...models import Commit, UTopic
@@ -12,7 +13,7 @@ from ..utils import paginator
 
 
 class Commits(TemplateView):
-    template_name = "users/detail-topic/commits.html"
+    template_name = "users/topic/detail/commits.html"
     commits = Commit.objects.approved_commits
 
     def get_context_data(self, username, topic_permlink, **kwargs):
@@ -29,7 +30,7 @@ class Commits(TemplateView):
 
 
 class CommitDetail(CommonDetailView, TemplateView):
-    template_name = "users/detail-topic/commit.html"
+    template_name = "users/topic/commit/commit.html"
     model = Commit
     model_name = "commit"
     form_class = ReplyForm
@@ -51,12 +52,18 @@ class CommitDetail(CommonDetailView, TemplateView):
 class CommitUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Commit
     fields = ["body", "msg"]
-    template_name = "users/detail-topic/update-commit.html"
+    template_name = "forms/create.html"
     success_message = "Your commit updated"
 
     def get_object(self):
         hash = self.kwargs.get("hash")
-        return get_object_or_404(self.model, hash=hash)
+        obj = get_object_or_404(self.model, hash=hash)
+        if obj.user == self.request.user:
+            if obj.status == "approved":
+                raise Http404("Your commit's approved, thus we can not update.")
+        else:
+            raise Http404("Permission denied.")
+        return obj
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
