@@ -3,4 +3,4 @@ from .commit import Commits
 
 
 class Contribution(Commits):
-    commits = Commit.objects.waiting_commits.order_by("created")
+    commits = Commit.objects.waiting_commits
