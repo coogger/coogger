@@ -26,7 +26,8 @@ class Contribute(Update):
                 form.user = request.user
                 utopic = queryset.utopic
                 if form.body != queryset.body:
-                    commit, c_created = Commit.objects.get_or_create(
+                    # NOTE get_or_create to use create and get obj
+                    commit, _ = Commit.objects.get_or_create(
                         user=request.user,
                         utopic=utopic,
                         content=queryset,
@@ -55,12 +56,19 @@ class ApproveContribute(LoginRequiredMixin, View):
         commit = get_object_or_404(Commit, hash=hash)
         if str(request.user) == commit.utopic.user and commit.status == "waiting":
             if commit.status != self.get_status:
+                # content
                 content = Content.objects.get(id=commit.content.id)
                 content.body = commit.body
                 content.save()
+                # commit
                 commit.status = self.get_status
                 commit.save()
-                self.update_utopic(UTopic.objects.get(id=commit.utopic.id))
+                # utopic
+                utopic = UTopic.objects.get(id=commit.utopic.id)
+                if not utopic.contributors.filter(username=str(commit.user)).exists():
+                    utopic.contributors_count += 1
+                    utopic.contributors.add(commit.user)
+                self.update_utopic(utopic)
             else:
                 messages.warning(request, "You can not change this commit")
             return redirect(

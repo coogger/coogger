@@ -1,0 +1,17 @@
+from ...models import Commit, UTopic
+from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from ..utils import paginator
+
+class Contributor(TemplateView):
+    template_name = "users/topic/detail/contributors.html"
+
+    def get_context_data(self, username, topic_permlink, **kwargs):
+        utopic = UTopic.objects.get(user__username=username, permlink=topic_permlink)
+        queryset = utopic.contributors.all()
+        context = super().get_context_data(**kwargs)
+        context["current_user"] = get_object_or_404(User, username=username)
+        context["queryset"] = paginator(self.request, queryset)
+        context["utopic"] = utopic
+        return context

@@ -34,7 +34,7 @@ td.diff_header {text-align:center}
 class Commit(Common, View, Vote):
     hash = models.CharField(max_length=256, unique=True, default=get_new_hash)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)  # is it necessary
+    utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
@@ -42,6 +42,12 @@ class Commit(Common, View, Vote):
     reply_count = models.PositiveIntegerField(default=0)
     status = models.CharField(
         max_length=100, default="approved", choices=make_choices(COMMIT_STATUS_CHOICES)
+    )
+    previous_commit = models.ForeignKey(
+        "self", 
+        null=True, 
+        blank=True, 
+        on_delete=models.CASCADE
     )
 
     objects = CommitManager()
@@ -68,18 +74,27 @@ class Commit(Common, View, Vote):
         return self.msg
 
     @property
-    def body_change(self):
-        previous_query = self.__class__.objects.filter(
+    def get_previous_commit(self):
+        # NOTE just find and get previous_commit
+        queryset = self.__class__.objects.filter(
             utopic=self.utopic, content=self.content, status="approved"
         )
         if self.status == "approved":
             # to commits page
-            index = list(previous_query).index(previous_query.get(id=self.id))
-            previous_query = previous_query[index + 1]
-            previous_body = previous_query.body
+            index = list(queryset).index(queryset.get(id=self.id))
+            try:
+                return queryset[index + 1]
+            except IndexError:
+                return None
         elif self.status == "waiting":
-            # to contribute page
-            previous_body = previous_query[0].body
+            try:
+                return queryset[0]
+            except IndexError:
+                return None
+
+    @property
+    def body_change(self):
+        previous_body = self.previous_commit.body
         if previous_body == self.body:
             previous_body = ""
         return HtmlDiff().make_file(previous_body.splitlines(), self.body.splitlines())

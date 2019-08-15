@@ -1,0 +1,14 @@
+{% extends "users/topic/detail/top-info.html" %}
+{% block alt_topic %}
+{% include 'common/there-is-no-data.html' %}
+<div general="position:center width:100 flex flex:fd-c" class="commits">
+    {% for user in queryset %}
+        <div general="flex width:100 border:1 br:2 brc:muted" style="margin: 2px 0px;">
+            <a href="{% url 'user' user %}" general="flex flex:ai-c">
+                <img general="width:4" src="{{ user.githubauthuser.avatar_url }}" alt="{{ current_user }}" title="{{ current_user }}" style="margin: 6px 12px;"/>
+                <span general="text:s">{{ user }}</span>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

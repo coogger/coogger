@@ -1,5 +1,6 @@
-from .commit import Commits, CommitDetail
+from .commit import Commits, CommitDetail, CommitUpdate
 from .contribution import Contribution
+from .contributor import Contributor
 from .issue import (
     IssueView,
     ClosedIssueView,

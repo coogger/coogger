@@ -36,7 +36,11 @@ class CommitDetail(CommonDetailView, TemplateView):
     form_class = ReplyForm
 
     def get_object(self, username, topic_permlink, hash):
-        return Commit.objects.get(hash=hash)
+        obj = Commit.objects.get(hash=hash)
+        if obj.status != "approved":
+            # NOTE when commit it is a contribute
+            self.template_name = "users/topic/commit/contribution.html"
+        return obj
 
     def get_context_data(self, username, topic_permlink, hash, **kwargs):
         context = super().get_context_data(

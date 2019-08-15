@@ -1,0 +1,20 @@
+{% extends "users/topic/commit/commit.html" %}
+{% block iac %}
+    {% if request.user == commit.user and commit.status == "waiting" %}
+    <a general="color:secondary color:dark-purple:hover" href="{% url 'commit-update' commit.hash %}">
+        <i class="fa fa-edit fa" aria-hidden="true"></i>Edit
+    </a>
+    {% endif %}
+{% endblock %}
+{% block aor %}
+    {% if commit.status == "waiting" and commit.utopic.user == request.user %}    
+    <div general="position:center bg:warning border:2 br:2" style="padding:6px;margin-top: 12px;">
+        <a href="{% url 'approved-contribute' commit.user commit.utopic.permlink commit.hash %}" general="color:success" style="margin-right: 12px;">
+            <strong>Approved</strong>
+        </a>
+        <a href="{% url 'rejected-contribute' commit.user commit.utopic.permlink commit.hash %}" general="color:danger">
+            <strong>Rejected</strong>
+        </a>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -79,6 +79,7 @@ class UTopic(CommonTopicModel):
         default=0, verbose_name="Total count closed contributions"
     )
     contributors = models.ManyToManyField(User, related_name="contributors")
+    contributors_count = models.IntegerField(default=0, verbose_name="Total contributors count")
     commit_count = models.IntegerField(default=0, verbose_name="Total commit count")
 
     # TODO create new field to commit_count

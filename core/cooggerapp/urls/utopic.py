@@ -1,12 +1,11 @@
 from django.urls import path
 
-from ..views.utopic.commit import CommitDetail, Commits, CommitUpdate
-from ..views.utopic.contribution import Contribution
-from ..views.utopic.issue import (
-    ClosedIssue, ClosedIssueView, DetailIssue, IssueView, NewIssue, OpenIssue,
-    UpdateIssue
-)
-from ..views.utopic.utopic import CreateUTopic, DetailUserTopic, UpdateUTopic
+from ..views.utopic import (
+    CommitDetail, Commits, CommitUpdate, Contribution, 
+    ClosedIssue, ClosedIssueView, DetailIssue, 
+    IssueView, NewIssue, OpenIssue,
+    UpdateIssue, CreateUTopic, DetailUserTopic, 
+    UpdateUTopic, Contributor)
 
 urlpatterns = [
     path("@<username>/<topic_permlink>/commits/", Commits.as_view(), name="commits"),
@@ -20,6 +19,11 @@ urlpatterns = [
         "@<username>/<topic_permlink>/contributions/",
         Contribution.as_view(),
         name="utopic-contribution",
+    ),
+    path(
+        "@<username>/<topic_permlink>/contributors/",
+        Contributor.as_view(),
+        name="utopic-contributors",
     ),
     path("<permlink>/@<username>/", DetailUserTopic.as_view(), name="detail-utopic"),
     path("utopic/<permlink>/", UpdateUTopic.as_view(), name="update-utopic"),

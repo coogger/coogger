@@ -9,7 +9,7 @@
                 commits
               </span>
               <strong>
-                {{ utopic|commit_count }}
+                {{ utopic.commit_count }}
               </strong>
             </span>
           </div>
@@ -25,7 +25,8 @@
               </span>
             </div>
           </a>
-          <a href="{% url 'utopic-contribution' current_user utopic.permlink %}" mobile-s="text:xs">
+          <a href="{% url 'utopic-contribution' current_user utopic.permlink %}" 
+          mobile-s="text:xs">
             <div general="flex flex:ai-c text:s ">
               <i class="fas fa-plus"></i>
               <span id="">
@@ -36,12 +37,13 @@
               </span>
             </div>
           </a>
-          <a href="{% url 'utopic-contribution' current_user utopic.permlink %}" mobile-s="text:xs">
+          <a href="{% url 'utopic-contributors' current_user utopic.permlink %}" 
+          mobile-s="text:xs">
             <div general="flex flex:ai-c text:s ">
               <i class="fas fa-user-friends"></i>
               <span id="">
                 <span general="color:secondary" class="just-pc">contributors</span>
-                <strong>{{ utopic.open_contribution }}</strong>
+                <strong>{{ utopic.contributors_count }}</strong>
               </span>
             </div>
           </a>
