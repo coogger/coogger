@@ -44,10 +44,7 @@ class Commit(Common, View, Vote):
         max_length=100, default="approved", choices=make_choices(COMMIT_STATUS_CHOICES)
     )
     previous_commit = models.ForeignKey(
-        "self", 
-        null=True, 
-        blank=True, 
-        on_delete=models.CASCADE
+        "self", null=True, blank=True, on_delete=models.CASCADE
     )
 
     objects = CommitManager()
