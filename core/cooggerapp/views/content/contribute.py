@@ -62,7 +62,7 @@ class ApproveContribute(LoginRequiredMixin, View):
 
     def get(self, request, username, topic_permlink, hash):
         commit = get_object_or_404(Commit, hash=hash)
-        if str(request.user) == commit.utopic.user and commit.status == "waiting":
+        if request.user == commit.utopic.user and commit.status == "waiting":
             if commit.status != self.get_status:
                 # content
                 content = Content.objects.get(id=commit.content.id)
