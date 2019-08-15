@@ -59,15 +59,21 @@ class ApproveContribute(LoginRequiredMixin, View):
                 # content
                 content = Content.objects.get(id=commit.content.id)
                 content.body = commit.body
-                content.save()
                 # commit
                 commit.status = self.get_status
-                commit.save()
                 # utopic
                 utopic = UTopic.objects.get(id=commit.utopic.id)
                 if not utopic.contributors.filter(username=str(commit.user)).exists():
                     utopic.contributors_count += 1
                     utopic.contributors.add(commit.user)
+                # content
+                elif not content.contributors.filter(
+                    username=str(commit.user)
+                ).exists():
+                    content.contributors_count += 1
+                    content.contributors.add(commit.user)
+                content.save()
+                commit.save()
                 self.update_utopic(utopic)
             else:
                 messages.warning(request, "You can not change this commit")

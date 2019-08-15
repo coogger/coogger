@@ -21,6 +21,9 @@
             <div general="text:s br:4 color:red" style="padding: 0px 6px;" class="fas fa-check">
                 {{ topic.closed_issue }}
             </div>
+            <div general="text:s br:4 color:warning" style="padding: 0px 6px;" class="fas fa-plus">
+                {{ topic.open_contribution }}
+            </div>
           {% endif %}
           <div general="text:s br:4" style="padding: 0px 6px;" class="fas fa-indent">
               {{ topic.how_many }}

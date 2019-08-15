@@ -4,8 +4,8 @@
 <div general="position:center width:100 flex flex:fd-c" class="commits">
     {% for user in queryset %}
         <div general="flex width:100 border:1 br:2 brc:muted" style="margin: 2px 0px;">
-            <a href="{% url 'user' user %}" general="flex flex:ai-c">
-                <img general="width:4" src="{{ user.githubauthuser.avatar_url }}" alt="{{ current_user }}" title="{{ current_user }}" style="margin: 6px 12px;"/>
+            <a href="{% url 'commits' utopic.user utopic.permlink %}?username={{user}}" general="flex flex:ai-c">
+                <img style="width:  20px;margin: 6px 4px;" src="{{ user.githubauthuser.avatar_url }}" alt="{{ current_user }}" title="{{ current_user }}"/>
                 <span general="text:s">{{ user }}</span>
             </a>
         </div>

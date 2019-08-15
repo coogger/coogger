@@ -7,7 +7,7 @@
     {% endif %}
 {% endblock %}
 {% block aor %}
-    {% if commit.status == "waiting" and commit.utopic.user == request.user %}    
+    {% if commit.status == "waiting" and commit.utopic.user == request.user %}  
     <div general="position:center bg:warning border:2 br:2" style="padding:6px;margin-top: 12px;">
         <a href="{% url 'approved-contribute' commit.user commit.utopic.permlink commit.hash %}" general="color:success" style="margin-right: 12px;">
             <strong>Approved</strong>

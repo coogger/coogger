@@ -2,8 +2,13 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
 from ..views.sitemap import (
-    CategoriesSitemap, ContentSitemap, LanuagesSitemap, TopicSitemap,
-    UsersSitemap, UtopicSitemap, robots
+    CategoriesSitemap,
+    ContentSitemap,
+    LanuagesSitemap,
+    TopicSitemap,
+    UsersSitemap,
+    UtopicSitemap,
+    robots,
 )
 
 urlpatterns = [

@@ -1,11 +1,22 @@
 from django.urls import path
 
 from ..views.utopic import (
-    CommitDetail, Commits, CommitUpdate, Contribution, 
-    ClosedIssue, ClosedIssueView, DetailIssue, 
-    IssueView, NewIssue, OpenIssue,
-    UpdateIssue, CreateUTopic, DetailUserTopic, 
-    UpdateUTopic, Contributor)
+    ClosedIssue,
+    ClosedIssueView,
+    CommitDetail,
+    Commits,
+    CommitUpdate,
+    Contribution,
+    Contributor,
+    CreateUTopic,
+    DetailIssue,
+    DetailUserTopic,
+    IssueView,
+    NewIssue,
+    OpenIssue,
+    UpdateIssue,
+    UpdateUTopic,
+)
 
 urlpatterns = [
     path("@<username>/<topic_permlink>/commits/", Commits.as_view(), name="commits"),

@@ -58,6 +58,10 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         verbose_name="article's status",
         help_text="if your article isn't ready to publish yet, select 'not ready to publish'.",
     )
+    contributors = models.ManyToManyField(User, related_name="content_contributors")
+    contributors_count = models.IntegerField(
+        default=0, verbose_name="Total contributors count"
+    )
 
     class Meta:
         ordering = ["-created"]
@@ -84,11 +88,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         return times
 
     def next_or_previous(self, next=True):
-        # TODO fix this function 
-        queryset = self.__class__.objects.filter(
-            user=self.user, 
-            utopic=self.utopic
-        )
+        queryset = self.__class__.objects.filter(user=self.user, utopic=self.utopic)
         index = list(queryset).index(queryset.get(id=self.id))
         if next:
             try:
@@ -142,3 +142,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     @property
     def get_last_commit(self):
         return self.commit_set.first()
+
+    @property
+    def get_contributors(self):
+        return self.contributors.all()
