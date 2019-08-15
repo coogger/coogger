@@ -35,18 +35,26 @@ class Contribute(Update):
                         msg=request.POST.get("msg"),
                         status="waiting",
                     )
-                return redirect(
-                    reverse(
-                        "commit",
-                        kwargs=dict(
-                            username=str(request.user),
-                            topic_permlink=utopic.permlink,
-                            hash=commit.hash,
-                        ),
+                    return redirect(
+                        reverse(
+                            "commit",
+                            kwargs=dict(
+                                username=str(request.user),
+                                topic_permlink=utopic.permlink,
+                                hash=commit.hash,
+                            ),
+                        )
                     )
+            messages.warning(request, "Something went wrong.. we could not do this contribute.")
+            return redirect(
+                reverse(
+                    "content-contribute",
+                    kwargs=dict(
+                        username=username,
+                        permlink=permlink,
+                    ),
                 )
-            context = dict(form=form, username=username, permlink=permlink)
-            return render(request, self.template_name, context)
+            )
 
 
 class ApproveContribute(LoginRequiredMixin, View):

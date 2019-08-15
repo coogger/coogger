@@ -74,7 +74,10 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     def get_absolute_url(self):
         return reverse(
             "content-detail",
-            kwargs=dict(username=str(self.user), permlink=self.permlink),
+            kwargs=dict(
+                username=str(self.user), 
+                permlink=self.permlink
+            ),
         )
 
     @property
