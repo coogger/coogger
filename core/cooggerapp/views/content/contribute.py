@@ -71,11 +71,12 @@ class ApproveContribute(LoginRequiredMixin, View):
                 commit.status = self.get_status
                 # utopic
                 utopic = UTopic.objects.get(id=commit.utopic.id)
+                utopic.commit_count += 1
                 if not utopic.contributors.filter(username=str(commit.user)).exists():
                     utopic.contributors_count += 1
                     utopic.contributors.add(commit.user)
                 # content
-                elif not content.contributors.filter(
+                if not content.contributors.filter(
                     username=str(commit.user)
                 ).exists():
                     content.contributors_count += 1
