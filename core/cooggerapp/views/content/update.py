@@ -52,25 +52,24 @@ class Update(LoginRequiredMixin, View):
                 if get_utopic_permlink is None:
                     utopic = queryset.utopic
                 else:
-                    utopic = UTopic.objects.filter(  # new utopic
+                    # new utopic
+                    new_utopic = UTopic.objects.get(
                         user=queryset.user, permlink=get_utopic_permlink
                     )
-                    utopic.update(  # new utopic update
-                        how_many=(F("how_many") + 1),
-                        total_dor=(F("total_dor") + dor(form.body)),
-                        total_view=(F("total_view") + queryset.views),
+                    new_utopic.how_many += 1
+                    new_utopic.total_dor += dor(form.body)
+                    new_utopic.total_view += queryset.views
+                    new_utopic.save()
+                    # old utopic update
+                    old_utopic = UTopic.objects.get(
+                        id=queryset.utopic.id
                     )
-                    UTopic.objects.filter(  # old utopic update
-                        user=queryset.user, permlink=queryset.utopic.permlink
-                    ).update(
-                        how_many=(F("how_many") - 1),
-                        total_dor=(F("total_dor") - dor(queryset.body)),
-                        total_view=(F("total_view") - queryset.views),
-                    )
-                    utopic = utopic[0]
-                    Commit.objects.filter(  # old utopic update to new utopic commit
-                        utopic=queryset.utopic, content=queryset
-                    ).update(utopic=utopic)
+                    old_utopic.how_many -= 1
+                    old_utopic.total_dor -= dor(queryset.body)
+                    old_utopic.total_view -= queryset.views
+                    old_utopic.save()
+                    # commit content utopic change
+                    Commit.objects.filter(content=queryset).update(utopic=utopic)
                 if form.body != queryset.body:
                     Commit(
                         user=request.user,
@@ -85,7 +84,9 @@ class Update(LoginRequiredMixin, View):
                     queryset.status = form.status
                     self.fields.append("status")
                 queryset.utopic = utopic
-                queryset.save(update_fields=self.fields)  # to content signals
+                self.fields.append("utopic")
+                # to content signals
+                queryset.save(update_fields=self.fields)
                 return redirect(
                     reverse(
                         "content-detail",
@@ -94,5 +95,12 @@ class Update(LoginRequiredMixin, View):
                         ),
                     )
                 )
-            context = dict(form=form, username=username, permlink=permlink)
-            return render(request, self.template_name, context)
+            return render(
+                request, 
+                self.template_name, 
+                dict(
+                    form=form, 
+                    username=username, 
+                    permlink=permlink
+                )
+            )
