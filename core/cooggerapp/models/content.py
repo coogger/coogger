@@ -84,13 +84,22 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         return times
 
     def next_or_previous(self, next=True):
-        queryset = self.__class__.objects.filter(user=self.user, utopic=self.utopic)
+        # TODO fix this function 
+        queryset = self.__class__.objects.filter(
+            user=self.user, 
+            utopic=self.utopic
+        )
+        index = list(queryset).index(queryset.get(id=self.id))
         if next:
-            obj = queryset.reverse()[0]
+            try:
+                return queryset[index + 1]
+            except IndexError:
+                return None
         else:
-            obj = queryset[0]
-        if obj != self:
-            return obj
+            try:
+                return queryset[index - 1]
+            except (IndexError, AssertionError):
+                return None
 
     @property
     def next_post(self):
