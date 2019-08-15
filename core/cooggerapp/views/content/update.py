@@ -59,6 +59,7 @@ class Update(LoginRequiredMixin, View):
                     new_utopic.how_many += 1
                     new_utopic.total_dor += dor(form.body)
                     new_utopic.total_view += queryset.views
+                    new_utopic.commit_count += queryset.utopic.commit_count
                     new_utopic.save()
                     # old utopic update
                     old_utopic = UTopic.objects.get(
@@ -67,6 +68,7 @@ class Update(LoginRequiredMixin, View):
                     old_utopic.how_many -= 1
                     old_utopic.total_dor -= dor(queryset.body)
                     old_utopic.total_view -= queryset.views
+                    old_utopic.commit_count -= queryset.utopic.commit_count
                     old_utopic.save()
                     # commit content utopic change
                     Commit.objects.filter(content=queryset).update(utopic=utopic)

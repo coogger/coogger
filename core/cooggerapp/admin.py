@@ -6,6 +6,7 @@ from core.cooggerapp.models import (
     UserProfile, UTopic
 )
 
+user_search_fields = ["user__username", "user__first_name", "user__last_name"]
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -22,15 +23,8 @@ class ContentAdmin(admin.ModelAdmin):
     list_display = ["user", "permlink"]
     list_display_links = list_display
     list_filter = ["status"]
-    search_fields = ["user__username", "permlink", "title", "body"]
+    search_fields = ["permlink", "title", "body"] + user_search_fields
     prepopulated_fields = {"permlink": ("title",)}
-    fields = (
-        ("user"),
-        ("category", "language", "utopic"),
-        ("title", "permlink"),
-        ("body"),
-        ("tags", "status", "reply_count"),
-    )
 
 
 @admin.register(SearchedWords)
@@ -45,7 +39,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ["user"]
     list_display_links = list_display
     filter_horizontal = ("address",)
-    search_fields = ["user__username"]
+    search_fields = user_search_fields
 
 
 @admin.register(Topic)
@@ -55,14 +49,6 @@ class TopicAdmin(admin.ModelAdmin):
     list_display_links = list_
     list_filter = ["editable"]
     search_fields = ["name", "definition"]
-    fields = (
-        ("name", "permlink"),
-        ("tags", "how_many"),
-        ("definition"),
-        ("image_address"),
-        ("address"),
-        ("editable"),
-    )
 
 
 @admin.register(Commit)
@@ -70,28 +56,20 @@ class CommitAdmin(admin.ModelAdmin):
     list_display = ["content", "utopic"]
     list_display_links = ["content", "utopic"]
     list_filter = ["created"]
-    search_fields = ["user__username", "utopic__name", "msg"]
+    search_fields = ["utopic__name", "msg"] + user_search_fields
 
 
 @admin.register(UTopic)
 class UtopicAdmin(admin.ModelAdmin):
     list_display = ["user", "name"]
     list_display_links = ["user", "name"]
-    search_fields = ["user__username", "name"]
-    fields = (
-        ("user"),
-        ("name", "permlink"),
-        ("image_address"),
-        ("definition"),
-        ("tags", "how_many"),
-        ("address"),
-        ("total_dor", "total_view", "open_issue", "closed_issue"),
-    )
+    search_fields = ["name"] + user_search_fields
+    filter_horizontal = ("contributors",)
 
 
 @admin.register(Issue)
 class IssueAdmin(admin.ModelAdmin):
     list_display = ["user", "utopic", "title"]
     list_display_links = list_display
-    search_fields = ["user__username", "utopic__name", "title"]
+    search_fields = ["utopic__name", "title"] + user_search_fields
     list_filter = ["status", "created"]

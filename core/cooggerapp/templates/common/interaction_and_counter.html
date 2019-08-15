@@ -8,7 +8,9 @@
     <i class="fas fa-eye"></i>
     <div style='margin-left: 6px;'>{{ queryset.views }}</div>
 </div>
-<div general='text:s color:secondary flex flex:ai-c'>
-    <i class="fab fa-readme"></i>
-    <div style='margin-left: 6px;'>{{ queryset.get_dor|default:"0 second" }}</div>
-</div>
+{% if queryset.get_dor %}
+    <div general='text:s color:secondary flex flex:ai-c'>
+        <i class="fab fa-readme"></i>
+        <div style='margin-left: 6px;'>{{ queryset.get_dor|default:"0 second" }}</div>
+    </div>
+{% endif %}

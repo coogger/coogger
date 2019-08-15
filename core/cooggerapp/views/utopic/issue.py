@@ -42,7 +42,7 @@ class ClosedIssueView(IssueView):
 
 
 class NewIssue(LoginRequiredMixin, View):
-    template_name = "users/topic/issue/new.html"
+    template_name = "forms/create.html"
     form_class = IssueForm
 
     def get(self, request, username, utopic_permlink):
@@ -82,7 +82,7 @@ class NewIssue(LoginRequiredMixin, View):
 class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Issue
     fields = ["title", "body"]
-    template_name = "users/topic/issue/new.html"
+    template_name = "forms/create.html"
     success_message = "Your issue updated"
 
     def get_object(self):

@@ -2,13 +2,7 @@
 {% block alt_topic %}
   <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
       <div style="padding:12px;">
-          {% if not queryset %}
-          <div general="bg:dark-purple color:white br:2" class="utopic-nocontent">
-            <div general="color:white text:l position:center">
-              There is no issue in opened | closed.
-            </div>
-          </div>
-          {% endif %}
+          {% include 'common/there-is-no-data.html' %}
           <div general="position:center bg:muted " style="padding:12px;" >
               <a href="{% url 'issues' current_user utopic.permlink %}">
                   <div general="flex flex:ai-c">

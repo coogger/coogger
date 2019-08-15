@@ -5,23 +5,9 @@
   <div class="commit" general="flex flex:fd-c width:60 border:1 br:2 brc:muted" mobile-l="width:100" tablet="width:80" mobile-m="width:100" mobile-s="width:100">  
       <div general="text:s bg:white brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
           {% include "common/interaction_and_counter.html" %}
-          {% if request.user == commit.user and commit.status == "waiting" %}
-            <a general="color:secondary color:dark-purple:hover" 
-            href="{% url 'commit-update' commit.hash %}">
-              <i class="fa fa-edit fa" aria-hidden="true"></i>Edit
-            </a>
-          {% endif %}
+          {% block iac %}{% endblock %}
       </div>
-      {% if commit.status == "waiting" and commit.utopic.user == request.user %}  
-        <div general="position:center bg:warning border:2 br:2" style="padding:6px;margin-top: 12px;">
-          <a href="{% url 'approved-contribute' commit.user commit.utopic.permlink commit.hash %}" general="color:success" style="margin-right: 12px;">
-            <strong>Approved</strong>
-          </a>
-          <a href="{% url 'rejected-contribute' commit.user commit.utopic.permlink commit.hash %}" general="color:danger">
-            <strong>Rejected</strong>
-          </a>
-        </div>
-      {% endif %}
+      {% block aor %}{% endblock %}
       <h1 general="width:100 flex flex:ai-c">
           {{ commit.msg|title }}<span general="position:right text:m color:warning">Status; {{ commit.status|title }}</span>
       </h1>
