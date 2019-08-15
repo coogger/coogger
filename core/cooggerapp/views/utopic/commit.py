@@ -30,8 +30,6 @@ class Commits(TemplateView):
         context["current_user"] = user
         context["queryset"] = paginator(self.request, queryset)
         context["utopic"] = utopic
-        if queryset.exists():
-            context["last_update"] = queryset[0].created
         return context
 
 

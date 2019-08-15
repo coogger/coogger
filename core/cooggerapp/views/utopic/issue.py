@@ -28,8 +28,6 @@ class IssueView(TemplateView):
         context["current_user"] = user
         context["queryset"] = paginator(self.request, queryset)
         context["utopic"] = utopic
-        if queryset.exists():
-            context["last_update"] = queryset[0].created
         return context
 
     def get_queryset(self, utopic):
@@ -134,7 +132,6 @@ class DetailIssue(CommonDetailView, TemplateView):
         queryset = context.get("queryset")
         context["current_user"] = queryset.utopic.user
         context["utopic"] = queryset.utopic
-        context["last_update"] = queryset.last_update
         context["nameoflist"] = queryset.utopic
         return context
 
