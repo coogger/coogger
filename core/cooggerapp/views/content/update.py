@@ -48,6 +48,8 @@ class Update(LoginRequiredMixin, View):
             if form.is_valid():
                 form = form.save(commit=False)
                 form.user = request.user
+                utopic = UTopic.objects.get(id=queryset.utopic.id)
+                utopic.commit_count += 1
                 # get_utopic_permlink = None # TODO request.GET.get("utopic_permlink", None)
                 # if get_utopic_permlink is None:
                 #     utopic = queryset.utopic
@@ -86,12 +88,15 @@ class Update(LoginRequiredMixin, View):
                 if form.body != queryset.body:
                     Commit(
                         user=request.user,
-                        utopic=queryset.utopic,
+                        utopic=utopic,
                         content=queryset,
                         body=form.body,
                         msg=request.POST.get("msg"),
                     ).save()
-                self.fields.remove("status")
+                try:
+                    self.fields.remove("status")
+                except ValueError:
+                    pass
                 for field in self.fields:
                     setattr(queryset, field, getattr(form, field, None))
                 if queryset.status != form.status:
