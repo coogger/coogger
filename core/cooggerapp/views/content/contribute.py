@@ -86,12 +86,7 @@ class ApproveContribute(LoginRequiredMixin, View):
                 self.update_utopic(utopic)
             else:
                 messages.warning(request, "You can not change this commit")
-            return redirect(
-                reverse(
-                    "content-detail",
-                    kwargs=dict(username=content.user, permlink=content.permlink),
-                )
-            )
+            return redirect(content.get_absolute_url)
 
     def update_utopic(self, utopic):
         utopic.closed_contribution += 1
@@ -109,11 +104,4 @@ class RejectContribute(ApproveContribute):
                 commit.status = self.get_status
                 commit.save()
                 self.update_utopic(utopic=UTopic.objects.get(id=commit.utopic.id))
-            return redirect(
-                reverse(
-                    "content-detail",
-                    kwargs=dict(
-                        username=commit.content.user, permlink=commit.content.permlink
-                    ),
-                )
-            )
+            return redirect(commit.content.get_absolute_url)

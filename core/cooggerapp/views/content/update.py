@@ -12,7 +12,7 @@ class Update(LoginRequiredMixin, View):
     template_name = "content/post/create.html"
     form_class = ContentUpdateForm
     model = Content
-    fields = form_class._meta.fields.remove("status")
+    fields = form_class._meta.fields
 
     def request_permission(self, request, username):
         return request.user.username == username
@@ -52,37 +52,37 @@ class Update(LoginRequiredMixin, View):
                 # if get_utopic_permlink is None:
                 #     utopic = queryset.utopic
                 # else:
-                # TODO when user want to change content utopic
-                # new utopic
-                # new_utopic = UTopic.objects.get(
-                #     user=queryset.user, permlink=get_utopic_permlink
-                # )
-                # new_utopic.how_many += 1
-                # new_utopic.total_dor += dor(form.body)
-                # new_utopic.total_view += queryset.views
-                # new_utopic.commit_count += queryset.utopic.commit_count
-                # # new_utopic.save() TODO
-                # # old utopic update
-                # old_utopic = UTopic.objects.get(
-                #     id=queryset.utopic.id
-                # )
-                # old_utopic.how_many -= 1
-                # old_utopic.total_dor -= dor(queryset.body)
-                # old_utopic.total_view -= queryset.views
-                # old_utopic.commit_count -= queryset.utopic.commit_count
-                # # old_utopic.save() TODO
-                # # commit content utopic change
-                # commits = Commit.objects.filter(content=queryset)
-                # for commit in commits:
-                #     if commit.user !=
-                #     if old_utopic.contributors.filter(user__username=str(commit.user)).exists():
-                #         old_utopic.contributors.remove(commit.user)
-                #         old_utopic.contributors_count -= 1
-                #         new_utopic.contributors.add(commit.user)
-                #         new_utopic.contributors_count += 1
-                # commits.update(utopic=utopic)
-                # new_utopic.save()
-                # old_utopic.save()
+                    # TODO when user want to change content utopic
+                    # new utopic
+                    # new_utopic = UTopic.objects.get(
+                    #     user=queryset.user, permlink=get_utopic_permlink
+                    # )
+                    # new_utopic.how_many += 1
+                    # new_utopic.total_dor += dor(form.body)
+                    # new_utopic.total_view += queryset.views
+                    # new_utopic.commit_count += queryset.utopic.commit_count
+                    # # new_utopic.save() TODO
+                    # # old utopic update
+                    # old_utopic = UTopic.objects.get(
+                    #     id=queryset.utopic.id
+                    # )
+                    # old_utopic.how_many -= 1
+                    # old_utopic.total_dor -= dor(queryset.body)
+                    # old_utopic.total_view -= queryset.views
+                    # old_utopic.commit_count -= queryset.utopic.commit_count
+                    # # old_utopic.save() TODO
+                    # # commit content utopic change
+                    # commits = Commit.objects.filter(content=queryset)
+                    # for commit in commits:
+                    #     if commit.user !=
+                    #     if old_utopic.contributors.filter(user__username=str(commit.user)).exists():
+                    #         old_utopic.contributors.remove(commit.user)
+                    #         old_utopic.contributors_count -= 1
+                    #         new_utopic.contributors.add(commit.user)
+                    #         new_utopic.contributors_count += 1
+                    # commits.update(utopic=utopic)
+                    # new_utopic.save()
+                    # old_utopic.save()
                 if form.body != queryset.body:
                     Commit(
                         user=request.user,
@@ -91,6 +91,7 @@ class Update(LoginRequiredMixin, View):
                         body=form.body,
                         msg=request.POST.get("msg"),
                     ).save()
+                self.fields.remove("status")
                 for field in self.fields:
                     setattr(queryset, field, getattr(form, field, None))
                 if queryset.status != form.status:
@@ -100,14 +101,7 @@ class Update(LoginRequiredMixin, View):
                 # self.fields.append("utopic")
                 # to content signals
                 queryset.save(update_fields=self.fields)
-                return redirect(
-                    reverse(
-                        "content-detail",
-                        kwargs=dict(
-                            username=str(queryset.user), permlink=queryset.permlink
-                        ),
-                    )
-                )
+                return redirect(queryset.get_absolute_url)
             return render(
                 request,
                 self.template_name,
