@@ -21,6 +21,9 @@
                   </div>
                 </a>
           </div>
+          <a general="br:1 color:white bg:green text:s position:right" href="{% url 'new-issue' current_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
+              <span general="position:center">Open new issue</span>
+            </a>
         <ul class="issues">
           <!-- issue list open or closed -->
           {% for issue in queryset %}
