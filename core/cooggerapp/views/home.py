@@ -26,7 +26,7 @@ class Home(TemplateView):
             self.template_name = self.introduction_template_name
             context["introduction"] = True
             how_many = 3 * 8
-            queryset = User.objects.all().order_by("-date_joined")[: how_many]
+            queryset = User.objects.all().order_by("-date_joined")[:how_many]
             context["queryset"] = paginator(self.request, queryset, how_many)
         else:
             queryset = Content.objects.filter(status="ready")
@@ -80,9 +80,7 @@ class Search(Home):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["queryset"] = paginator(
-            self.request, 
-            self.get_queryset(), 
-            self.get_how_many()
+            self.request, self.get_queryset(), self.get_how_many()
         )
         return context
 
@@ -92,11 +90,11 @@ class Search(Home):
         if name.startswith("@"):
             name = name[1:]
             return User.objects.filter(
-                Q(username__contains=name) | Q(first_name__contains=name) | Q(last_name__contains=name)
+                Q(username__contains=name)
+                | Q(first_name__contains=name)
+                | Q(last_name__contains=name)
             )
-        return Content.objects.filter(
-            Q(title__contains=name) & Q(status="ready")
-        )
+        return Content.objects.filter(Q(title__contains=name) & Q(status="ready"))
 
     def get_template_names(self):
         name = self.request.GET["query"].lower()
@@ -109,7 +107,6 @@ class Search(Home):
         if name.startswith("@"):
             return 30
         return settings.PAGE_SIZE
-
 
 
 class Feed(Home):

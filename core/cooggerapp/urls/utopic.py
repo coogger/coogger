@@ -1,21 +1,9 @@
 from django.urls import path
 
 from ..views.utopic import (
-    ClosedIssue,
-    ClosedIssueView,
-    CommitDetail,
-    Commits,
-    CommitUpdate,
-    Contribution,
-    Contributor,
-    CreateUTopic,
-    DetailIssue,
-    DetailUserTopic,
-    IssueView,
-    NewIssue,
-    OpenIssue,
-    UpdateIssue,
-    UpdateUTopic,
+    ClosedIssue, ClosedIssueView, CommitDetail, Commits, CommitUpdate,
+    Contribution, Contributor, CreateUTopic, DetailIssue, DetailUserTopic,
+    IssueView, NewIssue, OpenIssue, UpdateIssue, UpdateUTopic
 )
 
 urlpatterns = [

@@ -45,14 +45,13 @@ class Contribute(Update):
                             ),
                         )
                     )
-            messages.warning(request, "Something went wrong.. we could not do this contribute.")
+            messages.warning(
+                request, "Something went wrong.. we could not do this contribute."
+            )
             return redirect(
                 reverse(
                     "content-contribute",
-                    kwargs=dict(
-                        username=username,
-                        permlink=permlink,
-                    ),
+                    kwargs=dict(username=username, permlink=permlink),
                 )
             )
 
@@ -76,9 +75,7 @@ class ApproveContribute(LoginRequiredMixin, View):
                     utopic.contributors_count += 1
                     utopic.contributors.add(commit.user)
                 # content
-                if not content.contributors.filter(
-                    username=str(commit.user)
-                ).exists():
+                if not content.contributors.filter(username=str(commit.user)).exists():
                     content.contributors_count += 1
                     content.contributors.add(commit.user)
                 content.save()

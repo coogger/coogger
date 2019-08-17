@@ -1,14 +1,8 @@
 from django.urls import path
 
 from ..views.content import (
-    ApproveContribute,
-    Contribute,
-    Create,
-    Detail,
-    Embed,
-    RejectContribute,
-    TreeDetail,
-    Update,
+    ApproveContribute, Contribute, Create, Detail, Embed, RejectContribute,
+    TreeDetail, Update
 )
 
 urlpatterns = [

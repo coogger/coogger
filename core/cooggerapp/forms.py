@@ -2,11 +2,7 @@ from django import forms
 
 from core.cooggerapp.choices import *
 from core.cooggerapp.models import (
-    Content,
-    Issue,
-    OtherAddressesOfUsers,
-    ReportModel,
-    UTopic,
+    Content, Issue, OtherAddressesOfUsers, ReportModel, UTopic
 )
 
 
