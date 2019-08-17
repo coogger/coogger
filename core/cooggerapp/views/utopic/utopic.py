@@ -40,7 +40,7 @@ class DetailUserTopic(TemplateView):
 
 
 class CreateUTopic(LoginRequiredMixin, View):
-    template_name = "users/topic/create.html"
+    template_name = "forms/create.html"
     form_class = UTopicForm
     model = UTopic
 
