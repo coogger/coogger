@@ -59,7 +59,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         help_text="if your article isn't ready to publish yet, select 'not ready to publish'.",
     )
     contributors = models.ManyToManyField(User, related_name="content_contributors")
-    contributors_count = models.IntegerField(
+    contributors_count = models.PositiveIntegerField(
         default=0, verbose_name="Total contributors count"
     )
 

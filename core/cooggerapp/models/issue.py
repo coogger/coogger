@@ -33,7 +33,7 @@ class Issue(AbstractThreadedComments, Common, View, Vote):
         null=True,
         blank=True,
     )
-    issue_id = models.IntegerField(default=0)
+    issue_id = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ["-created"]

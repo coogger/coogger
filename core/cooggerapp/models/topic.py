@@ -27,7 +27,7 @@ class CommonTopicModel(models.Model):
     address = models.URLField(
         blank=True, null=True, max_length=150, help_text="Add an address if it have"
     )
-    how_many = models.IntegerField(default=0, verbose_name="How many content in")
+    how_many = models.PositiveIntegerField(default=0, verbose_name="How many content in")
 
     class Meta:
         abstract = True
@@ -67,22 +67,22 @@ class UTopic(CommonTopicModel):
     # TODO if topic name is changed, then must change the permlink
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total_dor = models.FloatField(default=0, verbose_name="Total duration all contents")
-    total_view = models.IntegerField(default=0, verbose_name="Total views all contents")
-    open_issue = models.IntegerField(default=0, verbose_name="Total count open issue")
-    closed_issue = models.IntegerField(
+    total_view = models.PositiveIntegerField(default=0, verbose_name="Total views all contents")
+    open_issue = models.PositiveIntegerField(default=0, verbose_name="Total count open issue")
+    closed_issue = models.PositiveIntegerField(
         default=0, verbose_name="Total count closed issue"
     )
-    open_contribution = models.IntegerField(
+    open_contribution = models.PositiveIntegerField(
         default=0, verbose_name="Total count open contributions"
     )
-    closed_contribution = models.IntegerField(
+    closed_contribution = models.PositiveIntegerField(
         default=0, verbose_name="Total count closed contributions"
     )
     contributors = models.ManyToManyField(User, related_name="utopic_contributors")
-    contributors_count = models.IntegerField(
+    contributors_count = models.PositiveIntegerField(
         default=0, verbose_name="Total contributors count"
     )
-    commit_count = models.IntegerField(default=0, verbose_name="Total commit count")
+    commit_count = models.PositiveIntegerField(default=0, verbose_name="Total commit count")
 
     # TODO create new field to commit_count
 

@@ -4,7 +4,7 @@ from django.db.utils import IntegrityError
 
 class SearchedWords(models.Model):
     word = models.CharField(unique=True, max_length=100)
-    hmany = models.IntegerField(default=1)
+    hmany = models.PositiveIntegerField(default=1)
 
     def save(self, *args, **kwargs):
         try:
