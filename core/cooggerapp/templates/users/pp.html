@@ -20,8 +20,10 @@
                 {% endif %}
             </a>
         </h1>
+        <span general="text:s position:center">
+            Date joined; {{ current_user.date_joined|timesince }} ago
+        </span>
     </div>
-    
     <div general="flex flex:jc-c width:max position:center">
         <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
             

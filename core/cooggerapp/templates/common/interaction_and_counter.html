@@ -1,15 +1,21 @@
 {% include 'common/bookmark.html' %}
 {% include 'common/vote.html' %}
-<div general='text:s color:secondary flex flex:ai-c'>
+<div general='text:s color:secondary flex flex:ai-c' title="reply count">
     <i class="fas fa-reply-all"></i>
     <div style='margin-left: 6px;'>{{ queryset.reply_count }}</div>
 </div>
-<div general='text:s color:secondary flex flex:ai-c'>
+{% if queryset.contributors_count %}
+    <div general='text:s color:secondary flex flex:ai-c' title="contributors count">
+        <i class="fas fa-plus"></i>
+        <div style='margin-left: 6px;'>{{ queryset.contributors_count }}</div>
+    </div>
+{% endif %}
+<div general='text:s color:secondary flex flex:ai-c' title="views count">
     <i class="fas fa-eye"></i>
     <div style='margin-left: 6px;'>{{ queryset.views }}</div>
 </div>
 {% if queryset.get_dor %}
-    <div general='text:s color:secondary flex flex:ai-c'>
+    <div general='text:s color:secondary flex flex:ai-c' title="Duration of read">
         <i class="fab fa-readme"></i>
         <div style='margin-left: 6px;'>{{ queryset.get_dor|default:"0 second" }}</div>
     </div>

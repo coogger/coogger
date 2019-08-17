@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.views import View
 
 from ...forms import ContentCreateForm
-from ...models import Category, Commit, Content, UTopic
+from ...models import Category, Commit, Content, UTopic, ready_tags
 from .utils import redirect_utopic
 
 
@@ -38,12 +38,11 @@ class Create(LoginRequiredMixin, View):
         form = self.form_class(data=request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            user_topic = UTopic.objects.filter(
+            form.user = request.user
+            form.utopic = UTopic.objects.get(
                 user=request.user, permlink=utopic_permlink
             )
-            form.user = request.user
-            form.utopic = user_topic[0]
-            form.tags = ready_tags(form.tags)  # make validation
+            form.tags = ready_tags(form.tags)
             form.save()
             return redirect(
                 reverse(

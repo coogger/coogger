@@ -3,8 +3,8 @@ from django.core.exceptions import FieldError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
-def paginator(request, queryset):
-    paginator = Paginator(queryset, settings.PAGE_SIZE)
+def paginator(request, queryset, how_many=settings.PAGE_SIZE):
+    paginator = Paginator(queryset, how_many)
     page = request.GET.get("page")
     try:
         contacts = paginator.page(page)
