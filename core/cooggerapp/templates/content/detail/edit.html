@@ -1,4 +1,4 @@
-{% if request.is_authenticated %}
+{% if request.user.is_authenticated %}
   <div general="text:s color:secondary flex">
     {% if queryset.is_reply %}
     <a general="color:secondary color:dark-purple:hover" 
