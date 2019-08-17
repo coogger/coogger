@@ -1,16 +1,14 @@
-<card general="br:4 bg:white width:100">
-    {% include "card/userinfo.html" %}
-    {% include "card/contentinfo.html" %}
-    {% include 'card/top.html' %}
-    <a href="{{ ct.get_absolute_url }}" general="color:dark">
-        <div general="text:m" class="upshow">
-            <div general="flex flex:ai-c">
-                {% if ct.image_address %}
-                    <img class='definition-img' src='{{ ct.image_address }}' alt='{{ ct.title }}'>
-                {% endif %}
-                <p>{{ ct.description }}...</p>
-            </div>
+{% include "card/userinfo.html" %}
+{% include "card/contentinfo.html" %}
+{% include 'card/top.html' %}
+<a href="{{ ct.get_absolute_url }}" general="color:dark">
+    <div general="text:m" class="upshow">
+        <div general="flex flex:ai-c">
+            {% if ct.image_address %}
+                <img class='definition-img' src='{{ ct.image_address }}' alt='{{ ct.title }}'>
+            {% endif %}
+            <p>{{ ct.description }}...</p>
         </div>
-    </a>
-    {% include 'card/bottom.html' %}
-</card>
+    </div>
+</a>
+{% include 'card/bottom.html' %}

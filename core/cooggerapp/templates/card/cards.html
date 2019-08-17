@@ -2,7 +2,9 @@
   <cards general="flex width:30" mobile-s="width:100" mobile-m="width:98" mobile-l="width:98"
    tablet="width:70" laptop="width:40" laptop-l="width:30">
       {% for ct in queryset %}
-        {% include "card/card.html" %}
+        <card general="br:4 bg:white width:100">
+          {% include "card/card.html" %}
+        </card>
       {% endfor %}
   </cards>
 {% elif not queryset %}

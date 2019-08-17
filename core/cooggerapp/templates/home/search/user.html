@@ -1,0 +1,10 @@
+{% extends "home/html.html" %}
+{% block body %}
+    <div general="position:center flex">
+        <cards general="width:90 position:center flex"  style="margin:0px">
+        {% for user in queryset %}
+          {% include 'home/users_card.html' %}
+        {% endfor %}
+        </cards>
+      </div>
+{% endblock %}

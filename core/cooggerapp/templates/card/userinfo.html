@@ -4,8 +4,8 @@
         <img src="{{ ct.user.githubauthuser.avatar_url }}" class="carduserimg" general="br:circle" width="40px" height="40px"></img>
         <div general="flex flex:fd-c">
           <span general="flex flex:ai-c" class="carduser" style="margin-left:6px;">
-              {% if ct.user.first_name %}
-                  {{ ct.user.first_name }} {{ ct.user.last_name }}
+              {% if ct.user.get_full_name %}
+                  {{ ct.user.get_full_name }}
               {% else %}
                   @{{ ct.user }}
               {% endif %}

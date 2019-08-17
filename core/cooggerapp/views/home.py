@@ -74,19 +74,42 @@ class Report(LoginRequiredMixin, View):
 
 
 class Search(Home):
-    template_name = "card/blogs.html"
+    content_search_template_name = "home/search/content.html"
+    user_search_template_name = "home/search/user.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, self.get_queryset())
+        context["queryset"] = paginator(
+            self.request, 
+            self.get_queryset(), 
+            self.get_how_many()
+        )
         return context
 
     def get_queryset(self):
         name = self.request.GET["query"].lower()
         SearchedWords(word=name).save()
-        q = Q(title__contains=name) | Q(body__contains=name)
-        queryset = Content.objects.filter(q).filter(status="ready")
-        return queryset
+        if name.startswith("@"):
+            name = name[1:]
+            return User.objects.filter(
+                Q(username__contains=name) | Q(first_name__contains=name) | Q(last_name__contains=name)
+            )
+        return Content.objects.filter(
+            Q(title__contains=name) & Q(status="ready")
+        )
+
+    def get_template_names(self):
+        name = self.request.GET["query"].lower()
+        if name.startswith("@"):
+            return [self.user_search_template_name]
+        return [self.content_search_template_name]
+
+    def get_how_many(self):
+        name = self.request.GET["query"].lower()
+        if name.startswith("@"):
+            return 30
+        return settings.PAGE_SIZE
+
 
 
 class Feed(Home):

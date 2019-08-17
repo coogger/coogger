@@ -84,8 +84,6 @@ class UTopic(CommonTopicModel):
     )
     commit_count = models.PositiveIntegerField(default=0, verbose_name="Total commit count")
 
-    # TODO create new field to commit_count
-
     class Meta:
         verbose_name_plural = "User Topic"
         ordering = ["-how_many"]

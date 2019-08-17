@@ -3,7 +3,9 @@
   {% if queryset %}
     <cards general="width:80"  tablet="w-100 center">
         {% for ct in queryset %}
-          {% include "card/card.html" %}
+          <card general="br:4 bg:white width:100">
+            {% include "card/card.html" %}
+          </card>
         {% endfor %}
     </cards>
   {% endif %}

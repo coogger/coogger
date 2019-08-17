@@ -13,8 +13,8 @@
         tablet="width:36" laptop="width:56" laptop-l="width:60" alt="{{ current_user }}" title="{{ current_user }}" src="{{ current_user.githubauthuser.avatar_url }}" style="padding: 2px;"/>
         <h1 general="flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
             <a general="flex color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-                {% if current_user.first_name %}
-                    {{ current_user.first_name }} {{ current_user.last_name }}
+                {% if current_user.get_full_name %}
+                    {{ current_user.get_full_name }}
                 {% else %}
                     @{{ current_user }}
                 {% endif %}
