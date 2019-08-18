@@ -71,7 +71,7 @@ class NewIssue(LoginRequiredMixin, View):
                     kwargs=dict(
                         username=username,
                         utopic_permlink=utopic_permlink,
-                        permlink=form.permlink,
+                        issue_id=form.issue_id,
                     ),
                 )
             )
@@ -86,13 +86,13 @@ class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_object(self):
         username = self.kwargs.get("username")
         utopic_permlink = self.kwargs.get("utopic_permlink")
-        permlink = self.kwargs.get("permlink")
+        issue_id = self.kwargs.get("issue_id")
         return get_object_or_404(
             self.model,
             user=self.request.user,
             utopic__user__username=username,
             utopic__permlink=utopic_permlink,
-            permlink=permlink,
+            issue_id=issue_id,
         )
 
     def get_context_data(self, **kwargs):
@@ -108,7 +108,7 @@ class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             kwargs=dict(
                 username=self.kwargs.get("username"),
                 utopic_permlink=self.kwargs.get("utopic_permlink"),
-                permlink=self.kwargs.get("permlink"),
+                issue_id=self.kwargs.get("issue_id"),
             ),
         )
 
@@ -119,12 +119,12 @@ class DetailIssue(CommonDetailView, TemplateView):
     template_name = "users/topic/issue/detail.html"
     form_class = ReplyForm
 
-    def get_object(self, username, utopic_permlink, permlink):
+    def get_object(self, username, utopic_permlink, issue_id):
         return get_object_or_404(
             self.model,
             utopic__user__username=username,
             utopic__permlink=utopic_permlink,
-            permlink=permlink,
+            issue_id=issue_id,
         )
 
     def get_context_data(self, **kwargs):
@@ -137,11 +137,11 @@ class DetailIssue(CommonDetailView, TemplateView):
 
 
 class OpenIssue(LoginRequiredMixin, View):
-    def get(self, request, username, utopic_permlink, permlink):
+    def get(self, request, username, utopic_permlink, issue_id):
         utopic = get_object_or_404(
             UTopic, user__username=username, permlink=utopic_permlink
         )
-        issue = Issue.objects.filter(utopic=utopic, permlink=permlink)
+        issue = Issue.objects.filter(utopic=utopic, issue_id=issue_id)
         current_username = str(request.user)
         if current_username == username or current_username == str(issue[0].user):
             issue.update(status=self.get_status, last_update=now())
@@ -152,7 +152,7 @@ class OpenIssue(LoginRequiredMixin, View):
                     kwargs=dict(
                         username=username,
                         utopic_permlink=utopic_permlink,
-                        permlink=permlink,
+                        issue_id=issue_id,
                     ),
                 )
             )

@@ -14,7 +14,7 @@ from .utils import dor, second_convert
 
 class Issue(AbstractThreadedComments, Common, View, Vote):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    permlink = models.SlugField(max_length=200)
+    issue_id = models.PositiveIntegerField(default=0)
     title = models.CharField(
         max_length=200,
         help_text="Be sure to choose the best title",
@@ -33,15 +33,10 @@ class Issue(AbstractThreadedComments, Common, View, Vote):
         null=True,
         blank=True,
     )
-    issue_id = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ["-created"]
-        unique_together = [["utopic", "permlink"]]
-
-    def save(self, *args, **kwargs):
-        self.permlink = slugify(self.title)
-        super().save(*args, **kwargs)
+        unique_together = [["user", "issue_id", "utopic"]]
 
     @property
     def get_absolute_url(self):
@@ -50,7 +45,7 @@ class Issue(AbstractThreadedComments, Common, View, Vote):
             kwargs=dict(
                 username=str(self.utopic.user),
                 utopic_permlink=self.utopic.permlink,
-                permlink=self.permlink,
+                issue_id=self.issue_id,
             ),
         )
 

@@ -8,11 +8,11 @@
       </a>
       {% if request.user == current_user or queryset.user == request.user %}
         {% if queryset.status == "open" %}
-          <a general="br:1 color:white bg:red text:s" href="{% url 'closed-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
+          <a general="br:1 color:white bg:red text:s" href="{% url 'closed-issue' current_user utopic.permlink queryset.issue_id %}" style="padding: 6px;">
             Closed this issue
           </a> 
         {% elif queryset.status == "closed" %}
-          <a general="br:1 color:white bg:blue text:s" href="{% url 'open-issue' current_user utopic.permlink queryset.permlink %}" style="padding: 6px;">
+          <a general="br:1 color:white bg:blue text:s" href="{% url 'open-issue' current_user utopic.permlink queryset.issue_id %}" style="padding: 6px;">
             Open this issue
           </a> 
         {% endif %}
@@ -31,7 +31,7 @@
       {% include "common/interaction_and_counter.html" %}  
       {% if queryset.user == request.user %}
         <div general="flex flex:ai-c">
-          <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.permlink %}">
+          <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.issue_id %}">
               <i class="fa fa-edit fa"></i>
               Edit
           </a>

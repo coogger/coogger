@@ -39,22 +39,22 @@ urlpatterns = [
         name="new-issue",
     ),
     path(
-        "@<username>/<utopic_permlink>/issues/<permlink>/update/",
+        "@<username>/<utopic_permlink>/issues/<issue_id>/update/",
         UpdateIssue.as_view(),
         name="update-issue",
     ),
     path(
-        "@<username>/<utopic_permlink>/issues/<permlink>/",
+        "@<username>/<utopic_permlink>/issues/<issue_id>/",
         DetailIssue.as_view(),
         name="detail-issue",
     ),
     path(
-        "@<username>/<utopic_permlink>/issues/closed/<permlink>/",
+        "@<username>/<utopic_permlink>/issues/closed/<issue_id>/",
         ClosedIssue.as_view(),
         name="closed-issue",
     ),
     path(
-        "@<username>/<utopic_permlink>/issues/open/<permlink>/",
+        "@<username>/<utopic_permlink>/issues/open/<issue_id>/",
         OpenIssue.as_view(),
         name="open-issue",
     ),

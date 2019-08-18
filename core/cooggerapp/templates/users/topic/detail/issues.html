@@ -28,7 +28,7 @@
           <!-- issue list open or closed -->
           {% for issue in queryset %}
             <li general="flex width:100" class="issue-query" >
-              <a general="color:primary width:90" href="{% url 'detail-issue' current_user utopic.permlink issue.permlink %}">
+              <a general="color:primary width:90" href="{% url 'detail-issue' current_user utopic.permlink issue.issue_id %}">
                 <div>
                     {% if issue.status == "open" %}
                       <i general="color:green" class="fas fa-exclamation-circle"></i>
