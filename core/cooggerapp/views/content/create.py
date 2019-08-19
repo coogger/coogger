@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.views import View
+from django.urls import reverse
 
 from ...forms import ContentCreateForm
 from ...models import Category, Commit, Content, UTopic, ready_tags
