@@ -5,11 +5,18 @@ from django_page_views.models import DjangoViews
 
 from ..forms import UTopicForm
 from ..models import Content, Topic, UTopic
+from ..views.utils import check_redirect_exists
 
 
 @receiver(post_save, sender=UTopic)
-def global_topic_create(instance, created, **kwargs):
+def when_utopic_create(instance, created, **kwargs):
     if created:
+        obj, is_exists = check_redirect_exists(old_path=instance.get_absolute_url)
+        if is_exists:
+            import random
+
+            instance.permlink += str(random.randrange(99999999))
+            instance.save()
         # issue 101 and when utopic create, topic create too
         get_global_topic, created = Topic.objects.get_or_create(
             name=instance.name.lower()
@@ -23,6 +30,7 @@ def global_topic_create(instance, created, **kwargs):
 
 @receiver(m2m_changed, sender=DjangoViews.ips.through)
 def increase_utopic_view(sender, **kwargs):
+    # TODO move content detail class
     instance = kwargs.get("instance", None)
     action = kwargs.get("action", None)
     ips = kwargs.get("pk_set", None)

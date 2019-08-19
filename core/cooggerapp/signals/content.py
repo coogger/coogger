@@ -1,8 +1,11 @@
+from django.conf import settings
+from django.contrib.redirects.models import Redirect
 from django.db.models import F
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from ..models import Commit, Content, Topic, UTopic, dor, send_mail
+from ..views.utils import check_redirect_exists
 
 
 def update_topic(instance, iord):
@@ -43,6 +46,12 @@ def post_and_reply_created(sender, instance, created, **kwargs):
     if created:
         update_utopic(instance, +1)
         commit(instance)
+        obj, is_exists = check_redirect_exists(old_path=instance.get_absolute_url)
+        if is_exists:
+            import random
+
+            instance.permlink += str(random.randrange(99999999))
+            instance.save()
         if instance.status == "ready":
             update_topic(instance, +1)
             send_mail(
@@ -52,14 +61,9 @@ def post_and_reply_created(sender, instance, created, **kwargs):
                 to=[u.user for u in instance.user.follow.follower if u.user.email],
             )
     else:
-        update_fields = kwargs.get("update_fields")
-        try:
-            for field in update_fields:
-                if field == "status":
-                    if instance.status == "ready":
-                        update_topic(instance, +1)
-                    else:
-                        update_topic(instance, -1)
-                    break
-        except TypeError:
-            pass
+        update_fields = kwargs.get("update_fields", None)
+        if update_fields and update_fields.__contains__("status"):
+            if instance.status == "ready":
+                update_topic(instance, +1)
+            else:
+                update_topic(instance, -1)

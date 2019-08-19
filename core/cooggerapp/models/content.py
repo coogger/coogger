@@ -59,9 +59,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         help_text="if your article isn't ready to publish yet, select 'not ready to publish'.",
     )
     contributors = models.ManyToManyField(
-        User,
-        blank=True,
-        related_name="content_contributors"
+        User, blank=True, related_name="content_contributors"
     )
     contributors_count = models.PositiveIntegerField(
         default=0, verbose_name="Total contributors count"
@@ -82,6 +80,21 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         )
 
     @property
+    def is_exists(self):
+        return self.__class__.objects.filter(
+            user=self.user, permlink=self.permlink
+        ).exists()
+
+    def generate_permlink(self):
+        self.permlink = slugify(self.title)
+        if self.is_exists:
+            import random
+
+            return self.permlink + str(random.randrange(99999999))
+        else:
+            return self.permlink
+
+    @property
     def get_dor(self):
         times = ""
         for f, t in second_convert(dor(self.body)).items():
@@ -96,13 +109,13 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         index = list(queryset).index(queryset.get(id=self.id))
         if next:
             try:
-                return queryset[index + 1]
-            except IndexError:
+                return queryset[index - 1]
+            except (IndexError, AssertionError):
                 return None
         else:
             try:
-                return queryset[index - 1]
-            except (IndexError, AssertionError):
+                return queryset[index + 1]
+            except (IndexError):
                 return None
 
     @property
@@ -127,10 +140,11 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         ).order_by("created")
 
     def save(self, *args, **kwargs):
+        # always update
         self.image_address = get_first_image(self.body)
-        self.permlink = slugify(self.title)
         self.tags = ready_tags(self.tags)
         self.last_update = timezone.now()
+        self.permlink = self.generate_permlink()
         super().save(*args, **kwargs)
 
     @property

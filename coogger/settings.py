@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.redirects",
+    "django.contrib.sites",
     "rest_framework",
     "django_page_views",
     "django_md_editor",
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     "core.cooggerapp",
     "core.threaded_comment",
 ]
+SITE_ID = 1
 PAGE_SIZE = 10
 REST_FRAMEWORK = dict(
     DEFAULT_PAGINATION_CLASS="rest_framework.pagination.PageNumberPagination",
@@ -52,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
     # coogger
     "core.cooggerapp.middleware.head.HeadMiddleware",
     "core.cooggerapp.middleware.sort.SortMiddleware",
@@ -79,11 +83,13 @@ DATABASES = dict(
     coogger_images=dict(
         ENGINE="django.db.backends.sqlite3", NAME=env("COOGGER_IMAGES_DB_NAME")
     ),
+    redirect=dict(ENGINE="django.db.backends.sqlite3", NAME=env("REDIRECT_DB_NAME")),
 )
 DATABASE_ROUTERS = [
-    "core.routers.DefaultRouter",
     "core.routers.CooggerImagesRouter",
     "core.routers.DjangoIpRouter",
+    "core.routers.DjangoRedirect",
+    "core.routers.DefaultRouter",
 ]
 AUTH_PASSWORD_VALIDATORS = []
 USE_I18N = True

@@ -1,11 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
-from django.views import View
 from django.urls import reverse
+from django.views import View
 
 from ...forms import ContentCreateForm
-from ...models import Category, Commit, Content, UTopic, ready_tags
+from ...models import Category, Commit, Content, UTopic
 from .utils import redirect_utopic
 
 
@@ -43,7 +43,6 @@ class Create(LoginRequiredMixin, View):
             form.utopic = UTopic.objects.get(
                 user=request.user, permlink=utopic_permlink
             )
-            form.tags = ready_tags(form.tags)
             form.save()
             return redirect(
                 reverse(

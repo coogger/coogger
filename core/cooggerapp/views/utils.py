@@ -1,6 +1,8 @@
 from django.conf import settings
+from django.contrib.redirects.models import Redirect
 from django.core.exceptions import FieldError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.utils import IntegrityError
 
 
 def paginator(request, queryset, how_many=settings.PAGE_SIZE):
@@ -41,3 +43,16 @@ def model_filter(items, queryset):
             except FieldError:
                 pass
     return dict(filter=_filter, queryset=queryset)
+
+
+def check_redirect_exists(old_path):
+    obj = Redirect.objects.filter(site_id=settings.SITE_ID, old_path=old_path)
+    return obj, obj.exists()
+
+
+def create_redirect(old_path, new_path):
+    obj, is_exists = check_redirect_exists(old_path)
+    if is_exists:
+        obj.update(new_path=new_path)
+    else:
+        Redirect(site_id=settings.SITE_ID, old_path=old_path, new_path=new_path).save()

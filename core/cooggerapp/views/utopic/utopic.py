@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from ...forms import UTopicForm
 from ...models import Content, Topic, UTopic
 from ..user.users import Common
-from ..utils import paginator
+from ..utils import create_redirect, paginator
 
 
 class UserTopic(Common):
@@ -105,6 +105,18 @@ class UpdateUTopic(LoginRequiredMixin, View):
                 address=form.address,
             )
             if permlink != slugify(form.name):
+                create_redirect(
+                    old_path=reverse(
+                        "detail-utopic",
+                        kwargs=dict(username=str(request.user), permlink=permlink),
+                    ),
+                    new_path=reverse(
+                        "detail-utopic",
+                        kwargs=dict(
+                            username=str(request.user), permlink=slugify(form.name)
+                        ),
+                    ),
+                )
                 # new global topic save
                 if (
                     not Content.objects.filter(utopic__permlink=permlink).exists()

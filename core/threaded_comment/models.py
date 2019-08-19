@@ -82,15 +82,9 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
 
     @property
     def is_exists(self):
-        # check with unique_together
-        parameters = dict()
-        for field in self._meta.unique_together:
-            if isinstance(field, (tuple, list)):
-                for f in field:
-                    parameters[f] = getattr(self, f)
-            else:
-                parameters[field] = getattr(self, field)
-        return self.__class__.objects.filter(**parameters).exists()
+        return self.__class__.objects.filter(
+            user=self.user, permlink=self.permlink
+        ).exists()
 
     def generate_permlink(self):
         if not self.is_exists:
@@ -98,7 +92,6 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
             if not queryset.exists():
                 return 1
             else:
-                # queryset.first() this is a last
                 return queryset.first().permlink + 1
         return self.permlink
 
@@ -107,7 +100,6 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
             "It is not working when update"
             for obj in self.get_all_reply_obj():
                 obj.update(reply_count=(F("reply_count") + 1))
-
         self.image_address = get_first_image(self.body)
         self.permlink = self.generate_permlink()
         self.to = self.get_to()

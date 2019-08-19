@@ -32,20 +32,22 @@
                   </div>
                 {% endif %}
             <div general="flex flex:ai-c border:1 br:2 brc:muted" style="padding: 6px;margin-top: 6px;margin-bottom: 6px;">
-              <a general="color:primary text:m" href="/@{{ current_user }}">
-                <img class="commit-user" general="br:4 color:muted" 
-                src="{{ current_user.githubauthuser.avatar_url }}">
-              </a>
-              <i class="fas fa-book"></i>
-              <a general="color:primary text:m width:80" class="text3" mobile-s="text:s" mobile-m="text:s" mobile-l="text:s" href="{% url 'detail-utopic' utopic.permlink current_user %}">
-                {{ utopic.permlink }}/@{{ current_user }}
-              </a>
+              <div general="flex flex:ai-c position:left">
+                <a general="color:primary text:m" href="/@{{ current_user }}">
+                  <img class="commit-user" general="br:4 color:muted" 
+                  src="{{ current_user.githubauthuser.avatar_url }}">
+                </a>
+                <i class="fas fa-book"></i>
+                <a general="color:primary text:m" mobile-s="text:s" mobile-m="text:s" mobile-l="text:s" href="{% url 'detail-utopic' utopic.permlink current_user %}">
+                  {{ utopic.permlink }}/@{{ current_user }}
+                </a>
+              </div>
               {% if request.user == current_user %}
-                <div general="flex position:right flex:fd-c" >
+                <div general="flex position:right">
                   <a general="br:1 color:white bg:success text:s position:right" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">
                     Add content
                   </a>
-                  <a general="br:1 color:white bg:warning text:s position:right" href="{% url  'update-utopic' utopic.permlink %}" style="margin-top:3px;padding: 6px;">
+                  <a general="br:1 color:white bg:warning text:s position:right" href="{% url  'update-utopic' utopic.permlink %}" style="padding: 6px 20px;">
                     Update
                   </a>
                 </div>

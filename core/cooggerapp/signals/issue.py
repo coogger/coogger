@@ -5,7 +5,7 @@ from ..models import Issue, UTopic, send_mail
 
 
 @receiver(pre_delete, sender=Issue)
-def when_content_delete(sender, instance, **kwargs):
+def when_issue_delete(sender, instance, **kwargs):
     utopic = instance.utopic
     utopic = UTopic.objects.get(user=utopic.user, permlink=utopic.permlink)
     if utopic.status == "open":

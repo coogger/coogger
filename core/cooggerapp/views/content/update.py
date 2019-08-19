@@ -1,9 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils.text import slugify
 from django.views import View
 
 from ...forms import ContentUpdateForm
 from ...models import Commit, Content, UTopic
+from ..utils import create_redirect
 from .utils import redirect_utopic
 
 
@@ -50,41 +54,6 @@ class Update(LoginRequiredMixin, View):
                 form.user = request.user
                 utopic = UTopic.objects.get(id=queryset.utopic.id)
                 utopic.commit_count += 1
-                # get_utopic_permlink = None # TODO request.GET.get("utopic_permlink", None)
-                # if get_utopic_permlink is None:
-                #     utopic = queryset.utopic
-                # else:
-                # TODO when user want to change content utopic
-                # new utopic
-                # new_utopic = UTopic.objects.get(
-                #     user=queryset.user, permlink=get_utopic_permlink
-                # )
-                # new_utopic.how_many += 1
-                # new_utopic.total_dor += dor(form.body)
-                # new_utopic.total_view += queryset.views
-                # new_utopic.commit_count += queryset.utopic.commit_count
-                # # new_utopic.save() TODO
-                # # old utopic update
-                # old_utopic = UTopic.objects.get(
-                #     id=queryset.utopic.id
-                # )
-                # old_utopic.how_many -= 1
-                # old_utopic.total_dor -= dor(queryset.body)
-                # old_utopic.total_view -= queryset.views
-                # old_utopic.commit_count -= queryset.utopic.commit_count
-                # # old_utopic.save() TODO
-                # # commit content utopic change
-                # commits = Commit.objects.filter(content=queryset)
-                # for commit in commits:
-                #     if commit.user !=
-                #     if old_utopic.contributors.filter(user__username=str(commit.user)).exists():
-                #         old_utopic.contributors.remove(commit.user)
-                #         old_utopic.contributors_count -= 1
-                #         new_utopic.contributors.add(commit.user)
-                #         new_utopic.contributors_count += 1
-                # commits.update(utopic=utopic)
-                # new_utopic.save()
-                # old_utopic.save()
                 if form.body != queryset.body:
                     Commit(
                         user=request.user,
@@ -102,9 +71,20 @@ class Update(LoginRequiredMixin, View):
                 if queryset.status != form.status:
                     queryset.status = form.status
                     self.fields.append("status")
-                # queryset.utopic = utopic
-                # self.fields.append("utopic")
-                # to content signals
+                if queryset.permlink != slugify(queryset.title):
+                    self.fields.append("permlink")
+                    create_redirect(
+                        old_path=reverse(
+                            "content-detail",
+                            kwargs=dict(username=username, permlink=permlink),
+                        ),
+                        new_path=reverse(
+                            "content-detail",
+                            kwargs=dict(
+                                username=username, permlink=slugify(queryset.title)
+                            ),
+                        ),
+                    )
                 queryset.save(update_fields=self.fields)
                 return redirect(queryset.get_absolute_url)
             return render(

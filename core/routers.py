@@ -26,6 +26,21 @@ class Common:
         return None
 
 
+class CooggerImagesRouter(Common):
+    apps_label = ["cooggerimages"]
+    db_name = "coogger_images"
+
+
+class DjangoIpRouter(Common):
+    apps_label = ["django_page_views", "djangoip"]
+    db_name = "django_ip"
+
+
+class DjangoRedirect(Common):
+    apps_label = ["sites", "redirects"]
+    db_name = "redirect"
+
+
 class DefaultRouter(Common):
     apps_label = [
         "admin",
@@ -42,13 +57,3 @@ class DefaultRouter(Common):
         "threaded_comment",
     ]
     db_name = "default"
-
-
-class CooggerImagesRouter(Common):
-    apps_label = ["cooggerimages"]
-    db_name = "coogger_images"
-
-
-class DjangoIpRouter(Common):
-    apps_label = ["django_page_views", "djangoip"]
-    db_name = "django_ip"
