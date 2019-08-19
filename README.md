@@ -37,11 +37,12 @@ SECRET_KEY=your_django_app_secret_key
 DEFAULT_DB_NAME=default_db_name_or_path
 DJANGO_IP_DB_NAME=django_ip_db_name_or_path
 COOGGER_IMAGES_DB_NAME=cooggerimages_db_name_or_path
+REDIRECT_DB_NAME==redirect_db_name_or_path
 
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
 
-EMAIL_PASSWORD=*******
+EMAIL_PASSWORD=******
 ```
 
 ##### After
@@ -59,6 +60,7 @@ EMAIL_PASSWORD=*******
 >>> python manage.py migrate --database default
 >>> python manage.py migrate --database django_ip
 >>> python manage.py migrate --database coogger_images
+>>> python manage.py migrate --database redirect
 >>> python manage.py runserver
 ```
 
