@@ -84,7 +84,11 @@ class UTopic(CommonTopicModel):
     closed_contribution = models.PositiveIntegerField(
         default=0, verbose_name="Total count closed contributions"
     )
-    contributors = models.ManyToManyField(User, related_name="utopic_contributors")
+    contributors = models.ManyToManyField(
+        User,
+        blank=True,
+        related_name="utopic_contributors"
+    )
     contributors_count = models.PositiveIntegerField(
         default=0, verbose_name="Total contributors count"
     )
