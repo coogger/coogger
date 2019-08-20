@@ -5,7 +5,6 @@ from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from ..models import Commit, Content, Topic, UTopic, dor, send_mail
-from ..views.utils import check_redirect_exists
 
 
 def update_topic(instance, iord):
@@ -42,16 +41,13 @@ def when_content_delete(sender, instance, **kwargs):
 
 
 @receiver(post_save, sender=Content)
-def post_and_reply_created(sender, instance, created, **kwargs):
+def when_content_create(sender, instance, created, **kwargs):
     if created:
         update_utopic(instance, +1)
         commit(instance)
-        obj, is_exists = check_redirect_exists(old_path=instance.get_absolute_url)
-        if is_exists:
-            import random
-
-            instance.permlink += str(random.randrange(99999999))
-            instance.save()
+        # permlink create
+        instance.permlink = instance.generate_permlink()
+        instance.save()
         if instance.status == "ready":
             update_topic(instance, +1)
             send_mail(

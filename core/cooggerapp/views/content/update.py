@@ -16,7 +16,7 @@ class Update(LoginRequiredMixin, View):
     template_name = "content/post/create.html"
     form_class = ContentUpdateForm
     model = Content
-    fields = form_class._meta.fields
+    update_fields = form_class._meta.fields
 
     def request_permission(self, request, username):
         return request.user.username == username
@@ -63,16 +63,17 @@ class Update(LoginRequiredMixin, View):
                         msg=request.POST.get("msg"),
                     ).save()
                 try:
-                    self.fields.remove("status")
+                    self.update_fields.remove("status")
                 except ValueError:
                     pass
-                for field in self.fields:
+                for field in self.update_fields:
                     setattr(queryset, field, getattr(form, field, None))
                 if queryset.status != form.status:
                     queryset.status = form.status
-                    self.fields.append("status")
+                    self.update_fields.append("status")
                 if queryset.permlink != slugify(queryset.title):
-                    self.fields.append("permlink")
+                    self.update_fields.append("permlink")
+                    queryset.permlink = queryset.generate_permlink()
                     create_redirect(
                         old_path=reverse(
                             "content-detail",
@@ -80,12 +81,10 @@ class Update(LoginRequiredMixin, View):
                         ),
                         new_path=reverse(
                             "content-detail",
-                            kwargs=dict(
-                                username=username, permlink=slugify(queryset.title)
-                            ),
+                            kwargs=dict(username=username, permlink=queryset.permlink),
                         ),
                     )
-                queryset.save(update_fields=self.fields)
+                queryset.save(update_fields=self.update_fields)
                 return redirect(queryset.get_absolute_url)
             return render(
                 request,

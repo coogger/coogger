@@ -10,6 +10,7 @@ from django_md_editor.models import EditorMdField
 from core.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
 
 from ...threaded_comment.models import AbstractThreadedComments
+from ..views.utils import check_redirect_exists
 from .category import Category
 from .common import Common, View, Vote
 from .topic import UTopic
@@ -87,7 +88,8 @@ class Content(AbstractThreadedComments, Common, View, Vote):
 
     def generate_permlink(self):
         self.permlink = slugify(self.title)
-        if self.is_exists:
+        obj, redirect_is_exists = check_redirect_exists(old_path=self.get_absolute_url)
+        if self.is_exists or redirect_is_exists:
             import random
 
             return self.permlink + str(random.randrange(99999999))
@@ -144,7 +146,6 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         self.image_address = get_first_image(self.body)
         self.tags = ready_tags(self.tags)
         self.last_update = timezone.now()
-        self.permlink = self.generate_permlink()
         super().save(*args, **kwargs)
 
     @property
