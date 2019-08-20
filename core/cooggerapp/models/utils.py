@@ -63,4 +63,5 @@ def get_client_url():
 
 
 def ready_tags(tags, limit=5):
-    return format_tags(tags.split(" ")[:limit])
+    if isinstance(tags, str) and tags:
+        return format_tags(tags.split(" ")[:limit])

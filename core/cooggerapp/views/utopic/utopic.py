@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -79,10 +80,10 @@ class CreateUTopic(LoginRequiredMixin, View):
 class UpdateUTopic(LoginRequiredMixin, View):
     template_name = "forms/create.html"
     form_class = UTopicForm
-    model = UTopic
+    update_fields = form_class._meta.fields
 
     def get(self, request, permlink, *args, **kwargs):
-        instance_query = self.model.objects.filter(user=request.user, permlink=permlink)
+        instance_query = UTopic.objects.filter(user=request.user, permlink=permlink)
         if not instance_query.exists():
             messages.warning(request, f"you need to create the {permlink} topic first.")
             return redirect(reverse("create-utopic") + f"?name={permlink}")
@@ -93,18 +94,13 @@ class UpdateUTopic(LoginRequiredMixin, View):
 
     def post(self, request, permlink, *args, **kwargs):
         form = self.form_class(data=request.POST)
-        context = dict(form=form, permlink=permlink)
         if form.is_valid():
-            form = form.save(commit=False)
-            self.model.objects.filter(user=request.user, permlink=permlink).update(
-                name=form.name,
-                permlink=slugify(form.name),
-                image_address=form.image_address,
-                definition=form.definition,
-                tags=form.tags,
-                address=form.address,
-            )
-            if permlink != slugify(form.name):
+            form_ = form.save(commit=False)
+            queryset = UTopic.objects.get(user=request.user, permlink=permlink)
+            for field in self.update_fields:
+                setattr(queryset, field, getattr(form_, field, None))
+            if permlink != slugify(form_.name):
+                self.update_fields.append("permlink")
                 create_redirect(
                     old_path=reverse(
                         "detail-utopic",
@@ -113,29 +109,36 @@ class UpdateUTopic(LoginRequiredMixin, View):
                     new_path=reverse(
                         "detail-utopic",
                         kwargs=dict(
-                            username=str(request.user), permlink=slugify(form.name)
+                            username=str(request.user), permlink=slugify(form_.name)
                         ),
                     ),
                 )
                 # new global topic save
-                if (
-                    not Content.objects.filter(utopic__permlink=permlink).exists()
-                    and not UTopic.objects.filter(permlink=permlink).exists()
-                ):
-                    Topic.objects.filter(permlink=permlink).update(
-                        permlink=slugify(form.name)
-                    )
+                # TODO think about it.
+                try:
+                    topic = Topic.objects.get(permlink=permlink)
+                except ObjectDoesNotExist:
+                    Topic(name=form_.name.lower()).save()
                 else:
-                    try:
-                        Topic(name=form.name.lower()).save()
-                    except IntegrityError:
-                        pass
-            return redirect(
-                reverse(
-                    "detail-utopic",
-                    kwargs=dict(
-                        permlink=slugify(form.name), username=str(request.user)
-                    ),
+                    if topic.how_many == 0:
+                        topic.permlink = slugify(form_.name)
+                        topic.save(update_fields=["permlink"])
+                    else:
+                        Topic(name=form_.name.lower()).save()
+            try:
+                queryset.save(update_fields=self.update_fields)
+            except IntegrityError:
+                messages.warning(
+                    request, f"{form_.name.lower()} is already taken by yours"
                 )
-            )
-        return render(request, self.template_name, context)
+                return render(request, self.template_name, dict(form=form))
+            else:
+                return redirect(
+                    reverse(
+                        "detail-utopic",
+                        kwargs=dict(
+                            permlink=slugify(form_.name), username=str(request.user)
+                        ),
+                    )
+                )
+        return render(request, self.template_name, dict(form=form, permlink=permlink))

@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
-from .utils import second_convert
+from .utils import ready_tags, second_convert
 
 
 class CommonTopicModel(models.Model):
@@ -36,6 +36,7 @@ class CommonTopicModel(models.Model):
 
     def save(self, *args, **kwargs):
         self.permlink = slugify(self.name)
+        self.tags = ready_tags(self.tags)
         super().save(*args, **kwargs)
 
 
