@@ -67,7 +67,6 @@ class Topic(CommonTopicModel):
 class UTopic(CommonTopicModel):
     """ Topic For Users """
 
-    # TODO if topic name is changed, then must change the permlink
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total_dor = models.FloatField(default=0, verbose_name="Total duration all contents")
     total_view = models.PositiveIntegerField(

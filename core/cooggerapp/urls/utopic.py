@@ -12,7 +12,7 @@ urlpatterns = [
         "@<username>/<topic_permlink>/commit/<hash>/",
         CommitDetail.as_view(),
         name="commit",
-    ),
+    ), # TODO name change -> commit-detail
     path("commit/update/<hash>/", CommitUpdate.as_view(), name="commit-update"),
     path(
         "@<username>/<topic_permlink>/contributions/",

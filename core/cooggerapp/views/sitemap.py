@@ -1,9 +1,45 @@
 from django.contrib.auth.models import User
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import render
+from django.urls import reverse
 
 from ..choices import LANGUAGES
-from ..models import Category, Content, Topic, UTopic
+from ..models import Category, Content, Topic, UTopic, Issue, Commit
+
+
+class IssueSitemap(Sitemap):
+    changefreq = "weekly"
+    priority = 0.9
+
+    def items(self):
+        return Issue.objects.all()
+
+    def location(self, obj):
+        return reverse(
+            "detail-issue", 
+            kwargs=dict(
+                username=str(obj.user),
+                utopic_permlink=obj.utopic.permlink,
+                issue_id=obj.id
+            )
+        )
+
+class CommitSitemap(Sitemap):
+    changefreq = "weekly"
+    priority = 0.9
+
+    def items(self):
+        return Commit.objects.all()
+
+    def location(self, obj):
+        return reverse(
+            "commit", 
+            kwargs=dict(
+                username=str(obj.user),
+                topic_permlink=obj.utopic.permlink,
+                hash=obj.hash
+            )
+        )
 
 
 class TopicSitemap(Sitemap):
@@ -14,10 +50,10 @@ class TopicSitemap(Sitemap):
         return Topic.objects.all()
 
     def location(self, obj):
-        return "/topic/" + obj.name.lower()
+        return reverse("topic", kwargs=dict(permlink=obj.permlink))
 
 
-class LanuagesSitemap(Sitemap):
+class LanuageSitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.9
 
@@ -32,10 +68,10 @@ class LanuagesSitemap(Sitemap):
             pass
 
     def location(self, obj):
-        return "/language/" + obj
+        return reverse("language", kwargs=dict(lang_name=obj))
 
 
-class CategoriesSitemap(Sitemap):
+class CategorySitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.9
 
@@ -50,7 +86,7 @@ class CategoriesSitemap(Sitemap):
             pass
 
     def location(self, obj):
-        return "/category/" + obj.name
+        return reverse("category", kwargs=dict(cat_name=obj.name))
 
 
 class UtopicSitemap(Sitemap):
@@ -68,7 +104,13 @@ class UtopicSitemap(Sitemap):
             return None
 
     def location(self, obj):
-        return "/" + obj.name + "/@" + obj.user.username
+        return reverse(
+            "detail-utopic",
+            kwargs=dict(
+                permlink=obj.permlink,
+                username=str(obj.user)
+            )
+        )
 
 
 class ContentSitemap(Sitemap):
@@ -85,7 +127,7 @@ class ContentSitemap(Sitemap):
         return obj.get_absolute_url
 
 
-class UsersSitemap(Sitemap):
+class UserSitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.8
 
@@ -100,7 +142,7 @@ class UsersSitemap(Sitemap):
             return None
 
     def location(self, obj):
-        return "/@" + obj.username
+        return reverse("user", kwargs=dict(username=str(obj)))
 
 
 def robots(request):
