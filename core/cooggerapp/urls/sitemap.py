@@ -2,22 +2,18 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
 from ..views.sitemap import (
-    CategorySitemap, ContentSitemap, LanuageSitemap, TopicSitemap,
-    UserSitemap, UtopicSitemap, robots, IssueSitemap, CommitSitemap
+    CategorySitemap, CommitSitemap, ContentSitemap, IssueSitemap,
+    LanuageSitemap, TopicSitemap, UserSitemap, UtopicSitemap, robots
 )
 
 urlpatterns = [
     path("robots.txt/", robots),
     path("sitemap/topic.xml/", sitemap, {"sitemaps": {"topic": TopicSitemap()}}),
     path(
-        "sitemap/language.xml/",
-        sitemap,
-        {"sitemaps": {"language": LanuageSitemap()}},
+        "sitemap/language.xml/", sitemap, {"sitemaps": {"language": LanuageSitemap()}}
     ),
     path(
-        "sitemap/category.xml/",
-        sitemap,
-        {"sitemaps": {"category": CategorySitemap()}},
+        "sitemap/category.xml/", sitemap, {"sitemaps": {"category": CategorySitemap()}}
     ),
     path("sitemap/utopic.xml/", sitemap, {"sitemaps": {"utopic": UtopicSitemap()}}),
     path("sitemap/content.xml/", sitemap, {"sitemaps": {"content": ContentSitemap()}}),

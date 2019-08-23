@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from ..choices import LANGUAGES
-from ..models import Category, Content, Topic, UTopic, Issue, Commit
+from ..models import Category, Commit, Content, Issue, Topic, UTopic
 
 
 class IssueSitemap(Sitemap):
@@ -16,13 +16,14 @@ class IssueSitemap(Sitemap):
 
     def location(self, obj):
         return reverse(
-            "detail-issue", 
+            "detail-issue",
             kwargs=dict(
                 username=str(obj.user),
                 utopic_permlink=obj.utopic.permlink,
-                issue_id=obj.id
-            )
+                issue_id=obj.id,
+            ),
         )
+
 
 class CommitSitemap(Sitemap):
     changefreq = "weekly"
@@ -33,12 +34,12 @@ class CommitSitemap(Sitemap):
 
     def location(self, obj):
         return reverse(
-            "commit", 
+            "commit",
             kwargs=dict(
                 username=str(obj.user),
                 topic_permlink=obj.utopic.permlink,
-                hash=obj.hash
-            )
+                hash=obj.hash,
+            ),
         )
 
 
@@ -105,11 +106,7 @@ class UtopicSitemap(Sitemap):
 
     def location(self, obj):
         return reverse(
-            "detail-utopic",
-            kwargs=dict(
-                permlink=obj.permlink,
-                username=str(obj.user)
-            )
+            "detail-utopic", kwargs=dict(permlink=obj.permlink, username=str(obj.user))
         )
 
 
