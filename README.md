@@ -84,7 +84,8 @@ $ docker-compose up --env-file coogger/.env
         <img src="https://avatars3.githubusercontent.com/u/47358913?s=460&v=4" width="75px;" alt="Batuhan Taşkaya"/>
         <br/>
         <sub>
-          <b>Batuhan Taşkaya</b>
+          <b>Batuhan Taşkaya</b><br>
+          <b>Coogger Core Developer</b>
         </sub>
       </a>
       <br/>
