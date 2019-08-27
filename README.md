@@ -50,12 +50,12 @@ EMAIL_PASSWORD=******
 ```shell
 $ pip install -r requirements.txt
 $ python manage.py makemigrations cooggerapp
-# $ python manage.py makemigrations github_auth
-# $ python manage.py makemigrations django_follow_system
-# $ python manage.py makemigrations cooggerimages
-# $ python manage.py makemigrations django_page_views
-# $ python manage.py makemigrations djangoip
-# $ python manage.py makemigrations django_vote_system
+$ python manage.py makemigrations github_auth
+$ python manage.py makemigrations django_follow_system
+$ python manage.py makemigrations cooggerimages
+$ python manage.py makemigrations django_page_views
+$ python manage.py makemigrations djangoip
+$ python manage.py makemigrations django_vote_system
 
 $ python manage.py migrate --database default
 $ python manage.py migrate --database django_ip
