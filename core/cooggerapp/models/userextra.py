@@ -40,8 +40,6 @@ class UserProfile(models.Model):
         help_text="Allow email notifications.", default=True
     )
     title = models.CharField(
-        blank=True,
-        null=True,
         max_length=30,
         default="user",
         choices=make_choices(TITLES),
