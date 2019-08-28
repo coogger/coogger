@@ -36,6 +36,13 @@ REPORTS = [
     "This content is not tutorial content",
     "Wrong list name",
 ]
+TITLES = [
+    "User",
+    "Moderator",
+    "Core Developer",
+    "Founder",
+    "Sponsor",
+]
 STATUS_CHOICES = ["ready", "not ready"]
 COMMIT_STATUS_CHOICES = ["approved", "rejected", "waiting"]
 ISSUE_CHOICES = ["open", "closed"]
