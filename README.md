@@ -17,7 +17,7 @@
  <img alt="Code style" title="Code style" src="https://img.shields.io/badge/Code%20style-black-black?style=for-the-badge"/>
   </a>
    <a href="https://github.com/timothycrosley/isort" target="_blank">
- <img alt="Code style" title="Code style" src="https://img.shields.io/badge/code%20style-ishort-lightgrey?style=for-the-badge"/>
+ <img alt="Code style" title="Code style" src="https://img.shields.io/badge/code%20style-isort-lightgrey?style=for-the-badge"/>
   </a>
   <br>
 </p>
