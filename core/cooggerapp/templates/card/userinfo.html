@@ -9,6 +9,9 @@
               {% else %}
                   @{{ ct.user }}
               {% endif %}
+              {% if ct.user.title != "user" %}
+                < {{ ct.user.title }} >
+              {% endif %}
           </span>
           <span general="text:xs color:dark" style="margin-left:6px;">
             <i class="fas fa-clock"></i>

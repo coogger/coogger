@@ -2,8 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django_md_editor.models import EditorMdField
 
-from core.cooggerapp.choices import FOLLOW, make_choices
-
+from core.cooggerapp.choices import FOLLOW, TITLES, make_choices
 
 class OtherAddressesOfUsers(models.Model):
     "maybe ManyToManyField in UserProfile"
@@ -40,6 +39,12 @@ class UserProfile(models.Model):
     email_permission = models.BooleanField(
         help_text="Allow email notifications.", default=True
     )
-
+    title = models.CharField(
+        max_length=30,
+        default="user",
+        choices=make_choices(TITLES),
+        verbose_name="title",
+        help_text="Title"
+    )
     def __str__(self):
         return str(self.user)
