@@ -1,3 +1,8 @@
+{% if current_user.userprofile.title != "user" %}
+  <span class="uppercase" general="bg:red border:1 br:2 position:center color:white text:s" style="padding: 6px 12px;">
+    {{ current_user.userprofile.title }}
+  </span>
+{% endif %}
 <u-footer general="text:s width:100 position:center color:private:hover"  style="padding: 6px 0px;margin: 0px;">
     <div general="flex flex:fw-nw width:100 position:center"  style="overflow-x: auto;" class="text3">
         {% for address in addresses %} 
@@ -28,3 +33,4 @@
         </div>
     </div>
 </u-footer>
+

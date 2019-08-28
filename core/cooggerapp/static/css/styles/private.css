@@ -91,6 +91,7 @@ header{
   height: 100%;
   position: sticky;
   top: 70px;
+  margin-top: 12px;
 }
 footer li{
   margin: 6px 0px;
@@ -376,6 +377,9 @@ footer li{
   top: 0px;
   z-index: 1;
   text-transform: uppercase;
+  }
+  .uppercase{
+    text-transform: uppercase;
   }
   .definition-img{max-width: 100%;max-height: 300px;margin: 4px auto;border-radius: 6px;}
   .categories_a{

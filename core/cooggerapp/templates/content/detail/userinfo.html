@@ -3,20 +3,25 @@
   <div general="flex flex:ai-fs bg:white" style="padding: 12px 0px;">
     <img general="br:circle position:left" id="detail_profile_image" src="{{ current_user.githubauthuser.avatar_url }}" style="height:  40px;width:  40px;margin:  initial;"/>
     <div general="flex text:s flex:fd-c">
+        {% if current_user.userprofile.title != "user" %}
+        <span class="uppercase" general="bg:danger color:white text:xs br:2" style="margin-left: 6px; padding:2px 4px;">
+          {{ current_user.userprofile.title }}
+        </span>
+      {% endif %}
         <a general="flex" title="{{ current_user  }}" href="/@{{ current_user }}"
           style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-      <span id="username">
-          {% if current_user.first_name %}
-            {{ current_user.first_name }} {{ current_user.last_name }}
-          {% else %}
-            @{{ current_user }}
-          {% endif %}
-      </span>
-    </a>
+          <span id="username">
+              {% if current_user.first_name %}
+                {{ current_user.first_name }} {{ current_user.last_name }}
+              {% else %}
+                @{{ current_user }}
+              {% endif %}
+          </span>
+        </a>
         <div general="color:secondary">
           <i class="fas fa-clock"></i>
           <span id="time">{{ queryset.created|timesince }}</span>
-        </div>
+        </div>        
     </div>
     {% with queryset.user as user %}
         {% include 'github-redirect.html' %}

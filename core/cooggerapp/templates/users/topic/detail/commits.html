@@ -16,7 +16,7 @@
             <div general="flex flex:fd-c width:100" >
               <div flex>
                   <div general="flex flex:fd-c">
-                    <div general="flex flex:ai-c">
+                    <a general="flex flex:ai-c" href="{% url 'user' commit.user %}">
                         <img class="commit-user" general="br:4 color:muted" src="{{ commit.user.githubauthuser.avatar_url }}">
                         <div general="flex flex:fd-c">
                             <span general="text:s" style="margin-left: 6px;">
@@ -24,7 +24,7 @@
                             </span>
                             <span general="text:s" class="fas fa-clock">{{ commit.created|timesince }}</span>
                         </div>
-                    </div>
+                      </a>
                   </div>
                   <div general="position:right">
                       <a general="flex flex:ai-c" href="{% url 'tree-detail' commit.user commit.utopic.permlink commit.hash %}">

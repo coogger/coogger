@@ -96,26 +96,41 @@ let getResultFromCooggerApi = function(apiUrl){
   });
 }
 function replyUserInfo(comment){
-    return (`
-      <div style="border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;">
-        <div general="flex flex:ai-fs bg:white">
-        <a general="flex" title="${comment.username}" href="/@${comment.username}"
-          style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-            <img general="br:circle position:left" id="detail_profile_image" src="${comment.avatar_url}" style="height:  40px;width:  40px;margin:  initial;">
+  let title = comment.title;
+  if (title === "user"){
+    title = ""
+  }
+  return (`
+    <div general="bg:white" style="border-bottom: 1px solid #eaecee;">
+    <div general="flex flex:ai-fs bg:white" style="padding: 12px 0px;">
+      <img general="br:circle position:left" id="detail_profile_image" src="${comment.avatar_url}" style="height:  40px;width:  40px;margin:  initial;">
+      <div general="flex text:s flex:fd-c">
+          <span class="uppercase" general="bg:danger color:white text:xs br:2" style="margin-left: 6px; padding:2px 4px;">
+          ${title.toUpperCase()}
+          </span>
+          <a general="flex" title="${comment.username}" href="/@${comment.username}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+            <span id="username">
+            ${comment.username}
+            </span>
           </a>
-          <div general="text:s" general="flex flex:fd-c">
-              <a general="flex" title="${comment.username}" href="/@${comment.username}"
-                style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
-              @${comment.username}<span id="username"></span>
-          </a>
-              <div style="margin-left: 8px;" general="color:secondary">${timeSince(comment.created)}</div>
-          </div>
+          <div general="color:secondary">
+            <i class="fas fa-clock"></i>
+            <span id="time">${timeSince(comment.created)}</span>
+          </div>        
+      </div>
           <a general="color:primary:hover" target="_blank" href="https://www.github.com/${comment.username}">
-            <i general="flex flex:ai-c" class="fab fa-github"></i>
-          </a>
-        </div>
-      </div>`
-    );
+      <i general="flex flex:ai-c" class="fab fa-github"></i>
+    </a>
+        <div general="flex text:s position:right flex:ai-c" class="just-pc">
+            <div style="margin-right: 12px;">
+              <i class="fas fa-clock"></i>
+              Last update | <span id="lastmod">${timeSince(comment.last_update)}</span>
+            </div>
+          </div>
+    </div>
+    <div general="fd-s"></div>
+  </div>`
+  );
   }
   function replyBody(reply){
     let title = reply.title;

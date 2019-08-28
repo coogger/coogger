@@ -14,10 +14,18 @@
         <div general='text:s flex flex:fd-c'>
             <a general="flex" title='{{ comment.user }}' href='/@{{ comment.user }}'
               style='padding: 0px 6px;word-wrap: break-word;word-break: break-all;'>
-            @{{ comment.user }}<span id='username'></span>
+            @{{ comment.user }}
         </a>
             <div style='margin-left: 8px;' general='color:secondary'>{{ comment.created|timesince }}</div>
         </div>
+        {% if comment.user.userprofile.title != "user" %}
+              <span class="uppercase" general="color:secondary text:xs">
+                {{ comment.user.userprofile.title }}
+              </span>
+            {% endif %}
+        {% with comment.user as user %}
+          {% include 'github-redirect.html' %}
+        {% endwith %}
       </div>
     </div>
     <div general='br:2 color:secondary br:2 brc:muted position:right flex flex:ai-c' style='padding: 2px 4px;'>

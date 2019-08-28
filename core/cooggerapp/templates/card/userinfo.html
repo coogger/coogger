@@ -3,14 +3,16 @@
       <a general="flex text:m color:dark flex:ai-c" href="/@{{ ct.user }}" id="author_href" >
         <img src="{{ ct.user.githubauthuser.avatar_url }}" class="carduserimg" general="br:circle" width="40px" height="40px"></img>
         <div general="flex flex:fd-c">
+            {% if ct.user.userprofile.title != "user" %}
+            <span class="uppercase" general="bg:danger color:white br:2 text:xs" style="margin-left: 6px; padding:2px 4px;">
+              {{ ct.user.userprofile.title }}
+            </span>
+          {% endif %}
           <span general="flex flex:ai-c" class="carduser" style="margin-left:6px;">
               {% if ct.user.get_full_name %}
                   {{ ct.user.get_full_name }}
               {% else %}
                   @{{ ct.user }}
-              {% endif %}
-              {% if ct.user.title != "user" %}
-                < {{ ct.user.title }} >
               {% endif %}
           </span>
           <span general="text:xs color:dark" style="margin-left:6px;">

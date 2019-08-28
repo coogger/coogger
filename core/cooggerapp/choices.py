@@ -37,11 +37,12 @@ REPORTS = [
     "Wrong list name",
 ]
 TITLES = [
-    "User",
-    "Moderator",
-    "Core Developer",
-    "Founder",
-    "Sponsor",
+  "contributor",
+  "core developer",
+  "founder",
+  "moderator",
+  "sponsor",
+  "user",
 ]
 STATUS_CHOICES = ["ready", "not ready"]
 COMMIT_STATUS_CHOICES = ["approved", "rejected", "waiting"]

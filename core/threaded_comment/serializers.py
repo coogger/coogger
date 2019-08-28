@@ -5,6 +5,7 @@ from .models import ThreadedComments
 
 class ReplySerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source="user.username")
+    title = serializers.ReadOnlyField(source="user.userprofile.title")
     avatar_url = serializers.ReadOnlyField(source="user.githubauthuser.avatar_url")
     parent_user = serializers.ReadOnlyField(source="get_parent.username")
     parent_id = serializers.ReadOnlyField(source="get_parent.id")
@@ -16,7 +17,9 @@ class ReplySerializer(serializers.ModelSerializer):
         model = ThreadedComments
         fields = [
             "id",
+            "title",
             "app_label",
+            "last_update",
             "model_name",
             "content_type",
             "object_id",

@@ -31,7 +31,7 @@
       <div class="commit-detail" general="br:2 width:100">
         {{ commit.body_change|safe }}
       </div>
-    <!-- sadece js leri yüklemek için -->
+    <!-- to just upload js files -->
       {{ ""|markdown_to_html:"load"|safe }} 
     <!-- replies -->
     {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}
