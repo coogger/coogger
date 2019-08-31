@@ -12,7 +12,10 @@ from ..cooggerapp.models.utils import get_first_image
 class AbstractThreadedComments(models.Model):
     reply_count = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
-    last_update = models.DateTimeField(auto_now_add=True, verbose_name="Last update")
+    updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Last update"
+    )
 
     class Meta:
         abstract = True

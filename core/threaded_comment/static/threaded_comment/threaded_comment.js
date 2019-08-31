@@ -124,7 +124,7 @@ function replyUserInfo(comment){
         <div general="flex text:s position:right flex:ai-c" class="just-pc">
             <div style="margin-right: 12px;">
               <i class="fas fa-clock"></i>
-              Last update | <span id="lastmod">${timeSince(comment.last_update)}</span>
+              Last update | <span id="lastmod">${timeSince(comment.updated)}</span>
             </div>
           </div>
     </div>

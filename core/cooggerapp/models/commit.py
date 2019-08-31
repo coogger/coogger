@@ -38,7 +38,8 @@ class Commit(Common, View, Vote):
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     reply_count = models.PositiveIntegerField(default=0)
     status = models.CharField(
         max_length=100, default="approved", choices=make_choices(COMMIT_STATUS_CHOICES)

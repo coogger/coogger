@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, redirect, render, reverse
-from django.utils.timezone import now
 from django.views import View
 from django.views.generic import TemplateView, UpdateView
 
@@ -144,7 +143,7 @@ class OpenIssue(LoginRequiredMixin, View):
         issue = Issue.objects.filter(utopic=utopic, issue_id=issue_id)
         current_username = str(request.user)
         if current_username == username or current_username == str(issue[0].user):
-            issue.update(status=self.get_status, last_update=now())
+            issue.update(status=self.get_status)
             self.update_utopic(utopic)
             return redirect(
                 reverse(

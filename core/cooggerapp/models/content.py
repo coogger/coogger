@@ -145,7 +145,6 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         # always update
         self.image_address = get_first_image(self.body)
         self.tags = ready_tags(self.tags)
-        self.last_update = timezone.now()
         super().save(*args, **kwargs)
 
     @property

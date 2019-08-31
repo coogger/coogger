@@ -19,7 +19,7 @@ class ReplySerializer(serializers.ModelSerializer):
             "id",
             "title",
             "app_label",
-            "last_update",
+            "updated",
             "model_name",
             "content_type",
             "object_id",

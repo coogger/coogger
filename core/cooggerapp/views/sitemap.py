@@ -64,7 +64,7 @@ class LanuageSitemap(Sitemap):
     def lastmod(self, obj):
         try:
             contents = Content.objects.filter(language=obj)
-            return contents[0].last_update
+            return contents[0].updated
         except IndexError:
             pass
 
@@ -82,7 +82,7 @@ class CategorySitemap(Sitemap):
     def lastmod(self, obj):
         try:
             contents = Content.objects.filter(category=obj)
-            return contents[0].last_update
+            return contents[0].updated
         except IndexError:
             pass
 
@@ -100,7 +100,7 @@ class UtopicSitemap(Sitemap):
     def lastmod(self, obj):
         contents = Content.objects.filter(utopic=obj)
         try:
-            return contents[0].last_update
+            return contents[0].updated
         except (AssertionError, IndexError):
             return None
 
@@ -118,7 +118,7 @@ class ContentSitemap(Sitemap):
         return Content.objects.all()
 
     def lastmod(self, obj):
-        return obj.last_update
+        return obj.updated
 
     def location(self, obj):
         return obj.get_absolute_url
@@ -134,7 +134,7 @@ class UserSitemap(Sitemap):
     def lastmod(self, obj):
         contents = Content.objects.filter(user=obj, status="ready")
         try:
-            return contents[0].last_update
+            return contents[0].updated
         except IndexError:
             return None
 

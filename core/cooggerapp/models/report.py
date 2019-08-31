@@ -21,4 +21,4 @@ class ReportModel(models.Model):
         max_length=600,
         verbose_name="Can you give more information ?",
     )
-    date = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
