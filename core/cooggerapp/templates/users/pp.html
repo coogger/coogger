@@ -1,6 +1,6 @@
 {% load django_follow_system_tags %}
 {% load coogger_tags %}
-<div general="flex flex:fd-c" class="cover_image">
+<div general="flex flex:fd-c width:min" class="cover_image">
     {% include 'users/footer.html' %}
     <div general="flex flex:fd-c" >
         <div general="position:center">
@@ -55,8 +55,9 @@
             </div>
         {% endif %}
     {% endif %}
-    <h4 general="width:80 position:center flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
+    <h4 general="position:left flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
         <span general="text:s">{{ current_user.userprofile.bio|default:"" }}</span>
     </h4>
 </div>
+<div class="just-pc" style="margin-right: 64px;"></div>
 
