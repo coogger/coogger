@@ -5,47 +5,50 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('cooggerapp', '0003_userprofile_title'),
-    ]
+    dependencies = [("cooggerapp", "0003_userprofile_title")]
 
     operations = [
         migrations.RenameField(
-            model_name='reportmodel',
-            old_name='date',
-            new_name='created',
+            model_name="reportmodel", old_name="date", new_name="created"
         ),
-        migrations.RemoveField(
-            model_name='content',
-            name='last_update',
-        ),
-        migrations.RemoveField(
-            model_name='issue',
-            name='last_update',
-        ),
+        migrations.RemoveField(model_name="content", name="last_update"),
+        migrations.RemoveField(model_name="issue", name="last_update"),
         migrations.AddField(
-            model_name='commit',
-            name='updated',
+            model_name="commit",
+            name="updated",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='content',
-            name='updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Last update'),
+            model_name="content",
+            name="updated",
+            field=models.DateTimeField(auto_now=True, verbose_name="Last update"),
         ),
         migrations.AddField(
-            model_name='issue',
-            name='updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Last update'),
+            model_name="issue",
+            name="updated",
+            field=models.DateTimeField(auto_now=True, verbose_name="Last update"),
         ),
         migrations.AlterField(
-            model_name='commit',
-            name='created',
+            model_name="commit",
+            name="created",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='userprofile',
-            name='title',
-            field=models.CharField(choices=[('contributor', 'contributor'), ('core-developer', 'core developer'), ('founder', 'founder'), ('moderator', 'moderator'), ('sponsor', 'sponsor'), ('user', 'user')], default='user', help_text='Title', max_length=30, verbose_name='title'),
+            model_name="userprofile",
+            name="title",
+            field=models.CharField(
+                choices=[
+                    ("contributor", "contributor"),
+                    ("core-developer", "core developer"),
+                    ("founder", "founder"),
+                    ("moderator", "moderator"),
+                    ("sponsor", "sponsor"),
+                    ("user", "user"),
+                ],
+                default="user",
+                help_text="Title",
+                max_length=30,
+                verbose_name="title",
+            ),
         ),
     ]

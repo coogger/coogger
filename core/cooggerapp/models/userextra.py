@@ -4,6 +4,7 @@ from django_md_editor.models import EditorMdField
 
 from core.cooggerapp.choices import FOLLOW, TITLES, make_choices
 
+
 class OtherAddressesOfUsers(models.Model):
     "maybe ManyToManyField in UserProfile"
     choices = models.CharField(
@@ -44,7 +45,7 @@ class UserProfile(models.Model):
         default="user",
         choices=make_choices(TITLES),
         verbose_name="title",
-        help_text="Title"
+        help_text="Title",
     )
     # company = TODO
     def __str__(self):

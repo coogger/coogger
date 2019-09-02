@@ -5,14 +5,26 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('cooggerapp', '0002_auto_20190819_1632'),
-    ]
+    dependencies = [("cooggerapp", "0002_auto_20190819_1632")]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='title',
-            field=models.CharField(blank=True, choices=[('user', 'user'), ('moderator', 'moderator'), ('core-developer', 'core developer'), ('founder', 'founder'), ('sponsor', 'sponsor')], default='user', help_text='Title', max_length=30, null=True, verbose_name='title'),
-        ),
+            model_name="userprofile",
+            name="title",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("user", "user"),
+                    ("moderator", "moderator"),
+                    ("core-developer", "core developer"),
+                    ("founder", "founder"),
+                    ("sponsor", "sponsor"),
+                ],
+                default="user",
+                help_text="Title",
+                max_length=30,
+                null=True,
+                verbose_name="title",
+            ),
+        )
     ]

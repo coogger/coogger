@@ -5,18 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('threaded_comment', '0002_auto_20190811_0640'),
-    ]
+    dependencies = [("threaded_comment", "0002_auto_20190811_0640")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='threadedcomments',
-            name='last_update',
-        ),
+        migrations.RemoveField(model_name="threadedcomments", name="last_update"),
         migrations.AddField(
-            model_name='threadedcomments',
-            name='updated',
-            field=models.DateTimeField(auto_now=True, verbose_name='Last update'),
+            model_name="threadedcomments",
+            name="updated",
+            field=models.DateTimeField(auto_now=True, verbose_name="Last update"),
         ),
     ]
