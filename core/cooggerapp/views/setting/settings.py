@@ -32,7 +32,7 @@ class Settings(UserSetMixin):
 
 class UserExtra(UserSetMixin):
     model = UserProfile
-    fields = ["description", "about", "email_permission"]
+    fields = ["bio", "about", "email_permission"]
     template_name = "settings/userextra.html"
     success_url = "/settings/user-extra/"
 

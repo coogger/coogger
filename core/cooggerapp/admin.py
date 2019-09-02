@@ -50,7 +50,7 @@ class TopicAdmin(admin.ModelAdmin):
     list_display = list_
     list_display_links = list_
     list_filter = ["editable"]
-    search_fields = ["name", "definition"]
+    search_fields = ["name", "description"]
 
 
 @admin.register(Commit)

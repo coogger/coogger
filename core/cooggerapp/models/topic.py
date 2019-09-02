@@ -14,8 +14,8 @@ class CommonTopicModel(models.Model):
     image_address = models.URLField(
         max_length=400, help_text="Add an Image Address", blank=True, null=True
     )
-    definition = models.CharField(
-        max_length=600, help_text="Definition of topic", blank=True, null=True
+    description = models.CharField(
+        max_length=600, help_text="description of topic", blank=True, null=True
     )
     tags = models.CharField(
         max_length=200,

@@ -81,7 +81,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def topic(self):
         topic = get_object_or_404(Topic, permlink=self.get_var("permlink"))
         try:
-            description = topic.definition.capitalize()
+            description = topic.description.capitalize()
         except AttributeError:
             description = topic.name
         return dict(
@@ -146,14 +146,14 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         permlink = self.get_var("permlink")
         username = self.get_var("username")
         utopic = UTopic.objects.filter(user=self.user_obj, permlink=permlink)[0]
-        if utopic.definition:
-            definition = f"{utopic.definition.capitalize()} | {username}"
+        if utopic.description:
+            description = f"{utopic.description.capitalize()} | {username}"
         else:
-            definition = f"{username}'s contents about topic of {utopic}"
+            description = f"{username}'s contents about topic of {utopic}"
         return dict(
             title=f"{utopic} - Topic | {username}".capitalize(),
             keywords=utopic,
-            description=definition,
+            description=description,
             image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
         )
 

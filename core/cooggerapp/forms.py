@@ -9,7 +9,7 @@ from core.cooggerapp.models import (
 class UTopicForm(forms.ModelForm):
     class Meta:
         model = UTopic
-        fields = ["name", "image_address", "definition", "tags", "address"]
+        fields = ["name", "image_address", "description", "tags", "address"]
 
 
 class ContentCreateForm(forms.ModelForm):

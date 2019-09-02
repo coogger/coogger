@@ -43,7 +43,7 @@ def save_github_repos(user, github_repos_url):
                 UTopic(
                     user=user,
                     name=repo.get("name"),
-                    definition=repo.get("description"),
+                    description=repo.get("description"),
                     address=repo.get("html_url"),
                 ).save()
             except IntegrityError:
@@ -52,17 +52,22 @@ def save_github_repos(user, github_repos_url):
 
 @receiver(post_save, sender=GithubAuthUser)
 def follow_and_repos_update(sender, instance, created, **kwargs):
+    "Works when users every login"
     user = get_object_or_404(User, username=instance.user.username)
+    user_extra_data = user.githubauthuser.get_extra_data_as_dict
     save_github_follow(user)
-    github_repos_url = user.githubauthuser.get_extra_data_as_dict.get("repos_url")
-    save_github_repos(user, github_repos_url)
+    save_github_repos(user, user_extra_data.get("repos_url"))
+    # userprofile.company = user_extra_data.get("company") TODO
     if created:
+        userprofile = UserProfile.objects.get(user=instance.user)
+        userprofile.bio = user_extra_data.get("bio")
         send_mail(
             subject=f"{user} has entered the coogger | coogger".title(),
             template_name="email/first_login.html",
             context=dict(user=user),
             to=[user],
         )
+        userprofile.save()
 
 
 @receiver(post_save, sender=User)

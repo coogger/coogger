@@ -29,7 +29,7 @@ class UserProfile(models.Model):
         blank=True,
         null=True,
     )
-    description = models.CharField(
+    bio = models.CharField(
         help_text="Write something short about yourself, this will appear in your profile.",
         max_length=260,
         blank=True,
@@ -46,5 +46,6 @@ class UserProfile(models.Model):
         verbose_name="title",
         help_text="Title"
     )
+    # company = TODO
     def __str__(self):
         return str(self.user)

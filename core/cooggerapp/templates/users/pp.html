@@ -4,7 +4,9 @@
     {% include 'users/footer.html' %}
     <div general="flex flex:fd-c" >
         <div general="position:center">
-            <img general="flex flex:jc-c br:4 width:50" mobile-l="width:50" mobile-m="width:40" mobile-s="width:40" tablet="width:36" laptop="width:56" laptop-l="width:60" alt="{{ current_user }}" title="{{ current_user }}" src="{{ current_user.githubauthuser.avatar_url }}" style="padding: 2px;margin: initial;"/>
+            <img general="flex flex:jc-c br:4" alt="{{ current_user }}" title="{{ current_user }}"
+             src="{{ current_user.githubauthuser.avatar_url }}" 
+             style="padding: 2px;margin: initial; max-height: 240px;"/>
         </div>
         <h1 general="flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
             <a general="flex color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
@@ -22,7 +24,6 @@
     </div>
     <div general="flex flex:jc-c width:max position:center">
         <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
-            
             <a href="{% url 'usercontent' current_user %}" general="flex flex:as-c flex:fd-c">
                 <div general="flex flex:as-c" id="post-count">{{ current_user|hmanycontent}}</div>
                 <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Contents</div>
@@ -55,7 +56,7 @@
         {% endif %}
     {% endif %}
     <h4 general="width:80 position:center flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
-        <span general="text:s">{{ current_user.userprofile.description|default:"" }}</span>
+        <span general="text:s">{{ current_user.userprofile.bio|default:"" }}</span>
     </h4>
 </div>
 
