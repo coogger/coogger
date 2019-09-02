@@ -55,8 +55,6 @@ class Home(TemplateView):
             return [self.template_name]
 
 
-
-
 class Report(LoginRequiredMixin, View):
     form_class = ReportsForm
     template_name = "home/report.html"
@@ -140,9 +138,5 @@ class Feed(Home):
             queryset += contents.filter(user=user)
         return paginator(
             self.request,
-            sorted(
-                queryset,
-                reverse=True,
-                key=lambda instance: instance.created
-            ),
+            sorted(queryset, reverse=True, key=lambda instance: instance.created),
         )

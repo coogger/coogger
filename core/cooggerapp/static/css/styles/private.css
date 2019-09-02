@@ -21,6 +21,7 @@ header{
   position: sticky;
   top: 70px;
   z-index: 2;
+  margin-bottom: 16px;
 }
 .cards{
   padding: 2px 4px;

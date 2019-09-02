@@ -4,7 +4,10 @@ from django.db.models import F
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
-from ..models import Commit, Content, Topic, UTopic, dor, send_mail
+from ..models import (
+    Commit, Content, Topic, UserProfile, UTopic, dor, send_mail
+)
+from ..templatetags.coogger_tags import hmanycontent
 
 
 def update_topic(instance, iord):
@@ -43,6 +46,12 @@ def when_content_delete(sender, instance, **kwargs):
 @receiver(post_save, sender=Content)
 def when_content_create(sender, instance, created, **kwargs):
     if created:
+        # when user publish first content
+        if hmanycontent(instance.user) == 0:
+            userprofile = UserProfile.objects.get(user=instance.user)
+            if userprofile.title == "user":
+                userprofile.title = "author"
+                userprofile.save()
         update_utopic(instance, +1)
         commit(instance)
         # permlink create
