@@ -11,7 +11,7 @@ Pillow
 
 django-md-editor==0.1.61
 django-follow-system==0.0.4
-github-auth==0.0.5
+github-auth==0.0.6
 django-page-views==0.0.3
 djangoip==0.0.2
 django-ban==0.1.0
