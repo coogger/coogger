@@ -23,14 +23,8 @@ class Home(TemplateView):
         self.url_name = resolve(self.request.path_info).url_name
         self.is_authenticated = self.request.user.is_authenticated
         if not self.is_authenticated and self.url_name == "home":
-            self.template_name = self.introduction_template_name
             context["introduction"] = True
-            how_many = 3 * 8
-            queryset = User.objects.all().order_by("-date_joined")[:how_many]
-            context["queryset"] = paginator(self.request, queryset, how_many)
-        else:
-            queryset = Content.objects.filter(status="ready")
-            context["queryset"] = paginator(self.request, queryset)
+        context["queryset"] = self.get_queryset()
         context["sort_topics"] = self.sort_topics()  # TODO just pc
         context["issues"] = Issue.objects.filter(status="open")[: settings.PAGE_SIZE]
         context["insection_left"] = True
@@ -44,6 +38,23 @@ class Home(TemplateView):
             if (topic not in topics) and (len(topics) <= 30) and (not topic.editable):
                 topics.append(topic)
         return topics
+
+    def get_queryset(self):
+        if not self.is_authenticated and self.url_name == "home":
+            how_many = 3 * 8
+            queryset = User.objects.all().order_by("-date_joined")[:how_many]
+            return paginator(self.request, queryset, how_many)
+        else:
+            queryset = Content.objects.filter(status="ready")
+            return paginator(self.request, queryset)
+
+    def get_template_names(self):
+        if not self.is_authenticated and self.url_name == "home":
+            return [self.introduction_template_name]
+        else:
+            return [self.template_name]
+
+
 
 
 class Report(LoginRequiredMixin, View):
@@ -127,5 +138,11 @@ class Feed(Home):
         contents = Content.objects.filter(status="ready")
         for user in following:
             queryset += contents.filter(user=user)
-        queryset = sorted(queryset, reverse=True, key=lambda instance: instance.created)
-        return queryset
+        return paginator(
+            self.request,
+            sorted(
+                queryset,
+                reverse=True,
+                key=lambda instance: instance.created
+            ),
+        )
