@@ -1,30 +1,31 @@
+{% load coogger_tags %}
 <div general="flex position:center width:100 border:1 brc:muted" >
   <div general="flex flex:fw-nw" style="padding: 6px 0px;overflow: auto;">
     <div>
       <a href="{% url 'user' current_user %}">
           <div general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover"   style="padding: 3px 6px;">
              <i class="fas fa-sitemap" style="margin-left: 8px;"></i>
-             TOPICS
+             TOPICS {{ current_user|get_count:"utopic" }}
           </div>
       </a>
     </div>
     <div>
       <a href="{% url 'usercontent' current_user %}">
           <div general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover"   style="padding: 3px 6px;">
-              <i class="fas fa-file-alt" style="margin-left: 8px;"></i>CONTENTS
+              <i class="fas fa-file-alt" style="margin-left: 8px;"></i>CONTENTS {{ current_user|hmanycontent }}
           </div>
       </a>
     </div>
     <div>
       <a href="{% url 'bookmark' current_user %}" general="flex flex:as-fs flex:ai-c color:secondary text:m width:max color:primary:hover" 
         style="padding: 3px 6px;">
-        <i class="fas fa-bookmark" style="margin-left: 8px;"></i>BOOKMARK
+        <i class="fas fa-bookmark" style="margin-left: 8px;"></i>BOOKMARK {{ current_user|get_count:"bookmark"}}
       </a>
     </div>
     <div>
       <a href="{% url 'comment' current_user %}" general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover" 
         style="padding: 3px 6px;">
-        <i class="fas fa-comments" style="margin-left: 8px;"></i>COMMENTS
+        <i class="fas fa-comments" style="margin-left: 8px;"></i>COMMENTS {{ current_user|get_count:"comments" }}
       </a>
     </div>
     <div>

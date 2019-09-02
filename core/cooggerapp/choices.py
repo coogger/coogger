@@ -37,6 +37,7 @@ REPORTS = [
     "Wrong list name",
 ]
 TITLES = [
+  "author",
   "contributor",
   "core developer",
   "founder",

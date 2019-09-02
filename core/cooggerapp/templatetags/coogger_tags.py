@@ -5,7 +5,9 @@ from django import template
 from django.urls import resolve
 
 from ..choices import *
-from ..models import Commit, Content
+from ..models import Commit, Content, UTopic
+from django_bookmark.models import Bookmark
+from ...threaded_comment.models import ThreadedComments
 from ..views.utils import model_filter
 
 register = template.Library()
@@ -43,6 +45,16 @@ def hmanycontent(user):
 def content_count(username, value, key):
     obj = Content.objects.filter(user__username=username, status="ready")
     return model_filter({str(value): key}.items(), obj).get("queryset").count()
+
+
+@register.filter
+def get_count(user, name):
+    if name == "utopic":
+        return UTopic.objects.filter(user=user).count()
+    elif name == "comments":
+        return ThreadedComments.objects.filter(to=user).exclude(user=user).count()
+    elif name == "bookmark":
+        return Bookmark.objects.filter(user=user).count()
 
 
 @register.simple_tag
