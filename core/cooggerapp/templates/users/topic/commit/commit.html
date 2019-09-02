@@ -4,7 +4,9 @@
 <div general="position:center" class="commits">
   <div class="commit" general="flex flex:fd-c width:60 border:1 br:2 brc:muted" mobile-l="width:100" tablet="width:80" mobile-m="width:100" mobile-s="width:100">  
       <div general="text:s bg:white brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
-          {% include "common/interaction_and_counter.html" %}
+          {% include 'common/bookmark.html' %}
+          {% include 'common/vote.html' %}
+          {% include "common/counter.html" %}
           {% block iac %}{% endblock %}
       </div>
       {% block aor %}{% endblock %}

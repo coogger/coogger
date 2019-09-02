@@ -28,7 +28,9 @@
     </div>
     </a>
     <div general="position:right text:s bg:white brc:muted border:1 br:2" style="padding: 2px 6px;margin-top: 4px;margin-bottom: 6px;">
-      {% include "common/interaction_and_counter.html" %}  
+      {% include 'common/bookmark.html' %}
+      {% include 'common/vote.html' %}
+      {% include "common/counter.html" %}
       {% if queryset.user == request.user %}
         <div general="flex flex:ai-c">
           <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.issue_id %}">

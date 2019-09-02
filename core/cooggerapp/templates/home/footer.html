@@ -4,6 +4,13 @@
       <div general="color:red">x</div>
     </div>
     <div style="margin-top: 40px;">
+        <form action="{% url 'search' %}" style="margin-bottom: 8px;">
+            <input name="query" style="padding: 6px 4px;" 
+            general="border:1 br:2 muted width:max" type="text"
+            style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
+            placeholder="search content or @user .."/>
+            <input type="submit" value="Search" style="display:  none;" />
+          </form>
       <div general="flex flex:fd-c">
         <a general="color:white text:l color:success:hover" href="/guide/@hakancelik96/" style="margin-bottom: 8px;">
           Guide
@@ -14,13 +21,6 @@
         <a general="color:white text:l color:success:hover" href="{% url 'coogger-images' %}" style="margin-bottom: 8px;">
           Coogger Images
       </a>
-      <form action="{% url 'search' %}" style="margin-bottom: 8px;">
-        <input name="query" style="padding: 6px 4px;" 
-        general="border:1 br:2 muted width:max" type="text"
-        style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
-        placeholder="search content .."/>
-        <input type="submit" value="Search" style="display:  none;" />
-      </form>
       <a general="color:white text:l color:success:hover" href="{% url 'create-utopic' %}" style="margin-bottom: 8px;">
         <i class="fa fa-plus-circle"></i>Create Topic
       </a>

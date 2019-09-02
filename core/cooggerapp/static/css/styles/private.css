@@ -170,27 +170,7 @@ footer li{
   .utopic-m-count{
   margin-left: 6px;
   }
-  .next_post{
-  position: fixed;
-  top: 30%;
-  right: 0%;
-  height: 40%;
-  background: #17202a;
-  z-index: 2;
-  writing-mode: tb-rl;
-  text-orientation: upright;
-  }
-  .previous_post{
-  position: fixed;
-  top: 30%;
-  left: 0%;
-  height: 40%;
-  background: #17202a;
-  z-index: 2;
-  writing-mode: tb-rl;
-  text-orientation: upright;
-  }
-  body{
+ body{
   margin-bottom: 60px;
   height: auto;
   width: auto;

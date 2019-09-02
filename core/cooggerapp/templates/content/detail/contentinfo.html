@@ -38,15 +38,10 @@
       </div>
   </div>
 {% endif %}
-{% if embed %}
-  <div style="position: sticky;top: 0px;z-index: 1;">
-{% else %}
-  <div style="position: sticky;top: 50px;z-index: 1;">
-{% endif %}
-    <div general="bg:white width:100 text:s flex" mobile-l="brc:white" mobile-m="brc:white" mobile-s="brc:white">
-    <div general="text:s bg:white brc:muted border:1 br:2 width:100 flex flex:jc-sa" 
-    style="padding: 12px 0px;">
-      {% include "common/interaction_and_counter.html" %}
+<div>
+  <div general="bg:white width:100 text:s flex" mobile-l="brc:white" mobile-m="brc:white" mobile-s="brc:white">
+    <div general="text:s width:100 flex flex:jc-sa" style="padding: 12px 0px;">
+      {% include "common/counter.html" %}
       {% if not queryset.is_reply %}
       <div onclick="copyTextFromId('embed-text')" general="border:1 br:2 text:s brc:white color:secondary color:success:hover"  style="cursor:pointer;">
         <i class="fas fa-code" general="position:center"></i>
@@ -55,7 +50,15 @@
         </textarea>
       </div>
       {% endif %}
-      {% include 'content/detail/edit.html' %}
     </div>
+  </div>
+</div>
+<div style="position: fixed;bottom: 4px;z-index: 1;width: inherit;">
+  <div general="width:100 text:s flex" mobile-l="brc:white" mobile-m="brc:white" mobile-s="brc:white">
+      <div general="text:s bg:dark brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
+        {% include 'content/detail/edit.html' %}
+        {% include 'common/bookmark.html' %}
+        {% include 'common/vote.html' %}
+      </div>
   </div>
 </div>

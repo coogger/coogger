@@ -123,14 +123,14 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     @property
     def next_post(self):
         try:
-            return self.next_or_previous().get_absolute_url
+            return self.next_or_previous()
         except AttributeError:
             return False
 
     @property
     def previous_post(self):
         try:
-            return self.next_or_previous(next=False).get_absolute_url
+            return self.next_or_previous(next=False)
         except AttributeError:
             return False
 
