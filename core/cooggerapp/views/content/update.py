@@ -54,6 +54,7 @@ class Update(LoginRequiredMixin, View):
                 form.user = request.user
                 utopic = UTopic.objects.get(id=queryset.utopic.id)
                 utopic.commit_count += 1
+                utopic.save()
                 if form.body != queryset.body:
                     Commit(
                         user=request.user,
