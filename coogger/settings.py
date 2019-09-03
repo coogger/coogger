@@ -111,7 +111,7 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # 3. part confs
-MDEDITOR_CONFIGS = dict(emoji=True)
+MDEDITOR_CONFIGS = dict(emoji=True, html_decode="style,script")
 GITHUB_AUTH = dict(
     redirect_uri=redirect_url,
     scope="user",
