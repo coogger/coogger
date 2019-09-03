@@ -27,7 +27,6 @@ def update_utopic(instance, iord):
             total_dor=(F("total_dor") + dor(instance.body)),
             commit_count=(F("commit_count") + 1),
         )
-        
     else:
         "when content delete"
         content_commit_count = Commit.objects.filter(content=instance).count()

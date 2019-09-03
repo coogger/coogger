@@ -10,7 +10,9 @@
         </div>
       {% if not request.user.is_authenticated %}
       <div general="flex flex:ai-c">
-        <a style="padding: 6px 12px;" general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover"          href="{% url 'redirect-github' %}">
+        <a style="padding: 6px 12px;"
+         general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover" 
+         href="{% url 'redirect-github' %}?next={{ request.META.PATH_INFO }}">
           <i general="text:xxl" class="fab fa-github-square"></i>Login via github
         </a>
       </div>
@@ -96,7 +98,8 @@
               </a>
             </div>
             <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:danger:hover br:2:hover flex"   href="{% url 'logout' %}">
+              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:danger:hover br:2:hover flex"
+               href="{% url 'logout' %}?next={{ request.META.PATH_INFO }}">
                 <i general="flex flex:as-c" class="fas fa-sign-out-alt"></i>
                 <span>Sign out</span>
               </a>
