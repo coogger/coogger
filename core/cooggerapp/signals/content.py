@@ -22,9 +22,19 @@ def update_utopic(instance, iord):
     )
     utopic.update(how_many=F("how_many") + iord)
     if iord > 0:
-        utopic.update(total_dor=F("total_dor") + dor(instance.body))
+        "when content create"
+        utopic.update(
+            total_dor=(F("total_dor") + dor(instance.body)),
+            commit_count=(F("commit_count") + 1),
+        )
+        
     else:
-        utopic.update(total_dor=F("total_dor") - dor(instance.body))
+        "when content delete"
+        content_commit_count = Commit.objects.filter(content=instance).count()
+        utopic.update(
+            total_dor=(F("total_dor") - dor(instance.body)),
+            commit_count=(F("commit_count") - content_commit_count),
+        )
 
 
 def commit(instance):
