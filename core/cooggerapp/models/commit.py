@@ -92,7 +92,9 @@ class Commit(Common, View, Vote):
 
     @property
     def body_change(self):
-        previous_body = self.previous_commit.body
+        previous_body = self.previous_commit
         if previous_body == self.body or not previous_body:
             previous_body = ""
+        else:
+            previous_body = previous_body.body
         return HtmlDiff().make_file(previous_body.splitlines(), self.body.splitlines())
