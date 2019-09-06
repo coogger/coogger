@@ -14,7 +14,7 @@ def when_commit_create(sender, instance, created, **kwargs):
             utopic.save()
 
             send_mail(
-                subject=f"{ instance.user } contribute your article | coogger",
+                subject=f"{ instance.user } contributed your article | coogger",
                 template_name="email/contribute.html",
                 context=dict(get_absolute_url=instance.get_absolute_url),
                 to=[instance.content.user],
