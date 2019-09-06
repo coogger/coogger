@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.contrib.redirects.models import Redirect
 from django.db.models import F
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
@@ -69,7 +67,7 @@ def when_content_create(sender, instance, created, **kwargs):
         if instance.status == "ready":
             update_topic(instance, +1)
             send_mail(
-                subject=f"{ instance.user } publish a new content | coogger",
+                subject=f"{ instance.user } published a new content | coogger",
                 template_name="email/post.html",
                 context=dict(get_absolute_url=instance.get_absolute_url),
                 to=[u.user for u in instance.user.follow.follower if u.user.email],
