@@ -30,11 +30,7 @@ class Create(LoginRequiredMixin, View):
         return render(
             request,
             self.template_name,
-            dict(
-                form=self.form_class(
-                    initial=self.initial
-                )
-            )
+            dict(form=self.form_class(initial=self.initial)),
         )
 
     def post(self, request, utopic_permlink, *args, **kwargs):
@@ -60,4 +56,3 @@ class Create(LoginRequiredMixin, View):
             return render_to_string("content/post/editor-note.html")
         self.initial["category"] = Category.objects.get(name=category_name)
         return self.initial["category"].template
-        
