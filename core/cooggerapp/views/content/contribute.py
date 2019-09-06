@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 
 from ...forms import ContentContributeForm
-from ...models import Category, Commit, Content, UTopic
+from ...models import Commit, Content, UTopic
 from .update import Update
 
 

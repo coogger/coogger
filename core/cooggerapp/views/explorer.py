@@ -54,17 +54,6 @@ class Languages(TemplateView):
         raise Http404
 
 
-class Categories(TemplateView):
-    template_name = "card/blogs.html"
-
-    def get_context_data(self, cat_name, **kwargs):
-        queryset = Content.objects.filter(category__name=cat_name, status="ready")
-        context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, queryset)
-        context["category"] = cat_name
-        return context
-
-
 class Filter(TemplateView):
     template_name = "card/blogs.html"
     model = Content

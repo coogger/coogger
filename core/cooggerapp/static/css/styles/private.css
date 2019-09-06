@@ -3,13 +3,16 @@
 .font-comfortaa *{
   font-family: 'Comfortaa', cursive;
 }
+iframe{
+  max-width: 100%;
+}
 .topic_percent{
   margin-right: 2px;padding: 2px 4px;white-space: nowrap;    overflow-x: auto;
 }
 .vote{
   cursor: pointer;
 }
-img[src$="center"] {
+img[src$="center"], iframe{
   display:block;
   margin: 0 auto;
 }
@@ -192,48 +195,17 @@ footer li{
   .tag a{
   padding: 4px;
   }
-  .languages, .categories{
-  overflow: auto;
-  z-index: 1;
-  position: absolute;
-  width: 140px;
-  display: none;
-  box-shadow: 0 3px 12px rgba(27,31,35,.15);
-  }
-  .lg button, .ctg button{
-  background-color: #eff3f6;
-  background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-  color: #24292e;
-  -webkit-appearance: none;
-  background-position: -1px -1px;
-  background-repeat: repeat-x;
-  background-size: 110% 110%;
-  border: 1px solid rgba(27,31,35,.2);
-  border-radius: .25em;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 7px;
-  font-weight: 600;
-  line-height: 16px;
-  padding: 2px 12px;
-  position: relative;
-  user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-transform: none;
-  font: inherit;
-  margin: 0;
-  }
-  .lg button:focus, .ctg button:focus{
-  outline: none;
-  background-image: none;
+  .bshadow{
+    -moz-box-shadow:  0 3px 12px rgba(27,31,35,.15);
+    -webkit-box-shadow: 0 3px 12px rgba(27,31,35,.15);;
+    box-shadow: 0 3px 12px rgba(27,31,35,.15);
   }
   card {
-    border-top:solid 1px #eaecee;
+    border-bottom:solid 1px #eaecee;
     padding: 12px 12px;
+    margin-top: 4px;
   }
   card:hover{
-    
   }
   .capitalize{
   text-transform: capitalize;
@@ -347,7 +319,7 @@ footer li{
     border-top: 1px solid #cecece;
     padding-bottom: 6px;
   }
-  .fa, .fas {
+  .fa, .fas, .far{
     padding: 0px 6px;
   }
   .his-json{
@@ -367,13 +339,6 @@ footer li{
     text-transform: uppercase;
   }
   .definition-img{max-width: 100%;max-height: 300px;margin: 4px auto;border-radius: 6px;}
-  .categories_a{
-  padding: 6px 6px;
-  width:  150px;
-  overflow: hidden;
-   white-space: nowrap;
-  text-overflow: ellipsis;
-  }
   section{
   position: relative;
   top: 16px;

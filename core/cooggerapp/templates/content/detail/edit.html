@@ -1,5 +1,4 @@
 {% if request.user.is_authenticated %}
-  <div general="text:s color:secondary flex">
     {% if queryset.is_reply %}
     <a general="color:secondary color:dark-purple:hover" 
     href="{% url 'reply-update' queryset.user queryset.permlink %}">
@@ -17,12 +16,5 @@
           <i class="fa fa-edit fa" aria-hidden="true"></i>Contribute
         </a>
       {% endif %}
-      <!-- {% if queryset.user != request.user and request.user.is_authenticated %}
-        <div general="color:danger:hover" class="report" 
-        data-content-id="{{ queryset.id }}" style="cursor:pointer;">
-            <i class="fa fa-flag fa" aria-hidden="true"></i>Report
-        </div>
-      {% endif %} -->
     {% endif %}
-  </div>
 {% endif %}

@@ -33,8 +33,6 @@ def model_filter(items, queryset):
             queryset = queryset.filter(user__username=value)
         elif attr == "tags":
             queryset = queryset.filter(tags__contains=value)
-        elif attr == "category":
-            queryset = queryset.filter(category__name=value)
         elif attr == "topic":
             queryset = queryset.filter(utopic__permlink=value)
         else:

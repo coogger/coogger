@@ -62,9 +62,11 @@ $(document).ready(function() {
       let bookmark_status = $(bookmark).data("bookmark-status");
       if (bookmark_status == "False"){
         $(bookmark).find(".bookmarkicon").attr("general","color:secondary");
+        $(bookmark).find(".bookmarkicon").addClass("far");
       }
       else if (bookmark_status == "True"){
         $(bookmark).find(".bookmarkicon").attr("general", "color:success");
+        $(bookmark).find(".bookmarkicon").addClass("fas");
       }
     });
     
@@ -122,14 +124,19 @@ function removeOrAddBookmark(this_){
           alert(r.error);
       }
       else{
-          let howMany = parseInt($(this_).find($("#how_many_mark")).text());
+          let howMany = parseInt(this_.lastElementChild.innerText);
+          let bookmarkicon = $(this_).find($(".bookmarkicon"));
           if (r.status === true){
-              $(this_).find($(".fa-bookmark")).attr("general", "color:success");
-              $(this_).find($("#how_many_mark")).html(howMany + 1);
+            bookmarkicon.attr("general", "color:success");
+            bookmarkicon.addClass("fas");
+            bookmarkicon.removeClass("far");
+            $(this_.lastElementChild).html(howMany + 1);
           }
           else if (r.status === false){
-            $(this_).find($(".fa-bookmark")).attr("general","color:secondary");
-            $(this_).find($("#how_many_mark")).html(howMany - 1);
+            bookmarkicon.attr("general","color:secondary");
+            bookmarkicon.addClass("far");
+            bookmarkicon.removeClass("fas");
+            $(this_.lastElementChild).html(howMany - 1);
           }
       } 
   });

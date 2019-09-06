@@ -22,7 +22,6 @@
       </div>
     <!--  -->
     {% elif hashtag %}
-      <div general="position:center color:white text:s">Click and write a post about a {{ hashtag }} hashtag</div>
       <div general="flex position:center flex:ai-c"  style="margin-bottom: 12px;">
         <img general="width:30 br:circle bg:red" src="/static/media/topics/earth.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
         <img src="/static/media/icons/list.svg" general="width:12 bg:yellow" style="height: 0%;margin: 0px 6px;padding: 6px;">
@@ -31,25 +30,10 @@
         <span>CONTENTS {{ queryset.paginator.count }}</span>
       </span>
     {% elif language %}
-      <a general="color:white text:s color:yellow:hover"  href="/post/create/?language={{ language }}" style="margin-bottom: 12px;">
-        <div general="position:center">Click and write a post about a {{ language }} language</div>
-      </a>
       <div general="flex position:center flex:ai-c"  style="margin-bottom: 12px;">
         <img general="width:30 br:circle bg:red" src="/static/media/topics/earth.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
         <img general="width:12 br:circle bg:yellow" src="/static/media/topics/language.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
       </div>
-      <span general="text:s border:1 brc:white br:2 color:white wf position:center" style="padding: 2px 6px;">
-        <span>CONTENTS {{ queryset.paginator.count }}</span>
-      </span>
-    {% elif category %}
-      <a general="color:white text:s color:yellow:hover"  href="/post/create/?category={{ category }}" style="margin-bottom: 12px;">
-        <div general="position:center">Click and write a post about a {{ category }} category</div>
-      </a>
-      <div general="flex position:center flex:ai-c"  style="margin-bottom: 12px;">
-        <img general="width:30 br:circle bg:red" src="/static/media/topics/earth.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
-        <img general="width:12 br:circle bg:yellow" src="/static/media/topics/category.svg" style="height: 0%;margin: 0px 6px;padding: 6px;">
-      </div>
-      <!-- TODO  contents count -->
       <span general="text:s border:1 brc:white br:2 color:white wf position:center" style="padding: 2px 6px;">
         <span>CONTENTS {{ queryset.paginator.count }}</span>
       </span>
@@ -68,31 +52,12 @@
         <div general="flex flex:fd-c border:1 brc:muted br:2"  style="padding: 3px 3px;margin: 4px;">
           {% for name, count in request.sort_languages %}
             <div>
-              {% if category %}
-                <a class="capitalize" general="color:success text:s" href="/filter/?category={{ category }}&language={{ name }}">{{ name }}; {{ count }}</a>
-              {% elif topic %}
+              {% if topic %}
                 <a class="capitalize" general="color:success text:s" href="/filter/?topic={{ topic }}&language={{ name }}">{{ name }}; {{ count }}</a>
               {% elif filter %}
                 <span class="capitalize" general="color:success text:s">{{ name }}; {{ count }}</span>
               {% elif hashtag %}
                 <a class="capitalize" general="color:success text:s" href="/filter/?tags={{ topic }}&language={{ name }}">{{ name }}; {{ count }}</a>
-              {% endif %}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-      {% if not category %}
-        <div general="flex flex:fd-c border:1 brc:muted br:2"  style="padding: 3px 3px;margin: 4px;">
-          {% for name, count in request.sort_categories %}
-            <div>
-              {% if language %}
-                <a class="capitalize" general="color:success text:s" href="/filter/?language={{ language }}&category={{ name }}">{{ name }}; {{ count }}</a>
-              {% elif topic %}
-                <a class="capitalize" general="color:success text:s" href="/filter/?topic={{ topic }}&category={{ name }}">{{ name }}; {{ count }}</a>
-              {% elif filter %}
-                <span class="capitalize" general="color:success text:s">{{ name }}; {{ count }}</span>
-              {% elif hashtag %}
-                <a class="capitalize" general="color:success text:s" href="/filter/?tags={{ topic }}&category={{ name }}">{{ name }}; {{ count }}</a>
               {% endif %}
             </div>
           {% endfor %}

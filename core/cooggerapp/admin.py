@@ -2,16 +2,11 @@ from django.contrib import admin
 
 from core.cooggerapp.choices import *
 from core.cooggerapp.models import (
-    Category, Commit, Content, Issue, ReportModel, SearchedWords, Topic,
-    UserProfile, UTopic
+    Commit, Content, Issue, ReportModel, SearchedWords, Topic, UserProfile,
+    UTopic
 )
 
 user_search_fields = ["user__username", "user__first_name", "user__last_name"]
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(ReportModel)

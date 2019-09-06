@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 
 from ...forms import ContentCreateForm
-from ...models import Category, Commit, Content, UTopic
+from ...models import Commit, Content, UTopic
 from .utils import redirect_utopic
 
 
@@ -15,18 +15,15 @@ class Create(LoginRequiredMixin, View):
     form_class = ContentCreateForm
 
     def get(self, request, utopic_permlink, *args, **kwargs):
-        self.initial, category = dict(), None
+        self.initial = dict()
         if not UTopic.objects.filter(
             user=request.user, permlink=utopic_permlink
         ).exists():
             return redirect_utopic(request, utopic_permlink)
         for key, value in request.GET.items():
-            if key == "category":
-                self.initial[key] = Category.objects.get(name=value)
-                continue
             self.initial[key] = value
         if "body" not in self.initial:
-            self.initial["body"] = self.get_body_template(request)
+            self.initial["body"] = render_to_string("content/post/editor-note.html")
         return render(
             request,
             self.template_name,
@@ -49,10 +46,3 @@ class Create(LoginRequiredMixin, View):
                 )
             )
         return render(request, self.template_name, dict(form=form))
-
-    def get_body_template(self, request):
-        category_name = request.GET.get("category", None)
-        if category_name is None:
-            return render_to_string("content/post/editor-note.html")
-        self.initial["category"] = Category.objects.get(name=category_name)
-        return self.initial["category"].template

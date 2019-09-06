@@ -1,14 +1,10 @@
-<div general="flex flex:jc-fe br:2 color:secondary" style="padding: 6px 0px;" >
-    <div general="flex flex:ai-c text:s position:left color:white"  class="content_list">
-        <a class="capitalize" general="color:secondary color:primary:hover"  
-        href="{% url 'filter' %}?username={{ ct.user }}&language={{ ct.language }}" id="language">
-         <i class="fas fa-flag"></i>{{ct.language}}
-        </a>
-    </div>
-    <div general="flex text:s flex:ai-c"  class="card-bottom">
+<div general="flex text:m br:2 color:secondary" style="padding: 6px 0px;">
+    <div general="position:left">
         {% with queryset=ct %}
             {% include 'common/bookmark.html' %}
         {% endwith %}
+    </div>
+    <div general="position:right">
         {% with queryset=ct %}
             {% include 'common/vote.html' %}
         {% endwith %}

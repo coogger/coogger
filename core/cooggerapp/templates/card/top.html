@@ -6,10 +6,10 @@
           <span>{{ct.utopic.permlink}}</span>
         </a>
     </div>
-    <div general="flex flex:ai-c text:s position:right color:white" >
-        <a general="color:secondary color:primary:hover"  href="{% url 'filter' %}?username={{ ct.user }}&category={{ ct.category }}" 
-          id="category">
-         <i class="fa fa-list-alt" aria-hidden="true"></i>{{ct.category}}
-        </a>
-    </div>
+    <div general="flex flex:ai-c text:s position:right color:white"  class="content_list">
+      <a class="capitalize" general="color:secondary color:primary:hover"  
+      href="{% url 'filter' %}?username={{ ct.user }}&language={{ ct.language }}" id="language">
+       <i class="fas fa-flag"></i>{{ct.language}}
+      </a>
+  </div>
 </div>

@@ -1,22 +1,11 @@
-<header general="flex flex:ai-c br:1 position:center bg:white" >
-    <div general="flex flex:fw-nw flex:jc-c width:90"  
-      mobile-l="width:96" mobile-m="width:96" mobile-s="width:96"
-    style="overflow: auto;padding: 0px 0px 6px 0px;">
-        <div general="position:left">
-          <a general="flex flex:jc-c flex:ai-c color:dark text:m" href="{% url 'home' %}" >
-            <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
-            <span general="text:m">coogger</span>
-          </a>
-        </div>
-      {% if not request.user.is_authenticated %}
-      <div general="flex flex:ai-c">
-        <a style="padding: 6px 12px;"
-         general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover" 
-         href="{% url 'redirect-github' %}?next={{ request.META.PATH_INFO }}">
-          <i general="text:xxl" class="fab fa-github-square"></i>Login via github
+<header general="flex flex:ai-c br:1 position:center bg:white">
+    <div general="flex flex:fw-nw flex:jc-c width:90" mobile-l="width:96" mobile-m="width:96" mobile-s="width:96" style="overflow: auto;padding: 0px 0px 6px 0px;">
+      <div general="position:left">
+        <a general="flex flex:jc-c flex:ai-c color:dark text:m" href="{% url 'home' %}" >
+          <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
+          <span general="text:m">coogger</span>
         </a>
       </div>
-      {% else %}
       <div general="flex flex:ai-c position:center width:60" class="search just-pc">
         <form action="{% url 'search' %}">
           <input name="query" style="padding: 6px 4px;" 
@@ -26,6 +15,15 @@
           <input type="submit" value="Search" style="display:  none;" />
         </form>
       </div>
+      {% if not request.user.is_authenticated %}
+      <div general="flex flex:ai-c">
+        <a style="padding: 6px 12px;"
+         general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover" 
+         href="{% url 'redirect-github' %}?next={{ request.META.PATH_INFO }}">
+          <i general="text:xxl" class="fab fa-github-square"></i>Login via github
+        </a>
+      </div>
+      {% else %}
       <div general="position:right">
         <div general="flex flex:ai-c" style="margin-right: 16px;">
           <a style="padding: 10px 12px;" 

@@ -2,8 +2,8 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
 from ..views.sitemap import (
-    CategorySitemap, CommitSitemap, ContentSitemap, IssueSitemap,
-    LanuageSitemap, TopicSitemap, UserSitemap, UtopicSitemap, robots
+    CommitSitemap, ContentSitemap, IssueSitemap, LanuageSitemap, TopicSitemap,
+    UserSitemap, UtopicSitemap, robots
 )
 
 urlpatterns = [
@@ -11,9 +11,6 @@ urlpatterns = [
     path("sitemap/topic.xml/", sitemap, {"sitemaps": {"topic": TopicSitemap()}}),
     path(
         "sitemap/language.xml/", sitemap, {"sitemaps": {"language": LanuageSitemap()}}
-    ),
-    path(
-        "sitemap/category.xml/", sitemap, {"sitemaps": {"category": CategorySitemap()}}
     ),
     path("sitemap/utopic.xml/", sitemap, {"sitemaps": {"utopic": UtopicSitemap()}}),
     path("sitemap/content.xml/", sitemap, {"sitemaps": {"content": ContentSitemap()}}),
