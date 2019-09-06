@@ -19,12 +19,11 @@ class TopicView(TemplateView):
         return context
 
     def get_users(self, queryset):
-        users = []
+        users = set()
         for query in queryset:
-            if query.user not in users:
-                users.append(query.user)
-                if len(users) == 30:
-                    break
+            users.add(query.user)
+            if len(users) == 30:
+                break
         return users
 
 
