@@ -8,3 +8,5 @@ services:
       - "8000:8000"
     env_file:
       - coogger/.env
+    volumes:
+      - ./core:/code/core
