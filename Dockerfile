@@ -13,7 +13,6 @@ RUN python manage.py makemigrations cooggerimages
 RUN python manage.py makemigrations django_page_views
 RUN python manage.py makemigrations djangoip
 RUN python manage.py makemigrations django_vote_system
-
 RUN python manage.py migrate --database default
 RUN python manage.py migrate --database django_ip
 RUN python manage.py migrate --database coogger_images
