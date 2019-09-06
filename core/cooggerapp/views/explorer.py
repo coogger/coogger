@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.views.generic import TemplateView
+from django.conf import settings
 
 from ..choices import LANGUAGES
 from ..models import Content, Topic
@@ -19,12 +20,11 @@ class TopicView(TemplateView):
         return context
 
     def get_users(self, queryset):
-        users = []
+        users = set()
         for query in queryset:
-            if query.user not in users:
-                users.append(query.user)
-                if len(users) == 30:
-                    break
+            users.add(query.user)
+            if len(users) == settings.USERS_PER_TOPIC:
+                break
         return users
 
 
