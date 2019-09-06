@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.views.generic import TemplateView
+from django.conf import settings
 
 from ..choices import LANGUAGES
 from ..models import Content, Topic
@@ -22,7 +23,7 @@ class TopicView(TemplateView):
         users = set()
         for query in queryset:
             users.add(query.user)
-            if len(users) == 30:
+            if len(users) == settings.USERS_PER_TOPIC:
                 break
         return users
 

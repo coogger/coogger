@@ -10,3 +10,4 @@ services:
       - coogger/.env
     volumes:
       - ./core:/code/core
+      - ./coogger:/code/coogger
