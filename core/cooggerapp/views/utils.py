@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import FieldError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.db.utils import IntegrityError
 
 
 def paginator(request, queryset, how_many=settings.PAGE_SIZE):
