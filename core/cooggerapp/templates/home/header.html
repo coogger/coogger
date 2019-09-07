@@ -7,13 +7,7 @@
         </a>
       </div>
       <div general="flex flex:ai-c position:center width:60" class="search just-pc">
-        <form action="{% url 'search' %}">
-          <input name="query" style="padding: 6px 4px;" 
-          general="border:1 br:2 brc:muted bg:white color:orange width:100" type="text"
-          style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
-          placeholder="search content or @user .."/>
-          <input type="submit" value="Search" style="display:  none;" />
-        </form>
+        {% include 'forms/search.html' %}
       </div>
       {% if not request.user.is_authenticated %}
       <div general="flex flex:ai-c">

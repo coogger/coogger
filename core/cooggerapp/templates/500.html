@@ -1,10 +1,18 @@
 {% extends "home/html.html" %}
 {% block body %}
-<cards style="position: fixed;width: 96%;left: 2%;">
-  <card style="height:10vh;">
-    <card general="flex bg:danger flex:jc-c flex:ai-c" >
-      <h1 general="color:white">500</h1>
-    </card>
-  </card>
-</cards>
+<div style="height: calc(100vh - 113px);" general="position:ewcenter">
+    <div general="position:center flex width:40" 
+            mobile-s="width:100" 
+            mobile-m="width:98" 
+            mobile-l="width:98" 
+            tablet="width:70" 
+            laptop="width:50" 
+            laptop-l="width:60">
+        <strong style="font-size: 200px;">5<span general="color:red">0</span>0</strong>
+        <br><br>
+        <span>SORRY BUT THE PAGE YOU ARE LOOKING FOR DOES NOT EXIST, HAVE BEEN REMOVED. NAME CHANGED OR IS TEMPORARILY UNAVAILABLE</span>
+        <br><br>
+        {% include 'forms/search.html' %}
+    </div>
+</div>
 {% endblock %}

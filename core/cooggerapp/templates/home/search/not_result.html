@@ -8,9 +8,11 @@
             tablet="width:70" 
             laptop="width:50" 
             laptop-l="width:60">
-        <strong style="font-size: 200px;">4<span general="color:red">0</span>4</strong>
+        <strong style="font-size: 200px;"><i class="fas fa-search"></i></strong>
         <br><br>
-        <span>SORRY BUT THE PAGE YOU ARE LOOKING FOR DOES NOT EXIST, HAVE BEEN REMOVED. NAME CHANGED OR IS TEMPORARILY UNAVAILABLE</span>
+        <span>SORRY, WE COULDN’T FIND ANY RESULTS FOR <span general="color:warning">'{{ request.GET.query|upper }}'</span></span>
+        <br><br>
+        <span>Try a more generic search term.</span>
         <br><br>
         {% include 'forms/search.html' %}
     </div>
