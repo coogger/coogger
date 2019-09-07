@@ -84,7 +84,6 @@ $ docker-compose up --env-file coogger/.env
         <br/>
         <sub>
           <b>Batuhan Taşkaya</b><br>
-          <b>Coogger Core Developer</b>
         </sub>
       </a>
       <br/>
@@ -138,6 +137,30 @@ $ docker-compose up --env-file coogger/.env
       <br/>
       <a href="https://github.com/coogger/coogger/commits?author=aligoren" title="Code">💻</a>
       <a href="https://github.com/coogger/coogger/issues?q=author%aligoren" title="Issue">📖</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/emregeldegul">
+        <img src="https://avatars2.githubusercontent.com/u/26741856?s=460&v=4" width="75px;" alt="emregeldegul"/>
+        <br/>
+        <sub>
+          <b>Yunus Emre Geldegül</b>
+        </sub>
+      </a>
+      <br/>
+      <a href="https://github.com/coogger/coogger/commits?author=emregeldegul" title="Code">💻</a>
+      <a href="https://github.com/coogger/coogger/issues?q=author%emregeldegul" title="Issue">📖</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/bisguzar">
+        <img src="https://avatars0.githubusercontent.com/u/8844753?s=460&v=4" width="75px;" alt="bisguzar"/>
+        <br/>
+        <sub>
+          <b>Buğra İşgüzar</b>
+        </sub>
+      </a>
+      <br/>
+      <a href="https://github.com/coogger/coogger/commits?author=bisguzar" title="Code">💻</a>
+      <a href="https://github.com/coogger/coogger/issues?q=author%bisguzar" title="Issue">📖</a>
     </td>
   </tr>
 </table>
