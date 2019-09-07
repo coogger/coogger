@@ -6,7 +6,11 @@
             <div general="flex flex:fd-c width:100">
                 <div general="flex flex:ai-c width:100">
                     <a general="width:100 br:2 color:dark text:m color:primary:hover" href="{{ bookmark.model.get_absolute_url }}">
-                        {{ bookmark.model.title|title }}
+                        {% if bookmark.model.title %}
+                            {{ bookmark.model.title|title }}
+                        {% else %}
+                            {{ bookmark.model.get_absolute_url }}
+                        {% endif %}
                     </a>
                     <div general="text:s position:right" flex>
                         <i general="color:secondary" class="fas fa-eye">{{ bookmark.model.views }}</i>

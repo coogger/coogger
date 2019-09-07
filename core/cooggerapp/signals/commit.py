@@ -1,7 +1,17 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from ..models import Commit, UTopic, send_mail
+from .related.delete import (
+    delete_related_bookmark, delete_related_views, delete_related_vote
+)
+
+
+@receiver(pre_delete, sender=Commit)
+def when_commit_delete(sender, instance, **kwargs):
+    delete_related_bookmark(sender, instance.id)
+    delete_related_vote(sender, instance.id)
+    delete_related_views(sender, instance.id)
 
 
 @receiver(post_save, sender=Commit)

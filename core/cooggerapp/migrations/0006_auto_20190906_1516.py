@@ -5,26 +5,23 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('cooggerapp', '0005_auto_20190902_1254'),
-    ]
+    dependencies = [("cooggerapp", "0005_auto_20190902_1254")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='content',
-            name='category',
+        migrations.RemoveField(model_name="content", name="category"),
+        migrations.AlterField(
+            model_name="topic",
+            name="description",
+            field=models.CharField(
+                blank=True, help_text="description of topic", max_length=600, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='topic',
-            name='description',
-            field=models.CharField(blank=True, help_text='description of topic', max_length=600, null=True),
+            model_name="utopic",
+            name="description",
+            field=models.CharField(
+                blank=True, help_text="description of topic", max_length=600, null=True
+            ),
         ),
-        migrations.AlterField(
-            model_name='utopic',
-            name='description',
-            field=models.CharField(blank=True, help_text='description of topic', max_length=600, null=True),
-        ),
-        migrations.DeleteModel(
-            name='Category',
-        ),
+        migrations.DeleteModel(name="Category"),
     ]

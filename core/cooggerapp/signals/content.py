@@ -6,6 +6,9 @@ from ..models import (
     Commit, Content, Topic, UserProfile, UTopic, dor, send_mail
 )
 from ..templatetags.coogger_tags import hmanycontent
+from .related.delete import (
+    delete_related_bookmark, delete_related_views, delete_related_vote
+)
 
 
 def update_topic(instance, iord):
@@ -48,6 +51,9 @@ def commit(instance):
 def when_content_delete(sender, instance, **kwargs):
     update_topic(instance, -1)
     update_utopic(instance, -1)
+    delete_related_bookmark(sender, instance.id)
+    delete_related_vote(sender, instance.id)
+    delete_related_views(sender, instance.id)
 
 
 @receiver(post_save, sender=Content)
