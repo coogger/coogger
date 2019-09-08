@@ -63,6 +63,6 @@ class Bookmark(Common):
     def get_context_data(self, username, **kwargs):
         context = super().get_context_data(username, **kwargs)
         user = context["current_user"]
-        queryset = BookmarkModel.objects.filter(user=user)
+        queryset = BookmarkModel.objects.filter(user=user).order_by("-id")
         context["queryset"] = paginator(self.request, queryset)
         return context

@@ -1,22 +1,6 @@
 {% extends "home/html.html" %}
 {% block body %}
-  <div class="create" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100" 
-  style="margin-top: 30px;">
-    <a style="margin-bottom: 12px;display:none;" general="color:success" target="blank" id="category_help_page" href="">
-      Need help? check this address for <span general="color:dark" id="category_help_name"></span> category
-    </a>
+  <div class="create" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100" style="margin-top: 30px;">
     {% include 'forms/create_form.html' %}
   </div>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      let location = window.location.href;
-      $("select#id_category").change(function(e){
-        let value = e.target.value;
-        let option = $( `[name='category'] [value='${value}']` ).text();
-        $("#category_help_name").html(option);
-        $("#category_help_page").css("display", "block");
-        $("#category_help_page").attr("href", `${location}&category=${option}`);
-      });
-    });
-</script>
 {% endblock %}

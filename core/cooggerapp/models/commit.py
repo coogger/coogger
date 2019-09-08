@@ -54,7 +54,9 @@ class Commit(Common, View, Vote):
         ordering = ["-created"]
 
     def __str__(self):
-        return f"<Commit(content='{self.content}', msg='{self.msg}')>"
+        return (
+            f"<Commit(user='{self.user}', content='{self.content}', msg='{self.msg}')>"
+        )
 
     @property
     def get_absolute_url(self):

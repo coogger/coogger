@@ -118,3 +118,4 @@ GITHUB_AUTH = dict(
     client_secret=env("GITHUB_CLIENT_SECRET"),
     client_id=env("GITHUB_CLIENT_ID"),
 )
+USERS_PER_TOPIC = 30

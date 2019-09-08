@@ -72,7 +72,7 @@ $ docker-compose up --env-file coogger/.env
 [CONTRIBUTING.md](https://github.com/coogger/coogger/blob/coogger-dev/CONTRIBUTING.md)
 
 
-## 💻📖🐛 Contributors 💻📖🐛
+## 💻📖 Contributors 💻📖
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
@@ -83,13 +83,12 @@ $ docker-compose up --env-file coogger/.env
         <img src="https://avatars3.githubusercontent.com/u/47358913?s=460&v=4" width="75px;" alt="Batuhan Taşkaya"/>
         <br/>
         <sub>
-          <b>Batuhan Taşkaya</b><br>
-          <b>Coogger Core Developer</b>
+          <b>Batuhan Taşkaya</b>
         </sub>
       </a>
       <br/>
       <a href="https://github.com/coogger/coogger/commits?author=isidentical" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%3Aisidentical" title="Bug reports">🐛</a>
+      <a href="https://github.com/coogger/coogger/issues?q=author%3Aisidentical" title="Issue">📖</a>
     </td>
     <td align="center">
       <a href="https://github.com/furkanonder">
@@ -101,7 +100,7 @@ $ docker-compose up --env-file coogger/.env
       </a>
       <br/>
       <a href="https://github.com/coogger/coogger/commits?author=furkanonder" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/commits?author=furkanonder" title="Documentation">📖</a>
+      <a href="https://github.com/coogger/coogger/commits?author=furkanonder" title="Issue">📖</a>
     </td>
     <td align="center">
       <a href="https://github.com/adilkhan8000">
@@ -112,8 +111,8 @@ $ docker-compose up --env-file coogger/.env
         </sub>
       </a>
       <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=adilkhan8000" title="Documentation">📖</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%3Aadilkhan8000" title="Bug reports">🐛</a>
+      <a href="https://github.com/coogger/coogger/commits?author=adilkhan8000" title="Code">💻</a>
+      <a href="https://github.com/coogger/coogger/issues?q=author%3Aadilkhan8000" title="Issue">📖</a>
     </td>
     <td align="center">
       <a href="https://github.com/ewuoso">
@@ -124,8 +123,44 @@ $ docker-compose up --env-file coogger/.env
         </sub>
       </a>
       <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=ewuoso" title="Documentation">📖</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%3Aewuoso" title="Bug reports">🐛</a>
+      <a href="https://github.com/coogger/coogger/commits?author=ewuoso" title="Code">💻</a>
+      <a href="https://github.com/coogger/coogger/issues?q=author%3Aewuoso" title="Issue">📖</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/aligoren">
+        <img src="https://avatars1.githubusercontent.com/u/4205423?s=460&v=4" width="75px;" alt="aligoren"/>
+        <br/>
+        <sub>
+          <b>Ali GOREN</b>
+        </sub>
+      </a>
+      <br/>
+      <a href="https://github.com/coogger/coogger/commits?author=aligoren" title="Code">💻</a>
+      <a href="https://github.com/coogger/coogger/issues?q=author%aligoren" title="Issue">📖</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/emregeldegul">
+        <img src="https://avatars2.githubusercontent.com/u/26741856?s=460&v=4" width="75px;" alt="emregeldegul"/>
+        <br/>
+        <sub>
+          <b>Yunus Emre Geldegül</b>
+        </sub>
+      </a>
+      <br/>
+      <a href="https://github.com/coogger/coogger/commits?author=emregeldegul" title="Code">💻</a>
+      <a href="https://github.com/coogger/coogger/issues?q=author%emregeldegul" title="Issue">📖</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/bisguzar">
+        <img src="https://avatars0.githubusercontent.com/u/8844753?s=460&v=4" width="75px;" alt="bisguzar"/>
+        <br/>
+        <sub>
+          <b>Buğra İşgüzar</b>
+        </sub>
+      </a>
+      <br/>
+      <a href="https://github.com/coogger/coogger/commits?author=bisguzar" title="Code">💻</a>
+      <a href="https://github.com/coogger/coogger/issues?q=author%bisguzar" title="Issue">📖</a>
     </td>
   </tr>
 </table>

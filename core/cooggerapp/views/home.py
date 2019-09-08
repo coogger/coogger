@@ -85,6 +85,8 @@ class Report(LoginRequiredMixin, View):
 class Search(Home):
     content_search_template_name = "home/search/content.html"
     user_search_template_name = "home/search/user.html"
+    not_result_template_name = "home/search/not_result.html"
+    is_queryset_exists = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -103,9 +105,13 @@ class Search(Home):
                 | Q(first_name__contains=name)
                 | Q(last_name__contains=name)
             )
-        return Content.objects.filter(Q(title__contains=name) & Q(status="ready"))
+        queryset = Content.objects.filter(Q(title__contains=name) & Q(status="ready"))
+        self.is_queryset_exists = queryset.exists()
+        return queryset
 
     def get_template_names(self):
+        if not self.is_queryset_exists:
+            return [self.not_result_template_name]
         name = self.request.GET["query"].lower()
         if name.startswith("@"):
             return [self.user_search_template_name]

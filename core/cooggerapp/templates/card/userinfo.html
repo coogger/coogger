@@ -4,7 +4,7 @@
         <img src="{{ ct.user.githubauthuser.avatar_url }}" class="carduserimg" general="br:circle" width="40px" height="40px"></img>
         <div general="flex flex:fd-c">
             {% if ct.user.userprofile.title != "user" %}
-            <span class="uppercase" general="bg:danger color:white br:2 text:xs" style="margin-left: 6px; padding:2px 4px;">
+            <span class="uppercase" general="bg:danger color:white br:2 text:xs width:max" style="margin-left: 6px; padding:2px 4px;">
               {{ ct.user.userprofile.title }}
             </span>
           {% endif %}
@@ -25,7 +25,7 @@
         {% include 'github-redirect.html' %}
       {% endwith %}
       {% with ct as queryset %}
-        <div general="position:right">
+      <div general="text:s color:secondary flex position:right">
             {% include 'content/detail/edit.html' %}
         </div>
       {% endwith %}

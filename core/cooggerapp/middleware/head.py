@@ -11,7 +11,6 @@ class HeadMixin:
     invalid = ["sitemap", "api", "robots.txt", "admin", "static", "media"]
     default_img = "https://www.coogger.com/static/logos/png/800.png"
     default_hashtag_img = "/static/media/icons/list.svg"
-    default_category_img = "/static/media/topics/category.svg"
     default_language_img = "/static/media/topics/language.svg"
 
     def process_request(self, request):
@@ -99,16 +98,6 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             keywords=f"{username}, comment {username}, comment",
             description=f"comment {username}".capitalize(),
             image=self.default_img,
-        )
-
-    @property
-    def category(self):
-        cat_name = self.get_var("cat_name")
-        return dict(
-            title=f"Latest post on coogger from {cat_name} category".capitalize(),
-            keywords=f"{cat_name}, {cat_name} category",
-            description=f"Latest post on coogger from {cat_name} category".capitalize(),
-            image=self.default_category_img,
         )
 
     @property

@@ -1,13 +1,14 @@
-<header general="flex flex:ai-c br:1 position:center bg:white" >
-    <div general="flex flex:fw-nw flex:jc-c width:90"  
-      mobile-l="width:96" mobile-m="width:96" mobile-s="width:96"
-    style="overflow: auto;padding: 0px 0px 6px 0px;">
-        <div general="position:left">
-          <a general="flex flex:jc-c flex:ai-c color:dark text:m" href="{% url 'home' %}" >
-            <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
-            <span general="text:m">coogger</span>
-          </a>
-        </div>
+<header general="flex flex:ai-c br:1 position:center bg:white">
+    <div general="flex flex:fw-nw flex:jc-c width:90" mobile-l="width:96" mobile-m="width:96" mobile-s="width:96" style="overflow: auto;padding: 0px 0px 6px 0px;">
+      <div general="position:left">
+        <a general="flex flex:jc-c flex:ai-c color:dark text:m" href="{% url 'home' %}" >
+          <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
+          <span general="text:m">coogger</span>
+        </a>
+      </div>
+      <div general="flex flex:ai-c position:center width:60" class="search just-pc">
+        {% include 'forms/search.html' %}
+      </div>
       {% if not request.user.is_authenticated %}
       <div general="flex flex:ai-c">
         <a style="padding: 6px 12px;"
@@ -17,15 +18,6 @@
         </a>
       </div>
       {% else %}
-      <div general="flex flex:ai-c position:center width:60" class="search just-pc">
-        <form action="{% url 'search' %}">
-          <input name="query" style="padding: 6px 4px;" 
-          general="border:1 br:2 brc:muted bg:white color:orange width:100" type="text"
-          style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
-          placeholder="search content or @user .."/>
-          <input type="submit" value="Search" style="display:  none;" />
-        </form>
-      </div>
       <div general="position:right">
         <div general="flex flex:ai-c" style="margin-right: 16px;">
           <a style="padding: 10px 12px;" 

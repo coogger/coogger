@@ -62,19 +62,7 @@
         </div>
       </div>
     </div>
-    <!-- utopic info %? category, %? language -->
-  <div general="border:1 brc:muted br:2 flex flex:ai-c" style="padding: 6px 12px;margin-top: 6px;">
-      <div general="flex width:100 flex:ai-c text:s">
-        <i class="fa fa-list-alt" title="categories"></i>
-        <div general="flex width:90 flex:fw-nw position:center flex:ai-c">
-          {% for category in utopic|calculate_percent_utopic:"category" %}
-          <div general="bg:orange br:1 flex flex:fw-nw text:s" class="topic_percent" style="width: {{ category.percent }};">
-            {{ category.model.name|truncatechars:8 }}; {{ category.percent }}
-          </div>
-        {% endfor %}
-        </div>
-    </div>
-  </div>
+    <!-- utopic info %? language -->
   <div general="border:1 brc:muted br:2 flex flex:ai-c" style="padding: 6px 12px;margin-top: 6px;">
     <div general="flex width:100 flex:ai-c text:s">
       <i class="fa fa-list-alt" title="categories"></i>

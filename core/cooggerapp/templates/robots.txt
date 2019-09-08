@@ -7,4 +7,3 @@ Sitemap: https://www.coogger.com/sitemap/utopic.xml
 Sitemap: https://www.coogger.com/sitemap/content.xml
 Sitemap: https://www.coogger.com/sitemap/users.xml
 Sitemap: https://www.coogger.com/sitemap/languages.xml
-Sitemap: https://www.coogger.com/sitemap/category.xml

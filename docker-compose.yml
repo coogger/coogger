@@ -7,4 +7,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - coogger/.example_env
+      - coogger/.env
+    volumes:
+      - ./core:/code/core
+      - ./coogger:/code/coogger

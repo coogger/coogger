@@ -17,15 +17,6 @@
           </a>
         </div>
       {% endif %}
-      {% if queryset.category %}
-        <div general="flex flex:ai-c text:s position:right"
-        style="margin-right: 2px;padding: 4px 6px;">
-          <a href="{% url 'filter' %}?username={{ current_user }}&category={{ queryset.category }}" general="color:primary:hover color:dark">
-            <i class="fa fa-list-alt" aria-hidden="true"></i>
-            <span id="category">{{queryset.category|title}}</span>
-          </a>
-        </div>
-        {% endif %}
         {% if queryset.utopic %}
         <div general="flex flex:ai-c text:s position:right"  
         style="margin-right: 2px;padding: 4px 6px;">
@@ -55,8 +46,17 @@
 </div>
 <div style="position: fixed;bottom: 4px;z-index: 1;width: inherit;">
   <div general="width:100 text:s flex" mobile-l="brc:white" mobile-m="brc:white" mobile-s="brc:white">
-      <div general="text:s bg:dark brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
-        {% include 'content/detail/edit.html' %}
+      <div general="text:m bg:dark brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
+        <div general="text:m color:secondary flex">
+          {% include 'content/detail/edit.html' %}
+        </div>
+        <!-- report -->
+        {% if queryset.user != request.user and request.user.is_authenticated %}
+        <div general="color:danger:hover color:secondary" class="report" title="report" data-content-id="{{ queryset.id }}" style="cursor:pointer;">
+            <i class="fa fa-flag fa" aria-hidden="true"></i>
+        </div>
+        {% endif %}
+        <!-- report -->
         {% include 'common/bookmark.html' %}
         {% include 'common/vote.html' %}
       </div>

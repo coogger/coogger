@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from ..choices import LANGUAGES
-from ..models import Category, Commit, Content, Issue, Topic, UTopic
+from ..models import Commit, Content, Issue, Topic, UTopic
 
 
 class IssueSitemap(Sitemap):
@@ -70,24 +70,6 @@ class LanuageSitemap(Sitemap):
 
     def location(self, obj):
         return reverse("language", kwargs=dict(lang_name=obj))
-
-
-class CategorySitemap(Sitemap):
-    changefreq = "weekly"
-    priority = 0.9
-
-    def items(self):
-        return Category.objects.all()
-
-    def lastmod(self, obj):
-        try:
-            contents = Content.objects.filter(category=obj)
-            return contents[0].updated
-        except IndexError:
-            pass
-
-    def location(self, obj):
-        return reverse("category", kwargs=dict(cat_name=obj.name))
 
 
 class UtopicSitemap(Sitemap):

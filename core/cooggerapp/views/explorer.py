@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import Http404
 from django.views.generic import TemplateView
 
@@ -19,12 +20,11 @@ class TopicView(TemplateView):
         return context
 
     def get_users(self, queryset):
-        users = []
+        users = set()
         for query in queryset:
-            if query.user not in users:
-                users.append(query.user)
-                if len(users) == 30:
-                    break
+            users.add(query.user)
+            if len(users) == settings.USERS_PER_TOPIC:
+                break
         return users
 
 
@@ -52,17 +52,6 @@ class Languages(TemplateView):
             context["language"] = lang_name
             return context
         raise Http404
-
-
-class Categories(TemplateView):
-    template_name = "card/blogs.html"
-
-    def get_context_data(self, cat_name, **kwargs):
-        queryset = Content.objects.filter(category__name=cat_name, status="ready")
-        context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, queryset)
-        context["category"] = cat_name
-        return context
 
 
 class Filter(TemplateView):

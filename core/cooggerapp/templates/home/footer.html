@@ -1,30 +1,29 @@
-<footer general="flex bg:dark color:white flex:ai-ba" style="padding: 0px 30px; z-index: 2; display: none;">
-  <div general="flex flex:fd-c">
+<footer general="bg:dark color:white">
+  <div general="flex flex:fd-c width:100">
     <div class="closed_footer" general="text:xxl br:2 width:max">
       <div general="color:red">x</div>
     </div>
     <div style="margin-top: 40px;">
-        <form action="{% url 'search' %}" style="margin-bottom: 8px;">
-            <input name="query" style="padding: 6px 4px;" 
-            general="border:1 br:2 muted width:max" type="text"
-            style="padding: 6px 4px;width: 100%;" maxlength="250" value="{{ request.GET.query }}" 
-            placeholder="search content or @user .."/>
-            <input type="submit" value="Search" style="display:  none;" />
-          </form>
+      {% include 'forms/search.html' %}
+      <br>
       <div general="flex flex:fd-c">
-        <a general="color:white text:l color:success:hover" href="/guide/@hakancelik96/" style="margin-bottom: 8px;">
+        <a general="color:white text:l color:success:hover" href="/guide/@hakancelik96/">
           Guide
         </a>
-        <a general="color:white text:l color:success:hover" href="/privacy/" style="margin-bottom: 8px;">
+        <br>
+        <a general="color:white text:l color:success:hover" href="/privacy/">
           Privacy Policy
         </a>
-        <a general="color:white text:l color:success:hover" href="{% url 'coogger-images' %}" style="margin-bottom: 8px;">
+        <br>
+        <a general="color:white text:l color:success:hover" href="{% url 'coogger-images' %}">
           Coogger Images
       </a>
-      <a general="color:white text:l color:success:hover" href="{% url 'create-utopic' %}" style="margin-bottom: 8px;">
+      <br>
+      <a general="color:white text:l color:success:hover" href="{% url 'create-utopic' %}">
         <i class="fa fa-plus-circle"></i>Create Topic
       </a>
-      <a general="color:white text:l color:success:hover" href="{% url 'explorer_posts' %}" style="margin-bottom: 8px;">
+      <br>
+      <a general="color:white text:l color:success:hover" href="{% url 'explorer_posts' %}">
         <i class="fas fa-compass"></i>Explore posts
     </a>
       </div>

@@ -7,8 +7,6 @@ $(document).ready(function() {
     {target:".open_footer", hide:"footer"},
     {target:".open_header_menu", hide:".header_menu"},
     {target:".close-ms", hide:".main-messages"},
-    {target:".lg", hide:".languages"},
-    {target:".ctg", hide:".categories"},
     {target:".lists", hide:"nav"},
     {target:".run-filter", hide:".filter-machine"},
   ];
@@ -34,12 +32,6 @@ $(document).ready(function() {
   $(".close-ms").click(function() {
       $(".main-messages").remove();
   })
-  $(".lg").click(function() {
-      $(".languages").toggle();
-  });
-  $(".ctg").click(function() {
-      $(".categories").toggle();
-  });
   $(".utopic-open").click(function() {
       $(".utopic").toggle();
   });

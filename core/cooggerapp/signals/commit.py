@@ -1,7 +1,17 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from ..models import Commit, UTopic, send_mail
+from .related.delete import (
+    delete_related_bookmark, delete_related_views, delete_related_vote
+)
+
+
+@receiver(pre_delete, sender=Commit)
+def when_commit_delete(sender, instance, **kwargs):
+    delete_related_bookmark(sender, instance.id)
+    delete_related_vote(sender, instance.id)
+    delete_related_views(sender, instance.id)
 
 
 @receiver(post_save, sender=Commit)
@@ -14,7 +24,7 @@ def when_commit_create(sender, instance, created, **kwargs):
             utopic.save()
 
             send_mail(
-                subject=f"{ instance.user } contribute your article | coogger",
+                subject=f"{ instance.user } contributed your article | coogger",
                 template_name="email/contribute.html",
                 context=dict(get_absolute_url=instance.get_absolute_url),
                 to=[instance.content.user],

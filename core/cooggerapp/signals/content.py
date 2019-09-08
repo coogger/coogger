@@ -6,6 +6,9 @@ from ..models import (
     Commit, Content, Topic, UserProfile, UTopic, dor, send_mail
 )
 from ..templatetags.coogger_tags import hmanycontent
+from .related.delete import (
+    delete_related_bookmark, delete_related_views, delete_related_vote
+)
 
 
 def update_topic(instance, iord):
@@ -48,6 +51,9 @@ def commit(instance):
 def when_content_delete(sender, instance, **kwargs):
     update_topic(instance, -1)
     update_utopic(instance, -1)
+    delete_related_bookmark(sender, instance.id)
+    delete_related_vote(sender, instance.id)
+    delete_related_views(sender, instance.id)
 
 
 @receiver(post_save, sender=Content)
@@ -67,7 +73,7 @@ def when_content_create(sender, instance, created, **kwargs):
         if instance.status == "ready":
             update_topic(instance, +1)
             send_mail(
-                subject=f"{ instance.user } publish a new content | coogger",
+                subject=f"{ instance.user } published a new content | coogger",
                 template_name="email/post.html",
                 context=dict(get_absolute_url=instance.get_absolute_url),
                 to=[u.user for u in instance.user.follow.follower if u.user.email],

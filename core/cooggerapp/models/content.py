@@ -10,7 +10,6 @@ from core.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
 
 from ...threaded_comment.models import AbstractThreadedComments
 from ..views.utils import check_redirect_exists
-from .category import Category
 from .common import Common, View, Vote
 from .topic import UTopic
 from .utils import dor, get_first_image, ready_tags, second_convert
@@ -41,9 +40,6 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         max_length=30,
         choices=make_choices(LANGUAGES),
         help_text="The language of your content",
-    )
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, help_text="select content category"
     )
     tags = models.CharField(
         max_length=200,

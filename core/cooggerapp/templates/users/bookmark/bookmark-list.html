@@ -6,7 +6,11 @@
             <div general="flex flex:fd-c width:100">
                 <div general="flex flex:ai-c width:100">
                     <a general="width:100 br:2 color:dark text:m color:primary:hover" href="{{ bookmark.model.get_absolute_url }}">
-                        {{ bookmark.model.title|title }}
+                        {% if bookmark.model.title %}
+                            {{ bookmark.model.title|title }}
+                        {% else %}
+                            {{ bookmark.model.get_absolute_url }}
+                        {% endif %}
                     </a>
                     <div general="text:s position:right" flex>
                         <i general="color:secondary" class="fas fa-eye">{{ bookmark.model.views }}</i>
@@ -22,25 +26,15 @@
             data-csrf="{{ csrf_token }}"
             data-url="{% url 'django_bookmark:add_or_remove' %}"
             data-bookmark-status="{% is_mark request.user bookmark.model bookmark.object_id %}">
-                <div>
-                    <i general="color:secondary" class="bookmarkicon fas fa-bookmark" 
-                    id="how_many_mark"></i>
-                    {{ bookmark.how_many }}
-                </div>
-                <div general="position:right color:secondary">
-                    {{ bookmark.content_type }}
-                </div>
+            <i general="color:secondary" class="bookmarkicon fa-bookmark"></i>
+            <span general="position:left color:secondary" style="margin-right: 6px;" id="how_many_mark">
+                {{ bookmark.how_many }}
+            </span>
             </div>
+            <span general="position:right color:secondary">
+                {{ bookmark.content_type }}
+            </span>
         </div>
     </div>
     {% endfor %}
 </div>
-<script>
-    let bookmark_status = $(".bookmarkop").data("bookmark-status");
-    if (bookmark_status == "False"){
-        $(".bookmarkop").find(".bookmarkicon").attr("general","color:secondary");
-    }
-    else if (bookmark_status == "True"){
-        $(".bookmarkop").find(".bookmarkicon").attr("general", "color:success");
-    }
-</script>
