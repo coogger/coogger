@@ -7,7 +7,7 @@ from django_bookmark.models import Bookmark
 
 from ...threaded_comment.models import ThreadedComments
 from ..choices import *
-from ..models import Commit, Content, UTopic
+from ..models import Content, UTopic
 from ..views.utils import model_filter
 
 register = template.Library()

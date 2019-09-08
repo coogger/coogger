@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 
 from ...forms import ContentCreateForm
-from ...models import Commit, Content, UTopic
+from ...models import UTopic
 from .utils import redirect_utopic
 
 
