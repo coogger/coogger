@@ -87,24 +87,26 @@ class Search(Home):
     user_search_template_name = "home/search/user.html"
     not_result_template_name = "home/search/not_result.html"
     is_queryset_exists = True
+    page_size = settings.PAGE_SIZE
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(
-            self.request, self.get_queryset(), self.get_how_many()
-        )
+        context["queryset"] = self.get_queryset()[: self.page_size]
         return context
 
     def get_queryset(self):
         name = self.request.GET["query"].lower()
         SearchedWords(word=name).save()
         if name.startswith("@"):
+            self.page_size = 30
             name = name[1:]
-            return User.objects.filter(
+            queryset = User.objects.filter(
                 Q(username__contains=name)
                 | Q(first_name__contains=name)
                 | Q(last_name__contains=name)
             )
+            self.is_queryset_exists = queryset.exists()
+            return queryset
         queryset = Content.objects.filter(Q(title__contains=name) & Q(status="ready"))
         self.is_queryset_exists = queryset.exists()
         return queryset
@@ -116,12 +118,6 @@ class Search(Home):
         if name.startswith("@"):
             return [self.user_search_template_name]
         return [self.content_search_template_name]
-
-    def get_how_many(self):
-        name = self.request.GET["query"].lower()
-        if name.startswith("@"):
-            return 30
-        return settings.PAGE_SIZE
 
 
 class Feed(Home):
