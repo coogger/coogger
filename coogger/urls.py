@@ -14,6 +14,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("reply/", include("core.threaded_comment.urls")),
     path("privacy/", just_redirect_by_name, name="privacy"),
+    path("sponsorship/", just_redirect_by_name, name="sponsorship"),
     path("settings/", include("core.cooggerapp.urls.setting")),
     path("", include("core.cooggerapp.urls.explorer")),
     path("", include("core.cooggerapp.urls.home")),
