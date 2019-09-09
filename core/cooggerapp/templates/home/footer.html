@@ -7,42 +7,46 @@
       {% include 'forms/search.html' %}
       <br>
       <div general="flex flex:fd-c">
-        <a general="color:white text:l color:success:hover" href="/guide/@hakancelik96/">
+        <a class="fas fa-feather" general="color:white text:l color:primary:hover" href="/guide/@hakancelik96/">
           Guide
         </a>
         <br>
-        <a general="color:white text:l color:success:hover" href="/privacy/">
+        <a class="fas fa-user-secret" general="color:white text:l color:dark:hover" href="{% url 'privacy' %}">
           Privacy Policy
         </a>
         <br>
-        <a general="color:white text:l color:success:hover" href="{% url 'coogger-images' %}">
+        <a class="fas fa-heart" general="color:white text:l color:danger:hover" href="{% url 'sponsorship' %}">
+          Sponsorship
+        </a>
+        <br>
+        <a class="fas fa-image" general="color:white text:l color:primary:hover" href="{% url 'coogger-images' %}">
           Coogger Images
       </a>
       <br>
-      <a general="color:white text:l color:success:hover" href="{% url 'create-utopic' %}">
-        <i class="fa fa-plus-circle"></i>Create Topic
+      <a class="fa fa-plus-circle" general="color:white text:l color:primary:hover" href="{% url 'create-utopic' %}">
+        Create Topic
       </a>
       <br>
-      <a general="color:white text:l color:success:hover" href="{% url 'explorer_posts' %}">
-        <i class="fas fa-compass"></i>Explore posts
+      <a class="fas fa-compass" general="color:white text:l color:primary:hover" href="{% url 'explorer_posts' %}">
+       Explore posts
     </a>
       </div>
       <div class="f-address" class="capitalize" style="margin-top: 30px;"> 
         <span class="capitalize" general="position:center">SOCIAL</span>
         <div style="margin-top: 10px;">
-          <a general="flex flex:ai-c color:white color:success:hover" target="_blank"  href="https://github.com/coogger/">
+          <a general="flex flex:ai-c color:white color:primary:hover" target="_blank"  href="https://github.com/coogger/">
             <i class="fab fa-github"></i>
             <span>GitHub</span>
           </a>
         </div>
         <div style="margin-top: 10px;">
-          <a general="flex flex:ai-c color:white color:success:hover"  target="_blank" href="https://twitter.com/cooggercom">
+          <a general="flex flex:ai-c color:white color:primary:hover"  target="_blank" href="https://twitter.com/cooggercom">
             <i class="fab fa-twitter-square"></i>
             <span>Twitter</span>
           </a>
         </div>
         <div style="margin-top: 10px;">
-          <a general="flex flex:ai-c color:white color:success:hover"  target="_blank" href="https://www.linkedin.com/company/coogger">
+          <a general="flex flex:ai-c color:white color:primary:hover"  target="_blank" href="https://www.linkedin.com/company/coogger">
             <i class="fab fa-linkedin"></i>
             <span>Linkedin</span>
           </a>

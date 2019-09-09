@@ -1,0 +1,5 @@
+{% if user.userprofile.title != "user" %}
+  <span class="uppercase" general="bg:danger color:white br:2 text:xs width:max" style="margin-left: 6px; padding:2px 4px;">
+    {{ user.userprofile.title }}
+  </span>
+{% endif %}

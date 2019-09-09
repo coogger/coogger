@@ -46,30 +46,29 @@ $(document).ready(function() {
     });
   });
   let votes = document.querySelectorAll("#vote-section");
-    votes.forEach(function(vote) {
-      // vote
-      let status = $(vote).data("vote-status");
-      if (status == "False"){
-        $(vote).find("#downvote").attr("general","color:danger");
-      }
-      else if (status == "True"){
-        $(vote).find("#upvote").attr("general", "color:success");
-      }
-    });
+  votes.forEach(function(vote) {
+    // vote
+    let status = $(vote).data("vote-status");
+    if (status == "False"){
+      $(vote).find("#downvote").attr("general","color:warning");
+    }
+    else if (status == "True"){
+      $(vote).find("#upvote").attr("general", "color:danger");
+    }
+  });
     // bookmark
-    let bookmarks = document.querySelectorAll(".bookmarkop");
-      bookmarks.forEach(function(bookmark) {
-      let bookmark_status = $(bookmark).data("bookmark-status");
-      if (bookmark_status == "False"){
-        $(bookmark).find(".bookmarkicon").attr("general","color:secondary");
-        $(bookmark).find(".bookmarkicon").addClass("far");
-      }
-      else if (bookmark_status == "True"){
-        $(bookmark).find(".bookmarkicon").attr("general", "color:success");
-        $(bookmark).find(".bookmarkicon").addClass("fas");
-      }
-    });
-    
+  let bookmarks = document.querySelectorAll(".bookmarkop");
+  bookmarks.forEach(function(bookmark) {
+    let bookmark_status = $(bookmark).data("bookmark-status");
+    if (bookmark_status == "False"){
+      $(bookmark).find(".bookmarkicon").attr("general","color:secondary");
+      $(bookmark).find(".bookmarkicon").addClass("far");
+    }
+    else if (bookmark_status == "True"){
+      $(bookmark).find(".bookmarkicon").attr("general", "color:success");
+      $(bookmark).find(".bookmarkicon").addClass("fas");
+    }
+  });
 });
 function vote(this_){
   let status, upvote, downvote;
@@ -97,12 +96,12 @@ function vote(this_){
       }
       else{
           if (r.status === true){
-              $(upvote).attr("general", "color:success");
-              $(downvote).attr("general","color:secondary color:danger:hover");
+              $(upvote).attr("general", "color:danger");
+              $(downvote).attr("general","color:secondary color:warning:hover");
             }
           else if (r.status === false){
-              $(upvote).attr("general","color:secondary color:success:hover");
-              $(downvote).attr("general","color:danger");
+              $(upvote).attr("general","color:secondary color:danger:hover");
+              $(downvote).attr("general","color:warning");
           }
           $(upvote).text(r.upvote_count);
           $(downvote).text(r.downvote_count);

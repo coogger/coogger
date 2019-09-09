@@ -9,9 +9,6 @@ iframe{
 .topic_percent{
   margin-right: 2px;padding: 2px 4px;white-space: nowrap;    overflow-x: auto;
 }
-.vote{
-  cursor: pointer;
-}
 img[src$="center"], iframe{
   display:block;
   margin: 0 auto;

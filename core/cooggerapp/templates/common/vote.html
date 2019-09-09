@@ -1,16 +1,16 @@
 {% load vote %}
-<div general="" id="vote-section" 
+<div id="vote-section" 
 data-vote-status="{% is_vote request.user queryset queryset.id %}" >
     <i id="upvote" 
     onclick="vote(this)" 
-    general="color:secondary color:success:hover"  class="fas fa-heart vote" 
+    general="color:secondary color:danger:hover"  class="fas fa-heart" 
     data-url="{% url 'vote' queryset.app_label queryset.model_name queryset.id %}"
     data-csrf="{{ csrf_token }}">
         {{ queryset.upvote_count|default:"0" }}
     </i>
     <i id="downvote"
     onclick="vote(this)" 
-    general="color:secondary color:danger:hover"  class="fas fa-thumbs-down vote" 
+    general="color:secondary color:warning:hover"  class="fas fa-heart-broken" 
     data-url="{% url 'vote' queryset.app_label queryset.model_name queryset.id %}"
     data-csrf="{{ csrf_token }}">
         {{ queryset.downvote_count|default:"0" }}
