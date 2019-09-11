@@ -97,17 +97,18 @@ let getResultFromCooggerApi = function(apiUrl){
 }
 function replyUserInfo(comment){
   let title = comment.title;
-  if (title === "user"){
-    title = ""
+  let title_template = "";
+  if (title !== "user"){
+    `<span class="uppercase" general="bg:danger color:white text:xs br:2" style="margin-left: 6px; padding:2px 4px;">
+      ${title.toUpperCase()}
+    </span>`
   }
   return (`
     <div general="bg:white" style="border-bottom: 1px solid #eaecee;">
     <div general="flex flex:ai-fs bg:white" style="padding: 12px 0px;">
       <img general="br:circle position:left" id="detail_profile_image" src="${comment.avatar_url}" style="height:  40px;width:  40px;margin:  initial;">
       <div general="flex text:s flex:fd-c">
-          <span class="uppercase" general="bg:danger color:white text:xs br:2" style="margin-left: 6px; padding:2px 4px;">
-          ${title.toUpperCase()}
-          </span>
+          ${title_template}
           <a general="flex" title="${comment.username}" href="/@${comment.username}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
             <span id="username">
             ${comment.username}

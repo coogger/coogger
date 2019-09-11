@@ -101,7 +101,7 @@ class DeleteAccount(LoginRequiredMixin, TemplateView):
             user.save()
             messages.success(
                 request,
-                "Your information has been deleted and your account has been permanently flagged",
+                "We've deleted all your information and permanently flagged your account. Your account has been deleted.",
             )
             return redirect("/")
         messages.warning(request, "Your username does not match.")
