@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from ....threaded_comment.forms import ReplyForm
 from ...models import Commit, Content
 from ..generic.detail import CommonDetailView
+from ..utils import get_current_user
 
 
 class Detail(CommonDetailView, TemplateView):
@@ -19,7 +20,7 @@ class Detail(CommonDetailView, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = context.get("queryset")
-        context["current_user"] = queryset.user
+        context["current_user"] = get_current_user(queryset.user)
         context["current_page_permlink"] = queryset.permlink
         context["nameoflist"] = queryset.utopic
         return context
@@ -32,6 +33,7 @@ class TreeDetail(TemplateView):
 
     def get_context_data(self, username, topic_permlink, hash, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_user"] = get_object_or_404(User, username=username)
+        user = get_object_or_404(User, username=username)
+        context["current_user"] = get_current_user(user)
         context["queryset"] = Commit.objects.get(hash=hash)
         return context

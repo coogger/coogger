@@ -10,7 +10,7 @@ from ....threaded_comment.forms import ReplyForm
 from ...forms import IssueForm
 from ...models import Issue, UTopic
 from ...views.generic.detail import CommonDetailView
-from ..utils import paginator
+from ..utils import get_current_user, paginator
 
 # TODO if requests come same url, and query does then it should be an update
 
@@ -24,7 +24,7 @@ class IssueView(TemplateView):
         user = get_object_or_404(User, username=username)
         utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
         queryset = self.get_queryset(utopic)
-        context["current_user"] = user
+        context["current_user"] = get_current_user(user)
         context["queryset"] = paginator(self.request, queryset)
         context["utopic"] = utopic
         return context
@@ -97,7 +97,7 @@ class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object = context.get("object")
-        context["current_user"] = object.utopic.user
+        context["current_user"] = get_current_user(object.utopic.user)
         context["utopic"] = object.utopic
         return context
 
@@ -129,7 +129,7 @@ class DetailIssue(CommonDetailView, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = context.get("queryset")
-        context["current_user"] = queryset.utopic.user
+        context["current_user"] = get_current_user(queryset.utopic.user)
         context["utopic"] = queryset.utopic
         context["nameoflist"] = queryset.utopic
         return context

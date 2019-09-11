@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import FieldError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -53,3 +54,9 @@ def create_redirect(old_path, new_path):
         obj.update(new_path=new_path)
     else:
         Redirect(site_id=settings.SITE_ID, old_path=old_path, new_path=new_path).save()
+
+
+def get_current_user(user):
+    if not user.is_active:
+        return User.objects.get(username="ghost")
+    return user

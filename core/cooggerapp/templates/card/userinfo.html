@@ -3,15 +3,13 @@
       <a general="flex text:m color:dark flex:ai-c" href="/@{{ ct.user }}" id="author_href" >
         <img src="{{ ct.user.githubauthuser.avatar_url }}" class="carduserimg" general="br:circle" width="40px" height="40px"></img>
         <div general="flex flex:fd-c">
-          {% with ct.user as user %}
-            {% include 'common/user-title.html' %}
-          {% endwith %}
+            {% with ct.user as user %}
+              {% include 'common/user-title.html' %}
+            {% endwith %}
           <span general="flex flex:ai-c" class="carduser" style="margin-left:6px;">
-              {% if ct.user.get_full_name %}
-                  {{ ct.user.get_full_name }}
-              {% else %}
-                  @{{ ct.user }}
-              {% endif %}
+              {% with ct.user as user %}
+                {% include 'common/username.html' %}
+              {% endwith %}
           </span>
           <span general="text:xs color:dark" style="margin-left:6px;">
             <i class="fas fa-clock"></i>
@@ -20,7 +18,7 @@
         </div>
       </a>
       {% with ct.user as user %}
-        {% include 'github-redirect.html' %}
+        {% include 'common/github-redirect.html' %}
       {% endwith %}
       {% with ct as queryset %}
       <div general="text:s color:secondary flex position:right">

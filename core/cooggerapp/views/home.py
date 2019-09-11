@@ -42,10 +42,12 @@ class Home(TemplateView):
     def get_queryset(self):
         if not self.is_authenticated and self.url_name == "home":
             how_many = 3 * 8
-            queryset = User.objects.all().order_by("-date_joined")[:how_many]
+            queryset = User.objects.filter(is_active=True).order_by("-date_joined")[
+                :how_many
+            ]
             return paginator(self.request, queryset, how_many)
         else:
-            queryset = Content.objects.filter(status="ready")
+            queryset = Content.objects.filter(user__is_active=True, status="ready")
             return paginator(self.request, queryset)
 
     def get_template_names(self):
@@ -101,9 +103,10 @@ class Search(Home):
             self.page_size = 30
             name = name[1:]
             queryset = User.objects.filter(
+                Q(is_active=True),
                 Q(username__contains=name)
                 | Q(first_name__contains=name)
-                | Q(last_name__contains=name)
+                | Q(last_name__contains=name),
             )
             self.is_queryset_exists = queryset.exists()
             return queryset

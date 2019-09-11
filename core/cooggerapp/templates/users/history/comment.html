@@ -18,13 +18,11 @@
         </a>
             <div style='margin-left: 8px;' general='color:secondary'>{{ comment.created|timesince }}</div>
         </div>
-        {% if comment.user.userprofile.title != "user" %}
-              <span class="uppercase" general="color:secondary text:xs">
-                {{ comment.user.userprofile.title }}
-              </span>
-            {% endif %}
         {% with comment.user as user %}
-          {% include 'github-redirect.html' %}
+          {% include 'common/user-title.html' %}
+        {% endwith %}
+        {% with comment.user as user %}
+          {% include 'common/github-redirect.html' %}
         {% endwith %}
       </div>
     </div>

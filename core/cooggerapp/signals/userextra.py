@@ -17,7 +17,9 @@ def save_github_follow(user):
         for following_user in requests.get(url + "/following" + get_client_url()).json()
     ]
     for following_username in following:
-        following_user = User.objects.filter(username=following_username)
+        following_user = User.objects.filter(
+            is_active=True, username=following_username
+        )
         if following_user.exists():
             try:
                 user.follow.following.add(following_user[0])
@@ -28,7 +30,7 @@ def save_github_follow(user):
         for follower_user in requests.get(url + "/followers" + get_client_url()).json()
     ]
     for follower_username in followers:
-        follow_user = User.objects.filter(username=follower_username)
+        follow_user = User.objects.filter(is_active=True, username=follower_username)
         if follow_user.exists():
             try:
                 follow_user[0].follow.following.add(user)
@@ -53,6 +55,8 @@ def save_github_repos(user, github_repos_url):
 @receiver(post_save, sender=GithubAuthUser)
 def follow_and_repos_update(sender, instance, created, **kwargs):
     "Works when users every login"
+    if instance.user.username == "ghost":
+        return
     user = get_object_or_404(User, username=instance.user.username)
     user_extra_data = user.githubauthuser.get_extra_data_as_dict
     save_github_follow(user)

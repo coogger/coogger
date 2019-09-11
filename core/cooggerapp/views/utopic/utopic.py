@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from ...forms import UTopicForm
 from ...models import Content, Topic, UTopic
 from ..user.users import Common
-from ..utils import create_redirect, paginator
+from ..utils import create_redirect, get_current_user, paginator
 
 
 class UserTopic(Common):
@@ -34,7 +34,7 @@ class DetailUserTopic(TemplateView):
         utopic = UTopic.objects.get(user=user, permlink=permlink)
         queryset = Content.objects.filter(utopic=utopic).order_by("created")
         context = super().get_context_data(**kwargs)
-        context["current_user"] = user
+        context["current_user"] = get_current_user(user)
         context["queryset"] = queryset
         context["utopic"] = utopic
         return context

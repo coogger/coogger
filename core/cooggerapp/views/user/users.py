@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.views.generic import TemplateView
 from django_bookmark.models import Bookmark as BookmarkModel
 
 from ....threaded_comment.models import ThreadedComments
 from ...models import Content, UserProfile
-from ..utils import paginator
+from ..utils import get_current_user, paginator
 
 
 class Common(TemplateView):
@@ -14,9 +15,14 @@ class Common(TemplateView):
     def get_context_data(self, username, **kwargs):
         user = get_object_or_404(User, username=username)
         context = super().get_context_data(**kwargs)
-        context["current_user"] = user
+        context["current_user"] = get_current_user(user)
         context["addresses"] = UserProfile.objects.get(user=user).address.all()
         return context
+
+    def render_to_response(self, context, **response_kwargs):
+        if not context["current_user"].is_active:
+            return redirect(reverse("user", kwargs=dict(username="ghost")))
+        return super().render_to_response(context, **response_kwargs)
 
 
 class UserContent(Common):

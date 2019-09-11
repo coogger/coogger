@@ -10,6 +10,7 @@ from rest_framework.response import Response
 
 from core.cooggerapp.views.utils import model_filter
 
+from ..cooggerapp.views.utils import get_current_user
 from .forms import ReplyForm
 from .models import ThreadedComments
 from .serializers import ReplySerializer
@@ -38,7 +39,7 @@ class ReplyView(TemplateView):
     def get_context_data(self, username, permlink, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class
-        context["current_user"] = User.objects.get(username=username)
+        context["current_user"] = get_current_user(User.objects.get(username=username))
         context["queryset"] = self.model.objects.get(
             user__username=username, permlink=permlink
         )

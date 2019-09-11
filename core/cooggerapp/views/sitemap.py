@@ -111,7 +111,7 @@ class UserSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-        return User.objects.all()
+        return User.objects.filter(is_active=True)
 
     def lastmod(self, obj):
         contents = Content.objects.filter(user=obj, status="ready")

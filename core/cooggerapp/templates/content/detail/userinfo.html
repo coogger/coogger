@@ -9,11 +9,9 @@
         <a general="flex" title="{{ current_user  }}" href="/@{{ current_user }}"
           style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
           <span id="username">
-              {% if current_user.first_name %}
-                {{ current_user.first_name }} {{ current_user.last_name }}
-              {% else %}
-                @{{ current_user }}
-              {% endif %}
+              {% with current_user as user %}
+                {% include 'common/username.html' %}
+              {% endwith %}
           </span>
         </a>
         <div general="color:secondary">
@@ -21,8 +19,8 @@
           <span id="time">{{ queryset.created|timesince }}</span>
         </div>        
     </div>
-    {% with queryset.user as user %}
-        {% include 'github-redirect.html' %}
+      {% with queryset.user as user %}
+        {% include 'common/github-redirect.html' %}
       {% endwith %}
       <div general="flex text:s position:right flex:ai-c"  class="just-pc">
           <div style="margin-right: 12px;">

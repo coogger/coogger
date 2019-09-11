@@ -9,7 +9,7 @@ from django.views.generic import TemplateView, UpdateView
 from ....threaded_comment.forms import ReplyForm
 from ...models import Commit, UTopic
 from ...views.generic.detail import CommonDetailView
-from ..utils import paginator
+from ..utils import get_current_user, paginator
 
 
 class Commits(TemplateView):
@@ -27,7 +27,7 @@ class Commits(TemplateView):
         else:
             queryset = self.commits.filter(utopic=utopic)
         context = super().get_context_data(**kwargs)
-        context["current_user"] = user
+        context["current_user"] = get_current_user(user)
         context["queryset"] = paginator(self.request, queryset)
         context["utopic"] = utopic
         return context
@@ -51,7 +51,9 @@ class CommitDetail(CommonDetailView, TemplateView):
             **dict(username=username, topic_permlink=topic_permlink, hash=hash)
         )
         queryset = context.get("queryset")
-        context["current_user"] = get_object_or_404(User, username=username)
+        context["current_user"] = get_current_user(
+            get_object_or_404(User, username=username)
+        )
         context["nameoflist"] = queryset.utopic
         context["commit"] = queryset
         return context
@@ -76,7 +78,7 @@ class CommitUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object = context.get("object")
-        context["current_user"] = object.utopic.user
+        context["current_user"] = get_current_user(object.utopic.user)
         context["utopic"] = object.utopic
         return context
 
