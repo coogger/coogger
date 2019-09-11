@@ -11,11 +11,10 @@ class Contributor(TemplateView):
 
     def get_context_data(self, username, topic_permlink, **kwargs):
         utopic = UTopic.objects.get(user__username=username, permlink=topic_permlink)
-        queryset = utopic.contributors.all()
         context = super().get_context_data(**kwargs)
         context["current_user"] = get_current_user(
             get_object_or_404(User, username=username)
         )
-        context["queryset"] = paginator(self.request, queryset)
+        context["queryset"] = paginator(self.request, utopic.get_contributors)
         context["utopic"] = utopic
         return context

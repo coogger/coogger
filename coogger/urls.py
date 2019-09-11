@@ -22,7 +22,7 @@ urlpatterns = [
     path("", include("cooggerimages.urls")),
 ]
 
-flatpages = ["privacy", "sponsorship", "delete-account"]
+flatpages = ["privacy", "sponsorship"]
 for flat in flatpages:
     urlpatterns += path(f"{flat}/", just_redirect_by_name, name=flat),
 

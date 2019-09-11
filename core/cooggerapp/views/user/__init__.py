@@ -1,2 +1,2 @@
 from .badge import BadgeView
-from .users import UserContent, About, Comment, Bookmark
+from .users import UserContent, About, Comment, Bookmark, DeleteAccount

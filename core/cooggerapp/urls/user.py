@@ -1,6 +1,6 @@
 from django.urls import path
 
-from ..views.user import About, BadgeView, Bookmark, Comment, UserContent
+from ..views.user import About, BadgeView, Bookmark, Comment, UserContent, DeleteAccount
 from ..views.utopic import UserTopic
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path("u/@<username>/bookmark/", Bookmark.as_view(), name="bookmark"),
     path("u/@<username>/content/", UserContent.as_view(), name="usercontent"),
     path("badge/<permlink>/", BadgeView.as_view(), name="badge"),
+    path("delete-account/", DeleteAccount.as_view(), name="delete-account"),
 ]

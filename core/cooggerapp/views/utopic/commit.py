@@ -40,7 +40,7 @@ class CommitDetail(CommonDetailView, TemplateView):
     form_class = ReplyForm
 
     def get_object(self, username, topic_permlink, hash):
-        obj = Commit.objects.get(hash=hash)
+        obj = Commit.objects.get(user__is_active=True, hash=hash)
         if obj.status != "approved":
             # NOTE when commit it is a contribute
             self.template_name = "users/topic/commit/contribution.html"
@@ -60,14 +60,13 @@ class CommitDetail(CommonDetailView, TemplateView):
 
 
 class CommitUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Commit
     fields = ["body", "msg"]
     template_name = "forms/create.html"
     success_message = "Your commit updated"
 
     def get_object(self):
         hash = self.kwargs.get("hash")
-        obj = get_object_or_404(self.model, hash=hash)
+        obj = get_object_or_404(Commit, hash=hash)
         if obj.user == self.request.user:
             if obj.status == "approved":
                 raise Http404("Your commit's approved, thus we can not update.")

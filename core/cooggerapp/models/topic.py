@@ -103,6 +103,10 @@ class UTopic(CommonTopicModel):
         return str(self.get_absolute_url)
 
     @property
+    def get_contributors(self):
+        return self.contributors.filter(is_active=True)
+
+    @property
     def global_topic(self):
         return False
 

@@ -158,4 +158,4 @@ class Content(AbstractThreadedComments, Common, View, Vote):
 
     @property
     def get_contributors(self):
-        return self.contributors.all()
+        return self.contributors.filter(is_active=True)

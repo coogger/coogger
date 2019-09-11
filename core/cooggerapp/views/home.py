@@ -61,14 +61,14 @@ class Report(LoginRequiredMixin, View):
     form_class = ReportsForm
     template_name = "home/report.html"
 
-    def get(self, request, content_id, *args, **kwargs):
+    def get(self, request, content_id):
         if request.is_ajax():
             report_form = self.form_class()
             context = dict(report_form=report_form, content_id=content_id)
             return render(request, self.template_name, context)
         raise Http404
 
-    def post(self, request, content_id, *args, **kwargs):
+    def post(self, request, content_id):
         report_form = self.form_class(request.POST)
         if report_form.is_valid():
             content = Content.objects.get(id=content_id)
@@ -81,7 +81,7 @@ class Report(LoginRequiredMixin, View):
             report_form.save()
             messages.error(request, "Your complaint has been received.")
             return redirect(reverse("home"))
-        return HttpResponse(self.get(request, *args, **kwargs))
+        return HttpResponse(self.get(request, content_id))
 
 
 class Search(Home):
