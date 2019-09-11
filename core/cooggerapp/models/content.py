@@ -21,12 +21,8 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     title = models.CharField(
         max_length=200,
         help_text="Be sure to choose the best title",
-        null=True,
-        blank=True,
     )
     body = EditorMdField(
-        null=True,
-        blank=True,
         verbose_name="",
         help_text="Your content | problem | question | or anything else",
     )
