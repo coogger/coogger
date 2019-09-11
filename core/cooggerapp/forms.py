@@ -12,6 +12,7 @@ class UsernameForm(forms.ModelForm):
         model = User
         fields = ["username"]
 
+
 class UTopicForm(forms.ModelForm):
     class Meta:
         model = UTopic

@@ -24,7 +24,7 @@ urlpatterns = [
 
 flatpages = ["privacy", "sponsorship"]
 for flat in flatpages:
-    urlpatterns += path(f"{flat}/", just_redirect_by_name, name=flat),
+    urlpatterns += (path(f"{flat}/", just_redirect_by_name, name=flat),)
 
 
 if settings.DEBUG:
