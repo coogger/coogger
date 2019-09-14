@@ -1,13 +1,11 @@
 {% extends "users/general.html" %}
 {% block useright %}
-  {% if queryset %}
-    <cards general="width:80"  tablet="w-100 center">
-        {% for ct in queryset %}
-          <card general="br:4 bg:white width:100">
-            {% include "card/card.html" %}
-          </card>
-        {% endfor %}
-    </cards>
-  {% endif %}
+  <cards general="width:80"  tablet="w-100 center">
+      {% for ct in object_list %}
+        <card general="br:4 bg:white width:100">
+          {% include "card/card.html" %}
+        </card>
+      {% endfor %}
+  </cards>
 {% endblock %}
 

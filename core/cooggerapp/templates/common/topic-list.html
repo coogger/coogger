@@ -1,5 +1,5 @@
 <div general="bg:white brc:white width:100">
-    {% for topic in queryset %}
+    {% for topic in object_list %}
     <div general="brc:muted" class="topic-list">
       <a general="flex color:dark br:4 color:primary:hover flex:ai-c" href="{{ topic.get_absolute_url }}" style="padding: 6px 0px;">
         {% if topic.image_address %}

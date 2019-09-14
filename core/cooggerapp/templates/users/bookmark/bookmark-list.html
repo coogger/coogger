@@ -1,6 +1,6 @@
 {% load django_bookmark %}
 <div general="flex position:center width:100 flex:fd-c" tablet="width:100" >
-    {% for bookmark in queryset %}
+    {% for bookmark in object_list %}
     <div general="flex width:100">
         <div general="flex flex:ai-c border:1 br:2 brc:muted width:100 text:m"  style="padding: 12px 8px;margin: 4px 0px;cursor:pointer;" >
             <div general="flex flex:fd-c width:100">

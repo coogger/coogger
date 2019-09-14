@@ -21,25 +21,25 @@ class Index(ListView):
         "Set attribute as a class variable the keywords in URL."
         for key, value in self.kwargs.items():
             setattr(self, key, value)
+        if (
+            not self.request.user.is_authenticated
+            and resolve(self.request.path_info).url_name == "index"
+        ):
+            self.introduction = True
+            self.paginate_by = None
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if (
-            not self.request.user.is_authenticated
-            and resolve(self.request.path_info).url_name == "home"
-        ):
-            self.introduction = True
         context["sort_topics"] = self.sort_topics()  # TODO just pc
         context["issues"] = Issue.objects.filter(status="open")[: settings.PAGE_SIZE]
         return context
 
     def get_queryset(self):
         if self.introduction:
-            queryset = User.objects.filter(is_active=True).order_by("-date_joined")
+            return User.objects.filter(is_active=True).order_by("-date_joined")[:24]
         else:
-            queryset = Content.objects.filter(user__is_active=True, status="ready")
-        return queryset
+            return Content.objects.filter(user__is_active=True, status="ready")
 
     def get_template_names(self):
         if not self.object_list.exists():

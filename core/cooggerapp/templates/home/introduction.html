@@ -88,7 +88,7 @@
   </strong>
   <div general="position:center flex">
     <cards general="width:90 position:center flex"  style="margin:0px">
-    {% for user in queryset %}
+    {% for user in object_list %}
       {% include 'home/users_card.html' %}
     {% endfor %}
     </cards>

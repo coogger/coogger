@@ -11,23 +11,21 @@ from django.views.generic import TemplateView
 
 from ...forms import UTopicForm
 from ...models import Content, Topic, UTopic
-from ..user.users import Common
+from ..user.users import UserMixin
 from ..utils import create_redirect, get_current_user, paginator
 
 
-class UserTopic(Common):
+class UserTopic(UserMixin):
     template_name = "users/topic/index.html"
 
-    def get_context_data(self, username, **kwargs):
-        context = super().get_context_data(username, **kwargs)
-        user = context["current_user"]
-        context["queryset"] = paginator(self.request, UTopic.objects.filter(user=user))
-        return context
+    def get_queryset(self):
+        return UTopic.objects.filter(user=self.user)
 
 
 class DetailUserTopic(TemplateView):
     "topic/@username"
     template_name = "users/topic/detail/contents.html"
+    http_method_names = ["get"]
 
     def get_context_data(self, username, permlink, **kwargs):
         user = get_object_or_404(User, username=username)
@@ -44,6 +42,7 @@ class CreateUTopic(LoginRequiredMixin, View):
     template_name = "forms/create.html"
     form_class = UTopicForm
     model = UTopic
+    http_method_names = ["get", "post"]
 
     def get(self, request, *args, **kwargs):
         return render(
@@ -81,6 +80,7 @@ class UpdateUTopic(LoginRequiredMixin, View):
     template_name = "forms/create.html"
     form_class = UTopicForm
     update_fields = form_class._meta.fields
+    http_method_names = ["get", "post"]
 
     def get(self, request, permlink, *args, **kwargs):
         instance_query = UTopic.objects.filter(user=request.user, permlink=permlink)

@@ -4,24 +4,32 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 from django_bookmark.models import Bookmark as BookmarkModel
 
 from ....threaded_comment.models import ThreadedComments
 from ...forms import UsernameForm
 from ...models import Commit, Content, Issue, UserProfile, UTopic
-from ..utils import get_current_user, paginator
+from ..utils import get_current_user
 
 
-class Common(TemplateView):
+class UserMixin(ListView):
     template_name = "users/user.html"
+    paginate_by = 10
+    http_method_names = ["get"]
 
-    def get_context_data(self, username, **kwargs):
-        self.user = get_object_or_404(User, username=username)
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["current_user"] = get_current_user(self.user)
         context["addresses"] = UserProfile.objects.get(user=self.user).address.all()
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        "Set attribute as a class variable the keywords in URL."
+        for key, value in self.kwargs.items():
+            setattr(self, key, value)
+        self.user = get_object_or_404(User, username=self.username)
+        return super().dispatch(request, *args, **kwargs)
 
     def render_to_response(self, context, **response_kwargs):
         if not self.user.is_active:
@@ -29,53 +37,45 @@ class Common(TemplateView):
         return super().render_to_response(context, **response_kwargs)
 
 
-class UserContent(Common):
+class UserContent(UserMixin):
     "user's content page"
 
-    def get_context_data(self, username, **kwargs):
-        context = super().get_context_data(username, **kwargs)
-        user = context["current_user"]
-        queryset = Content.objects.filter(user=user)
-        if user != self.request.user:
-            queryset = queryset.filter(status="ready")
-        context["queryset"] = paginator(self.request, queryset)
-        return context
+    def get_queryset(self):
+        queryset = Content.objects.filter(user=self.user)
+        if self.user != self.request.user:
+            return queryset.filter(status="ready")
+        return queryset
 
 
-class About(Common):
+class About(TemplateView):
     template_name = "users/about.html"
+    http_method_names = ["get"]
 
     def get_context_data(self, username, *args, **kwargs):
-        context = super().get_context_data(username, **kwargs)
-        user = context["current_user"]
+        context = super().get_context_data(*args, **kwargs)
+        user = get_object_or_404(User, username=username)
+        context["current_user"] = get_current_user(user)
+        context["addresses"] = UserProfile.objects.get(user=user).address.all()
         queryset = UserProfile.objects.filter(user=user)
         if queryset.exists():
             context["about"] = queryset[0].about
         return context
 
 
-class Comment(Common):
+class Comment(UserMixin):
     "user's comment page"
     template_name = "users/history/comment.html"
+    extra_context = dict(user_comment=True)
 
-    def get_context_data(self, username, **kwargs):
-        context = super().get_context_data(username, **kwargs)
-        user = context["current_user"]
-        queryset = ThreadedComments.objects.filter(to=user).exclude(user=user)
-        context["user_comment"] = True
-        context["queryset"] = paginator(self.request, queryset)
-        return context
+    def get_queryset(self):
+        return ThreadedComments.objects.filter(to=self.user).exclude(user=self.user)
 
 
-class Bookmark(Common):
+class Bookmark(UserMixin):
     template_name = "users/bookmark/index.html"
 
-    def get_context_data(self, username, **kwargs):
-        context = super().get_context_data(username, **kwargs)
-        user = context["current_user"]
-        queryset = BookmarkModel.objects.filter(user=user).order_by("-id")
-        context["queryset"] = paginator(self.request, queryset)
-        return context
+    def get_queryset(self):
+        return BookmarkModel.objects.filter(user=self.user).order_by("-id")
 
 
 class DeleteAccount(LoginRequiredMixin, TemplateView):

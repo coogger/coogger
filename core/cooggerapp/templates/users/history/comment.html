@@ -4,7 +4,7 @@
   <div general="position:center bg:white width:100 text:s" id="comment_template" class="comment_template">
     <div id="comment-history" class="comment-history"  general="width:100"
      mobile-s="width:100" mobile-l="width:98" tablet="width:96" laptop="width:70" laptop-l="width:70">
-    {% for comment in queryset %}
+    {% for comment in object_list %}
     <div style='border-bottom: 1px solid #eaecee;margin: 4px 0px;padding: 8px 0px;'>
       <div general='flex flex:ai-fs bg-white'>
       <a general="flex" title='{{ comment.user }}' href='/@{{ comment.user }}'
