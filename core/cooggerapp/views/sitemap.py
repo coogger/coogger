@@ -69,7 +69,7 @@ class LanuageSitemap(Sitemap):
             pass
 
     def location(self, obj):
-        return reverse("language", kwargs=dict(lang_name=obj))
+        return reverse("language", kwargs=dict(language=obj))
 
 
 class UtopicSitemap(Sitemap):

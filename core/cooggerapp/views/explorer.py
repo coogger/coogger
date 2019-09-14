@@ -1,23 +1,42 @@
 from django.conf import settings
 from django.http import Http404
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 
-from ..choices import LANGUAGES
 from ..models import Content, Topic
 from ..views.utils import model_filter
 from .utils import paginator
 
 
-class TopicView(TemplateView):
+class ExplorerMixin(ListView):
+    model = Content
+    not_result_template_name = "home/search/not_result.html"
+    paginate_by = 10
+    http_method_names = ["get"]
+
+    def get_template_names(self):
+        if self.object_list.exists():
+            return [self.template_name]
+        else:
+            return [self.not_result_template_name]
+
+    def dispatch(self, request, *args, **kwargs):
+        "Set attribute as a class variable the keywords in URL."
+        for key, value in self.kwargs.items():
+            setattr(self, key, value)
+        return super().dispatch(request, *args, **kwargs)
+
+
+class TopicView(ExplorerMixin):
     template_name = "topic/index.html"
 
-    def get_context_data(self, permlink, *args, **kwargs):
-        queryset = Content.objects.filter(utopic__permlink=permlink, status="ready")
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, queryset)
-        context["topic"] = Topic.objects.get(permlink=permlink)
-        context["topic_users"] = self.get_users(queryset)
+        context["topic"] = Topic.objects.get(permlink=self.permlink)
+        context["topic_users"] = self.get_users(self.object_list)
         return context
+
+    def get_queryset(self):
+        return self.model.objects.filter(utopic__permlink=self.permlink, status="ready")
 
     def get_users(self, queryset):
         users = set()
@@ -28,41 +47,34 @@ class TopicView(TemplateView):
         return users
 
 
-class Hashtag(TemplateView):
+class Hashtag(ExplorerMixin):
     template_name = "card/blogs.html"
 
     def get_context_data(self, hashtag, **kwargs):
-        queryset = Content.objects.filter(tags__contains=hashtag, status="ready")
-        if queryset.exists():
-            context = super().get_context_data(**kwargs)
-            context["queryset"] = paginator(self.request, queryset)
-            context["hashtag"] = hashtag
-            return context
-        raise Http404
-
-
-class Languages(TemplateView):
-    template_name = "card/blogs.html"
-
-    def get_context_data(self, lang_name, **kwargs):
-        if lang_name in LANGUAGES:
-            queryset = Content.objects.filter(language=lang_name, status="ready")
-            context = super().get_context_data(**kwargs)
-            context["queryset"] = paginator(self.request, queryset)
-            context["language"] = lang_name
-            return context
-        raise Http404
-
-
-class Filter(TemplateView):
-    template_name = "card/blogs.html"
-    model = Content
-
-    def get_context_data(self, **kwargs):
-        queryset = self.model.objects.filter(status="ready")
-        filtered = model_filter(self.request.GET.items(), queryset)
-        queryset = filtered.get("queryset")
         context = super().get_context_data(**kwargs)
-        context["queryset"] = paginator(self.request, queryset)
-        context["filter"] = filtered.get("filter")
+        context["hashtag"] = self.hashtag
         return context
+
+    def get_queryset(self):
+        return self.model.objects.filter(tags__contains=self.hashtag, status="ready")
+
+
+class Languages(ExplorerMixin):
+    template_name = "card/blogs.html"
+
+    def get_context_data(self, language, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["language"] = self.language
+        return context
+
+    def get_queryset(self):
+        return self.model.objects.filter(language=self.language, status="ready")
+
+
+class Filter(ExplorerMixin):
+    template_name = "card/blogs.html"
+    extra_context = dict(filter=True)  # filtered.get("filter")
+
+    def get_queryset(self):
+        queryset = self.model.objects.filter(status="ready")
+        return model_filter(self.request.GET.items(), queryset).get("queryset")

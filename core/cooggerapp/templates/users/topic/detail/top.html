@@ -1,0 +1,132 @@
+{% load coogger_tags %}
+  <div general="border:1 brc:muted br:2 width:100" class="utopic-user">
+    <div style="padding: 6px;">
+      <div general="flex flex:ai-c border:1 brc:muted br:2"  style="margin-bottom: 6px;padding: 4px;">
+        {% if utopic.image_address %}
+          <div general="width:10 flex">
+            <img general="width:100 br:2" src="{{ utopic.image_address }}" style="height: 10%;">
+          </div>
+        {% endif %}
+          {% if utopic.description %}
+          <div general="flex width:80 position:center">
+            <div general="position:left width:100">
+              <span general="text:s width:100" class="text3" style="white-space: normal;">{{ utopic.description }}</span>
+            </div>
+          </div>
+          {% endif %}
+      </div>
+      {% if utopic.address %}
+            <div general="position:right" mobile-s="position:left">
+              <a general="color:primary text:s width:max" mobile-s="width:80 text:xs" class="text3" href="{{ utopic.address }}?ref=www.coogger.com">
+                <span class="fa fa-globe"></span>
+                {{ utopic.address }}
+              </a>
+            </div>
+          {% endif %}
+      <div general="flex flex:ai-c border:1 br:2 brc:muted" style="padding: 6px;margin-top: 6px;margin-bottom: 6px;">
+        <div general="flex flex:ai-c position:left">
+          <a general="color:primary text:m" href="/@{{ utopic.user }}">
+            <img class="commit-user" general="br:4 color:muted" 
+            src="{{ utopic.user.githubauthuser.avatar_url }}">
+          </a>
+          <i class="fas fa-book"></i>
+          <a general="color:primary text:m" mobile-s="text:s" mobile-m="text:s" mobile-l="text:s" href="{% url 'detail-utopic' utopic.permlink utopic.user %}">
+            {{ utopic.permlink }}/@{{ utopic.user }}
+          </a>
+        </div>
+        {% if request.user == utopic.user %}
+          <div general="flex position:right">
+            <a general="br:1 color:white bg:success text:s position:right" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">
+              Add content
+            </a>
+            <a general="br:1 color:white bg:warning text:s position:right" href="{% url  'update-utopic' utopic.permlink %}" style="padding: 6px 20px;">
+              Update
+            </a>
+          </div>
+        {% endif %}
+      </div>
+      {% if utopic.tags %}
+        <div class="tags" general="flex">{{ tag }}
+          {% for tag in utopic.tags|split:" " %}
+            <div general="text:s" class="tag">#{{ tag }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div general="border:1 br:2 brc:muted width:100 text:s ">
+    <div general="flex flex:jc-sa" style="padding: 12px 8px;">
+        <a href="{% url 'commits' utopic.user utopic.permlink %}">
+          <div general="flex flex:ai-c" mobile-s="text:xs">
+            <i class="fas fa-history"></i>
+            <span id="commits_count">
+              <span general="color:secondary" class="just-pc">
+                commits
+              </span>
+              <strong>
+                {{ utopic.commit_count }}
+              </strong>
+            </span>
+          </div>
+        </a>
+        <a href="{% url 'issues' utopic.user utopic.permlink %}" mobile-s="text:xs">
+            <div general="flex flex:ai-c text:s ">
+              <i class="fas fa-exclamation-circle"></i>
+              <span id="">
+                <span general="color:secondary" class="just-pc">
+                  issues
+                </span>
+                <strong>{{ utopic.open_issue }}</strong>
+              </span>
+            </div>
+          </a>
+          <a href="{% url 'utopic-contribution' utopic.user utopic.permlink %}" 
+          mobile-s="text:xs">
+            <div general="flex flex:ai-c text:s ">
+              <i class="fas fa-plus"></i>
+              <span id="">
+                <span general="color:secondary" class="just-pc">
+                  contributions
+                </span>
+                <strong>{{ utopic.open_contribution }}</strong>
+              </span>
+            </div>
+          </a>
+          <a href="{% url 'utopic-contributors' utopic.user utopic.permlink %}" 
+          mobile-s="text:xs">
+            <div general="flex flex:ai-c text:s ">
+              <i class="fas fa-user-friends"></i>
+              <span id="">
+                <span general="color:secondary" class="just-pc">contributors</span>
+                <strong>{{ utopic.contributors_count }}</strong>
+              </span>
+            </div>
+          </a>
+        <div general="flex text:s flex:ai-c" mobile-s="text:xs">
+          <div style="margin-left: 12px;">
+              <i class="fab fa-readme"></i>
+              <span>{{ utopic.get_total_dor|default:"0 min" }}</span>
+          </div>
+        </div>
+        <div general="flex text:s flex:ai-c" mobile-s="text:xs">
+            <div style="margin-left: 12px;">
+              <i class="fas fa-eye"></i>
+              <span general="color:secondary" class="just-pc"> views</span>
+              <span>{{ utopic.total_view }}</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- utopic info %? language -->
+  <div general="border:1 brc:muted br:2 flex flex:ai-c" style="padding: 6px 12px;margin-top: 6px;">
+    <div general="flex width:100 flex:ai-c text:s">
+      <i class="fa fa-list-alt" title="categories"></i>
+      <div general="flex width:90 flex:fw-nw position:center flex:ai-c">
+        {% for language in utopic|calculate_percent_utopic:"language" %}
+        <div general="bg:orange br:1 flex flex:fw-nw text:s" class="topic_percent" style="width: {{ language.percent }}">
+          {{ language.model|truncatechars:8 }}; {{ language.percent }}
+        </div>
+      {% endfor %}
+      </div>
+  </div>
+</div>

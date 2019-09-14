@@ -19,8 +19,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     permlink = models.SlugField(max_length=200)
     title = models.CharField(
-        max_length=200,
-        help_text="Be sure to choose the best title",
+        max_length=200, help_text="Be sure to choose the best title"
     )
     body = EditorMdField(
         verbose_name="",

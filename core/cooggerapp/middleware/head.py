@@ -102,11 +102,11 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
 
     @property
     def language(self):
-        lang_name = self.get_var("lang_name")
+        language = self.get_var("language")
         return dict(
-            title=f"{lang_name} language | coogger".capitalize(),
-            keywords=f"{lang_name}, language {lang_name}",
-            description=f"Latest post on coogger from {lang_name} language".capitalize(),
+            title=f"{language} language | coogger".capitalize(),
+            keywords=f"{language}, language {language}",
+            description=f"Latest post on coogger from {language} language".capitalize(),
             image=self.default_language_img,
         )
 
@@ -175,7 +175,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         )
 
     @property
-    def home(self):
+    def index(self):
         return self.explorer_posts
 
     @property

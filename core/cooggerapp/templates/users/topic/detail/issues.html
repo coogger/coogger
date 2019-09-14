@@ -1,5 +1,10 @@
-{% extends "users/topic/detail/top-info.html" %}
-{% block alt_topic %}
+{% extends "home/html.html" %}
+{% load coogger_tags %}
+{% block body %}
+<div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
+  <div general="flex position:center flex:fd-c" >
+    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" mobile-s="width:98">
+    {% include "users/topic/detail/top.html" %}
   <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
       <div style="padding:12px;">
           {% include 'common/there-is-no-data.html' %}
@@ -55,7 +60,7 @@
           <!--  -->
         </ul>
       </div>
-  </div>
+    </div>  </div>  </div>  </div>
 {% endblock %}
 
 
