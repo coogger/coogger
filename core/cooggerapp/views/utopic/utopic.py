@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 
 from ...forms import UTopicForm
 from ...models import Content, Topic, UTopic
-from ..user.users import UserMixin
+from ..user.user import UserMixin
 from ..utils import create_redirect, get_current_user
 
 

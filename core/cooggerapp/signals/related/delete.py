@@ -15,15 +15,17 @@ def delete_related_bookmark(model, object_id):
 
 
 def delete_related_vote(model, object_id):
-    for v in Vote.objects.filter(
-        content_type=get_content_type_with_model(model), object_id=object_id
-    ):
-        v.delete()
     try:
-        Vote.objects.get(
+        Vote.objects.filter(
             content_type=get_content_type_with_model(model), object_id=object_id
         ).delete()
     except Vote.DoesNotExist:
+        pass
+    try:
+        VoteCount.objects.get(
+            content_type=get_content_type_with_model(model), object_id=object_id
+        ).delete()
+    except VoteCount.DoesNotExist:
         pass
 
 
