@@ -13,16 +13,12 @@ class Contributor(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            current_user=get_current_user(self.user),
-            utopic=self.utopic
-        )
+        context.update(current_user=get_current_user(self.user), utopic=self.utopic)
         return context
 
     def get_queryset(self):
         self.user = get_object_or_404(User, username=self.kwargs.get("username"))
         self.utopic = UTopic.objects.get(
-            user=self.user,
-            permlink=self.kwargs.get("topic_permlink")
+            user=self.user, permlink=self.kwargs.get("topic_permlink")
         )
         return self.utopic.get_contributors

@@ -4,7 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import TemplateView, UpdateView, ListView
+from django.views.generic import ListView, TemplateView, UpdateView
 
 from ....threaded_comment.forms import ReplyForm
 from ...models import Commit, UTopic
@@ -20,7 +20,9 @@ class Commits(ListView):
 
     def get_queryset(self):
         self.user = get_object_or_404(User, username=self.kwargs.get("username"))
-        self.utopic = UTopic.objects.get(user=self.user, permlink=self.kwargs.get("topic_permlink"))
+        self.utopic = UTopic.objects.get(
+            user=self.user, permlink=self.kwargs.get("topic_permlink")
+        )
         filter_by_username = self.request.GET.get("username", None)
         if filter_by_username:
             return self.commits.filter(

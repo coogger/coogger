@@ -13,7 +13,9 @@ class Feed(Index):
 
     def get_queryset(self):
         following = list(
-            get_object_or_404(User, username=self.kwargs.get("username")).follow.following.all()
+            get_object_or_404(
+                User, username=self.kwargs.get("username")
+            ).follow.following.all()
         )
         queryset = Content.objects.filter(user__in=following, status="ready")
         return queryset

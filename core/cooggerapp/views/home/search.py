@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.views.generic import ListView
 
 from ...models import Content, SearchedWords, UTopic
-from django.views.generic import ListView
+
 
 class Search(ListView):
     user_template_name = "home/search/user.html"

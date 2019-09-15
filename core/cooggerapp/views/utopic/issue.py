@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views import View
-from django.views.generic import TemplateView, UpdateView, ListView
+from django.views.generic import ListView, TemplateView, UpdateView
 
 from ....threaded_comment.forms import ReplyForm
 from ...forms import IssueForm
@@ -23,17 +23,13 @@ class IssueView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(
-            current_user=get_current_user(self.user),
-            utopic=self.utopic
-        )
+        context.update(current_user=get_current_user(self.user), utopic=self.utopic)
         return context
 
     def get_queryset(self):
         self.user = get_object_or_404(User, username=self.kwargs.get("username"))
         self.utopic = UTopic.objects.filter(
-            user=self.user,
-            permlink=self.kwargs.get("utopic_permlink")
+            user=self.user, permlink=self.kwargs.get("utopic_permlink")
         )[0]
         return self.model.objects.filter(utopic=self.utopic, status=self.get_status())
 
@@ -43,7 +39,6 @@ class IssueView(ListView):
 
 
 class ClosedIssueView(IssueView):
-
     @staticmethod
     def get_status():
         return "closed"

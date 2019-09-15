@@ -23,7 +23,7 @@ class UserMixin(ListView):
         self.user = self.get_user()
         context.update(
             current_user=get_current_user(self.user),
-            addresses=UserProfile.objects.get(user=self.user).address.all()
+            addresses=UserProfile.objects.get(user=self.user).address.all(),
         )
         return context
 
