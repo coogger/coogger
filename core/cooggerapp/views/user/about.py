@@ -11,9 +11,9 @@ class About(TemplateView):
     http_method_names = ["get"]
     extra_context = dict(tab="about")
 
-    def get_context_data(self, username, *args, **kwargs):
-        self.user = get_object_or_404(User, username=username)
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        self.user = get_object_or_404(User, username=self.kwargs.get("username"))
+        context = super().get_context_data(**kwargs)
         context["current_user"] = get_current_user(self.user)
         context["addresses"] = UserProfile.objects.get(user=self.user).address.all()
         queryset = UserProfile.objects.filter(user=self.user)
