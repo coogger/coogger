@@ -12,11 +12,16 @@ class About(TemplateView):
     extra_context = dict(tab="about")
 
     def get_context_data(self, username, *args, **kwargs):
+        self.user = get_object_or_404(User, username=username)
         context = super().get_context_data(*args, **kwargs)
-        user = get_object_or_404(User, username=username)
-        context["current_user"] = get_current_user(user)
-        context["addresses"] = UserProfile.objects.get(user=user).address.all()
-        queryset = UserProfile.objects.filter(user=user)
+        context["current_user"] = get_current_user(self.user)
+        context["addresses"] = UserProfile.objects.get(user=self.user).address.all()
+        queryset = UserProfile.objects.filter(user=self.user)
         if queryset.exists():
             context["about"] = queryset[0].about
         return context
+
+    def render_to_response(self, context, **response_kwargs):
+        if not self.user.is_active:
+            return redirect(reverse("user", kwargs=dict(username="ghost")))
+        return super().render_to_response(context, **response_kwargs)   

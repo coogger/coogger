@@ -28,7 +28,7 @@ class DeleteAccount(LoginRequiredMixin, TemplateView):
             ghost_user = User.objects.get(username="ghost")
             # user topic, content, commit, issues
             UTopic.objects.filter(user=user).delete()
-            # comment
+            # comment TODO make update acording to delete and write this message 'this account has been deleted'
             ThreadedComments.objects.filter(user=user).delete()
             # vote
             Vote.objects.filter(user=user).delete()
