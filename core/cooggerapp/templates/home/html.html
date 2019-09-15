@@ -1,3 +1,4 @@
+{% load static from staticfiles %}
 {% include 'home/head.html' %}
 <body general="font:quicksand bg:white">
   {% include 'home/header.html' %}
@@ -5,5 +6,22 @@
   {% block body %}{% endblock %}
 {% include "home/footer.html" %}
 {% include 'paginator.html' %}
+<script src="{% static 'js/cookieconsent.min.js' %}" data-cfasync="false"></script>
+<script>
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#000"
+    },
+    "button": {
+      "background": "#f1d600"
+    }
+  },
+  "theme": "edgeless",
+  "content": {
+    "href": "{% url 'privacy' %}"
+  }
+});
+</script>
 </body>
 </html>

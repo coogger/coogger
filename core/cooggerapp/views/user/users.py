@@ -94,7 +94,7 @@ class DeleteAccount(LoginRequiredMixin, TemplateView):
         user = get_object_or_404(
             User, username=request.POST.get("username"), is_active=True
         )
-        if user == request.user:
+        if user == request.user or request.user.is_superuser:
             ghost_user = User.objects.get(username="ghost")
             # del ops
             UTopic.objects.filter(user=user).delete()
