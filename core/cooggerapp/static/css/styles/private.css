@@ -9,6 +9,9 @@ iframe{
 .topic_percent{
   margin-right: 2px;padding: 2px 4px;white-space: nowrap;    overflow-x: auto;
 }
+.tab-a{
+  padding: 6px;
+}
 img[src$="center"], iframe{
   display:block;
   margin: 0 auto;
@@ -318,7 +321,7 @@ footer li{
     border-top: 1px solid #cecece;
     padding-bottom: 6px;
   }
-  .fa, .fas, .far{
+  .fa:before, .fas:before, .far:before{
     padding: 0px 6px;
   }
   .his-json{

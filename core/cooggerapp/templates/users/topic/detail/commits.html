@@ -7,7 +7,7 @@
     {% include "users/topic/detail/top.html" %}
   <div general="position:center width:100 flex flex:fd-c" class="commits">
     {% include 'common/there-is-no-data.html' %}
-    {% for commit in queryset %}
+    {% for commit in object_list %}
       <div general="width:100 border:1 br:2 brc:muted" style="margin: 2px 0px;">
         <div class="commit">
           <div general="flex flex:fd-c width:100">

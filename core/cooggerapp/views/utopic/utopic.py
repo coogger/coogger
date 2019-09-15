@@ -12,14 +12,15 @@ from django.views.generic import TemplateView
 from ...forms import UTopicForm
 from ...models import Content, Topic, UTopic
 from ..user.users import UserMixin
-from ..utils import create_redirect, get_current_user, paginator
+from ..utils import create_redirect, get_current_user
 
 
 class UserTopic(UserMixin):
     template_name = "users/topic/index.html"
+    extra_context = dict(tab="utopic")
 
     def get_queryset(self):
-        return UTopic.objects.filter(user=self.user)
+        return UTopic.objects.filter(user=self.get_user())
 
 
 class DetailUserTopic(TemplateView):

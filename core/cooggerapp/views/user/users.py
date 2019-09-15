@@ -20,16 +20,15 @@ class UserMixin(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_user"] = get_current_user(self.user)
-        context["addresses"] = UserProfile.objects.get(user=self.user).address.all()
+        self.user = self.get_user()
+        context.update(
+            current_user=get_current_user(self.user),
+            addresses=UserProfile.objects.get(user=self.user).address.all()
+        )
         return context
 
-    def dispatch(self, request, *args, **kwargs):
-        "Set attribute as a class variable the keywords in URL."
-        for key, value in self.kwargs.items():
-            setattr(self, key, value)
-        self.user = get_object_or_404(User, username=self.username)
-        return super().dispatch(request, *args, **kwargs)
+    def get_user(self):
+        return get_object_or_404(User, username=self.kwargs.get("username"))
 
     def render_to_response(self, context, **response_kwargs):
         if not self.user.is_active:
@@ -39,17 +38,38 @@ class UserMixin(ListView):
 
 class UserContent(UserMixin):
     "user's content page"
+    extra_context = dict(tab="content")
 
     def get_queryset(self):
-        queryset = Content.objects.filter(user=self.user)
-        if self.user != self.request.user:
+        user = self.get_user()
+        queryset = Content.objects.filter(user=user)
+        if user != self.request.user:
             return queryset.filter(status="ready")
         return queryset
+
+
+class Comment(UserMixin):
+    "user's comment page"
+    template_name = "users/history/comment.html"
+    extra_context = dict(tab="comment", user_comment=True)
+
+    def get_queryset(self):
+        user = self.get_user()
+        return ThreadedComments.objects.filter(to=user).exclude(user=user)
+
+
+class Bookmark(UserMixin):
+    template_name = "users/bookmark/index.html"
+    extra_context = dict(tab="bookmark")
+
+    def get_queryset(self):
+        return BookmarkModel.objects.filter(user=self.get_user()).order_by("-id")
 
 
 class About(TemplateView):
     template_name = "users/about.html"
     http_method_names = ["get"]
+    extra_context = dict(tab="about")
 
     def get_context_data(self, username, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -60,22 +80,6 @@ class About(TemplateView):
         if queryset.exists():
             context["about"] = queryset[0].about
         return context
-
-
-class Comment(UserMixin):
-    "user's comment page"
-    template_name = "users/history/comment.html"
-    extra_context = dict(user_comment=True)
-
-    def get_queryset(self):
-        return ThreadedComments.objects.filter(to=self.user).exclude(user=self.user)
-
-
-class Bookmark(UserMixin):
-    template_name = "users/bookmark/index.html"
-
-    def get_queryset(self):
-        return BookmarkModel.objects.filter(user=self.user).order_by("-id")
 
 
 class DeleteAccount(LoginRequiredMixin, TemplateView):

@@ -4,7 +4,6 @@ from django.views.generic import ListView, TemplateView
 
 from ..models import Content, Topic
 from ..views.utils import model_filter
-from .utils import paginator
 
 
 class ExplorerMixin(ListView):
@@ -50,7 +49,7 @@ class TopicView(ExplorerMixin):
 class Hashtag(ExplorerMixin):
     template_name = "card/blogs.html"
 
-    def get_context_data(self, hashtag, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["hashtag"] = self.hashtag
         return context
@@ -62,7 +61,7 @@ class Hashtag(ExplorerMixin):
 class Languages(ExplorerMixin):
     template_name = "card/blogs.html"
 
-    def get_context_data(self, language, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["language"] = self.language
         return context

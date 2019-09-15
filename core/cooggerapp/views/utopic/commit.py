@@ -4,32 +4,35 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, ListView
 
 from ....threaded_comment.forms import ReplyForm
 from ...models import Commit, UTopic
 from ...views.generic.detail import CommonDetailView
-from ..utils import get_current_user, paginator
+from ..utils import get_current_user
 
 
-class Commits(TemplateView):
+class Commits(ListView):
     template_name = "users/topic/detail/commits.html"
+    paginate_by = 10
+    http_method_names = ["get"]
     commits = Commit.objects.approved_commits
 
-    def get_context_data(self, username, topic_permlink, **kwargs):
-        user = get_object_or_404(User, username=username)
-        utopic = UTopic.objects.get(user__username=username, permlink=topic_permlink)
+    def get_queryset(self):
+        self.user = get_object_or_404(User, username=self.kwargs.get("username"))
+        self.utopic = UTopic.objects.get(user=self.user, permlink=self.kwargs.get("topic_permlink"))
         filter_by_username = self.request.GET.get("username", None)
         if filter_by_username:
-            queryset = self.commits.filter(
-                user__username=filter_by_username, utopic=utopic
+            return self.commits.filter(
+                user__username=filter_by_username, utopic=self.utopic
             )
         else:
-            queryset = self.commits.filter(utopic=utopic)
+            return self.commits.filter(utopic=self.utopic)
+
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_user"] = get_current_user(user)
-        context["queryset"] = paginator(self.request, queryset)
-        context["utopic"] = utopic
+        context["current_user"] = get_current_user(self.user)
+        context["utopic"] = self.utopic
         return context
 
 

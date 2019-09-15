@@ -2,19 +2,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import FieldError
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-
-
-def paginator(request, queryset, how_many=settings.PAGE_SIZE):
-    paginator = Paginator(queryset, how_many)
-    page = request.GET.get("page")
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-        contacts = paginator.page(1)
-    except EmptyPage:
-        contacts = paginator.page(paginator.num_pages)
-    return contacts
 
 
 def model_filter(items, queryset):

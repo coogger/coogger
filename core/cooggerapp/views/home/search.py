@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 
 from ...models import Content, SearchedWords, UTopic
-from .index import Index
+from django.views.generic import ListView
 
-
-class Search(Index):
+class Search(ListView):
     user_template_name = "home/search/user.html"
     content_template_name = "home/search/content.html"
     utopic_template_name = "home/search/utopic.html"
     not_result_template_name = "home/search/not_result.html"
+    http_method_names = ["get"]
     valid_search = {"@": "user", "#": "utopic"}
 
     def get_template_names(self):

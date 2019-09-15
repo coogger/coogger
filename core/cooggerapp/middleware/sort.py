@@ -9,7 +9,7 @@ from ..views.utils import model_filter
 
 class SortMiddleware(MiddlewareMixin):
     valid_urls = [
-        "home",
+        "index",
         "filter",
         "language",
         "topic",

@@ -4,38 +4,49 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views import View
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, ListView
 
 from ....threaded_comment.forms import ReplyForm
 from ...forms import IssueForm
 from ...models import Issue, UTopic
 from ...views.generic.detail import CommonDetailView
-from ..utils import get_current_user, paginator
+from ..utils import get_current_user
 
 # TODO if requests come same url, and query does then it should be an update
 
 
-class IssueView(TemplateView):
+class IssueView(ListView):
     model = Issue
     template_name = "users/topic/detail/issues.html"
+    paginate_by = 10
+    http_method_names = ["get"]
 
-    def get_context_data(self, username, utopic_permlink, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = get_object_or_404(User, username=username)
-        utopic = UTopic.objects.filter(user=user, permlink=utopic_permlink)[0]
-        queryset = self.get_queryset(utopic)
-        context["current_user"] = get_current_user(user)
-        context["queryset"] = paginator(self.request, queryset)
-        context["utopic"] = utopic
+        context.update(
+            current_user=get_current_user(self.user),
+            utopic=self.utopic
+        )
         return context
 
-    def get_queryset(self, utopic):
-        return self.model.objects.filter(utopic=utopic, status="open")
+    def get_queryset(self):
+        self.user = get_object_or_404(User, username=self.kwargs.get("username"))
+        self.utopic = UTopic.objects.filter(
+            user=self.user,
+            permlink=self.kwargs.get("utopic_permlink")
+        )[0]
+        return self.model.objects.filter(utopic=self.utopic, status=self.get_status())
+
+    @staticmethod
+    def get_status():
+        return "open"
 
 
 class ClosedIssueView(IssueView):
-    def get_queryset(self, utopic):
-        return self.model.objects.filter(utopic=utopic, status="closed")
+
+    @staticmethod
+    def get_status():
+        return "closed"
 
 
 class NewIssue(LoginRequiredMixin, View):

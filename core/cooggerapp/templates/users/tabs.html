@@ -1,38 +1,11 @@
 {% load coogger_tags %}
 <div general="flex position:center width:100 border:1 brc:muted" >
   <div general="flex flex:fw-nw" style="padding: 6px 0px;overflow: auto;">
-    <div>
-      <a href="{% url 'user' current_user %}">
-          <div general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover"   style="padding: 3px 6px;">
-             <i class="fas fa-sitemap" style="margin-left: 8px;"></i>
-             TOPICS {{ current_user|get_count:"utopic" }}
-          </div>
-      </a>
-    </div>
-    <div>
-      <a href="{% url 'usercontent' current_user %}">
-          <div general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover"   style="padding: 3px 6px;">
-              <i class="fas fa-file-alt" style="margin-left: 8px;"></i>CONTENTS {{ current_user|hmanycontent }}
-          </div>
-      </a>
-    </div>
-    <div>
-      <a href="{% url 'bookmark' current_user %}" general="flex flex:as-fs flex:ai-c color:secondary text:m width:max color:primary:hover" 
-        style="padding: 3px 6px;">
-        <i class="fas fa-bookmark" style="margin-left: 8px;"></i>BOOKMARK {{ current_user|get_count:"bookmark"}}
-      </a>
-    </div>
-    <div>
-      <a href="{% url 'comment' current_user %}" general="flex flex:as-fs flex:ai-c text:m width:max color:secondary color:primary:hover" 
-        style="padding: 3px 6px;">
-        <i class="fas fa-comments" style="margin-left: 8px;"></i>COMMENTS {{ current_user|get_count:"comments" }}
-      </a>
-    </div>
-    <div>
-        <a href="{% url 'userabout' current_user %}" general="flex flex:as-fs flex:ai-c color:secondary text:m width:max color:primary:hover" 
-          style="padding: 3px 6px;">
-          <i class="fas fa-file-alt" style="margin-left: 8px;"></i>ABOUT
-        </a>
-      </div>
+      <a class="fas fa-sitemap tab-a" href="{% url 'user' current_user %}" general="text:m {% if tab == 'utopic' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">TOPIC {{ current_user|get_count:"utopic" }}</a>
+      <a class="fas fa-file-alt tab-a" href="{% url 'usercontent' current_user %}" general="text:m {% if tab == 'content' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">CONTENT {{ current_user|hmanycontent }}</a>
+      <a class="fas fa-bookmark tab-a" href="{% url 'bookmark' current_user %}" general="text:m {% if tab == 'bookmark' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">BOOKMARK {{ current_user|get_count:"bookmark"}}</a>
+      <a class="fas fa-comments tab-a" href="{% url 'comment' current_user %}" general="text:m {% if tab == 'comment' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">COMMENT {{ current_user|get_count:"comments" }}</a>
+      <a class="fas fa-file-alt tab-a" href="{% url 'userabout' current_user %}" general="text:m {% if tab == 'about' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">ABOUT</a>
   </div>
 </div>
+
