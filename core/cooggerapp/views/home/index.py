@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import resolve
 from django.views.generic import ListView
 
-from ...forms import ReportsForm
-from ...models import Content, Issue, ReportModel, SearchedWords, Topic
+from ...models import Content, Issue, Topic
 
 
 class Index(ListView):

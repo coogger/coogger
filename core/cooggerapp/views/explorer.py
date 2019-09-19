@@ -1,6 +1,5 @@
 from django.conf import settings
-from django.http import Http404
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 
 from ..models import Content, Topic
 from ..views.utils import model_filter
