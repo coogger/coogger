@@ -4,21 +4,24 @@
  </p>
 <p>
   <a href="https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt" target="_blank">
-    <img alt="MIT License" title="MIT License" src="https://img.shields.io/github/license/coogger/coogger.svg?style=for-the-badge"/>
+    <img alt="MIT License" title="MIT License" src="https://img.shields.io/github/license/coogger/coogger.svg"/>
   </a>
   <a href="https://github.com/coogger/coogger/releases" target="_blank">
-    <img alt="releases" title="releases" src="https://img.shields.io/github/release/coogger/coogger.svg?style=for-the-badge"/>
+    <img alt="releases" title="releases" src="https://img.shields.io/github/release/coogger/coogger.svg"/>
   </a>
-  <img alt="last-commit" title="last-commit" src="https://img.shields.io/github/last-commit/coogger/coogger.svg?style=for-the-badge"/>
+  <img alt="last-commit" title="last-commit" src="https://img.shields.io/github/last-commit/coogger/coogger.svg"/>
   <a href="https://www.codacy.com/app/hakancelik96/coogger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=coogger/coogger&amp;utm_campaign=Badge_Grade" target="_blank">
- <img alt="Codacy Badge" title="Codacy Badge" src="https://img.shields.io/codacy/grade/56b6c891028543d685564b78ab3431d2?style=for-the-badge"/>
+ <img alt="Codacy Badge" title="Codacy Badge" src="https://img.shields.io/codacy/grade/56b6c891028543d685564b78ab3431d2"/>
   </a>
   <a href="https://github.com/psf/black" target="_blank">
- <img alt="Code style" title="Code style" src="https://img.shields.io/badge/Code%20style-black-black?style=for-the-badge"/>
+ <img alt="Code style" title="Code style" src="https://img.shields.io/badge/Code%20style-black-black"/>
   </a>
    <a href="https://github.com/timothycrosley/isort" target="_blank">
- <img alt="Code style" title="Code style" src="https://img.shields.io/badge/code%20style-isort-lightgrey?style=for-the-badge"/>
+ <img alt="Code style" title="Code style" src="https://img.shields.io/badge/code%20style-isort-lightgrey"/>
   </a>
+  <a href="https://github.com/hakancelik96/unimport" target="_blank">
+<img alt="Unnecessary library detection" title="Code style" src="https://img.shields.io/badge/Unnecessary%20library%20detection-unimport-green"/>
+ </a>
   <br>
 </p>
 
