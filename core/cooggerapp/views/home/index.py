@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import resolve
 from django.views.generic import ListView
 
-from ...models import Content, Issue, Topic
+from ...models import Content, Issue, Topic, UTopic
 
 
 class Index(ListView):
@@ -17,8 +17,15 @@ class Index(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["sort_topics"] = self.sort_topics()  # TODO just pc
-        context["issues"] = Issue.objects.filter(status="open")[: settings.PAGE_SIZE]
+        if self.introduction:
+            context.update(
+                utopics=UTopic.objects.all().order_by('-how_many').distinct()[: settings.PAGE_SIZE],
+            )
+        else:
+            context.update(
+                issues=Issue.objects.filter(status="open")[: settings.PAGE_SIZE],
+                sort_topics=self.sort_topics(),
+            )
         return context
 
     def get_queryset(self):
