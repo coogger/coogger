@@ -134,7 +134,7 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def detail_utopic(self):
         permlink = self.get_var("permlink")
         username = self.get_var("username")
-        utopic = UTopic.objects.filter(user=self.user_obj, permlink=permlink)[0]
+        utopic = UTopic.objects.get(user=self.user_obj, permlink=permlink)
         if utopic.description:
             description = f"{utopic.description.capitalize()} | {username}"
         else:
