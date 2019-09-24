@@ -1,4 +1,3 @@
-{% load coogger_tags %}
 {% with current_user.userbadge.get_badges as badges %}
     {% if badges %}
         <div style="margin-top: 24px;padding:12px;">
@@ -21,8 +20,8 @@
                     <img class="badge-img" width="100%" height="100%" 
                     general="width:80 height:80 opacity:0.8:hover" 
                     src="{{ badge.image_address }}" 
-                    alt="{{ current_user }}-badge-{{ badge }}" title="{{ badge }}"
-                    style="transform: rotate({% get_random -50 50 10 %}deg);">
+                    alt="{{ badge }} badge" 
+                    title="{{ badge }} badge">
                 </a>
             {% endfor %}
         </div>

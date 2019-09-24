@@ -8,19 +8,22 @@
              src="{{ current_user.githubauthuser.avatar_url }}" 
              style="padding: 2px;margin: initial; max-height: 240px;"/>
         </div>
-        <h1 general="flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
-            <a general="flex color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+        <h1 general="flex flex:jc-c flex:ai-c flex:as-c br:2 border:1 bg:white brc:white">
+            <a general="color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
                 {% if current_user.get_full_name %}
                     {{ current_user.get_full_name }}
                 {% else %}
                     @{{ current_user }}
                 {% endif %}
             </a>
+            {% with current_user as user  %}
+                {% include 'common/user-title.html' %}
+            {% endwith %}
         </h1>
         <span general="text:s position:center">
             Date joined; {{ current_user.date_joined|timesince }} ago
         </span>
-        
+        <br>
     </div>
     <div general="flex flex:jc-c width:max position:center">
         <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >

@@ -55,8 +55,3 @@ def get_count(user, name):
         return ThreadedComments.objects.filter(to=user).exclude(user=user).count()
     elif name == "bookmark":
         return Bookmark.objects.filter(user=user).count()
-
-
-@register.simple_tag
-def get_random(start, stop, step):
-    return random.randrange(start, stop, step)
