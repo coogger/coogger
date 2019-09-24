@@ -83,7 +83,9 @@ class ApproveContribute(LoginRequiredMixin, View):
                 self.update_utopic(utopic)
             else:
                 messages.warning(request, "You can not change this commit")
-            return redirect(content.get_absolute_url)
+        else:
+            messages.warning(request, "Permission denied")
+        return redirect(content.get_absolute_url)
 
     def update_utopic(self, utopic):
         utopic.closed_contribution += 1
@@ -96,9 +98,13 @@ class RejectContribute(ApproveContribute):
 
     def get(self, request, username, topic_permlink, hash):
         commit = get_object_or_404(Commit, hash=hash)
-        if str(request.user) == commit.utopic.user and commit.status == "waiting":
+        if request.user == commit.utopic.user and commit.status == "waiting":
             if commit.status != self.get_status:
                 commit.status = self.get_status
                 commit.save()
                 self.update_utopic(utopic=UTopic.objects.get(id=commit.utopic.id))
-            return redirect(commit.content.get_absolute_url)
+            else:
+                messages.warning(request, "You can not change this commit")
+        else:
+            messages.warning(request, "Permission denied")
+        return redirect(commit.content.get_absolute_url)
