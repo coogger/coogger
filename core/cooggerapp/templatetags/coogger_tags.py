@@ -1,6 +1,3 @@
-# django
-import random
-
 from django import template
 from django.urls import resolve
 from django_bookmark.models import Bookmark
