@@ -1,29 +1,19 @@
 <h1 align="center">COOGGER PROJECT</h1>
 <p align="left">
-  Coogger is a platform for developers to publish their knowledge, experiences, documents or blogs in the best way.
+  Coogger is a platform for developers to publish technical documents in the best way.
  </p>
-<p>
-  <a href="https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt" target="_blank">
-    <img alt="MIT License" title="MIT License" src="https://img.shields.io/github/license/coogger/coogger.svg"/>
-  </a>
-  <a href="https://github.com/coogger/coogger/releases" target="_blank">
-    <img alt="releases" title="releases" src="https://img.shields.io/github/release/coogger/coogger.svg"/>
-  </a>
-  <img alt="last-commit" title="last-commit" src="https://img.shields.io/github/last-commit/coogger/coogger.svg"/>
-  <a href="https://www.codacy.com/app/hakancelik96/coogger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=coogger/coogger&amp;utm_campaign=Badge_Grade" target="_blank">
- <img alt="Codacy Badge" title="Codacy Badge" src="https://img.shields.io/codacy/grade/56b6c891028543d685564b78ab3431d2"/>
-  </a>
-  <a href="https://github.com/psf/black" target="_blank">
- <img alt="Code style" title="Code style" src="https://img.shields.io/badge/Code%20style-black-black"/>
-  </a>
-   <a href="https://github.com/timothycrosley/isort" target="_blank">
- <img alt="Code style" title="Code style" src="https://img.shields.io/badge/code%20style-isort-lightgrey"/>
-  </a>
-  <a href="https://github.com/hakancelik96/unimport" target="_blank">
-<img alt="Unnecessary library detection" title="Code style" src="https://img.shields.io/badge/Unnecessary%20library%20detection-unimport-green"/>
- </a>
-  <br>
-</p>
+ 
+[![MIT License](https://img.shields.io/github/license/coogger/coogger.svg)](https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt) [![releases](https://img.shields.io/github/release/coogger/coogger.svg)](https://github.com/coogger/coogger/releases) [![last-commit](https://img.shields.io/github/last-commit/coogger/coogger.svg)](https://github.com/coogger/coogger/commits/master) [![Codacy Badge](https://img.shields.io/codacy/grade/56b6c891028543d685564b78ab3431d2)](https://www.codacy.com/app/hakancelik96/coogger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=coogger/coogger&amp;utm_campaign=Badge_Grade) [![style](https://img.shields.io/badge/style-black-black)](https://github.com/psf/black) [![style](https://img.shields.io/badge/style-isort-lightgrey)](https://github.com/timothycrosley/isort) [![style](https://img.shields.io/badge/style-unimport-green)](https://github.com/hakancelik96/unimport) [![](https://img.shields.io/github/contributors/coogger/coogger)](https://github.com/coogger/coogger/graphs/contributors)
+
+------------------------
+
+**Please insert this badge into readme.md of your repo which uses this project.**
+
+ ` [![docs coogger](https://img.shields.io/badge/docs-coogger-1c472b)](https://github.com/coogger/coogger)`
+ 
+ [![docs coogger](https://img.shields.io/badge/docs-coogger-1c472b)](https://github.com/coogger/coogger)
+ 
+ ------------------------
 
 ### 🚀 Installation 🚀
 #### Before
@@ -73,111 +63,10 @@ $ docker-compose up --env-file coogger/.env
 ## 🤝 Contributing 🤝
 [CONTRIBUTING.md](https://github.com/coogger/coogger/blob/coogger-dev/CONTRIBUTING.md)
 
-
-## 💻📖 Contributors 💻📖
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/isidentical">
-        <img src="https://avatars3.githubusercontent.com/u/47358913?s=460&v=4" width="75px;" alt="Batuhan Taşkaya"/>
-        <br/>
-        <sub>
-          <b>Batuhan Taşkaya</b>
-        </sub>
-      </a>
-      <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=isidentical" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%3Aisidentical" title="Issue">📖</a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/furkanonder">
-        <img src="https://avatars0.githubusercontent.com/u/24194934?s=460&v=4" width="75px;" alt="Furkan Önder"/>
-        <br/>
-        <sub>
-          <b>Furkan Önder</b>
-        </sub>
-      </a>
-      <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=furkanonder" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/commits?author=furkanonder" title="Issue">📖</a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/adilkhan8000">
-        <img src="https://avatars0.githubusercontent.com/u/37472106?s=460&v=4" width="75px;" alt="alishannoor"/>
-        <br/>
-        <sub>
-          <b>alishannoor</b>
-        </sub>
-      </a>
-      <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=adilkhan8000" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%3Aadilkhan8000" title="Issue">📖</a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/ewuoso">
-        <img src="https://avatars2.githubusercontent.com/u/33087808?s=460&v=4" width="75px;" alt="ewuoso"/>
-        <br/>
-        <sub>
-          <b>ewuoso</b>
-        </sub>
-      </a>
-      <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=ewuoso" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%3Aewuoso" title="Issue">📖</a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/aligoren">
-        <img src="https://avatars1.githubusercontent.com/u/4205423?s=460&v=4" width="75px;" alt="aligoren"/>
-        <br/>
-        <sub>
-          <b>Ali GOREN</b>
-        </sub>
-      </a>
-      <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=aligoren" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%aligoren" title="Issue">📖</a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/emregeldegul">
-        <img src="https://avatars2.githubusercontent.com/u/26741856?s=460&v=4" width="75px;" alt="emregeldegul"/>
-        <br/>
-        <sub>
-          <b>Yunus Emre Geldegül</b>
-        </sub>
-      </a>
-      <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=emregeldegul" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%emregeldegul" title="Issue">📖</a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/bisguzar">
-        <img src="https://avatars0.githubusercontent.com/u/8844753?s=460&v=4" width="75px;" alt="bisguzar"/>
-        <br/>
-        <sub>
-          <b>Buğra İşgüzar</b>
-        </sub>
-      </a>
-      <br/>
-      <a href="https://github.com/coogger/coogger/commits?author=bisguzar" title="Code">💻</a>
-      <a href="https://github.com/coogger/coogger/issues?q=author%bisguzar" title="Issue">📖</a>
-    </td>
-  </tr>
-</table>
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-## Author
+## Author / Social
 
 👤 **Hakan Çelik** 👤
 
-- Twitter: [@hakancelik_py](https://twitter.com/hakancelik_py)
-- Twitter: [@cooggercom](https://twitter.com/cooggercom)
-- Github: [@hakancelik96](https://github.com/hakancelik96)
-
-## 📝 License 📝
-
-Copyright © 2019 [Hakan Çelik](https://github.com/coogger/coogger).<br/>
-This project is [MIT](https://github.com/coogger/coogger/blob/master/LICENSE) licensed.
+- [![](https://img.shields.io/twitter/follow/hakancelik96?style=social)](https://twitter.com/hakancelik96)
+- [![](https://img.shields.io/twitter/follow/cooggercom?style=social)](https://twitter.com/cooggercom)
+- [![](https://img.shields.io/github/followers/hakancelik96?label=hakancelik96&style=social)](https://github.com/hakancelik96)
