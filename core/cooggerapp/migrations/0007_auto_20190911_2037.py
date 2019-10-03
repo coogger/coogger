@@ -6,7 +6,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [("cooggerapp", "0007_ghost_user")]
+    dependencies = [("cooggerapp", "0006_auto_20190906_1516")]
 
     operations = [
         migrations.AlterField(
