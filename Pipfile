@@ -1,0 +1,31 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+mistune = "*"
+whitenoise = "*"
+django-js-asset = "==0.1.1"
+djangorestframework = "==3.9.1"
+beautifulsoup4 = "==4.6.0"
+django-environ = "==0.4.5"
+requests = "*"
+django-follow-system = "==0.0.4"
+djangoip = "==0.0.2"
+cooggerimages = "==0.0.5"
+djangobadge = "==0.0.14"
+Django = "==2.0.12"
+Pillow = "*"
+django_md_editor = "==0.1.61"
+github_auth = "==0.0.7"
+django_page_views = "==0.0.3"
+django_ban = "==0.1.0"
+django_vote_system = "==0.0.3"
+django_bookmark = "==0.0.24"
+request = "*"
+
+[requires]
+python_version = "3.7"
