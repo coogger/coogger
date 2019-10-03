@@ -19,7 +19,9 @@ class Index(ListView):
         context = super().get_context_data(**kwargs)
         if self.introduction:
             context.update(
-                utopics=UTopic.objects.all().order_by('-how_many').distinct()[: settings.PAGE_SIZE],
+                utopics=UTopic.objects.all()
+                .order_by("-how_many")
+                .distinct()[: settings.PAGE_SIZE]
             )
         else:
             context.update(
