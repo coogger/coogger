@@ -2,65 +2,69 @@
 {% load coogger_tags %}
 {% block body %}
 <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
-  <div general="flex position:center flex:fd-c" >
-    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" mobile-s="width:98">
-    {% include "users/topic/detail/top.html" %}
-  <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
-      <div style="padding:12px;">
+  <div general="flex position:center flex:fd-c">
+    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
+      tablet="width:90" laptop="width:80" mobile-s="width:98">
+      {% include "users/topic/detail/top.html" %}
+      <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
+        <div style="padding:12px;">
           {% include 'common/there-is-no-data.html' %}
-          <div general="position:center bg:muted " style="padding:12px;" >
-              <a href="{% url 'issues' current_user utopic.permlink %}">
-                  <div general="flex flex:ai-c">
-                    <i general="color:green" class="fas fa-exclamation-circle"></i>
-                    <span id="" general="text:s">
-                      <strong>{{ utopic.open_issue }}</strong> Issues
-                    </span>
-                  </div>
-                </a>
-              <a href="{% url 'close-issues' current_user utopic.permlink %}">
-                  <div general="flex flex:ai-c">
-                    <i general="color:red" class="fas fa-check"></i>
-                    <span id="" general="text:s">
-                        <strong>{{ utopic.closed_issue }} </strong> Closed
-                    </span>
-                  </div>
-                </a>
-          </div>
-          <a general="br:1 color:white bg:green text:s position:right" href="{% url 'new-issue' current_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
-              <span general="position:center">Open new issue</span>
+          <div general="position:center bg:muted " style="padding:12px;">
+            <a href="{% url 'issues' current_user utopic.permlink %}">
+              <div general="flex flex:ai-c">
+                <i general="color:green" class="fas fa-exclamation-circle"></i>
+                <span id="" general="text:s">
+                  <strong>{{ utopic.open_issue }}</strong> Issues
+                </span>
+              </div>
             </a>
-        <ul class="issues">
-          <!-- issue list open or closed -->
-          {% for issue in object_list %}
-            <li general="flex width:100" class="issue-query" >
-              <a general="color:primary width:90" href="{% url 'detail-issue' current_user utopic.permlink issue.issue_id %}">
+            <a href="{% url 'close-issues' current_user utopic.permlink %}">
+              <div general="flex flex:ai-c">
+                <i general="color:red" class="fas fa-check"></i>
+                <span id="" general="text:s">
+                  <strong>{{ utopic.closed_issue }} </strong> Closed
+                </span>
+              </div>
+            </a>
+          </div>
+          <a general="br:1 color:white bg:green text:s position:right"
+            href="{% url 'new-issue' current_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
+            <span general="position:center">Open new issue</span>
+          </a>
+          <ul class="issues">
+            <!-- issue list open or closed -->
+            {% for issue in object_list %}
+            <li general="flex width:100" class="issue-query">
+              <a general="color:primary width:90"
+                href="{% url 'detail-issue' current_user utopic.permlink issue.issue_id %}">
                 <div>
-                    {% if issue.status == "open" %}
-                      <i general="color:green" class="fas fa-exclamation-circle"></i>
-                    {% elif issue.status == "closed" %}
-                      <i general="color:red" class="fas fa-exclamation-circle"></i>
-                    {% endif %}
-                    <span mobile-l="text:s" mobile-m="text:s" mobile-s="text:s">
-                      {{ issue.title|title }}
-                    </span>
+                  {% if issue.status == "open" %}
+                  <i general="color:green" class="fas fa-exclamation-circle"></i>
+                  {% elif issue.status == "closed" %}
+                  <i general="color:red" class="fas fa-exclamation-circle"></i>
+                  {% endif %}
+                  <span mobile-l="text:s" mobile-m="text:s" mobile-s="text:s">
+                    {{ issue.title|title }}
+                  </span>
                 </div>
               </a>
-              <div general="text:s color:secondary"  mobile-l="text:xs" mobile-m="text:xs" mobile-s="text:xs">
-                  <span>#{{ issue.issue_id }}</span>
-                  <span>
-                    opened {{ issue.created|timesince }} by 
-                    <a href="/@{{ issue.user }}">@{{ issue.user }}</a>
-                  </span>
-                  <div>
-                    last updated {{ issue.updated|timesince }}
-                  </div>
+              <div general="text:s color:secondary" mobile-l="text:xs" mobile-m="text:xs" mobile-s="text:xs">
+                <span>#{{ issue.issue_id }}</span>
+                <span>
+                  opened {{ issue.created|timesince }} by
+                  <a href="/@{{ issue.user }}">@{{ issue.user }}</a>
+                </span>
+                <div>
+                  last updated {{ issue.updated|timesince }}
+                </div>
               </div>
             </li>
-          {% endfor %}
-          <!--  -->
-        </ul>
+            {% endfor %}
+            <!--  -->
+          </ul>
+        </div>
       </div>
-    </div>  </div>  </div>  </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
-
-

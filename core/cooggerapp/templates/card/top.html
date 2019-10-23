@@ -1,15 +1,15 @@
 <div class="capitalize" general="flex" style="margin: 12px 0px;">
-    <div general="flex flex:ai-c text:s position:left color:white" >
-        <a general="color:secondary color:primary:hover" id="topic" 
-          href="{% url 'detail-utopic' ct.utopic.permlink ct.user %}">
-          <i class="fas fa-hashtag" aria-hidden="true"></i>
-          <span>{{ct.utopic.permlink}}</span>
-        </a>
-    </div>
-    <div general="flex flex:ai-c text:s position:right color:white"  class="content_list">
-      <a class="capitalize" general="color:secondary color:primary:hover"  
+  <div general="flex flex:ai-c text:s position:left color:white">
+    <a general="color:secondary color:primary:hover" id="topic"
+      href="{% url 'detail-utopic' ct.utopic.permlink ct.user %}">
+      <i class="fas fa-hashtag" aria-hidden="true"></i>
+      <span>{{ct.utopic.permlink}}</span>
+    </a>
+  </div>
+  <div general="flex flex:ai-c text:s position:right color:white" class="content_list">
+    <a class="capitalize" general="color:secondary color:primary:hover"
       href="{% url 'filter' %}?username={{ ct.user }}&language={{ ct.language }}" id="language">
-       <i class="fas fa-flag"></i>{{ct.language}}
-      </a>
+      <i class="fas fa-flag"></i>{{ct.language}}
+    </a>
   </div>
 </div>

@@ -1,37 +1,39 @@
 <div general="bg:white brc:white width:100">
-    {% for topic in object_list %}
-    <div general="brc:muted" class="topic-list">
-      <a general="flex color:dark br:4 color:primary:hover flex:ai-c" href="{{ topic.get_absolute_url }}" style="padding: 6px 0px;">
-        {% if topic.image_address %}
-          <img general="width:12 br:4" src="{{ topic.image_address }}" class="ti">
-        {% endif %}
-        <strong style="margin-left: 6px;">{{ topic.name }}</strong>
-      </a>
-      <div general="flex flex:ai-c">
-          {% if not topic.global_topic %}
-            <div general="text:s br:4" style="padding: 0px 6px;" class="fab fa-readme" title="Total duration of read">
-                {{ topic.get_total_dor|default:"0 second" }}
-            </div>
-            <div general="text:s br:4 color:blue" style="padding: 0px 6px;" class="fas fa-eye" title="Total view count">
-                {{ topic.total_view }}
-            </div>
-            <div general="text:s br:4 color:green" style="padding: 0px 6px;" class="fas fa-exclamation-circle" title="Open issues">
-                {{ topic.open_issue }}
-            </div>
-            <div general="text:s br:4 color:red" style="padding: 0px 6px;" class="fas fa-check" title="Closed issues">
-                {{ topic.closed_issue }}
-            </div>
-            <div general="text:s br:4 color:warning" style="padding: 0px 6px;" class="fas fa-plus" title="Open contributions">
-                {{ topic.open_contribution }}
-            </div>
-          {% endif %}
-          <div general="text:s br:4" style="padding: 0px 6px;" class="fas fa-indent" title="Article count">
-              {{ topic.how_many }}
-          </div>
-        </div>
-      {% if topic.description %}
-        <div general="text:s" class="tld" title="Description of topic">{{ topic.description }}</div>
+  {% for topic in object_list %}
+  <div general="brc:muted" class="topic-list">
+    <a general="flex color:dark br:4 color:primary:hover flex:ai-c" href="{{ topic.get_absolute_url }}"
+      style="padding: 6px 0px;">
+      {% if topic.image_address %}
+      <img general="width:12 br:4" src="{{ topic.image_address }}" class="ti">
       {% endif %}
+      <strong style="margin-left: 6px;">{{ topic.name }}</strong>
+    </a>
+    <div general="flex flex:ai-c">
+      {% if not topic.global_topic %}
+      <div general="text:s br:4" style="padding: 0px 6px;" class="fab fa-readme" title="Total duration of read">
+        {{ topic.get_total_dor|default:"0 second" }}
+      </div>
+      <div general="text:s br:4 color:blue" style="padding: 0px 6px;" class="fas fa-eye" title="Total view count">
+        {{ topic.total_view }}
+      </div>
+      <div general="text:s br:4 color:green" style="padding: 0px 6px;" class="fas fa-exclamation-circle"
+        title="Open issues">
+        {{ topic.open_issue }}
+      </div>
+      <div general="text:s br:4 color:red" style="padding: 0px 6px;" class="fas fa-check" title="Closed issues">
+        {{ topic.closed_issue }}
+      </div>
+      <div general="text:s br:4 color:warning" style="padding: 0px 6px;" class="fas fa-plus" title="Open contributions">
+        {{ topic.open_contribution }}
+      </div>
+      {% endif %}
+      <div general="text:s br:4" style="padding: 0px 6px;" class="fas fa-indent" title="Article count">
+        {{ topic.how_many }}
+      </div>
     </div>
-    {% endfor %}
+    {% if topic.description %}
+    <div general="text:s" class="tld" title="Description of topic">{{ topic.description }}</div>
+    {% endif %}
   </div>
+  {% endfor %}
+</div>

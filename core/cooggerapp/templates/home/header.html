@@ -1,122 +1,143 @@
 <header general="flex flex:ai-c br:1 position:center bg:white">
-    <div general="flex flex:fw-nw flex:jc-c width:90" mobile-l="width:96" mobile-m="width:96" mobile-s="width:96" style="overflow: auto;padding: 0px 0px 6px 0px;">
-      <div general="position:left">
-        <a general="flex flex:jc-c flex:ai-c color:dark text:m" href="{% url 'index' %}" >
-          <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
-          <span general="text:m">coogger</span>
-        </a>
-      </div>
-      <div general="flex flex:ai-c position:center width:60" class="search just-pc">
-        {% include 'forms/search.html' %}
-      </div>
-      {% if not request.user.is_authenticated %}
-      <div general="flex flex:ai-c">
-        <a style="padding: 6px 12px;"
-         general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover" 
-         href="{% url 'redirect-github' %}?next={{ request.META.PATH_INFO }}">
-          <i general="text:xxl" class="fab fa-github-square"></i>Login via github
-        </a>
-      </div>
-      {% else %}
-      <div general="position:right">
-        <div general="flex flex:ai-c" style="margin-right: 16px;">
-          <a style="padding: 10px 12px;" 
-          general="flex width:max text:m color:dark color:white:hover bg:success:hover br:2:hover" 
+  <div general="flex flex:fw-nw flex:jc-c width:90" mobile-l="width:96" mobile-m="width:96" mobile-s="width:96"
+    style="overflow: auto;padding: 0px 0px 6px 0px;">
+    <div general="position:left">
+      <a general="flex flex:jc-c flex:ai-c color:dark text:m" href="{% url 'index' %}">
+        <img src="/static/logos/png/48.png" general="br:circle" style="width: 36px;height: 36px;padding: 0px 6px;">
+        <span general="text:m">coogger</span>
+      </a>
+    </div>
+    <div general="flex flex:ai-c position:center width:60" class="search just-pc">
+      {% include 'forms/search.html' %}
+    </div>
+    {% if not request.user.is_authenticated %}
+    <div general="flex flex:ai-c">
+      <a style="padding: 6px 12px;"
+        general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover"
+        href="{% url 'redirect-github' %}?next={{ request.META.PATH_INFO }}">
+        <i general="text:xxl" class="fab fa-github-square"></i>Login via github
+      </a>
+    </div>
+    {% else %}
+    <div general="position:right">
+      <div general="flex flex:ai-c" style="margin-right: 16px;">
+        <a style="padding: 10px 12px;"
+          general="flex width:max text:m color:dark color:white:hover bg:success:hover br:2:hover"
           href="{% url 'create-utopic' %}">
-            <i general="flex flex:as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
-            <span class="just-pc">Create Topic</span>
-          </a>
-        </div>
-        <div class="open_header_menu" general="position:center">
-          <div general="flex flex:ai-c width:max text:m color:secondary" >
-            <img src="{{ request.user.githubauthuser.avatar_url }}" 
+          <i general="flex flex:as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
+          <span class="just-pc">Create Topic</span>
+        </a>
+      </div>
+      <div class="open_header_menu" general="position:center">
+        <div general="flex flex:ai-c width:max text:m color:secondary">
+          <img src="{{ request.user.githubauthuser.avatar_url }}"
             style="width: 38px;height: 38px;margin-right: 6px;background-size: cover;"
-              general="br:4 color:muted opacity:0.8:hover" style="max-width: 100%;max-height: 36px;">
-          </div>
-          <!--  -->
-          <div class="header_menu" general="br:2 border:1 bg:white brc:muted">
-            <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="/@{{ request.user }}">
-                <i general="flex flex:as-c" class="fas fa-user" aria-hidden="true"></i>
-                <span>@{{ request.user }}</span>
-              </a>
-            </div>
-            <div general="flex">
-                <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'index' %}">
-                  <i general="flex flex:as-c" class="fas fa-compass"></i>
-                  <span>Explorer</span>
-                </a>
-            </div>
-            <div general="flex">
-                <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'feed' request.user %}">
-                  <i general="flex flex:as-c" class="fas fa-stream"></i>
-                  <span>Feed</span>
-                </a>
-            </div>
-            <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'usercontent' request.user %}">
-                  <i general="flex flex:as-c" class="fas fa-file-alt"></i>
-                    Contents
-              </a>
-            </div>
-            <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'bookmark' request.user %}">
-                <i general="flex flex:as-c" class="fas fa-bookmark"></i>
-                <span>Bookmark</span>
-              </a>
-            </div>
-            <div general="flex">
-                <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'comment' request.user %}">
-                  <i general="flex flex:as-c" class="fas fa-comments" aria-hidden="true"></i>
-                  <span>Comments</span>
-                </a>
-              </div>
-            <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'userabout' request.user %}">
-                <i general="flex flex:as-c" class="fas fa-file-alt" aria-hidden="true"></i>
-                <span>About</span>
-              </a>
-            </div>
-            <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"   href="{% url 'settings' %}">
-                <i general="flex flex:as-c" class="fa fa-cog" aria-hidden="true"></i>
-                <span>Settings</span>
-              </a>
-            </div>
-            <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex" href="{% url 'coogger-images' %}">
-                <i general="flex flex:as-c" class="fas fa-file-image"></i>
-                <span>Coogger Images</span>
-              </a>
-            </div>
-            <div general="flex">
-              <a class="header_menu_a" general="text:m color:secondary width:100 color:white:hover bg:danger:hover br:2:hover flex"
-               href="{% url 'logout' %}?next={{ request.META.PATH_INFO }}">
-                <i general="flex flex:as-c" class="fas fa-sign-out-alt"></i>
-                <span>Sign out</span>
-              </a>
-            </div>
-          </div>
-          <!--  -->
+            general="br:4 color:muted opacity:0.8:hover" style="max-width: 100%;max-height: 36px;">
         </div>
-        {% endif %}
-        <div class="open_footer" general="flex flex:ai-c">
-          <i class="fas fa-bars"></i>
-        </div>
-        {% if request.user.is_staff %}
-          <div general="flex flex:ai-c">
-            <a general=" width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover"          href="{% url 'admin:index' %}">
-              <span>Admin</span>
+        <!--  -->
+        <div class="header_menu" general="br:2 border:1 bg:white brc:muted">
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="/@{{ request.user }}">
+              <i general="flex flex:as-c" class="fas fa-user" aria-hidden="true"></i>
+              <span>@{{ request.user }}</span>
             </a>
           </div>
-        {% endif %}
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="{% url 'index' %}">
+              <i general="flex flex:as-c" class="fas fa-compass"></i>
+              <span>Explorer</span>
+            </a>
+          </div>
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="{% url 'feed' request.user %}">
+              <i general="flex flex:as-c" class="fas fa-stream"></i>
+              <span>Feed</span>
+            </a>
+          </div>
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="{% url 'usercontent' request.user %}">
+              <i general="flex flex:as-c" class="fas fa-file-alt"></i>
+              Contents
+            </a>
+          </div>
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="{% url 'bookmark' request.user %}">
+              <i general="flex flex:as-c" class="fas fa-bookmark"></i>
+              <span>Bookmark</span>
+            </a>
+          </div>
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="{% url 'comment' request.user %}">
+              <i general="flex flex:as-c" class="fas fa-comments" aria-hidden="true"></i>
+              <span>Comments</span>
+            </a>
+          </div>
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="{% url 'userabout' request.user %}">
+              <i general="flex flex:as-c" class="fas fa-file-alt" aria-hidden="true"></i>
+              <span>About</span>
+            </a>
+          </div>
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="{% url 'settings' %}">
+              <i general="flex flex:as-c" class="fa fa-cog" aria-hidden="true"></i>
+              <span>Settings</span>
+            </a>
+          </div>
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
+              href="{% url 'coogger-images' %}">
+              <i general="flex flex:as-c" class="fas fa-file-image"></i>
+              <span>Coogger Images</span>
+            </a>
+          </div>
+          <div general="flex">
+            <a class="header_menu_a"
+              general="text:m color:secondary width:100 color:white:hover bg:danger:hover br:2:hover flex"
+              href="{% url 'logout' %}?next={{ request.META.PATH_INFO }}">
+              <i general="flex flex:as-c" class="fas fa-sign-out-alt"></i>
+              <span>Sign out</span>
+            </a>
+          </div>
+        </div>
+        <!--  -->
       </div>
+      {% endif %}
+      <div class="open_footer" general="flex flex:ai-c">
+        <i class="fas fa-bars"></i>
+      </div>
+      {% if request.user.is_staff %}
+      <div general="flex flex:ai-c">
+        <a general=" width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover"
+          href="{% url 'admin:index' %}">
+          <span>Admin</span>
+        </a>
+      </div>
+      {% endif %}
     </div>
-  </header>
-  {% if request.user.is_authenticated and not request.user.email %}
-    <div general="position:center width:100 bg:warning color:dark" style="padding:6px 0px;">
-      <strong>
-        Please go <a general="color:blue" href="{% url 'settings-user' %}">settings</a> to write your email address
-      </strong>
-    </div>
-  {% endif %}
+  </div>
+</header>
+{% if request.user.is_authenticated and not request.user.email %}
+<div general="position:center width:100 bg:warning color:dark" style="padding:6px 0px;">
+  <strong>
+    Please go <a general="color:blue" href="{% url 'settings-user' %}">settings</a> to write your email address
+  </strong>
+</div>
+{% endif %}

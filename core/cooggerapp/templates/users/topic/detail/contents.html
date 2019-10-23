@@ -2,49 +2,54 @@
 {% load coogger_tags %}
 {% block body %}
 <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
-  <div general="flex position:center flex:fd-c" >
-    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" mobile-s="width:98">
-    {% include "users/topic/detail/top.html" %}
-  <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
-      {% if not queryset %}
+  <div general="flex position:center flex:fd-c">
+    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
+      tablet="width:90" laptop="width:80" mobile-s="width:98">
+      {% include "users/topic/detail/top.html" %}
+      <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
+        {% if not queryset %}
         {% if request.user == current_user %}
-          <div general="bg:dark-purple color:white br:2" class="utopic-nocontent">
-            <a general="color:white text:l position:center" href="{% url 'create' utopic.permlink %}">
-              Add content your {{ utopic.permlink }} topic
-            </a>
-          </div>
+        <div general="bg:dark-purple color:white br:2" class="utopic-nocontent">
+          <a general="color:white text:l position:center" href="{% url 'create' utopic.permlink %}">
+            Add content your {{ utopic.permlink }} topic
+          </a>
+        </div>
         {% else %}
-          <div general="bg:red color:white br:2 width:80 position:center" class="utopic-nocontent">
-            <span general="color:white text:m position:center">
-              No content has been added in {{ utopic.permlink }} topic yet by {{ current_user }}
-            </span>
-          </div>
+        <div general="bg:red color:white br:2 width:80 position:center" class="utopic-nocontent">
+          <span general="color:white text:m position:center">
+            No content has been added in {{ utopic.permlink }} topic yet by {{ current_user }}
+          </span>
+        </div>
         {% endif %}
-      {% endif %}
-      <div style="padding: 6px 6px;">
-        {% for content in queryset %}
-          <div class="utopic-query text3" general="flex flex:ai-c width:100 text:m border:1 br:2 brc:muted" mobile-l="text:s" mobile-m="text:s" mobile-s="text:s">
-              <div>
-                  {% if content.status != "ready" %}
-                    <i class="fa fa-file-alt" general="color:muted" title="{{ content.status }}"></i>
-                  {% else %}
-                    <i class="fa fa-file-alt" general="color:success" title="{{ content.status }}"></i>
-                  {% endif %}
+        {% endif %}
+        <div style="padding: 6px 6px;">
+          {% for content in queryset %}
+          <div class="utopic-query text3" general="flex flex:ai-c width:100 text:m border:1 br:2 brc:muted"
+            mobile-l="text:s" mobile-m="text:s" mobile-s="text:s">
+            <div>
+              {% if content.status != "ready" %}
+              <i class="fa fa-file-alt" general="color:muted" title="{{ content.status }}"></i>
+              {% else %}
+              <i class="fa fa-file-alt" general="color:success" title="{{ content.status }}"></i>
+              {% endif %}
+            </div>
+            <div general="width:90">
+              <div general="flex width:100 flex:ai-c">
+                <a class="text3" general="color:primary width:50" href="{{ content.get_absolute_url }}">
+                  <span>{{ content.title|title }}</span>
+                </a>
+                <span general="width:50 text:s color:secondary" class="text3">{{ content.get_last_commit.msg }}</span>
+                <div general="text:s color:secondary">
+                  <i class="fas fa-eye">{{ content.views}}</i>
+                  <i class="fas fa-reply-all">{{ content.reply_count }}</i>
+                </div>
               </div>
-              <div general="width:90">
-                  <div general="flex width:100 flex:ai-c">
-                      <a class="text3" general="color:primary width:50" href="{{ content.get_absolute_url }}">
-                          <span>{{ content.title|title }}</span>  
-                    </a>
-                    <span general="width:50 text:s color:secondary" class="text3">{{ content.get_last_commit.msg }}</span>
-                    <div general="text:s color:secondary">
-                        <i class="fas fa-eye">{{ content.views}}</i>
-                        <i class="fas fa-reply-all">{{ content.reply_count }}</i>
-                    </div>
-                  </div>
-              </div>
+            </div>
           </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
     </div>
-  </div>  </div>  </div>  </div>
+  </div>
+</div>
 {% endblock %}

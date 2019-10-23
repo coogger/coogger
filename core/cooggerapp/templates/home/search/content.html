@@ -1,10 +1,11 @@
 {% extends "home/html.html" %}
 {% block body %}
-   <cards general="width:90 position:center flex">
-      {% for ct in object_list %}
-         <card general="br:2 bg:white width:30" mobile-s="width:100" mobile-m="width:98" mobilel="width:98" tablet="width:80" laptop="width:40" laptop-l="width:30" style="margin:6px;">
-            {% include "card/card.html" %}
-         </card>
-      {% endfor %}
-   </cards>
+<cards general="width:90 position:center flex">
+   {% for ct in object_list %}
+   <card general="br:2 bg:white width:30" mobile-s="width:100" mobile-m="width:98" mobilel="width:98" tablet="width:80"
+      laptop="width:40" laptop-l="width:30" style="margin:6px;">
+      {% include "card/card.html" %}
+   </card>
+   {% endfor %}
+</cards>
 {% endblock %}

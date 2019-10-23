@@ -1,6 +1,6 @@
-<div general="flex flex:jc-c flex:ai-c br:2 bg:muted"  style="height:100vh;">
-    <form general="flex border:1 br:2 brc:danger flex:fd-c" default="form"  method="post" 
-    action="{% url 'report' content_id %}" style="padding: 12px;">
+<div general="flex flex:jc-c flex:ai-c br:2 bg:muted" style="height:100vh;">
+    <form general="flex border:1 br:2 brc:danger flex:fd-c" default="form" method="post"
+        action="{% url 'report' content_id %}" style="padding: 12px;">
         {% csrf_token %} {{ report_form.as_p }}
         <input general="flex flex:as-c" type="submit" value="Report / flag">
     </form>

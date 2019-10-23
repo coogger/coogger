@@ -1,23 +1,24 @@
 {% include 'home/head.html' %}
 {% load django_md_editor %}
 <div general="font:quicksand">
-<div general="flex flex:jc-c flex:fw-nw">
-  <div style="width: 100%;">
-    {% include 'content/detail/contentinfo.html' %}
-    {% include 'content/detail/userinfo.html' %}
-    <div>
-      <h1 general="position:center text:xl" id="title" style="margin: 12px auto;"></h1>
-      <div style="padding: inherit;">
-        {{ queryset.body|markdown_to_html:"detail-body"|safe }}
+  <div general="flex flex:jc-c flex:fw-nw">
+    <div style="width: 100%;">
+      {% include 'content/detail/contentinfo.html' %}
+      {% include 'content/detail/userinfo.html' %}
+      <div>
+        <h1 general="position:center text:xl" id="title" style="margin: 12px auto;"></h1>
+        <div style="padding: inherit;">
+          {{ queryset.body|markdown_to_html:"detail-body"|safe }}
+        </div>
       </div>
-    </div>
-    <div style="margin: 10% 0px;"></div>
-    <!-- replies -->
-    {% with id=queryset.id model_name="content" %}
+      <div style="margin: 10% 0px;"></div>
+      <!-- replies -->
+      {% with id=queryset.id model_name="content" %}
       {% include 'load_replies.html' %}
-    {% endwith %}
+      {% endwith %}
+    </div>
   </div>
 </div>
-</div>
 </body>
+
 </html>

@@ -1,22 +1,16 @@
 {% extends "home/html.html" %}
 {% block body %}
 <div general="width:90 position:center" style="margin-top: 24px;">
-    <div general="flex width:100" mobile-l="flex flex:fd-c" 
-    mobile-m="flex flex:fd-c" mobile-s="flex flex:fd-c">
-        <div general="width:20 position:left flex flex:fd-c bg:muted" 
-        mobile-l="width:96"
-        mobile-m="width:100"
-        mobile-s="width:100"
-        style="padding: 6px;height: 50vh;">
-        {% for set in settings_list %}
-            <a general="width:100 border:2 brc:white" style="padding: 4px 0px;"href="{% url 'settings' %}{{ set }}/">
+    <div general="flex width:100" mobile-l="flex flex:fd-c" mobile-m="flex flex:fd-c" mobile-s="flex flex:fd-c">
+        <div general="width:20 position:left flex flex:fd-c bg:muted" mobile-l="width:96" mobile-m="width:100"
+            mobile-s="width:100" style="padding: 6px;height: 50vh;">
+            {% for set in settings_list %}
+            <a general="width:100 border:2 brc:white" style="padding: 4px 0px;" href="{% url 'settings' %}{{ set }}/">
                 <strong>{{ set|title }}</strong>
             </a>
-        {% endfor %}
+            {% endfor %}
         </div>
-        <div general="position:center br:2 bg:white flex flex:fd-c width:50"
-            mobile-l="width:96"
-            mobile-m="width:100"
+        <div general="position:center br:2 bg:white flex flex:fd-c width:50" mobile-l="width:96" mobile-m="width:100"
             mobile-s="width:100">
             {% block setting %}{% endblock %}
         </div>

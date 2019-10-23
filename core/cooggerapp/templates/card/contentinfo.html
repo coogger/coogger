@@ -1,27 +1,26 @@
-<div general="flex flex:jc-fs text:l"  style="margin: 12px 0px;">
-    <a href="{{ ct.get_absolute_url }}">
-      {% if ct.status != "ready" %}
-        <span class="fa fa-file-alt" general="color:muted" title="{{ ct.status }}"></span>
-      {% endif %}
-      <strong id="title" general="color:dark">{{ ct.title }}</strong>
+<div general="flex flex:jc-fs text:l" style="margin: 12px 0px;">
+  <a href="{{ ct.get_absolute_url }}">
+    {% if ct.status != "ready" %}
+    <span class="fa fa-file-alt" general="color:muted" title="{{ ct.status }}"></span>
+    {% endif %}
+    <strong id="title" general="color:dark">{{ ct.title }}</strong>
   </a>
 </div>
 <div general="flex flex:ai-fs flex:ai-fs" style="margin: 12px 0px;">
-    <div class="capitalize" general="flex text:s flex:ai-c" >
-        <i general="color:secondary" class="fab fa-readme"></i>
-        {{ ct.get_dor }}
-    </div>
-    <div class="capitalize" general="flex text:s flex:ai-c" title="views count">
-      <i general="color:secondary" class="fas fa-eye"></i>
-      {{ ct.views }}
-    </div>
-    <div class="capitalize" general="flex text:s flex:ai-c">
-      <i general="color:secondary" class="fas fa-reply"></i>
-      <span title="reply count">{{ ct.reply_count }}</span>
-    </div>
-    <div class="capitalize" general="flex text:s flex:ai-c">
-      <i general="color:secondary" class="fas fa-plus"></i>
-      <span title="contributors count">{{ ct.contributors_count }}</span>
-    </div>
+  <div class="capitalize" general="flex text:s flex:ai-c">
+    <i general="color:secondary" class="fab fa-readme"></i>
+    {{ ct.get_dor }}
+  </div>
+  <div class="capitalize" general="flex text:s flex:ai-c" title="views count">
+    <i general="color:secondary" class="fas fa-eye"></i>
+    {{ ct.views }}
+  </div>
+  <div class="capitalize" general="flex text:s flex:ai-c">
+    <i general="color:secondary" class="fas fa-reply"></i>
+    <span title="reply count">{{ ct.reply_count }}</span>
+  </div>
+  <div class="capitalize" general="flex text:s flex:ai-c">
+    <i general="color:secondary" class="fas fa-plus"></i>
+    <span title="contributors count">{{ ct.contributors_count }}</span>
+  </div>
 </div>
-

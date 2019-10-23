@@ -1,16 +1,12 @@
 {% extends "home/html.html" %}
 {% block body %}
 <div style="height: calc(100vh - 113px);" general="position:ewcenter">
-    <div general="position:center flex width:40" 
-            mobile-s="width:100" 
-            mobile-m="width:98" 
-            mobile-l="width:98" 
-            tablet="width:70" 
-            laptop="width:50" 
-            laptop-l="width:60">
+    <div general="position:center flex width:40" mobile-s="width:100" mobile-m="width:98" mobile-l="width:98"
+        tablet="width:70" laptop="width:50" laptop-l="width:60">
         <strong style="font-size: 200px;"><i class="fas fa-search"></i></strong>
         <br><br>
-        <span>SORRY, WE COULDN’T FIND ANY RESULTS FOR <span general="color:warning">'{{ request.GET.query|upper }}'</span></span>
+        <span>SORRY, WE COULDN’T FIND ANY RESULTS FOR <span
+                general="color:warning">'{{ request.GET.query|upper }}'</span></span>
         <br><br>
         <span>Try a more generic search term.</span>
         <br><br>

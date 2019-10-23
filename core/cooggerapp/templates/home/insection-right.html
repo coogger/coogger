@@ -1,11 +1,11 @@
 <!-- to special -->
 {% if filter or language or topic or hashtag%}
-    {% include 'home/explorer.html' %}
-  {% else %}
-  <!-- issues -->
-  {% if insection_right %}
-    <div class="just-pc hsri" general="flex flex:fw-nw bg:white brc:white width:20 br:4">
-        {% include 'home/issues-list.html' %}
-    </div>
-  {% endif %}
+{% include 'home/explorer.html' %}
+{% else %}
+<!-- issues -->
+{% if insection_right %}
+<div class="just-pc hsri" general="flex flex:fw-nw bg:white brc:white width:20 br:4">
+  {% include 'home/issues-list.html' %}
+</div>
+{% endif %}
 {% endif %}

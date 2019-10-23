@@ -1,31 +1,34 @@
-<u-footer general="text:s width:100 position:center color:private:hover"  style="padding: 6px 0px;margin: 0px;">
-    <div general="flex flex:fw-nw width:100 position:center"  style="overflow-x: auto;" class="text3">
-        {% for address in addresses %} 
-            {% if address.choices == "web-site"%}
-              <div flex>
-                  <a general="bg:2 br:2 color:dark color:white:hover bg:success:hover"  target="_blank" href="{{address.address}}" style="padding:6px;">
-                    <i class="fa fa-globe" aria-hidden="true" general="text:s" style="padding:6px;"></i>
-                  </a>
-              </div>
-            {% elif address.choices == "linkedin" %}
-              <div flex>
-                  <a general="bg:2 br:2 color:dark color:white:hover bg:success:hover"  target="_blank" href="https://www.{{address.choices}}.com/in/{{address.address}}" style="padding:6px;">
-                    <i class="fab fa-{{address.choices}}" aria-hidden="true" general="text:s" style="padding:6px;"></i>
-                  </a>
-              </div>
-            {% else %}
-              <div flex>
-                  <a general="bg:2 br:2 color:dark color:white:hover bg:success:hover"  target="_blank" href="https://www.{{address.choices}}.com/{{address.address}}" style="padding:6px;">
-                    <i class="fab fa-{{address.choices}}" aria-hidden="true" general="text:s" style="padding:6px;"></i>
-                  </a>
-              </div>
-            {% endif %} 
-        {% endfor %}
-        <div flex>
-          <a general="bg:2 br:2 color:dark color:white:hover bg:success:hover"  target="_blank" href="https://www.github.com/{{ current_user }}" style="padding:6px;">
-            <i general="text:s" class="fab fa-github" style="padding:6px;"></i>
-          </a>
-        </div>
+<u-footer general="text:s width:100 position:center color:private:hover" style="padding: 6px 0px;margin: 0px;">
+  <div general="flex flex:fw-nw width:100 position:center" style="overflow-x: auto;" class="text3">
+    {% for address in addresses %}
+    {% if address.choices == "web-site"%}
+    <div flex>
+      <a general="bg:2 br:2 color:dark color:white:hover bg:success:hover" target="_blank" href="{{address.address}}"
+        style="padding:6px;">
+        <i class="fa fa-globe" aria-hidden="true" general="text:s" style="padding:6px;"></i>
+      </a>
     </div>
+    {% elif address.choices == "linkedin" %}
+    <div flex>
+      <a general="bg:2 br:2 color:dark color:white:hover bg:success:hover" target="_blank"
+        href="https://www.{{address.choices}}.com/in/{{address.address}}" style="padding:6px;">
+        <i class="fab fa-{{address.choices}}" aria-hidden="true" general="text:s" style="padding:6px;"></i>
+      </a>
+    </div>
+    {% else %}
+    <div flex>
+      <a general="bg:2 br:2 color:dark color:white:hover bg:success:hover" target="_blank"
+        href="https://www.{{address.choices}}.com/{{address.address}}" style="padding:6px;">
+        <i class="fab fa-{{address.choices}}" aria-hidden="true" general="text:s" style="padding:6px;"></i>
+      </a>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <div flex>
+      <a general="bg:2 br:2 color:dark color:white:hover bg:success:hover" target="_blank"
+        href="https://www.github.com/{{ current_user }}" style="padding:6px;">
+        <i general="text:s" class="fab fa-github" style="padding:6px;"></i>
+      </a>
+    </div>
+  </div>
 </u-footer>
-

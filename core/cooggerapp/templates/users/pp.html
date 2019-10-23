@@ -2,22 +2,23 @@
 {% load coogger_tags %}
 <div general="flex flex:fd-c width:min" class="cover_image">
     {% include 'users/footer.html' %}
-    <div general="flex flex:fd-c" >
+    <div general="flex flex:fd-c">
         <div general="position:center">
             <img general="flex flex:jc-c br:4" alt="{{ current_user }}" title="{{ current_user }}"
-             src="{{ current_user.githubauthuser.avatar_url }}" 
-             style="padding: 2px;margin: initial; max-height: 240px;"/>
+                src="{{ current_user.githubauthuser.avatar_url }}"
+                style="padding: 2px;margin: initial; max-height: 240px;" />
         </div>
         <h1 general="flex flex:jc-c flex:ai-c flex:as-c br:2 border:1 bg:white brc:white">
-            <a general="color:private text:m"  title="{{ current_user  }}" href="/@{{ current_user  }}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+            <a general="color:private text:m" title="{{ current_user  }}" href="/@{{ current_user  }}"
+                style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
                 {% if current_user.get_full_name %}
-                    {{ current_user.get_full_name }}
+                {{ current_user.get_full_name }}
                 {% else %}
-                    @{{ current_user }}
+                @{{ current_user }}
                 {% endif %}
             </a>
             {% with current_user as user  %}
-                {% include 'common/user-title.html' %}
+            {% include 'common/user-title.html' %}
             {% endwith %}
         </h1>
         <span general="text:s position:center">
@@ -26,41 +27,44 @@
         <br>
     </div>
     <div general="flex flex:jc-c width:max position:center">
-        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
+        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;">
             <a href="{% url 'usercontent' current_user %}" general="flex flex:as-c flex:fd-c">
                 <div general="flex flex:as-c" id="post-count">{{ current_user|hmanycontent}}</div>
                 <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Contents</div>
             </a>
         </div>
-        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
+        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;">
             <a href="{% url 'get_followers' %}?username={{ current_user }}" general="flex flex:as-c flex:fd-c">
-                <div class="follownum" general="flex flex:as-c" id="follower_count">{{ current_user|followers_count}}</div>
+                <div class="follownum" general="flex flex:as-c" id="follower_count">{{ current_user|followers_count}}
+                </div>
                 <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Followers</div>
             </a>
         </div>
-        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;" >
+        <div general="flex flex:fd-c br:2 bg:white" style="margin: 6px;">
             <a href="{% url 'get_followers' %}?username={{ current_user }}" general="flex flex:as-c flex:fd-c">
-                <div class="follownum" general="flex flex:as-c" id="following_count">{{ current_user|following_count}}</div>
+                <div class="follownum" general="flex flex:as-c" id="following_count">{{ current_user|following_count}}
+                </div>
                 <div general="border:1 br:2 text:s brc:muted color:secondary" style="padding: 3px 6px;">Following</div>
             </a>
         </div>
     </div>
     {% if request.user != current_user and request.user.is_authenticated %}
-        {% if request.user|is_follow:current_user %}
-            <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover width:10"   
-            style="cursor:pointer;padding: 3px 30px;">
-                <div general="text:m color:white" id="follow">Unfollow</div>
-            </div>
-        {% else %}
-            <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}" general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover width:10"   
-            style="cursor:pointer;padding: 3px 30px;">
-                <div general="text:m color:white" id="follow">Follow</div>
-            </div>
-        {% endif %}
+    {% if request.user|is_follow:current_user %}
+    <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}"
+        general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover width:10"
+        style="cursor:pointer;padding: 3px 30px;">
+        <div general="text:m color:white" id="follow">Unfollow</div>
+    </div>
+    {% else %}
+    <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}"
+        general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover width:10"
+        style="cursor:pointer;padding: 3px 30px;">
+        <div general="text:m color:white" id="follow">Follow</div>
+    </div>
+    {% endif %}
     {% endif %}
     <h4 general="position:left flex flex:jc-c flex:as-c br:2 border:1 bg:white brc:white">
         <span general="text:s">{{ current_user.userprofile.bio|default:"" }}</span>
     </h4>
 </div>
 <div class="just-pc" style="margin-right: 64px;"></div>
-

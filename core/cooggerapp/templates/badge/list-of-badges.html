@@ -1,9 +1,7 @@
 {% with current_user.userbadge.get_badges as badges %}
-    {% if badges %}
-        <div style="margin-top: 24px;padding:12px;">
-        <div general="width:80 position:center  flex flex:fd-c" 
-        mobile-l="width:100"
-        mobile-m="width:100"
+{% if badges %}
+<div style="margin-top: 24px;padding:12px;">
+    <div general="width:80 position:center  flex flex:fd-c" mobile-l="width:100" mobile-m="width:100"
         mobile-s="width:100">
         <div style="margin-bottom: 12px;">
             <i class="fas fa-certificate">Badges</i>
@@ -11,21 +9,14 @@
         </div>
         <div general="flex flex:ai-c">
             {% for badge in badges %}
-                <a target="blank" class="badge-a"
-                general="flex flex:fd-c flex:ai-c width:10" 
-                mobile-l="width:20"
-                mobile-m="width:20"
-                mobile-s="width:20"
-                href="{% url 'badge'  badge.permlink %}">
-                    <img class="badge-img" width="100%" height="100%" 
-                    general="width:80 height:80 opacity:0.8:hover" 
-                    src="{{ badge.image_address }}" 
-                    alt="{{ badge }} badge" 
-                    title="{{ badge }} badge">
-                </a>
+            <a target="blank" class="badge-a" general="flex flex:fd-c flex:ai-c width:10" mobile-l="width:20"
+                mobile-m="width:20" mobile-s="width:20" href="{% url 'badge'  badge.permlink %}">
+                <img class="badge-img" width="100%" height="100%" general="width:80 height:80 opacity:0.8:hover"
+                    src="{{ badge.image_address }}" alt="{{ badge }} badge" title="{{ badge }} badge">
+            </a>
             {% endfor %}
         </div>
-            </div>
-        </div>
-    {% endif %}
+    </div>
+</div>
+{% endif %}
 {% endwith %}

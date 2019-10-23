@@ -2,58 +2,58 @@
 {% load coogger_tags %}
 {% block body %}
 <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
-  <div general="flex position:center flex:fd-c" >
-    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" mobile-s="width:98">
-    {% include "users/topic/detail/top.html" %}
-  <div general="position:center width:100 flex flex:fd-c" class="commits">
-    {% include 'common/there-is-no-data.html' %}
-    {% for commit in object_list %}
-      <div general="width:100 border:1 br:2 brc:muted" style="margin: 2px 0px;">
-        <div class="commit">
-          <div general="flex flex:fd-c width:100">
-            <a class="text3" general="width:100 text:l"
-            mobile-l="text:m"
-            mobile-m="text:m"
-            mobile-s="text:m"
-            href="{% url 'commit' commit.user commit.utopic.permlink commit.hash %}" style="margin-bottom: 6px;">
-              {{ commit.msg|title }}
-            </a>
-            <div general="flex flex:fd-c width:100" >
-              <div flex>
+  <div general="flex position:center flex:fd-c">
+    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
+      tablet="width:90" laptop="width:80" mobile-s="width:98">
+      {% include "users/topic/detail/top.html" %}
+      <div general="position:center width:100 flex flex:fd-c" class="commits">
+        {% include 'common/there-is-no-data.html' %}
+        {% for commit in object_list %}
+        <div general="width:100 border:1 br:2 brc:muted" style="margin: 2px 0px;">
+          <div class="commit">
+            <div general="flex flex:fd-c width:100">
+              <a class="text3" general="width:100 text:l" mobile-l="text:m" mobile-m="text:m" mobile-s="text:m"
+                href="{% url 'commit' commit.user commit.utopic.permlink commit.hash %}" style="margin-bottom: 6px;">
+                {{ commit.msg|title }}
+              </a>
+              <div general="flex flex:fd-c width:100">
+                <div flex>
                   <div general="flex flex:fd-c">
                     <a general="flex flex:ai-c" href="{% url 'user' commit.user %}">
-                        <img class="commit-user" general="br:4 color:muted" src="{{ commit.user.githubauthuser.avatar_url }}">
-                        <div general="flex flex:fd-c">
-                            <span general="text:s" style="margin-left: 6px;">
-                                @{{ commit.user }}
-                            </span>
-                            <span general="text:s" class="fas fa-clock">{{ commit.created|timesince }}</span>
-                        </div>
-                      </a>
+                      <img class="commit-user" general="br:4 color:muted"
+                        src="{{ commit.user.githubauthuser.avatar_url }}">
+                      <div general="flex flex:fd-c">
+                        <span general="text:s" style="margin-left: 6px;">
+                          @{{ commit.user }}
+                        </span>
+                        <span general="text:s" class="fas fa-clock">{{ commit.created|timesince }}</span>
+                      </div>
+                    </a>
                   </div>
                   <div general="position:right">
-                      <a general="flex flex:ai-c" href="{% url 'tree-detail' commit.user commit.utopic.permlink commit.hash %}">
-                          <i general="flex flex:ai-c text:s"  class="fas fa-history"></i>
-                      </a>
+                    <a general="flex flex:ai-c"
+                      href="{% url 'tree-detail' commit.user commit.utopic.permlink commit.hash %}">
+                      <i general="flex flex:ai-c text:s" class="fas fa-history"></i>
+                    </a>
                   </div>
+                </div>
               </div>
-            </div>
-            <div general="flex width:100" style="margin-top: 6px;" >
-              <a class="text3" general="width:90 text:s" href="{{ commit.content.get_absolute_url }}">
-                {% if commit.content.status != "ready" %}
-                <span class="fa fa-file-alt" general="color:muted" title="{{ commit.content.status }}"></span>
-                {% else %}
-                <span class="fa fa-file-alt" general="color:success" title="{{ commit.content.status }}"></span>
-                {% endif %}
-                {{ commit.content }}
-              </a>
+              <div general="flex width:100" style="margin-top: 6px;">
+                <a class="text3" general="width:90 text:s" href="{{ commit.content.get_absolute_url }}">
+                  {% if commit.content.status != "ready" %}
+                  <span class="fa fa-file-alt" general="color:muted" title="{{ commit.content.status }}"></span>
+                  {% else %}
+                  <span class="fa fa-file-alt" general="color:success" title="{{ commit.content.status }}"></span>
+                  {% endif %}
+                  {{ commit.content }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
+    </div>
   </div>
-</div>
-</div>
 </div>
 {% endblock %}

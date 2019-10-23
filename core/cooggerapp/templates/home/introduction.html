@@ -4,14 +4,16 @@
   {% load static %}
   <div general="flex flex:fd-c">
     <div general="flex position:center">
-      <img style="height: 300px;width: 300px;margin: 0px;margin-right: 16px;" general="position:center" src="{% static 'logos/png/400.png' %}">
+      <img style="height: 300px;width: 300px;margin: 0px;margin-right: 16px;" general="position:center"
+        src="{% static 'logos/png/400.png' %}">
       <strong general="width:80 position:center color:dark" style="margin-bottom:6px;">
         Coogger is a platform for developers to publish technical documents in the best way.
       </strong>
-      </div>
+    </div>
     <div general="width:100" style="margin-top: 12px;">
       <div style="margin:2% 0px;">
-        <a general="bg:primary color:dark br:2 width:60 position:center bg:success:hover color:white:hover flex flex:ai-c" href="{% url 'explorer_posts' %}" style="padding:6px 0px;">
+        <a general="bg:primary color:dark br:2 width:60 position:center bg:success:hover color:white:hover flex flex:ai-c"
+          href="{% url 'explorer_posts' %}" style="padding:6px 0px;">
           <i class="fas fa-compass"></i>
           Explore coogger
         </a>
@@ -22,7 +24,8 @@
           <i class="fas fa-check-square"></i>
           <a general="flex flex:ai-c" href="https://www.github.com/coogger">
             <strong tablet="text:s">We are open-source</strong>
-            <img general="br:2" src="https://img.shields.io/github/forks/coogger/coogger.svg" alt="coogger-fork" style="margin-left: 4px;margin-right: 4px;"> 
+            <img general="br:2" src="https://img.shields.io/github/forks/coogger/coogger.svg" alt="coogger-fork"
+              style="margin-left: 4px;margin-right: 4px;">
             <strong tablet="text:s">me on Github</strong>
           </a>
         </div>
@@ -35,15 +38,16 @@
         <div general="flex flex:ai-c color:dark bg:white br:2 color:primary:hover" style="padding: 4px 6px;">
           <i class="fas fa-check-square"></i>
           <a general="flex flex:ai-c width:60" tablet="text:s" href="/@aligoren/javascript/contributions/">
-            <strong tablet="text:s">Coogger has contribute feature, 
-              you can help their development by contributing to the articles. 
+            <strong tablet="text:s">Coogger has contribute feature,
+              you can help their development by contributing to the articles.
               Click and check this is an example
             </strong>
           </a>
         </div>
         <div general="flex flex:ai-c color:dark bg:white br:2 color:primary:hover" style="padding: 4px 6px;">
           <i class="fas fa-check-square"></i>
-          <a general="flex flex:ai-c width:60" tablet="text:s" href="/@hakancelik96/django/commit/1c0c1a3be5a3432b783797166a25ff58644af087f3902d8dc8e4bec4544b1332/">
+          <a general="flex flex:ai-c width:60" tablet="text:s"
+            href="/@hakancelik96/django/commit/1c0c1a3be5a3432b783797166a25ff58644af087f3902d8dc8e4bec4544b1332/">
             <strong tablet="text:s">Coogger has commit feature, click and check this is an example</strong>
           </a>
         </div>
@@ -65,37 +69,38 @@
             Coogger is a responsive design
           </strong>
         </div>
+      </div>
     </div>
-  </div>
   </div>
 </div>
 <div style="padding: 1px 0px 60px 0px;">
-    <div general="flex flex:fd-c width:100"  style="overflow: hidden;" class="text3">
-        <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c"  style="margin:24px 0px;">
-          <span class="just-pc" style="margin-right: 6px;">
-            Some Documents Written by Our Users
-          </span>
-        </strong>
-        <div general="flex width:90 position:center">
-            {% for utopic in utopics %}
-            <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
-              <div general="flex position:center flex:fd-c" >
-                <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" mobile-s="width:98">
-                {% include "users/topic/detail/top.html" %}
-              </div>
-            </div>
+  <div general="flex flex:fd-c width:100" style="overflow: hidden;" class="text3">
+    <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c" style="margin:24px 0px;">
+      <span class="just-pc" style="margin-right: 6px;">
+        Some Documents Written by Our Users
+      </span>
+    </strong>
+    <div general="flex width:90 position:center">
+      {% for utopic in utopics %}
+      <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
+        <div general="flex position:center flex:fd-c">
+          <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
+            tablet="width:90" laptop="width:80" mobile-s="width:98">
+            {% include "users/topic/detail/top.html" %}
           </div>
-          {% endfor %}
         </div>
       </div>
-    <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c" style="margin:2% 0px;">
+      {% endfor %}
+    </div>
+  </div>
+  <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c" style="margin:2% 0px;">
     Latest Users Joining the Coogger
   </strong>
   <div general="position:center flex">
-    <cards general="width:90 position:center flex"  style="margin:0px">
-    {% for user in object_list %}
+    <cards general="width:90 position:center flex" style="margin:0px">
+      {% for user in object_list %}
       {% include 'home/users_card.html' %}
-    {% endfor %}
+      {% endfor %}
     </cards>
   </div>
 </div>

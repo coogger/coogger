@@ -2,58 +2,66 @@
 {% load coogger_tags %}
 {% block body %}
 <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
-  <div general="flex position:center flex:fd-c" >
-    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" mobile-s="width:98">
-    {% include "users/topic/detail/top.html" %}
-{% load django_md_editor %}
-<div general="brc:muted border:1 br:2 width:100" style="padding: 6px; margin-top: 6px;">
-  <div general="position:right" style="margin-bottom: 6px;">
-      <a general="br:1 color:white bg:green text:s" href="{% url 'new-issue' current_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
-        Open new issue
-      </a>
-      {% if request.user == current_user or queryset.user == request.user %}
-        {% if queryset.status == "open" %}
-          <a general="br:1 color:white bg:red text:s" href="{% url 'closed-issue' current_user utopic.permlink queryset.issue_id %}" style="padding: 6px;">
-            Closed this issue
-          </a> 
-        {% elif queryset.status == "closed" %}
-          <a general="br:1 color:white bg:blue text:s" href="{% url 'open-issue' current_user utopic.permlink queryset.issue_id %}" style="padding: 6px;">
-            Open this issue
-          </a> 
-        {% endif %}
-      {% endif %}
-  </div>
-  {% include "reply_warning.html" %}
-  <div general="position:right flex" mobile-l="position:left" mobile-m="position:left" mobile-s="position:left">
-    <a href="/@{{ queryset.user }}" general="flex flex:ai-c">
-      <img title="{{ queryset.user }}" alt="{{ queryset.user }}" general="br:2" src="{{ queryset.user.githubauthuser.avatar_url }}" width="20" height="20">
-      <div general='text:s flex flex:ai-c'>
-        <i class="fas fa-clock"></i>
-        {{ queryset.created|timesince }}
-    </div>
-    </a>
-    <div general="position:right text:s bg:white brc:muted border:1 br:2" style="padding: 2px 6px;margin-top: 4px;margin-bottom: 6px;">
-      {% include 'common/bookmark.html' %}
-      {% include 'common/vote.html' %}
-      {% include "common/counter.html" %}
-      {% if queryset.user == request.user %}
-        <div general="flex flex:ai-c">
-          <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.issue_id %}">
-              <i class="fa fa-edit fa"></i>
-              Edit
+  <div general="flex position:center flex:fd-c">
+    <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
+      tablet="width:90" laptop="width:80" mobile-s="width:98">
+      {% include "users/topic/detail/top.html" %}
+      {% load django_md_editor %}
+      <div general="brc:muted border:1 br:2 width:100" style="padding: 6px; margin-top: 6px;">
+        <div general="position:right" style="margin-bottom: 6px;">
+          <a general="br:1 color:white bg:green text:s" href="{% url 'new-issue' current_user utopic.permlink %}"
+            style="padding: 6px;margin-right: 6px;">
+            Open new issue
           </a>
+          {% if request.user == current_user or queryset.user == request.user %}
+          {% if queryset.status == "open" %}
+          <a general="br:1 color:white bg:red text:s"
+            href="{% url 'closed-issue' current_user utopic.permlink queryset.issue_id %}" style="padding: 6px;">
+            Closed this issue
+          </a>
+          {% elif queryset.status == "closed" %}
+          <a general="br:1 color:white bg:blue text:s"
+            href="{% url 'open-issue' current_user utopic.permlink queryset.issue_id %}" style="padding: 6px;">
+            Open this issue
+          </a>
+          {% endif %}
+          {% endif %}
         </div>
-      {% endif %}
+        {% include "reply_warning.html" %}
+        <div general="position:right flex" mobile-l="position:left" mobile-m="position:left" mobile-s="position:left">
+          <a href="/@{{ queryset.user }}" general="flex flex:ai-c">
+            <img title="{{ queryset.user }}" alt="{{ queryset.user }}" general="br:2"
+              src="{{ queryset.user.githubauthuser.avatar_url }}" width="20" height="20">
+            <div general='text:s flex flex:ai-c'>
+              <i class="fas fa-clock"></i>
+              {{ queryset.created|timesince }}
+            </div>
+          </a>
+          <div general="position:right text:s bg:white brc:muted border:1 br:2"
+            style="padding: 2px 6px;margin-top: 4px;margin-bottom: 6px;">
+            {% include 'common/bookmark.html' %}
+            {% include 'common/vote.html' %}
+            {% include "common/counter.html" %}
+            {% if queryset.user == request.user %}
+            <div general="flex flex:ai-c">
+              <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.issue_id %}">
+                <i class="fa fa-edit fa"></i>
+                Edit
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        <h1 class="cdtitle" general="position:center">{{ queryset.title|title }}</h1>
+        <div style="padding: 6px;">
+          <p>{{ queryset.body|markdown_to_html:"issue" }}</p>
+        </div>
+      </div>
+      <!-- replies -->
+      {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}
+      {% include 'load_replies.html' %}
+      {% endwith %}
     </div>
   </div>
-      <h1 class="cdtitle" general="position:center">{{ queryset.title|title }}</h1>
-      <div style="padding: 6px;">
-        <p>{{ queryset.body|markdown_to_html:"issue" }}</p>
-      </div>
-    </div>
-    <!-- replies -->
-    {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}
-    {% include 'load_replies.html' %}
-  {% endwith %}
-  </div></div></div>
+</div>
 {% endblock %}

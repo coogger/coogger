@@ -1,24 +1,24 @@
-<div general="flex flex:fd-c width:100" >
-<strong general="position:left text:l width:100 flex flex:ai-c" class="il">
-  <i class="fas fa-exclamation-circle" style="margin-left: 6px;"></i>
-  Open Issues
-</strong>
-{% for issue in issues %}
+<div general="flex flex:fd-c width:100">
+  <strong general="position:left text:l width:100 flex flex:ai-c" class="il">
+    <i class="fas fa-exclamation-circle" style="margin-left: 6px;"></i>
+    Open Issues
+  </strong>
+  {% for issue in issues %}
   <div general="position:left width:100" class="ic">
-    <div general="flex flex:fd-c width:100" style="padding: 6px;" >
-        <strong general="text:s">{{ issue.title }}</strong>
-        <a general="color:blue width:90 text:s" href="{{ issue.get_absolute_url }}" class="text3">
-            <img style="margin: 0px;" general="br:circle text:s" 
-            src="{{ issue.user.githubauthuser.avatar_url }}" width="20" height="20">
-          {{ issue.get_absolute_url }}
-        </a>
-        <div flex>
-            <span general="text:s" class="fas fa-eye" style='margin-left: 6px;'>
-              {{ issue.views }}</span>
-            <span general="text:s" class="fas fa-reply-all" style='margin-left: 6px;'>
-              {{ issue.reply_count }}</span>
-        </div>
+    <div general="flex flex:fd-c width:100" style="padding: 6px;">
+      <strong general="text:s">{{ issue.title }}</strong>
+      <a general="color:blue width:90 text:s" href="{{ issue.get_absolute_url }}" class="text3">
+        <img style="margin: 0px;" general="br:circle text:s" src="{{ issue.user.githubauthuser.avatar_url }}" width="20"
+          height="20">
+        {{ issue.get_absolute_url }}
+      </a>
+      <div flex>
+        <span general="text:s" class="fas fa-eye" style='margin-left: 6px;'>
+          {{ issue.views }}</span>
+        <span general="text:s" class="fas fa-reply-all" style='margin-left: 6px;'>
+          {{ issue.reply_count }}</span>
+      </div>
     </div>
   </div>
-{% endfor %}
+  {% endfor %}
 </div>

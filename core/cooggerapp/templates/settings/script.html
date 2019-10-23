@@ -1,23 +1,23 @@
 <script>
-    $(document).ready(function() {
-      $(".deladdress").click(function(event){
-        var address_id = this.getAttribute("data-deladdress");
-        $.ajax({
-          url: "{% url 'address_del' %}",
-          method: 'POST',
-          dataType: 'json',
-          data: {
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            address_id:address_id,
-          }
-        }).done(function (response) {
-          if (response.status == "ok"){
-            alert(response.ms);
-          }
-          else {
-            alert("Unexpected error");
-          }
-        });
+  $(document).ready(function () {
+    $(".deladdress").click(function (event) {
+      var address_id = this.getAttribute("data-deladdress");
+      $.ajax({
+        url: "{% url 'address_del' %}",
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          address_id: address_id,
+        }
+      }).done(function (response) {
+        if (response.status == "ok") {
+          alert(response.ms);
+        }
+        else {
+          alert("Unexpected error");
+        }
       });
     });
+  });
 </script>

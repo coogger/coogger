@@ -1,17 +1,18 @@
 {% extends "home/html.html" %}
 {% load coogger_tags %}
 {% block body %}
-  <div general="position:center flex">
-      <cards general="width:90 position:center flex"  style="margin:0px">
-        {% for utopic in object_list %}
-          <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
-            <div general="flex position:center flex:fd-c" >
-              <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94" tablet="width:90" laptop="width:80" mobile-s="width:98">
-              {% include "users/topic/detail/top.html" %}
-            </div>
-          </div>
+<div general="position:center flex">
+  <cards general="width:90 position:center flex" style="margin:0px">
+    {% for utopic in object_list %}
+    <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
+      <div general="flex position:center flex:fd-c">
+        <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
+          tablet="width:90" laptop="width:80" mobile-s="width:98">
+          {% include "users/topic/detail/top.html" %}
         </div>
-        {% endfor %}
-      </cards>
-  </div>
+      </div>
+    </div>
+    {% endfor %}
+  </cards>
+</div>
 {% endblock %}

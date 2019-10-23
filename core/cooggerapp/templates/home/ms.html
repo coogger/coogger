@@ -1,11 +1,10 @@
 {% if messages %}
-    {% for message in messages %}
-        <div class="main-messages close-ms" style="display:block;cursor:pointer" general="br:2 bg:{{ message.tags }} color:white width:80 position:center">
-            <div general="text:m flex flex:ai-c flex:jc-c" style="height: 10vh;">
-                {{ message }}
-            </div>
-        </div>
-    {% endfor %}
+{% for message in messages %}
+<div class="main-messages close-ms" style="display:block;cursor:pointer"
+    general="br:2 bg:{{ message.tags }} color:white width:80 position:center">
+    <div general="text:m flex flex:ai-c flex:jc-c" style="height: 10vh;">
+        {{ message }}
+    </div>
+</div>
+{% endfor %}
 {% endif %}
-
-

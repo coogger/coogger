@@ -1,8 +1,9 @@
 {% extends "home/html.html" %}
 {% block body %}
 {% load django_md_editor %}
-<div style="padding: 12px; margin-top: 24px;" general="flex border:1 br:2 brc:muted font:quicksand position:center width:50" 
-mobile-s="width:100" mobile-m="width:99" mobile-l="width:98" tablet="width:98">
+<div style="padding: 12px; margin-top: 24px;"
+    general="flex border:1 br:2 brc:muted font:quicksand position:center width:50" mobile-s="width:100"
+    mobile-m="width:99" mobile-l="width:98" tablet="width:98">
     <div style="padding: inherit;">
         {{ queryset.body|markdown_to_html:"tree-body"|safe }}
     </div>
