@@ -13,10 +13,10 @@ django-md-editor==0.1.61
 django-follow-system==0.0.4
 github-auth==0.0.7
 django-page-views==0.0.3
-djangoip==0.0.2
+djangoip==0.0.3
 django-ban==0.1.0
 cooggerimages==0.0.5
 django-vote-system==0.0.3
 django-bookmark==0.0.24
-djangobadge==0.0.14
+djangobadge==0.0.15
 github_auth==0.0.7
