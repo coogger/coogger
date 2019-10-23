@@ -53,7 +53,7 @@ def send_mail(subject, template_name, context, to):
     html_content = render_to_string(template_name, context)
     text_content = strip_tags(html_content)
     for to in [user.email for user in to if user.userprofile.email_permission]:
-        msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, to)
+        msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [to])
         msg.attach_alternative(html_content, "text/html")
         msg.send()
 
