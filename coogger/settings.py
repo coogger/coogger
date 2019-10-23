@@ -18,6 +18,7 @@ else:
     # github_auth
     redirect_url = "https://www.coogger.com/accounts/github/login/"
 INSTALLED_APPS = [
+    # django default apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -26,7 +27,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.redirects",
     "django.contrib.sites",
+    # rest api
     "rest_framework",
+    # to build coogger apps
     "django_page_views",
     "django_md_editor",
     "cooggerimages",
@@ -36,6 +39,7 @@ INSTALLED_APPS = [
     "django_vote_system",
     "django_bookmark",
     "djangobadge",
+    # core.apps
     "core.cooggerapp",
     "core.threaded_comment",
 ]

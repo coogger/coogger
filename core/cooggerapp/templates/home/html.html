@@ -1,13 +1,54 @@
 {% load static from staticfiles %}
-{% include 'home/head.html' %}
+{% load coogger_tags %}
+<!-- Doctype HTML5 -->
+<!doctype html>
+<html lang="en">
 
-<body general="font:quicksand bg:white">
-  {% include 'home/header.html' %}
-  {% if messages %} {% include 'home/ms.html' %} {% endif %}
-  {% block body %}{% endblock %}
-  {% include "home/footer.html" %}
-  {% include 'paginator.html' %}
-  <script src="{% static 'js/cookieconsent.min.js' %}" data-cfasync="false"></script>
+<head>
+  <!-- GENERAL  -->
+  <meta name="theme-color" content="#11381e" />
+  <meta http-equiv="pragma" content="Cache-Control: max-age=31536000" />
+  <meta http-equiv="reply-to" content="cooggerapp@gmail.com" />
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="/static/logos/png/48.png" type="image/x-icon" />
+  <!-- request.meta -->
+  <title>{{ request.meta.title|truncatechars:55 }}</title>
+  <meta property="og:title" content="{{ request.meta.title|truncatechars:55 }}" />
+  <meta name="twitter:title" content="{{ request.meta.title|truncatechars:55 }}" />
+  <meta itemprop="name" content="{{ request.meta.title|truncatechars:55 }}" />
+  <meta name="apple-mobile-web-app-title" content="{{ request.meta.title|truncatechars:55 }}">
+  <meta name="keywords" content="{{ request.meta.keywords }}" />
+  <meta name="description" content="{{ request.meta.description|truncatechars:150 }}" />
+  <meta name="twitter:description" content="{{ request.meta.description|truncatechars:150 }}" />
+  <meta property="og:description" content="{{ request.meta.description|truncatechars:150 }}" />
+  <meta itemprop="description" content="{{ request.meta.description|truncatechars:150 }}" />
+  <meta property="og:image" content="{{ request.meta.image }}" />
+  <meta itemprop="image" content="{{ request.meta.image }}" />
+  <meta name="twitter:image:src" content="{{ request.meta.image }}" />
+  <meta name="twitter:creator" content="@{{ request.meta.twitter_username }}">
+  <meta name="author" content="{{ current_user.first_name }} {{ current_user.last_name }}" />
+  <meta property="article:author" content="{{ request.meta.facebook_username }}" />
+  <meta name="robots" content="index, follow" />
+  <meta name="revisit-after" content="2" />
+  <meta name="revisit-after" content="2 days" />
+  <!-- device -->
+  <meta property="og:site_name" content="Coogger" />
+  <meta name="application-name" content="coogger.com">
+  <!-- SOCIAL -->
+  <meta name="twitter:widgets:new-embed-design" content="on" />
+  <meta name="twitter:site" content="@cooggercom" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://www.coogger.com{{ request.META.PATH_INFO }}" />
+  <link rel="canonical" href="http://www.coogger.com{{ request.META.PATH_INFO }}" />
+  <!-- RESPONSE -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- js  -->
+  <script src="{% static 'mdeditor/src/jquery.min.js'%}"></script>
+  <script src="{% static 'js/general.js' %}" async></script>
+  <script src="{% static 'threaded_comment/threaded_comment.js' %}" async></script>
+  <script src="{% static 'js/coogger.js' %}" async></script>
+  <script src="{% static 'js/cookieconsent.min.js' %}" data-cfasync="false" async></script>
   <script>
     window.cookieconsent.initialise({
       "palette": {
@@ -24,6 +65,48 @@
       }
     });
   </script>
+  <!-- GOOGLE / YANDEX verification -->
+  <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ" />
+  <meta name="yandex-verification" content="3695277528edfe07" />
+  <!-- css files-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles/cookieconsent.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/fontawesome-5.10.2/css/all.min.css' %}" />
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="{% static 'css/coogger-css/default.css' %}" />
+  <!-- font -->
+  <link rel="stylesheet" href="{% static 'css/coogger-css/font.css' %}" />
+  <!-- default css -->
+  <link rel="stylesheet" href="{% static 'css/coogger-css/general.css' %}"
+    media="(min-width: 0px) and (max-width: 2560px)" />
+  <!-- general -->
+  <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/laptop-l.css' %}"
+    media="(min-width: 1025px) and (max-width: 1440px)" />
+  <!-- laptop large -->
+  <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/laptop.css' %}"
+    media="(min-width: 769px) and (max-width: 1024px)" />
+  <!-- laptop -->
+  <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/tablet.css' %}"
+    media="(min-width: 426px) and (max-width: 768px)" />
+  <!-- tablet -->
+  <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-l.css' %}"
+    media="(min-width: 376px) and (max-width: 425px)" />
+  <!-- mobile large -->
+  <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-m.css' %}"
+    media="(min-width: 321px) and (max-width: 375px)" />
+  <!-- mobile medium -->
+  <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-s.css' %}"
+    media="(min-width: 0px) and (max-width: 320px)" />
+  <!-- mobile small -->
+  <link href="{% static 'css/styles/private.css' %}" rel="stylesheet" />
+  {% block script %}{% endblock %}
+</head>
+
+<body general="font:quicksand bg:white">
+  {% include 'home/header.html' %}
+  {% include 'home/messages.html' %}
+  {% block body %}{% endblock %}
+  {% include "home/footer.html" %}
+  {% include 'paginator.html' %}
 </body>
 
 </html>

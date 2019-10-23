@@ -1,6 +1,7 @@
 <!-- other contents of topic  -->
 <div id="content-toc" general="width:20" class="just-pc" style="margin-left: 1%"></div>
-<script>
+{% block script %}
+<script type="text/javascript">
     $(document).ready(function () {
         var ToC = `
     <div role='navigation' general="width:100" class='table-of-contents' style="position: sticky;top: 70px;">
@@ -53,3 +54,4 @@
         $("#content-toc").append(ToC);
     });
 </script>
+{% endblock %}

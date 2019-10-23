@@ -24,6 +24,27 @@
     </div>
     {% endfor %}
 </div>
-{% include 'settings/script.html' %}
+{% block script %}
+<script type="text/javascript">
+    $(".deladdress").click(function (event) {
+        $.ajax({
+            url: "{% url 'address_del' %}",
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                address_id: this.getAttribute("data-deladdress"),
+            }
+        }).done(function (response) {
+            if (response.status == "ok") {
+                alert(response.ms);
+            }
+            else {
+                alert("Unexpected error");
+            }
+        });
+    });
+</script>
+{% endblock %}
 {% endif %}
 {% endblock %}
