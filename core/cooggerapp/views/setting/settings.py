@@ -69,7 +69,7 @@ class Address(LoginRequiredMixin, View):
         form = AddressesForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            if form.choices != None and form.address != None:
+            if form.choices is not None and form.address:
                 form.save()
                 UserProfile.objects.get(user=request.user).address.add(form)
                 messages.success(request, "Your website has added")

@@ -40,7 +40,6 @@ def save_github_follow(user):
 
 def save_github_repos(user, github_repos_url):
     for repo in requests.get(github_repos_url + get_client_url()).json():
-        if repo.get("fork") == False:
             try:
                 UTopic(
                     user=user,
@@ -50,6 +49,7 @@ def save_github_repos(user, github_repos_url):
                 ).save()
             except IntegrityError:
                 pass
+        if not repo.get("fork"):
 
 
 @receiver(post_save, sender=GithubAuthUser)
