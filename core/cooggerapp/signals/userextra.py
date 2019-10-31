@@ -4,6 +4,7 @@ from django.db.models.signals import m2m_changed, post_save
 from django.db.utils import IntegrityError
 from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
+from django.utils.text import slugify
 from django_follow_system.models import Follow
 from github_auth.models import GithubAuthUser
 
@@ -40,16 +41,16 @@ def save_github_follow(user):
 
 def save_github_repos(user, github_repos_url):
     for repo in requests.get(github_repos_url + get_client_url()).json():
-            try:
-                UTopic(
-                    user=user,
-                    name=repo.get("name"),
-                    description=repo.get("description"),
-                    address=repo.get("html_url"),
-                ).save()
-            except IntegrityError:
-                pass
         if not repo.get("fork"):
+            UTopic.objects.get_or_create(
+                user=user,
+                permlink=slugify(repo.get("name")),
+                defaults={
+                    "name": repo.get("name"),
+                    "description": repo.get("description"),
+                    "address": repo.get("html_url"),
+                }
+            )
 
 
 @receiver(post_save, sender=GithubAuthUser)
