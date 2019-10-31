@@ -43,7 +43,7 @@ class Index(ListView):
 
     def get_template_names(self):
         if not self.object_list.exists():
-            [self.not_result_template_name]
+            return [self.not_result_template_name]
         elif self.introduction:
             return [self.introduction_template_name]
         else:
