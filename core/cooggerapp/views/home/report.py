@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
@@ -33,4 +33,5 @@ class Report(LoginRequiredMixin, View):
             report_form.save()
             messages.error(request, "Your complaint has been received.")
             return redirect(reverse("home"))
+
         return HttpResponse(self.get(request, content_id))

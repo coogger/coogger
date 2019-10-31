@@ -35,6 +35,8 @@ class Vote(models.Model):
 
 
 class View:
+    id = None
+
     class Meta:
         abstract = True
 

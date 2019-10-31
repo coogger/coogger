@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from core.cooggerapp.choices import *
 from core.cooggerapp.models import (
     Commit, Content, Issue, ReportModel, SearchedWords, Topic, UserProfile,
     UTopic
