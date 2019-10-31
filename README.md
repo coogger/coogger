@@ -39,18 +39,8 @@ EMAIL_PASSWORD=******
 ##### After
 
 ```shell
-$ pip install -r requirements.txt
-$ python manage.py makemigrations django_follow_system
-$ python manage.py makemigrations cooggerimages
-$ python manage.py makemigrations django_page_views
-$ python manage.py makemigrations djangoip
-$ python manage.py makemigrations django_vote_system
-
-$ python manage.py migrate --database default
-$ python manage.py migrate --database django_ip
-$ python manage.py migrate --database coogger_images
-$ python manage.py migrate --database redirect
-$ python manage.py create_ghost_user
+$ pipenv install
+$ python manage.py migrate
 $ python manage.py runserver
 ```
 
