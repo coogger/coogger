@@ -69,7 +69,7 @@ class CommitUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "forms/create.html"
     success_message = "Your commit updated"
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         hash = self.kwargs.get("hash")
         obj = get_object_or_404(Commit, hash=hash)
         if obj.user == self.request.user:

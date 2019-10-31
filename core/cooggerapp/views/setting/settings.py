@@ -22,7 +22,7 @@ class UserSetMixin(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context["settings_list"] = ["user", "user-extra", "address"]
         return context
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         return self.model.objects.get(username=self.request.user.username)
 
 
@@ -69,7 +69,7 @@ class Address(LoginRequiredMixin, View):
         form = AddressesForm(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            if form.choices != None and form.address != None:
+            if form.choices is not None and form.address:
                 form.save()
                 UserProfile.objects.get(user=request.user).address.add(form)
                 messages.success(request, "Your website has added")
