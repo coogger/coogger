@@ -22,7 +22,7 @@ class UserSetMixin(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context["settings_list"] = ["user", "user-extra", "address"]
         return context
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         return self.model.objects.get(username=self.request.user.username)
 
 

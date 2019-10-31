@@ -88,7 +88,7 @@ class UpdateIssue(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "forms/create.html"
     success_message = "Your issue updated"
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         username = self.kwargs.get("username")
         utopic_permlink = self.kwargs.get("utopic_permlink")
         issue_id = self.kwargs.get("issue_id")
