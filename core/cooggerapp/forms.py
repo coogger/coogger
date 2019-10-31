@@ -1,10 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from core.cooggerapp.choices import *
-from core.cooggerapp.models import (
-    Content, Issue, OtherAddressesOfUsers, ReportModel, UTopic
-)
+from core.cooggerapp.models import Content, Issue, OtherAddressesOfUsers, ReportModel, UTopic
 
 
 class UsernameForm(forms.ModelForm):

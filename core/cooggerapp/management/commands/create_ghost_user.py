@@ -3,8 +3,6 @@ from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
 from github_auth.models import GithubAuthUser
 
-from ..models import UserProfile
-
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):

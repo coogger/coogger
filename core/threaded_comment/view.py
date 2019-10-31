@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, reverse
 from django.views.generic import TemplateView, UpdateView
 from django_page_views.models import DjangoViews
@@ -50,10 +51,11 @@ class ReplyView(TemplateView):
 class ReplyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = ThreadedComments
     fields = ["body"]
+    # FIXME: Missng template file
     template_name = "content/post/update.html"
     success_message = "Your reply updated"
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         permlink = self.kwargs.get("permlink")
         return get_object_or_404(self.model, user=self.request.user, permlink=permlink)
 
