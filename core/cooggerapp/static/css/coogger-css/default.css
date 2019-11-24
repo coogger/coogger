@@ -17,14 +17,14 @@
   align-self: flex-start;
   justify-content: flex-start; }
 [default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select {
-  width: 96%;
+  width: 100%;
   min-width: 200px;
   min-height: 24px;
   font-size: 16px;
   border: 1px solid;
   border-radius: 4px;
   border-color: #eaecee;
-  padding: 3px 0px;
+  padding: 6px 4px;
   margin: 3px 0px;
   background-color: #fff; }
   [default~="forminput"] input:hover, [default~="form"] input:hover, [default~="forminput"] input:focus, [default~="form"] input:focus, [default~="forminput"] input:active, [default~="form"] input:active, [default~="forminput"] select:hover, [default~="form"] select:hover, [default~="forminput"] select:focus, [default~="form"] select:focus, [default~="forminput"] select:active, [default~="form"] select:active {

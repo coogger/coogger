@@ -20,6 +20,14 @@ def percent(value, arg):
 
 
 @register.filter
+def clear(value, arg):
+    value = str(value)
+    for i in arg.split(","):
+        value = value.replace(i, " ")
+    return value
+
+
+@register.filter
 def split(value, arg):
     return value.split(arg)
 

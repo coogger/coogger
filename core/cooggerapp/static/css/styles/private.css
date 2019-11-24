@@ -56,7 +56,7 @@ header{
     50%{background-position:100% 58%}
     100%{background-position:0% 43%}
 }
-@keyframes make_reply { 
+@keyframes make_reply {
     0%{background-position:0% 43%}
     50%{background-position:100% 58%}
     100%{background-position:0% 43%}
@@ -109,7 +109,7 @@ footer li{
   max-width: 36px;
 }
 .topic-list:hover{
-  
+
 }
   .commit-detail .index{
   cursor:pointer;
@@ -128,13 +128,13 @@ footer li{
     height: 4px;
   }
   ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
   }
   ::-webkit-scrollbar-thumb {
     background: #888;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
   }
   .utopic-user{
   margin: 6px 0px;
@@ -414,9 +414,9 @@ footer li{
     list-style: none;
   }
   .ic{
-    
+
 padding-bottom: 4px;
-    
+
 border-top: 1px solid #eaecee;
   }
 
