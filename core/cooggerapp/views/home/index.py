@@ -53,6 +53,11 @@ class Index(ListView):
     def sort_topics():
         topics = list()
         for topic in Topic.objects.all():
-            if (topic not in topics) and (len(topics) <= 30) and (not topic.editable):
+            if (
+                (topic not in topics)
+                and (len(topics) <= 30)
+                and not topic.editable
+                and topic.how_many > 0
+            ):
                 topics.append(topic)
         return topics
