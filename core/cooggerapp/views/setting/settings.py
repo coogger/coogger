@@ -19,7 +19,7 @@ class UserSetMixin(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["settings_list"] = ["user", "user-extra", "address"]
+        context.update(settings_list=["user", "extra", "address"])
         return context
 
     def get_object(self, queryset=None):
@@ -50,7 +50,7 @@ class Address(LoginRequiredMixin, View):
             address_form=address[1],
             address_instance=address[0],
         )
-        context["settings_list"] = ["user", "user-extra", "address"]
+        context.update(settings_list=["user", "extra", "address"])
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):

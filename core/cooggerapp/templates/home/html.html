@@ -48,28 +48,10 @@
   <script src="{% static 'js/general.js' %}" async></script>
   <script src="{% static 'threaded_comment/threaded_comment.js' %}" async></script>
   <script src="{% static 'js/coogger.js' %}" async></script>
-  <script src="{% static 'js/cookieconsent.min.js' %}" data-cfasync="false" async></script>
-  <script>
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup": {
-          "background": "#000"
-        },
-        "button": {
-          "background": "#f1d600"
-        }
-      },
-      "theme": "edgeless",
-      "content": {
-        "href": "{% url 'privacy' %}"
-      }
-    });
-  </script>
   <!-- GOOGLE / YANDEX verification -->
   <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ" />
   <meta name="yandex-verification" content="3695277528edfe07" />
   <!-- css files-->
-  <link rel="stylesheet" type="text/css" href="{% static 'css/styles/cookieconsent.min.css' %}" />
   <link rel="stylesheet" href="{% static 'css/fontawesome-5.10.2/css/all.min.css' %}" />
   <!-- fontawesome -->
   <link rel="stylesheet" href="{% static 'css/coogger-css/default.css' %}" />
@@ -100,7 +82,6 @@
   <link href="{% static 'css/styles/private.css' %}" rel="stylesheet" />
   {% block script %}{% endblock %}
 </head>
-
 <body general="font:quicksand bg:white">
   {% include 'home/header.html' %}
   {% include 'home/messages.html' %}
@@ -108,5 +89,4 @@
   {% include "home/footer.html" %}
   {% include 'paginator.html' %}
 </body>
-
 </html>

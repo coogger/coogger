@@ -1,1 +1,113 @@
-[default~="forminput"] label,[default~="form"] label{font-size:16px;padding:3px 0;margin:3px 0}[default~="forminput"] li label,[default~="form"] li label{-webkit-display:flex;-moz-display:flex;-ms-display:flex;-o-display:flex;display:flex;flex-direction:row;align-items:stretch;align-content:stretch;flex-wrap:wrap;align-self:flex-start;justify-content:flex-start}[default~="forminput"] input,[default~="form"] input,[default~="forminput"] select,[default~="form"] select{width:96%;min-width:200px;min-height:24px;font-size:16px;border:1px solid;border-radius:4px;border-color:#eaecee;padding:3px 0;margin:3px 0;background-color:#fff}[default~="forminput"] input:hover,[default~="form"] input:hover,[default~="forminput"] input:focus,[default~="form"] input:focus,[default~="forminput"] input:active,[default~="form"] input:active,[default~="forminput"] select:hover,[default~="form"] select:hover,[default~="forminput"] select:focus,[default~="form"] select:focus,[default~="forminput"] select:active,[default~="form"] select:active{border-color:#99a3a4}[default~="forminput"] input[type="submit"],[default~="form"] input[type="submit"]{width:-webkit-fit-content;width:-moz-fit-content;width:-ms-fit-content;width:-o-fit-content;width:fit-content;min-width:-webkit-fit-content;min-width:-moz-fit-content;min-width:-ms-fit-content;min-width:-o-fit-content;min-width:fit-content;margin-left:6px;padding:4px 12px}[default~="forminput"] input[type="submit"]:hover,[default~="form"] input[type="submit"]:hover,[default~="forminput"] input[type="submit"]:focus,[default~="form"] input[type="submit"]:focus{border-color:#1abc9c;background-color:#1abc9c;color:#fff}[default~="forminput"] input[type="submit"]:active,[default~="form"] input[type="submit"]:active{border-color:#3498db;background-color:#3498db}[default~="form"] p input,[default~="form"] li input{-webkit-display:flex;-moz-display:flex;-ms-display:flex;-o-display:flex;display:flex;flex-direction:row;align-items:stretch;align-content:stretch;flex-wrap:wrap;justify-content:center}h1{font-size:1.5em;color:#000}h2{font-size:1.2em;color:#222}h3{font-size:1.1em;color:#444}h4{font-size:1em;font-weight:500;color:#666}h5{font-size:1em;font-weight:400;color:#888}h6{font-size:1em;font-weight:300;color:#999}html,body{height:100%;width:100%;margin:auto}a{text-decoration:none;color:#17202a}ul{margin:0;padding:0}input[type="submit"]{cursor:pointer}img{max-width:100%;max-height:100%;margin:auto}
+/* animations op */
+/* colors */
+[default~="forminput"] label, [default~="form"] label {
+  font-size: 16px;
+  padding: 3px 0px;
+  margin: 3px 0px; }
+[default~="forminput"] li label, [default~="form"] li label {
+  -webkit-display: flex;
+  -moz-display: flex;
+  -ms-display: flex;
+  -o-display: flex;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-content: stretch;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  justify-content: flex-start; }
+[default~="forminput"] input, [default~="form"] input, [default~="forminput"] select, [default~="form"] select {
+  width: 100%;
+  min-width: 200px;
+  min-height: 24px;
+  font-size: 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: #eaecee;
+  padding: 6px 4px;
+  margin: 3px 0px;
+  background-color: #fff; }
+  [default~="forminput"] input:hover, [default~="form"] input:hover, [default~="forminput"] input:focus, [default~="form"] input:focus, [default~="forminput"] input:active, [default~="form"] input:active, [default~="forminput"] select:hover, [default~="form"] select:hover, [default~="forminput"] select:focus, [default~="form"] select:focus, [default~="forminput"] select:active, [default~="form"] select:active {
+    border-color: #99a3a4; }
+[default~="forminput"] input[type="submit"], [default~="form"] input[type="submit"] {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: -ms-fit-content;
+  width: -o-fit-content;
+  width: fit-content;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: -ms-fit-content;
+  min-width: -o-fit-content;
+  min-width: fit-content;
+  margin-left: 6px;
+  padding: 4px 12px; }
+  [default~="forminput"] input[type="submit"]:hover, [default~="form"] input[type="submit"]:hover, [default~="forminput"] input[type="submit"]:focus, [default~="form"] input[type="submit"]:focus {
+    border-color: #1abc9c;
+    background-color: #1abc9c;
+    color: #fff; }
+  [default~="forminput"] input[type="submit"]:active, [default~="form"] input[type="submit"]:active {
+    border-color: #3498db;
+    background-color: #3498db; }
+
+[default~="form"] p input, [default~="form"] li input {
+  -webkit-display: flex;
+  -moz-display: flex;
+  -ms-display: flex;
+  -o-display: flex;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-content: stretch;
+  flex-wrap: wrap;
+  justify-content: center; }
+
+h1 {
+  font-size: 1.5em;
+  color: #000; }
+
+h2 {
+  font-size: 1.2em;
+  color: #222; }
+
+h3 {
+  font-size: 1.1em;
+  color: #444; }
+
+h4 {
+  font-size: 1.0em;
+  font-weight: 500;
+  color: #666; }
+
+h5 {
+  font-size: 1.0em;
+  font-weight: 400;
+  color: #888; }
+
+h6 {
+  font-size: 1.0em;
+  font-weight: 300;
+  color: #999; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: auto; }
+
+a {
+  text-decoration: none;
+  color: #17202a; }
+
+ul {
+  margin: 0px;
+  padding: 0px; }
+
+input[type="submit"] {
+  cursor: pointer; }
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto; }
+
+/*# sourceMappingURL=default.css.map */
