@@ -1,9 +1,8 @@
-from django.contrib import admin
-
 from core.cooggerapp.models import (
     Commit, Content, Issue, ReportModel, SearchedWords, Topic, UserProfile,
     UTopic
 )
+from django.contrib import admin
 
 user_search_fields = ["user__username", "user__first_name", "user__last_name"]
 
@@ -36,6 +35,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display_links = list_display
     filter_horizontal = ("address",)
     search_fields = user_search_fields
+    fields = ["user", "bio", "address", "email_permission", "title"]
 
 
 @admin.register(Topic)

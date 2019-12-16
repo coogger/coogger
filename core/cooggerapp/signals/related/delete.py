@@ -1,7 +1,7 @@
-from django_bookmark.models import Bookmark
-from django_bookmark.utils import get_content_type_with_model
-from django_page_views.models import DjangoViews
-from django_vote_system.models import Vote, VoteCount
+from core.bookmark.models import Bookmark
+from core.bookmark.utils import get_content_type_with_model
+from core.page_views.models import DjangoViews
+from core.vote_system.models import Vote, VoteCount
 
 
 def delete_related_bookmark(model, object_id):

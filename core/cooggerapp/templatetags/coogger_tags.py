@@ -1,10 +1,10 @@
+from core.bookmark.models import Bookmark
 from django import template
 from django.urls import resolve
-from django_bookmark.models import Bookmark
 
+from ...threaded_comment.models import ThreadedComments
 from ..models import Content, UTopic
 from ..views.utils import model_filter
-from ...threaded_comment.models import ThreadedComments
 
 register = template.Library()
 

@@ -1,7 +1,7 @@
+from core.page_views.models import DjangoViews
 from django.db.models import F
 from django.db.models.signals import m2m_changed, post_save
 from django.dispatch import receiver
-from django_page_views.models import DjangoViews
 
 from ..forms import UTopicForm
 from ..models import Content, Topic, UTopic

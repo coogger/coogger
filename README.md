@@ -26,9 +26,6 @@ DEBUG=on
 SECRET_KEY=your_django_app_secret_key
 
 DEFAULT_DB_NAME=default_db_name_or_path
-DJANGO_IP_DB_NAME=django_ip_db_name_or_path
-COOGGER_IMAGES_DB_NAME=cooggerimages_db_name_or_path
-REDIRECT_DB_NAME==redirect_db_name_or_path
 
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
@@ -40,16 +37,7 @@ EMAIL_PASSWORD=******
 
 ```shell
 $ pip install -r requirements.txt
-$ python manage.py makemigrations django_follow_system
-$ python manage.py makemigrations cooggerimages
-$ python manage.py makemigrations django_page_views
-$ python manage.py makemigrations djangoip
-$ python manage.py makemigrations django_vote_system
-
-$ python manage.py migrate --database default
-$ python manage.py migrate --database django_ip
-$ python manage.py migrate --database coogger_images
-$ python manage.py migrate --database redirect
+$ python manage.py migrate
 $ python manage.py create_ghost_user
 $ python manage.py runserver
 ```

@@ -1,8 +1,7 @@
+from core.cooggerapp.choices import FOLLOW, TITLES, make_choices
+from core.django_md_editor.models import EditorMdField
 from django.contrib.auth.models import User
 from django.db import models
-from django_md_editor.models import EditorMdField
-
-from core.cooggerapp.choices import FOLLOW, TITLES, make_choices
 
 
 class OtherAddressesOfUsers(models.Model):
@@ -24,6 +23,7 @@ class OtherAddressesOfUsers(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # BUG Fix EditorMdField django 3.0
     about = EditorMdField(
         help_text="Write a long article about yourself, see; /u/@your_username/about/",
         verbose_name="About Yourself",

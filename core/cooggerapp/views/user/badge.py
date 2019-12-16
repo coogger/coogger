@@ -1,6 +1,6 @@
+from core.badge.models import Badges
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
-from djangobadge.models import Badges
 
 
 class BadgeView(TemplateView):

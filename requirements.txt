@@ -1,22 +1,13 @@
 mistune
 whitenoise
-django==2.0.13
+django==3.0
 
 django_js_asset==0.1.1
-djangorestframework==3.9.1
+djangorestframework==3.11.0
 beautifulsoup4==4.6.0
 django_environ==0.4.5
 requests
 Pillow
+psycopg2==2.8.4
 
-django_md_editor==0.1.61
-django_follow_system==0.0.4
-github_auth==0.0.7
-django_page_views==0.0.3
-djangoip==0.0.3
-django_ban==0.1.0
-cooggerimages==0.0.5
-django_vote_system==0.0.3
-django_bookmark==0.0.24
-djangobadge==0.0.15
 github_auth==0.0.7

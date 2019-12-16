@@ -26,13 +26,13 @@ class Common:
         return None
 
 
-class CooggerImagesRouter(Common):
-    apps_label = ["cooggerimages"]
+class ImagesRouter(Common):
+    apps_label = ["images"]
     db_name = "coogger_images"
 
 
-class DjangoIpRouter(Common):
-    apps_label = ["django_page_views", "djangoip"]
+class IpRouter(Common):
+    apps_label = ["page_views", "ip"]
     db_name = "django_ip"
 
 
@@ -49,11 +49,10 @@ class DefaultRouter(Common):
         "sessions",
         "cooggerapp",
         "github_auth",
-        "django_follow_system",
-        "django_vote_system",
-        "django_threadedcomments_system",
-        "django_bookmark",
-        "djangobadge",
+        "follow_system",
+        "vote_system",
+        "bookmark",
+        "badge",
         "threaded_comment",
     ]
     db_name = "default"

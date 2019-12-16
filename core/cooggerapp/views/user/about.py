@@ -25,4 +25,4 @@ class About(TemplateView):
     def render_to_response(self, context, **response_kwargs):
         if not self.user.is_active:
             return redirect(reverse("user", kwargs=dict(username="ghost")))
-        return super().render_to_response(context, **response_kwargs)   
+        return super().render_to_response(context, **response_kwargs)

@@ -1,9 +1,8 @@
+from core.cooggerapp.choices import ISSUE_CHOICES, make_choices
+from core.django_md_editor.models import EditorMdField
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-from django_md_editor.models import EditorMdField
-
-from core.cooggerapp.choices import ISSUE_CHOICES, make_choices
 
 from ...threaded_comment.models import AbstractThreadedComments
 from .common import Common, View, Vote

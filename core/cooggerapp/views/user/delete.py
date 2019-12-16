@@ -1,11 +1,11 @@
+from core.badge.models import UserBadge
+from core.bookmark.models import Bookmark
+from core.vote_system.models import Vote
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import TemplateView
-from django_bookmark.models import Bookmark
-from django_vote_system.models import Vote
-from djangobadge.models import UserBadge
 
 from ....threaded_comment.models import ThreadedComments
 from ...forms import UsernameForm

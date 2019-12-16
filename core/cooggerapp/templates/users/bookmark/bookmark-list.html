@@ -1,4 +1,4 @@
-{% load django_bookmark %}
+{% load bookmark %}
 <div general="flex position:center width:100 flex:fd-c" tablet="width:100">
     {% for bookmark in object_list %}
     <div general="flex width:100">
@@ -23,7 +23,7 @@
             <div style="cursor: pointer" general="flex flex:ai-c width:100" class="bookmarkop"
                 onclick="removeOrAddBookmark(this)" data-app_label="{{ bookmark.content_type.app_label }}"
                 data-model="{{ bookmark.content_type.model }}" data-object_id="{{ bookmark.object_id }}"
-                data-csrf="{{ csrf_token }}" data-url="{% url 'django_bookmark:add_or_remove' %}"
+                data-csrf="{{ csrf_token }}" data-url="{% url 'bookmark:add_or_remove' %}"
                 data-bookmark-status="{% is_mark request.user bookmark.model bookmark.object_id %}">
                 <i general="color:secondary" class="bookmarkicon fa-bookmark"></i>
                 <span general="position:left color:secondary" style="margin-right: 6px;" id="how_many_mark">

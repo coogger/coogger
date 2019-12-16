@@ -7,9 +7,9 @@ from .utils import just_redirect_by_name
 
 urlpatterns = [
     path("accounts/github/", include("github_auth.urls")),
-    path("follow/", include("django_follow_system.urls")),
-    path("vote/", include("django_vote_system.urls")),
-    path("bookmark/", include("django_bookmark.urls")),
+    path("follow/", include("core.follow_system.urls")),
+    path("vote/", include("core.vote_system.urls")),
+    path("bookmark/", include("core.bookmark.urls")),
     path("admin/", admin.site.urls),
     path("reply/", include("core.threaded_comment.urls")),
     path("settings/", include("core.cooggerapp.urls.setting")),
@@ -19,7 +19,7 @@ urlpatterns = [
     path("", include("core.cooggerapp.urls.utopic")),
     path("", include("core.cooggerapp.urls.user")),
     path("", include("core.cooggerapp.urls.sitemap")),
-    path("", include("cooggerimages.urls")),
+    path("", include("core.images.urls")),
 ]
 
 flatpages = ["privacy", "sponsorship"]

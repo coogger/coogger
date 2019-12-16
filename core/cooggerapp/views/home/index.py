@@ -42,7 +42,7 @@ class Index(ListView):
             return Content.objects.filter(user__is_active=True, status="ready")
 
     def get_template_names(self):
-        if not self.object_list.exists():
+        if not self.object_list.exists() and not self.introduction:
             return [self.not_result_template_name]
         elif self.introduction:
             return [self.introduction_template_name]

@@ -3,6 +3,7 @@
 *.scssc
 *.map
 media
+db
 
 # Created by https://www.gitignore.io/api/python
 

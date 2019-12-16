@@ -1,7 +1,6 @@
+from core.cooggerapp.choices import REPORTS, make_choices
 from django.contrib.auth.models import User
 from django.db import models
-
-from core.cooggerapp.choices import REPORTS, make_choices
 
 from .content import Content
 
@@ -13,7 +12,7 @@ class ReportModel(models.Model):
         Content, on_delete=models.CASCADE, verbose_name="reported person"
     )
     complaints = models.CharField(
-        choices=make_choices(REPORTS), max_length=40, verbose_name="type of report"
+        choices=make_choices(REPORTS), max_length=100, verbose_name="type of report"
     )
     add = models.CharField(
         blank=True,

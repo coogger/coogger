@@ -1,20 +1,12 @@
-# models
+from .commit import Commit
+from .common import Common, View, Vote
 from .content import Content
+from .issue import Issue
 from .report import ReportModel
 from .search import SearchedWords
 from .topic import Topic, UTopic
 from .userextra import OtherAddressesOfUsers, UserProfile
-from .commit import Commit
-from .issue import Issue
-from .common import Common, View, Vote
 from .utils import (
-    get_new_hash,
-    format_tags,
-    second_convert,
-    marktohtml,
-    get_first_image,
-    dor,
-    send_mail,
-    get_client_url,
-    ready_tags,
+    dor, format_tags, get_client_url, get_first_image, get_new_hash,
+    marktohtml, ready_tags, second_convert, send_mail
 )

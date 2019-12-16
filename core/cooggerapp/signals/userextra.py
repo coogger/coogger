@@ -1,11 +1,12 @@
 import requests
+
+from core.follow_system.models import Follow
 from django.contrib.auth.models import User
 from django.db.models.signals import m2m_changed, post_save
 from django.db.utils import IntegrityError
 from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
-from django_follow_system.models import Follow
 from github_auth.models import GithubAuthUser
 
 from ..models import UserProfile, UTopic, get_client_url, send_mail
@@ -49,7 +50,7 @@ def save_github_repos(user, github_repos_url):
                     "name": repo.get("name"),
                     "description": repo.get("description"),
                     "address": repo.get("html_url"),
-                }
+                },
             )
 
 

@@ -1,4 +1,4 @@
-from django_bookmark.models import Bookmark as BookmarkModel
+from core.bookmark.models import Bookmark as BookmarkModel
 
 from .user import UserMixin
 

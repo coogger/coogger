@@ -30,16 +30,16 @@ INSTALLED_APPS = [
     # rest api
     "rest_framework",
     # to build coogger apps
-    "django_page_views",
-    "django_md_editor",
-    "cooggerimages",
     "github_auth",
-    "django_follow_system",
-    "djangoip",
-    "django_vote_system",
-    "django_bookmark",
-    "djangobadge",
     # core.apps
+    "core.django_md_editor",
+    "core.page_views",
+    "core.images",
+    "core.follow_system",
+    "core.ip",
+    "core.vote_system",
+    "core.bookmark",
+    "core.badge",
     "core.cooggerapp",
     "core.threaded_comment",
 ]
@@ -50,7 +50,7 @@ REST_FRAMEWORK = dict(
     PAGE_SIZE=PAGE_SIZE,
 )
 MIDDLEWARE = [
-    "djangoip.middleware.ip_middleware.IpMiddleware",
+    "core.ip.middleware.ip_middleware.IpMiddleware",
     # django
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -83,18 +83,15 @@ TEMPLATES = [
 WSGI_APPLICATION = "coogger.wsgi.application"
 DATABASES = dict(
     default=dict(ENGINE="django.db.backends.sqlite3", NAME=env("DEFAULT_DB_NAME")),
-    django_ip=dict(ENGINE="django.db.backends.sqlite3", NAME=env("DJANGO_IP_DB_NAME")),
-    coogger_images=dict(
-        ENGINE="django.db.backends.sqlite3", NAME=env("COOGGER_IMAGES_DB_NAME")
-    ),
-    redirect=dict(ENGINE="django.db.backends.sqlite3", NAME=env("REDIRECT_DB_NAME")),
+    # default=dict(
+    #     ENGINE="django.db.backends.postgresql",
+    #     NAME=env("DEFAULT_DB_NAME"),
+    #     USER=env("DB_USER"),
+    #     PASSWORD=env("DB_PASS"),
+    #     HOST=env("DB_HOST"),
+    #     PORT=env("DB_PORT"),
+    # ),
 )
-DATABASE_ROUTERS = [
-    "core.routers.CooggerImagesRouter",
-    "core.routers.DjangoIpRouter",
-    "core.routers.DjangoRedirect",
-    "core.routers.DefaultRouter",
-]
 AUTH_PASSWORD_VALIDATORS = []
 USE_I18N = True
 USE_L10N = True

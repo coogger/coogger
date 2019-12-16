@@ -1,3 +1,5 @@
+from core.cooggerapp.views.utils import model_filter
+from core.page_views.models import DjangoViews
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -5,11 +7,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, reverse
 from django.views.generic import TemplateView, UpdateView
-from django_page_views.models import DjangoViews
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
-
-from core.cooggerapp.views.utils import model_filter
 
 from ..cooggerapp.views.utils import get_current_user
 from .forms import ReplyForm

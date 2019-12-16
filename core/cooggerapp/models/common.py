@@ -1,7 +1,7 @@
+from core.page_views.templatetags.django_page_views import views_count
+from core.vote_system.templatetags.vote import downvote_count, upvote_count
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django_page_views.templatetags.django_page_views import views_count
-from django_vote_system.templatetags.vote import downvote_count, upvote_count
 
 
 class Common(models.Model):
