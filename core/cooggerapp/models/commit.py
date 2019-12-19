@@ -1,3 +1,4 @@
+from datetime import datetime
 from difflib import HtmlDiff
 
 from core.md_editor.models import EditorMdField
@@ -38,7 +39,7 @@ class Commit(Common, View, Vote):
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
     body = EditorMdField()
     msg = models.CharField(max_length=150, default="Initial commit")
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=datetime.now)
     updated = models.DateTimeField(auto_now=True)
     reply_count = models.PositiveIntegerField(default=0)
     status = models.CharField(

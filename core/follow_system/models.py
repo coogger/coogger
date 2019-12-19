@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -13,7 +15,7 @@ class Follow(models.Model):
     following = models.ManyToManyField(
         AUTH_USER_MODEL, blank=True, related_name="following"
     )
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=datetime.now)
 
     @property
     def username(self):

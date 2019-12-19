@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from core.cooggerapp.choices import REPORTS, make_choices
 from django.contrib.auth.models import User
 from django.db import models
@@ -20,4 +22,4 @@ class ReportModel(models.Model):
         max_length=600,
         verbose_name="Can you give more information ?",
     )
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=datetime.now)

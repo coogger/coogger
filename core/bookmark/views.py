@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.views import View
 
 from .models import Bookmark
-
 from .utils import get_content_type
 
 

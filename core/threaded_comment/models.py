@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -11,7 +13,7 @@ from ..cooggerapp.models.utils import get_first_image
 
 class AbstractThreadedComments(models.Model):
     reply_count = models.PositiveIntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Created")
+    created = models.DateTimeField(default=datetime.now, verbose_name="Created")
     updated = models.DateTimeField(auto_now=True, verbose_name="Last update")
 
     class Meta:

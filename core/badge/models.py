@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -11,7 +13,7 @@ class Badges(models.Model):
     permlink = models.CharField(max_length=120)
     image_address = models.URLField(max_length=200)
     description = models.CharField(max_length=200, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=datetime.now)
 
     def save(self, *args, **kwargs):
         self.permlink = slugify(self.title)
