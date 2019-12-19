@@ -1,5 +1,4 @@
 import os
-
 import environ
 
 env = environ.Env(DEBUG=(bool, False))
@@ -53,6 +52,7 @@ MIDDLEWARE = [
     "core.ip.middleware.ip_middleware.IpMiddleware",
     # django
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
