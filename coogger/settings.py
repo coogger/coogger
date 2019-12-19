@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     # to build coogger apps
     "github_auth",
     # core.apps
-    "core.django_md_editor",
+    "core.md_editor",
     "core.page_views",
     "core.images",
     "core.follow_system",

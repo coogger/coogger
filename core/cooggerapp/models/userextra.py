@@ -1,5 +1,5 @@
 from core.cooggerapp.choices import FOLLOW, TITLES, make_choices
-from core.django_md_editor.models import EditorMdField
+from core.md_editor.models import EditorMdField
 from django.contrib.auth.models import User
 from django.db import models
 

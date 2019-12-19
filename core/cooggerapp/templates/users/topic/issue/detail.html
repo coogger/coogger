@@ -6,7 +6,7 @@
     <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
       tablet="width:90" laptop="width:80" mobile-s="width:98">
       {% include "users/topic/detail/top.html" %}
-      {% load django_md_editor %}
+      {% load md_editor %}
       <div general="brc:muted border:1 br:2 width:100" style="padding: 6px; margin-top: 6px;">
         <div general="position:right" style="margin-bottom: 6px;">
           <a general="br:1 color:white bg:green text:s" href="{% url 'new-issue' current_user utopic.permlink %}"

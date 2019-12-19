@@ -2,7 +2,7 @@
 
 import core.cooggerapp.models.common
 import core.cooggerapp.models.utils
-import core.django_md_editor.models
+import core.md_editor.models
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('updated', models.DateTimeField(auto_now=True, verbose_name='Last update')),
                 ('permlink', models.SlugField(max_length=200)),
                 ('title', models.CharField(help_text='Be sure to choose the best title', max_length=200)),
-                ('body', core.django_md_editor.models.EditorMdField(help_text='Your content | problem | question | or anything else', verbose_name='')),
+                ('body', core.md_editor.models.EditorMdField(help_text='Your content | problem | question | or anything else', verbose_name='')),
                 ('language', models.CharField(choices=[('arabic', 'arabic'), ('azerbaijani', 'azerbaijani'), ('chinese', 'chinese'), ('english', 'english'), ('french', 'french'), ('german', 'german'), ('indonesian', 'indonesian'), ('italian', 'italian'), ('japanese', 'japanese'), ('korean', 'korean'), ('polish', 'polish'), ('portuguese', 'portuguese'), ('romanian', 'romanian'), ('russian', 'russian'), ('spanish', 'spanish'), ('turkish', 'turkish'), ('vietnamese', 'vietnamese')], help_text='The language of your content', max_length=30)),
                 ('tags', models.CharField(help_text='Write your tags using spaces, max:5', max_length=200, verbose_name='Keywords')),
                 ('image_address', models.URLField(blank=True, null=True)),
@@ -88,7 +88,7 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('about', core.django_md_editor.models.EditorMdField(blank=True, help_text='Write a long article about yourself, see; /u/@your_username/about/', null=True, verbose_name='About Yourself')),
+                ('about', core.md_editor.models.EditorMdField(blank=True, help_text='Write a long article about yourself, see; /u/@your_username/about/', null=True, verbose_name='About Yourself')),
                 ('bio', models.CharField(blank=True, help_text='Write something short about yourself, this will appear in your profile.', max_length=260, null=True)),
                 ('email_permission', models.BooleanField(default=True, help_text='Allow email notifications.')),
                 ('title', models.CharField(choices=[('author', 'author'), ('contributor', 'contributor'), ('core-developer', 'core developer'), ('founder', 'founder'), ('moderator', 'moderator'), ('sponsor', 'sponsor'), ('user', 'user')], default='user', help_text='Title', max_length=30, verbose_name='title')),
@@ -136,7 +136,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('hash', models.CharField(default=core.cooggerapp.models.utils.get_new_hash, max_length=256, unique=True)),
-                ('body', core.django_md_editor.models.EditorMdField()),
+                ('body', core.md_editor.models.EditorMdField()),
                 ('msg', models.CharField(default='Initial commit', max_length=150)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
@@ -161,7 +161,7 @@ class Migration(migrations.Migration):
                 ('updated', models.DateTimeField(auto_now=True, verbose_name='Last update')),
                 ('issue_id', models.PositiveIntegerField(default=0)),
                 ('title', models.CharField(blank=True, help_text='Be sure to choose the best title', max_length=200, null=True)),
-                ('body', core.django_md_editor.models.EditorMdField(blank=True, help_text='Your problem | question | or anything else', null=True)),
+                ('body', core.md_editor.models.EditorMdField(blank=True, help_text='Your problem | question | or anything else', null=True)),
                 ('status', models.CharField(blank=True, choices=[('open', 'open'), ('closed', 'closed')], default='open', help_text='Status', max_length=55, null=True)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
                 ('utopic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cooggerapp.UTopic')),

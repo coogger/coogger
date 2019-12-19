@@ -4,7 +4,7 @@
 <div general="position:center width:100">
     <div default="paragraph pm" mobile-l="width:98" tablet="width:80" laptop="width:40" laptop-l="width:70"
         general="width:100" style="padding: 6px;">
-        {% load django_md_editor %} {{ about|markdown_to_html:"about"|safe }}
+        {% load md_editor %} {{ about|markdown_to_html:"about"|safe }}
     </div>
     {% else %}
     <div general="flex text:m position:center bg:white flex:jc-c flex:ai-c" mobile-s="width:100" mobile-l="width:98"

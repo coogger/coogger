@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 
 import mistune
 from core.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
-from core.django_md_editor.models import EditorMdField
+from core.md_editor.models import EditorMdField
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
