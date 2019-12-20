@@ -73,18 +73,6 @@ header{
   height: 70vh;
   padding: 0px 0px 0px 16px;
 }
-.badge-a{
-  margin: 0px 6px;
-}
-.badge-img{
-  margin-left: 0px;
-  margin-right: 0px;
-  cursor: pointer;
-  width: 100%;
-}
-.badge-img:hover {
-  transform: rotate(20deg);
-}
 .utopic-nocontent{
   margin-top: 5%;
   padding: 12px;

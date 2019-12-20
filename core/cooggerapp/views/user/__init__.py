@@ -1,5 +1,4 @@
 from .about import About
-from .badge import BadgeView
 from .bookmark import Bookmark
 from .comment import Comment
 from .content import UserContent

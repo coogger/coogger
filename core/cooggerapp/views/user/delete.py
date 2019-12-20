@@ -1,4 +1,3 @@
-from core.badge.models import UserBadge
 from core.bookmark.models import Bookmark
 from core.vote_system.models import Vote
 from django.contrib import messages
@@ -32,8 +31,6 @@ class DeleteAccount(LoginRequiredMixin, TemplateView):
             ThreadedComments.objects.filter(user=user).delete()
             # vote
             Vote.objects.filter(user=user).delete()
-            # badge
-            UserBadge.objects.filter(user=user).delete()
             # bookmark
             for bookmark in Bookmark.objects.filter(user=user):
                 bookmark.user.remove(user)

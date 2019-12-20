@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "core.ip",
     "core.vote_system",
     "core.bookmark",
-    "core.badge",
     "core.cooggerapp",
     "core.threaded_comment",
 ]
