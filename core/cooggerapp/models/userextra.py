@@ -23,7 +23,6 @@ class OtherAddressesOfUsers(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # BUG Fix EditorMdField django 3.0
     about = EditorMdField(
         help_text="Write a long article about yourself, see; /u/@your_username/about/",
         verbose_name="About Yourself",

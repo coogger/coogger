@@ -96,7 +96,7 @@ class UTopic(CommonTopicModel):
 
     class Meta:
         verbose_name_plural = "User Topic"
-        ordering = ["-how_many", "-total_view"]
+        ordering = ["-total_view", "-how_many"]
         unique_together = [["user", "permlink"]]
 
     def __str__(self):

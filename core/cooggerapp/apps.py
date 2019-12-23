@@ -6,5 +6,5 @@ class CooggerappConfig(AppConfig):
     label = "cooggerapp"
     verbose_name = "Main application"
 
-    # def ready(self):
-    #     from . import signals
+    def ready(self):
+        from . import signals
