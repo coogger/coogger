@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-31 21:29+0300\n"
+"POT-Creation-Date: 2019-12-31 22:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,43 +20,43 @@ msgstr ""
 
 #: .\coogger\settings.py:115
 msgid "Turkish"
-msgstr ""
+msgstr "Türkçe"
 
 #: .\coogger\settings.py:116
 msgid "English"
-msgstr ""
+msgstr "İngilizce"
 
 #: .\core\cooggerapp\models\content.py:23 .\core\cooggerapp\models\issue.py:19
 msgid "Be sure to choose the best title"
-msgstr ""
+msgstr "En iyi başlığı seçtiğinizden emin olun"
 
 #: .\core\cooggerapp\models\content.py:27
 msgid "Your content | problem | question | or anything else"
-msgstr ""
+msgstr "İçeriğiniz | problem | soru | ya da başka bir şey"
 
 #: .\core\cooggerapp\models\content.py:32
 msgid "Your topic"
-msgstr ""
+msgstr "Konunuz"
 
 #: .\core\cooggerapp\models\content.py:33
 msgid "Please, write your topic about your contents."
-msgstr ""
+msgstr "Lütfen içeriğinizle ilgili konunuzu yazın."
 
 #: .\core\cooggerapp\models\content.py:38
 msgid "The language of your content"
-msgstr ""
+msgstr "İçeriğinizin dili"
 
 #: .\core\cooggerapp\models\content.py:42
 msgid "Keywords"
-msgstr ""
+msgstr "Anahtar kelimeler"
 
 #: .\core\cooggerapp\models\content.py:43
 msgid "Write your tags using spaces, max:5"
-msgstr ""
+msgstr "Etiketlerinizi boşluklar kullanarak yazın, maks: 5"
 
 #: .\core\cooggerapp\models\content.py:50
 msgid "article's status"
-msgstr ""
+msgstr "makalenin durumu"
 
 #: .\core\cooggerapp\models\content.py:52
 msgid ""
@@ -65,214 +65,229 @@ msgstr ""
 
 #: .\core\cooggerapp\models\content.py:59 .\core\cooggerapp\models\topic.py:94
 msgid "Total contributors count"
-msgstr ""
+msgstr "Toplam katılımcı sayısı"
 
 #: .\core\cooggerapp\models\issue.py:25
 msgid "Your problem | question | or anything else"
-msgstr ""
+msgstr "Sorununuz | soru | ya da başka bir şey"
 
 #: .\core\cooggerapp\models\issue.py:31
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #: .\core\cooggerapp\models\report.py:13
 msgid "reporter"
-msgstr ""
+msgstr "reporter"
 
 #: .\core\cooggerapp\models\report.py:15
 msgid "reported person"
-msgstr ""
+msgstr "rapor edilen kişi"
 
 #: .\core\cooggerapp\models\report.py:18
 msgid "type of report"
-msgstr ""
+msgstr "rapor türü"
 
 #: .\core\cooggerapp\models\report.py:24
 msgid "Can you give more information ?"
-msgstr ""
+msgstr "Daha fazla bilgi verebilir misiniz?"
 
 #: .\core\cooggerapp\models\topic.py:12
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: .\core\cooggerapp\models\topic.py:12
 msgid "Please, write topic name."
-msgstr ""
+msgstr "Lütfen konu adını yazın."
 
 #: .\core\cooggerapp\models\topic.py:16
 msgid "Add an Image Address"
-msgstr ""
+msgstr "Resim Adresi Ekleme"
 
 #: .\core\cooggerapp\models\topic.py:19
 msgid "description of topic"
-msgstr ""
+msgstr "konunun açıklaması"
 
 #: .\core\cooggerapp\models\topic.py:25
 msgid "Keyword"
-msgstr ""
+msgstr "Kelime"
 
 #: .\core\cooggerapp\models\topic.py:26
 msgid "Write your tags using spaces"
-msgstr ""
+msgstr "Etiketlerinizi boşluk kullanarak yazın"
 
 #: .\core\cooggerapp\models\topic.py:29
 msgid "Add an address if it have"
-msgstr ""
+msgstr "Varsa bir adres ekleyin"
 
 #: .\core\cooggerapp\models\topic.py:32
 msgid "How many content in"
-msgstr ""
+msgstr "İçinde kaç içerik var"
 
 #: .\core\cooggerapp\models\topic.py:48
 msgid "Is it editable? | Yes/No"
-msgstr ""
+msgstr "Düzenlenebilir mi? | Evet Hayır"
 
 #: .\core\cooggerapp\models\topic.py:52
 msgid "Global Topic"
-msgstr ""
+msgstr "Global Konu"
 
 #: .\core\cooggerapp\models\topic.py:73
 msgid "Total duration all contents"
-msgstr ""
+msgstr "Tüm içeriklerin toplam süresi"
 
 #: .\core\cooggerapp\models\topic.py:76
 msgid "Total views all contents"
-msgstr ""
+msgstr "Toplam tüm içeriği görüntüler"
 
 #: .\core\cooggerapp\models\topic.py:79
 msgid "Total count open issue"
-msgstr ""
+msgstr "Toplam açık oturum sayısı"
 
 #: .\core\cooggerapp\models\topic.py:82
 msgid "Total count closed issue"
-msgstr ""
+msgstr "Toplam kapalı sayı sayısı"
 
 #: .\core\cooggerapp\models\topic.py:85
 msgid "Total count open contributions"
-msgstr ""
+msgstr "Toplam açık katılım sayısı"
 
 #: .\core\cooggerapp\models\topic.py:88
 msgid "Total count closed contributions"
-msgstr ""
+msgstr "Toplam kapalı katkı sayısı"
 
 #: .\core\cooggerapp\models\topic.py:97
 msgid "Total commit count"
-msgstr ""
+msgstr "Toplam taahhüt sayısı"
 
 #: .\core\cooggerapp\models\topic.py:101
 msgid "User Topic"
-msgstr ""
+msgstr "Kullanıcı Konusu"
 
 #: .\core\cooggerapp\models\userextra.py:15
 msgid "website"
-msgstr ""
+msgstr "İnternet sitesi"
 
 #: .\core\cooggerapp\models\userextra.py:18
 msgid "write address / username"
-msgstr ""
+msgstr "adres / kullanıcı adı yaz"
 
 #: .\core\cooggerapp\models\userextra.py:29
 msgid "Write a long article about yourself, see; /u/@your_username/about/"
 msgstr ""
+"Kendiniz hakkında uzun bir makale yazın, bakın /u/@your_username/about/"
 
 #: .\core\cooggerapp\models\userextra.py:31
 msgid "About Yourself"
-msgstr ""
+msgstr "Senin hakkında"
 
 #: .\core\cooggerapp\models\userextra.py:37
 msgid "Write something short about yourself, this will appear in your profile."
-msgstr ""
+msgstr "Kendiniz hakkında kısa bir şeyler yazın, bu profilinizde görünecektir."
 
 #: .\core\cooggerapp\models\userextra.py:45
 msgid "Allow email notifications."
-msgstr ""
+msgstr "E-posta bildirimlerine izin ver."
 
 #: .\core\cooggerapp\models\userextra.py:51
 msgid "title"
-msgstr ""
+msgstr "başlık"
 
 #: .\core\cooggerapp\models\userextra.py:52
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: .\core\cooggerapp\templates\common\there-is-no-data.html:5
 msgid "There is no data"
-msgstr ""
+msgstr "Veri yok"
 
 #: .\core\cooggerapp\templates\content\detail\edit.html:4
 #: .\core\cooggerapp\templates\content\detail\edit.html:9
 #: .\core\cooggerapp\templates\users\topic\commit\contribution.html:6
 #: .\core\cooggerapp\templates\users\topic\issue\detail.html:49
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: .\core\cooggerapp\templates\content\detail\edit.html:14
 msgid "Contribute"
-msgstr ""
+msgstr "Katkıda bulunmak"
 
 #: .\core\cooggerapp\templates\content\detail\left.html:4
 msgid "Other Contents of The Topic"
-msgstr ""
+msgstr "Konunun Diğer İçeriği"
 
 #: .\core\cooggerapp\templates\content\detail\status.html:4
 msgid "This article is not ready to read"
-msgstr ""
+msgstr "Bu makale okumaya hazır değil"
 
 #: .\core\cooggerapp\templates\content\detail\userinfo.html:29
 msgid "Last update"
-msgstr ""
+msgstr "Son Güncelleme"
 
 #: .\core\cooggerapp\templates\content\detail\userinfo.html:53
 #: .\core\cooggerapp\templates\users\pp.html:55
 msgid "Unfollow"
-msgstr ""
+msgstr "Takip etmekten vazgeç"
 
 #: .\core\cooggerapp\templates\content\detail\userinfo.html:59
 #: .\core\cooggerapp\templates\users\pp.html:61
 msgid "Follow"
-msgstr ""
+msgstr "Takip et"
 
 #: .\core\cooggerapp\templates\content\post\editor-note.html:2
 msgid "How To Write My Content ?"
-msgstr ""
+msgstr "İçeriğimi Nasıl Yazabilirim?"
 
 #: .\core\cooggerapp\templates\content\post\editor-note.html:3
 msgid "What is Markdown ?"
-msgstr ""
+msgstr "Markdown nedir?"
 
 #: .\core\cooggerapp\templates\content\post\editor-note.html:4
 msgid "Need help for learing **markdown** format ? Check These Addresses Below"
 msgstr ""
+"** markdown ** formatını öğrenmek için yardıma mı ihtiyacınız var? Aşağıdaki "
+"Adresleri Kontrol Edin"
 
 #: .\core\cooggerapp\templates\content\post\editor-note.html:11
 msgid "Coogger Post Guide"
-msgstr ""
+msgstr "Coogger Post Kılavuzu"
 
 #: .\core\cooggerapp\templates\content\post\editor-note.html:14
 msgid "How To Upload My Image"
-msgstr ""
+msgstr "Resmimi Nasıl Yükleyebilirim"
 
 #: .\core\cooggerapp\templates\delete-account.html:7
 msgid "Deleting your user account"
-msgstr ""
+msgstr "Kullanıcı hesabınızı silme"
 
 #: .\core\cooggerapp\templates\delete-account.html:8
 msgid "You can delete your Coogger user account at any time."
-msgstr ""
+msgstr "Coogger kullanıcı hesabınızı istediğiniz zaman silebilirsiniz."
 
-#: .\core\cooggerapp\templates\delete-account.html:13
-msgid "user."
+#: .\core\cooggerapp\templates\delete-account.html:10
+msgid ""
+"Deleting your user account removes your first, last and email addesss and "
+"all topics, bookmarks, votes, views, comments owned by your account."
 msgstr ""
+"Kullanıcı hesabınızı silmek, ilk, son ve e-posta adresinizi ve hesabınıza ait tüm konuları, "
+"yer işaretlerini, oyları, görünümleri ve yorumları kaldırır."
 
-#: .\core\cooggerapp\templates\delete-account.html:17
+#: .\core\cooggerapp\templates\delete-account.html:11
+msgid ""
+"Issues and contributions you've made in topics owned by other users will not "
+"be deleted - instead, they'll be associated with our @Ghost user."
+msgstr ""
+"Diğer kullanıcıların sahip olduğu konularda yaptığınız sorunlar ve katkılar"
+"silinmeyecek - bunun yerine, @Ghost kullanıcımızla ilişkilendirilecekler / anonimleştirilecektir."
+
+#: .\core\cooggerapp\templates\delete-account.html:15
 msgid ""
 "If you delete your account, you will never be able to log in to the coogger "
 "again."
-msgstr ""
+msgstr "Hesabınızı silerseniz, coogger'a asla giriş yapamazsınız."
 
-#: .\core\cooggerapp\templates\delete-account.html:21
+#: .\core\cooggerapp\templates\delete-account.html:19
 msgid "To delete your account, just enter your username"
-msgstr ""
+msgstr "Hesabınızı silmek için kullanıcı adınızı girmeniz yeterlidir"
 
 #: .\core\cooggerapp\templates\email\contribute.html:10
 #: .\core\cooggerapp\templates\email\first_login.html:14
@@ -283,22 +298,23 @@ msgstr ""
 msgid ""
 "You can give us the greatest support by recommending Coogger to your friends."
 msgstr ""
+"Coogger'ı arkadaşlarınıza önererek bize en büyük desteği verebilirsiniz."
 
 #: .\core\cooggerapp\templates\email\new-issue.html:9
 msgid "Click to visit this issue."
-msgstr ""
+msgstr "Bu sorunu ziyaret etmek için tıklayın."
 
 #: .\core\cooggerapp\templates\email\post.html:3
 msgid "Here is the content, click and read"
-msgstr ""
+msgstr "İşte içerik, tıklayın ve okuyun"
 
 #: .\core\cooggerapp\templates\email\reply.html:6
 msgid "left a comment on your post click to reply."
-msgstr ""
+msgstr "yayınınıza bir yorum bıraktı yanıtlamak için tıklayın."
 
 #: .\core\cooggerapp\templates\forms\search.html:5
 msgid "search content, #topic or @user .."
-msgstr ""
+msgstr "ara içerik, #konu veya @kullanıcı .."
 
 #: .\core\cooggerapp\templates\home\explorer.html:18
 #: .\core\cooggerapp\templates\home\explorer.html:36
@@ -311,19 +327,19 @@ msgstr "İÇERİKLER"
 
 #: .\core\cooggerapp\templates\home\footer.html:12
 msgid "Guide"
-msgstr ""
+msgstr "Kılavuz"
 
 #: .\core\cooggerapp\templates\home\footer.html:16
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Gizlilik Politikası"
 
 #: .\core\cooggerapp\templates\home\footer.html:20
 msgid "Sponsorship"
-msgstr ""
+msgstr "Sponsorluk"
 
 #: .\core\cooggerapp\templates\home\footer.html:24
 msgid "Delete Account"
-msgstr ""
+msgstr "Hesabı sil"
 
 #: .\core\cooggerapp\templates\home\footer.html:28
 #: .\core\cooggerapp\templates\home\header.html:109
@@ -339,15 +355,15 @@ msgstr "Konu Oluştur"
 #, fuzzy
 #| msgid "Explorer"
 msgid "Explore posts"
-msgstr "Keşfet"
+msgstr "Yayınları keşfedin"
 
 #: .\core\cooggerapp\templates\home\footer.html:40
 msgid "SOCIAL"
-msgstr ""
+msgstr "SOSYAL"
 
 #: .\core\cooggerapp\templates\home\header.html:19
 msgid "Login via github"
-msgstr ""
+msgstr "Github ile giriş"
 
 #: .\core\cooggerapp\templates\home\header.html:53
 msgid "Explorer"
@@ -355,124 +371,132 @@ msgstr "Keşfet"
 
 #: .\core\cooggerapp\templates\home\header.html:61
 msgid "Feed"
-msgstr ""
+msgstr "Akış"
 
 #: .\core\cooggerapp\templates\home\header.html:69
 #: .\core\cooggerapp\templates\users\pp.html:32
 msgid "Contents"
-msgstr ""
+msgstr "İçerikler"
 
 #: .\core\cooggerapp\templates\home\header.html:77
 msgid "Bookmark"
-msgstr ""
+msgstr "Yer imi"
 
 #: .\core\cooggerapp\templates\home\header.html:85
 msgid "Comments"
-msgstr ""
+msgstr "Yorumlar"
 
 #: .\core\cooggerapp\templates\home\header.html:93
 msgid "About"
-msgstr ""
+msgstr "Hakkında"
 
 #: .\core\cooggerapp\templates\home\header.html:101
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
 #: .\core\cooggerapp\templates\home\header.html:117
 msgid "Sign out"
-msgstr ""
+msgstr "Oturumu Kapat"
 
 #: .\core\cooggerapp\templates\home\insection-left.html:6
 msgid "Most Remarkable Topics"
-msgstr ""
+msgstr "En Önemli Konular"
 
 #: .\core\cooggerapp\templates\home\introduction.html:10
 msgid ""
 "Coogger is a platform for developers to publish technical documents in the "
 "best way."
 msgstr ""
+"Coogger, geliştiriciler için teknik belgeleri en iyi şekilde yayınlamaları "
+"için bir platformdur."
 
 #: .\core\cooggerapp\templates\home\introduction.html:18
 #, fuzzy
 #| msgid "Explorer"
 msgid "Explore coogger"
-msgstr "Keşfet"
+msgstr "Coogger'ı keşfedin"
 
 #: .\core\cooggerapp\templates\home\introduction.html:21
 msgid "About Coogger"
-msgstr ""
+msgstr "Coogger hakkında"
 
 #: .\core\cooggerapp\templates\home\introduction.html:26
 msgid "We are open-source"
-msgstr ""
+msgstr "Açık kaynağız"
 
 #: .\core\cooggerapp\templates\home\introduction.html:35
 msgid "Coogger has issue feature, click and check this is an example"
 msgstr ""
+"Coogger'da issue özelliği var, tıklayın ve bunun bir örnek olup olmadığını "
+"kontrol edin"
 
 #: .\core\cooggerapp\templates\home\introduction.html:51
 msgid "Coogger has commit feature, click and check this is an example"
 msgstr ""
+"Coogger'ın commit özelliği vardır, tıklayın ve bunun bir örnek olup "
+"olmadığını kontrol edin"
 
 #: .\core\cooggerapp\templates\home\introduction.html:57
 msgid "Coogger use markdown format"
-msgstr ""
+msgstr "Coogger markdown formatı kullanır"
 
 #: .\core\cooggerapp\templates\home\introduction.html:63
 msgid "Coogger is the same on all browsers"
-msgstr ""
+msgstr "Coogger tüm tarayıcılarda aynıdır"
 
 #: .\core\cooggerapp\templates\home\introduction.html:69
 msgid "Coogger is a responsive design"
-msgstr ""
+msgstr "Coogger her ekrana duyarlı bir tasarıma sahiptir"
 
 #: .\core\cooggerapp\templates\home\introduction.html:80
 msgid "Some Documents Written by Our Users"
-msgstr ""
+msgstr "Kullanıcılarımız Tarafından Yazılan Bazı Belgeler"
 
 #: .\core\cooggerapp\templates\home\introduction.html:97
 msgid "Latest Users Joining the Coogger"
-msgstr ""
+msgstr "Coogger'a Katılan Son Kullanıcılar"
 
 #: .\core\cooggerapp\templates\home\issues-list.html:5
 msgid "Open Issues"
-msgstr ""
+msgstr "Açık sorunlar"
 
 #: .\core\cooggerapp\templates\home\report.html:6
 msgid "Report / flag"
-msgstr ""
+msgstr "Bildir / işaretle"
 
 #: .\core\cooggerapp\templates\home\search\not_result.html:9
 msgid "SORRY, WE COULDN’T FIND ANY RESULTS FOR"
-msgstr ""
+msgstr "ÜZGÜNÜZ, HERHANGI BIR SONUÇ IÇIN BULAMADIK"
 
 #: .\core\cooggerapp\templates\home\search\not_result.html:12
 msgid "Try a more generic search term."
-msgstr ""
+msgstr "Daha genel bir arama terimi deneyin."
 
 #: .\core\cooggerapp\templates\sponsorship.html:7
 msgid "Sponsorship Information, Policy and FAQ"
-msgstr ""
+msgstr "Sponsorluk Bilgileri, Politika ve SSS"
 
 #: .\core\cooggerapp\templates\sponsorship.html:8
 msgid "Coogger.com needs you, please contact us for sponsorship."
 msgstr ""
+"Coogger.com'un size ihtiyacı var, sponsorluk için lütfen bizimle iletişime "
+"geçin."
 
 #: .\core\cooggerapp\templates\users\about.html:15
 msgid "Our user has not written an article about himself yet."
-msgstr ""
+msgstr "Kullanıcımız henüz kendisi hakkında bir makale yazmadı."
 
 #: .\core\cooggerapp\templates\users\history\comment.html:52
 msgid "This is just a comment, view the full content"
-msgstr ""
+msgstr "Bu sadece bir yorum, tüm içeriği görüntüle"
 
 #: .\core\cooggerapp\templates\users\pp.html:39
 msgid "Followers"
-msgstr ""
+msgstr "Takipçiler"
 
 #: .\core\cooggerapp\templates\users\pp.html:46
 msgid "Following"
-msgstr ""
+msgstr "Takip edilenler"
 
 #: .\core\cooggerapp\templates\users\tabs.html:7
 msgid "TOPIC"
@@ -480,52 +504,52 @@ msgstr "KONULAR"
 
 #: .\core\cooggerapp\templates\users\tabs.html:13
 msgid "CONTENT"
-msgstr "İÇERİKLER"
+msgstr "İÇERİK"
 
 #: .\core\cooggerapp\templates\users\tabs.html:19
 msgid "BOOKMARK"
-msgstr ""
+msgstr "YER İMİ"
 
 #: .\core\cooggerapp\templates\users\tabs.html:25
 msgid "COMMENT"
-msgstr "YORUMLAR"
+msgstr "YORUM"
 
 #: .\core\cooggerapp\templates\users\tabs.html:31
 msgid "ABOUT"
-msgstr "HAKKIMDA"
+msgstr "HAKKINDA"
 
 #: .\core\cooggerapp\templates\users\topic\commit\contribution.html:15
 msgid "Approved"
-msgstr ""
+msgstr "Onaylandı"
 
 #: .\core\cooggerapp\templates\users\topic\commit\contribution.html:18
 msgid "Rejected"
-msgstr ""
+msgstr "Reddedildi"
 
 #: .\core\cooggerapp\templates\users\topic\detail\issues.html:17
 msgid "Issues"
-msgstr ""
+msgstr "Sorunlar"
 
 #: .\core\cooggerapp\templates\users\topic\detail\issues.html:25
 msgid "Closed"
-msgstr ""
+msgstr "Kapalı"
 
 #: .\core\cooggerapp\templates\users\topic\detail\issues.html:32
 #: .\core\cooggerapp\templates\users\topic\issue\detail.html:14
 msgid "Open new issue"
-msgstr ""
+msgstr "Yeni issue aç"
 
 #: .\core\cooggerapp\templates\users\topic\detail\issues.html:58
 msgid "last updated"
-msgstr ""
+msgstr "Son güncelleme"
 
 #: .\core\cooggerapp\templates\users\topic\detail\top.html:42
 msgid "Add content"
-msgstr ""
+msgstr "İçerik ekle"
 
 #: .\core\cooggerapp\templates\users\topic\detail\top.html:46
 msgid "Update"
-msgstr ""
+msgstr "Güncelleme"
 
 #: .\core\cooggerapp\templates\users\topic\detail\top.html:67
 msgid "commits"
@@ -533,11 +557,11 @@ msgstr ""
 
 #: .\core\cooggerapp\templates\users\topic\detail\top.html:80
 msgid "issues"
-msgstr ""
+msgstr "sorunlar"
 
 #: .\core\cooggerapp\templates\users\topic\detail\top.html:91
 msgid "contributions"
-msgstr ""
+msgstr "katkıları"
 
 #: .\core\cooggerapp\templates\users\topic\detail\top.html:101
 msgid "contributors"
@@ -545,16 +569,19 @@ msgstr ""
 
 #: .\core\cooggerapp\templates\users\topic\detail\top.html:115
 msgid "views"
-msgstr ""
+msgstr "Görüntüleme"
 
 #: .\core\cooggerapp\templates\users\topic\issue\detail.html:20
 msgid "Closed this issue"
-msgstr ""
+msgstr "Bu sorunu kapatıldı"
 
 #: .\core\cooggerapp\templates\users\topic\issue\detail.html:25
 msgid "Open this issue"
-msgstr ""
+msgstr "Bu sorunu aç"
 
 #: .\core\vote_system\models.py:52
 msgid "This obj is already saved"
-msgstr ""
+msgstr "Bu obje zaten kaydedildi"
+
+#~ msgid "user."
+#~ msgstr "kullanıcı."

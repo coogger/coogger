@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-31 21:29+0300\n"
+"POT-Creation-Date: 2019-12-31 22:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,17 +260,25 @@ msgstr ""
 msgid "You can delete your Coogger user account at any time."
 msgstr ""
 
-#: .\core\cooggerapp\templates\delete-account.html:13
-msgid "user."
+#: .\core\cooggerapp\templates\delete-account.html:10
+msgid ""
+"Deleting your user account removes your first, last and email addesss and "
+"all topics, bookmarks, votes, views, comments owned by your account."
 msgstr ""
 
-#: .\core\cooggerapp\templates\delete-account.html:17
+#: .\core\cooggerapp\templates\delete-account.html:11
+msgid ""
+"Issues and contributions you've made in topics owned by other users will not "
+"be deleted - instead, they'll be associated with our @Ghost user."
+msgstr ""
+
+#: .\core\cooggerapp\templates\delete-account.html:15
 msgid ""
 "If you delete your account, you will never be able to log in to the coogger "
 "again."
 msgstr ""
 
-#: .\core\cooggerapp\templates\delete-account.html:21
+#: .\core\cooggerapp\templates\delete-account.html:19
 msgid "To delete your account, just enter your username"
 msgstr ""
 
