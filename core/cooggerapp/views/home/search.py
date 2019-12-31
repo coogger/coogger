@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.views.generic import ListView
+from django.contrib import messages
 
 from ...models import Content, SearchedWords, UTopic
 
@@ -14,7 +15,7 @@ class Search(ListView):
 
     def get_template_names(self):
         query = self.request.GET["query"].lower()
-        if query:
+        if query and len(query) > 3:
             if query[0] in self.valid_search:
                 return [getattr(self, f"{self.valid_search[query[0]]}_template_name")]
         if not self.object_list.exists():
@@ -23,11 +24,13 @@ class Search(ListView):
 
     def get_queryset(self):
         query = self.request.GET["query"].lower()
-        if query:
+        if query and len(query) > 3:
             SearchedWords(word=query).save()  # TODO use request signal
             if query[0] in self.valid_search:
                 return getattr(self, self.valid_search[query[0]])(query[1:])
             return self.content(query)
+        else:
+            messages.warning(self.request, "Please enter your search key with min 4 characters or more.")
         return Content.objects.none()
 
     def user(self, query):

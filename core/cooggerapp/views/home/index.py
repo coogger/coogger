@@ -11,7 +11,6 @@ class Index(ListView):
     introduction_template_name = "home/introduction.html"
     not_result_template_name = "home/search/not_result.html"
     paginate_by = 10
-    http_method_names = ["get"]
     introduction = False
     extra_context = dict(insection_left=True, insection_right=True)
 
