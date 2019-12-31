@@ -10,23 +10,25 @@ class Search(ListView):
     content_template_name = "home/search/content.html"
     utopic_template_name = "home/search/utopic.html"
     not_result_template_name = "home/search/not_result.html"
-    http_method_names = ["get"]
     valid_search = {"@": "user", "#": "utopic"}
 
     def get_template_names(self):
+        query = self.request.GET["query"].lower()
+        if query:
+            if query[0] in self.valid_search:
+                return [getattr(self, f"{self.valid_search[query[0]]}_template_name")]
         if not self.object_list.exists():
             return [self.not_result_template_name]
-        search_code = self.get_search_query()[0]
-        if search_code in self.valid_search:
-            return [getattr(self, f"{self.valid_search[search_code]}_template_name")]
         return [self.content_template_name]
 
     def get_queryset(self):
-        query = self.get_search_query()
-        SearchedWords(word=query).save()  # TODO use request signal
-        if query[0] in self.valid_search:
-            return getattr(self, self.valid_search[query[0]])(query[1:])
-        return self.content(query)
+        query = self.request.GET["query"].lower()
+        if query:
+            SearchedWords(word=query).save()  # TODO use request signal
+            if query[0] in self.valid_search:
+                return getattr(self, self.valid_search[query[0]])(query[1:])
+            return self.content(query)
+        return Content.objects.none()
 
     def user(self, query):
         queryset = User.objects.filter(
@@ -42,6 +44,3 @@ class Search(ListView):
 
     def utopic(self, query):
         return UTopic.objects.filter(name__contains=query)
-
-    def get_search_query(self):
-        return self.request.GET["query"].lower()
