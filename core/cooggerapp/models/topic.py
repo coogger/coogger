@@ -2,33 +2,34 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.translation import gettext as _
 
 from .utils import ready_tags, second_convert
 
 
 class CommonTopicModel(models.Model):
     name = models.CharField(
-        max_length=50, verbose_name="Name", help_text="Please, write topic name."
+        max_length=50, verbose_name=_("Name"), help_text=_("Please, write topic name.")
     )
     permlink = models.SlugField(max_length=200)
     image_address = models.URLField(
-        max_length=400, help_text="Add an Image Address", blank=True, null=True
+        max_length=400, help_text=_("Add an Image Address"), blank=True, null=True
     )
     description = models.CharField(
-        max_length=600, help_text="description of topic", blank=True, null=True
+        max_length=600, help_text=_("description of topic"), blank=True, null=True
     )
     tags = models.CharField(
         max_length=200,
         blank=True,
         null=True,
-        verbose_name="Keyword",
-        help_text="Write your tags using spaces",
+        verbose_name=_("Keyword"),
+        help_text=_("Write your tags using spaces"),
     )
     address = models.URLField(
-        blank=True, null=True, max_length=150, help_text="Add an address if it have"
+        blank=True, null=True, max_length=150, help_text=_("Add an address if it have")
     )
     how_many = models.PositiveIntegerField(
-        default=0, verbose_name="How many content in"
+        default=0, verbose_name=_("How many content in")
     )
 
     class Meta:
@@ -44,11 +45,11 @@ class Topic(CommonTopicModel):
     """ Global Topic Model """
 
     editable = models.BooleanField(
-        default=True, verbose_name="Is it editable? | Yes/No"
+        default=True, verbose_name=_("Is it editable? | Yes/No")
     )
 
     class Meta:
-        verbose_name_plural = "Global Topic"
+        verbose_name_plural = _("Global Topic")
         ordering = ["-how_many"]
         unique_together = ["permlink"]
 
@@ -68,34 +69,36 @@ class UTopic(CommonTopicModel):
     """ Topic For Users """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    total_dor = models.FloatField(default=0, verbose_name="Total duration all contents")
+    total_dor = models.FloatField(
+        default=0, verbose_name=_("Total duration all contents")
+    )
     total_view = models.PositiveIntegerField(
-        default=0, verbose_name="Total views all contents"
+        default=0, verbose_name=_("Total views all contents")
     )
     open_issue = models.PositiveIntegerField(
-        default=0, verbose_name="Total count open issue"
+        default=0, verbose_name=_("Total count open issue")
     )
     closed_issue = models.PositiveIntegerField(
-        default=0, verbose_name="Total count closed issue"
+        default=0, verbose_name=_("Total count closed issue")
     )
     open_contribution = models.PositiveIntegerField(
-        default=0, verbose_name="Total count open contributions"
+        default=0, verbose_name=_("Total count open contributions")
     )
     closed_contribution = models.PositiveIntegerField(
-        default=0, verbose_name="Total count closed contributions"
+        default=0, verbose_name=_("Total count closed contributions")
     )
     contributors = models.ManyToManyField(
         User, blank=True, related_name="utopic_contributors"
     )
     contributors_count = models.PositiveIntegerField(
-        default=0, verbose_name="Total contributors count"
+        default=0, verbose_name=_("Total contributors count")
     )
     commit_count = models.PositiveIntegerField(
-        default=0, verbose_name="Total commit count"
+        default=0, verbose_name=_("Total commit count")
     )
 
     class Meta:
-        verbose_name_plural = "User Topic"
+        verbose_name_plural = _("User Topic")
         ordering = ["-total_view", "-how_many"]
         unique_together = [["user", "permlink"]]
 

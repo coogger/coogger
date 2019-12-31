@@ -3,6 +3,7 @@ from core.md_editor.models import EditorMdField
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from ...threaded_comment.models import AbstractThreadedComments
 from .common import Common, View, Vote
@@ -15,19 +16,19 @@ class Issue(AbstractThreadedComments, Common, View, Vote):
     issue_id = models.PositiveIntegerField(default=0)
     title = models.CharField(
         max_length=200,
-        help_text="Be sure to choose the best title",
+        help_text=_("Be sure to choose the best title"),
         null=True,
         blank=True,
     )
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     body = EditorMdField(
-        null=True, blank=True, help_text="Your problem | question | or anything else"
+        null=True, blank=True, help_text=_("Your problem | question | or anything else")
     )
     status = models.CharField(
         default="open",
         choices=make_choices(ISSUE_CHOICES),
         max_length=55,
-        help_text="Status",
+        help_text=_("Status"),
         null=True,
         blank=True,
     )

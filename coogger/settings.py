@@ -56,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -76,6 +77,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.i18n",
             ]
         ),
     )
@@ -93,9 +95,6 @@ DATABASES = dict(
     # ),
 )
 AUTH_PASSWORD_VALIDATORS = []
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
@@ -111,6 +110,16 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+ugettext = lambda s: s
+LANGUAGES = (
+    ("tr", ugettext("Turkish")),
+    ("en", ugettext("English")),
+)
+LANGUAGE_CODE = "tr"
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 # 3. part confs
 MDEDITOR_CONFIGS = dict(emoji=True, html_decode="style,script")
 GITHUB_AUTH = dict(

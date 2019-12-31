@@ -1,7 +1,7 @@
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.views.generic import ListView
-from django.contrib import messages
 
 from ...models import Content, SearchedWords, UTopic
 
@@ -30,7 +30,10 @@ class Search(ListView):
                 return getattr(self, self.valid_search[query[0]])(query[1:])
             return self.content(query)
         else:
-            messages.warning(self.request, "Please enter your search key with min 4 characters or more.")
+            messages.warning(
+                self.request,
+                "Please enter your search key with min 4 characters or more.",
+            )
         return Content.objects.none()
 
     def user(self, query):

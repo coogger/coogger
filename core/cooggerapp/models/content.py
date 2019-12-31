@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.translation import gettext as _
 
 from ...threaded_comment.models import AbstractThreadedComments
 from ..views.utils import check_redirect_exists
@@ -19,41 +20,43 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     permlink = models.SlugField(max_length=200)
     title = models.CharField(
-        max_length=200, help_text="Be sure to choose the best title"
+        max_length=200, help_text=_("Be sure to choose the best title")
     )
     body = EditorMdField(
         verbose_name="",
-        help_text="Your content | problem | question | or anything else",
+        help_text=_("Your content | problem | question | or anything else"),
     )
     utopic = models.ForeignKey(
         UTopic,
         on_delete=models.CASCADE,
-        verbose_name="Your topic",
-        help_text="Please, write your topic about your contents.",
+        verbose_name=_("Your topic"),
+        help_text=_("Please, write your topic about your contents."),
     )
     language = models.CharField(
         max_length=30,
         choices=make_choices(LANGUAGES),
-        help_text="The language of your content",
+        help_text=_("The language of your content"),
     )
     tags = models.CharField(
         max_length=200,
-        verbose_name="Keywords",
-        help_text="Write your tags using spaces, max:5",
+        verbose_name=_("Keywords"),
+        help_text=_("Write your tags using spaces, max:5"),
     )
     image_address = models.URLField(null=True, blank=True)
     status = models.CharField(
         default="ready",
         max_length=30,
         choices=make_choices(STATUS_CHOICES),
-        verbose_name="article's status",
-        help_text="if your article isn't ready to publish yet, select 'not ready to publish'.",
+        verbose_name=_("article's status"),
+        help_text=_(
+            "if your article isn't ready to publish yet, select 'not ready to publish'."
+        ),
     )
     contributors = models.ManyToManyField(
         User, blank=True, related_name="content_contributors"
     )
     contributors_count = models.PositiveIntegerField(
-        default=0, verbose_name="Total contributors count"
+        default=0, verbose_name=_("Total contributors count")
     )
 
     class Meta:

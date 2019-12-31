@@ -1,0 +1,264 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-31 20:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\coogger\settings.py:115
+msgid "Turkish"
+msgstr ""
+
+#: .\coogger\settings.py:116
+msgid "English"
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:23 .\core\cooggerapp\models\issue.py:19
+msgid "Be sure to choose the best title"
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:27
+msgid "Your content | problem | question | or anything else"
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:32
+msgid "Your topic"
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:33
+msgid "Please, write your topic about your contents."
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:38
+msgid "The language of your content"
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:42
+msgid "Keywords"
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:43
+msgid "Write your tags using spaces, max:5"
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:50
+msgid "article's status"
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:52
+msgid ""
+"if your article isn't ready to publish yet, select 'not ready to publish'."
+msgstr ""
+
+#: .\core\cooggerapp\models\content.py:59 .\core\cooggerapp\models\topic.py:94
+msgid "Total contributors count"
+msgstr ""
+
+#: .\core\cooggerapp\models\issue.py:25
+msgid "Your problem | question | or anything else"
+msgstr ""
+
+#: .\core\cooggerapp\models\issue.py:31
+msgid "Status"
+msgstr ""
+
+#: .\core\cooggerapp\models\report.py:13
+msgid "reporter"
+msgstr ""
+
+#: .\core\cooggerapp\models\report.py:15
+msgid "reported person"
+msgstr ""
+
+#: .\core\cooggerapp\models\report.py:18
+msgid "type of report"
+msgstr ""
+
+#: .\core\cooggerapp\models\report.py:24
+msgid "Can you give more information ?"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:12
+msgid "Name"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:12
+msgid "Please, write topic name."
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:16
+msgid "Add an Image Address"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:19
+msgid "description of topic"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:25
+msgid "Keyword"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:26
+msgid "Write your tags using spaces"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:29
+msgid "Add an address if it have"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:32
+msgid "How many content in"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:48
+msgid "Is it editable? | Yes/No"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:52
+msgid "Global Topic"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:73
+msgid "Total duration all contents"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:76
+msgid "Total views all contents"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:79
+msgid "Total count open issue"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:82
+msgid "Total count closed issue"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:85
+msgid "Total count open contributions"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:88
+msgid "Total count closed contributions"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:97
+msgid "Total commit count"
+msgstr ""
+
+#: .\core\cooggerapp\models\topic.py:101
+msgid "User Topic"
+msgstr ""
+
+#: .\core\cooggerapp\models\userextra.py:15
+msgid "website"
+msgstr ""
+
+#: .\core\cooggerapp\models\userextra.py:18
+msgid "write address / username"
+msgstr ""
+
+#: .\core\cooggerapp\models\userextra.py:29
+msgid "Write a long article about yourself, see; /u/@your_username/about/"
+msgstr ""
+
+#: .\core\cooggerapp\models\userextra.py:31
+msgid "About Yourself"
+msgstr ""
+
+#: .\core\cooggerapp\models\userextra.py:37
+msgid "Write something short about yourself, this will appear in your profile."
+msgstr ""
+
+#: .\core\cooggerapp\models\userextra.py:45
+msgid "Allow email notifications."
+msgstr ""
+
+#: .\core\cooggerapp\models\userextra.py:51
+msgid "title"
+msgstr ""
+
+#: .\core\cooggerapp\models\userextra.py:52
+msgid "Title"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:19
+msgid "Login via github"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:29
+msgid "Create Topic"
+msgstr "Konu Oluştur"
+
+#: .\core\cooggerapp\templates\home\header.html:53
+msgid "Explorer"
+msgstr "Keşfet"
+
+#: .\core\cooggerapp\templates\home\header.html:61
+msgid "Feed"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:69
+msgid "Contents"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:77
+msgid "Bookmark"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:85
+msgid "Comments"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:93
+msgid "About"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:101
+msgid "Settings"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:109
+msgid "Coogger Images"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:117
+msgid "Sign out"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\tabs.html:7
+msgid "TOPIC"
+msgstr "KONULAR"
+
+#: .\core\cooggerapp\templates\users\tabs.html:13
+msgid "CONTENT"
+msgstr "İÇERİKLER"
+
+#: .\core\cooggerapp\templates\users\tabs.html:19
+msgid "BOOKMARK"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\tabs.html:25
+msgid "COMMENT"
+msgstr "YORUMLAR"
+
+#: .\core\cooggerapp\templates\users\tabs.html:31
+msgid "ABOUT"
+msgstr "HAKKIMDA"
+
+#: .\core\vote_system\models.py:52
+msgid "This obj is already saved"
+msgstr ""

@@ -1,3 +1,4 @@
+{% load i18n %}
 <header general="flex flex:ai-c br:1 position:center bg:white">
   <div general="flex flex:fw-nw flex:jc-c width:90" mobile-l="width:96" mobile-m="width:96" mobile-s="width:96"
     style="overflow: auto;padding: 0px 0px 6px 0px;">
@@ -15,7 +16,7 @@
       <a style="padding: 6px 12px;"
         general="flex flex:ai-c width:max text:m color:dark color:dark:hover bg:white:hover br:2:hover"
         href="{% url 'redirect-github' %}?next={{ request.META.PATH_INFO }}">
-        <i general="text:xxl" class="fab fa-github-square"></i>Login via github
+        <i general="text:xxl" class="fab fa-github-square"></i>{% trans "Login via github" %}
       </a>
     </div>
     {% else %}
@@ -25,7 +26,7 @@
           general="flex width:max text:m color:dark color:white:hover bg:success:hover br:2:hover"
           href="{% url 'create-utopic' %}">
           <i general="flex flex:as-c" class="fa fa-plus-circle" aria-hidden="true"></i>
-          <span class="just-pc">Create Topic</span>
+          <span class="just-pc">{% trans "Create Topic" %}</span>
         </a>
       </div>
       <div class="open_header_menu" general="position:center">
@@ -49,7 +50,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
               href="{% url 'index' %}">
               <i general="flex flex:as-c" class="fas fa-compass"></i>
-              <span>Explorer</span>
+              <span>{% trans "Explorer" %}</span>
             </a>
           </div>
           <div general="flex">
@@ -57,7 +58,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
               href="{% url 'feed' request.user %}">
               <i general="flex flex:as-c" class="fas fa-stream"></i>
-              <span>Feed</span>
+              <span>{% trans "Feed" %}</span>
             </a>
           </div>
           <div general="flex">
@@ -65,7 +66,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
               href="{% url 'usercontent' request.user %}">
               <i general="flex flex:as-c" class="fas fa-file-alt"></i>
-              Contents
+              {% trans "Contents" %}
             </a>
           </div>
           <div general="flex">
@@ -73,7 +74,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
               href="{% url 'bookmark' request.user %}">
               <i general="flex flex:as-c" class="fas fa-bookmark"></i>
-              <span>Bookmark</span>
+              <span>{% trans "Bookmark" %}</span>
             </a>
           </div>
           <div general="flex">
@@ -81,7 +82,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
               href="{% url 'comment' request.user %}">
               <i general="flex flex:as-c" class="fas fa-comments" aria-hidden="true"></i>
-              <span>Comments</span>
+              <span>{% trans "Comments" %}</span>
             </a>
           </div>
           <div general="flex">
@@ -89,7 +90,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
               href="{% url 'userabout' request.user %}">
               <i general="flex flex:as-c" class="fas fa-file-alt" aria-hidden="true"></i>
-              <span>About</span>
+              <span>{% trans "About" %}</span>
             </a>
           </div>
           <div general="flex">
@@ -97,7 +98,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
               href="{% url 'settings' %}">
               <i general="flex flex:as-c" class="fa fa-cog" aria-hidden="true"></i>
-              <span>Settings</span>
+              <span>{% trans "Settings" %}</span>
             </a>
           </div>
           <div general="flex">
@@ -105,7 +106,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:success:hover br:2:hover flex"
               href="{% url 'coogger-images' %}">
               <i general="flex flex:as-c" class="fas fa-file-image"></i>
-              <span>Coogger Images</span>
+              <span>{% trans "Coogger Images" %}</span>
             </a>
           </div>
           <div general="flex">
@@ -113,7 +114,7 @@
               general="text:m color:secondary width:100 color:white:hover bg:danger:hover br:2:hover flex"
               href="{% url 'logout' %}?next={{ request.META.PATH_INFO }}">
               <i general="flex flex:as-c" class="fas fa-sign-out-alt"></i>
-              <span>Sign out</span>
+              <span>{% trans "Sign out" %}</span>
             </a>
           </div>
         </div>

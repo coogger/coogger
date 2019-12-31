@@ -6,6 +6,7 @@ from django.urls import include, path
 from .utils import just_redirect_by_name
 
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
     path("accounts/github/", include("github_auth.urls")),
     path("follow/", include("core.follow_system.urls")),
     path("vote/", include("core.vote_system.urls")),

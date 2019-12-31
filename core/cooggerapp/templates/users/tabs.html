@@ -1,34 +1,34 @@
-{% load coogger_tags %}
+{% load i18n coogger_tags %}
 <div general="flex position:center width:100">
   <div general="flex flex:fw-nw text:m" style="padding: 6px 0px;overflow: auto;">
     <a class="tab-a" href="{% url 'user' current_user %}"
       general="{% if tab == 'utopic' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">
       <span class="fas fa-sitemap" general="flex flex:as-fs flex:ai-c width:max">
-        TOPIC {{ current_user|get_count:"utopic" }}
+        {% trans "TOPIC" %} {{ current_user|get_count:"utopic" }}
       </span>
     </a>
     <a class="tab-a" href="{% url 'usercontent' current_user %}"
       general="{% if tab == 'content' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">
       <span class="fas fa-file-alt" general="flex flex:as-fs flex:ai-c width:max">
-        CONTENT {{ current_user|hmanycontent }}
+        {% trans "CONTENT" %} {{ current_user|hmanycontent }}
       </span>
     </a>
     <a class="tab-a" href="{% url 'bookmark' current_user %}"
       general="{% if tab == 'bookmark' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">
       <span class="fas fa-bookmark" general="flex flex:as-fs flex:ai-c width:max">
-        BOOKMARK {{ current_user|get_count:"bookmark"}}
+        {% trans "BOOKMARK" %} {{ current_user|get_count:"bookmark"}}
       </span>
     </a>
     <a class="tab-a" href="{% url 'comment' current_user %}"
       general="{% if tab == 'comment' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">
       <span class="fas fa-comments" general="flex flex:as-fs flex:ai-c width:max">
-        COMMENT {{ current_user|get_count:"comments" }}
+        {% trans "COMMENT" %} {{ current_user|get_count:"comments" }}
       </span>
     </a>
     <a class="tab-a" href="{% url 'userabout' current_user %}"
       general="{% if tab == 'about' %} color:white bg:primary {% else %} color:secondary color:white:hover bg:primary:hover {% endif %}">
       <span class="fas fa-file-alt" general="flex flex:as-fs flex:ai-c width:max">
-        ABOUT
+        {% trans "ABOUT" %}
       </span>
     </a>
   </div>
