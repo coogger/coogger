@@ -1,5 +1,5 @@
 {% extends "users/general.html" %}
-{% load md_editor %}
+{% load md_editor i18n %}
 {% block useright %}
 <div general="position:center bg:white width:100 text:s" id="comment_template" class="comment_template">
   <div id="comment-history" class="comment-history" general="width:100" mobile-s="width:100" mobile-l="width:98"
@@ -49,7 +49,7 @@
         <div general="border:2 br:2 brc:yellow flex flex:ai-c position:right bg:yellow width:max"
           style="padding: 0px 4px;">
           <a href="{{ comment.get_absolute_url }}" general="text:s color:dark">
-            This is just a comment, view the full content
+            {% trans "This is just a comment, view the full content" %}
           </a>
         </div>
       </div>

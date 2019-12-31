@@ -1,4 +1,4 @@
-{% load coogger_tags %}
+{% load coogger_tags i18n %}
 <div general="border:1 brc:muted br:2 width:100" class="utopic-user">
   <div style="padding: 6px;">
     <div general="flex flex:ai-c border:1 brc:muted br:2" style="margin-bottom: 6px;padding: 4px;">
@@ -39,11 +39,11 @@
       <div general="flex position:right">
         <a general="br:1 color:white bg:success text:s position:right" href="{% url 'create' utopic.permlink %}"
           style="padding: 6px;">
-          Add content
+          {% trans "Add content" %}
         </a>
         <a general="br:1 color:white bg:warning text:s position:right" href="{% url  'update-utopic' utopic.permlink %}"
           style="padding: 6px 20px;">
-          Update
+          {% trans "Update" %}
         </a>
       </div>
       {% endif %}
@@ -64,7 +64,7 @@
         <i class="fas fa-history"></i>
         <span id="commits_count">
           <span general="color:secondary" class="just-pc">
-            commits
+            {% trans "commits" %}
           </span>
           <strong>
             {{ utopic.commit_count }}
@@ -77,7 +77,7 @@
         <i class="fas fa-exclamation-circle"></i>
         <span id="">
           <span general="color:secondary" class="just-pc">
-            issues
+            {% trans "issues" %}
           </span>
           <strong>{{ utopic.open_issue }}</strong>
         </span>
@@ -88,7 +88,7 @@
         <i class="fas fa-plus"></i>
         <span id="">
           <span general="color:secondary" class="just-pc">
-            contributions
+            {% trans "contributions" %}
           </span>
           <strong>{{ utopic.open_contribution }}</strong>
         </span>
@@ -98,7 +98,7 @@
       <div general="flex flex:ai-c text:s ">
         <i class="fas fa-user-friends"></i>
         <span id="">
-          <span general="color:secondary" class="just-pc">contributors</span>
+          <span general="color:secondary" class="just-pc">{% trans "contributors" %}</span>
           <strong>{{ utopic.contributors_count }}</strong>
         </span>
       </div>
@@ -112,7 +112,7 @@
     <div general="flex text:s flex:ai-c" mobile-s="text:xs">
       <div style="margin-left: 12px;">
         <i class="fas fa-eye"></i>
-        <span general="color:secondary" class="just-pc"> views</span>
+        <span general="color:secondary" class="just-pc">{% trans "views" %}</span>
         <span>{{ utopic.total_view }}</span>
       </div>
     </div>

@@ -1,5 +1,5 @@
 {% extends "home/html.html" %}
-{% load coogger_tags %}
+{% load coogger_tags i18n %}
 {% block body %}
 <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
   <div general="flex position:center flex:fd-c">
@@ -11,18 +11,18 @@
         <div general="position:right" style="margin-bottom: 6px;">
           <a general="br:1 color:white bg:green text:s" href="{% url 'new-issue' current_user utopic.permlink %}"
             style="padding: 6px;margin-right: 6px;">
-            Open new issue
+            {% trans "Open new issue" %}
           </a>
           {% if request.user == current_user or queryset.user == request.user %}
           {% if queryset.status == "open" %}
           <a general="br:1 color:white bg:red text:s"
             href="{% url 'closed-issue' current_user utopic.permlink queryset.issue_id %}" style="padding: 6px;">
-            Closed this issue
+            {% trans "Closed this issue" %}
           </a>
           {% elif queryset.status == "closed" %}
           <a general="br:1 color:white bg:blue text:s"
             href="{% url 'open-issue' current_user utopic.permlink queryset.issue_id %}" style="padding: 6px;">
-            Open this issue
+            {% trans "Open this issue" %}
           </a>
           {% endif %}
           {% endif %}
@@ -46,7 +46,7 @@
             <div general="flex flex:ai-c">
               <a href="{% url 'update-issue' queryset.utopic.user queryset.utopic.permlink queryset.issue_id %}">
                 <i class="fa fa-edit fa"></i>
-                Edit
+                {% trans "Edit" %}
               </a>
             </div>
             {% endif %}

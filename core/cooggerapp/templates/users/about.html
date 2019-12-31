@@ -1,5 +1,6 @@
 {% extends "users/general.html" %}
 {% block useright %}
+{% load i18n %}
 {% if about %}
 <div general="position:center width:100">
     <div default="paragraph pm" mobile-l="width:98" tablet="width:80" laptop="width:40" laptop-l="width:70"
@@ -11,7 +12,7 @@
         tablet="width:60" laptop="width:40" laptop-l="width:70" style="height:20vh;">
         <div general="flex position:center flex:jc-c" mobile-s="width:100" mobile-l="width:98" tablet="width:60"
             laptop="width:40" laptop-l="width:70">
-            Our user has not written an article about himself yet.
+            {% trans "Our user has not written an article about himself yet." %}
         </div>
     </div>
 </div>

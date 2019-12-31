@@ -1,8 +1,9 @@
+{% load i18n %}
 {% if insection_left %}
 <div class="just-pc topic-index" general="flex flex:fw-nw bg:white brc:white width:20 br:4">
   <strong general="position:left text:l flex flex:ai-c" class="htt">
     <i class="fas fa-hashtag"></i>
-    Most Remarkable Topics
+    {% trans "Most Remarkable Topics" %}
   </strong>
   {% with sort_topics as object_list %}
   {% include 'common/topic-list.html' %}

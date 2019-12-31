@@ -1,23 +1,24 @@
 {% extends "home/html.html" %}
+{% load i18n %}
 {% block body %}
 <div general="br:2 width:50 position:center height:80" tablet="width:70" mobile-l="width:80" mobile-m="width:90"
     mobile-m="width:96">
     <div>
-        <h1>Deleting your user account</h1>
-        <h2>You can delete your Coogger user account at any time.</h2>
+        <h1>{% trans "Deleting your user account" %}</h1>
+        <h2>{% trans "You can delete your Coogger user account at any time." %}</h2>
         <p>
             Deleting your user account removes your first, last and email addesss and all topics, bookmarks, votes,
             views, comments owned by your account.
             Issues and contributions you've made in topics owned by other users will not be
-            deleted - instead, they'll be associated with our <a general="color:primary" href="/@ghost">@Ghost</a> user.
+            deleted - instead, they'll be associated with our" %} <a general="color:primary" href="/@ghost">@Ghost</a> {% trans "user." %}
         </p>
         <br>
         <p>
-            If you delete your account, you will never be able to log in to the coogger again.
+            {% trans "If you delete your account, you will never be able to log in to the coogger again." %}
         </p>
         <br>
         <p>
-            <span general="bg:warning color:white">To delete your account, just enter your username</span>
+            <span general="bg:warning color:white">{% trans "To delete your account, just enter your username" %}</span>
             {% include 'forms/create_form.html' %}
         </p>
     </div>

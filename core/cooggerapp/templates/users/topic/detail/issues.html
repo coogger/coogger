@@ -1,5 +1,5 @@
 {% extends "home/html.html" %}
-{% load coogger_tags %}
+{% load coogger_tags i18n %}
 {% block body %}
 <div style="margin: auto;margin-top: 12px;" general="width:100" mobile-l="txt-s">
   <div general="flex position:center flex:fd-c">
@@ -14,7 +14,7 @@
               <div general="flex flex:ai-c">
                 <i general="color:green" class="fas fa-exclamation-circle"></i>
                 <span id="" general="text:s">
-                  <strong>{{ utopic.open_issue }}</strong> Issues
+                  <strong>{{ utopic.open_issue }}</strong> {% trans "Issues" %}
                 </span>
               </div>
             </a>
@@ -22,14 +22,14 @@
               <div general="flex flex:ai-c">
                 <i general="color:red" class="fas fa-check"></i>
                 <span id="" general="text:s">
-                  <strong>{{ utopic.closed_issue }} </strong> Closed
+                  <strong>{{ utopic.closed_issue }} </strong> {% trans "Closed" %}
                 </span>
               </div>
             </a>
           </div>
           <a general="br:1 color:white bg:green text:s position:right"
             href="{% url 'new-issue' current_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
-            <span general="position:center">Open new issue</span>
+            <span general="position:center">{% trans "Open new issue" %}</span>
           </a>
           <ul class="issues">
             <!-- issue list open or closed -->
@@ -55,7 +55,7 @@
                   <a href="/@{{ issue.user }}">@{{ issue.user }}</a>
                 </span>
                 <div>
-                  last updated {{ issue.updated|timesince }}
+                  {% trans "last updated" %} {{ issue.updated|timesince }}
                 </div>
               </div>
             </li>

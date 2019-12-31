@@ -1,3 +1,4 @@
+{% load i18n %}
 <div general="width:20" class="just-pc topic-info" style="margin-left: 12px;margin-top: 4px;">
   <div general="flex position:right border:1 br:2 brc:muted bg:dark flex:fd-c"
     style="padding: 6px 10px;position: sticky;top: 70px;">
@@ -14,7 +15,7 @@
     </div>
     {% endif %}
     <span general="text:s border:1 brc:white br:2 color:white wf position:center" style="padding: 2px 6px;">
-      <span>CONTENTS {{ topic.how_many }}</span>
+      <span>{% trans "CONTENTS" %} {{ topic.how_many }}</span>
     </span>
     <div class="topic-users" style="margin: 4px 0px;">
       {% for user in topic_users %}
@@ -32,7 +33,7 @@
         style="height: 0%;margin: 0px 6px;padding: 6px;">
     </div>
     <span general="text:s border:1 brc:white br:2 color:white wf position:center" style="padding: 2px 6px;">
-      <span>CONTENTS {{ queryset.paginator.count }}</span>
+      <span>{% trans "CONTENTS" %} {{ queryset.paginator.count }}</span>
     </span>
     {% elif language %}
     <div general="flex position:center flex:ai-c" style="margin-bottom: 12px;">
@@ -42,7 +43,7 @@
         style="height: 0%;margin: 0px 6px;padding: 6px;">
     </div>
     <span general="text:s border:1 brc:white br:2 color:white wf position:center" style="padding: 2px 6px;">
-      <span>CONTENTS {{ queryset.paginator.count }}</span>
+      <span>{% trans "CONTENTS" %} {{ queryset.paginator.count }}</span>
     </span>
     {% elif filter %}
     <div general="flex position:center flex:ai-c" style="margin-bottom: 12px;">
@@ -52,7 +53,7 @@
         style="height: 0%;margin: 0px 6px;padding: 6px;">
     </div>
     <span general="text:s border:1 brc:white br:2 color:white wf position:center" style="padding: 2px 6px;">
-      <span>CONTENTS {{ queryset.paginator.count }}</span>
+      <span>{% trans "CONTENTS" %} {{ queryset.paginator.count }}</span>
     </span>
     {% endif %}
     <!--  -->

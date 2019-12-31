@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-31 20:47+0300\n"
+"POT-Creation-Date: 2019-12-31 21:29+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -195,13 +195,157 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: .\core\cooggerapp\templates\home\header.html:19
-msgid "Login via github"
+#: .\core\cooggerapp\templates\common\there-is-no-data.html:5
+msgid "There is no data"
 msgstr ""
 
+#: .\core\cooggerapp\templates\content\detail\edit.html:4
+#: .\core\cooggerapp\templates\content\detail\edit.html:9
+#: .\core\cooggerapp\templates\users\topic\commit\contribution.html:6
+#: .\core\cooggerapp\templates\users\topic\issue\detail.html:49
+msgid "Edit"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\detail\edit.html:14
+msgid "Contribute"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\detail\left.html:4
+msgid "Other Contents of The Topic"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\detail\status.html:4
+msgid "This article is not ready to read"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\detail\userinfo.html:29
+msgid "Last update"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\detail\userinfo.html:53
+#: .\core\cooggerapp\templates\users\pp.html:55
+msgid "Unfollow"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\detail\userinfo.html:59
+#: .\core\cooggerapp\templates\users\pp.html:61
+msgid "Follow"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\post\editor-note.html:2
+msgid "How To Write My Content ?"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\post\editor-note.html:3
+msgid "What is Markdown ?"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\post\editor-note.html:4
+msgid "Need help for learing **markdown** format ? Check These Addresses Below"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\post\editor-note.html:11
+msgid "Coogger Post Guide"
+msgstr ""
+
+#: .\core\cooggerapp\templates\content\post\editor-note.html:14
+msgid "How To Upload My Image"
+msgstr ""
+
+#: .\core\cooggerapp\templates\delete-account.html:7
+msgid "Deleting your user account"
+msgstr ""
+
+#: .\core\cooggerapp\templates\delete-account.html:8
+msgid "You can delete your Coogger user account at any time."
+msgstr ""
+
+#: .\core\cooggerapp\templates\delete-account.html:13
+msgid "user."
+msgstr ""
+
+#: .\core\cooggerapp\templates\delete-account.html:17
+msgid ""
+"If you delete your account, you will never be able to log in to the coogger "
+"again."
+msgstr ""
+
+#: .\core\cooggerapp\templates\delete-account.html:21
+msgid "To delete your account, just enter your username"
+msgstr ""
+
+#: .\core\cooggerapp\templates\email\contribute.html:10
+#: .\core\cooggerapp\templates\email\first_login.html:14
+#: .\core\cooggerapp\templates\email\follow.html:7
+#: .\core\cooggerapp\templates\email\new-issue.html:11
+#: .\core\cooggerapp\templates\email\post.html:6
+#: .\core\cooggerapp\templates\email\reply.html:10
+msgid ""
+"You can give us the greatest support by recommending Coogger to your friends."
+msgstr ""
+
+#: .\core\cooggerapp\templates\email\new-issue.html:9
+msgid "Click to visit this issue."
+msgstr ""
+
+#: .\core\cooggerapp\templates\email\post.html:3
+msgid "Here is the content, click and read"
+msgstr ""
+
+#: .\core\cooggerapp\templates\email\reply.html:6
+msgid "left a comment on your post click to reply."
+msgstr ""
+
+#: .\core\cooggerapp\templates\forms\search.html:5
+msgid "search content, #topic or @user .."
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\explorer.html:18
+#: .\core\cooggerapp\templates\home\explorer.html:36
+#: .\core\cooggerapp\templates\home\explorer.html:46
+#: .\core\cooggerapp\templates\home\explorer.html:56
+msgid "CONTENTS"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\footer.html:12
+msgid "Guide"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\footer.html:16
+msgid "Privacy Policy"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\footer.html:20
+msgid "Sponsorship"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\footer.html:24
+msgid "Delete Account"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\footer.html:28
+#: .\core\cooggerapp\templates\home\header.html:109
+msgid "Coogger Images"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\footer.html:32
 #: .\core\cooggerapp\templates\home\header.html:29
 msgid "Create Topic"
 msgstr "Konu Oluştur"
+
+#: .\core\cooggerapp\templates\home\footer.html:36
+#, fuzzy
+#| msgid "Explorer"
+msgid "Explore posts"
+msgstr "Keşfet"
+
+#: .\core\cooggerapp\templates\home\footer.html:40
+msgid "SOCIAL"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\header.html:19
+msgid "Login via github"
+msgstr ""
 
 #: .\core\cooggerapp\templates\home\header.html:53
 msgid "Explorer"
@@ -212,6 +356,7 @@ msgid "Feed"
 msgstr "Feed"
 
 #: .\core\cooggerapp\templates\home\header.html:69
+#: .\core\cooggerapp\templates\users\pp.html:32
 msgid "Contents"
 msgstr "İçerikler"
 
@@ -231,12 +376,100 @@ msgstr "Hakkında"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: .\core\cooggerapp\templates\home\header.html:109
-msgid "Coogger Images"
-msgstr ""
-
 #: .\core\cooggerapp\templates\home\header.html:117
 msgid "Sign out"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\insection-left.html:6
+msgid "Most Remarkable Topics"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:10
+msgid ""
+"Coogger is a platform for developers to publish technical documents in the "
+"best way."
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:18
+#, fuzzy
+#| msgid "Explorer"
+msgid "Explore coogger"
+msgstr "Keşfet"
+
+#: .\core\cooggerapp\templates\home\introduction.html:21
+msgid "About Coogger"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:26
+msgid "We are open-source"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:35
+msgid "Coogger has issue feature, click and check this is an example"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:51
+msgid "Coogger has commit feature, click and check this is an example"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:57
+msgid "Coogger use markdown format"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:63
+msgid "Coogger is the same on all browsers"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:69
+msgid "Coogger is a responsive design"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:80
+msgid "Some Documents Written by Our Users"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:97
+msgid "Latest Users Joining the Coogger"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\issues-list.html:5
+msgid "Open Issues"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\report.html:6
+msgid "Report / flag"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\search\not_result.html:9
+msgid "SORRY, WE COULDN’T FIND ANY RESULTS FOR"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\search\not_result.html:12
+msgid "Try a more generic search term."
+msgstr ""
+
+#: .\core\cooggerapp\templates\sponsorship.html:7
+msgid "Sponsorship Information, Policy and FAQ"
+msgstr ""
+
+#: .\core\cooggerapp\templates\sponsorship.html:8
+msgid "Coogger.com needs you, please contact us for sponsorship."
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\about.html:15
+msgid "Our user has not written an article about himself yet."
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\history\comment.html:52
+msgid "This is just a comment, view the full content"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\pp.html:39
+msgid "Followers"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\pp.html:46
+msgid "Following"
 msgstr ""
 
 #: .\core\cooggerapp\templates\users\tabs.html:7
@@ -258,6 +491,69 @@ msgstr "YORUMLAR"
 #: .\core\cooggerapp\templates\users\tabs.html:31
 msgid "ABOUT"
 msgstr "HAKKIMIZDA"
+
+#: .\core\cooggerapp\templates\users\topic\commit\contribution.html:15
+msgid "Approved"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\commit\contribution.html:18
+msgid "Rejected"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\issues.html:17
+msgid "Issues"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\issues.html:25
+msgid "Closed"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\issues.html:32
+#: .\core\cooggerapp\templates\users\topic\issue\detail.html:14
+msgid "Open new issue"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\issues.html:58
+msgid "last updated"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\top.html:42
+#, fuzzy
+#| msgid "Contents"
+msgid "Add content"
+msgstr "İçerikler"
+
+#: .\core\cooggerapp\templates\users\topic\detail\top.html:46
+msgid "Update"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\top.html:67
+msgid "commits"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\top.html:80
+msgid "issues"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\top.html:91
+msgid "contributions"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\top.html:101
+msgid "contributors"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\detail\top.html:115
+msgid "views"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\issue\detail.html:20
+msgid "Closed this issue"
+msgstr ""
+
+#: .\core\cooggerapp\templates\users\topic\issue\detail.html:25
+msgid "Open this issue"
+msgstr ""
 
 #: .\core\vote_system\models.py:52
 msgid "This obj is already saved"

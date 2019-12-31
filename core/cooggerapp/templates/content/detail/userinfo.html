@@ -1,4 +1,4 @@
-{% load follow_system_tags %}
+{% load follow_system_tags i18n %}
 <div general="bg:white" style="border-bottom: 1px solid #eaecee;">
   <div general="flex flex:ai-fs bg:white" style="padding: 12px 0px;">
     <img general="br:circle position:left" id="detail_profile_image" src="{{ current_user.githubauthuser.avatar_url }}"
@@ -26,7 +26,7 @@
     <div general="flex text:s position:right flex:ai-c" class="just-pc">
       <div style="margin-right: 12px;">
         <i class="fas fa-clock"></i>
-        Last update | <span id="lastmod">{{ queryset.updated|timesince }}</span>
+        {% trans "Last update" %} | <span id="lastmod">{{ queryset.updated|timesince }}</span>
       </div>
     </div>
   </div>
@@ -50,13 +50,13 @@
     <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}"
       general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover width:2"
       style="cursor:pointer;padding: 2px 30px;">
-      <div general="text:s color:white" id="follow">Unfollow</div>
+      <div general="text:s color:white" id="follow">{% trans "Unfollow" %}</div>
     </div>
     {% else %}
     <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}"
       general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover width:2"
       style="cursor:pointer;padding: 3px 30px;">
-      <div general="text:s color:white" id="follow">Follow</div>
+      <div general="text:s color:white" id="follow">{% trans "Follow" %}</div>
     </div>
     {% endif %}
     {% endif %}

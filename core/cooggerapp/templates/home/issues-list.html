@@ -1,7 +1,8 @@
+{% load i18n %}
 <div general="flex flex:fd-c width:100">
   <strong general="position:left text:l width:100 flex flex:ai-c" class="il">
     <i class="fas fa-exclamation-circle" style="margin-left: 6px;"></i>
-    Open Issues
+    {% trans "Open Issues" %}
   </strong>
   {% for issue in issues %}
   <div general="position:left width:100" class="ic">

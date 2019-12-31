@@ -1,9 +1,10 @@
+{% load i18n %}
 {% include 'email/head.html' %}
 
 <div general="position:center">
     <a general="position:center" href="https://www.coogger.com{{get_absolute_url}}">
-        {{ user }} left a comment on your post click to reply.
+        {{ user }} {% trans "left a comment on your post click to reply." %}
     </a>
 </div>
 
-You can give us the greatest support by recommending Coogger to your friends.
+{% trans "You can give us the greatest support by recommending Coogger to your friends." %}

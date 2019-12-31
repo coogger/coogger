@@ -1,3 +1,4 @@
+{% load i18n %}
 <footer general="bg:dark color:white">
   <div general="flex flex:fd-c width:100">
     <div class="closed_footer" general="text:xxl br:2 width:max">
@@ -8,35 +9,35 @@
       <br>
       <div general="flex flex:fd-c">
         <a class="fas fa-feather" general="color:white text:l color:primary:hover" href="/guide/@hakancelik96/">
-          Guide
+          {% trans "Guide" %}
         </a>
         <br>
         <a class="fas fa-user-secret" general="color:white text:l color:dark:hover" href="{% url 'privacy' %}">
-          Privacy Policy
+          {% trans "Privacy Policy" %}
         </a>
         <br>
         <a class="fas fa-heart" general="color:white text:l color:danger:hover" href="{% url 'sponsorship' %}">
-          Sponsorship
+          {% trans "Sponsorship" %}
         </a>
         <br>
         <a class="fas fa-user-minus" general="color:white text:l color:warning:hover" href="{% url 'delete-account' %}">
-          Delete Account
+          {% trans "Delete Account" %}
         </a>
         <br>
         <a class="fas fa-image" general="color:white text:l color:primary:hover" href="{% url 'coogger-images' %}">
-          Coogger Images
+          {% trans "Coogger Images" %}
         </a>
         <br>
         <a class="fas fa-plus-circle" general="color:white text:l color:primary:hover" href="{% url 'create-utopic' %}">
-          Create Topic
+          {% trans "Create Topic" %}
         </a>
         <br>
         <a class="fas fa-compass" general="color:white text:l color:primary:hover" href="{% url 'explorer_posts' %}">
-          Explore posts
+          {% trans "Explore posts" %}
         </a>
       </div>
       <div class="f-address" class="capitalize" style="margin-top: 30px;">
-        <span class="capitalize" general="position:center">SOCIAL</span>
+        <span class="capitalize" general="position:center">{% trans "SOCIAL" %}</span>
         <div style="margin-top: 10px;">
           <a general="flex flex:ai-c color:white color:primary:hover" target="_blank"
             href="https://github.com/coogger/">

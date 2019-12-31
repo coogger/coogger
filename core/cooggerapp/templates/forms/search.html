@@ -1,7 +1,8 @@
+{% load i18n %}
 <form general="width:100 flex border:1 br:2 brc:muted bg:white" action="{% url 'search' %}">
   <input name="query" style="padding: 6px 4px;" general="border:1 br:2 brc:white bg:white width:90" type="text"
     style="padding: 6px 4px;width: 100%;" minlength="4" maxlength="250" value="{{ request.GET.query }}"
-    placeholder="search content, #topic or @user .." />
+    placeholder="{% trans 'search content, #topic or @user ..' %}" />
   <button general="width:6 position:center border:1 br:2 brc:white color:green bg:white" type="submit"><i
       class="fas fa-search"></i></button>
 </form>

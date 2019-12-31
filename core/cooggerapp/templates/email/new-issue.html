@@ -1,3 +1,4 @@
+{% load i18n %}
 {% include 'email/head.html' %}
 
 <div general="flex flex:fd-c">
@@ -5,7 +6,7 @@
         <strong>@{{ form.user }}</strong> opened a new issue on your <strong>{{ form.utopic.name }}</strong> topic.
     </div>
     <div>
-        <a href="https:///www.coogger.com{{ form.utopic.get_absolute_url }}">Click to visit this issue. </a>
+        <a href="https:///www.coogger.com{{ form.utopic.get_absolute_url }}">{% trans "Click to visit this issue." %} </a>
     </div>
-    <div>You can give us the greatest support by recommending Coogger to your friends.</div>
+    <div>{% trans "You can give us the greatest support by recommending Coogger to your friends." %}</div>
 </div>

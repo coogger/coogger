@@ -1,10 +1,11 @@
 {% extends "home/html.html" %}
+{% load i18n %}
 {% block body %}
 <div general="br:2 width:50 position:center height:80" tablet="width:70" mobile-l="width:80" mobile-m="width:90"
     mobile-m="width:96">
     <div general="flex position:center">
-        <h1>Sponsorship Information, Policy and FAQ</h1>
-        <p>Coogger.com needs you, please contact us for sponsorship.
+        <h1>{% trans "Sponsorship Information, Policy and FAQ" %}</h1>
+        <p>{% trans "Coogger.com needs you, please contact us for sponsorship." %}
             <a general="color:primary" href="mailto:cooggerapp@gmail.com">cooggerapp@gmail.com</a>
         </p>
     </div>

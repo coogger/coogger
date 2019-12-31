@@ -1,13 +1,13 @@
 {% extends "home/html.html" %}
+{% load static i18n %}
 {% block body %}
 <div class="c-definition" general="position:ewcenter color:white width:100">
-  {% load static %}
   <div general="flex flex:fd-c">
     <div general="flex position:center">
       <img style="height: 300px;width: 300px;margin: 0px;margin-right: 16px;" general="position:center"
         src="{% static 'logos/png/400.png' %}">
       <strong general="width:80 position:center color:dark" style="margin-bottom:6px;">
-        Coogger is a platform for developers to publish technical documents in the best way.
+        {% trans "Coogger is a platform for developers to publish technical documents in the best way." %}
       </strong>
     </div>
     <div general="width:100" style="margin-top: 12px;">
@@ -15,15 +15,15 @@
         <a general="bg:primary color:dark br:2 width:60 position:center bg:success:hover color:white:hover flex flex:ai-c"
           href="{% url 'explorer_posts' %}" style="padding:6px 0px;">
           <i class="fas fa-compass"></i>
-          Explore coogger
+          {% trans "Explore coogger" %}
         </a>
       </div>
-      <strong general="position:center text:xl color:dark" style="margin:2% 0px;">About Coogger</strong>
+      <strong general="position:center text:xl color:dark" style="margin:2% 0px;">{% trans "About Coogger" %}</strong>
       <div general="bg:white flex flex:fd-c">
         <div general="flex flex:ai-c color:dark bg:white br:2 color:primary:hover" style="padding: 4px 6px;">
           <i class="fas fa-check-square"></i>
           <a general="flex flex:ai-c" href="https://www.github.com/coogger">
-            <strong tablet="text:s">We are open-source</strong>
+            <strong tablet="text:s">{% trans "We are open-source" %}</strong>
             <img general="br:2" src="https://img.shields.io/github/forks/coogger/coogger.svg" alt="coogger-fork"
               style="margin-left: 4px;margin-right: 4px;">
             <strong tablet="text:s">me on Github</strong>
@@ -32,15 +32,15 @@
         <div general="flex flex:ai-c color:dark bg:white br:2 color:primary:hover" style="padding: 4px 6px;">
           <i class="fas fa-check-square"></i>
           <a general="flex flex:ai-c width:60" tablet="text:s" href="/@aligoren/flask/issues/1/">
-            <strong tablet="text:s">Coogger has issue feature, click and check this is an example</strong>
+            <strong tablet="text:s">{% trans "Coogger has issue feature, click and check this is an example" %}</strong>
           </a>
         </div>
         <div general="flex flex:ai-c color:dark bg:white br:2 color:primary:hover" style="padding: 4px 6px;">
           <i class="fas fa-check-square"></i>
           <a general="flex flex:ai-c width:60" tablet="text:s" href="/@aligoren/javascript/contributions/">
-            <strong tablet="text:s">Coogger has contribute feature,
+            <strong tablet="text:s">{% trans "Coogger has contribute feature,
               you can help their development by contributing to the articles.
-              Click and check this is an example
+              Click and check this is an example" %}
             </strong>
           </a>
         </div>
@@ -48,25 +48,25 @@
           <i class="fas fa-check-square"></i>
           <a general="flex flex:ai-c width:60" tablet="text:s"
             href="/@hakancelik96/django/commit/1c0c1a3be5a3432b783797166a25ff58644af087f3902d8dc8e4bec4544b1332/">
-            <strong tablet="text:s">Coogger has commit feature, click and check this is an example</strong>
+            <strong tablet="text:s">{% trans "Coogger has commit feature, click and check this is an example" %}</strong>
           </a>
         </div>
         <div general="flex flex:ai-c color:dark bg:white br:2" style="padding: 4px 6px;">
           <i class="fas fa-check-square"></i>
           <strong tablet="text:s" general="width:60">
-            Coogger use markdown format
+            {% trans "Coogger use markdown format" %}
           </strong>
         </div>
         <div general="flex flex:ai-c color:dark bg:white br:2" style="padding: 4px 6px;">
           <i class="fas fa-check-square"></i>
           <strong tablet="text:s" general="width:60">
-            Coogger is the same on all browsers
+            {% trans "Coogger is the same on all browsers" %}
           </strong>
         </div>
         <div general="flex flex:ai-c color:dark bg:white br:2" style="padding: 4px 6px;">
           <i class="fas fa-check-square"></i>
           <strong tablet="text:s" general="width:60">
-            Coogger is a responsive design
+            {% trans "Coogger is a responsive design" %}
           </strong>
         </div>
       </div>
@@ -77,7 +77,7 @@
   <div general="flex flex:fd-c width:100" style="overflow: hidden;" class="text3">
     <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c" style="margin:24px 0px;">
       <span class="just-pc" style="margin-right: 6px;">
-        Some Documents Written by Our Users
+        {% trans "Some Documents Written by Our Users" %}
       </span>
     </strong>
     <div general="flex width:90 position:center">
@@ -94,7 +94,7 @@
     </div>
   </div>
   <strong general="flex text:xxl position:center color:dark width:100 flex:ai-c" style="margin:2% 0px;">
-    Latest Users Joining the Coogger
+    {% trans "Latest Users Joining the Coogger" %}
   </strong>
   <div general="position:center flex">
     <cards general="width:90 position:center flex" style="margin:0px">
