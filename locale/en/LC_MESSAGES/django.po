@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-31 22:10+0300\n"
+"POT-Creation-Date: 2020-01-04 00:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -416,27 +416,33 @@ msgstr ""
 msgid "Coogger has issue feature, click and check this is an example"
 msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:51
+#: .\core\cooggerapp\templates\home\introduction.html:41
+msgid ""
+"Coogger has contribute feature, you can help their development by "
+"contributing to the articles. Click and check this is an example"
+msgstr ""
+
+#: .\core\cooggerapp\templates\home\introduction.html:49
 msgid "Coogger has commit feature, click and check this is an example"
 msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:57
+#: .\core\cooggerapp\templates\home\introduction.html:55
 msgid "Coogger use markdown format"
 msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:63
+#: .\core\cooggerapp\templates\home\introduction.html:61
 msgid "Coogger is the same on all browsers"
 msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:69
+#: .\core\cooggerapp\templates\home\introduction.html:67
 msgid "Coogger is a responsive design"
 msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:80
+#: .\core\cooggerapp\templates\home\introduction.html:78
 msgid "Some Documents Written by Our Users"
 msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:97
+#: .\core\cooggerapp\templates\home\introduction.html:95
 msgid "Latest Users Joining the Coogger"
 msgstr ""
 

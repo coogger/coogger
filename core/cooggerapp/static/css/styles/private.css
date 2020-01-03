@@ -6,6 +6,13 @@
 iframe{
   max-width: 100%;
 }
+.introductionTI{
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.8;
+  background-size: contain;
+}
 .topic_percent{
   margin-right: 2px;padding: 2px 4px;white-space: nowrap;    overflow-x: auto;
 }
@@ -198,7 +205,6 @@ footer li{
   text-transform: capitalize;
   }
   .comment_replies{margin-left: 30px;border-left: 1px solid #eaecee;}
-  .c-definition{width: 100%;}
   .f-address>li>a{padding: 6px;}
   footer{
   position: fixed;

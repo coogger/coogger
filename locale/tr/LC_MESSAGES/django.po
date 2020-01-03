@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-31 22:10+0300\n"
+"POT-Creation-Date: 2020-01-04 00:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -268,16 +268,18 @@ msgid ""
 "Deleting your user account removes your first, last and email addesss and "
 "all topics, bookmarks, votes, views, comments owned by your account."
 msgstr ""
-"Kullanıcı hesabınızı silmek, ilk, son ve e-posta adresinizi ve hesabınıza ait tüm konuları, "
-"yer işaretlerini, oyları, görünümleri ve yorumları kaldırır."
+"Kullanıcı hesabınızı silmek, ilk, son ve e-posta adresinizi ve hesabınıza "
+"ait tüm konuları, yer işaretlerini, oyları, görünümleri ve yorumları "
+"kaldırır."
 
 #: .\core\cooggerapp\templates\delete-account.html:11
 msgid ""
 "Issues and contributions you've made in topics owned by other users will not "
 "be deleted - instead, they'll be associated with our @Ghost user."
 msgstr ""
-"Diğer kullanıcıların sahip olduğu konularda yaptığınız sorunlar ve katkılar"
-"silinmeyecek - bunun yerine, @Ghost kullanıcımızla ilişkilendirilecekler / anonimleştirilecektir."
+"Diğer kullanıcıların sahip olduğu konularda yaptığınız sorunlar ve "
+"katkılarsilinmeyecek - bunun yerine, @Ghost kullanıcımızla "
+"ilişkilendirilecekler / anonimleştirilecektir."
 
 #: .\core\cooggerapp\templates\delete-account.html:15
 msgid ""
@@ -407,8 +409,8 @@ msgid ""
 "Coogger is a platform for developers to publish technical documents in the "
 "best way."
 msgstr ""
-"Coogger, geliştiriciler için teknik belgeleri en iyi şekilde yayınlamaları "
-"için bir platformdur."
+"Coogger, geliştiriciler için teknik belgeleri en iyi şekilde yayınlamalarını "
+"sağlayan bir platformdur."
 
 #: .\core\cooggerapp\templates\home\introduction.html:18
 #, fuzzy
@@ -430,29 +432,39 @@ msgstr ""
 "Coogger'da issue özelliği var, tıklayın ve bunun bir örnek olup olmadığını "
 "kontrol edin"
 
-#: .\core\cooggerapp\templates\home\introduction.html:51
+#: .\core\cooggerapp\templates\home\introduction.html:41
+#, fuzzy
+#| msgid "Coogger has commit feature, click and check this is an example"
+msgid ""
+"Coogger has contribute feature, you can help their development by "
+"contributing to the articles. Click and check this is an example"
+msgstr ""
+"Coogger'ın commit özelliği vardır, tıklayın ve bunun bir örnek olup "
+"olmadığını kontrol edin"
+
+#: .\core\cooggerapp\templates\home\introduction.html:49
 msgid "Coogger has commit feature, click and check this is an example"
 msgstr ""
 "Coogger'ın commit özelliği vardır, tıklayın ve bunun bir örnek olup "
 "olmadığını kontrol edin"
 
-#: .\core\cooggerapp\templates\home\introduction.html:57
+#: .\core\cooggerapp\templates\home\introduction.html:55
 msgid "Coogger use markdown format"
 msgstr "Coogger markdown formatı kullanır"
 
-#: .\core\cooggerapp\templates\home\introduction.html:63
+#: .\core\cooggerapp\templates\home\introduction.html:61
 msgid "Coogger is the same on all browsers"
 msgstr "Coogger tüm tarayıcılarda aynıdır"
 
-#: .\core\cooggerapp\templates\home\introduction.html:69
+#: .\core\cooggerapp\templates\home\introduction.html:67
 msgid "Coogger is a responsive design"
 msgstr "Coogger her ekrana duyarlı bir tasarıma sahiptir"
 
-#: .\core\cooggerapp\templates\home\introduction.html:80
+#: .\core\cooggerapp\templates\home\introduction.html:78
 msgid "Some Documents Written by Our Users"
 msgstr "Kullanıcılarımız Tarafından Yazılan Bazı Belgeler"
 
-#: .\core\cooggerapp\templates\home\introduction.html:97
+#: .\core\cooggerapp\templates\home\introduction.html:95
 msgid "Latest Users Joining the Coogger"
 msgstr "Coogger'a Katılan Son Kullanıcılar"
 

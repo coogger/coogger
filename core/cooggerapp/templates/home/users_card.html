@@ -1,6 +1,6 @@
-<card general="br:2 bg:white width:30" mobile-s="width:100" mobile-m="width:98" mobilel="width:98" tablet="width:80"
+<div general="bg:white width:30" mobile-s="width:100" mobile-m="width:98" mobilel="width:98" tablet="width:80"
   laptop="width:40" laptop-l="width:30" style="margin:6px;">
-  <div general="border:1 br:2 brc:white" style="padding: 6px 0x;">
+  <div style="padding: 6px 0x;">
     <div general="flex flex:ai-c">
       <a general="flex text:m color:dark flex:ai-c" href="/@{{ user }}" id="author_href">
         <img src="{{ user.githubauthuser.avatar_url }}" class="carduserimg" general="br:circle" width="40px"
@@ -22,4 +22,4 @@
       {% include 'common/github-redirect.html' %}
     </div>
   </div>
-</card>
+</div>
