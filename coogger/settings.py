@@ -78,6 +78,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.i18n",
+                "core.cooggerapp.context_processors.search_info"
             ]
         ),
     )
@@ -129,3 +130,4 @@ GITHUB_AUTH = dict(
     client_id=env("GITHUB_CLIENT_ID"),
 )
 USERS_PER_TOPIC = 30
+MINIMUM_SEARCH_LENGTH = 3
