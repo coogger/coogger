@@ -36,6 +36,15 @@ EMAIL_PASSWORD=******
 ##### After
 
 ```shell
+$ pipenv install
+$ python manage.py migrate
+$ python manage.py create_ghost_user
+$ python manage.py runserver
+```
+
+or
+
+```shell
 $ pip install -r requirements.txt
 $ python manage.py migrate
 $ python manage.py create_ghost_user
