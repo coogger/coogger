@@ -80,7 +80,8 @@
   <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href="{% static 'css/coogger-css/mobile-s.css' %}"
     media="(min-width: 0px) and (max-width: 320px)" />
   <!-- mobile small -->
-  <link href="{% static 'css/styles/private.css' %}" rel="stylesheet" /> 
+  <link href="{% static 'css/styles/private.css' %}" rel="stylesheet" />
+  {% block head %}{% endblock %}
   {% block script %}{% endblock %}
 </head>
 <body general="font:quicksand bg:white">

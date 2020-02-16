@@ -6,15 +6,11 @@
 iframe{
   max-width: 100%;
 }
-.introductionTI{
-  height: 200px;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.8;
-  background-size: contain;
-}
 .topic_percent{
   margin-right: 2px;padding: 2px 4px;white-space: nowrap;    overflow-x: auto;
+}
+.top-bar{
+  margin: 12px 0px;
 }
 .tab-a{
   padding: 6px;
@@ -130,9 +126,6 @@ footer li{
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
-  }
-  .utopic-user{
-  margin: 6px 0px;
   }
   .commits{
   margin-top: 6px;
@@ -402,7 +395,7 @@ footer li{
   }
   .utopic-query, .issue-query{
     padding: 6px 0px;
-    margin: 3px 0px;
+    margin: 0px 0px 6px 0px;
   }
   .issue-query{
     list-style: none;

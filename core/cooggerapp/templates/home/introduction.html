@@ -9,7 +9,7 @@
         </h1>
       </div>
       <div general="flex position:center border:1 brc:muted br:2" style="margin-top: 2vh;padding: 24px 30px;">
-         <img src="{% static 'doodles/MessyDoodle.svg' %}">
+         <img general="width:20" src="{% static 'doodles/MessyDoodle.svg' %}">
          <h2 general="width:80 position:center color:dark">
          {% trans "Coogger Is A Platform For Developers To Publish Technical Documents In The Best Way" %}
          </h2>
@@ -91,12 +91,12 @@
             <!-- start: users/topic/detail/top.html -->
             <div general="border:1 brc:muted br:2 width:100" class="utopic-user">
                <div style="padding: 6px;" general="flex flex:fd-c">
-                  <div general="flex flex:ai-c flex:fd-c border:1 brc:muted br:2" class="introductionTI" style="background-image: url('{{ utopic.image_address }}');">
+                  <div general="flex flex:js-c flex:ai-c flex:fw-w width:96 position:center">
+                     <h1 general="text:xl width:100">{{ utopic.name|title }}</h1>
                      {% if utopic.description %}
-                     <strong general="flex text:l width:96 position:center" class="text3" style="white-space: normal;">
-                     {{ utopic.description }}
-                     </strong>
+                        <div general="flex text:m position:center" class="text3" style="white-space: normal;">{{ utopic.description|title }}</div>
                      {% endif %}
+                     {% if utopic.image_address %}<img general="flex flex:ai-c flex:fd-c" height="160px" src="{{ utopic.image_address }}">{% endif %}
                   </div>
                   <div general="flex flex:ai-c" style="padding: 6px;">
                      <div general="flex flex:ai-c position:left">
