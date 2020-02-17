@@ -9,6 +9,7 @@ class ExplorerMixin(ListView):
     model = Content
     not_result_template_name = "home/search/not_result.html"
     paginate_by = 10
+    ordering = "-created"
     http_method_names = ["get"]
 
     def get_template_names(self):
@@ -34,7 +35,7 @@ class TopicView(ExplorerMixin):
         return context
 
     def get_queryset(self):
-        return self.model.objects.filter(utopic__permlink=self.permlink, status="ready")
+        return self.model.objects.filter(utopic__permlink=self.permlink, status="ready").order_by(self.ordering)
 
     def get_users(self, queryset):
         users = set()
@@ -54,7 +55,7 @@ class Hashtag(ExplorerMixin):
         return context
 
     def get_queryset(self):
-        return self.model.objects.filter(tags__contains=self.hashtag, status="ready")
+        return self.model.objects.filter(tags__contains=self.hashtag, status="ready").order_by(self.ordering)
 
 
 class Languages(ExplorerMixin):
@@ -66,7 +67,7 @@ class Languages(ExplorerMixin):
         return context
 
     def get_queryset(self):
-        return self.model.objects.filter(language=self.language, status="ready")
+        return self.model.objects.filter(language=self.language, status="ready").order_by(self.ordering)
 
 
 class Filter(ExplorerMixin):
@@ -74,5 +75,5 @@ class Filter(ExplorerMixin):
     extra_context = dict(filter=True)  # filtered.get("filter")
 
     def get_queryset(self):
-        queryset = self.model.objects.filter(status="ready")
+        queryset = self.model.objects.filter(status="ready").order_by(self.ordering)
         return model_filter(self.request.GET.items(), queryset).get("queryset")

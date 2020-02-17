@@ -38,7 +38,7 @@ class Index(ListView):
             self.paginate_by = None
             return User.objects.filter(is_active=True).order_by("-date_joined")[:24]
         else:
-            return Content.objects.filter(user__is_active=True, status="ready")
+            return Content.objects.filter(user__is_active=True, status="ready").order_by("-created")
 
     def get_template_names(self):
         if not self.object_list.exists() and not self.introduction:
