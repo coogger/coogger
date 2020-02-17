@@ -1,0 +1,46 @@
+{% load static  %}
+<!-- Doctype HTML5 -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="pragma" content="Cache-Control: max-age=31536000">
+    <meta http-equiv="reply-to" content="cooggerapp@gmail.com">
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="https://www.coogger.com/static/logos/png/48.png" type="image/x-icon"/>
+    <title>Coogger Image Service</title>
+    <meta property="og:title" content="Coogger Image Service"/>
+    <meta property="og:site_name" content="Coogger Image Service"/>
+    <meta name="twitter:title" content="Coogger Image Service"/>
+    <meta itemprop="name" content="Coogger Image Service"/>
+    <meta name="keywords" content="image, upload, coogger image, service"/>
+    <meta name="description" content="A django app to upload image | coogger images sevice"/>
+    <meta name="twitter:description" content="A django app to upload image | coogger images sevice"/>
+    <meta property="og:description" content="A django app to upload image | coogger images sevice"/>
+    <meta itemprop="description" content="A django app to upload image | coogger images sevice"/>
+    <meta property="og:image" content="https://www.coogger.com/static/logos/png/200.png"/>
+    <meta itemprop="image" content="https://www.coogger.com/static/logos/png/200.png"/>
+    <meta name="twitter:image:src" content="https://www.coogger.com/static/logos/png/200.png"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <!-- SOCIAL -->
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://{{ request.META.HTTP_HOST }}/{{ request.META.PATH_INFO }}"/>
+    <!-- RESPONSE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <!-- css -->
+    <link href="https://rawcdn.githack.com/coogger/coogger.css/e02ebdeeba7453626e1e2278148f52f17c254355/styles/coogger.css" rel="stylesheet">
+</head>
+<body general="bg-muted" style="background-image: url('https://www.coogger.com/static/logos/png/400.png');background-repeat: no-repeat;background-position: center;background-attachment: fixed;">
+    <div flex="fd-c" general="ewcenter center w-80" style="height: 100%;">
+        <h1 general="c-white bg-dark br-2" style="padding: 6px 12px;">Coogger Images</h1>
+        <div>
+            <form flex="fd-c" general="center" default="form" method="POST" enctype="multipart/form-data"
+             action="{% url 'images:coogger-images' %}">
+                {% csrf_token %}
+                {{ image_form }}
+                <input general="center" type="submit" value="Upload"
+                style="width: 240px;margin: auto;">
+            </form>
+        </div>
+    </div>
+</body>

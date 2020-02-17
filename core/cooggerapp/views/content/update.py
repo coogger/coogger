@@ -1,5 +1,7 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import slugify
@@ -9,6 +11,23 @@ from ...forms import ContentUpdateForm
 from ...models import Commit, Content, UTopic
 from ..utils import create_redirect
 from .utils import redirect_utopic
+
+
+class ReplaceOrder(LoginRequiredMixin, View):
+    def post(self, request, *arg, **kwargs):
+        from_content = Content.objects.get(
+            order=int(request.POST["from_order"]),
+            utopic__id=int(request.POST["utopic_id"])
+        )
+        to_content = Content.objects.get(
+            order=int(request.POST["to_order"]),
+            utopic__id=int(request.POST["utopic_id"])
+        )
+        from_content.order = int(request.POST["to_order"])
+        to_content.order = int(request.POST["from_order"])
+        from_content.save()
+        to_content.save()
+        return JsonResponse({})
 
 
 class Update(LoginRequiredMixin, View):

@@ -58,9 +58,10 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     contributors_count = models.PositiveIntegerField(
         default=0, verbose_name=_("Total contributors count")
     )
+    order = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ["-created"]
+        ordering = ["order"]
         unique_together = [["user", "permlink"]]
 
     def __str__(self):
@@ -100,7 +101,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         return times
 
     def next_or_previous(self, next=True):
-        queryset = self.__class__.objects.filter(user=self.user, utopic=self.utopic)
+        queryset = self.__class__.objects.filter(user=self.user, utopic=self.utopic).order_by("-order")
         index = list(queryset).index(queryset.get(id=self.id))
         if next:
             try:
@@ -132,10 +133,9 @@ class Content(AbstractThreadedComments, Common, View, Vote):
         "left of content detail page section"
         return self.__class__.objects.filter(
             user=self.user, utopic=self.utopic
-        ).order_by("created")
+        )
 
     def save(self, *args, **kwargs):
-        # always update
         self.image_address = get_first_image(self.body)
         self.tags = ready_tags(self.tags)
         super().save(*args, **kwargs)

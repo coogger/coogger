@@ -2,10 +2,15 @@ from django.urls import path
 
 from ..views.content import (
     ApproveContribute, Contribute, Create, Detail, Embed, RejectContribute,
-    TreeDetail, Update
+    TreeDetail, Update, ReplaceOrder
 )
 
 urlpatterns = [
+    path(
+        "content-replace-order",
+        ReplaceOrder.as_view(),
+        name="contet-replace-order",
+    ),
     path("embed/@<username>/<permlink>/", Embed.as_view(), name="embed"),
     path("@<username>/<permlink>/", Detail.as_view(), name="content-detail"),
     path(
@@ -30,4 +35,5 @@ urlpatterns = [
         RejectContribute.as_view(),
         name="rejected-contribute",
     ),
+
 ]

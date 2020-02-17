@@ -396,6 +396,10 @@ footer li{
   .utopic-query, .issue-query{
     padding: 6px 0px;
     margin: 0px 0px 6px 0px;
+
+  }
+  .utopic-query{
+    cursor: move;
   }
   .issue-query{
     list-style: none;
