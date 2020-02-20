@@ -1,7 +1,8 @@
-from core.md_editor.configs import default_config
 from django import template
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
+
+from core.md_editor.configs import default_config
 
 register = template.Library()
 

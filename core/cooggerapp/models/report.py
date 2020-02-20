@@ -1,9 +1,10 @@
 from datetime import datetime
 
-from core.cooggerapp.choices import REPORTS, make_choices
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext as _
+
+from core.cooggerapp.choices import REPORTS, make_choices
 
 from .content import Content
 

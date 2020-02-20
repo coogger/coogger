@@ -6,21 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cooggerapp', '0002_auto_20191220_0216'),
+        ("cooggerapp", "0002_auto_20191220_0216"),
     ]
 
     operations = [
+        migrations.AlterModelOptions(name="content", options={"ordering": ["-id"]},),
         migrations.AlterModelOptions(
-            name='content',
-            options={'ordering': ['-id']},
-        ),
-        migrations.AlterModelOptions(
-            name='utopic',
-            options={'ordering': ['-total_view', '-how_many'], 'verbose_name_plural': 'User Topic'},
+            name="utopic",
+            options={
+                "ordering": ["-total_view", "-how_many"],
+                "verbose_name_plural": "User Topic",
+            },
         ),
         migrations.AddField(
-            model_name='content',
-            name='order',
+            model_name="content",
+            name="order",
             field=models.PositiveIntegerField(default=0),
         ),
     ]

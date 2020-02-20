@@ -1,10 +1,11 @@
-from core.ip.models import IpModel
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.signals import m2m_changed
 from django.db.utils import IntegrityError
 from django.dispatch import receiver
+
+from core.ip.models import IpModel
 
 
 class DjangoViews(models.Model):

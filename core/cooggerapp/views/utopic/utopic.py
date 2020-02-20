@@ -33,7 +33,7 @@ class DetailUserTopic(TemplateView):
         utopic = UTopic.objects.get(user=user, permlink=permlink)
         context = super().get_context_data(**kwargs)
         context["current_user"] = get_current_user(user)
-        context["queryset"] = Content.objects.filter(utopic=utopic).order_by("order")
+        context["queryset"] = Content.objects.filter(utopic=utopic)
         context["utopic"] = utopic
         return context
 

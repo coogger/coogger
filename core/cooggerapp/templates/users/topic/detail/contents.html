@@ -6,7 +6,7 @@
     <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
       tablet="width:90" laptop="width:80" mobile-s="width:98">
       {% include "users/topic/detail/top.html" %}
-      <div general="width:100" >
+      <div general="width:100" id="utopiContents">
         {% if not queryset %}
         {% if request.user == current_user %}
         <div general="bg:dark-purple color:white br:2" class="utopic-nocontent">
@@ -23,15 +23,9 @@
         {% endif %}
         {% endif %}
         {% for content in queryset %}
-          <div class="utopic-query text3"
+          <div id="{{ content.order }}" class="utopic-query text3" {% if request.user == current_user %}style="cursor: move;"{% endif %}
             general="flex flex:ai-c width:100 text:m border:1 br:2 brc:muted"
-            mobile-l="text:s" mobile-m="text:s" mobile-s="text:s"
-            draggable="true"
-            ondragstart="dragstart_handler(event)"
-            ondragend="dragend_handler(event);"
-            ondragover="event.preventDefault()"
-            ondrop="drop_handler(event);"
-            id="{{ content.order }}">
+            mobile-l="text:s" mobile-m="text:s" mobile-s="text:s">
             {% if content.status != "ready" %}
             <i class="fa fa-file-alt" general="color:muted" title="{{ content.status }}"></i>
             {% else %}
@@ -55,46 +49,23 @@
 </div>
 {% endblock %}
 
-{% block script %}
-<script>
-  function dragstart_handler(event) {
-    event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData("text", event.target.id);
-  }
-  function dragend_handler(event){
-    event.preventDefault();
-  }
-  function drop_handler(event) {
-    event.preventDefault();
-    var get_id = event.dataTransfer.getData("text");
-    if (event.target.classList.contains("utopic-query")){
-      let fromNode = document.getElementById(get_id);
-      let toNode = event.target;
-      setOrder("{% url 'contet-replace-order' %}", get_id, toNode.id, utopic_id="{{ utopic.id }}")
-      var clonedElement1 = fromNode.cloneNode(true);
-      var clonedElement2 = toNode.cloneNode(true);
-      toNode.parentNode.replaceChild(clonedElement1, toNode);
-      fromNode.parentNode.replaceChild(clonedElement2, fromNode);
-    }
-    event.dataTransfer.clearData();
-  }
 
-  function setOrder(url, fromOrder, toOrder, utopic_id){
-    $.ajax({
-          type: "POST",
-          url: url,
-          data: {
-              from_order: fromOrder,
-              to_order: toOrder,
-              utopic_id: utopic_id,
-          },
-          beforeSend: function (xhr) {
-              xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
-          },
-          error: function (XMLHttpRequest, textStatus, errorThrown) {
-              alert(errorThrown);
-          },
-      });
-  }
-</script>
+{% block script %}
+  {% if request.user.is_authenticated and request.user == current_user %}
+  <script>
+  $(document).ready(function() {
+    Sortable.create(document.getElementById("utopiContents"), {
+      onEnd: function (evt) {
+        setOrder(
+          "{% url 'contet-replace-order' %}",
+          evt.oldIndex + 1,
+          evt.newIndex + 1,
+          "{{ utopic.id }}"
+        );
+      },
+    });
+  });
+  </script>
+  {% endif %}
 {% endblock script %}
+

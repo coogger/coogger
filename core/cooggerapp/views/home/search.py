@@ -1,8 +1,8 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.views.generic import ListView
-from django.conf import settings
 
 from ...models import Content, SearchedWords, UTopic
 

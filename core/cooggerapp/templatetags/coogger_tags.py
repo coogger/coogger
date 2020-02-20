@@ -1,6 +1,7 @@
-from core.bookmark.models import Bookmark
 from django import template
 from django.urls import resolve
+
+from core.bookmark.models import Bookmark
 
 from ...threaded_comment.models import ThreadedComments
 from ..models import Content, UTopic

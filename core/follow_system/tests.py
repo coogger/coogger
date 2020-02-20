@@ -1,8 +1,9 @@
+from django.contrib.auth.models import User
+from django.test import TestCase
+
 from core.follow_system.templatetags.follow_system_tags import (
     follower_count, following_count, is_follow
 )
-from django.contrib.auth.models import User
-from django.test import TestCase
 
 
 class FollowTestCase(TestCase):

@@ -38,6 +38,11 @@ class Create(LoginRequiredMixin, View):
             form.utopic = UTopic.objects.get(
                 user=request.user, permlink=utopic_permlink
             )
+            previous_content = form.next_or_previous_by_date(next=False)
+            if previous_content:
+                form.order = previous_content.order + 1
+            else:
+                form.order = 1
             form.save()
             return redirect(
                 reverse(

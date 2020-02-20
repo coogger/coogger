@@ -1,13 +1,13 @@
-from bs4 import BeautifulSoup
-
 import mistune
-from core.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
-from core.md_editor.models import EditorMdField
+from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
+
+from core.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
+from core.md_editor.models import EditorMdField
 
 from ...threaded_comment.models import AbstractThreadedComments
 from ..views.utils import check_redirect_exists
@@ -58,7 +58,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     contributors_count = models.PositiveIntegerField(
         default=0, verbose_name=_("Total contributors count")
     )
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=1)
 
     class Meta:
         ordering = ["order"]
@@ -100,8 +100,10 @@ class Content(AbstractThreadedComments, Common, View, Vote):
             return "0"
         return times
 
-    def next_or_previous(self, next=True):
-        queryset = self.__class__.objects.filter(user=self.user, utopic=self.utopic).order_by("-order")
+    def next_or_previous_by_date(self, next=True):
+        queryset = self.__class__.objects.filter(
+            user=self.user, utopic=self.utopic
+        ).order_by("-created")
         index = list(queryset).index(queryset.get(id=self.id))
         if next:
             try:
@@ -114,26 +116,33 @@ class Content(AbstractThreadedComments, Common, View, Vote):
             except (IndexError):
                 return None
 
+    def next_or_previous_by_order(self, next=True):
+        queryset = self.__class__.objects.filter(
+            user=self.user, utopic=self.utopic
+        ).order_by("-order")
+        if next:
+            try:
+                return queryset.get(order=self.order + 1)
+            except self.__class__.DoesNotExist:
+                return None
+        else:
+            try:
+                return queryset.get(order=self.order - 1)
+            except self.__class__.DoesNotExist:
+                return None
+
     @property
     def next_post(self):
-        try:
-            return self.next_or_previous()
-        except AttributeError:
-            return False
+        return self.next_or_previous_by_order()
 
     @property
     def previous_post(self):
-        try:
-            return self.next_or_previous(next=False)
-        except AttributeError:
-            return False
+        return self.next_or_previous_by_order(next=False)
 
     @property
     def other_content_of_this_topic(self):
         "left of content detail page section"
-        return self.__class__.objects.filter(
-            user=self.user, utopic=self.utopic
-        )
+        return self.__class__.objects.filter(user=self.user, utopic=self.utopic)
 
     def save(self, *args, **kwargs):
         self.image_address = get_first_image(self.body)

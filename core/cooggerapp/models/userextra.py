@@ -1,8 +1,9 @@
-from core.cooggerapp.choices import FOLLOW, TITLES, make_choices
-from core.md_editor.models import EditorMdField
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext as _
+
+from core.cooggerapp.choices import FOLLOW, TITLES, make_choices
+from core.md_editor.models import EditorMdField
 
 
 class OtherAddressesOfUsers(models.Model):

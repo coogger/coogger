@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
   <!-- GENERAL  -->
+  <meta name="datas" data-csrf="{{ csrf_token }}" />
   <meta name="theme-color" content="#11381e" />
   <meta http-equiv="pragma" content="Cache-Control: max-age=31536000" />
   <meta http-equiv="reply-to" content="cooggerapp@gmail.com" />
@@ -43,8 +44,9 @@
   <!-- RESPONSE -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- js  -->
-  <script src="{% static 'js/toastr/toastr.min.js' %}" async></script>
   <script src="{% static 'mdeditor/src/jquery.min.js'%}"></script>
+  <script src="{% static 'js/toastr/toastr.min.js' %}" async></script>
+  <script src="{% static 'js/sortable/sortable.min.js' %}" async></script>
   <script src="{% static 'js/general.js' %}" async></script>
   <script src="{% static 'threaded_comment/threaded_comment.js' %}" async></script>
   <script src="{% static 'js/coogger.js' %}" async></script>
