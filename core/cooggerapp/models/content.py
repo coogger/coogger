@@ -58,7 +58,7 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     contributors_count = models.PositiveIntegerField(
         default=0, verbose_name=_("Total contributors count")
     )
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=1)
 
     class Meta:
         ordering = ["order"]
