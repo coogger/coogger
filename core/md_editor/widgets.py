@@ -1,4 +1,3 @@
-from core.md_editor.configs import default_config
 from django import forms
 from django.contrib.admin.widgets import AdminTextareaWidget
 from django.forms import Textarea
@@ -6,6 +5,8 @@ from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
+
+from core.md_editor.configs import default_config
 
 try:
     from django.utils.encoding import force_text

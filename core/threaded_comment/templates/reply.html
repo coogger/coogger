@@ -6,8 +6,7 @@
           <strong>Please login to make a comment</strong>
         </div>
       {% endif %}
-      <button id="send-reply" 
-      data-csrf="{{ csrf_token }}" 
+      <button id="send-reply"
       data-request-url="{% url 'reply-api' %}"
       data-content-type="{{ content_type }}"
       data-object-id="{{ object_id }}"
@@ -16,12 +15,11 @@
       {% else %}
         data-reply="null"
       {% endif %}
-      general="position:right border:1 br:2 brc:muted bg:success color:white" 
-      data-parent_author="{{ current_user }}" 
+      general="position:right border:1 br:2 brc:muted bg:success color:white"
+      data-parent_author="{{ current_user }}"
       data-parent_permlink="{{ queryset.permlink }}">
         Reply
       </button>
       <div id="comment_template" class="comment_template"></div>
   </div>
 </div>
-      

@@ -1,8 +1,9 @@
+from django import forms
+from django.contrib.auth.models import User
+
 from core.cooggerapp.models import (
     Content, Issue, OtherAddressesOfUsers, ReportModel, UTopic
 )
-from django import forms
-from django.contrib.auth.models import User
 
 
 class UsernameForm(forms.ModelForm):

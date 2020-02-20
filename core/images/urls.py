@@ -1,5 +1,6 @@
-from core.images.views import Image
 from django.urls import path
+
+from core.images.views import Image
 
 from .configs import DefaultConfig
 

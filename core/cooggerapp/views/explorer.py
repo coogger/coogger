@@ -35,7 +35,9 @@ class TopicView(ExplorerMixin):
         return context
 
     def get_queryset(self):
-        return self.model.objects.filter(utopic__permlink=self.permlink, status="ready").order_by(self.ordering)
+        return self.model.objects.filter(
+            utopic__permlink=self.permlink, status="ready"
+        ).order_by(self.ordering)
 
     def get_users(self, queryset):
         users = set()
@@ -55,7 +57,9 @@ class Hashtag(ExplorerMixin):
         return context
 
     def get_queryset(self):
-        return self.model.objects.filter(tags__contains=self.hashtag, status="ready").order_by(self.ordering)
+        return self.model.objects.filter(
+            tags__contains=self.hashtag, status="ready"
+        ).order_by(self.ordering)
 
 
 class Languages(ExplorerMixin):
@@ -67,7 +71,9 @@ class Languages(ExplorerMixin):
         return context
 
     def get_queryset(self):
-        return self.model.objects.filter(language=self.language, status="ready").order_by(self.ordering)
+        return self.model.objects.filter(
+            language=self.language, status="ready"
+        ).order_by(self.ordering)
 
 
 class Filter(ExplorerMixin):

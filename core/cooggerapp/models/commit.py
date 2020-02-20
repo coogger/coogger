@@ -1,10 +1,11 @@
 from datetime import datetime
 from difflib import HtmlDiff
 
-from core.md_editor.models import EditorMdField
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+
+from core.md_editor.models import EditorMdField
 
 from ..choices import COMMIT_STATUS_CHOICES, make_choices
 from .common import Common, View, Vote

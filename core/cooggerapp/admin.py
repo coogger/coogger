@@ -1,8 +1,9 @@
+from django.contrib import admin
+
 from core.cooggerapp.models import (
     Commit, Content, Issue, ReportModel, SearchedWords, Topic, UserProfile,
     UTopic
 )
-from django.contrib import admin
 
 user_search_fields = ["user__username", "user__first_name", "user__last_name"]
 

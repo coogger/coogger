@@ -1,7 +1,7 @@
 {% load bookmark %}
 <div class="bookmarkop" style="cursor: pointer" general="flex flex:ai-c" onclick="removeOrAddBookmark(this)"
     data-app_label="{{ queryset.app_label }}" data-model="{{ queryset.model_name }}" data-object_id="{{ queryset.id }}"
-    data-csrf="{{ csrf_token }}" data-url="{% url 'bookmark:add_or_remove' %}"
+    data-url="{% url 'bookmark:add_or_remove' %}"
     data-bookmark-status="{% is_mark request.user queryset queryset.id %}">
     <i general="color:secondary" class="bookmarkicon fa-bookmark"></i>
     <span general="position:left color:secondary" style="margin-right: 6px;"

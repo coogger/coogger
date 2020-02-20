@@ -1,7 +1,8 @@
-from core.page_views.models import DjangoViews
 from django.contrib.contenttypes.models import ContentType
 from django.db import IntegrityError
 from django.shortcuts import render
+
+from core.page_views.models import DjangoViews
 
 
 class CommonDetailView(object):

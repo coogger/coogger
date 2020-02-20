@@ -1,9 +1,10 @@
-from core.cooggerapp.choices import ISSUE_CHOICES, make_choices
-from core.md_editor.models import EditorMdField
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext as _
+
+from core.cooggerapp.choices import ISSUE_CHOICES, make_choices
+from core.md_editor.models import EditorMdField
 
 from ...threaded_comment.models import AbstractThreadedComments
 from .common import Common, View, Vote

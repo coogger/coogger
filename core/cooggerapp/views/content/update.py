@@ -15,18 +15,38 @@ from .utils import redirect_utopic
 
 class ReplaceOrder(LoginRequiredMixin, View):
     def post(self, request, *arg, **kwargs):
-        from_content = Content.objects.get(
-            order=int(request.POST["from_order"]),
-            utopic__id=int(request.POST["utopic_id"])
-        )
-        to_content = Content.objects.get(
-            order=int(request.POST["to_order"]),
-            utopic__id=int(request.POST["utopic_id"])
-        )
-        from_content.order = int(request.POST["to_order"])
-        to_content.order = int(request.POST["from_order"])
-        from_content.save()
-        to_content.save()
+        object_id = int(request.POST["object_id"])
+        to_order = int(request.POST["to_order"])
+        copy_to_order = to_order
+        from_order = int(request.POST["from_order"])
+        contents = {
+            content.order: content
+            for content in Content.objects.filter(
+                user=request.user, utopic__id=object_id
+            )
+        }
+        new_contents = {}
+        from_content = contents[from_order]
+        del contents[from_order]
+        if from_order < to_order:
+            op = -1
+        else:
+            op = +1
+        while True:
+            try:
+                content = contents[to_order]
+            except KeyError:
+                break
+            del contents[to_order]
+            new_order = to_order + op
+            if new_order == 0:
+                break
+            new_contents[new_order] = content
+            to_order = to_order + op
+        new_contents[copy_to_order] = from_content
+        for key, value in new_contents.items():
+            value.order = key
+            value.save()
         return JsonResponse({})
 
 
