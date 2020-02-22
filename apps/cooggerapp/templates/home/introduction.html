@@ -93,10 +93,14 @@
                <div style="padding: 6px;" general="flex flex:fd-c">
                   <div general="flex flex:js-c flex:ai-c flex:fw-w width:96 position:center">
                      <h1 general="text:xl width:100">{{ utopic.name|title }}</h1>
-                     {% if utopic.description %}
-                        <div general="flex text:m position:center" class="text3" style="white-space: normal;">{{ utopic.description|title }}</div>
-                     {% endif %}
-                     {% if utopic.image_address %}<img general="flex flex:ai-c flex:fd-c" height="160px" src="{{ utopic.image_address }}">{% endif %}
+                     <div general="flex flex:fd-c width:100">
+                        {% if utopic.description %}
+                        <div general="flex text:m" class="text3" style="white-space: normal;">{{ utopic.description|title }}</div>
+                        {% endif %}
+                        {% if utopic.image_address %}
+                           <img general="flex flex:ai-c flex:fd-c" height="160px" src="{{ utopic.image_address }}" style="padding: 12px 0px;">
+                        {% endif %}
+                     </div>
                   </div>
                   <div general="flex flex:ai-c" style="padding: 6px;">
                      <div general="flex flex:ai-c position:left">

@@ -35,10 +35,16 @@
                 <a class="text3" general="color:primary width:50" href="{{ content.get_absolute_url }}">
                   <span>{{ content.title|title }}</span>
                 </a>
-                <span general="width:50 text:s color:secondary" class="text3">{{ content.get_last_commit.msg }}</span>
+                <span general="width:50 text:s color:secondary" class="text3">{{ content.get_last_commit.msg|title }}</span>
                 <div general="text:s color:secondary">
-                  <i class="fas fa-eye">{{ content.views}}</i>
+                  <i class="fas fa-flag">{{ content.language|title }}</i>
+                  <i class="fas fa-eye">{{ content.views }}</i>
                   <i class="fas fa-reply-all">{{ content.reply_count }}</i>
+                  {% if content.contributors.all %}
+                    <i class="fas fa-user-friends">
+                      [ {% for contributor in content.contributors.all %} @{{ contributor }} ,{% endfor %} ]
+                    </i>
+                  {% endif %}
                 </div>
               </div>
           </div>

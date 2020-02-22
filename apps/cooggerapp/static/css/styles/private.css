@@ -69,12 +69,16 @@ header{
   padding:3px 6px;
 }
 .cdtitle{
-  margin: 30px auto;border-bottom: 12px solid #eeeeee7a;padding-bottom: 30px;
+  margin: 16px auto;
+  border-bottom: 12px solid #eeeeee7a;
+  padding-bottom: 16px;
 }
 .oc-l{
   overflow: auto;
   height: 70vh;
   padding: 0px 0px 0px 16px;
+  position: sticky;
+  top: 80px;
 }
 .utopic-nocontent{
   margin-top: 5%;
@@ -140,10 +144,8 @@ footer li{
       text-decoration: underline;
   }
   .commit-user{
-  width: 32px;
-  height: 32px;
-  background-size: cover;
-  margin: 0px;
+  height: 60px;
+  margin-right: 12px;
   }
   .utopic-img{
   height: 0%
@@ -390,9 +392,6 @@ footer li{
   .just-mobile{
   display: none;
   }
-  .just-pc{
-  display: initial;
-  }
   .utopic-query, .issue-query{
     padding: 6px 0px;
     margin: 0px 0px 6px 0px;
@@ -423,6 +422,7 @@ border-top: 1px solid #eaecee;
     top: 10vh;
     margin-right: 4%;
     padding: 0px 12px 12px 12px;
+    display: initial;
   }
   .hsri{
     margin-right: 0px;

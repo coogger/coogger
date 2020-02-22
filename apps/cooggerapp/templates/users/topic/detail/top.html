@@ -1,52 +1,28 @@
 {% load coogger_tags i18n %}
-<div general="border:1 brc:muted br:2 width:100" class="utopic-user">
-   <div style="padding: 6px;" general="flex flex:fd-c">
-      <div general="flex flex:js-c flex:ai-c flex:fw-w width:96 position:center">
-        <h1 general="text:xl width:100">{{ utopic.name|title }}</h1>
-        {% if utopic.description %}
-          <div general="flex text:m position:center" class="text3" style="white-space: normal;">{{ utopic.description|title }}</div>
-        {% endif %}
-        {% if utopic.image_address %}<img general="flex flex:ai-c flex:fd-c" height="160px" src="{{ utopic.image_address }}">{% endif %}
-      </div>
-      <div general="flex flex:ai-c" style="padding: 6px;">
-         <div general="flex flex:ai-c position:left">
-            <a general="color:primary text:m" href="/@{{ utopic.user }}">
-            <img class="commit-user" general="br:4 color:muted" src="{{ utopic.user.githubauthuser.avatar_url }}">
-            </a>
-            <i class="fas fa-book"></i>
-            <a general="color:primary text:m" mobile-s="text:s" mobile-m="text:s" mobile-l="text:s"
-               href="{% url 'detail-utopic' utopic.permlink utopic.user %}">
-              {{ utopic.permlink }}/@{{ utopic.user }}
-            </a>
-         </div>
-      </div>
-      <div general="flex flex:ai-c" style="padding: 6px">
-        {% if request.user == utopic.user %}
-         <!-- <div general="flex position:right"> -->
-            <a general="br:1 color:white bg:success text:s" href="{% url 'create' utopic.permlink %}" style="padding: 6px;">
-              <i class="fas fa-plus-square"></i>
-            {% trans "Add content" %}
-            </a>
-            <a general="br:1 color:white bg:warning text:s" href="{% url  'update-utopic' utopic.permlink %}" style="padding: 6px 20px;">
-              <i class="fas fa-edit"></i>
-              {% trans "Update" %}
-            </a>
-         <!-- </div> -->
-         {% endif %}
-      </div>
+<!-- user; permlink/@username -->
+<div general="flex flex:ai-c">
+   <div general="flex flex:ai-c position:left">
+      <a general="flex color:primary text:m" href="/@{{ utopic.user }}">
+         <img class="commit-user" general="br:2 color:muted" src="{{ utopic.user.githubauthuser.avatar_url }}">
+      </a>
+      <a general="flex color:primary text:m" mobile-s="text:s" mobile-m="text:s" mobile-l="text:s" href="{% url 'detail-utopic' utopic.permlink utopic.user %}">
+         {{ utopic.permlink }}/@{{ utopic.user }}
+      </a>
    </div>
 </div>
+<!-- user -->
+<!-- top -->
 <div general="border:1 br:2 brc:muted width:100 text:s" class="top-bar">
    <div general="flex flex:jc-sa" style="padding: 12px 8px;">
       <a href="{% url 'commits' utopic.user utopic.permlink %}">
          <div general="flex flex:ai-c" mobile-s="text:xs">
             <i class="fas fa-history"></i>
             <span id="commits_count">
-            <span general="color:secondary" class="just-pc">
-            {% trans "commits" %}
-            </span>
+               <span general="color:secondary" class="just-pc">
+                  {% trans "commits" %}
+               </span>
             <strong>
-            {{ utopic.commit_count }}
+               {{ utopic.commit_count }}
             </strong>
             </span>
          </div>
@@ -55,10 +31,12 @@
          <div general="flex flex:ai-c text:s ">
             <i class="fas fa-exclamation-circle"></i>
             <span id="">
-            <span general="color:secondary" class="just-pc">
-            {% trans "issues" %}
-            </span>
-            <strong>{{ utopic.open_issue }}</strong>
+               <span general="color:secondary" class="just-pc">
+                  {% trans "issues" %}
+               </span>
+               <strong>
+                  {{ utopic.open_issue }}
+               </strong>
             </span>
          </div>
       </a>
@@ -66,10 +44,12 @@
          <div general="flex flex:ai-c text:s ">
             <i class="fas fa-plus"></i>
             <span id="">
-            <span general="color:secondary" class="just-pc">
-            {% trans "contributions" %}
-            </span>
-            <strong>{{ utopic.open_contribution }}</strong>
+               <span general="color:secondary" class="just-pc">
+                  {% trans "contributions" %}
+               </span>
+               <strong>
+                  {{ utopic.open_contribution }}
+               </strong>
             </span>
          </div>
       </a>
@@ -77,8 +57,12 @@
          <div general="flex flex:ai-c text:s ">
             <i class="fas fa-user-friends"></i>
             <span id="">
-            <span general="color:secondary" class="just-pc">{% trans "contributors" %}</span>
-            <strong>{{ utopic.contributors_count }}</strong>
+               <span general="color:secondary" class="just-pc">
+                  {% trans "contributors" %}
+               </span>
+               <strong>
+                  {{ utopic.contributors_count }}
+               </strong>
             </span>
          </div>
       </a>
@@ -97,3 +81,36 @@
       </div>
    </div>
 </div>
+<!-- top -->
+<!-- middle -->
+<div general="width:100" class="utopic-user">
+   <div general="flex flex:fd-c">
+      <div general="flex flex:js-c flex:ai-c flex:fw-w width:96 position:center">
+         <h1 general="text:xl width:100">{{ utopic.name|title }} ({{ utopic.how_many }})</h1>
+         <div general="flex flex:fd-c width:100">
+            {% if utopic.description %}
+            <div general="flex text:m" class="text3" style="white-space: normal;">{{ utopic.description|title }}</div>
+            {% endif %}
+            {% if utopic.image_address %}
+               <img general="flex flex:ai-c flex:fd-c" height="160px" src="{{ utopic.image_address }}" style="padding: 12px 0px;">
+            {% endif %}
+         </div>
+         <a general="color:blue" target="_blank" href="{{ utopic.address }}">{{ utopic.address }}</a>
+      </div>
+   </div>
+</div>
+<!-- middle -->
+<!-- buttons -->
+<div general="flex flex:ai-c" class="top-bar">
+  {% if request.user == utopic.user %}
+      <a general="br:1 color:white bg:success text:s" href="{% url 'create' utopic.permlink %}" style="padding: 10px 12px;">
+        <i class="fas fa-plus-square"></i>
+      {% trans "Add Content" %}
+      </a>
+      <a general="br:1 color:white bg:success text:s position:right" href="{% url  'update-utopic' utopic.permlink %}" style="padding: 10px 12px;">
+        <i class="fas fa-edit"></i>
+        {% trans "Update Your Topic" %}
+      </a>
+   {% endif %}
+</div>
+<!-- buttons -->
