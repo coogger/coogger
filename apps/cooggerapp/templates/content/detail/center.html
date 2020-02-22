@@ -1,0 +1,43 @@
+{% load md_editor %}
+{% load coogger_tags %}
+<div general="width:50" tablet="width:80" mobile-l="width:90" mobile-m="width:96" mobile-s="width:98" style="padding: 4px 6px">
+  <h1 general="position:center text:xxl" class="font-comfortaa cdtitle" id="title">
+      <strong>{{ queryset.title|title }}</strong>
+  </h1>
+  {% include 'content/detail/status.html' %}
+  {% include 'content/detail/userinfo.html' %}
+  {% include 'content/detail/contentinfo.html' %}
+  <div style="padding-bottom: 24px;">
+    <a href="{% url 'detail-utopic' queryset.utopic.permlink queryset.user %}">
+    {% if queryset.utopic.image_address %}<img height="200px" title="{{ queryset.utopic.permlink }}/@{{queryset.user}}/" alt="{{ queryset.utopic.permlink }}" general="position:center" src="{{ queryset.utopic.image_address }}" style="padding: 12px 0px;">{% endif %}
+    {% if queryset.utopic.description %}<a general="position:center text:s">{{ queryset.utopic.description|title }}</a>{% endif %}
+  </a>
+  {% if queryset.utopic.address %}<a general="position:center text:s color:blue" target="_blank" href="{{ queryset.utopic.address }}">{{ queryset.utopic.address }}</a>{% endif %}
+  </div>
+  <div class="content">
+    <div style="padding: inherit;" class="font-comfortaa">
+      {{ queryset.body|markdown_to_html:"detail-body"|safe }}
+    </div>
+  </div>
+  <div class="tags" id="tags" general="flex flex:jc-sa position:right bg:dark-purple text:s"></div>
+  <div style="margin: 5% 0px;"></div>
+  <div general="flex width:100">
+    {% if queryset.previous_post %}
+    <a general="color:primary:hover flex flex:jc-c color:success br:1 text:s width:46 position:left"
+      href="{{ queryset.previous_post.get_absolute_url }}">
+      ← {{ queryset.previous_post.title }}
+    </a>
+    {% endif %}
+    {% if queryset.next_post %}
+    <a general="color:primary:hover flex flex:jc-c color:success br:1 text:s width:46 position:right"
+      href="{{ queryset.next_post.get_absolute_url }}">
+      {{ queryset.next_post.title }} →
+    </a>
+    {% endif %}
+  </div>
+  <div style="margin: 5% 0px;"></div>
+  <!-- replies -->
+  {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}
+  {% include 'load_replies.html' %}
+  {% endwith %}
+</div>

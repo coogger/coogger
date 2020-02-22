@@ -32,15 +32,15 @@ INSTALLED_APPS = [
     # to build coogger apps
     "github_auth",
     # core.apps
-    "core.md_editor",
-    "core.page_views",
-    "core.images",
-    "core.follow_system",
-    "core.ip",
-    "core.vote_system",
-    "core.bookmark",
-    "core.cooggerapp",
-    "core.threaded_comment",
+    "apps.md_editor",
+    "apps.page_views",
+    "apps.images",
+    "apps.follow_system",
+    "apps.ip",
+    "apps.vote_system",
+    "apps.bookmark",
+    "apps.cooggerapp",
+    "apps.threaded_comment",
 ]
 SITE_ID = 1
 PAGE_SIZE = 10
@@ -49,7 +49,7 @@ REST_FRAMEWORK = dict(
     PAGE_SIZE=PAGE_SIZE,
 )
 MIDDLEWARE = [
-    "core.ip.middleware.ip_middleware.IpMiddleware",
+    "apps.ip.middleware.ip_middleware.IpMiddleware",
     # django
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -62,8 +62,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
     # coogger
-    "core.cooggerapp.middleware.head.HeadMiddleware",
-    "core.cooggerapp.middleware.sort.SortMiddleware",
+    "apps.cooggerapp.middleware.head.HeadMiddleware",
+    "apps.cooggerapp.middleware.sort.SortMiddleware",
 ]
 ROOT_URLCONF = "coogger.urls"
 TEMPLATES = [
@@ -78,7 +78,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.i18n",
-                "core.cooggerapp.context_processors.search_info",
+                "apps.cooggerapp.context_processors.search_info",
             ]
         ),
     )

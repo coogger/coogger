@@ -1,0 +1,35 @@
+<div general="bg:white width:100 text:s flex" mobile-l="brc:white" mobile-m="brc:white" mobile-s="brc:white">
+  <div general="text:s width:100 flex flex:jc-sa" style="padding: 12px 0px;">
+    {% include "common/counter.html" %}
+    {% if not queryset.is_reply %}
+    <div onclick="copyTextFromId('embed-text')"
+      general="border:1 br:2 text:s brc:white color:secondary color:success:hover" style="cursor:pointer;">
+      <i class="fas fa-code" general="position:center"></i>
+      <textarea id="embed-text" style="width: 0px;height: 0px;opacity: 0;position: absolute;">
+        <iframe scrolling="yes" frameborder="0" height="96%" width="100%" src="https://www.coogger.com/embed/@{{ queryset.user }}/{{ queryset.permlink }}"></iframe>
+      </textarea>
+    </div>
+    {% endif %}
+  </div>
+</div>
+<!-- begin:: detail bottom -->
+<div style="position: fixed;bottom: 4px;z-index: 1;width: inherit;">
+  <div general="width:100 text:s flex" mobile-l="brc:white" mobile-m="brc:white" mobile-s="brc:white">
+    <div general="text:m bg:dark brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
+      <div general="text:m color:secondary flex">
+        {% include 'content/detail/edit.html' %}
+      </div>
+      <!-- report -->
+      {% if queryset.user != request.user and request.user.is_authenticated %}
+      <div general="color:danger:hover color:secondary" class="report" title="report"
+        data-content-id="{{ queryset.id }}" style="cursor:pointer;">
+        <i class="fa fa-flag fa" aria-hidden="true"></i>
+      </div>
+      {% endif %}
+      <!-- report -->
+      {% include 'common/bookmark.html' %}
+      {% include 'common/vote.html' %}
+    </div>
+  </div>
+</div>
+<!-- end:: detail bottom -->

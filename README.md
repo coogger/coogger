@@ -45,6 +45,14 @@ $ python manage.py create_ghost_user
 $ python manage.py runserver
 ```
 
+
+**Multiple languages**
+
+```shell
+python manage.py makemessages -l tr
+python manage.py compilemessages
+```
+
 ##### Docker
 ```
 $ docker-compose up --env-file coogger/.env

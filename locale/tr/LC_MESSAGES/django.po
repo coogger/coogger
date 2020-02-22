@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-04 00:08+0300\n"
+"POT-Creation-Date: 2020-02-22 07:47-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,582 +18,1731 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\coogger\settings.py:115
-msgid "Turkish"
-msgstr "Türkçe"
-
-#: .\coogger\settings.py:116
-msgid "English"
-msgstr "İngilizce"
-
-#: .\core\cooggerapp\models\content.py:23 .\core\cooggerapp\models\issue.py:19
+#: apps/cooggerapp/models/content.py:23 apps/cooggerapp/models/issue.py:20
 msgid "Be sure to choose the best title"
-msgstr "En iyi başlığı seçtiğinizden emin olun"
+msgstr ""
 
-#: .\core\cooggerapp\models\content.py:27
+#: apps/cooggerapp/models/content.py:27
 msgid "Your content | problem | question | or anything else"
-msgstr "İçeriğiniz | problem | soru | ya da başka bir şey"
+msgstr ""
 
-#: .\core\cooggerapp\models\content.py:32
+#: apps/cooggerapp/models/content.py:32
 msgid "Your topic"
-msgstr "Konunuz"
+msgstr ""
 
-#: .\core\cooggerapp\models\content.py:33
+#: apps/cooggerapp/models/content.py:33
 msgid "Please, write your topic about your contents."
-msgstr "Lütfen içeriğinizle ilgili konunuzu yazın."
+msgstr ""
 
-#: .\core\cooggerapp\models\content.py:38
+#: apps/cooggerapp/models/content.py:38
 msgid "The language of your content"
-msgstr "İçeriğinizin dili"
+msgstr ""
 
-#: .\core\cooggerapp\models\content.py:42
+#: apps/cooggerapp/models/content.py:42
 msgid "Keywords"
-msgstr "Anahtar kelimeler"
+msgstr ""
 
-#: .\core\cooggerapp\models\content.py:43
+#: apps/cooggerapp/models/content.py:43
 msgid "Write your tags using spaces, max:5"
-msgstr "Etiketlerinizi boşluklar kullanarak yazın, maks: 5"
+msgstr ""
 
-#: .\core\cooggerapp\models\content.py:50
+#: apps/cooggerapp/models/content.py:50
 msgid "article's status"
-msgstr "makalenin durumu"
+msgstr ""
 
-#: .\core\cooggerapp\models\content.py:52
+#: apps/cooggerapp/models/content.py:52
 msgid ""
 "if your article isn't ready to publish yet, select 'not ready to publish'."
 msgstr ""
 
-#: .\core\cooggerapp\models\content.py:59 .\core\cooggerapp\models\topic.py:94
+#: apps/cooggerapp/models/content.py:59 apps/cooggerapp/models/topic.py:94
 msgid "Total contributors count"
-msgstr "Toplam katılımcı sayısı"
+msgstr ""
 
-#: .\core\cooggerapp\models\issue.py:25
+#: apps/cooggerapp/models/issue.py:26
 msgid "Your problem | question | or anything else"
-msgstr "Sorununuz | soru | ya da başka bir şey"
+msgstr ""
 
-#: .\core\cooggerapp\models\issue.py:31
+#: apps/cooggerapp/models/issue.py:32
 msgid "Status"
-msgstr "Durum"
+msgstr ""
 
-#: .\core\cooggerapp\models\report.py:13
+#: apps/cooggerapp/models/report.py:14
 msgid "reporter"
-msgstr "reporter"
+msgstr ""
 
-#: .\core\cooggerapp\models\report.py:15
+#: apps/cooggerapp/models/report.py:16
 msgid "reported person"
-msgstr "rapor edilen kişi"
+msgstr ""
 
-#: .\core\cooggerapp\models\report.py:18
+#: apps/cooggerapp/models/report.py:19
 msgid "type of report"
-msgstr "rapor türü"
+msgstr ""
 
-#: .\core\cooggerapp\models\report.py:24
+#: apps/cooggerapp/models/report.py:25
 msgid "Can you give more information ?"
-msgstr "Daha fazla bilgi verebilir misiniz?"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:12
+#: apps/cooggerapp/models/topic.py:12
 msgid "Name"
-msgstr "İsim"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:12
+#: apps/cooggerapp/models/topic.py:12
 msgid "Please, write topic name."
-msgstr "Lütfen konu adını yazın."
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:16
+#: apps/cooggerapp/models/topic.py:16
 msgid "Add an Image Address"
-msgstr "Resim Adresi Ekleme"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:19
+#: apps/cooggerapp/models/topic.py:19
 msgid "description of topic"
-msgstr "konunun açıklaması"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:25
+#: apps/cooggerapp/models/topic.py:25
 msgid "Keyword"
-msgstr "Kelime"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:26
+#: apps/cooggerapp/models/topic.py:26
 msgid "Write your tags using spaces"
-msgstr "Etiketlerinizi boşluk kullanarak yazın"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:29
+#: apps/cooggerapp/models/topic.py:29
 msgid "Add an address if it have"
-msgstr "Varsa bir adres ekleyin"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:32
+#: apps/cooggerapp/models/topic.py:32
 msgid "How many content in"
-msgstr "İçinde kaç içerik var"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:48
+#: apps/cooggerapp/models/topic.py:48
 msgid "Is it editable? | Yes/No"
-msgstr "Düzenlenebilir mi? | Evet Hayır"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:52
+#: apps/cooggerapp/models/topic.py:52
 msgid "Global Topic"
-msgstr "Global Konu"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:73
+#: apps/cooggerapp/models/topic.py:73
 msgid "Total duration all contents"
-msgstr "Tüm içeriklerin toplam süresi"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:76
+#: apps/cooggerapp/models/topic.py:76
 msgid "Total views all contents"
-msgstr "Toplam tüm içeriği görüntüler"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:79
+#: apps/cooggerapp/models/topic.py:79
 msgid "Total count open issue"
-msgstr "Toplam açık oturum sayısı"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:82
+#: apps/cooggerapp/models/topic.py:82
 msgid "Total count closed issue"
-msgstr "Toplam kapalı sayı sayısı"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:85
+#: apps/cooggerapp/models/topic.py:85
 msgid "Total count open contributions"
-msgstr "Toplam açık katılım sayısı"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:88
+#: apps/cooggerapp/models/topic.py:88
 msgid "Total count closed contributions"
-msgstr "Toplam kapalı katkı sayısı"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:97
+#: apps/cooggerapp/models/topic.py:97
 msgid "Total commit count"
-msgstr "Toplam taahhüt sayısı"
+msgstr ""
 
-#: .\core\cooggerapp\models\topic.py:101
+#: apps/cooggerapp/models/topic.py:101
 msgid "User Topic"
-msgstr "Kullanıcı Konusu"
+msgstr ""
 
-#: .\core\cooggerapp\models\userextra.py:15
+#: apps/cooggerapp/models/userextra.py:16
 msgid "website"
-msgstr "İnternet sitesi"
+msgstr ""
 
-#: .\core\cooggerapp\models\userextra.py:18
+#: apps/cooggerapp/models/userextra.py:19
 msgid "write address / username"
-msgstr "adres / kullanıcı adı yaz"
+msgstr ""
 
-#: .\core\cooggerapp\models\userextra.py:29
+#: apps/cooggerapp/models/userextra.py:30
 msgid "Write a long article about yourself, see; /u/@your_username/about/"
 msgstr ""
-"Kendiniz hakkında uzun bir makale yazın, bakın /u/@your_username/about/"
 
-#: .\core\cooggerapp\models\userextra.py:31
+#: apps/cooggerapp/models/userextra.py:32
 msgid "About Yourself"
-msgstr "Senin hakkında"
+msgstr ""
 
-#: .\core\cooggerapp\models\userextra.py:37
+#: apps/cooggerapp/models/userextra.py:38
 msgid "Write something short about yourself, this will appear in your profile."
-msgstr "Kendiniz hakkında kısa bir şeyler yazın, bu profilinizde görünecektir."
+msgstr ""
 
-#: .\core\cooggerapp\models\userextra.py:45
+#: apps/cooggerapp/models/userextra.py:46
 msgid "Allow email notifications."
-msgstr "E-posta bildirimlerine izin ver."
+msgstr ""
 
-#: .\core\cooggerapp\models\userextra.py:51
+#: apps/cooggerapp/models/userextra.py:52
 msgid "title"
-msgstr "başlık"
+msgstr ""
 
-#: .\core\cooggerapp\models\userextra.py:52
+#: apps/cooggerapp/models/userextra.py:53
 msgid "Title"
-msgstr "Başlık"
+msgstr ""
 
-#: .\core\cooggerapp\templates\common\there-is-no-data.html:5
+#: apps/cooggerapp/templates/common/there-is-no-data.html:5
 msgid "There is no data"
-msgstr "Veri yok"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\detail\edit.html:4
-#: .\core\cooggerapp\templates\content\detail\edit.html:9
-#: .\core\cooggerapp\templates\users\topic\commit\contribution.html:6
-#: .\core\cooggerapp\templates\users\topic\issue\detail.html:49
+#: apps/cooggerapp/templates/content/detail/edit.html:4
+#: apps/cooggerapp/templates/content/detail/edit.html:9
+#: apps/cooggerapp/templates/users/topic/commit/contribution.html:6
+#: apps/cooggerapp/templates/users/topic/issue/detail.html:49
 msgid "Edit"
-msgstr "Düzenle"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\detail\edit.html:14
+#: apps/cooggerapp/templates/content/detail/edit.html:14
 msgid "Contribute"
-msgstr "Katkıda bulunmak"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\detail\left.html:4
-msgid "Other Contents of The Topic"
-msgstr "Konunun Diğer İçeriği"
-
-#: .\core\cooggerapp\templates\content\detail\status.html:4
+#: apps/cooggerapp/templates/content/detail/status.html:4
 msgid "This article is not ready to read"
-msgstr "Bu makale okumaya hazır değil"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\detail\userinfo.html:29
+#: apps/cooggerapp/templates/content/detail/userinfo.html:29
 msgid "Last update"
-msgstr "Son Güncelleme"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\detail\userinfo.html:53
-#: .\core\cooggerapp\templates\users\pp.html:55
+#: apps/cooggerapp/templates/content/detail/userinfo.html:53
+#: apps/cooggerapp/templates/users/pp.html:55
 msgid "Unfollow"
-msgstr "Takip etmekten vazgeç"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\detail\userinfo.html:59
-#: .\core\cooggerapp\templates\users\pp.html:61
+#: apps/cooggerapp/templates/content/detail/userinfo.html:59
+#: apps/cooggerapp/templates/users/pp.html:61
 msgid "Follow"
-msgstr "Takip et"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\post\editor-note.html:2
+#: apps/cooggerapp/templates/content/post/editor-note.html:2
 msgid "How To Write My Content ?"
-msgstr "İçeriğimi Nasıl Yazabilirim?"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\post\editor-note.html:3
+#: apps/cooggerapp/templates/content/post/editor-note.html:3
 msgid "What is Markdown ?"
-msgstr "Markdown nedir?"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\post\editor-note.html:4
+#: apps/cooggerapp/templates/content/post/editor-note.html:4
 msgid "Need help for learing **markdown** format ? Check These Addresses Below"
 msgstr ""
-"** markdown ** formatını öğrenmek için yardıma mı ihtiyacınız var? Aşağıdaki "
-"Adresleri Kontrol Edin"
 
-#: .\core\cooggerapp\templates\content\post\editor-note.html:11
+#: apps/cooggerapp/templates/content/post/editor-note.html:11
 msgid "Coogger Post Guide"
-msgstr "Coogger Post Kılavuzu"
+msgstr ""
 
-#: .\core\cooggerapp\templates\content\post\editor-note.html:14
+#: apps/cooggerapp/templates/content/post/editor-note.html:14
 msgid "How To Upload My Image"
-msgstr "Resmimi Nasıl Yükleyebilirim"
+msgstr ""
 
-#: .\core\cooggerapp\templates\delete-account.html:7
+#: apps/cooggerapp/templates/delete-account.html:7
 msgid "Deleting your user account"
-msgstr "Kullanıcı hesabınızı silme"
+msgstr ""
 
-#: .\core\cooggerapp\templates\delete-account.html:8
+#: apps/cooggerapp/templates/delete-account.html:8
 msgid "You can delete your Coogger user account at any time."
-msgstr "Coogger kullanıcı hesabınızı istediğiniz zaman silebilirsiniz."
+msgstr ""
 
-#: .\core\cooggerapp\templates\delete-account.html:10
+#: apps/cooggerapp/templates/delete-account.html:10
 msgid ""
 "Deleting your user account removes your first, last and email addesss and "
 "all topics, bookmarks, votes, views, comments owned by your account."
 msgstr ""
-"Kullanıcı hesabınızı silmek, ilk, son ve e-posta adresinizi ve hesabınıza "
-"ait tüm konuları, yer işaretlerini, oyları, görünümleri ve yorumları "
-"kaldırır."
 
-#: .\core\cooggerapp\templates\delete-account.html:11
+#: apps/cooggerapp/templates/delete-account.html:11
 msgid ""
 "Issues and contributions you've made in topics owned by other users will not "
 "be deleted - instead, they'll be associated with our @Ghost user."
 msgstr ""
-"Diğer kullanıcıların sahip olduğu konularda yaptığınız sorunlar ve "
-"katkılarsilinmeyecek - bunun yerine, @Ghost kullanıcımızla "
-"ilişkilendirilecekler / anonimleştirilecektir."
 
-#: .\core\cooggerapp\templates\delete-account.html:15
+#: apps/cooggerapp/templates/delete-account.html:15
 msgid ""
 "If you delete your account, you will never be able to log in to the coogger "
 "again."
-msgstr "Hesabınızı silerseniz, coogger'a asla giriş yapamazsınız."
+msgstr ""
 
-#: .\core\cooggerapp\templates\delete-account.html:19
+#: apps/cooggerapp/templates/delete-account.html:19
 msgid "To delete your account, just enter your username"
-msgstr "Hesabınızı silmek için kullanıcı adınızı girmeniz yeterlidir"
+msgstr ""
 
-#: .\core\cooggerapp\templates\email\contribute.html:10
-#: .\core\cooggerapp\templates\email\first_login.html:14
-#: .\core\cooggerapp\templates\email\follow.html:7
-#: .\core\cooggerapp\templates\email\new-issue.html:11
-#: .\core\cooggerapp\templates\email\post.html:6
-#: .\core\cooggerapp\templates\email\reply.html:10
+#: apps/cooggerapp/templates/email/contribute.html:10
+#: apps/cooggerapp/templates/email/first_login.html:14
+#: apps/cooggerapp/templates/email/follow.html:7
+#: apps/cooggerapp/templates/email/new-issue.html:11
+#: apps/cooggerapp/templates/email/post.html:6
+#: apps/cooggerapp/templates/email/reply.html:10
 msgid ""
 "You can give us the greatest support by recommending Coogger to your friends."
 msgstr ""
-"Coogger'ı arkadaşlarınıza önererek bize en büyük desteği verebilirsiniz."
 
-#: .\core\cooggerapp\templates\email\new-issue.html:9
+#: apps/cooggerapp/templates/email/new-issue.html:9
 msgid "Click to visit this issue."
-msgstr "Bu sorunu ziyaret etmek için tıklayın."
+msgstr ""
 
-#: .\core\cooggerapp\templates\email\post.html:3
+#: apps/cooggerapp/templates/email/post.html:3
 msgid "Here is the content, click and read"
-msgstr "İşte içerik, tıklayın ve okuyun"
+msgstr ""
 
-#: .\core\cooggerapp\templates\email\reply.html:6
+#: apps/cooggerapp/templates/email/reply.html:6
 msgid "left a comment on your post click to reply."
-msgstr "yayınınıza bir yorum bıraktı yanıtlamak için tıklayın."
+msgstr ""
 
-#: .\core\cooggerapp\templates\forms\search.html:5
+#: apps/cooggerapp/templates/forms/search.html:6
 msgid "search content, #topic or @user .."
-msgstr "ara içerik, #konu veya @kullanıcı .."
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\explorer.html:18
-#: .\core\cooggerapp\templates\home\explorer.html:36
-#: .\core\cooggerapp\templates\home\explorer.html:46
-#: .\core\cooggerapp\templates\home\explorer.html:56
-#, fuzzy
-#| msgid "CONTENT"
+#: apps/cooggerapp/templates/home/explorer.html:18
+#: apps/cooggerapp/templates/home/explorer.html:36
+#: apps/cooggerapp/templates/home/explorer.html:46
+#: apps/cooggerapp/templates/home/explorer.html:56
 msgid "CONTENTS"
-msgstr "İÇERİKLER"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\footer.html:12
+#: apps/cooggerapp/templates/home/footer.html:12
 msgid "Guide"
-msgstr "Kılavuz"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\footer.html:16
+#: apps/cooggerapp/templates/home/footer.html:16
 msgid "Privacy Policy"
-msgstr "Gizlilik Politikası"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\footer.html:20
+#: apps/cooggerapp/templates/home/footer.html:20
 msgid "Sponsorship"
-msgstr "Sponsorluk"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\footer.html:24
+#: apps/cooggerapp/templates/home/footer.html:24
 msgid "Delete Account"
-msgstr "Hesabı sil"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\footer.html:28
-#: .\core\cooggerapp\templates\home\header.html:109
+#: apps/cooggerapp/templates/home/footer.html:28
+#: apps/cooggerapp/templates/home/header.html:109
 msgid "Coogger Images"
 msgstr ""
 
-#: .\core\cooggerapp\templates\home\footer.html:32
-#: .\core\cooggerapp\templates\home\header.html:29
+#: apps/cooggerapp/templates/home/footer.html:32
+#: apps/cooggerapp/templates/home/header.html:29
 msgid "Create Topic"
-msgstr "Konu Oluştur"
-
-#: .\core\cooggerapp\templates\home\footer.html:36
-#, fuzzy
-#| msgid "Explorer"
-msgid "Explore posts"
-msgstr "Yayınları keşfedin"
-
-#: .\core\cooggerapp\templates\home\footer.html:40
-msgid "SOCIAL"
-msgstr "SOSYAL"
-
-#: .\core\cooggerapp\templates\home\header.html:19
-msgid "Login via github"
-msgstr "Github ile giriş"
-
-#: .\core\cooggerapp\templates\home\header.html:53
-msgid "Explorer"
-msgstr "Keşfet"
-
-#: .\core\cooggerapp\templates\home\header.html:61
-msgid "Feed"
-msgstr "Akış"
-
-#: .\core\cooggerapp\templates\home\header.html:69
-#: .\core\cooggerapp\templates\users\pp.html:32
-msgid "Contents"
-msgstr "İçerikler"
-
-#: .\core\cooggerapp\templates\home\header.html:77
-msgid "Bookmark"
-msgstr "Yer imi"
-
-#: .\core\cooggerapp\templates\home\header.html:85
-msgid "Comments"
-msgstr "Yorumlar"
-
-#: .\core\cooggerapp\templates\home\header.html:93
-msgid "About"
-msgstr "Hakkında"
-
-#: .\core\cooggerapp\templates\home\header.html:101
-msgid "Settings"
-msgstr "Ayarlar"
-
-#: .\core\cooggerapp\templates\home\header.html:117
-msgid "Sign out"
-msgstr "Oturumu Kapat"
-
-#: .\core\cooggerapp\templates\home\insection-left.html:6
-msgid "Most Remarkable Topics"
-msgstr "En Önemli Konular"
-
-#: .\core\cooggerapp\templates\home\introduction.html:10
-msgid ""
-"Coogger is a platform for developers to publish technical documents in the "
-"best way."
 msgstr ""
-"Coogger, geliştiriciler için teknik belgeleri en iyi şekilde yayınlamalarını "
-"sağlayan bir platformdur."
 
-#: .\core\cooggerapp\templates\home\introduction.html:18
-#, fuzzy
-#| msgid "Explorer"
-msgid "Explore coogger"
-msgstr "Coogger'ı keşfedin"
+#: apps/cooggerapp/templates/home/footer.html:36
+msgid "Explore posts"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:21
+#: apps/cooggerapp/templates/home/footer.html:40
+msgid "SOCIAL"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:19
+msgid "Login via github"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:53
+msgid "Explorer"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:61
+msgid "Feed"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:69
+#: apps/cooggerapp/templates/users/pp.html:32
+msgid "Contents"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:77
+msgid "Bookmark"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:85
+msgid "Comments"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:93
+msgid "About"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:101
+msgid "Settings"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/header.html:117
+msgid "Sign out"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/insection-left.html:6
+msgid "Most Remarkable Topics"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/introduction.html:8
+msgid "Coogger Provides A Version Control System For Your Documents."
+msgstr ""
+
+#: apps/cooggerapp/templates/home/introduction.html:14
+msgid ""
+"Coogger Is A Platform For Developers To Publish Technical Documents In The "
+"Best Way"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/introduction.html:23
+msgid "Explore Coogger"
+msgstr ""
+
+#: apps/cooggerapp/templates/home/introduction.html:26
 msgid "About Coogger"
-msgstr "Coogger hakkında"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:26
+#: apps/cooggerapp/templates/home/introduction.html:33
 msgid "We are open-source"
-msgstr "Açık kaynağız"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:35
+#: apps/cooggerapp/templates/home/introduction.html:41
 msgid "Coogger has issue feature, click and check this is an example"
 msgstr ""
-"Coogger'da issue özelliği var, tıklayın ve bunun bir örnek olup olmadığını "
-"kontrol edin"
 
-#: .\core\cooggerapp\templates\home\introduction.html:41
-#, fuzzy
-#| msgid "Coogger has commit feature, click and check this is an example"
+#: apps/cooggerapp/templates/home/introduction.html:47
 msgid ""
 "Coogger has contribute feature, you can help their development by "
 "contributing to the articles. Click and check this is an example"
 msgstr ""
-"Coogger'ın commit özelliği vardır, tıklayın ve bunun bir örnek olup "
-"olmadığını kontrol edin"
 
-#: .\core\cooggerapp\templates\home\introduction.html:49
+#: apps/cooggerapp/templates/home/introduction.html:55
 msgid "Coogger has commit feature, click and check this is an example"
 msgstr ""
-"Coogger'ın commit özelliği vardır, tıklayın ve bunun bir örnek olup "
-"olmadığını kontrol edin"
 
-#: .\core\cooggerapp\templates\home\introduction.html:55
+#: apps/cooggerapp/templates/home/introduction.html:61
 msgid "Coogger use markdown format"
-msgstr "Coogger markdown formatı kullanır"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:61
+#: apps/cooggerapp/templates/home/introduction.html:67
 msgid "Coogger is the same on all browsers"
-msgstr "Coogger tüm tarayıcılarda aynıdır"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:67
+#: apps/cooggerapp/templates/home/introduction.html:73
 msgid "Coogger is a responsive design"
-msgstr "Coogger her ekrana duyarlı bir tasarıma sahiptir"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:78
+#: apps/cooggerapp/templates/home/introduction.html:86
 msgid "Some Documents Written by Our Users"
-msgstr "Kullanıcılarımız Tarafından Yazılan Bazı Belgeler"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\introduction.html:95
+#: apps/cooggerapp/templates/home/introduction.html:126
 msgid "Latest Users Joining the Coogger"
-msgstr "Coogger'a Katılan Son Kullanıcılar"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\issues-list.html:5
+#: apps/cooggerapp/templates/home/issues-list.html:5
 msgid "Open Issues"
-msgstr "Açık sorunlar"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\report.html:6
+#: apps/cooggerapp/templates/home/report.html:6
 msgid "Report / flag"
-msgstr "Bildir / işaretle"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\search\not_result.html:9
+#: apps/cooggerapp/templates/home/search/not_result.html:9
 msgid "SORRY, WE COULDN’T FIND ANY RESULTS FOR"
-msgstr "ÜZGÜNÜZ, HERHANGI BIR SONUÇ IÇIN BULAMADIK"
+msgstr ""
 
-#: .\core\cooggerapp\templates\home\search\not_result.html:12
+#: apps/cooggerapp/templates/home/search/not_result.html:12
 msgid "Try a more generic search term."
-msgstr "Daha genel bir arama terimi deneyin."
+msgstr ""
 
-#: .\core\cooggerapp\templates\sponsorship.html:7
+#: apps/cooggerapp/templates/sponsorship.html:7
 msgid "Sponsorship Information, Policy and FAQ"
-msgstr "Sponsorluk Bilgileri, Politika ve SSS"
+msgstr ""
 
-#: .\core\cooggerapp\templates\sponsorship.html:8
+#: apps/cooggerapp/templates/sponsorship.html:8
 msgid "Coogger.com needs you, please contact us for sponsorship."
 msgstr ""
-"Coogger.com'un size ihtiyacı var, sponsorluk için lütfen bizimle iletişime "
-"geçin."
 
-#: .\core\cooggerapp\templates\users\about.html:15
+#: apps/cooggerapp/templates/users/about.html:15
 msgid "Our user has not written an article about himself yet."
-msgstr "Kullanıcımız henüz kendisi hakkında bir makale yazmadı."
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\history\comment.html:52
+#: apps/cooggerapp/templates/users/history/comment.html:52
 msgid "This is just a comment, view the full content"
-msgstr "Bu sadece bir yorum, tüm içeriği görüntüle"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\pp.html:39
+#: apps/cooggerapp/templates/users/pp.html:39
 msgid "Followers"
-msgstr "Takipçiler"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\pp.html:46
+#: apps/cooggerapp/templates/users/pp.html:46
 msgid "Following"
-msgstr "Takip edilenler"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\tabs.html:7
+#: apps/cooggerapp/templates/users/tabs.html:7
 msgid "TOPIC"
-msgstr "KONULAR"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\tabs.html:13
+#: apps/cooggerapp/templates/users/tabs.html:13
 msgid "CONTENT"
-msgstr "İÇERİK"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\tabs.html:19
+#: apps/cooggerapp/templates/users/tabs.html:19
 msgid "BOOKMARK"
-msgstr "YER İMİ"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\tabs.html:25
+#: apps/cooggerapp/templates/users/tabs.html:25
 msgid "COMMENT"
-msgstr "YORUM"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\tabs.html:31
+#: apps/cooggerapp/templates/users/tabs.html:31
 msgid "ABOUT"
-msgstr "HAKKINDA"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\commit\contribution.html:15
+#: apps/cooggerapp/templates/users/topic/commit/contribution.html:15
 msgid "Approved"
-msgstr "Onaylandı"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\commit\contribution.html:18
+#: apps/cooggerapp/templates/users/topic/commit/contribution.html:18
 msgid "Rejected"
-msgstr "Reddedildi"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\issues.html:17
+#: apps/cooggerapp/templates/users/topic/detail/issues.html:17
 msgid "Issues"
-msgstr "Sorunlar"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\issues.html:25
+#: apps/cooggerapp/templates/users/topic/detail/issues.html:25
 msgid "Closed"
-msgstr "Kapalı"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\issues.html:32
-#: .\core\cooggerapp\templates\users\topic\issue\detail.html:14
+#: apps/cooggerapp/templates/users/topic/detail/issues.html:32
+#: apps/cooggerapp/templates/users/topic/issue/detail.html:14
 msgid "Open new issue"
-msgstr "Yeni issue aç"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\issues.html:58
+#: apps/cooggerapp/templates/users/topic/detail/issues.html:58
 msgid "last updated"
-msgstr "Son güncelleme"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\top.html:42
-msgid "Add content"
-msgstr "İçerik ekle"
-
-#: .\core\cooggerapp\templates\users\topic\detail\top.html:46
-msgid "Update"
-msgstr "Güncelleme"
-
-#: .\core\cooggerapp\templates\users\topic\detail\top.html:67
+#: apps/cooggerapp/templates/users/topic/detail/top.html:22
 msgid "commits"
 msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\top.html:80
+#: apps/cooggerapp/templates/users/topic/detail/top.html:35
 msgid "issues"
-msgstr "sorunlar"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\top.html:91
+#: apps/cooggerapp/templates/users/topic/detail/top.html:48
 msgid "contributions"
-msgstr "katkıları"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\top.html:101
+#: apps/cooggerapp/templates/users/topic/detail/top.html:61
 msgid "contributors"
 msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\detail\top.html:115
+#: apps/cooggerapp/templates/users/topic/detail/top.html:78
 msgid "views"
-msgstr "Görüntüleme"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\issue\detail.html:20
+#: apps/cooggerapp/templates/users/topic/detail/top.html:108
+msgid "Add Content"
+msgstr ""
+
+#: apps/cooggerapp/templates/users/topic/detail/top.html:112
+msgid "Update Your Topic"
+msgstr ""
+
+#: apps/cooggerapp/templates/users/topic/issue/detail.html:20
 msgid "Closed this issue"
-msgstr "Bu sorunu kapatıldı"
+msgstr ""
 
-#: .\core\cooggerapp\templates\users\topic\issue\detail.html:25
+#: apps/cooggerapp/templates/users/topic/issue/detail.html:25
 msgid "Open this issue"
-msgstr "Bu sorunu aç"
+msgstr ""
 
-#: .\core\vote_system\models.py:52
+#: apps/vote_system/models.py:52
 msgid "This obj is already saved"
-msgstr "Bu obje zaten kaydedildi"
+msgstr ""
 
-#~ msgid "user."
-#~ msgstr "kullanıcı."
+#: coogger/settings.py:116
+msgid "Turkish"
+msgstr ""
+
+#: coogger/settings.py:117
+msgid "English"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/contrib/messages/apps.py:7
+msgid "Messages"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/contrib/sitemaps/apps.py:7
+msgid "Site Maps"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/contrib/staticfiles/apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/contrib/syndication/apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/paginator.py:45
+msgid "That page number is not an integer"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/paginator.py:47
+msgid "That page number is less than 1"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/paginator.py:52
+msgid "That page contains no results"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:32
+msgid "Enter a valid value."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:103
+#: env/lib/python3.8/site-packages/django/forms/fields.py:659
+msgid "Enter a valid URL."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:155
+msgid "Enter a valid integer."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:166
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: env/lib/python3.8/site-packages/django/core/validators.py:240
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:247
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:256
+#: env/lib/python3.8/site-packages/django/core/validators.py:276
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:261
+#: env/lib/python3.8/site-packages/django/core/validators.py:277
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:271
+#: env/lib/python3.8/site-packages/django/core/validators.py:275
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:305
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:311
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:343
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:352
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:362
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:377
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:396
+#: env/lib/python3.8/site-packages/django/forms/fields.py:291
+#: env/lib/python3.8/site-packages/django/forms/fields.py:326
+msgid "Enter a number."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:398
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:403
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:408
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:470
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/core/validators.py:522
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/base.py:1181
+#: env/lib/python3.8/site-packages/django/forms/models.py:759
+msgid "and"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/base.py:1183
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:104
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:105
+msgid "This field cannot be null."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:106
+msgid "This field cannot be blank."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:107
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
+#. Eg: "Title must be unique for pub_date year"
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:111
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:130
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:937
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:938
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:940
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:981
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1045
+msgid "Comma-separated integers"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1094
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1096
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1239
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1099
+msgid "Date (without time)"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1237
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1241
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1245
+msgid "Date (with time)"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1393
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1395
+msgid "Decimal number"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1534
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1537
+msgid "Duration"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1587
+msgid "Email address"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1610
+msgid "File path"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1676
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1678
+msgid "Floating point number"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1716
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1718
+msgid "Integer"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1801
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1817
+msgid "IPv4 address"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1848
+msgid "IP address"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1928
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1929
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1931
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1966
+msgid "Positive integer"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1979
+msgid "Positive small integer"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:1993
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2025
+msgid "Small integer"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2032
+msgid "Text"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2060
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2062
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2065
+msgid "Time"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2191
+msgid "URL"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2213
+msgid "Raw binary data"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2278
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/__init__.py:2280
+msgid "Universally unique identifier"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/files.py:221
+msgid "File"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/files.py:360
+msgid "Image"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/related.py:778
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/related.py:780
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/related.py:1012
+msgid "One-to-one relationship"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/related.py:1066
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/related.py:1067
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/db/models/fields/related.py:1109
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: env/lib/python3.8/site-packages/django/forms/boundfield.py:149
+msgid ":?.!"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:53
+msgid "This field is required."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:246
+msgid "Enter a whole number."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:397
+#: env/lib/python3.8/site-packages/django/forms/fields.py:1127
+msgid "Enter a valid date."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:421
+#: env/lib/python3.8/site-packages/django/forms/fields.py:1128
+msgid "Enter a valid time."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:443
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:472
+msgid "Enter a valid duration."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:473
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:533
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:534
+msgid "No file was submitted."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:535
+msgid "The submitted file is empty."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:537
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:540
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:601
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:763
+#: env/lib/python3.8/site-packages/django/forms/fields.py:853
+#: env/lib/python3.8/site-packages/django/forms/models.py:1275
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:854
+#: env/lib/python3.8/site-packages/django/forms/fields.py:969
+#: env/lib/python3.8/site-packages/django/forms/models.py:1274
+msgid "Enter a list of values."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:970
+msgid "Enter a complete value."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/fields.py:1186
+msgid "Enter a valid UUID."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: env/lib/python3.8/site-packages/django/forms/forms.py:81
+msgid ":"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/forms.py:207
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/formsets.py:93
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/formsets.py:345
+#, python-format
+msgid "Please submit %d or fewer forms."
+msgid_plural "Please submit %d or fewer forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/forms/formsets.py:352
+#, python-format
+msgid "Please submit %d or more forms."
+msgid_plural "Please submit %d or more forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/forms/formsets.py:379
+#: env/lib/python3.8/site-packages/django/forms/formsets.py:386
+msgid "Order"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/formsets.py:391
+msgid "Delete"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/models.py:754
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/models.py:758
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/models.py:764
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/models.py:773
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/models.py:1094
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/models.py:1161
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/models.py:1277
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/utils.py:162
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/widgets.py:395
+msgid "Clear"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/widgets.py:396
+msgid "Currently"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/widgets.py:397
+msgid "Change"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/widgets.py:709
+msgid "Unknown"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/widgets.py:710
+msgid "Yes"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/forms/widgets.py:711
+msgid "No"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/template/defaultfilters.py:788
+msgid "yes,no,maybe"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/template/defaultfilters.py:817
+#: env/lib/python3.8/site-packages/django/template/defaultfilters.py:834
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/template/defaultfilters.py:836
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/template/defaultfilters.py:838
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/template/defaultfilters.py:840
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/template/defaultfilters.py:842
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/template/defaultfilters.py:844
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dateformat.py:62
+msgid "p.m."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dateformat.py:63
+msgid "a.m."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dateformat.py:68
+msgid "PM"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dateformat.py:69
+msgid "AM"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dateformat.py:150
+msgid "midnight"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dateformat.py:152
+msgid "noon"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:6
+msgid "Monday"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:6
+msgid "Tuesday"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:6
+msgid "Wednesday"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:6
+msgid "Thursday"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:6
+msgid "Friday"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:7
+msgid "Saturday"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:7
+msgid "Sunday"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:10
+msgid "Mon"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:10
+msgid "Tue"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:10
+msgid "Wed"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:10
+msgid "Thu"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:10
+msgid "Fri"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:11
+msgid "Sat"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:11
+msgid "Sun"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:14
+msgid "January"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:14
+msgid "February"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:14
+msgid "March"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:14
+msgid "April"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:14
+msgid "May"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:14
+msgid "June"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:15
+msgid "July"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:15
+msgid "August"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:15
+msgid "September"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:15
+msgid "October"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:15
+msgid "November"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:16
+msgid "December"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:19
+msgid "jan"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:19
+msgid "feb"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:19
+msgid "mar"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:19
+msgid "apr"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:19
+msgid "may"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:19
+msgid "jun"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:20
+msgid "jul"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:20
+msgid "aug"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:20
+msgid "sep"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:20
+msgid "oct"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:20
+msgid "nov"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:20
+msgid "dec"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:23
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:24
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:25
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:26
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:27
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:28
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:29
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:30
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:31
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:32
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:33
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:34
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:37
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:38
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:39
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:40
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:41
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:42
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:43
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:44
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:45
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:46
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:47
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/dates.py:48
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/text.py:69
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/text.py:235
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: env/lib/python3.8/site-packages/django/utils/text.py:254
+#: env/lib/python3.8/site-packages/django/utils/timesince.py:83
+msgid ", "
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/utils/timesince.py:9
+#, python-format
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/utils/timesince.py:10
+#, python-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/utils/timesince.py:14
+#, python-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/lib/python3.8/site-packages/django/utils/timesince.py:72
+msgid "0 minutes"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/csrf.py:110
+msgid "Forbidden"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/csrf.py:111
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/csrf.py:115
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your Web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/csrf.py:120
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/csrf.py:124
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/csrf.py:132
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/csrf.py:137
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/csrf.py:142
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:41
+msgid "No year specified"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:61
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:111
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:208
+msgid "Date out of range"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:90
+msgid "No month specified"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:142
+msgid "No day specified"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:188
+msgid "No week specified"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:338
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:367
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:589
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/dates.py:623
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/detail.py:54
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/list.py:67
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/list.py:72
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/generic/list.py:154
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/static.py:40
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/static.py:42
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/static.py:80
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:7
+msgid "Django: the Web framework for perfectionists with deadlines."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:346
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:368
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:369
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:384
+msgid "Django Documentation"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:385
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:396
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:397
+msgid "Get started with Django"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:408
+msgid "Django Community"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:409
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/github_auth/models.py:16
+msgid "github user code / to get access_token"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/github_auth/models.py:19
+msgid "github user access_token to any api operations"
+msgstr ""

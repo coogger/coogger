@@ -1,0 +1,26 @@
+{% load i18n %}
+<div general="width:20 position:left" class="just-pc">
+  <ol general="bg:white brc:white" class="oc-l">
+    {% for list in queryset.other_content_of_this_topic %}
+      {% if list.permlink == current_page_permlink %}
+      <li general="color:primary text:s">
+        <a general="flex text:s color:primary" class="p36" href="{{ list.get_absolute_url }}">
+          {{ list.title|title }}
+        </a>
+      </li>
+      {% else%}
+      <li general="text:xs text:s:hover color:primary:hover">
+        {% if list.status != "ready" %}
+        <a general="flex text:s color:muted br:1 color:warning:hover" class="p36" href="{{list.get_absolute_url}}">
+          {{ list.title|title }}
+        </a>
+        {% else %}
+        <a general="flex text:s color:dark br:1 color:primary:hover" class="p36" href="{{list.get_absolute_url}}">
+          {{ list.title|title }}
+        </a>
+        {% endif %}
+      </li>
+      {% endif %}
+    {% endfor %}
+  <ol>
+</div>

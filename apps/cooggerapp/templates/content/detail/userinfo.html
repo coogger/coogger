@@ -1,0 +1,64 @@
+{% load follow_system_tags i18n %}
+<div general="bg:white" style="border-bottom: 1px solid #eaecee;">
+  <div general="flex flex:ai-fs bg:white" style="padding: 12px 0px;">
+    <img general="br:circle position:left" id="detail_profile_image" src="{{ current_user.githubauthuser.avatar_url }}"
+      style="height:  40px;width:  40px;margin:  initial;" />
+    <div general="flex text:s flex:fd-c">
+      {% with current_user as user %}
+      {% include 'common/user-title.html' %}
+      {% endwith %}
+      <a general="flex" title="{{ current_user  }}" href="/@{{ current_user }}"
+        style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+        <span id="username">
+          {% with current_user as user %}
+          {% include 'common/username.html' %}
+          {% endwith %}
+        </span>
+      </a>
+      <div general="color:secondary">
+        <i class="fas fa-clock"></i>
+        <span id="time">{{ queryset.created|timesince }}</span>
+      </div>
+    </div>
+    {% with queryset.user as user %}
+    {% include 'common/github-redirect.html' %}
+    {% endwith %}
+    <div general="flex text:s position:right flex:ai-c" class="just-pc">
+      <div style="margin-right: 12px;">
+        <i class="fas fa-clock"></i>
+        {% trans "Last update" %} | <span id="lastmod">{{ queryset.updated|timesince }}</span>
+      </div>
+    </div>
+  </div>
+  {% with contributors=queryset.get_contributors %}
+  {% if contributors %}
+  <span general="text:s">Contributors</span>
+  <div class="contributors" general="flex" style="margin: 12px 0px;">
+    {% for contributor in queryset.get_contributors %}
+    <a href="{% url 'commits' queryset.utopic.user queryset.utopic.permlink %}?username={{contributor}}"
+      title="{{ contributor }}">
+      <img general="position:left" src="{{ contributor.githubauthuser.avatar_url }}"
+        style="width:  20px;margin:  initial;" />
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+  <div general="fd-s">
+    {% if request.user != current_user and request.user.is_authenticated %}
+    {% if request.user|is_follow:current_user %}
+    <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}"
+      general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:red:hover width:2"
+      style="cursor:pointer;padding: 2px 30px;">
+      <div general="text:s color:white" id="follow">{% trans "Unfollow" %}</div>
+    </div>
+    {% else %}
+    <div class="follow-op" id="follow-op" data-url="{% url 'follow' current_user %}"
+      general="flex flex:jc-c flex:as-c br:2 border:1 brc:muted bg:secondary bg:primary:hover width:2"
+      style="cursor:pointer;padding: 3px 30px;">
+      <div general="text:s color:white" id="follow">{% trans "Follow" %}</div>
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+</div>

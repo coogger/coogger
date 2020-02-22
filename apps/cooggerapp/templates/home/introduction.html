@@ -1,0 +1,138 @@
+{% extends "home/html.html" %}
+{% load static i18n coogger_tags %}
+{% block body %}
+  <div class="c-definition" general="position:ewcenter color:white width:100">
+   <div general="flex flex:fd-c">
+     <div general="flex flex:ai-c color:dark br:2 color:primary:hover" style="padding: 4px 6px;">
+        <h1 general="width:80 position:center color:dark">
+          {% trans "Coogger Provides A Version Control System For Your Documents." %}
+        </h1>
+      </div>
+      <div general="flex position:center border:1 brc:muted br:2" style="margin-top: 2vh;padding: 24px 30px;">
+         <img general="width:20" src="{% static 'doodles/MessyDoodle.svg' %}">
+         <h2 general="width:80 position:center color:dark">
+         {% trans "Coogger Is A Platform For Developers To Publish Technical Documents In The Best Way" %}
+         </h2>
+      </div>
+      <hr general="width:100">
+      <div general="width:100" style="margin-top: 12px;">
+         <div style="margin:2% 0px;">
+          <img general="width:20 position:center" mobile-l="width:60" mobile-m="width:60" mobile-s="width:60" src="{% static 'doodles/ZombieingDoodle.svg' %}">
+            <a class="fas fa-compass" general="br:2 width:40 position:center bg:success color:white flex flex:ai-c"
+               href="{% url 'explorer_posts' %}" style="padding:6px 0px;">
+            {% trans "Explore Coogger" %}
+            </a>
+         </div>
+         <h3 general="position:center text:xl color:dark">{% trans "About Coogger" %}</h3>
+         <div general="flex flex:fd-r position:center">
+           <img general="width:20 position:center" mobile-l="width:60" mobile-m="width:60" mobile-s="width:60" src="{% static 'doodles/LovingDoodle.svg' %}" style="margin: 0px;">
+            <div general="flex flex:fd-c width:50" mobile-l="width:100" mobile-m="width:100" mobile-s="width:100">
+                <div general="flex flex:ai-c color:dark br:2 color:primary:hover" style="padding: 4px 6px;">
+                  <i class="fas fa-check-square"></i>
+                  <a general="flex flex:ai-c" href="https://www.github.com/coogger">
+                  <strong tablet="text:s">{% trans "We are open-source" %}</strong>
+                  <img general="br:2" src="https://img.shields.io/github/forks/coogger/coogger.svg" alt="coogger-fork" style="margin-left: 4px;margin-right: 4px;">
+                  <strong tablet="text:s">me on Github</strong>
+                  </a>
+                </div>
+                <div general="flex flex:ai-c color:dark br:2 color:primary:hover" style="padding: 4px 6px;">
+                  <i class="fas fa-check-square"></i>
+                  <a general="flex flex:ai-c width:60" tablet="text:s" href="/@hakancelik96/django/issues/6/">
+                  <strong tablet="text:s">{% trans "Coogger has issue feature, click and check this is an example" %}</strong>
+                  </a>
+                </div>
+                <div general="flex flex:ai-c color:dark br:2 color:primary:hover" style="padding: 4px 6px;">
+                  <i class="fas fa-check-square"></i>
+                  <a general="flex flex:ai-c width:60" tablet="text:s" href="/@hakancelik96/git/contributors/">
+                  <strong tablet="text:s">{% trans "Coogger has contribute feature, you can help their development by contributing to the articles. Click and check this is an example" %}
+                  </strong>
+                  </a>
+                </div>
+                <div general="flex flex:ai-c color:dark br:2 color:primary:hover" style="padding: 4px 6px;">
+                  <i class="fas fa-check-square"></i>
+                  <a general="flex flex:ai-c width:60" tablet="text:s"
+                      href="/@hakancelik96/django/commit/1c0c1a3be5a3432b783797166a25ff58644af087f3902d8dc8e4bec4544b1332/">
+                  <strong tablet="text:s">{% trans "Coogger has commit feature, click and check this is an example" %}</strong>
+                  </a>
+                </div>
+                <div general="flex flex:ai-c color:dark br:2" style="padding: 4px 6px;">
+                  <i class="fas fa-check-square"></i>
+                  <strong tablet="text:s" general="width:60">
+                  {% trans "Coogger use markdown format" %}
+                  </strong>
+                </div>
+                <div general="flex flex:ai-c color:dark br:2" style="padding: 4px 6px;">
+                  <i class="fas fa-check-square"></i>
+                  <strong tablet="text:s" general="width:60">
+                  {% trans "Coogger is the same on all browsers" %}
+                  </strong>
+                </div>
+                <div general="flex flex:ai-c color:dark br:2" style="padding: 4px 6px;">
+                  <i class="fas fa-check-square"></i>
+                  <strong tablet="text:s" general="width:60">
+                  {% trans "Coogger is a responsive design" %}
+                  </strong>
+                </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<hr general="width:80">
+<div style="padding: 1px 0px 60px 0px;">
+  <img general="width:20 position:center" mobile-l="width:60" mobile-m="width:60" mobile-s="width:60" src="{% static 'doodles/ReadingDoodle.svg' %}">
+   <div general="flex flex:fd-c width:100" style="overflow: hidden;">
+      <h3 general="flex text:xxl position:center color:dark width:90 flex:ai-c">
+        {% trans "Some Documents Written by Our Users" %}
+      </h3>
+      <div general="flex width:90 position:center">
+         {% for utopic in utopics %}
+         <div general="width:40 flex" mobile-l="width:90" mobile-m="width:94" mobile-s="width:100" mobile-l="txt-s" style="margin: 6px;">
+            <!-- start: users/topic/detail/top.html -->
+            <div general="border:1 brc:muted br:2 width:100" class="utopic-user">
+               <div style="padding: 6px;" general="flex flex:fd-c">
+                  <div general="flex flex:js-c flex:ai-c flex:fw-w width:96 position:center">
+                     <h1 general="text:xl width:100">{{ utopic.name|title }}</h1>
+                     <div general="flex flex:fd-c width:100">
+                        {% if utopic.description %}
+                        <div general="flex text:m" class="text3" style="white-space: normal;">{{ utopic.description|title }}</div>
+                        {% endif %}
+                        {% if utopic.image_address %}
+                           <img general="flex flex:ai-c flex:fd-c" height="160px" src="{{ utopic.image_address }}" style="padding: 12px 0px;">
+                        {% endif %}
+                     </div>
+                  </div>
+                  <div general="flex flex:ai-c" style="padding: 6px;">
+                     <div general="flex flex:ai-c position:left">
+                        <a general="color:primary text:m" href="/@{{ utopic.user }}">
+                        <img class="commit-user" general="br:4 color:muted" src="{{ utopic.user.githubauthuser.avatar_url }}">
+                        </a>
+                        <i class="fas fa-book"></i>
+                        <a general="color:primary text:m" mobile-s="text:s" mobile-m="text:s" mobile-l="text:s"
+                           href="{% url 'detail-utopic' utopic.permlink utopic.user %}">
+                        {{ utopic.permlink }}/@{{ utopic.user }}
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- end -->
+         {% endfor %}
+      </div>
+   </div>
+   <hr general="width:80">
+   <h3 general="flex text:xxl position:center color:dark width:90 flex:ai-c">
+   {% trans "Latest Users Joining the Coogger" %}
+   </h3>
+   <img general="width:20 position:center" mobile-l="width:60" mobile-m="width:60" mobile-s="width:60" src="{% static 'doodles/MeditatingDoodle.svg' %}">
+   <div general="position:center flex">
+      <cards general="width:90 position:center flex" style="margin:0px">
+         {% for user in object_list %}
+         {% include 'home/users_card.html' %}
+         {% endfor %}
+      </cards>
+   </div>
+</div>
+<hr general="width:80">
+{% endblock %}
