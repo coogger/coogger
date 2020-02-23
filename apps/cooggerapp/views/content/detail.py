@@ -15,7 +15,9 @@ class Detail(CommonDetailView, TemplateView):
     form_class = ReplyForm
 
     def get_object(self, username, permlink):
-        return get_object_or_404(Content, user__username=username, permlink=permlink)
+        if username == self.request.user.username:
+            return get_object_or_404(Content, user__username=username, permlink=permlink)
+        return get_object_or_404(Content, user__username=username, permlink=permlink, utopic__status="public")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -35,5 +37,8 @@ class TreeDetail(TemplateView):
         context = super().get_context_data(**kwargs)
         user = get_object_or_404(User, username=username)
         context["current_user"] = get_current_user(user)
-        context["queryset"] = Commit.objects.get(hash=hash)
+        if username == self.request.user.username:
+            context["queryset"] = Commit.objects.get(hash=hash)
+        else:
+            context["queryset"] = Commit.objects.get(hash=hash, utopic__status="public")
         return context

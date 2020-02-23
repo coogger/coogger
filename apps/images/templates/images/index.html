@@ -35,7 +35,7 @@
         <h1 general="c-white bg-dark br-2" style="padding: 6px 12px;">Coogger Images</h1>
         <div>
             <form flex="fd-c" general="center" default="form" method="POST" enctype="multipart/form-data"
-             action="{% url 'images:coogger-images' %}">
+             action="{% url 'coogger-images' %}">
                 {% csrf_token %}
                 {{ image_form }}
                 <input general="center" type="submit" value="Upload"

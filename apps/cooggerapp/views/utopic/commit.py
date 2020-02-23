@@ -20,9 +20,14 @@ class Commits(ListView):
 
     def get_queryset(self):
         self.user = get_object_or_404(User, username=self.kwargs.get("username"))
-        self.utopic = UTopic.objects.get(
-            user=self.user, permlink=self.kwargs.get("topic_permlink")
-        )
+        if self.user == self.request.user:
+            self.utopic = UTopic.objects.get(
+                user=self.user, permlink=self.kwargs.get("topic_permlink")
+            )
+        else:
+            self.utopic = UTopic.objects.get(
+                user=self.user, permlink=self.kwargs.get("topic_permlink"), status="public"
+            )
         filter_by_username = self.request.GET.get("username", None)
         if filter_by_username:
             return self.commits.filter(
@@ -45,11 +50,14 @@ class CommitDetail(CommonDetailView, TemplateView):
     form_class = ReplyForm
 
     def get_object(self, username, topic_permlink, hash):
-        obj = Commit.objects.get(user__is_active=True, hash=hash)
-        if obj.status != "approved":
+        if username == self.request.user.username:
+            commit = Commit.objects.get(user__is_active=True, hash=hash)
+        else:
+            commit = Commit.objects.get(user__is_active=True, hash=hash, status="public")
+        if commit.status != "approved":
             # NOTE when commit it is a contribute
             self.template_name = "users/topic/commit/contribution.html"
-        return obj
+        return commit
 
     def get_context_data(self, username, topic_permlink, hash, **kwargs):
         context = super().get_context_data(
@@ -70,14 +78,13 @@ class CommitUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "Your commit updated"
 
     def get_object(self, queryset=None):
-        hash = self.kwargs.get("hash")
-        obj = get_object_or_404(Commit, hash=hash)
-        if obj.user == self.request.user:
-            if obj.status == "approved":
+        commit = get_object_or_404(Commit, hash=self.kwargs.get("hash"))
+        if commit.user == self.request.user:
+            if commit.status == "approved":
                 raise Http404("Your commit's approved, thus we can not update.")
         else:
             raise Http404("Permission denied.")
-        return obj
+        return commit
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

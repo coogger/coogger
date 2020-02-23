@@ -16,7 +16,7 @@ class Feed(Index):
                 User, username=self.kwargs.get("username")
             ).follow.following.all()
         )
-        queryset = Content.objects.filter(user__in=following, status="ready").order_by(
+        queryset = Content.objects.filter(user__in=following, status="ready", utopic__status="public").order_by(
             "-created"
         )
         return queryset

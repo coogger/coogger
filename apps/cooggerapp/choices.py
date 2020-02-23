@@ -46,6 +46,7 @@ TITLES = [
     "user",
 ]
 STATUS_CHOICES = ["ready", "not ready"]
+UTOPIC_STATUS_CHOICES = ["private", "public"]
 COMMIT_STATUS_CHOICES = ["approved", "rejected", "waiting"]
 ISSUE_CHOICES = ["open", "closed"]
 

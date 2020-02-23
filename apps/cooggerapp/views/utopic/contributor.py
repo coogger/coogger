@@ -18,7 +18,11 @@ class Contributor(ListView):
 
     def get_queryset(self):
         self.user = get_object_or_404(User, username=self.kwargs.get("username"))
-        self.utopic = UTopic.objects.get(
+        self.utopic = UTopic.objects.filter(
             user=self.user, permlink=self.kwargs.get("topic_permlink")
         )
+        if self.user == self.request.user:
+            self.utopic = self.utopi.get()
+        else:
+            self.utopic = self.utopic.get(status="public")
         return self.utopic.get_contributors

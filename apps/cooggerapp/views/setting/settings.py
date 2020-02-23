@@ -34,7 +34,7 @@ class UserExtra(UserSetMixin):
     model = UserProfile
     fields = ["bio", "about", "email_permission"]
     template_name = "settings/userextra.html"
-    success_url = "/settings/user-extra/"
+    success_url = "/settings/extra/"
 
     def get_object(self):
         return self.model.objects.get(user=self.request.user)

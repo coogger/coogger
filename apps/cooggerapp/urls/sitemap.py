@@ -7,14 +7,11 @@ from ..views.sitemap import (
 )
 
 urlpatterns = [
-    path("robots.txt/", robots),
-    path("sitemap/topic.xml/", sitemap, {"sitemaps": {"topic": TopicSitemap()}}),
-    path(
-        "sitemap/language.xml/", sitemap, {"sitemaps": {"language": LanuageSitemap()}}
-    ),
-    path("sitemap/utopic.xml/", sitemap, {"sitemaps": {"utopic": UtopicSitemap()}}),
-    path("sitemap/content.xml/", sitemap, {"sitemaps": {"content": ContentSitemap()}}),
-    path("sitemap/user.xml/", sitemap, {"sitemaps": {"user": UserSitemap()}}),
-    path("sitemap/issue.xml/", sitemap, {"sitemaps": {"issue": IssueSitemap()}}),
-    path("sitemap/commit.xml/", sitemap, {"sitemaps": {"commit": CommitSitemap()}}),
+    path("topic.xml/", sitemap, {"sitemaps": {"topic": TopicSitemap()}}),
+    path("language.xml/", sitemap, {"sitemaps": {"language": LanuageSitemap()}}),
+    path("utopic.xml/", sitemap, {"sitemaps": {"utopic": UtopicSitemap()}}),
+    path("content.xml/", sitemap, {"sitemaps": {"content": ContentSitemap()}}),
+    path("user.xml/", sitemap, {"sitemaps": {"user": UserSitemap()}}),
+    path("issue.xml/", sitemap, {"sitemaps": {"issue": IssueSitemap()}}),
+    path("commit.xml/", sitemap, {"sitemaps": {"commit": CommitSitemap()}}),
 ]

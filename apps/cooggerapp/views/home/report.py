@@ -23,7 +23,7 @@ class Report(LoginRequiredMixin, View):
     def post(self, request, content_id):
         report_form = self.form_class(request.POST)
         if report_form.is_valid():
-            content = Content.objects.get(id=content_id)
+            content = Content.objects.get(id=content_id, utopic__status="public")
             if ReportModel.objects.filter(user=request.user, content=content).exists():
                 messages.error(request, "Your complaint is in the evaluation process.")
                 return redirect(reverse("home"))

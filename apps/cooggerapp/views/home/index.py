@@ -39,7 +39,7 @@ class Index(ListView):
             return User.objects.filter(is_active=True).order_by("-date_joined")[:24]
         else:
             return Content.objects.filter(
-                user__is_active=True, status="ready"
+                user__is_active=True, status="ready", utopic__status="public"
             ).order_by("-created")
 
     def get_template_names(self):

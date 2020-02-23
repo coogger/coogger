@@ -30,7 +30,11 @@ class IssueView(ListView):
         self.user = get_object_or_404(User, username=self.kwargs.get("username"))
         self.utopic = UTopic.objects.filter(
             user=self.user, permlink=self.kwargs.get("utopic_permlink")
-        )[0]
+        )
+        if self.user != self.request.user:
+            self.utopic = self.utopic.get(status="public")
+        else:
+            self.utopic = self.utopic.get()
         return self.model.objects.filter(utopic=self.utopic, status=self.get_status())
 
     @staticmethod
@@ -125,10 +129,18 @@ class DetailIssue(CommonDetailView, TemplateView):
     form_class = ReplyForm
 
     def get_object(self, username, utopic_permlink, issue_id):
+        if username == self.request.user.username:
+            return get_object_or_404(
+                self.model,
+                utopic__user__username=username,
+                utopic__permlink=utopic_permlink,
+                issue_id=issue_id,
+            )
         return get_object_or_404(
             self.model,
             utopic__user__username=username,
             utopic__permlink=utopic_permlink,
+            utopic__status="public",
             issue_id=issue_id,
         )
 
