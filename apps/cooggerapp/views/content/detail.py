@@ -16,8 +16,12 @@ class Detail(CommonDetailView, TemplateView):
 
     def get_object(self, username, permlink):
         if username == self.request.user.username:
-            return get_object_or_404(Content, user__username=username, permlink=permlink)
-        return get_object_or_404(Content, user__username=username, permlink=permlink, utopic__status="public")
+            return get_object_or_404(
+                Content, user__username=username, permlink=permlink
+            )
+        return get_object_or_404(
+            Content, user__username=username, permlink=permlink, utopic__status="public"
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

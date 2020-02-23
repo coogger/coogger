@@ -26,7 +26,9 @@ class Commits(ListView):
             )
         else:
             self.utopic = UTopic.objects.get(
-                user=self.user, permlink=self.kwargs.get("topic_permlink"), status="public"
+                user=self.user,
+                permlink=self.kwargs.get("topic_permlink"),
+                status="public",
             )
         filter_by_username = self.request.GET.get("username", None)
         if filter_by_username:
@@ -53,7 +55,9 @@ class CommitDetail(CommonDetailView, TemplateView):
         if username == self.request.user.username:
             commit = Commit.objects.get(user__is_active=True, hash=hash)
         else:
-            commit = Commit.objects.get(user__is_active=True, hash=hash, status="public")
+            commit = Commit.objects.get(
+                user__is_active=True, hash=hash, status="public"
+            )
         if commit.status != "approved":
             # NOTE when commit it is a contribute
             self.template_name = "users/topic/commit/contribution.html"

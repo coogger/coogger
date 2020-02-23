@@ -82,4 +82,8 @@ class Filter(ExplorerMixin):
 
     def get_queryset(self):
         queryset = self.model.objects.filter(status="ready").order_by(self.ordering)
-        return model_filter(self.request.GET.items(), queryset).get("queryset").filter(utopic__status="public")
+        return (
+            model_filter(self.request.GET.items(), queryset)
+            .get("queryset")
+            .filter(utopic__status="public")
+        )

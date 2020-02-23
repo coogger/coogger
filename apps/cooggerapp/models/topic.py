@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
-from .utils import ready_tags, second_convert
 from ..choices import UTOPIC_STATUS_CHOICES, make_choices
+from .utils import ready_tags, second_convert
 
 
 class CommonTopicModel(models.Model):
@@ -98,9 +98,7 @@ class UTopic(CommonTopicModel):
         default=0, verbose_name=_("Total commit count")
     )
     status = models.CharField(
-        max_length=20,
-        choices=make_choices(UTOPIC_STATUS_CHOICES),
-        default="public"
+        max_length=20, choices=make_choices(UTOPIC_STATUS_CHOICES), default="public"
     )
 
     class Meta:

@@ -105,7 +105,9 @@ class UserSitemap(Sitemap):
         return User.objects.filter(is_active=True)
 
     def lastmod(self, obj):
-        contents = Content.objects.filter(user=obj, status="ready", utopic__status="public")
+        contents = Content.objects.filter(
+            user=obj, status="ready", utopic__status="public"
+        )
         try:
             return contents[0].updated
         except IndexError:

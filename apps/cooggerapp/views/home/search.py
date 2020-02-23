@@ -47,7 +47,9 @@ class Search(ListView):
         return queryset
 
     def content(self, query):
-        return Content.objects.filter(Q(title__contains=query) & Q(status="ready") & Q(utopic__status="public"))
+        return Content.objects.filter(
+            Q(title__contains=query) & Q(status="ready") & Q(utopic__status="public")
+        )
 
     def utopic(self, query):
         return UTopic.objects.filter(name__contains=query)

@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cooggerapp', '0004_auto_20200220_1536'),
+        ("cooggerapp", "0004_auto_20200220_1536"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='utopic',
-            name='status',
-            field=models.CharField(choices=[('private', 'private'), ('public', 'public')], default='public', max_length=20),
+            model_name="utopic",
+            name="status",
+            field=models.CharField(
+                choices=[("private", "private"), ("public", "public")],
+                default="public",
+                max_length=20,
+            ),
         ),
     ]

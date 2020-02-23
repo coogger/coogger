@@ -6,17 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cooggerapp', '0003_auto_20200217_0711'),
+        ("cooggerapp", "0003_auto_20200217_0711"),
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='content',
-            options={'ordering': ['order']},
-        ),
+        migrations.AlterModelOptions(name="content", options={"ordering": ["order"]},),
         migrations.AlterField(
-            model_name='content',
-            name='order',
+            model_name="content",
+            name="order",
             field=models.PositiveIntegerField(default=1),
         ),
     ]
