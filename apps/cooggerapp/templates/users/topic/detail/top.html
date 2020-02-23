@@ -9,6 +9,11 @@
          {{ utopic.permlink }}/@{{ utopic.user }}
       </a>
    </div>
+   {% if utopic.status == 'private' %}
+   <span general="position:right bg:danger color:white" style="padding:6px;">
+      Private Documentation
+   </span>
+   {%endif%}
 </div>
 <!-- user -->
 <!-- top -->

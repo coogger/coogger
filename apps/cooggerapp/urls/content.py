@@ -6,7 +6,7 @@ from ..views.content import (
 )
 
 urlpatterns = [
-    path("content-replace-order", ReplaceOrder.as_view(), name="contet-replace-order",),
+    path("content/replace-order", ReplaceOrder.as_view(), name="contet-replace-order",),
     path("embed/@<username>/<permlink>/", Embed.as_view(), name="embed"),
     path("@<username>/<permlink>/", Detail.as_view(), name="content-detail"),
     path(

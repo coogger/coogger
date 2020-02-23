@@ -5,6 +5,8 @@ from django.urls import include, path
 
 from .utils import just_redirect_by_name
 
+from apps.cooggerapp.views.sitemap import robots
+
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     path("accounts/github/", include("github_auth.urls")),
@@ -14,12 +16,13 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("reply/", include("apps.threaded_comment.urls")),
     path("settings/", include("apps.cooggerapp.urls.setting")),
-    path("", include("apps.cooggerapp.urls.explorer")),
+    path("explorer/", include("apps.cooggerapp.urls.explorer")),
+    path("sitemap/", include("apps.cooggerapp.urls.sitemap")),
+    path("robots.txt/", robots),
     path("", include("apps.cooggerapp.urls.home")),
     path("", include("apps.cooggerapp.urls.content")),
     path("", include("apps.cooggerapp.urls.utopic")),
     path("", include("apps.cooggerapp.urls.user")),
-    path("", include("apps.cooggerapp.urls.sitemap")),
     path("", include("apps.images.urls")),
 ]
 

@@ -15,7 +15,7 @@ class UsernameForm(forms.ModelForm):
 class UTopicForm(forms.ModelForm):
     class Meta:
         model = UTopic
-        fields = ["name", "image_address", "description", "tags", "address"]
+        fields = ["name", "image_address", "description", "tags", "address", "status"]
 
 
 class ContentCreateForm(forms.ModelForm):

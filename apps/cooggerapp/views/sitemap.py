@@ -12,7 +12,7 @@ class IssueSitemap(Sitemap):
     priority = 0.9
 
     def items(self):
-        return Issue.objects.all()
+        return Issue.objects.filter(utopic__status="public")
 
     def location(self, obj):
         return reverse(
@@ -30,17 +30,10 @@ class CommitSitemap(Sitemap):
     priority = 0.9
 
     def items(self):
-        return Commit.objects.all()
+        return Commit.objects.filter(utopic__status="public")
 
     def location(self, obj):
-        return reverse(
-            "commit",
-            kwargs=dict(
-                username=str(obj.user),
-                topic_permlink=obj.utopic.permlink,
-                hash=obj.hash,
-            ),
-        )
+        return obj.get_absolute_url
 
 
 class TopicSitemap(Sitemap):
@@ -51,7 +44,7 @@ class TopicSitemap(Sitemap):
         return Topic.objects.all()
 
     def location(self, obj):
-        return reverse("topic", kwargs=dict(permlink=obj.permlink))
+        return f"/explorer/topic/{obj}/"
 
 
 class LanuageSitemap(Sitemap):
@@ -87,9 +80,7 @@ class UtopicSitemap(Sitemap):
             return None
 
     def location(self, obj):
-        return reverse(
-            "detail-utopic", kwargs=dict(permlink=obj.permlink, username=str(obj.user))
-        )
+        return obj.get_absolute_url
 
 
 class ContentSitemap(Sitemap):
@@ -97,7 +88,7 @@ class ContentSitemap(Sitemap):
     priority = 1.0
 
     def items(self):
-        return Content.objects.all()
+        return Content.objects.filter(utopic__status="public")
 
     def lastmod(self, obj):
         return obj.updated
@@ -114,7 +105,9 @@ class UserSitemap(Sitemap):
         return User.objects.filter(is_active=True)
 
     def lastmod(self, obj):
-        contents = Content.objects.filter(user=obj, status="ready")
+        contents = Content.objects.filter(
+            user=obj, status="ready", utopic__status="public"
+        )
         try:
             return contents[0].updated
         except IndexError:
