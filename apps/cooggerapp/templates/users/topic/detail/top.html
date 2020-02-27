@@ -1,4 +1,9 @@
 {% load coogger_tags i18n %}
+{% if utopic.status == 'private' %}
+   <span general="bg:danger color:white" style="padding:6px;margin-bottom: 12px;">
+      This Documentation is Private, Only You Can Access It.
+   </span>
+   {%endif%}
 <!-- user; permlink/@username -->
 <div general="flex flex:ai-c">
    <div general="flex flex:ai-c position:left">
@@ -9,11 +14,6 @@
          {{ utopic.permlink }}/@{{ utopic.user }}
       </a>
    </div>
-   {% if utopic.status == 'private' %}
-   <span general="position:right bg:danger color:white" style="padding:6px;">
-      Private Documentation
-   </span>
-   {%endif%}
 </div>
 <!-- user -->
 <!-- top -->

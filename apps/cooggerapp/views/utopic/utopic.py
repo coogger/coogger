@@ -22,9 +22,9 @@ class UserTopic(UserMixin):
     def get_queryset(self):
         user = self.get_user()
         queryset = UTopic.objects.filter(user=user)
-        if user != self.request.user:
-            return queryset.public()
-        return queryset
+        if user == self.request.user:
+            return queryset
+        return queryset.filter(status="public")
 
 
 class DetailUserTopic(TemplateView):
@@ -34,10 +34,10 @@ class DetailUserTopic(TemplateView):
 
     def get_context_data(self, username, permlink, **kwargs):
         user = get_object_or_404(User, username=username)
-        if user != self.request.user:
-            utopic = UTopic.objects.get(user=user, permlink=permlink, status="public")
-        else:
+        if user == self.request.user:
             utopic = UTopic.objects.get(user=user, permlink=permlink)
+        else:
+            utopic = UTopic.objects.get(user=user, permlink=permlink, status="public")
         context = super().get_context_data(**kwargs)
         context["current_user"] = get_current_user(user)
         context["queryset"] = Content.objects.filter(utopic=utopic)
