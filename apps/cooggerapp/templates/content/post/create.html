@@ -3,7 +3,9 @@
 <div class="create" id="edit" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100" style="margin-top: 30px;">
   {% include 'forms/create_form.html' %}
 </div>
-<div id="preview"></div>
+<div general="width:50 position:center flex flex:fd-c">
+  <div general="width:100" id="preview"></div>
+</div>
 {% endblock body %}
 
 {% block script %}
@@ -11,7 +13,12 @@
   $(document).ready(function() {
     let bodyNode = document.getElementById("id_body");
     bodyNode.addEventListener('change', (event) => {
-      document.getElementById("preview").textContent = window.markdownit().render(bodyNode.value);
+      document.getElementById("preview").innerHTML = window.markdownit().render(bodyNode.value);
+
+      document.querySelectorAll('#preview pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+
     });
   });
 </script>

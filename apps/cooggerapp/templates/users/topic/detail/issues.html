@@ -8,7 +8,6 @@
       {% include "users/topic/detail/top.html" %}
       <div style="margin-top: 6px;" general="brc:muted border:1 br:2 width:100">
         <div style="padding:12px;">
-          {% include 'common/there-is-no-data.html' %}
           <div general="position:center bg:muted " style="padding:12px;">
             <a href="{% url 'issues' current_user utopic.permlink %}">
               <div general="flex flex:ai-c">
@@ -29,8 +28,9 @@
           </div>
           <a general="br:1 color:white bg:green text:s position:right"
             href="{% url 'new-issue' current_user utopic.permlink %}" style="padding: 6px;margin-right: 6px;">
-            <span general="position:center">{% trans "Open new issue" %}</span>
+            <span general="position:center text:l">{% trans "Open new issue" %}</span>
           </a>
+          {% include 'common/there-is-no-data.html' %}
           <ul class="issues">
             <!-- issue list open or closed -->
             {% for issue in object_list %}

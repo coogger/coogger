@@ -23,7 +23,8 @@ class IssueView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(current_user=get_current_user(self.user), utopic=self.utopic)
+        context["current_user"] = get_current_user(self.user)
+        context["utopic"] = self.utopic
         return context
 
     def get_queryset(self):

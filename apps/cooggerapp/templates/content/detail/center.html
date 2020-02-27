@@ -14,23 +14,18 @@
   </a>
   {% if queryset.utopic.address %}<a general="position:center text:s color:blue" target="_blank" href="{{ queryset.utopic.address }}">{{ queryset.utopic.address }}</a>{% endif %}
   </div>
-  <div class="content">
-    <div style="padding: inherit;" class="font-comfortaa">
-      {{ queryset.body|markdown_to_html:"detail-body"|safe }}
-    </div>
-  </div>
+  <div id="content"></div>
+  <textarea id="id_body" style="display:none;">{{ queryset.body }}</textarea>
   <div class="tags" id="tags" general="flex flex:jc-sa position:right bg:dark-purple text:s"></div>
   <div style="margin: 5% 0px;"></div>
   <div general="flex width:100">
     {% if queryset.previous_post %}
-    <a general="color:primary:hover flex flex:jc-c color:success br:1 text:s width:46 position:left"
-      href="{{ queryset.previous_post.get_absolute_url }}">
+    <a general="color:primary:hover flex flex:jc-c color:success br:1 text:s width:46 position:left" href="{{ queryset.previous_post.get_absolute_url }}">
       ← {{ queryset.previous_post.title }}
     </a>
     {% endif %}
     {% if queryset.next_post %}
-    <a general="color:primary:hover flex flex:jc-c color:success br:1 text:s width:46 position:right"
-      href="{{ queryset.next_post.get_absolute_url }}">
+    <a general="color:primary:hover flex flex:jc-c color:success br:1 text:s width:46 position:right" href="{{ queryset.next_post.get_absolute_url }}">
       {{ queryset.next_post.title }} →
     </a>
     {% endif %}
@@ -41,3 +36,13 @@
   {% include 'load_replies.html' %}
   {% endwith %}
 </div>
+{% block script %}
+<script>
+  $(document).ready(function() {
+    document.getElementById("content").innerHTML = window.markdownit().render(document.getElementById("id_body").value);
+    document.querySelectorAll('#content pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+{% endblock script %}
