@@ -32,7 +32,7 @@
                 <label for="{{ field.id_for_label }}">{{ field.verbose_name|default:'' }}</label>
             </div>
         {% else %}
-        {{ field.label_tag }}
+            {{ field.label_tag }}
             {{ field }}
         {% endif %}
         {% if field.help_text %}<small class="help_text" id="{{ field.id_for_label }}">{{ field.help_text|safe }}</small>{% endif %}
@@ -40,7 +40,7 @@
     {% endfor %}
     {% if not id %}
     <br>
-    <button type="submit" general="text:m border:1 brc:muted br:2 bg:white bg:success:hover color:white:hover" style="padding: 4px 12px;cursor: pointer;">
+    <button type="submit" general="width:50 position:center text:m border:1 brc:muted br:2 bg:white bg:success:hover color:white:hover" style="padding: 4px 12px;cursor: pointer;">
         Submit
     </button>
     {% endif %}

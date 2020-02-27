@@ -23,7 +23,7 @@
         {% endif %}
         {% endif %}
         {% for content in queryset %}
-          <div id="{{ content.order }}" class="utopic-query text3" {% if request.user == current_user %}style="cursor: move;"{% endif %}
+          <div id="{{ content.order }}" class="utopic-query text3"
             general="flex flex:ai-c width:100 text:m border:1 br:2 brc:muted"
             mobile-l="text:s" mobile-m="text:s" mobile-s="text:s">
             {% if content.status != "ready" %}
@@ -47,6 +47,7 @@
                   {% endif %}
                 </div>
               </div>
+              {% if request.user == current_user %}<i id="move-content" class="fas fa-arrows-alt" style="cursor: move;"></i>{% endif %}
           </div>
           {% endfor %}
       </div>
@@ -58,20 +59,17 @@
 
 {% block script %}
   {% if request.user.is_authenticated and request.user == current_user %}
-  <script>
-  $(document).ready(function() {
-    Sortable.create(document.getElementById("utopiContents"), {
-      onEnd: function (evt) {
-        setOrder(
-          "{% url 'contet-replace-order' %}",
-          evt.oldIndex + 1,
-          evt.newIndex + 1,
-          "{{ utopic.id }}"
-        );
-      },
-    });
-  });
-  </script>
+    <script>
+      $(document).ready(function() {
+        Sortable.create(document.getElementById("utopiContents"), {
+          onEnd: function (evt) {
+            setOrder("{% url 'contet-replace-order' %}", evt.oldIndex + 1, evt.newIndex + 1, "{{ utopic.id }}");
+          },
+          handle: "#move-content",
+          animation: 150,
+        });
+      });
+    </script>
   {% endif %}
 {% endblock script %}
 

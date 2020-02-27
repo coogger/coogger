@@ -2,43 +2,20 @@
 {% block setting %}
     {% include 'forms/create_form.html' with action_url_name='settings-address' %}
     {% if address_instance %}
-        <div general="flex flex:fd-c" mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40"
-            laptop-l="width:70">
+        <div general="flex flex:fd-c" mobile-s="width:100" mobile-l="width:98" tablet="width:60" laptop="width:40" laptop-l="width:70">
             {% for address in address_instance %}
             <div general="flex flex:ai-c flex:jc-fe border:1 br:2 text:l brc:muted" style="padding: 6px 6px;">
                 {% if address.choices == "web-site"%}
-                <i class="fa fa-globe" aria-hidden="true"></i>
+                    <i class="fa fa-globe" aria-hidden="true"></i>
                 {% endif %}
-                <i class="fab fa-{{address.choices}}" aria-hidden="true"></i>
+                    <i class="fab fa-{{address.choices}}" aria-hidden="true"></i>
                 {{ address.choices }} - <span general="color:secondary text:s">{{ address.address }}</span>
-                <div general="flex flex:ai-c flex:jc-fs flex:as-c border:1 br:2 brc:muted text:l color:danger:hover position:right"
-                    class="deladdress" data-deladdress="{{ address.id }}" style="cursor:pointer;padding: 6px;">
+                <div onclick="delAddress({{ address.id }})" general="flex flex:ai-c flex:jc-fs flex:as-c border:1 br:2 brc:muted text:l color:danger:hover position:right"  style="cursor:pointer;padding: 6px;">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </div>
             </div>
             {% endfor %}
         </div>
-        {% block script %}
-        <script type="text/javascript">
-            $(".deladdress").click(function (event) {
-                $.ajax({
-                    url: "{% url 'address_del' %}",
-                    method: 'POST',
-                    dataType: 'json',
-                    data: {
-                        csrfmiddlewaretoken: "{{ csrf_token }}",
-                        address_id: this.getAttribute("data-deladdress"),
-                    }
-                }).done(function (response) {
-                    if (response.status == "ok") {
-                        alert(response.ms);
-                    }
-                    else {
-                        alert("Unexpected error");
-                    }
-                });
-            });
-        </script>
-        {% endblock %}
+
     {% endif %}
 {% endblock %}

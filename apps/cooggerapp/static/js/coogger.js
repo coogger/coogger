@@ -1,4 +1,6 @@
 // coogger.js
+let csrfToken = document.getElementsByTagName("meta").datas.dataset["csrf"];
+let addressDelUrl = document.getElementsByTagName("meta").datas.dataset["addressDelUrl"];
 function setOrder(url, fromOrder, toOrder, objectId) {
   $.ajax({
     type: "POST",
@@ -9,11 +11,30 @@ function setOrder(url, fromOrder, toOrder, objectId) {
       object_id: objectId,
     },
     beforeSend: function (xhr) {
-      xhr.setRequestHeader("X-CSRFToken", document.getElementsByTagName("meta").datas.dataset["csrf"]);
+      xhr.setRequestHeader("X-CSRFToken", csrfToken);
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
-      alert(errorThrown);
+      toastr.warning(errorThrown);
     },
+  });
+}
+function delAddress(objecId) {
+  $.ajax({
+    url: addressDelUrl,
+    method: 'POST',
+    dataType: 'json',
+    data: {
+      address_id: objecId,
+    },
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    },
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+      toastr.warning(errorThrown);
+    },
+    success: function (data) {
+      location.reload();
+    }
   });
 }
 function getTagsAsTemplate(tags) {
@@ -104,7 +125,7 @@ function vote(this_) {
     url: $(this_).data("url"),
     data: {
       "status": status,
-      "csrfmiddlewaretoken": document.getElementsByTagName("meta").datas.dataset["csrf"],
+      "csrfmiddlewaretoken": csrfToken,
     },
   }).done(function (r) {
     r = JSON.parse(r);
