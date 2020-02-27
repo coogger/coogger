@@ -1,3 +1,4 @@
+// let csrfToken = document.getElementsByTagName("meta").datas.dataset["csrf"];
 function timeSince(date) {
   let seconds = Math.floor((new Date() - new Date(date)) / 1000);
   let interval = Math.floor(seconds / 31536000);
@@ -29,76 +30,71 @@ function timeSince(date) {
   timesince.push(seconds + " seconds ");
   return timesince.slice(0, 2) + " ago";
 }
-function getRepliesTemplate(reply){
-  if (reply.reply){
+function getRepliesTemplate(reply) {
+  if (reply.reply) {
     return (
       `<div class="comment_replies" id="reply-id-${reply.id}">
         ${replyUserInfo(reply)} ${replyBody(reply)}
       </div>`
-     );
+    );
   }
   return (
-    `<div class="comment" id="reply-id-${reply.id}"> 
+    `<div class="comment" id="reply-id-${reply.id}">
       <div class="comment_highlighted">
         ${replyUserInfo(reply)} ${replyBody(reply)}
       </div>
     </div>`
-   );
+  );
 }
-$(document).ready(function() {
-  $("#send-reply").click(function(){
+$(document).ready(function () {
+  $("#send-reply").click(function () {
     let this_ = this;
-    let csrfToken = $(this).data("csrf");
-    let requestUrl = $(this).data("request-url");
-    let contentType = $(this).data("content-type");
-    let objectId = $(this).data("object-id");
-    let reply = $(this).data("reply");
     let getComment = $("#id_body").val();
-    if (getComment !== ""){
+    if (getComment !== "") {
       $(this_).attr("class", "make_reply_animation");
       $.ajax({
         type: "POST",
-        url: requestUrl,
-        headers: {
-          "X-CSRFToken": csrfToken
-        },
+        url: $(this).data("request-url"),
         data: {
           "body": getComment,
-          "content_type": contentType,
-          "object_id": objectId,
-          "reply": reply,
+          "content_type": $(this).data("content-type"),
+          "object_id": $(this).data("object-id"),
+          "reply": $(this).data("reply"),
         },
-      }).done(function(newReply) {
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        },
+      }).done(function (newReply) {
         document.getElementById("id_body").value = "";
         $("#comment_template").append(getRepliesTemplate(newReply));
-      }).always(function(){
+      }).always(function () {
         $(this_).removeClass("make_reply_animation");
       });
     }
-    else{
+    else {
       alert("Empty comments cannot be published.");
     }
   })
 });
-function getDataFromCooggerapi(apiUrl){
+function getDataFromCooggerapi(apiUrl) {
   return fetch(apiUrl)
     .then((resp) => resp.json())
-    .then(function(data) {
+    .then(function (data) {
       return data;
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log("request failed", error)
     });
 }
-let getResultFromCooggerApi = function(apiUrl){
-  return getDataFromCooggerapi(apiUrl).then(function(data){
+let getResultFromCooggerApi = function (apiUrl) {
+  return getDataFromCooggerapi(apiUrl).then(function (data) {
     return data.results;
   });
 }
-function replyUserInfo(comment){
+function replyUserInfo(comment) {
   let title = comment.title;
   let title_template = "";
-  if (title !== "user"){
+  if (title !== "user") {
     `<span class="uppercase" general="bg:danger color:white text:xs br:2" style="margin-left: 6px; padding:2px 4px;">
       ${title.toUpperCase()}
     </span>`
@@ -117,7 +113,7 @@ function replyUserInfo(comment){
           <div general="color:secondary">
             <i class="fas fa-clock"></i>
             <span id="time">${timeSince(comment.created)}</span>
-          </div>        
+          </div>
       </div>
           <a general="color:primary:hover" target="_blank" href="https://www.github.com/${comment.username}">
       <i general="flex flex:ai-c" class="fab fa-github"></i>
@@ -132,39 +128,39 @@ function replyUserInfo(comment){
     <div general="fd-s"></div>
   </div>`
   );
+}
+function replyBody(reply) {
+  let title = reply.title;
+  let id = reply.id;
+  let upvoteCount = reply.upvote_count;
+  if (upvoteCount === null) {
+    upvoteCount = 0;
   }
-  function replyBody(reply){
-    let title = reply.title;
-    let id = reply.id;
-    let upvoteCount = reply.upvote_count;
-    if (upvoteCount === null){
-      upvoteCount = 0;
-    }
-    let views = reply.views;
-    if (views === null){
-      views = 0;
-    }
-    let replyCount = reply.reply_count;
-    if (replyCount === null){
-      replyCount = 0;
-    }
-    $(function() {
-      let Editor = editormd.markdownToHTML(reply.id+"_arg_editormd", {
-        height: 670,
-        path : "/static/lib/",
-        htmlDecode: "html, iframe",
-        markdown : reply.body,
-        atLink: false,
-      });
+  let views = reply.views;
+  if (views === null) {
+    views = 0;
+  }
+  let replyCount = reply.reply_count;
+  if (replyCount === null) {
+    replyCount = 0;
+  }
+  $(function () {
+    let Editor = editormd.markdownToHTML(reply.id + "_arg_editormd", {
+      height: 670,
+      path: "/static/lib/",
+      htmlDecode: "html, iframe",
+      markdown: reply.body,
+      atLink: false,
     });
-    return (`
+  });
+  return (`
       <div style="padding: inherit;">
         <div style="width: auto;height: auto;border: none;" class="editormd font-comfortaa" id="${id}_arg_editormd">
             <textarea style="display:none;" id="editormd_content"></textarea>
         </div>
       </div>
       <div general="flex flex:ai-c br:2 color:secondary br:2 brc:muted position:right" style="padding: 2px 4px;">
-          <div general="text:s flex flex:ai-c">    
+          <div general="text:s flex flex:ai-c">
             <a href="${reply.get_absolute_url}" id="root_content" target="blank" general="text:s">
               <span style="margin: 0px 6px" general="color:orange">Reply</span>
             </a>
@@ -183,36 +179,36 @@ function replyUserInfo(comment){
           </div>
         </div>
     `);
-  }
-  
-  function getChildrenReplies(reply, requestUrl, depth){
-    if (reply.reply_count !== 0 && reply.reply_count !== undefined ){
-      getResultFromCooggerApi(`${requestUrl}?reply=${reply.id}`).then(function(childrenReplies){
-        var ii;
-        for (ii in childrenReplies) {
-          let childrenReply = childrenReplies[ii];
-          console.log((childrenReply.depth - depth));
-          $(`#reply-id-${childrenReply.parent_id}`).append(getRepliesTemplate(childrenReply));
-          if ( (childrenReply.depth - depth) > 5 ){
-            $(`#reply-id-${childrenReply.parent_id}`).append(
-              `<a general="color:primary position:right" href="${reply.get_absolute_url}"> 
+}
+
+function getChildrenReplies(reply, requestUrl, depth) {
+  if (reply.reply_count !== 0 && reply.reply_count !== undefined) {
+    getResultFromCooggerApi(`${requestUrl}?reply=${reply.id}`).then(function (childrenReplies) {
+      var ii;
+      for (ii in childrenReplies) {
+        let childrenReply = childrenReplies[ii];
+        console.log((childrenReply.depth - depth));
+        $(`#reply-id-${childrenReply.parent_id}`).append(getRepliesTemplate(childrenReply));
+        if ((childrenReply.depth - depth) > 5) {
+          $(`#reply-id-${childrenReply.parent_id}`).append(
+            `<a general="color:primary position:right" href="${reply.get_absolute_url}">
                 Show ${childrenReply.reply_count} more replies
               </a>`
-              );
-            break
-          }
-          getChildrenReplies(childrenReply, requestUrl, depth);
+          );
+          break
         }
-      });
-    }
-  }
-  function loadReplies(objectId, contentType, requestUrl){
-    let replies_api = `${requestUrl}?object_id=${objectId}&content_type=${contentType}`;
-    getResultFromCooggerApi(replies_api).then(function(replies){
-      for (let i in replies){
-        let reply = replies[i];
-        $("#comment_template").append(getRepliesTemplate(reply));
-        getChildrenReplies(reply, requestUrl, reply.depth);
+        getChildrenReplies(childrenReply, requestUrl, depth);
       }
     });
   }
+}
+function loadReplies(objectId, contentType, requestUrl) {
+  let replies_api = `${requestUrl}?object_id=${objectId}&content_type=${contentType}`;
+  getResultFromCooggerApi(replies_api).then(function (replies) {
+    for (let i in replies) {
+      let reply = replies[i];
+      $("#comment_template").append(getRepliesTemplate(reply));
+      getChildrenReplies(reply, requestUrl, reply.depth);
+    }
+  });
+}

@@ -203,9 +203,7 @@ footer li{
   .utopic-m-count{
   margin-left: 6px;
   }
- textarea{
 
- }
  body{
   margin-bottom: 60px;
   height: auto;
@@ -279,11 +277,14 @@ footer li{
   border-bottom: 1px solid #fafafa;
   padding: 12px 0px;
   }
+  .reply textarea{
+    min-height: 10vh;
+    min-width: -webkit-fill-available;
+  }
   textarea{
   min-height: 60vh;
   min-width: 100%;
   max-width: 100%;
-   /* This ruins default border */
   border-radius: 4px;
   }
   #send-comment, #send-reply{
