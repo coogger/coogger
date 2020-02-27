@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 from apps.cooggerapp.choices import FOLLOW, TITLES, make_choices
-from apps.md_editor.models import EditorMdField
 
 
 class OtherAddressesOfUsers(models.Model):
@@ -25,7 +24,7 @@ class OtherAddressesOfUsers(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    about = EditorMdField(
+    about = models.TextField(
         help_text=_(
             "Write a long article about yourself, see; /u/@your_username/about/"
         ),

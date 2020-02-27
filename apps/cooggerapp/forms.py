@@ -43,6 +43,11 @@ class AddressesForm(forms.ModelForm):
         model = OtherAddressesOfUsers
         fields = ["choices", "address"]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["choices"].required = True
+        self.fields["address"].required = True
+
 
 class ReportsForm(forms.ModelForm):
     class Meta:

@@ -1,9 +1,4 @@
 {% extends "settings/settings.html" %}
 {% block setting %}
-<form general="flex flex:fd-c border:1 brc:white width:100" default="form" mobile-s="width:100" mobile-l="width:100"
-    tablet="width:100" laptop="width:100" laptop-l="width:100" method="post" action="{% url 'settings-user' %}"
-    style="padding: 3px 6px;">
-    {% csrf_token %} {{ form.as_p }} {{ form.media }}
-    <input general="flex flex:as-c" type="submit" value="Save" style="padding: 6px 24px;">
-</form>
+    {% include 'forms/create_form.html' with action_url_name='settings-user' %}
 {% endblock %}

@@ -1,6 +1,18 @@
 {% extends "home/html.html" %}
 {% block body %}
-<div class="create" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100" style="margin-top: 30px;">
+<div class="create" id="edit" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100" style="margin-top: 30px;">
   {% include 'forms/create_form.html' %}
 </div>
-{% endblock %}
+<div id="preview"></div>
+{% endblock body %}
+
+{% block script %}
+<script>
+  $(document).ready(function() {
+    let bodyNode = document.getElementById("id_body");
+    bodyNode.addEventListener('change', (event) => {
+      document.getElementById("preview").textContent = window.markdownit().render(bodyNode.value);
+    });
+  });
+</script>
+{% endblock script%}

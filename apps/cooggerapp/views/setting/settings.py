@@ -4,33 +4,33 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.views import View
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, FormView
 
 from ...forms import AddressesForm
 from ...models import UserProfile
 
 
-class UserSetMixin(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class SettingMixin(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     fields = ["first_name", "last_name", "email"]
     template_name = "settings/user.html"
     success_message = "Your settings updated"
     success_url = "/settings/user/"
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update(settings_list=["user", "extra", "address"])
+        context["settings_list"] = ["user", "extra", "address"]
         return context
 
-    def get_object(self, queryset=None):
+    def get_object(self):
         return self.model.objects.get(username=self.request.user.username)
 
 
-class Settings(UserSetMixin):
+class Settings(SettingMixin):
     pass
 
 
-class UserExtra(UserSetMixin):
+class UserExtra(SettingMixin):
     model = UserProfile
     fields = ["bio", "about", "email_permission"]
     template_name = "settings/userextra.html"
@@ -40,36 +40,20 @@ class UserExtra(UserSetMixin):
         return self.model.objects.get(user=self.request.user)
 
 
-class Address(LoginRequiredMixin, View):
+class Address(LoginRequiredMixin, SuccessMessageMixin, FormView):
     template_name = "settings/address.html"
+    form_class = AddressesForm
+    success_message = "Your settings updated"
 
-    def get(self, request, *args, **kwargs):
-        address = self.address(request)
-        context = dict(
-            # user_profile_form=
-            address_form=address[1],
-            address_instance=address[0],
-        )
-        context.update(settings_list=["user", "extra", "address"])
-        return render(request, self.template_name, context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["address_instance"] = UserProfile.objects.get(user=self.request.user).address.all()
+        context["settings_list"] = ["user", "extra", "address"]
+        return context
 
-    def post(self, request, *args, **kwargs):
-        try:
-            self.post_address(request)
-        except Exception as e:
-            messages.error(request, e)
-        return redirect(request.META["PATH_INFO"])
+    def form_valid(self, form):
+        UserProfile.objects.get(user=self.request.user).address.add(form.save())
+        return super().form_valid(form)
 
-    def address(self, request):
-        address_instance = UserProfile.objects.get(user=request.user).address.all()
-        address_form = AddressesForm(request.GET or None)
-        return address_instance, address_form
-
-    def post_address(self, request):
-        form = AddressesForm(request.POST)
-        if form.is_valid():
-            form = form.save(commit=False)
-            if form.choices is not None and form.address:
-                form.save()
-                UserProfile.objects.get(user=request.user).address.add(form)
-                messages.success(request, "Your website has added")
+    def get_success_url(self):
+        return self.request.META["PATH_INFO"]

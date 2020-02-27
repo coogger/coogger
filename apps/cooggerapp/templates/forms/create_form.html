@@ -1,16 +1,47 @@
-<div class="update" general="flex flex:jc-c flex:ai-c flex:fd-c position:center width:100">
-  {% if form.subject.errors %}
-  <ol>
-    {% for error in form.subject.errors %}
-    <li><strong>{{ error|escape }}</strong></li>
+<!-- {% comment %}
+    {% with action_url_name='' id='' form=form multipart='' %}
+        {% include forms/create_form.html' %}
+    {% endwith %}
+    {% if id %}
+      <button type="button" class="float-right btn btn-danger btn-elevate" onclick="{{ id }}.submit();">
+        Submit
+      </button>
+    {% endif %}
+    {% endcomment %}
+ -->
+<form general="flex flex:fd-c width:60 position:center" mobile-l="width:96" mobile-m="width:96" mobile-s="width:96" tablet="width:60" laptop="width:40" laptop-l="width:70" class="c-update-form" action="" style="padding: 12px 6px" default="form" {% if action_url_name %}action="{% url action_url_name %}"{% endif %} method="post" {% if multipart %}enctype="multipart/form-data"{% endif %} {% if id %}id="{{ id }}"{% endif %}>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
     {% endfor %}
-  </ol>
-  {% else %}
-  <form general="flex flex:fd-c width:50" mobile-l="width:96" mobile-m="width:96" mobile-s="width:96" tablet="width:60"
-    laptop="width:40" laptop-l="width:70" class="c-update-form" action="" style="padding: 12px 6px" default="form"
-    method="post">
-    {% csrf_token %} {{ form }} {{ form.media }}
-    <input general="flex flex:as-c" type="submit" value="Save / Send Changes" style="padding: 12px 42px;color:#333">
-  </form>
-  {% endif %}
-</div>
+    {% for field in form.visible_fields %}
+    <br>
+    <div>
+        {% if field.errors %}
+        <ol>
+            {% for error in field.errors %}
+            <li><strong>{{ error|escape }}</strong></li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+        {% if field.field.widget.input_type == 'checkbox' %}
+            <div>
+                <input {% if field.field.widget.is_required %} required {% endif %} {% if field.value %}checked{% endif %} type="checkbox" name="{{ field.html_name }}" class="custom-control-input" id="{{ field.id_for_label }}">
+                <label for="{{ field.id_for_label }}">{{ field.verbose_name|default:'' }}</label>
+            </div>
+        {% else %}
+        {{ field.label_tag }}
+            {{ field }}
+        {% endif %}
+        {% if field.help_text %}<small class="help_text" id="{{ field.id_for_label }}">{{ field.help_text|safe }}</small>{% endif %}
+    </div>
+    {% endfor %}
+    {% if not id %}
+    <br>
+    <button type="submit" general="text:m border:1 brc:muted br:2 bg:white bg:success:hover color:white:hover" style="padding: 4px 12px;cursor: pointer;">
+        Submit
+    </button>
+    {% endif %}
+</form>

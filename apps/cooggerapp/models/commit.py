@@ -5,8 +5,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
-from apps.md_editor.models import EditorMdField
-
 from ..choices import COMMIT_STATUS_CHOICES, make_choices
 from .common import Common, View, Vote
 from .content import Content
@@ -38,7 +36,7 @@ class Commit(Common, View, Vote):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
-    body = EditorMdField()
+    body = models.TextField()
     msg = models.CharField(max_length=150, default="Initial commit")
     created = models.DateTimeField(default=datetime.now)
     updated = models.DateTimeField(auto_now=True)

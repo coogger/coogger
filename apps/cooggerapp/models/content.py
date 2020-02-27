@@ -7,7 +7,6 @@ from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
 from apps.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
-from apps.md_editor.models import EditorMdField
 
 from ...threaded_comment.models import AbstractThreadedComments
 from ..views.utils import check_redirect_exists
@@ -22,9 +21,9 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     title = models.CharField(
         max_length=200, help_text=_("Be sure to choose the best title")
     )
-    body = EditorMdField(
-        verbose_name="",
-        help_text=_("Your content | problem | question | or anything else"),
+    body = models.TextField(
+        verbose_name=_("Body"),
+        help_text=_("Your content, problem, question or anything else"),
     )
     utopic = models.ForeignKey(
         UTopic,

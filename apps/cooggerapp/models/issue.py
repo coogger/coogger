@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from apps.cooggerapp.choices import ISSUE_CHOICES, make_choices
-from apps.md_editor.models import EditorMdField
 
 from ...threaded_comment.models import AbstractThreadedComments
 from .common import Common, View, Vote
@@ -22,7 +21,7 @@ class Issue(AbstractThreadedComments, Common, View, Vote):
         blank=True,
     )
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
-    body = EditorMdField(
+    body = models.TextField(
         null=True, blank=True, help_text=_("Your problem | question | or anything else")
     )
     status = models.CharField(

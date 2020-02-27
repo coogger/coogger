@@ -1,6 +1,6 @@
 {% load static %}
 <link href="{% static 'mdeditor/css/editormd.min.css' %}" rel="stylesheet">
-<div style="width: auto;height: auto; z-index: 0;border:none;padding:0px;overflow: visible;" class="editormd"  id="{{id}}-editormd">
+<div style="width: auto;height: auto; z-index: 0;border:none;padding:0px;overflow: visible;" class="editormd" id="{{id}}-editormd">
   <textarea style="display:none;">{{ markdown }}</textarea>
 </div>
 <script src="{% static 'mdeditor/src/jquery.min.js'%}"></script>

@@ -50,6 +50,7 @@
   <script src="{% static 'js/general.js' %}" async></script>
   <script src="{% static 'threaded_comment/threaded_comment.js' %}" async></script>
   <script src="{% static 'js/coogger.js' %}" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/10.0.0/markdown-it.js"></script>
   <!-- GOOGLE / YANDEX verification -->
   <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ" />
   <meta name="yandex-verification" content="3695277528edfe07" />
@@ -85,37 +86,37 @@
   <link href="{% static 'css/styles/private.css' %}" rel="stylesheet" />
   {% block head %}{% endblock %}
   {% block script %}{% endblock %}
+    <script type="text/javascript">
+      $(document).ready(function() {
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": true,
+          "progressBar": true,
+          "positionClass": "toast-bottom-right",
+          "preventDuplicates": true,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+        {% if messages %}
+          {% for message in messages %}
+            toastr.{{ message.tags }}("{{ message }}");
+          {% endfor %}
+        {% endif %}
+    });
+</script>
 </head>
 <body general="font:quicksand bg:white">
   {% include 'home/header.html' %}
   {% block body %}{% endblock %}
   {% include "home/footer.html" %}
   {% include 'paginator.html' %}
-  <script type="text/javascript">
-   $(document).ready(function() {
-   toastr.options = {
-     "closeButton": true,
-     "debug": false,
-     "newestOnTop": true,
-     "progressBar": true,
-     "positionClass": "toast-bottom-right",
-     "preventDuplicates": true,
-     "onclick": null,
-     "showDuration": "300",
-     "hideDuration": "1000",
-     "timeOut": "5000",
-     "extendedTimeOut": "1000",
-     "showEasing": "swing",
-     "hideEasing": "linear",
-     "showMethod": "fadeIn",
-     "hideMethod": "fadeOut"
-   }
-   {% if messages %}
-   {% for message in messages %}
-   toastr.{{ message.tags }}("{{ message }}");
-   {% endfor %}
-   });
-</script>
-{% endif %}
 </body>
 </html>
