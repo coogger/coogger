@@ -1,12 +1,12 @@
-import mistune
-from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
+import mistune
 from apps.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
+from bs4 import BeautifulSoup
 
 from ...threaded_comment.models import AbstractThreadedComments
 from ..views.utils import check_redirect_exists

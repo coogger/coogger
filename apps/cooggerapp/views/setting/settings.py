@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.views import View
-from django.views.generic import UpdateView, FormView
+from django.views.generic import FormView, UpdateView
 
 from ...forms import AddressesForm
 from ...models import UserProfile
@@ -47,7 +47,9 @@ class Address(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["address_instance"] = UserProfile.objects.get(user=self.request.user).address.all()
+        context["address_instance"] = UserProfile.objects.get(
+            user=self.request.user
+        ).address.all()
         context["settings_list"] = ["user", "extra", "address"]
         return context
 

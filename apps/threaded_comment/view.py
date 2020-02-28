@@ -5,11 +5,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, reverse
 from django.views.generic import TemplateView, UpdateView
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.response import Response
 
 from apps.cooggerapp.views.utils import model_filter
 from apps.page_views.models import DjangoViews
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.response import Response
 
 from ..cooggerapp.views.utils import get_current_user
 from .forms import ReplyForm

@@ -1,2 +1,2 @@
 from .delete import DeleteAddress
-from .settings import Address, Settings, UserExtra, SettingMixin
+from .settings import Address, SettingMixin, Settings, UserExtra

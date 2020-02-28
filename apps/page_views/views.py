@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 from rest_framework.views import APIView
