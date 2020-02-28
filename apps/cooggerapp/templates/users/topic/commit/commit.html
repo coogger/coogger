@@ -1,6 +1,5 @@
 {% extends "home/html.html" %}
 {% block body %}
-{% load md_editor %}
 <div general="position:center" class="commits">
   <div class="commit" general="flex flex:fd-c width:60 border:1 br:2 brc:muted" mobile-l="width:100" tablet="width:80" mobile-m="width:100" mobile-s="width:100">
     <div general="text:s bg:white brc:muted border:1 br:2 width:100 flex flex:jc-sa" style="padding: 12px 0px;">
@@ -17,8 +16,7 @@
       <img width="30px" general="br:4 color:muted" src="{{ commit.user.githubauthuser.avatar_url }}" style="margin: 0px;">
       <span general="text:s" style="margin-left: 6px;"><strong>@{{ commit.user }}</strong> committed
         {{ commit.created|timesince }}</span>
-      <a general="flex flex:ai-c position:right"
-        href="{% url 'tree-detail' commit.user commit.utopic.permlink commit.hash %}">
+      <a general="flex flex:ai-c position:right" href="{% url 'tree-detail' commit.user commit.utopic.permlink commit.hash %}">
         <i general="flex flex:ai-c text:s" class="fas fa-history"></i>
       </a>
     </div>
@@ -35,11 +33,9 @@
     <div class="commit-detail" general="br:2 width:100">
       {{ commit.body_change|safe }}
     </div>
-    <!-- to just upload js files -->
-    {{ ""|markdown_to_html:"load"|safe }}
     <!-- replies -->
     {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}
-    {% include 'load_replies.html' %}
+      {% include 'load_replies.html' %}
     {% endwith %}
   </div>
 </div>

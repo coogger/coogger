@@ -1,5 +1,5 @@
 {% extends "users/general.html" %}
-{% load md_editor i18n %}
+{% load i18n %}
 {% block useright %}
 <div general="position:center bg:white width:100 text:s" id="comment_template" class="comment_template">
   <div id="comment-history" class="comment-history" general="width:100" mobile-s="width:100" mobile-l="width:98"
@@ -20,10 +20,10 @@
           <div style='margin-left: 8px;' general='color:secondary'>{{ comment.created|timesince }}</div>
         </div>
         {% with comment.user as user %}
-        {% include 'common/user-title.html' %}
+          {% include 'common/user-title.html' %}
         {% endwith %}
         {% with comment.user as user %}
-        {% include 'common/github-redirect.html' %}
+          {% include 'common/github-redirect.html' %}
         {% endwith %}
       </div>
     </div>
@@ -41,13 +41,10 @@
         <div style='margin-left: 6px;'>{{ comment.reply_count|default:"0" }}</div>
       </div>
     </div>
-    <div style='padding: inherit;'>
-      {{ comment.body|markdown_to_html:comment.id|safe }}
-    </div>
+    <div class="comment-body" general="text:m">{{ comment.body }}</div>
     <div general="flex" style='margin: 12px 0px' general='c-white br-2' class='root_content'>
       <div general="flex br:2 position:right width:100">
-        <div general="border:2 br:2 brc:yellow flex flex:ai-c position:right bg:yellow width:max"
-          style="padding: 0px 4px;">
+        <div general="border:2 br:2 brc:yellow flex flex:ai-c position:right bg:yellow width:max" style="padding: 0px 4px;">
           <a href="{{ comment.get_absolute_url }}" general="text:s color:dark">
             {% trans "This is just a comment, view the full content" %}
           </a>
@@ -58,3 +55,13 @@
   </div>
 </div>
 {% endblock %}
+
+{% block script %}
+<script>
+  $(document).ready(function() {
+      document.querySelectorAll(".comment-body").forEach((body) => {
+        body.innerHTML = getMarkdownToHtml(body.innerText);
+      });
+    });
+  </script>
+{% endblock script %}

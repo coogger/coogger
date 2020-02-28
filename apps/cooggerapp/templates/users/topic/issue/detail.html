@@ -6,7 +6,6 @@
     <div class="utopic" general="flex position:center width:60 flex:fd-c" mobile-m="width:99" mobile-l="width:94"
       tablet="width:90" laptop="width:80" mobile-s="width:98">
       {% include "users/topic/detail/top.html" %}
-      {% load md_editor %}
       <div general="brc:muted border:1 br:2 width:100" style="padding: 6px; margin-top: 6px;">
         <div general="position:right" style="margin-bottom: 6px;">
           <a general="br:1 color:white bg:green text:s" href="{% url 'new-issue' current_user utopic.permlink %}"
@@ -53,9 +52,8 @@
           </div>
         </div>
         <h1 class="cdtitle" general="position:center">{{ queryset.title|title }}</h1>
-        <div style="padding: 6px;">
-          <p>{{ queryset.body|markdown_to_html:"issue" }}</p>
-        </div>
+        <div style="padding: 6px;" id="content"></div>
+        <textarea id="justToGetContent" style="display: none;">{{ queryset.body }}</textarea>
       </div>
       <!-- replies -->
       {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}
@@ -65,3 +63,10 @@
   </div>
 </div>
 {% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    markdownToHtml('justToGetContent', 'content');
+  });
+</script>
+{% endblock script %}

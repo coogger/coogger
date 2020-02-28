@@ -45,7 +45,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- js  -->
   <script src="{% static 'js/jquery.min.js' %}" async></script>
-  <!-- <script src="{% static 'mdeditor/src/jquery.min.js'%}" async></script> -->
   <script src="{% static 'js/toastr/toastr.min.js' %}" async></script>
   <script src="{% static 'js/sortable/sortable.min.js' %}" async></script>
   <script src="{% static 'threaded_comment/threaded_comment.js' %}" async></script>
@@ -55,15 +54,19 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
   <script>
+    function getMarkdownToHtml(markdownText) {
+      return window.markdownit().render(markdownText)
+    }
     function markdownToHtml(fromId, toId) {
-      document.getElementById(toId).innerHTML = window.markdownit().render(document.getElementById(fromId).value);
-      document.querySelectorAll(`#${toId} pre code`).forEach((block) => {
+      fromNode = document.getElementById(fromId)
+      document.getElementById(toId).innerHTML = getMarkdownToHtml(fromNode.value);
+      document.querySelectorAll("pre code").forEach((block) => {
         hljs.highlightBlock(block);
       });
+      fromNode.innerHTML = "";
     }
   </script>
   <!-- GOOGLE / YANDEX verification -->
-
   <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ" />
   <meta name="yandex-verification" content="3695277528edfe07" />
   <!-- css files-->
@@ -100,6 +103,12 @@
   {% block script %}{% endblock %}
     <script type="text/javascript">
       $(document).ready(function() {
+        try{
+          markdownToHtml('justToGetContent', 'content');
+        }
+        catch (TypeError){
+          console.log("TypeError -> markdownToHtml");
+        }
         toastr.options = {
           "closeButton": true,
           "debug": false,

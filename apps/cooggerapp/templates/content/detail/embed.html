@@ -1,10 +1,11 @@
-{% load coogger_tags static md_editor%}
+{% load static  %}
+{% load coogger_tags %}
 <!-- Doctype HTML5 -->
 <!doctype html>
 <html lang="en">
-
 <head>
   <!-- GENERAL  -->
+  <meta name="datas" data-csrf="{{ csrf_token }}" data-address-del-url="{% url 'address_del' %}"/>
   <meta name="theme-color" content="#11381e" />
   <meta http-equiv="pragma" content="Cache-Control: max-age=31536000" />
   <meta http-equiv="reply-to" content="cooggerapp@gmail.com" />
@@ -43,32 +44,30 @@
   <!-- RESPONSE -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- js  -->
-  <script src="{% static 'mdeditor/src/jquery.min.js'%}"></script>
-  <script src="{% static 'js/general.js' %}" async></script>
+  <script src="{% static 'js/jquery.min.js' %}" async></script>
+  <script src="{% static 'js/toastr/toastr.min.js' %}" async></script>
+  <script src="{% static 'js/sortable/sortable.min.js' %}" async></script>
   <script src="{% static 'threaded_comment/threaded_comment.js' %}" async></script>
   <script src="{% static 'js/coogger.js' %}" async></script>
-  <script src="{% static 'js/cookieconsent.min.js' %}" data-cfasync="false" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/10.0.0/markdown-it.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
   <script>
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup": {
-          "background": "#000"
-        },
-        "button": {
-          "background": "#f1d600"
-        }
-      },
-      "theme": "edgeless",
-      "content": {
-        "href": "{% url 'privacy' %}"
-      }
-    });
+    function markdownToHtml(fromId, toId) {
+      fromNode = document.getElementById(fromId)
+      document.getElementById(toId).innerHTML = window.markdownit().render(fromNode.value);
+      document.querySelectorAll(`#${toId} pre code`).forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+      fromNode.innerHTML = "";
+    }
   </script>
   <!-- GOOGLE / YANDEX verification -->
   <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ" />
   <meta name="yandex-verification" content="3695277528edfe07" />
   <!-- css files-->
-  <link rel="stylesheet" type="text/css" href="{% static 'css/styles/cookieconsent.min.css' %}" />
+  <link href="{% static 'css/toastr/toastr.min.css' %}" rel="stylesheet"/>
   <link rel="stylesheet" href="{% static 'css/fontawesome-5.10.2/css/all.min.css' %}" />
   <!-- fontawesome -->
   <link rel="stylesheet" href="{% static 'css/coogger-css/default.css' %}" />
@@ -97,9 +96,36 @@
     media="(min-width: 0px) and (max-width: 320px)" />
   <!-- mobile small -->
   <link href="{% static 'css/styles/private.css' %}" rel="stylesheet" />
+  {% block head %}{% endblock %}
   {% block script %}{% endblock %}
+    <script type="text/javascript">
+      $(document).ready(function() {
+        markdownToHtml('justToGetContent', 'content');
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": true,
+          "progressBar": true,
+          "positionClass": "toast-bottom-right",
+          "preventDuplicates": true,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+        {% if messages %}
+          {% for message in messages %}
+            toastr.{{ message.tags }}("{{ message }}");
+          {% endfor %}
+        {% endif %}
+    });
+</script>
 </head>
-
 <body general="font:quicksand bg:white">
   <div general="flex flex:jc-c flex:fw-nw">
     <div style="width: 100%;">
@@ -107,9 +133,9 @@
       {% include 'content/detail/userinfo.html' %}
       <div>
         <h1 general="position:center text:xl" id="title" style="margin: 12px auto;"></h1>
-        <div style="padding: inherit;">
-          {{ queryset.body|markdown_to_html:"detail-body"|safe }}
+        <div style="padding: inherit;" id="content">
         </div>
+        <textarea id="justToGetContent" style="display: none;">{{ queryset.body }}</textarea>
       </div>
       <div style="margin: 10% 0px;"></div>
       <!-- replies -->
@@ -119,5 +145,4 @@
     </div>
   </div>
 </body>
-
 </html>

@@ -1,5 +1,4 @@
 {% extends "home/html.html" %}
-{% load md_editor %}
 {% block body %}
   <div general="width:100 position:center font:quicksand">
         <div general="width:50" tablet="width:80" mobile-l="width:90" mobile-m="width:96" mobile-s="width:98" style="padding: 4px 6px">
@@ -9,9 +8,8 @@
           <h1 general="position:center text:xxl" class="font-comfortaa cdtitle" id="title">
             <strong>{{ queryset.title|title }}</strong>
           </h1>
-          <div style="padding: inherit;" class="font-comfortaa">
-            {{ queryset.body|markdown_to_html:"detail-body"|safe }}
-          </div>
+          <div style="padding: inherit;" class="font-comfortaa" id="content"></div>
+          <textarea id="justToGetContent" style="display: none;">{{ queryset.body }}</textarea>
           <div style="margin: 10% 0px;"></div>
           <!-- replies -->
           {% with object_id=queryset.id content_type=queryset.content_type_obj.id %}

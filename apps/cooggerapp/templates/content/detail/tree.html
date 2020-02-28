@@ -1,11 +1,14 @@
 {% extends "home/html.html" %}
 {% block body %}
-{% load md_editor %}
-<div style="padding: 12px; margin-top: 24px;"
-    general="flex border:1 br:2 brc:muted font:quicksand position:center width:50" mobile-s="width:100"
-    mobile-m="width:99" mobile-l="width:98" tablet="width:98">
-    <div style="padding: inherit;">
-        {{ queryset.body|markdown_to_html:"tree-body"|safe }}
-    </div>
+<div style="padding: 12px; margin-top: 24px;" general="flex border:1 br:2 brc:muted font:quicksand position:center width:50" mobile-s="width:100" mobile-m="width:99" mobile-l="width:98" tablet="width:98">
+    <div style="padding: inherit;" id="content" general="width:100"></div>
+    <textarea id="justToGetContent" style="display: none;">{{ queryset.body }}</textarea>
 </div>
 {% endblock %}
+{% block script %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    markdownToHtml('justToGetContent', 'content');
+  });
+</script>
+{% endblock script %}
