@@ -57,57 +57,6 @@ function dor(text) {
   let readingSpeed = 28;
   return `min ${((text.length / readingSpeed) / 60).toFixed(1)}`;
 }
-
-$(document).ready(function () {
-  // follow/unfollow operations
-  $(".follow-op").click(function (event) {
-    $(".follow-op").addClass("make_reply_animation");
-    let url = this.getAttribute("data-url");
-    let followerCount = parseInt($("#follower_count").html());
-    $.get(url, function (data, status) {
-      if (data.status === "follow") {
-        if (!isNaN(followerCount)) {
-          $("#follower_count").html(followerCount + 1);
-        }
-        $("#follow-op #follow").html("Unfollow");
-        $("#follow-op").attr({ "hover": "bg:red" });
-      }
-      else if (data.status === "unfollow") {
-        if (!isNaN(followerCount)) {
-          $("#follower_count").html(followerCount - 1);
-        }
-        $("#follow-op #follow").html("Follow");
-        $("#follow-op").attr({ "hover": "bg:primary" });
-      }
-    }).always(function (r) {
-      $(".follow-op").removeClass("make_reply_animation");
-    });
-  });
-  let votes = document.querySelectorAll("#vote-section");
-  votes.forEach(function (vote) {
-    // vote
-    let status = $(vote).data("vote-status");
-    if (status == "False") {
-      $(vote).find("#downvote").attr("general", "color:warning");
-    }
-    else if (status == "True") {
-      $(vote).find("#upvote").attr("general", "color:danger");
-    }
-  });
-  // bookmark
-  let bookmarks = document.querySelectorAll(".bookmarkop");
-  bookmarks.forEach(function (bookmark) {
-    let bookmark_status = $(bookmark).data("bookmark-status");
-    if (bookmark_status == "False") {
-      $(bookmark).find(".bookmarkicon").attr("general", "color:secondary");
-      $(bookmark).find(".bookmarkicon").addClass("far");
-    }
-    else if (bookmark_status == "True") {
-      $(bookmark).find(".bookmarkicon").attr("general", "color:success");
-      $(bookmark).find(".bookmarkicon").addClass("fas");
-    }
-  });
-});
 function vote(this_) {
   let status, upvote, downvote;
   if (this_.id.includes("upvote")) {
@@ -178,3 +127,93 @@ function removeOrAddBookmark(this_) {
     }
   });
 }
+$(document).ready(function () {
+
+  $(".report").click(function (event) {
+    var contentId = this.getAttribute("data-content-id");
+    $("body").load(`/report/${contentId}/`);
+  });
+  let offTarget = [
+    { target: ".open_footer", hide: "footer" },
+    { target: ".open_header_menu", hide: ".header_menu" },
+    { target: ".close-ms", hide: ".main-messages" },
+    { target: ".lists", hide: "nav" },
+    { target: ".run-filter", hide: ".filter-machine" },
+  ];
+  var i;
+  for (i in offTarget) {
+    let target = offTarget[i].target;
+    let hide = offTarget[i].hide;
+    $("*").click(function (e) {
+      if (!$(e.target).is(target) && !$(e.target).is(`${target} *`) && !$(e.target).is(hide) && !$(e.target).is(`${hide} *`)) {
+        $(hide).hide();
+      }
+    });
+  }
+  $(".open_footer").click(function () {
+    $("footer").toggle();
+  })
+  $(".closed_footer").click(function () {
+    $("footer").hide();
+  })
+  $(".open_header_menu").click(function () {
+    $(".header_menu").toggle();
+  })
+  $(".close-ms").click(function () {
+    $(".main-messages").remove();
+  })
+  $(".utopic-open").click(function () {
+    $(".utopic").toggle();
+  });
+  $(".run-filter").click(function () {
+    $(".filter-machine").toggle();
+  });
+  // follow/unfollow operations
+  $(".follow-op").click(function (event) {
+    $(".follow-op").addClass("make_reply_animation");
+    let url = this.getAttribute("data-url");
+    let followerCount = parseInt($("#follower_count").html());
+    $.get(url, function (data, status) {
+      if (data.status === "follow") {
+        if (!isNaN(followerCount)) {
+          $("#follower_count").html(followerCount + 1);
+        }
+        $("#follow-op #follow").html("Unfollow");
+        $("#follow-op").attr({ "hover": "bg:red" });
+      }
+      else if (data.status === "unfollow") {
+        if (!isNaN(followerCount)) {
+          $("#follower_count").html(followerCount - 1);
+        }
+        $("#follow-op #follow").html("Follow");
+        $("#follow-op").attr({ "hover": "bg:primary" });
+      }
+    }).always(function (r) {
+      $(".follow-op").removeClass("make_reply_animation");
+    });
+  });
+  let votes = document.querySelectorAll("#vote-section");
+  votes.forEach(function (vote) {
+    // vote
+    let status = $(vote).data("vote-status");
+    if (status == "False") {
+      $(vote).find("#downvote").attr("general", "color:warning");
+    }
+    else if (status == "True") {
+      $(vote).find("#upvote").attr("general", "color:danger");
+    }
+  });
+  // bookmark
+  let bookmarks = document.querySelectorAll(".bookmarkop");
+  bookmarks.forEach(function (bookmark) {
+    let bookmark_status = $(bookmark).data("bookmark-status");
+    if (bookmark_status == "False") {
+      $(bookmark).find(".bookmarkicon").attr("general", "color:secondary");
+      $(bookmark).find(".bookmarkicon").addClass("far");
+    }
+    else if (bookmark_status == "True") {
+      $(bookmark).find(".bookmarkicon").attr("general", "color:success");
+      $(bookmark).find(".bookmarkicon").addClass("fas");
+    }
+  });
+});

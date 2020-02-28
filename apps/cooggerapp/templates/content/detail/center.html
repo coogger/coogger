@@ -1,5 +1,3 @@
-{% load md_editor %}
-{% load coogger_tags %}
 <div general="width:50" tablet="width:80" mobile-l="width:90" mobile-m="width:96" mobile-s="width:98" style="padding: 4px 6px">
   <h1 general="position:center text:xxl" class="font-comfortaa cdtitle" id="title">
       <strong>{{ queryset.title|title }}</strong>
@@ -15,7 +13,7 @@
   {% if queryset.utopic.address %}<a general="position:center text:s color:blue" target="_blank" href="{{ queryset.utopic.address }}">{{ queryset.utopic.address }}</a>{% endif %}
   </div>
   <div id="content"></div>
-  <textarea id="id_body" style="display:none;">{{ queryset.body }}</textarea>
+  <textarea id="justToGetContent" style="display:none;">{{ queryset.body }}</textarea>
   <div class="tags" id="tags" general="flex flex:jc-sa position:right bg:dark-purple text:s"></div>
   <div style="margin: 5% 0px;"></div>
   <div general="flex width:100">
@@ -39,10 +37,7 @@
 {% block script %}
 <script>
   $(document).ready(function() {
-    document.getElementById("content").innerHTML = window.markdownit().render(document.getElementById("id_body").value);
-    document.querySelectorAll('#content pre code').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
+    markdownToHtml('justToGetContent', 'content');
   });
 </script>
 {% endblock script %}

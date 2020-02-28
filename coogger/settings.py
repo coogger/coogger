@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     # to build coogger apps
     "github_auth",
     # core.apps
-    "apps.md_editor",
     "apps.page_views",
     "apps.images",
     "apps.follow_system",

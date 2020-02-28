@@ -11,15 +11,7 @@
 {% block script %}
 <script>
   $(document).ready(function() {
-    let bodyNode = document.getElementById("id_body");
-    bodyNode.addEventListener('change', (event) => {
-      document.getElementById("preview").innerHTML = window.markdownit().render(bodyNode.value);
-
-      document.querySelectorAll('#preview pre code').forEach((block) => {
-        hljs.highlightBlock(block);
-      });
-
-    });
+    markdownToHtml('id_body', 'preview');
   });
 </script>
 {% endblock script%}

@@ -144,19 +144,10 @@ function replyBody(reply) {
   if (replyCount === null) {
     replyCount = 0;
   }
-  $(function () {
-    let Editor = editormd.markdownToHTML(reply.id + "_arg_editormd", {
-      height: 670,
-      path: "/static/lib/",
-      htmlDecode: "html, iframe",
-      markdown: reply.body,
-      atLink: false,
-    });
-  });
   return (`
       <div style="padding: inherit;">
-        <div style="width: auto;height: auto;border: none;" class="editormd font-comfortaa" id="${id}_arg_editormd">
-            <textarea style="display:none;" id="editormd_content"></textarea>
+        <div style="width: auto;height: auto;border: none;" class="editormd font-comfortaa">
+            <div>${window.markdownit().render(reply.body)}</div>
         </div>
       </div>
       <div general="flex flex:ai-c br:2 color:secondary br:2 brc:muted position:right" style="padding: 2px 4px;">

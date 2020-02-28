@@ -44,17 +44,26 @@
   <!-- RESPONSE -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- js  -->
-  <script src="{% static 'mdeditor/src/jquery.min.js'%}"></script>
+  <script src="{% static 'js/jquery.min.js' %}" async></script>
+  <!-- <script src="{% static 'mdeditor/src/jquery.min.js'%}" async></script> -->
   <script src="{% static 'js/toastr/toastr.min.js' %}" async></script>
   <script src="{% static 'js/sortable/sortable.min.js' %}" async></script>
-  <script src="{% static 'js/general.js' %}" async></script>
   <script src="{% static 'threaded_comment/threaded_comment.js' %}" async></script>
   <script src="{% static 'js/coogger.js' %}" async></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/10.0.0/markdown-it.js"></script>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
+  <script>
+    function markdownToHtml(fromId, toId) {
+      document.getElementById(toId).innerHTML = window.markdownit().render(document.getElementById(fromId).value);
+      document.querySelectorAll(`#${toId} pre code`).forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+    }
+  </script>
   <!-- GOOGLE / YANDEX verification -->
+
   <meta name="google-site-verification" content="rnPH_IPr0-W5u8C7upDEAjV90clTFKhzppGSB31gcgQ" />
   <meta name="yandex-verification" content="3695277528edfe07" />
   <!-- css files-->
