@@ -1,3 +1,4 @@
+exclude: apps\/cooggerapp\/static\/css\/coogger-css
 repos:
   - repo: https://github.com/psf/black
     rev: 19.10b0
