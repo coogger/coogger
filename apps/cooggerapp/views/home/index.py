@@ -24,7 +24,9 @@ class Index(ListView):
             )
         else:
             context.update(
-                issues=Issue.objects.filter(status="open")[: settings.PAGE_SIZE],
+                issues=Issue.objects.filter(status="open")[
+                    : settings.PAGE_SIZE
+                ],
                 sort_topics=self.sort_topics(),
             )
         return context
@@ -36,7 +38,9 @@ class Index(ListView):
         ):
             self.introduction = True
             self.paginate_by = None
-            return User.objects.filter(is_active=True).order_by("-date_joined")[:24]
+            return User.objects.filter(is_active=True).order_by(
+                "-date_joined"
+            )[:24]
         else:
             return Content.objects.filter(
                 user__is_active=True, status="ready", utopic__status="public"

@@ -13,7 +13,9 @@ from ..cooggerapp.models.utils import get_first_image
 
 class AbstractThreadedComments(models.Model):
     reply_count = models.PositiveIntegerField(default=0)
-    created = models.DateTimeField(default=datetime.now, verbose_name="Created")
+    created = models.DateTimeField(
+        default=datetime.now, verbose_name="Created"
+    )
     updated = models.DateTimeField(auto_now=True, verbose_name="Last update")
 
     class Meta:
@@ -46,7 +48,9 @@ class AllProperties(models.Model):
     @property
     def get_top_obj(self):
         if not self.is_threaded_comments():
-            return self.content_type.model_class().objects.get(id=self.object_id)
+            return self.content_type.model_class().objects.get(
+                id=self.object_id
+            )
         for obj in self.get_all_reply_obj():
             if not self.is_threaded_comments(obj[0]):
                 first_reply = obj[0]
@@ -55,7 +59,9 @@ class AllProperties(models.Model):
                 )
 
 
-class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, View):
+class ThreadedComments(
+    AbstractThreadedComments, AllProperties, Common, Vote, View
+):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     permlink = models.PositiveIntegerField(default=99999999999999)
     body = models.TextField()
@@ -64,7 +70,11 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
     reply = models.ForeignKey(
-        "self", on_delete=models.CASCADE, null=True, blank=True, related_name="children"
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="children",
     )
     depth = models.PositiveIntegerField(default=0)
     to = models.ForeignKey(User, on_delete=models.CASCADE, related_name="to")
@@ -79,7 +89,8 @@ class ThreadedComments(AbstractThreadedComments, AllProperties, Common, Vote, Vi
     @property
     def get_absolute_url(self):
         return reverse(
-            "reply-detail", kwargs=dict(username=str(self.user), permlink=self.permlink)
+            "reply-detail",
+            kwargs=dict(username=str(self.user), permlink=self.permlink),
         )
 
     @property

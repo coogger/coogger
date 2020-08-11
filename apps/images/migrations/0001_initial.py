@@ -33,11 +33,15 @@ class Migration(migrations.Migration):
                         verbose_name="",
                     ),
                 ),
-                ("image", models.ImageField(upload_to="images/", verbose_name="")),
+                (
+                    "image",
+                    models.ImageField(upload_to="images/", verbose_name=""),
+                ),
                 (
                     "created",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="Created"
+                        default=django.utils.timezone.now,
+                        verbose_name="Created",
                     ),
                 ),
             ],

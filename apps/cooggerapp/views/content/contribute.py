@@ -46,7 +46,8 @@ class Contribute(Update):
                         )
                     )
             messages.warning(
-                request, "Something went wrong.. we could not do this contribute."
+                request,
+                "Something went wrong.. we could not do this contribute.",
             )
             return redirect(
                 reverse(
@@ -71,11 +72,15 @@ class ApproveContribute(LoginRequiredMixin, View):
                 # utopic
                 utopic = UTopic.objects.get(id=commit.utopic.id)
                 utopic.commit_count += 1
-                if not utopic.contributors.filter(username=str(commit.user)).exists():
+                if not utopic.contributors.filter(
+                    username=str(commit.user)
+                ).exists():
                     utopic.contributors_count += 1
                     utopic.contributors.add(commit.user)
                 # content
-                if not content.contributors.filter(username=str(commit.user)).exists():
+                if not content.contributors.filter(
+                    username=str(commit.user)
+                ).exists():
                     content.contributors_count += 1
                     content.contributors.add(commit.user)
                 content.save()
@@ -102,7 +107,9 @@ class RejectContribute(ApproveContribute):
             if commit.status != self.get_status:
                 commit.status = self.get_status
                 commit.save()
-                self.update_utopic(utopic=UTopic.objects.get(id=commit.utopic.id))
+                self.update_utopic(
+                    utopic=UTopic.objects.get(id=commit.utopic.id)
+                )
             else:
                 messages.warning(request, "You can not change this commit")
         else:

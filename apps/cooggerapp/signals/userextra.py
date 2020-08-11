@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
 
 from apps.follow_system.models import Follow
-from github_auth.models import GithubAuthUser
+from apps.github_auth.models import GithubAuthUser
 
 from ..models import UserProfile, UTopic, get_client_url, send_mail
 
@@ -16,7 +16,9 @@ def save_github_follow(user):
     url = user.githubauthuser.get_extra_data_as_dict.get("url")
     following = [
         following_user.get("login").lower()
-        for following_user in requests.get(url + "/following" + get_client_url()).json()
+        for following_user in requests.get(
+            url + "/following" + get_client_url()
+        ).json()
     ]
     for following_username in following:
         following_user = User.objects.filter(
@@ -29,10 +31,14 @@ def save_github_follow(user):
                 pass
     followers = [
         follower_user.get("login").lower()
-        for follower_user in requests.get(url + "/followers" + get_client_url()).json()
+        for follower_user in requests.get(
+            url + "/followers" + get_client_url()
+        ).json()
     ]
     for follower_username in followers:
-        follow_user = User.objects.filter(is_active=True, username=follower_username)
+        follow_user = User.objects.filter(
+            is_active=True, username=follower_username
+        )
         if follow_user.exists():
             try:
                 follow_user[0].follow.following.add(user)

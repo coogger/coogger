@@ -22,7 +22,9 @@ class Issue(AbstractThreadedComments, Common, View, Vote):
     )
     utopic = models.ForeignKey(UTopic, on_delete=models.CASCADE)
     body = models.TextField(
-        null=True, blank=True, help_text=_("Your problem | question | or anything else")
+        null=True,
+        blank=True,
+        help_text=_("Your problem | question | or anything else"),
     )
     status = models.CharField(
         default="open",

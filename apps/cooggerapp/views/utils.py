@@ -40,7 +40,9 @@ def create_redirect(old_path, new_path):
     if is_exists:
         obj.update(new_path=new_path)
     else:
-        Redirect(site_id=settings.SITE_ID, old_path=old_path, new_path=new_path).save()
+        Redirect(
+            site_id=settings.SITE_ID, old_path=old_path, new_path=new_path
+        ).save()
 
 
 def get_current_user(user):

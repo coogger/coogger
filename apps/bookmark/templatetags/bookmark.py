@@ -1,10 +1,7 @@
-# django
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 
-# models
 from ..models import Bookmark
-# utils
 from ..utils import get_content_type_with_model
 
 register = template.Library()

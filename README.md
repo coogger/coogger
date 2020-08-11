@@ -1,25 +1,31 @@
 <h1 align="center">COOGGER PROJECT</h1>
 Coogger is a platform for developers to publish technical documents in the best way.
 
-[![MIT License](https://img.shields.io/github/license/coogger/coogger.svg)](https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt) [![releases](https://img.shields.io/github/release/coogger/coogger.svg)](https://github.com/coogger/coogger/releases) [![last-commit](https://img.shields.io/github/last-commit/coogger/coogger.svg)](https://github.com/coogger/coogger/commits/master) [![style](https://img.shields.io/badge/style-black-black)](https://github.com/psf/black) [![style](https://img.shields.io/badge/style-isort-lightgrey)](https://github.com/timothycrosley/isort) [![style](https://img.shields.io/badge/style-unimport-green)](https://github.com/hakancelik96/unimport) [![](https://img.shields.io/github/contributors/coogger/coogger)](https://github.com/coogger/coogger/graphs/contributors)
+[![MIT License](https://img.shields.io/github/license/coogger/coogger.svg)](https://github.com/coogger/coogger/blob/super-coogger/LICENSE.txt)
+[![releases](https://img.shields.io/github/release/coogger/coogger.svg)](https://github.com/coogger/coogger/releases)
+[![last-commit](https://img.shields.io/github/last-commit/coogger/coogger.svg)](https://github.com/coogger/coogger/commits/master)
+[![style](https://img.shields.io/badge/style-black-black)](https://github.com/psf/black)
+[![style](https://img.shields.io/badge/style-isort-lightgrey)](https://github.com/timothycrosley/isort)
+[![style](https://img.shields.io/badge/style-unimport-green)](https://github.com/hakancelik96/unimport)
+[![](https://img.shields.io/github/contributors/coogger/coogger)](https://github.com/coogger/coogger/graphs/contributors)
 
-------------------------
+---
 
 **Please insert this badge into readme.md of your repo which uses this project.**
 
- ` [![docs coogger](https://img.shields.io/badge/docs-coogger-1c472b)](https://github.com/coogger/coogger)`
+`[![docs coogger](https://img.shields.io/badge/docs-coogger-1c472b)](https://github.com/coogger/coogger)`
 
- [![docs coogger](https://img.shields.io/badge/docs-coogger-1c472b)](https://github.com/coogger/coogger)
+[![docs coogger](https://img.shields.io/badge/docs-coogger-1c472b)](https://github.com/coogger/coogger)
 
- ------------------------
+---
 
 ### 🚀 Installation 🚀
+
 #### Before
 
 `git clone https://github.com/coogger/coogger.git`
 
-Create .env file like below
-**/coogger/coogger/.env**
+Create .env file like below **/coogger/coogger/.env**
 
 ```
 DEBUG=on
@@ -45,7 +51,6 @@ $ python manage.py create_ghost_user
 $ python manage.py runserver
 ```
 
-
 **Multiple languages**
 
 ```shell
@@ -54,11 +59,13 @@ python manage.py compilemessages
 ```
 
 ##### Docker
+
 ```
 $ docker-compose up --env-file coogger/.env
 ```
 
 ## 🤝 Contributing 🤝
+
 [CONTRIBUTING.md](https://github.com/coogger/coogger/blob/coogger-dev/CONTRIBUTING.md)
 
 [![](https://sourcerer.io/fame/hakancelik96/coogger/coogger/images/0)](https://sourcerer.io/fame/hakancelik96/coogger/coogger/links/0)[![](https://sourcerer.io/fame/hakancelik96/coogger/coogger/images/1)](https://sourcerer.io/fame/hakancelik96/coogger/coogger/links/1)[![](https://sourcerer.io/fame/hakancelik96/coogger/coogger/images/2)](https://sourcerer.io/fame/hakancelik96/coogger/coogger/links/2)[![](https://sourcerer.io/fame/hakancelik96/coogger/coogger/images/3)](https://sourcerer.io/fame/hakancelik96/coogger/coogger/links/3)[![](https://sourcerer.io/fame/hakancelik96/coogger/coogger/images/4)](https://sourcerer.io/fame/hakancelik96/coogger/coogger/links/4)[![](https://sourcerer.io/fame/hakancelik96/coogger/coogger/images/5)](https://sourcerer.io/fame/hakancelik96/coogger/coogger/links/5)[![](https://sourcerer.io/fame/hakancelik96/coogger/coogger/images/6)](https://sourcerer.io/fame/hakancelik96/coogger/coogger/links/6)[![](https://sourcerer.io/fame/hakancelik96/coogger/coogger/images/7)](https://sourcerer.io/fame/hakancelik96/coogger/coogger/links/7)

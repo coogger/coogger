@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views import View
-
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
 
@@ -30,8 +29,12 @@ class Follow(LoginRequiredMixin, View):
 
 class GetFollower(LoginRequiredMixin, ListCreateAPIView):
     class FollowSerializer(ModelSerializer):
-        following = SlugRelatedField(many=True, read_only=True, slug_field="username")
-        follower = SlugRelatedField(many=True, read_only=True, slug_field="username")
+        following = SlugRelatedField(
+            many=True, read_only=True, slug_field="username"
+        )
+        follower = SlugRelatedField(
+            many=True, read_only=True, slug_field="username"
+        )
 
         class Meta:
             model = FollowModel

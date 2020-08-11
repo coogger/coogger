@@ -23,7 +23,9 @@ class Create(LoginRequiredMixin, View):
         for key, value in request.GET.items():
             self.initial[key] = value
         if "body" not in self.initial:
-            self.initial["body"] = render_to_string("content/post/editor-note.html")
+            self.initial["body"] = render_to_string(
+                "content/post/editor-note.html"
+            )
         return render(
             request,
             self.template_name,
@@ -47,7 +49,9 @@ class Create(LoginRequiredMixin, View):
             return redirect(
                 reverse(
                     "content-detail",
-                    kwargs=dict(username=str(form.user), permlink=form.permlink),
+                    kwargs=dict(
+                        username=str(form.user), permlink=form.permlink
+                    ),
                 )
             )
         return render(request, self.template_name, dict(form=form))

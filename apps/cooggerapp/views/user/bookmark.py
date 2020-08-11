@@ -8,4 +8,6 @@ class Bookmark(UserMixin):
     extra_context = dict(tab="bookmark")
 
     def get_queryset(self):
-        return BookmarkModel.objects.filter(user=self.get_user()).order_by("-id")
+        return BookmarkModel.objects.filter(user=self.get_user()).order_by(
+            "-id"
+        )

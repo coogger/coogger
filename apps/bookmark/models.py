@@ -39,5 +39,7 @@ class Bookmark(models.Model):
     @property
     def model(self):
         return get_model(
-            self.content_type.app_label, self.content_type.model, self.object_id
+            self.content_type.app_label,
+            self.content_type.model,
+            self.object_id,
         )

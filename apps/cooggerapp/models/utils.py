@@ -1,13 +1,12 @@
 from hashlib import sha256
 from uuid import uuid4
 
+from bs4 import BeautifulSoup
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.text import slugify
-
-from bs4 import BeautifulSoup
 from mistune import Markdown, Renderer
 
 

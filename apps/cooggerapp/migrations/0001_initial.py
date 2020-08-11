@@ -40,13 +40,16 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "updated",
-                    models.DateTimeField(auto_now=True, verbose_name="Last update"),
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Last update"
+                    ),
                 ),
                 ("permlink", models.SlugField(max_length=200)),
                 (
                     "title",
                     models.CharField(
-                        help_text="Be sure to choose the best title", max_length=200
+                        help_text="Be sure to choose the best title",
+                        max_length=200,
                     ),
                 ),
                 (
@@ -94,7 +97,10 @@ class Migration(migrations.Migration):
                 (
                     "status",
                     models.CharField(
-                        choices=[("ready", "ready"), ("not-ready", "not ready")],
+                        choices=[
+                            ("ready", "ready"),
+                            ("not-ready", "not ready"),
+                        ],
                         default="ready",
                         help_text="if your article isn't ready to publish yet, select 'not ready to publish'.",
                         max_length=30,
@@ -275,13 +281,15 @@ class Migration(migrations.Migration):
                 (
                     "open_contribution",
                     models.PositiveIntegerField(
-                        default=0, verbose_name="Total count open contributions"
+                        default=0,
+                        verbose_name="Total count open contributions",
                     ),
                 ),
                 (
                     "closed_contribution",
                     models.PositiveIntegerField(
-                        default=0, verbose_name="Total count closed contributions"
+                        default=0,
+                        verbose_name="Total count closed contributions",
                     ),
                 ),
                 (
@@ -520,7 +528,10 @@ class Migration(migrations.Migration):
                         verbose_name="Can you give more information ?",
                     ),
                 ),
-                ("created", models.DateTimeField(default=datetime.datetime.now)),
+                (
+                    "created",
+                    models.DateTimeField(default=datetime.datetime.now),
+                ),
                 (
                     "content",
                     models.ForeignKey(
@@ -570,8 +581,14 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("body", models.TextField()),
-                ("msg", models.CharField(default="Initial commit", max_length=150)),
-                ("created", models.DateTimeField(default=datetime.datetime.now)),
+                (
+                    "msg",
+                    models.CharField(default="Initial commit", max_length=150),
+                ),
+                (
+                    "created",
+                    models.DateTimeField(default=datetime.datetime.now),
+                ),
                 ("updated", models.DateTimeField(auto_now=True)),
                 ("reply_count", models.PositiveIntegerField(default=0)),
                 (
@@ -641,7 +658,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "updated",
-                    models.DateTimeField(auto_now=True, verbose_name="Last update"),
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Last update"
+                    ),
                 ),
                 ("issue_id", models.PositiveIntegerField(default=0)),
                 (

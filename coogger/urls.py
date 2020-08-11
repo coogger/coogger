@@ -9,7 +9,7 @@ from .utils import just_redirect_by_name
 
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
-    path("accounts/github/", include("github_auth.urls")),
+    path("accounts/github/", include("apps.github_auth.urls")),
     path("follow/", include("apps.follow_system.urls")),
     path("vote/", include("apps.vote_system.urls")),
     path("bookmark/", include("apps.bookmark.urls")),
@@ -32,5 +32,9 @@ for flat in flatpages:
 
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.STATIC_URL, document_root=settings.STATIC_ROOT
+    )
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )

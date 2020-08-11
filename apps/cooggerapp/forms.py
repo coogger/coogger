@@ -2,7 +2,11 @@ from django import forms
 from django.contrib.auth.models import User
 
 from apps.cooggerapp.models import (
-    Content, Issue, OtherAddressesOfUsers, ReportModel, UTopic
+    Content,
+    Issue,
+    OtherAddressesOfUsers,
+    ReportModel,
+    UTopic,
 )
 
 
@@ -15,7 +19,14 @@ class UsernameForm(forms.ModelForm):
 class UTopicForm(forms.ModelForm):
     class Meta:
         model = UTopic
-        fields = ["name", "image_address", "description", "tags", "address", "status"]
+        fields = [
+            "name",
+            "image_address",
+            "description",
+            "tags",
+            "address",
+            "status",
+        ]
 
 
 class ContentCreateForm(forms.ModelForm):

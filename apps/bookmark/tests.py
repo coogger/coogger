@@ -6,7 +6,9 @@ from .templatetags.apps.bookmark import how_many_mark, is_mark
 
 class BookmarkTest(TestCase):
     def setUp(self):
-        self.user1 = User.objects.create_user("test1", "test1@test.com", "111111")
+        self.user1 = User.objects.create_user(
+            "test1", "test1@test.com", "111111"
+        )
 
     def test_bookmark_save(self):
         self.client.login(username=self.user1.username, password="111111")
@@ -25,8 +27,12 @@ class BookmarkTest(TestCase):
 
 class TemplateTagTest(TestCase):
     def setUp(self):
-        self.user1 = User.objects.create_user("test1", "test1@test.com", "111111")
-        self.user2 = User.objects.create_user("test2", "test1@test.com", "111111")
+        self.user1 = User.objects.create_user(
+            "test1", "test1@test.com", "111111"
+        )
+        self.user2 = User.objects.create_user(
+            "test2", "test1@test.com", "111111"
+        )
 
     def test_is_mark_none(self):
         self.assertEqual(is_mark(self.user1, User, 2), False)

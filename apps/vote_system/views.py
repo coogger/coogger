@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.http import HttpResponse, JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
-
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,7 +18,9 @@ def get_content_type(app_label, model):
 
 
 def get_model(app_label, model):
-    content_type_obj = ContentType.objects.get(app_label=app_label, model=model)
+    content_type_obj = ContentType.objects.get(
+        app_label=app_label, model=model
+    )
     return content_type_obj.model_class()
 
 

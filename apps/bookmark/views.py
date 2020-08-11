@@ -10,7 +10,8 @@ class NewMark(LoginRequiredMixin, View):
     def post(self, request):
         common_parameter = dict(
             content_type=get_content_type(
-                app_label=request.POST.get("app_label"), model=request.POST.get("model")
+                app_label=request.POST.get("app_label"),
+                model=request.POST.get("model"),
             ),
             object_id=request.POST.get("object_id"),
         )

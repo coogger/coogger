@@ -40,7 +40,9 @@ class SortMiddleware(MiddlewareMixin):
         elif url_name == "hashtag":
             queryset = queryset.filter(tags__contains=name)
         elif url_name == "filter":
-            queryset = model_filter(request.GET.items(), queryset).get("queryset")
+            queryset = model_filter(request.GET.items(), queryset).get(
+                "queryset"
+            )
         else:
             return None
         return queryset
@@ -81,7 +83,10 @@ class SortMiddleware(MiddlewareMixin):
         for contents in sorted(querysets_list, key=len, reverse=True):
             try:
                 context.append(
-                    (slugify(contents[0].language), str(contents[0].language).lower())
+                    (
+                        slugify(contents[0].language),
+                        str(contents[0].language).lower(),
+                    )
                 )
             except IndexError:
                 pass

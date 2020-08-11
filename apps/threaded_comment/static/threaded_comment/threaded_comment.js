@@ -4,27 +4,27 @@ function timeSince(date) {
   let interval = Math.floor(seconds / 31536000);
   let timesince = [];
   if (interval > 1) {
-    seconds = (seconds - (31536000 * interval));
+    seconds = seconds - 31536000 * interval;
     timesince.push(interval + " years ");
   }
   interval = Math.floor(seconds / 2592000);
   if (interval > 1) {
-    seconds = (seconds - (2592000 * interval));
+    seconds = seconds - 2592000 * interval;
     timesince.push(interval + " months ");
   }
   interval = Math.floor(seconds / 86400);
   if (interval > 1) {
-    seconds = (seconds - (86400 * interval));
+    seconds = seconds - 86400 * interval;
     timesince.push(interval + " days ");
   }
   interval = Math.floor(seconds / 3600);
   if (interval > 1) {
-    seconds = (seconds - (3600 * interval));
+    seconds = seconds - 3600 * interval;
     timesince.push(interval + " hours ");
   }
   interval = Math.floor(seconds / 60);
   if (interval > 1) {
-    seconds = (seconds - (60 * interval));
+    seconds = seconds - 60 * interval;
     timesince.push(interval + " minutes ");
   }
   timesince.push(seconds + " seconds ");
@@ -32,19 +32,15 @@ function timeSince(date) {
 }
 function getRepliesTemplate(reply) {
   if (reply.reply) {
-    return (
-      `<div class="comment_replies" id="reply-id-${reply.id}">
+    return `<div class="comment_replies" id="reply-id-${reply.id}">
         ${replyUserInfo(reply)} ${replyBody(reply)}
-      </div>`
-    );
+      </div>`;
   }
-  return (
-    `<div class="comment" id="reply-id-${reply.id}">
+  return `<div class="comment" id="reply-id-${reply.id}">
       <div class="comment_highlighted">
         ${replyUserInfo(reply)} ${replyBody(reply)}
       </div>
-    </div>`
-  );
+    </div>`;
 }
 $(document).ready(function () {
   $("#send-reply").click(function () {
@@ -56,25 +52,26 @@ $(document).ready(function () {
         type: "POST",
         url: $(this).data("request-url"),
         data: {
-          "body": getComment,
-          "content_type": $(this).data("content-type"),
-          "object_id": $(this).data("object-id"),
-          "reply": $(this).data("reply"),
+          body: getComment,
+          content_type: $(this).data("content-type"),
+          object_id: $(this).data("object-id"),
+          reply: $(this).data("reply"),
         },
         beforeSend: function (xhr) {
           xhr.setRequestHeader("X-CSRFToken", csrfToken);
         },
-      }).done(function (newReply) {
-        document.getElementById("id_body").value = "";
-        $("#comment_template").append(getRepliesTemplate(newReply));
-      }).always(function () {
-        $(this_).removeClass("make_reply_animation");
-      });
-    }
-    else {
+      })
+        .done(function (newReply) {
+          document.getElementById("id_body").value = "";
+          $("#comment_template").append(getRepliesTemplate(newReply));
+        })
+        .always(function () {
+          $(this_).removeClass("make_reply_animation");
+        });
+    } else {
       alert("Empty comments cannot be published.");
     }
-  })
+  });
 });
 function getDataFromCooggerapi(apiUrl) {
   return fetch(apiUrl)
@@ -83,29 +80,33 @@ function getDataFromCooggerapi(apiUrl) {
       return data;
     })
     .catch(function (error) {
-      console.log("request failed", error)
+      console.log("request failed", error);
     });
 }
 let getResultFromCooggerApi = function (apiUrl) {
   return getDataFromCooggerapi(apiUrl).then(function (data) {
     return data.results;
   });
-}
+};
 function replyUserInfo(comment) {
   let title = comment.title;
   let title_template = "";
   if (title !== "user") {
     `<span class="uppercase" general="bg:danger color:white text:xs br:2" style="margin-left: 6px; padding:2px 4px;">
       ${title.toUpperCase()}
-    </span>`
+    </span>`;
   }
-  return (`
+  return `
     <div general="bg:white" style="border-bottom: 1px solid #eaecee;">
     <div general="flex flex:ai-fs bg:white" style="padding: 12px 0px;">
-      <img general="br:circle position:left" id="detail_profile_image" src="${comment.avatar_url}" style="height:  40px;width:  40px;margin:  initial;">
+      <img general="br:circle position:left" id="detail_profile_image" src="${
+        comment.avatar_url
+      }" style="height:  40px;width:  40px;margin:  initial;">
       <div general="flex text:s flex:fd-c">
           ${title_template}
-          <a general="flex" title="${comment.username}" href="/@${comment.username}" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
+          <a general="flex" title="${comment.username}" href="/@${
+    comment.username
+  }" style="padding: 0px 6px;word-wrap: break-word;word-break: break-all;">
             <span id="username">
             ${comment.username}
             </span>
@@ -115,7 +116,9 @@ function replyUserInfo(comment) {
             <span id="time">${timeSince(comment.created)}</span>
           </div>
       </div>
-          <a general="color:primary:hover" target="_blank" href="https://www.github.com/${comment.username}">
+          <a general="color:primary:hover" target="_blank" href="https://www.github.com/${
+            comment.username
+          }">
       <i general="flex flex:ai-c" class="fab fa-github"></i>
     </a>
         <div general="flex text:s position:right flex:ai-c" class="just-pc">
@@ -126,8 +129,7 @@ function replyUserInfo(comment) {
           </div>
     </div>
     <div general="fd-s"></div>
-  </div>`
-  );
+  </div>`;
 }
 function replyBody(reply) {
   let title = reply.title;
@@ -144,7 +146,7 @@ function replyBody(reply) {
   if (replyCount === null) {
     replyCount = 0;
   }
-  return (`
+  return `
       <div style="padding: inherit;">
         <div style="width: auto;height: auto;border: none;" class="editormd font-comfortaa">
             <div>${window.markdownit().render(reply.body)}</div>
@@ -152,7 +154,9 @@ function replyBody(reply) {
       </div>
       <div general="flex flex:ai-c br:2 color:secondary br:2 brc:muted position:right" style="padding: 2px 4px;">
           <div general="text:s flex flex:ai-c">
-            <a href="${reply.get_absolute_url}" id="root_content" target="blank" general="text:s">
+            <a href="${
+              reply.get_absolute_url
+            }" id="root_content" target="blank" general="text:s">
               <span style="margin: 0px 6px" general="color:orange">Reply</span>
             </a>
           </div>
@@ -169,24 +173,28 @@ function replyBody(reply) {
               <div style="margin-left: 6px;">${replyCount}</div>
           </div>
         </div>
-    `);
+    `;
 }
 
 function getChildrenReplies(reply, requestUrl, depth) {
   if (reply.reply_count !== 0 && reply.reply_count !== undefined) {
-    getResultFromCooggerApi(`${requestUrl}?reply=${reply.id}`).then(function (childrenReplies) {
+    getResultFromCooggerApi(`${requestUrl}?reply=${reply.id}`).then(function (
+      childrenReplies
+    ) {
       var ii;
       for (ii in childrenReplies) {
         let childrenReply = childrenReplies[ii];
-        console.log((childrenReply.depth - depth));
-        $(`#reply-id-${childrenReply.parent_id}`).append(getRepliesTemplate(childrenReply));
-        if ((childrenReply.depth - depth) > 5) {
+        console.log(childrenReply.depth - depth);
+        $(`#reply-id-${childrenReply.parent_id}`).append(
+          getRepliesTemplate(childrenReply)
+        );
+        if (childrenReply.depth - depth > 5) {
           $(`#reply-id-${childrenReply.parent_id}`).append(
             `<a general="color:primary position:right" href="${reply.get_absolute_url}">
                 Show ${childrenReply.reply_count} more replies
               </a>`
           );
-          break
+          break;
         }
         getChildrenReplies(childrenReply, requestUrl, depth);
       }

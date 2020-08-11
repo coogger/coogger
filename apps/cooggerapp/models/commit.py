@@ -12,7 +12,9 @@ from .managers.commit import CommitManager
 from .topic import UTopic
 from .utils import get_new_hash
 
-HtmlDiff._file_template = """<style type="text/css">%(styles)s</style>%(table)s"""
+HtmlDiff._file_template = (
+    """<style type="text/css">%(styles)s</style>%(table)s"""
+)
 HtmlDiff._table_template = """
 <table class="diff">
     <tbody>%(data_rows)s</tbody>
@@ -42,7 +44,9 @@ class Commit(Common, View, Vote):
     updated = models.DateTimeField(auto_now=True)
     reply_count = models.PositiveIntegerField(default=0)
     status = models.CharField(
-        max_length=100, default="approved", choices=make_choices(COMMIT_STATUS_CHOICES)
+        max_length=100,
+        default="approved",
+        choices=make_choices(COMMIT_STATUS_CHOICES),
     )
     previous_commit = models.ForeignKey(
         "self", null=True, blank=True, on_delete=models.CASCADE
@@ -54,9 +58,7 @@ class Commit(Common, View, Vote):
         ordering = ["-created"]
 
     def __str__(self):
-        return (
-            f"<Commit(user='{self.user}', content='{self.content}', msg='{self.msg}')>"
-        )
+        return f"<Commit(user='{self.user}', content='{self.content}', msg='{self.msg}')>"
 
     @property
     def get_absolute_url(self):
@@ -99,4 +101,6 @@ class Commit(Common, View, Vote):
             previous_body = ""
         else:
             previous_body = previous_body.body
-        return HtmlDiff().make_file(previous_body.splitlines(), self.body.splitlines())
+        return HtmlDiff().make_file(
+            previous_body.splitlines(), self.body.splitlines()
+        )

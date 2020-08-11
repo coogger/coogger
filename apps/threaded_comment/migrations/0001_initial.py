@@ -40,9 +40,14 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "updated",
-                    models.DateTimeField(auto_now=True, verbose_name="Last update"),
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Last update"
+                    ),
                 ),
-                ("permlink", models.PositiveIntegerField(default=99999999999999)),
+                (
+                    "permlink",
+                    models.PositiveIntegerField(default=99999999999999),
+                ),
                 ("body", models.TextField()),
                 ("image_address", models.URLField(blank=True, null=True)),
                 ("object_id", models.PositiveIntegerField()),

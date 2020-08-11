@@ -3,11 +3,19 @@ from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from ..models import (
-    Commit, Content, Topic, UserProfile, UTopic, dor, send_mail
+    Commit,
+    Content,
+    Topic,
+    UserProfile,
+    UTopic,
+    dor,
+    send_mail,
 )
 from ..templatetags.coogger_tags import hmanycontent
 from .related.delete import (
-    delete_related_bookmark, delete_related_views, delete_related_vote
+    delete_related_bookmark,
+    delete_related_views,
+    delete_related_vote,
 )
 
 
@@ -76,7 +84,11 @@ def when_content_create(sender, instance, created, **kwargs):
                 subject=f"{ instance.user } published a new content | coogger",
                 template_name="email/post.html",
                 context=dict(get_absolute_url=instance.get_absolute_url),
-                to=[u.user for u in instance.user.follow.follower if u.user.email],
+                to=[
+                    u.user
+                    for u in instance.user.follow.follower
+                    if u.user.email
+                ],
             )
     else:
         update_fields = kwargs.get("update_fields", None)

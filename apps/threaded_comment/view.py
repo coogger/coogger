@@ -5,11 +5,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, reverse
 from django.views.generic import TemplateView, UpdateView
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.response import Response
 
 from apps.cooggerapp.views.utils import model_filter
 from apps.page_views.models import DjangoViews
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.response import Response
 
 from ..cooggerapp.views.utils import get_current_user
 from .forms import ReplyForm
@@ -40,7 +40,9 @@ class ReplyView(TemplateView):
     def get_context_data(self, username, permlink, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class
-        context["current_user"] = get_current_user(User.objects.get(username=username))
+        context["current_user"] = get_current_user(
+            User.objects.get(username=username)
+        )
         context["queryset"] = self.model.objects.get(
             user__username=username, permlink=permlink
         )
@@ -57,7 +59,9 @@ class ReplyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self, queryset=None):
         permlink = self.kwargs.get("permlink")
-        return get_object_or_404(self.model, user=self.request.user, permlink=permlink)
+        return get_object_or_404(
+            self.model, user=self.request.user, permlink=permlink
+        )
 
     def get_success_url(self):
         return reverse(
@@ -88,6 +92,6 @@ class ListReply(ListCreateAPIView):
             serializer.save(user=self.request.user)
 
     def filter_queryset(self, queryset):
-        return model_filter(self.request.query_params.items(), self.get_queryset()).get(
-            "queryset"
-        )
+        return model_filter(
+            self.request.query_params.items(), self.get_queryset()
+        ).get("queryset")

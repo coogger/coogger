@@ -15,7 +15,10 @@ class OtherAddressesOfUsers(models.Model):
         verbose_name=_("website"),
     )
     address = models.CharField(
-        blank=True, null=True, max_length=50, verbose_name=_("write address / username")
+        blank=True,
+        null=True,
+        max_length=50,
+        verbose_name=_("write address / username"),
     )
 
     def __str__(self):

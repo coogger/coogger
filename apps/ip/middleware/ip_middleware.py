@@ -21,6 +21,8 @@ class IpMiddleware(MiddlewareMixin):
     @staticmethod
     def get_ip_address(request):
         try:
-            return str(request.META["HTTP_X_FORWARDED_FOR"].split(",")[-1].strip())
+            return str(
+                request.META["HTTP_X_FORWARDED_FOR"].split(",")[-1].strip()
+            )
         except:
             return str(request.META["REMOTE_ADDR"])

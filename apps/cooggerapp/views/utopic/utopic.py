@@ -37,7 +37,9 @@ class DetailUserTopic(TemplateView):
         if user == self.request.user:
             utopic = UTopic.objects.get(user=user, permlink=permlink)
         else:
-            utopic = UTopic.objects.get(user=user, permlink=permlink, status="public")
+            utopic = UTopic.objects.get(
+                user=user, permlink=permlink, status="public"
+            )
         context = super().get_context_data(**kwargs)
         context["current_user"] = get_current_user(user)
         context["queryset"] = Content.objects.filter(utopic=utopic)
@@ -77,7 +79,9 @@ class CreateUTopic(LoginRequiredMixin, View):
             return redirect(
                 reverse(
                     "detail-utopic",
-                    kwargs=dict(permlink=form.permlink, username=str(form.user)),
+                    kwargs=dict(
+                        permlink=form.permlink, username=str(form.user)
+                    ),
                 )
             )
         return render(request, self.template_name, dict(form=form))
@@ -90,9 +94,13 @@ class UpdateUTopic(LoginRequiredMixin, View):
     http_method_names = ["get", "post"]
 
     def get(self, request, permlink, *args, **kwargs):
-        instance_query = UTopic.objects.filter(user=request.user, permlink=permlink)
+        instance_query = UTopic.objects.filter(
+            user=request.user, permlink=permlink
+        )
         if not instance_query.exists():
-            messages.warning(request, f"you need to create the {permlink} topic first.")
+            messages.warning(
+                request, f"you need to create the {permlink} topic first."
+            )
             return redirect(reverse("create-utopic") + f"?name={permlink}")
         context = dict(
             form=self.form_class(instance=instance_query[0]), permlink=permlink
@@ -111,12 +119,15 @@ class UpdateUTopic(LoginRequiredMixin, View):
                 create_redirect(
                     old_path=reverse(
                         "detail-utopic",
-                        kwargs=dict(username=str(request.user), permlink=permlink),
+                        kwargs=dict(
+                            username=str(request.user), permlink=permlink
+                        ),
                     ),
                     new_path=reverse(
                         "detail-utopic",
                         kwargs=dict(
-                            username=str(request.user), permlink=slugify(form_.name)
+                            username=str(request.user),
+                            permlink=slugify(form_.name),
                         ),
                     ),
                 )
@@ -144,8 +155,11 @@ class UpdateUTopic(LoginRequiredMixin, View):
                     reverse(
                         "detail-utopic",
                         kwargs=dict(
-                            permlink=slugify(form_.name), username=str(request.user)
+                            permlink=slugify(form_.name),
+                            username=str(request.user),
                         ),
                     )
                 )
-        return render(request, self.template_name, dict(form=form, permlink=permlink))
+        return render(
+            request, self.template_name, dict(form=form, permlink=permlink)
+        )

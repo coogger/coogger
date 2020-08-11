@@ -54,5 +54,7 @@ class DeleteAccount(LoginRequiredMixin, TemplateView):
             return redirect("/")
         messages.warning(request, "Your username does not match.")
         return render(
-            request, self.template_name, dict(form=self.form_class(data=request.POST))
+            request,
+            self.template_name,
+            dict(form=self.form_class(data=request.POST)),
         )

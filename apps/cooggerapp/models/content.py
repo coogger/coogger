@@ -1,12 +1,12 @@
+import mistune
+from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
-import mistune
 from apps.cooggerapp.choices import LANGUAGES, STATUS_CHOICES, make_choices
-from bs4 import BeautifulSoup
 
 from ...threaded_comment.models import AbstractThreadedComments
 from ..views.utils import check_redirect_exists
@@ -81,7 +81,9 @@ class Content(AbstractThreadedComments, Common, View, Vote):
 
     def generate_permlink(self):
         self.permlink = slugify(self.title)
-        obj, redirect_is_exists = check_redirect_exists(old_path=self.get_absolute_url)
+        obj, redirect_is_exists = check_redirect_exists(
+            old_path=self.get_absolute_url
+        )
         if self.is_exists or redirect_is_exists:
             import random
 
@@ -141,7 +143,9 @@ class Content(AbstractThreadedComments, Common, View, Vote):
     @property
     def other_content_of_this_topic(self):
         "left of content detail page section"
-        return self.__class__.objects.filter(user=self.user, utopic=self.utopic)
+        return self.__class__.objects.filter(
+            user=self.user, utopic=self.utopic
+        )
 
     def save(self, *args, **kwargs):
         self.image_address = get_first_image(self.body)

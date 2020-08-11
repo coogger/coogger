@@ -1,5 +1,3 @@
-import json
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -78,7 +76,9 @@ class Update(LoginRequiredMixin, View):
                     instance=queryset[0],
                     initial=dict(msg=f"Update {queryset[0].title.lower()}"),
                 )
-                context = dict(username=username, permlink=permlink, form=form_set)
+                context = dict(
+                    username=username, permlink=permlink, form=form_set
+                )
                 return render(request, self.template_name, context)
         return HttpResponse(status=403)
 
@@ -121,7 +121,9 @@ class Update(LoginRequiredMixin, View):
                         ),
                         new_path=reverse(
                             "content-detail",
-                            kwargs=dict(username=username, permlink=queryset.permlink),
+                            kwargs=dict(
+                                username=username, permlink=queryset.permlink
+                            ),
                         ),
                     )
                 queryset.save(update_fields=self.update_fields)

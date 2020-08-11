@@ -1,12 +1,23 @@
 from django.urls import path
 
 from ..views.content import (
-    ApproveContribute, Contribute, Create, Detail, Embed, RejectContribute,
-    ReplaceOrder, TreeDetail, Update
+    ApproveContribute,
+    Contribute,
+    Create,
+    Detail,
+    Embed,
+    RejectContribute,
+    ReplaceOrder,
+    TreeDetail,
+    Update,
 )
 
 urlpatterns = [
-    path("content/replace-order", ReplaceOrder.as_view(), name="contet-replace-order",),
+    path(
+        "content/replace-order",
+        ReplaceOrder.as_view(),
+        name="contet-replace-order",
+    ),
     path("embed/@<username>/<permlink>/", Embed.as_view(), name="embed"),
     path("@<username>/<permlink>/", Detail.as_view(), name="content-detail"),
     path(
@@ -15,7 +26,9 @@ urlpatterns = [
         name="tree-detail",
     ),
     path("post/create/<utopic_permlink>/", Create.as_view(), name="create"),
-    path("post/update/@<username>/<permlink>/", Update.as_view(), name="update"),
+    path(
+        "post/update/@<username>/<permlink>/", Update.as_view(), name="update"
+    ),
     path(
         "post/contribute/@<username>/<permlink>/",
         Contribute.as_view(),

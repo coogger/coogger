@@ -29,8 +29,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     # rest api
     "rest_framework",
-    # to build coogger apps
-    "github_auth",
     # core.apps
     "apps.page_views",
     "apps.images",
@@ -40,6 +38,7 @@ INSTALLED_APPS = [
     "apps.bookmark",
     "apps.cooggerapp",
     "apps.threaded_comment",
+    "apps.github_auth",
 ]
 SITE_ID = 1
 PAGE_SIZE = 10
@@ -84,7 +83,9 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = "coogger.wsgi.application"
 DATABASES = dict(
-    default=dict(ENGINE="django.db.backends.sqlite3", NAME=env("DEFAULT_DB_NAME")),
+    default=dict(
+        ENGINE="django.db.backends.sqlite3", NAME=env("DEFAULT_DB_NAME")
+    ),
     # default=dict(
     #     ENGINE="django.db.backends.postgresql",
     #     NAME=env("DEFAULT_DB_NAME"),

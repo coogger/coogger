@@ -1,7 +1,11 @@
 from django.urls import path
 
 from ..views.setting import (
-    Address, DeleteAddress, SettingMixin, Settings, UserExtra
+    Address,
+    DeleteAddress,
+    SettingMixin,
+    Settings,
+    UserExtra,
 )
 
 urlpatterns = [

@@ -37,7 +37,8 @@ def verify_views_m2m(sender, **kwargs):
         for ip_id in ips:
             model = DjangoViews
             query = model.objects.filter(
-                content_type=instance.content_type, object_id=instance.object_id
+                content_type=instance.content_type,
+                object_id=instance.object_id,
             )
             if query.filter(ips=ip_id).exists():
                 raise IntegrityError(

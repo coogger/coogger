@@ -15,7 +15,9 @@ def get_content_type(model):
 
 
 def common_count(model, id):
-    return VoteCount.objects.get(content_type=get_content_type(model), object_id=id)
+    return VoteCount.objects.get(
+        content_type=get_content_type(model), object_id=id
+    )
 
 
 @register.filter

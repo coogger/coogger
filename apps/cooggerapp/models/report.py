@@ -11,12 +11,16 @@ from .content import Content
 
 # TODO use content_type
 class ReportModel(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("reporter"))
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name=_("reporter")
+    )
     content = models.ForeignKey(
         Content, on_delete=models.CASCADE, verbose_name=_("reported person")
     )
     complaints = models.CharField(
-        choices=make_choices(REPORTS), max_length=100, verbose_name=_("type of report")
+        choices=make_choices(REPORTS),
+        max_length=100,
+        verbose_name=_("type of report"),
     )
     add = models.CharField(
         blank=True,

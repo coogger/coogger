@@ -28,7 +28,9 @@ class IssueView(ListView):
         return context
 
     def get_queryset(self):
-        self.user = get_object_or_404(User, username=self.kwargs.get("username"))
+        self.user = get_object_or_404(
+            User, username=self.kwargs.get("username")
+        )
         self.utopic = UTopic.objects.filter(
             user=self.user, permlink=self.kwargs.get("utopic_permlink")
         )
@@ -36,7 +38,9 @@ class IssueView(ListView):
             self.utopic = self.utopic.get(status="public")
         else:
             self.utopic = self.utopic.get()
-        return self.model.objects.filter(utopic=self.utopic, status=self.get_status())
+        return self.model.objects.filter(
+            utopic=self.utopic, status=self.get_status()
+        )
 
     @staticmethod
     def get_status():
@@ -58,7 +62,9 @@ class NewIssue(LoginRequiredMixin, View):
         context = dict(
             form=self.form_class,
             current_user=user,
-            utopic=UTopic.objects.filter(user=user, permlink=utopic_permlink)[0],
+            utopic=UTopic.objects.filter(user=user, permlink=utopic_permlink)[
+                0
+            ],
         )
         return render(request, self.template_name, context)
 
@@ -73,7 +79,9 @@ class NewIssue(LoginRequiredMixin, View):
                 return self.get(request, username, utopic_permlink)
             form.user = request.user
             form.utopic = utopic
-            form.issue_id = Issue.objects.filter(utopic=form.utopic).count() + 1
+            form.issue_id = (
+                Issue.objects.filter(utopic=form.utopic).count() + 1
+            )
             form.save()
             return redirect(
                 reverse(
@@ -161,7 +169,9 @@ class OpenIssue(LoginRequiredMixin, View):
         )
         issue = Issue.objects.filter(utopic=utopic, issue_id=issue_id)
         current_username = str(request.user)
-        if current_username == username or current_username == str(issue[0].user):
+        if current_username == username or current_username == str(
+            issue[0].user
+        ):
             issue.update(status=self.get_status)
             self.update_utopic(utopic)
             return redirect(

@@ -1,0 +1,33 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 19.10b0
+    hooks:
+      - id: black
+        args: [--line-length=79]
+        language_version: python3.8
+
+  - repo: https://github.com/asottile/seed-isort-config
+    rev: v2.2.0
+    hooks:
+      - id: seed-isort-config
+
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.1.4
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/hakancelik96/unimport
+    rev: 0.2.8
+    hooks:
+      - id: unimport
+        args: [-r]
+        files: "\\.(py)$"
+        exclude: (/(migrations)/|apps.py|__init__.py)
+
+  - repo: https://github.com/prettier/prettier
+    rev: 2.0.5
+    hooks:
+      - id: prettier
+        args: [--prose-wrap=always, --print-width=88]
+        exclude: "\\.(min.css|min.js)$"
+        files: "\\.(css|less|scss|graphql|gql|js|jsx|json|md|markdown|mdown|mkdn|mdx|ts|tsx|vue|yaml|yml)$"

@@ -19,7 +19,9 @@ class Commits(ListView):
     commits = Commit.objects.approved_commits
 
     def get_queryset(self):
-        self.user = get_object_or_404(User, username=self.kwargs.get("username"))
+        self.user = get_object_or_404(
+            User, username=self.kwargs.get("username")
+        )
         if self.user == self.request.user:
             self.utopic = UTopic.objects.get(
                 user=self.user, permlink=self.kwargs.get("topic_permlink")
@@ -85,7 +87,9 @@ class CommitUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         commit = get_object_or_404(Commit, hash=self.kwargs.get("hash"))
         if commit.user == self.request.user:
             if commit.status == "approved":
-                raise Http404("Your commit's approved, thus we can not update.")
+                raise Http404(
+                    "Your commit's approved, thus we can not update."
+                )
         else:
             raise Http404("Permission denied.")
         return commit

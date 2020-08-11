@@ -3,7 +3,9 @@ from django.dispatch import receiver
 
 from ..models import Commit, UTopic, send_mail
 from .related.delete import (
-    delete_related_bookmark, delete_related_views, delete_related_vote
+    delete_related_bookmark,
+    delete_related_views,
+    delete_related_vote,
 )
 
 

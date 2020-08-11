@@ -1,9 +1,6 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect, render
-from django.views import View
 from django.views.generic import FormView, UpdateView
 
 from ...forms import AddressesForm
@@ -54,7 +51,9 @@ class Address(LoginRequiredMixin, SuccessMessageMixin, FormView):
         return context
 
     def form_valid(self, form):
-        UserProfile.objects.get(user=self.request.user).address.add(form.save())
+        UserProfile.objects.get(user=self.request.user).address.add(
+            form.save()
+        )
         return super().form_valid(form)
 
     def get_success_url(self):

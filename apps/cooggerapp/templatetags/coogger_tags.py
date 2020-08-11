@@ -57,6 +57,8 @@ def get_count(user, name):
     if name == "utopic":
         return UTopic.objects.filter(user=user).count()
     elif name == "comments":
-        return ThreadedComments.objects.filter(to=user).exclude(user=user).count()
+        return (
+            ThreadedComments.objects.filter(to=user).exclude(user=user).count()
+        )
     elif name == "bookmark":
         return Bookmark.objects.filter(user=user).count()

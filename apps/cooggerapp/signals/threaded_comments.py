@@ -3,7 +3,9 @@ from django.dispatch import receiver
 
 from ...threaded_comment.models import ThreadedComments
 from .related.delete import (
-    delete_related_bookmark, delete_related_views, delete_related_vote
+    delete_related_bookmark,
+    delete_related_views,
+    delete_related_vote,
 )
 
 

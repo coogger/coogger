@@ -20,7 +20,10 @@ class Detail(CommonDetailView, TemplateView):
                 Content, user__username=username, permlink=permlink
             )
         return get_object_or_404(
-            Content, user__username=username, permlink=permlink, utopic__status="public"
+            Content,
+            user__username=username,
+            permlink=permlink,
+            utopic__status="public",
         )
 
     def get_context_data(self, **kwargs):
@@ -37,12 +40,16 @@ class TreeDetail(TemplateView):
     # TODO show all replies acording to commit date,
     # use Detail class but all data must be acording to commit date
 
-    def get_context_data(self, username, topic_permlink, hash, *args, **kwargs):
+    def get_context_data(
+        self, username, topic_permlink, hash, *args, **kwargs
+    ):
         context = super().get_context_data(**kwargs)
         user = get_object_or_404(User, username=username)
         context["current_user"] = get_current_user(user)
         if username == self.request.user.username:
             context["queryset"] = Commit.objects.get(hash=hash)
         else:
-            context["queryset"] = Commit.objects.get(hash=hash, utopic__status="public")
+            context["queryset"] = Commit.objects.get(
+                hash=hash, utopic__status="public"
+            )
         return context

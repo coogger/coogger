@@ -1,6 +1,8 @@
 // coogger.js
 let csrfToken = document.getElementsByTagName("meta").datas.dataset["csrf"];
-let addressDelUrl = document.getElementsByTagName("meta").datas.dataset["addressDelUrl"];
+let addressDelUrl = document.getElementsByTagName("meta").datas.dataset[
+  "addressDelUrl"
+];
 function setOrder(url, fromOrder, toOrder, objectId) {
   $.ajax({
     type: "POST",
@@ -21,8 +23,8 @@ function setOrder(url, fromOrder, toOrder, objectId) {
 function delAddress(objecId) {
   $.ajax({
     url: addressDelUrl,
-    method: 'POST',
-    dataType: 'json',
+    method: "POST",
+    dataType: "json",
     data: {
       address_id: objecId,
     },
@@ -34,7 +36,7 @@ function delAddress(objecId) {
     },
     success: function (data) {
       location.reload();
-    }
+    },
   });
 }
 function getTagsAsTemplate(tags) {
@@ -42,7 +44,7 @@ function getTagsAsTemplate(tags) {
   for (let index in tags) {
     template += `<div class="tag">
         <a href="/tags/${tags[index]}" general="color:white bg:dark-purple:hover" >#${tags[index]}</a>
-      </div>`
+      </div>`;
   }
   return template;
 }
@@ -55,7 +57,7 @@ function copyTextFromId(id) {
 function dor(text) {
   // post duration of read
   let readingSpeed = 28;
-  return `min ${((text.length / readingSpeed) / 60).toFixed(1)}`;
+  return `min ${(text.length / readingSpeed / 60).toFixed(1)}`;
 }
 function vote(this_) {
   let status, upvote, downvote;
@@ -63,8 +65,7 @@ function vote(this_) {
     status = true;
     upvote = this_;
     downvote = this_.parentElement.lastElementChild;
-  }
-  else if (this_.id.includes("downvote")) {
+  } else if (this_.id.includes("downvote")) {
     status = false;
     upvote = this_.parentElement.firstElementChild;
     downvote = this_;
@@ -73,20 +74,18 @@ function vote(this_) {
     type: "POST",
     url: $(this_).data("url"),
     data: {
-      "status": status,
-      "csrfmiddlewaretoken": csrfToken,
+      status: status,
+      csrfmiddlewaretoken: csrfToken,
     },
   }).done(function (r) {
     r = JSON.parse(r);
     if (r.error) {
       alert(r.error);
-    }
-    else {
+    } else {
       if (r.status === true) {
         $(upvote).attr("general", "color:danger");
         $(downvote).attr("general", "color:secondary color:warning:hover");
-      }
-      else if (r.status === false) {
+      } else if (r.status === false) {
         $(upvote).attr("general", "color:secondary color:danger:hover");
         $(downvote).attr("general", "color:warning");
       }
@@ -100,16 +99,15 @@ function removeOrAddBookmark(this_) {
     type: "POST",
     url: $(this_).data("url"),
     data: {
-      "app_label": $(this_).data("app_label"),
-      "model": $(this_).data("model"),
-      "object_id": $(this_).data("object_id"),
-      "csrfmiddlewaretoken": document.getElementsByTagName("meta").datas.dataset["csrf"],
+      app_label: $(this_).data("app_label"),
+      model: $(this_).data("model"),
+      object_id: $(this_).data("object_id"),
+      csrfmiddlewaretoken: document.getElementsByTagName("meta").datas.dataset["csrf"],
     },
   }).done(function (r) {
     if (r.error) {
       alert(r.error);
-    }
-    else {
+    } else {
       let howMany = parseInt(this_.lastElementChild.innerText);
       let bookmarkicon = $(this_).find($(".bookmarkicon"));
       if (r.status === true) {
@@ -117,8 +115,7 @@ function removeOrAddBookmark(this_) {
         bookmarkicon.addClass("fas");
         bookmarkicon.removeClass("far");
         $(this_.lastElementChild).html(howMany + 1);
-      }
-      else if (r.status === false) {
+      } else if (r.status === false) {
         bookmarkicon.attr("general", "color:secondary");
         bookmarkicon.addClass("far");
         bookmarkicon.removeClass("fas");
@@ -128,7 +125,6 @@ function removeOrAddBookmark(this_) {
   });
 }
 $(document).ready(function () {
-
   $(".report").click(function (event) {
     var contentId = this.getAttribute("data-content-id");
     $("body").load(`/report/${contentId}/`);
@@ -145,23 +141,28 @@ $(document).ready(function () {
     let target = offTarget[i].target;
     let hide = offTarget[i].hide;
     $("*").click(function (e) {
-      if (!$(e.target).is(target) && !$(e.target).is(`${target} *`) && !$(e.target).is(hide) && !$(e.target).is(`${hide} *`)) {
+      if (
+        !$(e.target).is(target) &&
+        !$(e.target).is(`${target} *`) &&
+        !$(e.target).is(hide) &&
+        !$(e.target).is(`${hide} *`)
+      ) {
         $(hide).hide();
       }
     });
   }
   $(".open_footer").click(function () {
     $("footer").toggle();
-  })
+  });
   $(".closed_footer").click(function () {
     $("footer").hide();
-  })
+  });
   $(".open_header_menu").click(function () {
     $(".header_menu").toggle();
-  })
+  });
   $(".close-ms").click(function () {
     $(".main-messages").remove();
-  })
+  });
   $(".utopic-open").click(function () {
     $(".utopic").toggle();
   });
@@ -179,14 +180,13 @@ $(document).ready(function () {
           $("#follower_count").html(followerCount + 1);
         }
         $("#follow-op #follow").html("Unfollow");
-        $("#follow-op").attr({ "hover": "bg:red" });
-      }
-      else if (data.status === "unfollow") {
+        $("#follow-op").attr({ hover: "bg:red" });
+      } else if (data.status === "unfollow") {
         if (!isNaN(followerCount)) {
           $("#follower_count").html(followerCount - 1);
         }
         $("#follow-op #follow").html("Follow");
-        $("#follow-op").attr({ "hover": "bg:primary" });
+        $("#follow-op").attr({ hover: "bg:primary" });
       }
     }).always(function (r) {
       $(".follow-op").removeClass("make_reply_animation");
@@ -198,8 +198,7 @@ $(document).ready(function () {
     let status = $(vote).data("vote-status");
     if (status == "False") {
       $(vote).find("#downvote").attr("general", "color:warning");
-    }
-    else if (status == "True") {
+    } else if (status == "True") {
       $(vote).find("#upvote").attr("general", "color:danger");
     }
   });
@@ -210,8 +209,7 @@ $(document).ready(function () {
     if (bookmark_status == "False") {
       $(bookmark).find(".bookmarkicon").attr("general", "color:secondary");
       $(bookmark).find(".bookmarkicon").addClass("far");
-    }
-    else if (bookmark_status == "True") {
+    } else if (bookmark_status == "True") {
       $(bookmark).find(".bookmarkicon").attr("general", "color:success");
       $(bookmark).find(".bookmarkicon").addClass("fas");
     }

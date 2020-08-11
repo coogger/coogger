@@ -18,7 +18,11 @@ class Search(ListView):
         query = self.request.GET["query"].lower()
         if query and len(query) >= settings.MINIMUM_SEARCH_LENGTH:
             if query[0] in self.valid_search:
-                return [getattr(self, f"{self.valid_search[query[0]]}_template_name")]
+                return [
+                    getattr(
+                        self, f"{self.valid_search[query[0]]}_template_name"
+                    )
+                ]
         if not self.object_list.exists():
             return [self.not_result_template_name]
         return [self.content_template_name]
@@ -48,7 +52,9 @@ class Search(ListView):
 
     def content(self, query):
         return Content.objects.filter(
-            Q(title__contains=query) & Q(status="ready") & Q(utopic__status="public")
+            Q(title__contains=query)
+            & Q(status="ready")
+            & Q(utopic__status="public")
         )
 
     def utopic(self, query):

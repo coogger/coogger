@@ -25,15 +25,21 @@ class HeadMixin:
         username = self.get_var("username")
         if username:
             self.user_obj = get_object_or_404(User, username=username)
-            user_address = get_object_or_404(UserProfile, user=self.user_obj).address
+            user_address = get_object_or_404(
+                UserProfile, user=self.user_obj
+            ).address
             try:
-                twitter_username = user_address.filter(choices="twitter")[0].address
+                twitter_username = user_address.filter(choices="twitter")[
+                    0
+                ].address
             except IndexError:
                 twitter_username = ""
             else:
                 context["twitter_username"] = twitter_username
             try:
-                facebook_username = user_address.filter(choices="facebook")[0].address
+                facebook_username = user_address.filter(choices="facebook")[
+                    0
+                ].address
             except IndexError:
                 facebook_username = ""
             else:
@@ -143,7 +149,8 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
             title=f"{utopic} - Topic | {username}".capitalize(),
             keywords=utopic,
             description=description,
-            image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
+            image=utopic.image_address
+            or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
@@ -183,12 +190,15 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         username = self.get_var("username")
         utopic_permlink = self.get_var("utopic_permlink")
         title = f"{username}/{utopic_permlink} | issues".capitalize()
-        utopic = UTopic.objects.filter(user=self.user_obj, permlink=utopic_permlink)[0]
+        utopic = UTopic.objects.filter(
+            user=self.user_obj, permlink=utopic_permlink
+        )[0]
         return dict(
             title=title,
             keywords=f"{utopic_permlink}, {username}",
             description=title,
-            image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
+            image=utopic.image_address
+            or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
@@ -196,13 +206,18 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         utopic_permlink = self.get_var("utopic_permlink")
         username = self.get_var("username")
         permlink = self.get_var("permlink")
-        title = f"{username}/{utopic_permlink} - {permlink} | issue".capitalize()
-        utopic = UTopic.objects.filter(user=self.user_obj, permlink=utopic_permlink)[0]
+        title = (
+            f"{username}/{utopic_permlink} - {permlink} | issue".capitalize()
+        )
+        utopic = UTopic.objects.filter(
+            user=self.user_obj, permlink=utopic_permlink
+        )[0]
         return dict(
             title=title,
             keywords=f"{utopic_permlink}, {username}",
             description=title,
-            image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
+            image=utopic.image_address
+            or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
@@ -210,12 +225,15 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         topic_permlink = self.get_var("topic_permlink")
         username = self.get_var("username")
         title = f"{username}/{topic_permlink} | commits".capitalize()
-        utopic = UTopic.objects.filter(user=self.user_obj, permlink=topic_permlink)[0]
+        utopic = UTopic.objects.filter(
+            user=self.user_obj, permlink=topic_permlink
+        )[0]
         return dict(
             title=title,
             keywords=f"{topic_permlink}, {username}",
             description=title,
-            image=utopic.image_address or self.user_obj.githubauthuser.avatar_url,
+            image=utopic.image_address
+            or self.user_obj.githubauthuser.avatar_url,
         )
 
     @property
@@ -224,7 +242,9 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
         topic_permlink = self.get_var("topic_permlink")
         username = self.get_var("username")
         commit = get_object_or_404(Commit, hash=hash)
-        title = f"{username}/{topic_permlink} - {commit.msg} | commit".capitalize()
+        title = (
+            f"{username}/{topic_permlink} - {commit.msg} | commit".capitalize()
+        )
         return dict(
             title=title,
             keywords=f"{topic_permlink}, {username}, {commit.msg}, commit",
@@ -248,7 +268,9 @@ class HeadMiddleware(MiddlewareMixin, HeadMixin):
     def reply_detail(self):
         username = self.get_var("username")
         permlink = self.get_var("permlink")
-        reply = ThreadedComments.objects.get(user__username=username, permlink=permlink)
+        reply = ThreadedComments.objects.get(
+            user__username=username, permlink=permlink
+        )
         return dict(
             title=f"{reply.body[: 55]} | reply",
             keywords=reply.body[:55].replace(" ", ", "),

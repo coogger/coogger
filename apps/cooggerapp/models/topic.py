@@ -10,14 +10,22 @@ from .utils import ready_tags, second_convert
 
 class CommonTopicModel(models.Model):
     name = models.CharField(
-        max_length=50, verbose_name=_("Name"), help_text=_("Please, write topic name.")
+        max_length=50,
+        verbose_name=_("Name"),
+        help_text=_("Please, write topic name."),
     )
     permlink = models.SlugField(max_length=200)
     image_address = models.URLField(
-        max_length=400, help_text=_("Add an Image Address"), blank=True, null=True
+        max_length=400,
+        help_text=_("Add an Image Address"),
+        blank=True,
+        null=True,
     )
     description = models.CharField(
-        max_length=600, help_text=_("description of topic"), blank=True, null=True
+        max_length=600,
+        help_text=_("description of topic"),
+        blank=True,
+        null=True,
     )
     tags = models.CharField(
         max_length=200,
@@ -27,7 +35,10 @@ class CommonTopicModel(models.Model):
         help_text=_("Write your tags using spaces"),
     )
     address = models.URLField(
-        blank=True, null=True, max_length=150, help_text=_("Add an address if it have")
+        blank=True,
+        null=True,
+        max_length=150,
+        help_text=_("Add an address if it have"),
     )
     how_many = models.PositiveIntegerField(
         default=0, verbose_name=_("How many content in")
@@ -98,7 +109,9 @@ class UTopic(CommonTopicModel):
         default=0, verbose_name=_("Total commit count")
     )
     status = models.CharField(
-        max_length=20, choices=make_choices(UTOPIC_STATUS_CHOICES), default="public"
+        max_length=20,
+        choices=make_choices(UTOPIC_STATUS_CHOICES),
+        default="public",
     )
 
     class Meta:
