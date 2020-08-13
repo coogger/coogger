@@ -32,7 +32,9 @@ class DetailUserTopic(TemplateView):
     template_name = "users/topic/detail/contents.html"
     http_method_names = ["get"]
 
-    def get_context_data(self, username, permlink, **kwargs):
+    def get_context_data(self, **kwargs):
+        username = self.kwargs["username"]
+        permlink = self.kwargs["permlink"]
         user = get_object_or_404(User, username=username)
         if user == self.request.user:
             utopic = UTopic.objects.get(user=user, permlink=permlink)

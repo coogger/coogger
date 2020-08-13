@@ -11,11 +11,7 @@ redirect_uri = github_params.get("redirect_uri")
 scope = github_params.get("scope")
 client_secret = github_params.get("client_secret")
 client_id = github_params.get("client_id")
-authorize_url = f"https://github.com/login/oauth/authorize?\
-    redirect_uri={redirect_uri}&scope={scope}&\
-    cli\ent_secret={client_secret}&client_id={client_id}".replace(
-    " ", ""
-)
+authorize_url = f"https://github.com/login/oauth/authorize/?scope={scope}&client_id={client_id}&client_secret={client_secret}&redirect_uri={redirect_uri}"
 
 urlpatterns = [
     path("login/", Github.as_view(), name="login-via-github"),

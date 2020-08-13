@@ -125,7 +125,7 @@ USE_TZ = True
 MDEDITOR_CONFIGS = dict(emoji=True, html_decode="style,script")
 GITHUB_AUTH = dict(
     redirect_uri=redirect_url,
-    scope="user",
+    scope="user:email public_repo",
     client_secret=env("GITHUB_CLIENT_SECRET"),
     client_id=env("GITHUB_CLIENT_ID"),
 )
